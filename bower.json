@@ -1,0 +1,12 @@
+{
+  "name": "Global-Forest-Watch-Commodities",
+  "version": "2.0.0",
+  "homepage": "http://commodities.globalforestwatch.org/",
+  "author": [
+    "BlueRaster",
+    "GlobalForestWatch"
+  ],
+  "dependencies": {
+    "knockout-3.1.0": "http://knockoutjs.com/downloads/knockout-3.1.0.js"
+  }
+}
