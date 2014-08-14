@@ -9,7 +9,7 @@
 	  <meta name="google-translate-customization" content="7c3525fe24f9031c-a8fc5e781072c0fe-g601838a822eefc5b-21" />
 	  <script async src="app/bootloader.js"></script>
 	  <style>
-			html, body, #App, #map {
+			html, body, #map {
   			height: 100%;
   			width: 100%;
   			padding: 0;
@@ -18,8 +18,20 @@
 	  </style>
 	</head>
 	<body>
-		<div id="App" class="App">
-
+		<div id="app-header" class="app-header">
+			
+		</div>
+		<div id="app-body" class="app-body">
+			<div id="stackContainer" class="mainStack" data-dojo-type="dijit/layout/StackContainer" data-dojo-props="id:'stackContainer',parseOnLoad:false">
+        <div data-dojo-type="dijit/layout/ContentPane" id="homeView" data-dojo-props="region:'center',id:'homeView',parseOnLoad:false" class="contentPage"></div>
+        <div data-dojo-type="dijit/layout/ContentPane" id="mapView" data-dojo-props="region:'center',id:'mapView',parseOnLoad:false" class="contentPage"></div>
+        <div data-dojo-type="dijit/layout/ContentPane" id="blogView" data-dojo-props="region:'center',id:'blogView',parseOnLoad:false" class="contentPage"></div>
+        <div data-dojo-type="dijit/layout/ContentPane" id="dataView" data-dojo-props="region:'center',id:'dataView',parseOnLoad:false" class="contentPage"></div>
+        <div data-dojo-type="dijit/layout/ContentPane" id="aboutView" data-dojo-props="region:'center',id:'aboutView',parseOnLoad:false" class="contentPage"></div>
+      </div>
+		</div>
+		<div id="app-footer" class="app-footer">
+			
 		</div>
 	</body>
 </html>

@@ -9,13 +9,18 @@
 	      async: true,
 	      cacheBust: "v=" + version,
 	      packages: [
-	        {name: "", location: URL + "/js"}
+	        {name: "main", location: URL + "/js/main"},
+	        {name: "utils", location: URL + "/js/utils"},
+	        {name: "templates", location: URL + "/js/templates"},
+	        {name: "controllers", location: URL + "/js/controllers"},
+	        {name: "libs", location: URL + "/libs"}
 	      ],
 	      deps: [
+	      	"main/Main",
 	      	"dojo/domReady!"
 	      ],
-	      callback: function () {
-	      	alert("Ready");
+	      callback: function (Main) {
+	      	Main.init();
 	      }
 			}, // End dojoConfig
 			src = 'http://js.arcgis.com/3.10/',
