@@ -1,4 +1,28 @@
 
-/* line undefined : /Users/Robert/Projects/Commodity/src/app/css/app.styl */
+/* line 19 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 
-/* line 1 : /Users/Robert/Projects/Commodity/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+
+/* line 8 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+@font-face {
+  font-family: "Arial MT Condensed Bold";
+  src: url("fonts/ArialMTStd-BoldCond.otf") format("opentype");
+}
+
+/* line 12 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+@font-face {
+  font-family: "Arial MT Condensed Light";
+  src: url("fonts/ArialMTStd-LightCond.otf") format("opentype");
+}
+
+/* line 16 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+html,
+body {
+  font-family: "Arial MT Condensed Light", Arial, Georgia, sans-serif;
+}
+
+/* line 19 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+.gfw .app-header {
+  background: LightGray;
+  height: 210px;
+}

@@ -26,7 +26,8 @@ module.exports = function (grunt) {
     watch: {
       stylus: {
         options: {
-          debounceDelay: 250
+          debounceDelay: 250,
+          spawn: false
         },
         files: ['src/app/css/**/*.styl'],
         tasks: ['stylus:develop']
@@ -43,6 +44,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-ftp-push');
+
+  // on watch events, configure stylus to compile only changed files
+  // grunt.event.on('watch', function (action, filepath) {
+  //   grunt.config('stylus.develop.files.src', filepath);
+  // });
 
   grunt.registerTask('develop', ['watch:stylus']);
   grunt.registerTask('build', []);
