@@ -79,10 +79,11 @@ module.exports = function (grunt) {
             'libs': 'app/libs',
             'main': 'app/js/main',
             'utils': 'app/js/utils',
-            'templates': 'app/js/templates',
+            'templates': 'app/templates',
             'controllers': 'app/js/controllers',
             // Aliases
-            'knockout': 'app/libs/knockout-3.1.0/index'
+            'knockout': 'app/libs/knockout-3.1.0/index',
+            'react': 'app/libs/react-0.11.1.min/index'
           },
           name: 'build/requireConfig',
           out: 'build/app/js/app.min.js'

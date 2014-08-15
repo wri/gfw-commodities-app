@@ -11,12 +11,13 @@
 	      packages: [
 	        {name: "main", location: URL + "/js/main"},
 	        {name: "utils", location: URL + "/js/utils"},
-	        {name: "templates", location: URL + "/js/templates"},
+	        {name: "templates", location: URL + "/templates"},
 	        {name: "controllers", location: URL + "/js/controllers"},
 	        {name: "libs", location: URL + "/libs"}
 	      ],
 	      aliases: [
-	      	['knockout', 'libs/knockout-3.1.0/index']
+	      	['knockout', 'libs/knockout-3.1.0/index'],
+	      	['react', 'libs/react-0.11.1.min/index']
 	      ],
 	      deps: [
 	      	"main/Main",
@@ -66,7 +67,6 @@
 	var loadDependencies = function () {
 		win.dojoConfig = dojoConfig;
 		loadScript(src);
-
 		var i, length;
 		for (i = 0, length = css.length; i < length; i++) {
 			loadStyle(css[i].src, css[i].cdn);

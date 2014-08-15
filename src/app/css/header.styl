@@ -1,0 +1,89 @@
+// Useful Functions
+border-radius()
+	border-radius arguments
+	-moz-border-radius arguments
+	-webkit-border-radius arguments
+
+baseLightGray = #e6e6e6
+darkGray = #888
+darkFont = #333
+separatorGray = #CFCFCF
+navBottomBorder = #9b9b9b
+orangeHover = rgba(233, 131, 0, 0.45)
+orangeSelected = rgb(233, 131, 0)
+
+.gfw .header
+	height 100%
+	width 100%
+
+.gfw .header .inner
+	margin 0 auto
+	width 960px
+
+.gfw .nav-topper
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	border-bottom 1px solid navBottomBorder
+	background baseLightGray
+	font-size 12px
+	height 43px
+	width 100%
+
+.gfw .nav-topper div
+	line-height 43px
+
+.gfw .nav-separator
+	border-bottom 1px solid separatorGray
+	display inline-block
+	position absolute
+	width 100%
+	top 106px
+	left 0
+
+.gfw .header-logo
+	background url('images/gfwc_logo.jpg') no-repeat center
+	background-position 0 0
+	text-indent -999999px
+	display inline-block
+	position relative
+	height 100px
+	width 90px
+	z-index 200
+
+.gfw .beta-logo
+	font-family Arial, sans-serif
+	border-radius(5px)
+	background darkGray
+	position relative
+	font-size 11px
+	color white
+	padding 8px
+	top 20px
+
+.gfw .nav-link-list
+	display inline-block
+	list-style-type none
+	float right
+
+.gfw .nav-link-list .nav-link
+	border-radius(5px)
+	font-family Arial, sans-serif
+	display inline-block
+	font-weight bold
+	padding 6px 8px
+	font-size 12px
+	color darkFont
+
+.gfw .nav-link-list .nav-link:not(.selected)
+	cursor pointer
+
+.gfw .nav-link-list .nav-link:hover
+	background-color orangeHover
+
+.gfw .nav-link-list .nav-link.selected
+	background-color orangeSelected
+	cursor default
+	color white
+
+.gfw .header-title
+	font-family Georgia, serif
+	font-size 26px
