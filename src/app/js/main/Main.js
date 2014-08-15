@@ -2,11 +2,12 @@ define([
 	"main/config",
 	"esri/config",
 	"dojo/_base/array",
+	"knockout",
 	// Load Necessary Layout Widgets and Parser Here
 	"dojox/mobile/parser",
   "dijit/layout/ContentPane",
   "dijit/layout/StackContainer"
-], function (AppConfig, esriConfig, arrayUtils, parser) {
+], function (AppConfig, esriConfig, arrayUtils, knockout, parser) {
 
 	return {
 

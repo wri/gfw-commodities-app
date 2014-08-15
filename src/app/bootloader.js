@@ -16,7 +16,7 @@
 	        {name: "libs", location: URL + "/libs"}
 	      ],
 	      aliases: [
-	      	['knockout', 'app/libs/knockout-3.1.0/index.js']
+	      	['knockout', 'libs/knockout-3.1.0/index']
 	      ],
 	      deps: [
 	      	"main/Main",

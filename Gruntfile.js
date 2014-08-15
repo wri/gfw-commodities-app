@@ -82,7 +82,7 @@ module.exports = function (grunt) {
             'templates': 'app/js/templates',
             'controllers': 'app/js/controllers',
             // Aliases
-            'knockout': 'app/libs/knockout-3.1.0/index.js'
+            'knockout': 'app/libs/knockout-3.1.0/index'
           },
           name: 'build/requireConfig',
           out: 'build/app/js/app.min.js'
