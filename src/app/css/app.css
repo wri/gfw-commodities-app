@@ -1,5 +1,5 @@
 
-/* line 19 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+/* line 33 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 
 /* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -19,10 +19,25 @@
 html,
 body {
   font-family: "Arial MT Condensed Light", Arial, Georgia, sans-serif;
+  background: LightGray;
 }
 
-/* line 19 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+/* line 20 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw .app-header {
-  background: LightGray;
+  background: url("images/header_tree_background") repeat-x scroll center top transparent;
+  border-bottom: 1px solid #717d80;
+  box-sizing: border-box;
   height: 210px;
+}
+
+/* line 26 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+.gfw .app-body {
+  min-height: 300px;
+  max-height: 300px;
+}
+
+/* line 30 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
+.gfw .app-footer {
+  height: 470px;
+  width: 100%;
 }

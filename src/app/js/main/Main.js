@@ -30,7 +30,7 @@ define([
 		},
 
 		launchApp: function () {
-			document.getElementById("app-header").innerHTML = AppConfig.title;
+			
 		}
 
 	};

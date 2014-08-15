@@ -15,12 +15,19 @@
 	        {name: "controllers", location: URL + "/js/controllers"},
 	        {name: "libs", location: URL + "/libs"}
 	      ],
+	      aliases: [
+	      	['knockout', 'app/libs/knockout-3.1.0/index.js']
+	      ],
 	      deps: [
 	      	"main/Main",
 	      	"dojo/domReady!"
 	      ],
 	      callback: function (Main) {
 	      	Main.init();
+	      	// Before Running grunt build, remove main/Main from Require above and main parameter
+	        // from callback, then uncomment below
+	        // Release Version
+	        // loadScript('app/js/app.min.js');
 	      }
 			}, // End dojoConfig
 			src = 'http://js.arcgis.com/3.10/',

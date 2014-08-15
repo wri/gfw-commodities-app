@@ -5,6 +5,50 @@ module.exports = function (grunt) {
 
 		pkg: grunt.file.readJSON('package.json'),
 
+    copy: {
+      build: {
+        files: [
+          { expand: true, cwd: 'src/app/css/fonts', src: '**', dest: 'build/app/css/fonts' },
+          { src: ['src/.htaccess'], dest: 'build/.htaccess', filter: 'isFile' }
+        ]
+      }
+    },
+
+    htmlmin: {
+      build: {
+        options: {
+          removeComments: true,
+          collapseWhitespace: true
+        },
+        files: [
+          { src:['src/index.html'], dest: 'build/index.html'},
+          { expand: true, cwd: 'src/app', src: ['**/*.html'], dest: 'build/app' }
+        ]
+      }
+    },
+
+    uglify: {
+      build: {
+        options: {
+          banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd/") %> */'
+        },
+        files: {
+          'build/app/bootloader.js': 'src/app/bootloader.js'
+        }
+      }
+    },
+
+    imagemin: {
+      build: {
+        options: {
+          optimizationLevel: 7,
+          progressive: true
+        },
+        files: [
+          { expand: true, cwd: 'src/app', src: ['**/*.{png,jpg,gif}'], dest: 'build/app' }
+        ]
+      }
+    },
 
     stylus: {
       develop: {
@@ -20,6 +64,42 @@ module.exports = function (grunt) {
         files: {
           'build/app/css/app.css': ['src/app/css/**/*.styl']
         }
+      }
+    },
+
+    requirejs: {
+      build: {
+         options: {
+          baseUrl: 'src',
+          paths: {
+            'dojo': 'empty:',
+            'dijit': 'empty:',
+            'dojox': 'empty:',
+            'esri': 'empty:',
+            'libs': 'app/libs',
+            'main': 'app/js/main',
+            'utils': 'app/js/utils',
+            'templates': 'app/js/templates',
+            'controllers': 'app/js/controllers',
+            // Aliases
+            'knockout': 'app/libs/knockout-3.1.0/index.js'
+          },
+          name: 'build/requireConfig',
+          out: 'build/app/js/app.min.js'
+        }
+      }
+    },
+
+    ftp_push: {
+      build: {
+        options: {
+          host: 'staging.blueraster.com',
+          dest: 'html/wri/potico2/v1/',
+          authKey: 'staging'
+        },
+        files: [
+          { expand: true, cwd: 'build', src: ['**'] }
+        ]
       }
     },
 
@@ -51,7 +131,7 @@ module.exports = function (grunt) {
   // });
 
   grunt.registerTask('develop', ['watch:stylus']);
-  grunt.registerTask('build', []);
-  grunt.registerTask('minify', []);
+  grunt.registerTask('build', ['copy:build','htmlmin:build','uglify:build','imagemin:build','stylus:build','requirejs:build', 'ftp_push:build']);
+  grunt.registerTask('minify', ['copy:build','htmlmin:build','uglify:build','imagemin:build','stylus:build','requirejs:build']);
 
 };
