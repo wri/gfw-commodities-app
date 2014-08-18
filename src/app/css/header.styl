@@ -45,6 +45,9 @@ orangeSelected = rgb(233, 131, 0)
 .gfw .app-header.generalView
 	height 105px
 
+.gfw .app-header .map-layer-controls
+	display none
+
 .gfw .app-header.mapView .nav-topper, .gfw .app-header.mapView .header-title, .gfw .app-header.generalView .header-title
 	display none
 
@@ -53,6 +56,24 @@ orangeSelected = rgb(233, 131, 0)
 
 .gfw .app-header.generalView .nav-separator
 	display none
+
+.gfw .app-header.mapView .map-layer-controls
+	position absolute
+	display block
+	right 30px
+	top 65px
+
+.gfw .app-header .map-layer-controls ul
+	display inline-block
+	list-style-type none
+
+.gfw .app-header .map-layer-controls li
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	text-transform uppercase
+	display inline-block
+	font-weight bold
+	font-size 12px
+	margin 0 10px
 
 .gfw .nav-topper div
 	line-height 43px

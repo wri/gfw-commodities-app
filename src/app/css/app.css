@@ -115,28 +115,57 @@ body {
 }
 
 /* line 48 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .app-header .map-layer-controls {
+  display: none;
+}
+
+/* line 51 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .nav-topper,
 .gfw .app-header.mapView .header-title,
 .gfw .app-header.generalView .header-title {
   display: none;
 }
 
-/* line 51 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 54 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .nav-separator {
   top: 65px;
 }
 
-/* line 54 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 57 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.generalView .nav-separator {
   display: none;
 }
 
-/* line 57 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 60 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .app-header.mapView .map-layer-controls {
+  position: absolute;
+  display: block;
+  right: 30px;
+  top: 65px;
+}
+
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .app-header .map-layer-controls ul {
+  display: inline-block;
+  list-style-type: none;
+}
+
+/* line 70 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .app-header .map-layer-controls li {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 12px;
+  margin: 0 10px;
+}
+
+/* line 78 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-topper div {
   line-height: 43px;
 }
 
-/* line 60 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 81 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
@@ -146,7 +175,7 @@ body {
   left: 0;
 }
 
-/* line 68 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 89 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -158,7 +187,7 @@ body {
   z-index: 200;
 }
 
-/* line 78 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -172,14 +201,14 @@ body {
   top: 20px;
 }
 
-/* line 88 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 109 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list {
   display: inline-block;
   list-style-type: none;
   float: right;
 }
 
-/* line 93 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 114 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -192,24 +221,24 @@ body {
   color: #333;
 }
 
-/* line 102 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 123 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 105 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 126 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 108 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 129 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 113 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 134 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
