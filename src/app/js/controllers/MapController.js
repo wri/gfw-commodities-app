@@ -1,10 +1,13 @@
 define([
 	"dojo/dom",
-	"dijit/registry"
-], function (dom, registry) {
+	"dijit/registry",
+	"map/config",
+	"map/Map"
+], function (dom, registry, MapConfig, Map) {
 	'use strict';
 
-	var initialized = false;
+	var initialized = false,
+			map;
 
 	return {
 
@@ -18,6 +21,8 @@ define([
 			initialized = true;
 			registry.byId("stackContainer").selectChild("mapView");
 			registry.byId("mapView").set('content', template);
+			// This is not esri map, it is custom map class, esri map object available as map.map
+			var map = new Map(MapConfig.mapOptions);
 
 		}
 

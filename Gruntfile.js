@@ -77,10 +77,12 @@ module.exports = function (grunt) {
             'dojox': 'empty:',
             'esri': 'empty:',
             'libs': 'app/libs',
+            'map': 'app/js/map',
             'main': 'app/js/main',
             'utils': 'app/js/utils',
             'templates': 'app/templates',
             'controllers': 'app/js/controllers',
+            'components': 'app/js/components',
             // Aliases
             'knockout': 'app/libs/knockout-3.1.0/index',
             'react': 'app/libs/react-0.11.1.min/index'

@@ -4,13 +4,14 @@ define([
 	"dojo/_base/array",
 	// Load in Custom Modules to Aid in initializing the Application
 	"utils/Hasher",
+	"utils/Helper",
 	"utils/Delegator",
 	"controllers/ViewController",
 	// Load Necessary Layout Widgets and Parser Here
 	"dojox/mobile/parser",
   "dijit/layout/ContentPane",
   "dijit/layout/StackContainer"
-], function (AppConfig, esriConfig, arrayUtils, Hasher, Delegator, ViewController, parser) {
+], function (AppConfig, esriConfig, arrayUtils, Hasher, Helper, Delegator, ViewController, parser) {
 	'use strict';
 	return {
 
@@ -39,6 +40,8 @@ define([
 		launchApp: function () {
 			// Initilize the Hasher, will get view from url or set a default one and return the value
 			var defaultViewToLoad = Hasher.init();
+			// Have helper determine whether or not to add mobile class
+			Helper.enableLayout();
 			// Have the Delegator Start Listening, He will subscribe to all published events and delegate handlers
 			Delegator.startListening();
 			// Initialize View Controller, He controls loading views, this will initialize the header, footer, and get 

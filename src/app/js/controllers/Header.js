@@ -3,8 +3,9 @@ define([
 	"dojo/dom",
 	"dojo/query",
 	"dojo/dom-class",
-	"utils/Hasher"
-], function (on, dom, query, domClass, Hasher) {
+	"utils/Hasher",
+	"main/config"
+], function (on, dom, query, domClass, Hasher, AppConfig) {
 	'use strict';
 
 	var state = 'large', // large, small, or mobile
@@ -30,39 +31,71 @@ define([
 
 		bindEvents: function () {
 			var self = this;
-			// Helper Functions
-			function changeView(evt) {
-				var target = evt.target ? evt.target : evt.srcElement,
-						view = target.dataset ? target.dataset.view : target.getAttribute('data-view'),
-						external = target.dataset ? target.dataset.external : target.getAttribute('data-external');
-
-				query(".header .nav-link.selected").forEach(function (node) {
-					domClass.remove(node, 'selected');
-				});
-
-				domClass.add(target, 'selected');
-				Hasher.setHash('v', view);
-			}			
 		
 			query(".header .nav-link").forEach(function (item) {
-				on(item, "click", changeView);
+				on(item, "click", function (evt) {
+					var target = evt.target ? evt.target : evt.srcElement,
+							dataView = target.dataset ? target.dataset.view : target.getAttribute('data-view'),
+							external = target.dataset ? target.dataset.external : target.getAttribute('data-external');
+
+					self.updateView(dataView, external);
+				});
 			});
 
 		},
 
-		updateView: function (view) {
-			var dataView;
+		updateView: function (view, isExternal) {
+
+			if (isExternal === "true") {
+				this.redirectPage(view);
+				return;
+			}
 
 			query(".header .nav-link.selected").forEach(function (node) {
 				domClass.remove(node, 'selected');
 			});
 
-			query(".header .nav-link").forEach(function (node) {
-				dataView = node.dataset ? node.dataset.view : node.getAttribute('data-view');
-				if (dataView === view) {
-					domClass.add(node, "selected");
-				}
+			query('.nav-link-list [data-view="' + view + '"]').forEach(function (node) {
+				domClass.add(node, "selected");
 			});
+
+			Hasher.setHash('v', view);
+
+		},
+
+		toggleForView: function (view) {
+			if (view === 'map') {
+				this.setForMap();
+			} else if (view === 'home') {
+				this.setForHome();
+			} else {
+				this.setForGenericView();
+			}
+		},
+
+		setForMap: function () {
+			domClass.add("nav-content", "outer");
+			domClass.remove("nav-content", "inner");
+			domClass.add("app-header", "mapView");
+			domClass.remove("app-header", "generalView");
+		},
+
+		setForGenericView: function () {
+			domClass.add("nav-content", "outer");
+			domClass.remove("nav-content", "inner");
+			domClass.remove("app-header", "mapView");
+			domClass.add("app-header", "generalView");
+		},
+
+		setForHome: function () {
+			domClass.add("nav-content", "inner");
+			domClass.remove("nav-content", "outer");
+			domClass.remove("app-header", "mapView");
+			domClass.remove("app-header", "generalView");
+		},
+
+		redirectPage: function (view) {
+			window.open(AppConfig.urls[view], "_blank");
 		}
 
 	};

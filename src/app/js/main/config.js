@@ -2,6 +2,10 @@ define({
 
 	"title": "Global Forest Watch Commodities",
 
+	"urls": {
+		"gfw": "http://www.globalforestwatch.org/"
+	},
+
 	"corsEnabledServers": [
 		"https://api-ssl.bitly.com",
 		"http://globalforestwatch.org",

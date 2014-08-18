@@ -13,7 +13,6 @@ function (declare, AppConfig, ko) {
       Model.root = el;
 
       // Create Model Properties
-      
 
       // Apply Bindings upon initialization
       ko.applyBindings(Model.vm,dom.byId(el));

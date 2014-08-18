@@ -12,7 +12,9 @@
 	        {name: "main", location: URL + "/js/main"},
 	        {name: "utils", location: URL + "/js/utils"},
 	        {name: "templates", location: URL + "/templates"},
+	        {name: "components", location: URL + "/js/components"},
 	        {name: "controllers", location: URL + "/js/controllers"},
+	        {name: "map", location: URL + "/js/map"},
 	        {name: "libs", location: URL + "/libs"}
 	      ],
 	      aliases: [

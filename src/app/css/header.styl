@@ -12,6 +12,12 @@ navBottomBorder = #9b9b9b
 orangeHover = rgba(233, 131, 0, 0.45)
 orangeSelected = rgb(233, 131, 0)
 
+.gfw .app-header
+	background url('images/header_tree_background') repeat-x scroll center top transparent
+	border-bottom 1px solid #717d80
+	box-sizing border-box
+	height 210px
+
 .gfw .header
 	height 100%
 	width 100%
@@ -20,6 +26,9 @@ orangeSelected = rgb(233, 131, 0)
 	margin 0 auto
 	width 960px
 
+.gfw .header .outer
+	margin 0 30px
+
 .gfw .nav-topper
 	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
 	border-bottom 1px solid navBottomBorder
@@ -27,6 +36,18 @@ orangeSelected = rgb(233, 131, 0)
 	font-size 12px
 	height 43px
 	width 100%
+
+.gfw .app-header.mapView
+	height 120px
+
+.gfw .app-header.generalView
+	height 105px
+
+.gfw .app-header.mapView .nav-topper, .gfw .app-header.mapView .header-title, .gfw .app-header.generalView .header-title
+	display none
+
+.gfw .app-header.mapView .nav-separator
+	top 65px
 
 .gfw .nav-topper div
 	line-height 43px

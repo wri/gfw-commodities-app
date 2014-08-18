@@ -24,16 +24,20 @@ html, body
 .gfw .light-gray-font
 	color lightGrayFont
 
-.gfw .app-header
-	background url('images/header_tree_background') repeat-x scroll center top transparent
-	border-bottom 1px solid #717d80
-	box-sizing border-box
-	height 210px
-
-.gfw .app-body
+.gfw #app-body:not(.mapView) #stackContainer
 	min-height 300px
-	max-height 300px
+	max-height 700px
+
+.gfw #app-body.mapView #stackContainer
+	position absolute
+	top 125px
+	bottom 0
+	right 0
+	left 0
 
 .gfw .app-footer
 	height 470px
 	width 100%
+
+.gfw .dijitLayoutContainer
+	overflow hidden
