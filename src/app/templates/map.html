@@ -3,5 +3,90 @@
 		<div id="locator-widget-button" title="Locate" class="locator-widget-button"></div>
     <div id="basemap-gallery-button" title="Basemaps/Overlays" class="basemap-gallery-button"></div>
     <div id="share-button" title="Share" class="share-button"></div>
+    <div id="simple-geocoder" class="simple-geocoder"></div>
+    <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link"></div>
+    <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link"></div>
+    <!-- Begin Basemap/Overlays Modal -->
+    <div id="basemap-modal" data-bind="visible: showBasemapGallery()" class="maptools-modal">
+    	<div class="container-header">Overlays</div>
+    	<div class="overlays-container">
+
+    	</div>
+			<div class="container-header">Basemaps</div>
+			<div id="basemap-gallery"></div>
+    </div>
+    <!-- End Basemap/Overlays Modal -->
+    <!-- Begin Locator Modal -->
+    <div id="locator-modal" data-bind="visible: showLocatorOptions()" class="maptools-modal">
+    	<div class="container-header">Locator</div>
+      <div id="location-widget" class="location-widget"></div>
+      <div class="line-splitter"></div>
+      <div class="goto-area-search">Or, go to an area</div>
+      <span id="clear-search-pins" data-bind="visible: showClearPinsOption()" class="clear-search-pins">Clear Pins</span>
+      <div id="area-search-options-1" class="area-search-radio-container">
+        <input id="dms-search" type="radio" name="search-option" checked="true"/>
+        <label for="dms-search" class="search-option-label">Degrees/Minutes/Seconds</label>
+      </div>
+      <div id="area-search-options-2" class="area-search-radio-container">
+        <input id="lat-long-search" type="radio" name="search-option"/>
+        <label for="lat-long-search" class="search-option-label">Latitude/Longitude</label>
+      </div>
+      <div id="area-search-inputs" class="area-search-inputs">
+        <div id="dms-inputs" data-bind="visible: showDMSInputs()" class="dms-inputs-container">
+          <table>
+            <tr>
+              <td></td>
+              <td>Degrees</td>
+              <td>Minutes</td>
+              <td>Seconds</td>
+            </tr>
+            <tr>
+              <td>Latitude</td>
+              <td>
+                <input id="degreesLatInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="minutesLatInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="secondsLatInput" type="text" class="dms-inputs"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Longitude</td>
+              <td>
+                <input id="degreesLonInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="minutesLonInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="secondsLonInput" type="text" class="dms-inputs"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div id="lat-long-inputs" data-bind="visible: showLatLongInputs()" class="lat-long-inputs-container">
+          <table>
+            <tr>
+              <td>Latitude</td>
+              <td>
+                <input id="latitudeInput" type="text" class="lat-long-inputs"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Longitude</td>
+              <td>
+                <input id="longitudeInput" type="text" class="lat-long-inputs"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="search-option-button-container">
+          <div id="search-option-go-button" class="search-option-go-button">GO</div>
+        </div>
+			</div>
+    </div>
+    <!-- End Locator Modal -->
 	</div>
 </div>

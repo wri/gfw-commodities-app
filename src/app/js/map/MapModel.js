@@ -13,6 +13,11 @@ function (declare, AppConfig, ko) {
       Model.root = el;
 
       // Create Model Properties
+      Model.vm.showDMSInputs = ko.observable(true);
+      Model.vm.showLatLongInputs = ko.observable(false);
+      Model.vm.showBasemapGallery = ko.observable(false);
+      Model.vm.showLocatorOptions = ko.observable(false);
+      Model.vm.showClearPinsOption = ko.observable(false);
 
       // Apply Bindings upon initialization
       ko.applyBindings(Model.vm, document.getElementById(el));

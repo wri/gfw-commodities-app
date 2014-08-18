@@ -4,8 +4,12 @@ border-radius()
 	-moz-border-radius arguments
 	-webkit-border-radius arguments
 
+mediumGray = #888
 goldFont = #f0ab00
+greyBorder = #b2b2b2
 hoverBackground = #CDCDCD
+orangeSelected = rgb(233, 131, 0)
+orangeHover = rgba(233, 131, 0, 0.45)
 
 .gfw .map-container 
 	position absolute
@@ -66,4 +70,106 @@ hoverBackground = #CDCDCD
 .gfw .map-container .esriSimpleSliderIncrementButton:hover,
 .gfw .map-container .esriSimpleSliderDecrementButton:hover
 	background-color hoverBackground
-	
+
+.gfw .map-container .simpleGeocoder
+	position absolute
+	z-index 50
+	right 65px
+	top 20px
+
+.gfw .map-container .simpleGeocoder .esriGeocoder
+	border 2px solid mediumGray
+
+.gfw .map-container .modal-link
+	position absolute
+	background #FFF
+	height 32px
+	width 23px
+	right 48px
+	z-index 48
+
+.gfw .map-container .basemap-linker
+	top 162px
+
+.gfw .map-container .locator-linker
+	top 125px
+
+.gfw .map-container .maptools-modal
+	border-radius(5px)
+	position absolute
+	background #FFF
+	overflow-y auto
+	padding 10px
+	height 350px
+	width 300px
+	right 60px
+	z-index 50
+	top 20px
+
+.gfw .maptools-modal .container-header
+	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	border-bottom 1px solid greyBorder
+	padding-bottom 5px
+	font-size 20px
+
+.gfw .maptools-modal .overlays-container
+	margin-bottom 15px
+
+.gfw .maptools-modal .esriBasemapGallery
+	padding 15px 25px 5px
+
+.gfw .maptools-modal .line-splitter
+	border-bottom 1px solid greyBorder
+
+.gfw .maptools-modal .goto-area-search
+	display inline-block
+	margin 10px 0
+
+.gfw .maptools-modal .LocateButton
+	margin 5px
+
+.gfw .maptools-modal .LocateButton .zoomLocateButton:hover, .gfw .search-option-go-button:hover
+	background orangeSelected
+
+.gfw .maptools-modal .LocateButton .zoomLocateButton
+	background mediumGray
+	height 25px
+	width 100px
+
+.gfw .maptools-modal .dms-inputs, .gfw .maptools-modal .lat-long-inputs
+	height 20px
+
+.gfw .maptools-modal .dms-inputs
+	width 60px
+
+.gfw .maptools-modal .area-search-radio-container
+	margin 2px 5px
+
+.gfw .maptools-modal .area-search-inputs
+	margin 5px
+
+.gfw .maptools-modal .clear-search-pins
+	text-decoration underline
+	margin 10px 20px
+	cursor pointer
+	float right
+	color #00f
+
+.gfw .maptools-modal .LocateButton span
+	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	display block !important
+	text-align center
+	line-height 28px
+	color #FFF
+
+.gfw .search-option-go-button
+	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	background mediumGray
+	border-radius(5px)
+	text-align center
+	line-height 25px
+	margin 10px auto
+	padding 3px 0 0
+	cursor pointer
+	width 100px
+	color #FFF

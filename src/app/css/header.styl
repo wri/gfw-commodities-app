@@ -5,7 +5,8 @@ border-radius()
 	-webkit-border-radius arguments
 
 baseLightGray = #e6e6e6
-darkGray = #888
+mediumGray = #888
+darkGray = #444
 darkFont = #333
 separatorGray = #CFCFCF
 navBottomBorder = #9b9b9b
@@ -15,6 +16,7 @@ orangeSelected = rgb(233, 131, 0)
 .gfw .app-header
 	background url('images/header_tree_background') repeat-x scroll center top transparent
 	border-bottom 1px solid #717d80
+	border-top 5px solid darkGray
 	box-sizing border-box
 	height 210px
 
@@ -49,6 +51,9 @@ orangeSelected = rgb(233, 131, 0)
 .gfw .app-header.mapView .nav-separator
 	top 65px
 
+.gfw .app-header.generalView .nav-separator
+	display none
+
 .gfw .nav-topper div
 	line-height 43px
 
@@ -73,7 +78,7 @@ orangeSelected = rgb(233, 131, 0)
 .gfw .beta-logo
 	font-family Arial, sans-serif
 	border-radius(5px)
-	background darkGray
+	background mediumGray
 	position relative
 	font-size 11px
 	color white
