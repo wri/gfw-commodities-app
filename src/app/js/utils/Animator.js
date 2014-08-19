@@ -22,7 +22,7 @@
 
 		var	id = itemIds.shift(),
 				element = document.getElementById(id),
-				steps = 16 / options.duration || 500;
+				steps = 16 / options.duration || 500;		
 
 		function fade() {
 			// 1 * element.style.opacity is necessary to convert string to number for addition

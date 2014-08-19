@@ -4,10 +4,10 @@
     <div id="basemap-gallery-button" title="Basemaps/Overlays" class="basemap-gallery-button"></div>
     <div id="share-button" title="Share" class="share-button"></div>
     <div id="simple-geocoder" class="simple-geocoder"></div>
-    <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link"></div>
-    <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link"></div>
+    <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link" style="display: none;"></div>
+    <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link" style="display: none;"></div>
     <!-- Begin Basemap/Overlays Modal -->
-    <div id="basemap-modal" data-bind="visible: showBasemapGallery()" class="maptools-modal">
+    <div id="basemap-modal" data-bind="visible: showBasemapGallery()" class="maptools-modal" style="display: none;">
     	<div class="container-header">Overlays</div>
     	<div class="overlays-container">
 
@@ -17,7 +17,7 @@
     </div>
     <!-- End Basemap/Overlays Modal -->
     <!-- Begin Locator Modal -->
-    <div id="locator-modal" data-bind="visible: showLocatorOptions()" class="maptools-modal">
+    <div id="locator-modal" data-bind="visible: showLocatorOptions()" class="maptools-modal" style="display: none;">
     	<div class="container-header">Locator</div>
       <div id="location-widget" class="location-widget"></div>
       <div class="line-splitter"></div>

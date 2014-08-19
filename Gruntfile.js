@@ -9,6 +9,9 @@ module.exports = function (grunt) {
       build: {
         files: [
           { expand: true, cwd: 'src/app/css/fonts', src: '**', dest: 'build/app/css/fonts' },
+          { src: ['src/app/libs/es5-sham.min.js'], dest: 'build/app/libs/es5-sham.min.js', filter: 'isFile' },
+          { src: ['src/app/libs/es5-shim.min.js'], dest: 'build/app/libs/es5-shim.min.js', filter: 'isFile' },
+          { src: ['src/app/libs/html5shiv.js'], dest: 'build/app/libs/html5shiv.js', filter: 'isFile' },
           { src: ['src/.htaccess'], dest: 'build/.htaccess', filter: 'isFile' }
         ]
       }

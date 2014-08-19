@@ -13,6 +13,16 @@ navBottomBorder = #9b9b9b
 orangeHover = rgba(233, 131, 0, 0.45)
 orangeSelected = rgb(233, 131, 0)
 
+/* Layer Filter Colors */
+forestChange = #e72698
+forestCover = #B2D26E
+forestUse = #C98E6C
+conservation = #3182BD
+agroSuit = #fdb22c
+company = #5e138a
+/* Layer Filter Colors */
+
+
 .gfw .app-header
 	background url('images/header_tree_background') repeat-x scroll center top transparent
 	border-bottom 1px solid #717d80
@@ -48,7 +58,9 @@ orangeSelected = rgb(233, 131, 0)
 .gfw .app-header .map-layer-controls
 	display none
 
-.gfw .app-header.mapView .nav-topper, .gfw .app-header.mapView .header-title, .gfw .app-header.generalView .header-title
+.gfw .app-header.mapView .nav-topper, 
+.gfw .app-header.mapView .header-title, 
+.gfw .app-header.generalView .header-title
 	display none
 
 .gfw .app-header.mapView .nav-separator
@@ -60,21 +72,113 @@ orangeSelected = rgb(233, 131, 0)
 .gfw .app-header.mapView .map-layer-controls
 	position absolute
 	display block
-	right 30px
+	right 40px
 	top 65px
 
 .gfw .app-header .map-layer-controls ul
 	display inline-block
 	list-style-type none
 
-.gfw .app-header .map-layer-controls li
+.gfw .app-header .layer-list-header,
+.gfw .app-header .filter-list-title
 	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
 	text-transform uppercase
 	display inline-block
 	font-weight bold
 	font-size 12px
-	margin 0 10px
+	cursor pointer
+	margin 0 3px
 
+.gfw .app-header .layer-list-header
+	opacity 0
+
+.gfw .app-header .layer-list-header a
+	padding 0 5px
+
+.gfw .app-header.mapView .layer-line
+	margin-top 13px
+	padding 0 1px
+	width 100%
+	height 4px
+
+.gfw .app-header #master-layer-list
+	background-color white
+	border-radius(2px)
+	position absolute
+	width 180px
+	z-index 500
+	opacity 0
+	top 65px
+
+.gfw .app-header .filter-list-title
+	margin 15px auto 0
+	text-align center
+	display block
+
+.gfw .app-header .filter-list
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	list-style-type none
+	font-size 13px
+	padding 0
+	margin 0
+
+.gfw .app-header .filter-list .layer-sub-title
+	font-size 10px
+	margin 3px
+
+.gfw .app-header .filter-list .layer-title,
+.gfw .app-header .filter-list .layer-sub-title
+	color mediumGray
+
+.gfw .app-header .filter-list > li
+	border-bottom 1px solid baseLightGray
+	cursor pointer
+	padding 5px
+
+/* Layer Controls Colors */
+.gfw .app-header.mapView .forest-change,
+.gfw .app-header.mapView .forest-change.active > a
+	color forestChange
+
+.gfw .app-header.mapView .forest-cover,
+.gfw .app-header.mapView .forest-cover.active > a
+	color forestCover
+
+.gfw .app-header.mapView .forest-use,
+.gfw .app-header.mapView .forest-use.active > a
+	color forestUse
+
+.gfw .app-header.mapView .conservation,
+.gfw .app-header.mapView .conservation.active > a
+	color conservation
+
+.gfw .app-header.mapView .agro-suitability,
+.gfw .app-header.mapView .agro-suitability.active > a
+	color agroSuit
+
+.gfw .app-header.mapView .company-pages,
+.gfw .app-header.mapView .company-pages.active > a
+	color company
+
+.gfw .app-header.mapView .forest-change .layer-line
+	background forestChange
+
+.gfw .app-header.mapView .forest-cover .layer-line
+	background forestCover
+
+.gfw .app-header.mapView .forest-use .layer-line
+	background forestUse
+
+.gfw .app-header.mapView .conservation .layer-line
+	background conservation
+
+.gfw .app-header.mapView .agro-suitability .layer-line
+	background agroSuit
+
+.gfw .app-header.mapView .company-pages .layer-line
+	background company
+
+/* Layer Controls Colors */
 .gfw .nav-topper div
 	line-height 43px
 
@@ -119,6 +223,7 @@ orangeSelected = rgb(233, 131, 0)
 	padding 6px 8px
 	font-size 12px
 	color darkFont
+	margin 0 2px
 
 .gfw .nav-link-list .nav-link:not(.selected)
 	cursor pointer
