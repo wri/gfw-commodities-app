@@ -201,8 +201,8 @@ body {
 
 /* line 113 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list-title {
-  margin: 15px auto 0;
   text-align: center;
+  margin: 15px auto;
   display: block;
 }
 

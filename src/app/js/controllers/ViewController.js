@@ -5,12 +5,11 @@ define([
 	"controllers/Footer",
 	"controllers/MapController",
 	"controllers/HomeController",
-	"controllers/BlogController",
 	"controllers/AboutController",
 	"controllers/DataController",
 	"controllers/MethodsController",
 	"controllers/PublicationsController"
-], function (domClass, Loader, Header, Footer, MapController, HomeController, BlogController, AboutController, DataController, MethodsController, PublicationsController) {
+], function (domClass, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
 	'use strict';
 
 	return {
@@ -69,8 +68,6 @@ define([
 					return MethodsController.init.bind(MethodsController);
 				case 'about':
 					return AboutController.init.bind(AboutController);
-				case 'blog':
-					return BlogController.init.bind(BlogController);
 				case 'publications':
 					return PublicationsController.init.bind(PublicationsController);
 				default:

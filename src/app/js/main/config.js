@@ -3,7 +3,8 @@ define({
 	"title": "Global Forest Watch Commodities",
 
 	"urls": {
-		"gfw": "http://www.globalforestwatch.org/"
+		"gfw": "http://www.globalforestwatch.org/",
+		"blog": "http://blog.globalforestwatch.org/"
 	},
 
 	"corsEnabledServers": [
