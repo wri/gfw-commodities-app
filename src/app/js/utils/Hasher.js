@@ -19,7 +19,7 @@ define([
 			} else {
 				state.v = 'home';
 				hash(ioQuery.objectToQuery(state));
-			}
+			}			
 
 			currentView = state.v;
 			topic.subscribe("/dojo/hashchange", function (changedHash) {
@@ -42,6 +42,26 @@ define([
 			var state = ioQuery.queryToObject(hash());
 			state[key] = value;
 			hash(ioQuery.objectToQuery(state));
+		},
+
+		toggleLayers: function (layerId) {
+			var state = ioQuery.queryToObject(hash()),
+					lyrsArray,
+					index;
+
+			lyrsArray = state.lyrs ? state.lyrs.split(",") : [];
+			index = lyrsArray.indexOf(layerId);
+
+			if (index > -1) {
+				lyrsArray.splice(index, 1);
+			} else {
+				lyrsArray.push(layerId);
+			}
+
+			state.lyrs = lyrsArray.join(',');
+
+			hash(ioQuery.objectToQuery(state));
+
 		},
 
 		changeView: function (view) {

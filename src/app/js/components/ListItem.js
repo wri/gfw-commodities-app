@@ -1,6 +1,7 @@
 define([
-	"react"
-], function (React) {
+	"react",
+	"utils/Hasher"
+], function (React, Hasher) {
 
 	// Must Contain the following props
 	// title - String
@@ -9,17 +10,43 @@ define([
 	// layerId - String
 	// source - String
 	// toggle - Function
+	// active - Boolean
+	// visible - Boolean
 
 	return React.createClass({
 
+		getInitialState: function () {
+			return ({
+				active: this.props.active
+			});
+		},
+
+		componentDidMount: function () {
+			
+		},
+
+		componentDidUpdate: function () {
+			
+		},
+
 		toggle: function (e) {
-			alert("Toggle");
-			e.currentTarget.classList.toggle("active");
+			var change = !this.state.active;
+
+			Hasher.toggleLayers(this.props.layerId, change);
+
+			this.setState({
+				active: change
+			});
 		},
 
 		render: function () {
+			var newClass = 'layer-list-item ' + 
+											this.props.filterClass + 
+											(this.state.active ? ' active' : '') +
+											(this.props.visible ? '' : ' hidden');			
+
 			return (
-				React.DOM.li({'className': 'layer-list-item ' + this.props.filterClass,
+				React.DOM.li({'className': newClass,
 											'onClick': this.toggle,
 											'data-layer': this.props.layerId },
 					React.DOM.a({'className': 'layer-title'}, this.props.title),

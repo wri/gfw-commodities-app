@@ -42,23 +42,24 @@ define([
 			map.on("map-ready", function () {
 				// Initialize Helper Classes or pass reference of map to them
 				Finder.setMap(map.map);
-				self.bindUIEvents();
-
-				// Fade in the map controls, first, get a list of the ids		
-				dojoQuery(".gfw .map-layer-controls li").forEach(function (item) {
-					ids.push(item.id);
-				});
-				// FadeIn fades opacity from current opacity to 1
-				Animator.fadeIn(ids, {
-					duration: 100
-				});
-
-				// Render any React Components
-				self.renderComponents();
-
 				// Bind the Model to the Map Panel
 				mapModel = MapModel.initialize("map-container");
 			});
+
+			// Fade in the map controls, first, get a list of the ids		
+			dojoQuery(".gfw .map-layer-controls li").forEach(function (item) {
+				ids.push(item.id);
+			});
+			// FadeIn fades opacity from current opacity to 1
+			Animator.fadeIn(ids, {
+				duration: 100
+			});
+
+			// Render any React Components
+			self.renderComponents();
+
+			// Connect Events
+			self.bindUIEvents();
 
 		},
 

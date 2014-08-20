@@ -16,23 +16,30 @@ define([
 
 		},
 
+		componentDidMount: function () {
+			
+		},
+
+		componentDidUpdate: function () {
+			
+		},
+
 		componentWillReceiveProps: function (newProps, oldProps) {
 			this.setState(this.getInitialState(newProps));
 		},
 
 		render: function () {
 
-			var createListItems = function (item) {
-				if (this.state.filter === item.filterClass) {
-					return new ListItem({
-						title: item.title,
-						subtitle: item.subtitle,
-						source: item.source,
-						toggle: item.toggle,
-						layerId: item.layerId,
-						filterClass: item.filterClass,
-					});
-				}
+			var createListItems = function (item) {				
+				return new ListItem({
+					title: item.title,
+					subtitle: item.subtitle,
+					source: item.source,
+					toggle: item.toggle,
+					layerId: item.layerId,
+					filterClass: item.filterClass,
+					visible: (this.state.filter === item.filterClass)
+				});
 			};
 
 			return (
