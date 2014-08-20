@@ -35,7 +35,7 @@ define([
 		},
 
 		getHash: function (key) {
-			return ioQuery.queryToObject(hash())[key];
+			return key ? ioQuery.queryToObject(hash())[key] : ioQuery.queryToObject(hash());
 		},
 
 		setHash: function (key, value) {
@@ -59,9 +59,12 @@ define([
 			}
 
 			state.lyrs = lyrsArray.join(',');
-
 			hash(ioQuery.objectToQuery(state));
+		},
 
+		getLayers: function () {
+			var layers = ioQuery.queryToObject(hash())['lyrs'];
+			return layers ? layers.split(',') : [];
 		},
 
 		changeView: function (view) {

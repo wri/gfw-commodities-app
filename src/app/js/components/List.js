@@ -29,7 +29,6 @@ define([
 		},
 
 		render: function () {
-
 			var createListItems = function (item) {				
 				return new ListItem({
 					title: item.title,

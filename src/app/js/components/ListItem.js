@@ -16,13 +16,17 @@ define([
 	return React.createClass({
 
 		getInitialState: function () {
+
+			var layerArray = Hasher.getLayers(),
+					active = layerArray.indexOf(this.props.layerId) > -1;
+
 			return ({
-				active: this.props.active
+				active: active
 			});
 		},
 
 		componentDidMount: function () {
-			
+
 		},
 
 		componentDidUpdate: function () {

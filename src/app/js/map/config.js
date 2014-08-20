@@ -25,36 +25,31 @@ define({
 		"TreeCoverChange": { title: 'Annual Tree Cover Change',
 					subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
 					source: 'treeCoverChange',
-					toggle: 'hello',
-					layerId: 'Tree_Cover_Change',
+					layerId: 'a1',
 					filterClass: 'forest-change' 
 		},
 		"FORMA_Alerts": { title: 'FORMA',
 					subtitle: '(monthly, 500m, humid tropics)',
 					source: 'forma',
-					toggle: 'gello',
-					layerId: 'FORMA_Alerts',
+					layerId: 'a2',
 					filterClass: 'forest-change'
 		},
 		"ActiveFires": { title: 'Active Fires',
 					subtitle: '(past 7 days, 1km, global; NASA)',
 					source: 'nasaFires',
-					toggle: 'hello',
-					layerId: 'Active_Fires',
+					layerId: 'a3',
 					filterClass: 'forest-change'
 		},
 		"treeCoverDensity": { title: 'Tree Cover Density',
 					subtitle: '(year 2000, 30m global)',
 					source: 'treeCoverDensity',
-					toggle: 'hello',
-					layerId: 'Tree_Cover_Density',
+					layerId: 'b1',
 					filterClass: 'forest-cover'
 		},
 		"IFL": { title: 'Intact Forest Landscapes',
 					subtitle: '(year 2000, 30m, global)',
 					source: 'intactForest',
-					toggle: 'hello',
-					layerId: 'Intact_Forest_Landscapes',
+					layerId: 'b2',
 					filterClass: 'forest-cover' 
 		}
 	}
