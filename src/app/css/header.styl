@@ -115,9 +115,6 @@ company = #5e138a
 	margin 15px auto
 	display block
 
-.gfw .app-header .layer-list-item.hidden
-	display none
-
 .gfw .app-header .filter-list
 	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
 	list-style-type none
@@ -126,41 +123,44 @@ company = #5e138a
 	margin 0
 
 .gfw .app-header .filter-list .layer-sub-title
+	margin 3px 3px 3px 15px
 	font-size 10px
-	margin 3px
 
 .gfw .app-header .filter-list .layer-title,
 .gfw .app-header .filter-list .layer-sub-title
 	color mediumGray
 
-.gfw .app-header .filter-list > li
+.gfw .filter-list .layer-list-item
 	border-bottom 1px solid baseLightGray
 	cursor pointer
 	padding 5px
 
+.gfw .layer-list-item input[type='radio']
+	margin 3px 0
+
 /* Layer Controls Colors */
 .gfw .app-header.mapView .forest-change,
-.gfw .app-header.mapView .forest-change.active > a
+.gfw .app-header.mapView .forest-change.active > .layer-title
 	color forestChange
 
 .gfw .app-header.mapView .forest-cover,
-.gfw .app-header.mapView .forest-cover.active > a
+.gfw .app-header.mapView .forest-cover.active > .layer-title
 	color forestCover
 
 .gfw .app-header.mapView .forest-use,
-.gfw .app-header.mapView .forest-use.active > a
+.gfw .app-header.mapView .forest-use.active > .layer-title
 	color forestUse
 
 .gfw .app-header.mapView .conservation,
-.gfw .app-header.mapView .conservation.active > a
+.gfw .app-header.mapView .conservation.active > .layer-title
 	color conservation
 
 .gfw .app-header.mapView .agro-suitability,
-.gfw .app-header.mapView .agro-suitability.active > a
+.gfw .app-header.mapView .agro-suitability.active > .layer-title
 	color agroSuit
 
 .gfw .app-header.mapView .company-pages,
-.gfw .app-header.mapView .company-pages.active > a
+.gfw .app-header.mapView .company-pages.active > .layer-title
 	color company
 
 .gfw .app-header.mapView .forest-change .layer-line

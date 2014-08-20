@@ -25,19 +25,19 @@
 		</div>
 		<div class='map-layer-controls'>
 			<ul>
-				<li id='forest-change-layers' class="layer-list-header forest-change" data-filter='forest-change'>
+				<li id='forest-change-layers' class="layer-list-header forest-change" data-class='forest-change' data-filter='forestChange'>
 					<a>Forest Change</a><div class='layer-line'></div>
 				</li>
-				<li id='forest-cover-layers' class="layer-list-header forest-cover" data-filter='forest-cover'>
+				<li id='forest-cover-layers' class="layer-list-header forest-cover" data-class='forest-cover' data-filter='forestCover'>
 					<a>Forest Cover</a><div class='layer-line'></div>
 				</li>
-				<li id='forest-use-layers' class="layer-list-header forest-use" data-filter='forest-use'>
+				<li id='forest-use-layers' class="layer-list-header forest-use" data-class='forest-use' data-filter='forestUse'>
 					<a>Forest Use</a><div class='layer-line'></div>
 				</li>
-				<li id='conservation-layers' class="layer-list-header conservation" data-filter='conservation'>
+				<li id='conservation-layers' class="layer-list-header conservation" data-class='conservation' data-filter='conservation'>
 					<a>Conservation</a><div class='layer-line'></div>
 				</li>
-				<li id='agro-suitability-layers' class="layer-list-header agro-suitability" data-filter='agro-suitability'>
+				<li id='agro-suitability-layers' class="layer-list-header agro-suitability" data-class='agro-suitability' data-filter='agroSuitability'>
 					<a>Agricultural Suitability</a><div class='layer-line'></div>
 				</li>
 <!-- 				<li id='company-pages-layers' class="layer-list-header company-pages" data-filter='company-pages'>
@@ -46,7 +46,75 @@
 			</ul>
 		</div>
 		<div id='master-layer-list' class=''>
+			<div id='list-title' class="filter-list-title" data-bind='text: filterTitle'></div>
+			<div class="layer-line"></div>
+			<ul class="filter-list">
+				<span data-bind="visible: forestChange()">
+					<li class="layer-list-item forest-change" data-layer='tcc'>
+						<input id='treeCoverRadio' type='radio' name='forest-change'/>
+						<label for='treeCoverRadio' class='layer-title'>Annual Tree Cover Change</label>
+						<span class='layer-source'></span>
+						<p class="layer-sub-title">(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)</p>
+					</li>
+					<li class="layer-list-item forest-change" data-layer='forma'>
+						<input id='formaAlertsRadio' type='radio' name='forest-change'/>
+						<label for='formaAlertsRadio' class='layer-title'>FORMA</label>
+						<span class='layer-source'></span>
+						<p class="layer-sub-title">(monthly, 500m, humid tropics)</p>
+					</li>
+					<li class="layer-list-item forest-change" data-layer='fires'>
+						<input id='activeFiresRadio' type='radio' name='forest-change'/>
+						<label for='activeFiresRadio' class='layer-title'>Active Fires</label>
+						<span class='layer-source'></span>
+						<p class="layer-sub-title">(past 7 days, 1km, global; NASA)</p>
+					</li>
+					<li class="layer-list-item forest-change" data-layer='none'>
+						<input id='noForestChangeSelection' type='radio' name='forest-change'/>
+						<label for='noForestChangeSelection' class='layer-title'>None</label>
+					</li>
+				</span>
+				<span data-bind="visible: forestCover()">
+					<li class="layer-list-item forest-cover" data-layer="tcd">
+						<input id='treeCoverDensityRadio' type='radio' name='forest-cover'/>
+						<label for='treeCoverDensityRadio' class='layer-title'>Tree Cover Density</label>
+						<span class='layer-source'></span>
+						<p class="layer-sub-title">(year 2000, 30m global)</p>
+					</li>
+					<li class="layer-list-item forest-cover" data-layer="ifl">
+						<input id='intactForestsRadio' type='radio' name='forest-cover'/>
+						<label for='intactForestsRadio' class='layer-title'>Intact Forest Landscapes</label>
+						<span class='layer-source'></span>
+						<p class="layer-sub-title">(year 2000, 30m global)</p>
+					</li>
 
+					<li class="layer-list-item forest-cover" data-layer="peat">
+						<input id='peatLandsRadio' type='radio' name='forest-cover'/>
+						<label for='peatLandsRadio' class='layer-title'>Peat Lands</label>
+						<span class='layer-source'></span>
+						<p class="layer-sub-title">(year 2002, Indonesia)</p>
+					</li>
+
+					<li class="layer-list-item forest-cover" data-layer="tcfs">
+						<input id='carbonStocksRadio' type='radio' name='forest-cover'/>
+						<label for='carbonStocksRadio' class='layer-title'>Carbon Stocks</label>
+						<span class='layer-source'></span>
+						<p class="layer-sub-title">(early 2000s, 1km, tropics)</p>
+					</li>
+
+					<li class="layer-list-item forest-cover" data-layer='none'>
+						<input id='noForestCoverSelection' type='radio' name='forest-cover'/>
+						<label for='noForestCoverSelection' class='layer-title'>None</label>
+					</li>
+				</span>
+<!-- 
+				<li class="layer-list-item">
+
+				</li> -->
+
+
+
+
+			</ul>
 		</div>
 	</header>
 </div>

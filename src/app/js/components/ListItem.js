@@ -1,7 +1,8 @@
 define([
 	"react",
+	"dojo/topic",
 	"utils/Hasher"
-], function (React, Hasher) {
+], function (React, topic, Hasher) {
 
 	// Must Contain the following props
 	// title - String
@@ -9,16 +10,27 @@ define([
 	// subtitle - String
 	// layerId - String
 	// source - String
-	// toggle - Function
 	// active - Boolean
 	// visible - Boolean
+	// type - String (radio or check)
+	// unique - String (Unique Identifier)
+	// Functions
+	// handle - from parent
+	// postCreate - from parent
 
 	return React.createClass({
 
 		getInitialState: function () {
 
 			var layerArray = Hasher.getLayers(),
-					active = layerArray.indexOf(this.props.layerId) > -1;
+					active = layerArray.indexOf(this.props.unique) > -1;
+
+			if (active) {
+				topic.publish('toggleLayer', this.props.layerId);
+			}
+
+			// Pass A reference of this component to the parent
+			this.props.postCreate(this);
 
 			return ({
 				active: active
@@ -29,23 +41,17 @@ define([
 
 		},
 
-		componentDidUpdate: function () {
-			
+		componentDidUpdate: function (newProps, oldProps) {
+
 		},
 
-		toggle: function (e) {
-			var change = !this.state.active;
-
-			Hasher.toggleLayers(this.props.layerId, change);
-
-			this.setState({
-				active: change
-			});
+		toggle: function (e) {	
+			this.props.handle(this);
 		},
 
 		render: function () {
 			var newClass = 'layer-list-item ' + 
-											this.props.filterClass + 
+											this.props.filterClass +
 											(this.state.active ? ' active' : '') +
 											(this.props.visible ? '' : ' hidden');			
 

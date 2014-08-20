@@ -1,8 +1,9 @@
 define([
 	"dojo/hash",
 	"dojo/io-query",
-	"dojo/topic"
-], function (hash, ioQuery, topic) {
+	"dojo/topic",
+	"dojo/_base/array"
+], function (hash, ioQuery, topic, arrayUtils) {
 	'use strict';
 
 	var currentView;
@@ -58,13 +59,31 @@ define([
 				lyrsArray.push(layerId);
 			}
 
-			state.lyrs = lyrsArray.join(',');
+			if (lyrsArray.length === 0) {
+				delete state.lyrs;
+			} else {
+				state.lyrs = lyrsArray.join(',');
+			}
+
 			hash(ioQuery.objectToQuery(state));
 		},
 
 		getLayers: function () {
-			var layers = ioQuery.queryToObject(hash())['lyrs'];
+			var layers = ioQuery.queryToObject(hash()).lyrs;
 			return layers ? layers.split(',') : [];
+		},
+
+		removeLayers: function (value) {
+			var state = ioQuery.queryToObject(hash()),
+					layers = state.lyrs ? state.lyrs.split(',') : [],
+					index = arrayUtils.indexOf(layers, value);
+
+			if (index > -1) {
+				layers.splice(index, 1);
+				state.lyrs = layers;
+				hash(ioQuery.objectToQuery(state));
+			}
+			
 		},
 
 		changeView: function (view) {

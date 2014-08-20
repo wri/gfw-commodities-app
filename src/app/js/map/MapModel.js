@@ -19,6 +19,14 @@ function (declare, AppConfig, ko) {
       Model.vm.showLocatorOptions = ko.observable(false);
       Model.vm.showClearPinsOption = ko.observable(false);
 
+      // Header Properties
+      Model.vm.forestUse = ko.observable(false);
+      Model.vm.forestCover = ko.observable(false);
+      Model.vm.forestChange = ko.observable(false);
+      Model.vm.conservation = ko.observable(false);
+      Model.vm.agroSuitability = ko.observable(false);
+      Model.vm.filterTitle = ko.observable("");
+
       // Apply Bindings upon initialization
       ko.applyBindings(Model.vm, document.getElementById(el));
     }

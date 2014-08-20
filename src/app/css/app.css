@@ -206,11 +206,6 @@ body {
 }
 
 /* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .app-header .layer-list-item.hidden {
-  display: none;
-}
-
-/* line 121 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   list-style-type: none;
@@ -219,23 +214,28 @@ body {
   margin: 0;
 }
 
-/* line 128 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 125 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-sub-title {
+  margin: 3px 3px 3px 15px;
   font-size: 10px;
-  margin: 3px;
 }
 
-/* line 132 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 129 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-title,
 .gfw .app-header .filter-list .layer-sub-title {
   color: #888;
 }
 
-/* line 136 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .app-header .filter-list > li {
+/* line 133 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .filter-list .layer-list-item {
   border-bottom: 1px solid #e6e6e6;
   cursor: pointer;
   padding: 5px;
+}
+
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .layer-list-item input[type='radio'] {
+  margin: 3px 0;
 }
 
 /* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
@@ -243,37 +243,37 @@ body {
 
 /* line 142 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change,
-.gfw .app-header.mapView .forest-change.active > a {
+.gfw .app-header.mapView .forest-change.active > .layer-title {
   color: #e72698;
 }
 
 /* line 146 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover,
-.gfw .app-header.mapView .forest-cover.active > a {
+.gfw .app-header.mapView .forest-cover.active > .layer-title {
   color: #b2d26e;
 }
 
 /* line 150 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use,
-.gfw .app-header.mapView .forest-use.active > a {
+.gfw .app-header.mapView .forest-use.active > .layer-title {
   color: #c98e6c;
 }
 
 /* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation,
-.gfw .app-header.mapView .conservation.active > a {
+.gfw .app-header.mapView .conservation.active > .layer-title {
   color: #3182bd;
 }
 
 /* line 158 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability,
-.gfw .app-header.mapView .agro-suitability.active > a {
+.gfw .app-header.mapView .agro-suitability.active > .layer-title {
   color: #fdb22c;
 }
 
 /* line 162 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages,
-.gfw .app-header.mapView .company-pages.active > a {
+.gfw .app-header.mapView .company-pages.active > .layer-title {
   color: #5e138a;
 }
 
