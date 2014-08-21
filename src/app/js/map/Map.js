@@ -3,14 +3,22 @@ define([
 	"dojo/_base/declare",
 	"dojo/on",
 	"dojo/dom",
-	"esri/map",
-	"map/config",
 	"dojo/dom-construct",
+	// My Modules
+	"map/config",
+	// Esri Modules
+	"esri/map",
+	"esri/layers/RasterFunction",
+	"esri/layers/ImageParameters",
+	"esri/layers/ImageServiceParameters",
+	"esri/layers/ArcGISImageServiceLayer",
+	"esri/layers/ArcGISDynamicMapServiceLayer",
+	// Esri Dijjits
 	"esri/dijit/Geocoder",
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, Map, MapConfig, domConstruct, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, domConstruct, MapConfig, Map, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -90,7 +98,146 @@ define([
 		},
 
 		addLayers: function () {
-			
+
+			var firesLayer,
+					fireParams,
+					formaAlertsLayer,
+					formaParams,
+					gainLayer,
+					lossLayer,
+					lossParams,
+					treeCoverDensityLayer,
+					forestCoverLayer,
+					forestCoverParams,
+					forestUseLayer,
+					forestUseParams,
+					self = this;
+
+			fireParams = new ImageParameters();
+			fireParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			fireParams.layerIds = MapConfig.fires.defaultLayers;
+			fireParams.format = "png32";
+
+			firesLayer = new ArcGISDynamicLayer(MapConfig.fires.url, {
+				imageParameters: fireParams,
+				id: MapConfig.fires.id,
+				visible: false
+			});
+
+			formaParams = new ImageServiceParameters();
+			formaParams.renderingRule = new RasterFunction({
+				"rasterFunction": "Colormap",
+        "rasterFunctionArguments": {
+            "Colormap": MapConfig.forma.colormap,
+            "Raster": {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": {
+                    "InputRanges": MapConfig.forma.defaultRange,
+                    "OutputValues": [1],
+                    "AllowUnmatched": false
+                }
+            }
+        },
+        "variableName": "Raster"
+			});
+
+			formaAlertsLayer = new ArcGISImageServiceLayer(MapConfig.forma.url, {
+				imageServiceParameters: formaParams,
+				id: MapConfig.forma.id,
+				visible: false,
+				opacity: 1
+			});
+
+			lossParams = new ImageServiceParameters();
+			lossParams.renderingRule = new RasterFunction({
+				"rasterFunction": "Colormap",
+        "rasterFunctionArguments": {
+            "Colormap": MapConfig.loss.colormap,
+            "Raster": {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": {
+                    "InputRanges": MapConfig.loss.defaultRange,
+                    "OutputValues": [1],
+                    "AllowUnmatched": false
+                }
+            }
+        },
+        "variableName": "Raster"
+			});
+
+			lossLayer = new ArcGISImageServiceLayer(MapConfig.loss.url, {
+				imageServiceParameters: lossParams,
+				id: MapConfig.loss.id,
+				visible: false,
+				opacity: 1
+			});
+
+			gainLayer = new ArcGISImageServiceLayer(MapConfig.gain.url, {
+				id: MapConfig.gain.id,
+				visible: false
+			});
+
+			treeCoverDensityLayer = new ArcGISImageServiceLayer(MapConfig.tcd.url, {
+				id: MapConfig.tcd.id,
+				visible: false
+			});
+
+			// Uses ifl config, which is the same as peat, tfcs, ldcover, legal.  They
+			// are all part of the same dynamic layer so any config item could be used
+			forestCoverParams = new ImageParameters();
+			forestCoverParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			forestCoverParams.layerIds = [];
+			forestCoverParams.format = "png32";
+
+			forestCoverLayer = new ArcGISDynamicLayer(MapConfig.ifl.url, {
+				imageParameters: forestCoverParams,
+				id: MapConfig.ifl.id,
+				visible: false
+			});
+
+			// Uses oilPerm config, which is the same as logPerm, minePerm, woodPerm.  They
+			// are all part of the same dynamic layer so any config item could be used
+			forestUseParams = new ImageParameters();
+			forestUseParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			forestUseParams.layerIds = [];
+			forestUseParams.format = "png32";
+
+			forestUseLayer = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
+				imageParameters: forestUseParams,
+				id: MapConfig.oilPerm.id,
+				visible: false
+			});
+
+			app.map.addLayers([
+				// Forest Change Layers
+				formaAlertsLayer,
+				lossLayer,
+				gainLayer,
+				// Forest Cover Layers
+				treeCoverDensityLayer,
+				forestCoverLayer,
+				// Forest Use Layers
+				forestUseLayer,
+				// Points Layers
+				firesLayer
+			]);
+
+			on.once(app.map, 'layers-add-result', function () {
+				self.emit('layers-loaded', {});
+			});
+
+			firesLayer.on('error', this.addLayerError);
+			formaAlertsLayer.on('error', this.addLayerError);
+			lossLayer.on('error', this.addLayerError);
+			gainLayer.on('error', this.addLayerError);
+			treeCoverDensityLayer.on('error', this.addLayerError);
+			forestCoverLayer.on('error', this.addLayerError);
+			forestUseLayer.on('error', this.addLayerError);
+
+		},
+
+		addLayerError: function (err) {
+			console.error(err);
 		}
 
 	});

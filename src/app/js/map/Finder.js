@@ -9,13 +9,9 @@ define([
 ], function (dom, MapModel, Graphic, arrayUtils, Point, webMercatorUtils, PictureSymbol) {
 	'use strict';
 
-	var _map;
+  // NOTE: Map is available as app.map
 
 	return {
-
-		setMap: function (map) {
-			_map = map;
-		},
 
 		searchAreaByCoordinates: function () {
 			var values = {},
@@ -34,7 +30,7 @@ define([
           },
           nextAvailableId = function() {
               var value = 0;
-              arrayUtils.forEach(_map.graphics.graphics, function(g) {
+              arrayUtils.forEach(app.map.graphics.graphics, function(g) {
                   if (g.attributes) {
                       if (g.attributes.locatorValue) {
                           value = Math.max(value, parseInt(g.attributes.locatorValue));
@@ -66,12 +62,12 @@ define([
           attributes.locatorValue = nextAvailableId();
           attributes.id = 'LOCATOR_' + attributes.locatorValue;
           graphic = new Graphic(point, symbol, attributes);
-          _map.graphics.add(graphic);
-          _map.centerAndZoom(point, 7);
+          app.map.graphics.add(graphic);
+          app.map.centerAndZoom(point, 7);
           MapModel.set('showClearPinsOption', true);
       }
 		}
 
 	};
 
-})
+});

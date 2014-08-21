@@ -1,8 +1,10 @@
 define([
 	"dojo/topic",
+	"map/config",
 	"controllers/MapController",
-	"controllers/ViewController"
-], function (topic, MapController, ViewController) {
+	"controllers/ViewController",
+	"controllers/LayerController"
+], function (topic, MapConfig, MapController, ViewController, LayerController) {
 	'use strict';
 
 	return {
@@ -13,10 +15,31 @@ define([
 			topic.subscribe('changeView', function (newView) {
 				ViewController.load(newView);
 			});
-
-			// Map Controller Tools
+			// Layer Controller Functions
 			topic.subscribe('toggleLayer', function (layerId) {
-				//alert(layerId);
+				var config = MapConfig[layerId];
+				if (config) {
+					LayerController.toggleLayers(config);
+				}
+			});
+
+			// Layer Controller Functions
+			topic.subscribe('showLayer', function (layerId) {
+				var config = MapConfig[layerId];
+				if (config) {
+					LayerController.showLayer(config);
+				}
+			});
+
+			topic.subscribe('hideLayer', function (layerId) {
+				var config = MapConfig[layerId];
+				if (config) {
+					LayerController.hideLayer(config);
+				}
+			});
+
+			topic.subscribe('updateLayer', function (props) {
+				LayerController.updateLayer(props);
 			});
 
 		}

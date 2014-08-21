@@ -20,7 +20,10 @@ define([
 			} else {
 				state.v = 'home';
 				hash(ioQuery.objectToQuery(state));
-			}			
+			}
+
+			/**** <NOTE> Set Default Layers Here, If the default is the radio option none, set in MapConfig.layersUI ****/
+			/**** under the appropriate radio button with property, active: true </NOTE> ****/
 
 			currentView = state.v;
 			topic.subscribe("/dojo/hashchange", function (changedHash) {
@@ -75,14 +78,12 @@ define([
 
 		removeLayers: function (value) {
 			var state = ioQuery.queryToObject(hash()),
-					layers = state.lyrs ? state.lyrs.split(',') : [],
-					index = arrayUtils.indexOf(layers, value);
+					layers = state.lyrs.split(',');
 
-			if (index > -1) {
-				layers.splice(index, 1);
-				state.lyrs = layers;
-				hash(ioQuery.objectToQuery(state));
-			}
+			layers.splice(layers.indexOf(value), 1);
+			state.lyrs = layers.join(",");
+
+			hash(ioQuery.objectToQuery(state));
 			
 		},
 

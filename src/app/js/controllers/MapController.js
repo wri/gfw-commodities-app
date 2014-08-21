@@ -43,17 +43,19 @@ define([
 			// This is not esri map, it is custom map class, esri map object available as map.map
 			map = new Map(MapConfig.mapOptions);
 
+			// Set the map object to the global app variable for easy use throughout the project
+			app.map = map.map;
+
 			map.on("map-ready", function () {
-				// Initialize Helper Classes or pass reference of map to them
-				Finder.setMap(map.map);
 				// Bind the Model to the Map Panel, and then again to the list in the header
 				mapModel = MapModel.initialize("map-container");
-				MapModel.applyTo("master-layer-list");
+				// MapModel.applyTo("master-layer-list");
+			});
 
+			map.on("layers-loaded", function () {
 				// Render any React Components - These will activate any default or hashed layers
-				// Only use this after map is ready
+				// Only use this after the layers have been loaded
 				self.renderComponents();
-			
 			});
 
 			// Fade in the map controls, first, get a list of the ids		
@@ -120,13 +122,13 @@ define([
 				domStyle.set("master-layer-list", "left", '-1000px');
 			});
 
-			dojoQuery(".layer-list-item.forest-change input").forEach(function (node) {
-				on(node, "change", LayerController.toggleForestChangeLayers.bind(LayerController));
-			});
+			// dojoQuery(".layer-list-item.forest-change input").forEach(function (node) {
+			// 	on(node, "change", LayerController.toggleForestChangeLayers.bind(LayerController));
+			// });
 
-			dojoQuery(".layer-list-item.forest-cover input").forEach(function (node) {
-				on(node, "change", LayerController.toggleForestCoverLayers.bind(LayerController));
-			});
+			// dojoQuery(".layer-list-item.forest-cover input").forEach(function (node) {
+			// 	on(node, "change", LayerController.toggleForestCoverLayers.bind(LayerController));
+			// });
 
 		},
 
@@ -149,21 +151,25 @@ define([
 			domClass.remove("master-layer-list");
 			domClass.add("master-layer-list", newclass);
 
-			// Hide other List Elements
-			MapModel.set('forestUse', false);
-			MapModel.set('forestCover', false);
-			MapModel.set('forestChange', false);
-			MapModel.set('conservation', false);
-			MapModel.set('agroSuitability', false);
+			// If Reverting to Knockout Way, Header data-class need to be changed to first parameter in below functions
 
-			MapModel.set(filter, true);
-			MapModel.set('filterTitle', el.children[0].innerHTML);
+			// Hide other List Elements
+			// MapModel.set('forestUse', false);
+			// MapModel.set('forestCover', false);
+			// MapModel.set('forestChange', false);
+			// MapModel.set('conservation', false);
+			// MapModel.set('agroSuitability', false);
+
+			// MapModel.set(filter, true);
+			// MapModel.set('filterTitle', el.children[0].innerHTML);
 
 			// Update the list, reuse the title from the first anchor tag in the element (el)
-			// layerList.setProps({
-			// 	title: el.children[0].innerHTML,
-			// 	filter: filter
-			// });
+			if (layerList) {
+				layerList.setProps({
+					title: el.children[0].innerHTML,
+					filter: filter
+				});
+			}
 		},
 
 		renderComponents: function () {
@@ -180,9 +186,9 @@ define([
 			// 	items.push(radio);
 			// });
 
-			// layerList = new LayerList({
-			// 	items: items
-			// }, "master-layer-list");
+			layerList = new LayerList({
+				items: MapConfig.layersUI
+			}, "master-layer-list");
 
 		}
 

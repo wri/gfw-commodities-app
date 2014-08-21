@@ -20,6 +20,7 @@ forestUse = #C98E6C
 conservation = #3182BD
 agroSuit = #fdb22c
 company = #5e138a
+gainLayer = #5952de
 /* Layer Filter Colors */
 
 
@@ -135,32 +136,63 @@ company = #5e138a
 	cursor pointer
 	padding 5px
 
+.gfw .filter-list .layer-list-item.hidden
+	display none
+
 .gfw .layer-list-item input[type='radio']
 	margin 3px 0
 
+/* Styling in Nested Lists in the Master Layer List */	
+
+.gfw .app-header .filter-list ul
+	list-style-type none
+	margin-left 20px
+	font-size 13px
+	padding 0
+
+.gfw .app-header .filter-list ul > li
+	border none
+
+.gfw .forest-change.active .layer-list-item .layer-title,
+.gfw .forest-change.active .layer-list-item .layer-sub-title
+	color mediumGray
+
+/* Styling in Nested Lists in the Master Layer List */
+
+/* Special Case Colors for Specific Layers in List */
+.gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title
+	color gainLayer
+/* Special Case Colors for Specific Layers in List */
+
 /* Layer Controls Colors */
 .gfw .app-header.mapView .forest-change,
-.gfw .app-header.mapView .forest-change.active > .layer-title
+.gfw .forest-change.active .layer-title,
+.gfw .forest-change.active .layer-list-item.active .layer-title
 	color forestChange
 
 .gfw .app-header.mapView .forest-cover,
-.gfw .app-header.mapView .forest-cover.active > .layer-title
+.gfw .app-header.mapView .forest-cover.active .layer-title,
+.gfw .forest-cover.active .layer-list-item.active .layer-title
 	color forestCover
 
 .gfw .app-header.mapView .forest-use,
-.gfw .app-header.mapView .forest-use.active > .layer-title
+.gfw .app-header.mapView .forest-use.active .layer-title,
+.gfw .forest-use.active .layer-list-item.active .layer-title
 	color forestUse
 
 .gfw .app-header.mapView .conservation,
-.gfw .app-header.mapView .conservation.active > .layer-title
+.gfw .app-header.mapView .conservation.active .layer-title,
+.gfw .conservation.active .layer-list-item.active .layer-title
 	color conservation
 
 .gfw .app-header.mapView .agro-suitability,
-.gfw .app-header.mapView .agro-suitability.active > .layer-title
+.gfw .app-header.mapView .agro-suitability.active .layer-title,
+.gfw .agro-suitability.active .layer-list-item.active .layer-title
 	color agroSuit
 
 .gfw .app-header.mapView .company-pages,
-.gfw .app-header.mapView .company-pages.active > .layer-title
+.gfw .app-header.mapView .company-pages.active .layer-title,
+.gfw .company-pages.active .layer-list-item.active .layer-title
 	color company
 
 .gfw .app-header.mapView .forest-change .layer-line

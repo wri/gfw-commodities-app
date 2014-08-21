@@ -2,140 +2,178 @@ define([
 	"react",
 	"dojo/topic",
 	"utils/Hasher",
-	"components/ListItem"
-], function (React, topic, Hasher, ListItem) {
+	"components/Radio",
+	"components/Check"	
+], function (React, topic, Hasher, Radio, Check) {
 
 	var _components = [];
 
-	var List = React.createClass({
+  var List = React.createClass({
 
-		getInitialState: function (properties) {
+    getInitialState: function () {
+      return ({
+        title: this.props.title,
+        filter: this.props.filter
+      });
+    },
 
-			var props = properties || this.props,
-					self = this;
+    componentDidMount: function () {
+    	// Component is Done, Enforce Rules or Toggle Items Here if Necessary
+    	// This is probably the right spot to check to make sure only one option
+    	// per radio container is selected
 
-			return ({
-				items: props.items,
-				filter: props.filter
-			});
 
+
+    },
+
+    componentWillReceiveProps: function (newProps, oldProps) {
+			this.setState(newProps);
 		},
 
-		componentDidMount: function () {
-			
-		},
+    render: function () {
+      return (
+        React.DOM.div({'className':'smart-list'}, 
+          React.DOM.div({'className': 'filter-list-title'}, this.props.title),
+          React.DOM.div({'className': 'layer-line'}),
+          React.DOM.ul({'className': 'filter-list'},
+            this.props.items.map(this._mapper, this)
+          )
+        )
+      );
+    },
 
-		componentDidUpdate: function () {
-			
-		},
+    _mapper: function (item) {
 
-		componentWillReceiveProps: function (newProps, oldProps) {
-			this.setState(this.getInitialState(newProps));
-		},
+      item.visible = (this.state.filter === item.filter);
+      item.handle = this._handle;
+      item.postCreate = this._postCreate;      
 
-		render: function () {
+      if (item.type === "radio") {
+        return new Radio(item);
+      } else {
+        return new Check(item);
+      }
 
-			var createListItems = function (item) {
-				return new ListItem({
-					title: item.title,
-					subtitle: item.subtitle,
-					source: item.source,
-					layerId: item.layerId,
-					filterClass: item.filterClass,
-					type: item.type,
-					unique: item.unique,
-					// Property for Display
-					visible: (this.state.filter === item.filterClass),
-					// Functions
-					handle: this._handle,
-					postCreate: this._postCreate
-				});
-			};
+    },
 
-			return (
-				React.DOM.div({},
-					React.DOM.div({'className': 'filter-list-title'}, this.props.title),
-					React.DOM.div({'className': 'layer-line'}),
-					React.DOM.ul({'className': 'filter-list'},
-						this.props.items.map(createListItems, this)
-					)
-				)
-			);
+    _handle: function (component) {
 
-		},
+      if (component.props.type === 'radio') {
+        this._radio(component);
+      } else {
+        this._check(component);
+      }
+    },
 
-		_handle: function (component) {
-			if (component.props.type === 'check') {
-				this._check(component);
-			} else {
-				this._radio(component);
-			}
-		},
+    _check: function (component) {
+    	var newState = !component.state.active;
+      component.setState({
+        active: newState
+      });
+      Hasher.toggleLayers(component.props.key);
+      if (component.props.useRadioCallback) {
+        topic.publish('toggleLayer', component.props.key);
+      } else {
+        // Call this function on the next animation frame to give React time 
+        // to render the changes from its new state, the callback needs to read
+        // the ui to update the layer correctly
+        requestAnimationFrame(function () {
+          topic.publish('updateLayer', component.props);
+        });
+      }   
+    },
 
-		_postCreate: function (component) {
-			_components.push(component);
-		},
+    _radio: function (component) {
 
-		_check: function (component) {
+      var previous,
+      		isNewSelection;
 
-			Hasher.toggleLayers(component.props.unique);
-			topic.publish('toggleLayer', component.props.layerId);
+      _components.forEach(function (item, idx) {
+        if (item.props.filter === component.props.filter) {
+          if (item.state.active) {
+            previous = item; 
+          }
+        }
+      });
 
-			component.setState({
-				active: !component.state.active
-			});
+      if (previous) {
+      	isNewSelection = (previous.props.key !== component.props.key);
+        if (isNewSelection) {
+          
+          previous.setState({
+            active: false
+          });
 
-		},
+          // Remove Previous Hash but ignore it if None was previous
+          if (previous.props.key.search("none_") === -1) {
+          	Hasher.toggleLayers(previous.props.key);
+						topic.publish('hideLayer', previous.props.key);
+          }
 
-		_radio: function (component) {
-			var previous;
+          // Toggle Children for Previous if it has any
+          this._toggleChildren(previous, 'remove');
 
-			_components.forEach(function (comp) {
-				if (comp.props.filterClass === component.props.filterClass) {
+          // Add New if None is not selected and isNew
+		      if (component.props.key.search("none_") === -1) {
+		      	console.log("HEy");
+		      	Hasher.toggleLayers(component.props.key);
+						topic.publish('showLayer', component.props.key);
+		      }
 
-					if (comp.state.active) {
-						previous = comp;
-					}
+        }
+      } else {
+      	// Add New if None is not selected and isNew
+	      if (component.props.key.search("none_") === -1) {
+	      	Hasher.toggleLayers(component.props.key);
+					topic.publish('showLayer', component.props.key);
+	      }
+      }
 
-					comp.setState({
-						active: false
-					});
-				}
-			});
+      component.setState({
+        active: true
+      });
 
-			if (previous) {
-				if (previous.props.unique !== component.props.unique) {
-					// Remove Previous
-					Hasher.toggleLayers(previous.props.unique);
-					topic.publish('toggleLayer', previous.props.layerId);
-					// Add New
-					Hasher.toggleLayers(component.props.unique);
-					topic.publish('toggleLayer', component.props.layerId);
-				}
+      this._toggleChildren(component, 'add');
 
-				component.setState({
-					active: true
-				});
+    },
 
-			} else {
+    _toggleChildren: function (component, action) {
 
-				Hasher.toggleLayers(component.props.unique);
-				topic.publish('toggleLayer', component.props.layerId);
+    	var childComponents = [];
 
-				component.setState({
-					active: true
-				});
+    	if (component.props.children) {
+    		component.props.children.forEach(function (child) {
+    			_components.forEach(function (comp) {
+    				if (comp.props.key === child.key) {
+    					childComponents.push(comp);
+    				}
+    			});
+    		});
 
-			}
+    		if (action === 'remove') {
+    			childComponents.forEach(function (child) {
+    				if (child.state.active) {
+  						topic.publish('hideLayer', child.props.key);
+  						Hasher.removeLayers(child.props.key);
+    				}
+	    		});
+    		} else {
+    			childComponents.forEach(function (child) {
+    				if (child.state.active) {
+							topic.publish('showLayer', child.props.key);
+							Hasher.toggleLayers(child.props.key);
+    				}
+	    		});
+    		}
+    	}
 
-		},
+    },
 
-		_showChildren: function () {
-			
-		}
+    _postCreate: function (component) {
+      _components.push(component);
+    }
 
-	});
-
+  });
 
 	return function (props, el) {
 		return React.renderComponent(new List(props), document.getElementById(el));

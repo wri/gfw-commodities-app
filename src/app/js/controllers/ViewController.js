@@ -32,8 +32,8 @@ define([
 				callback = this.getCallback(view);
 			}
 			Loader.getTemplate(view).then(function (template) {
-				self.viewLoaded(view);
 				callback(template);
+				self.viewLoaded(view);
 			});
 
 		},
