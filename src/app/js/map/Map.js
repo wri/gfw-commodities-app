@@ -12,13 +12,14 @@ define([
 	"esri/layers/ImageParameters",
 	"esri/layers/ImageServiceParameters",
 	"esri/layers/ArcGISImageServiceLayer",
+	"esri/layers/ArcGISTiledMapServiceLayer",
 	"esri/layers/ArcGISDynamicMapServiceLayer",
 	// Esri Dijjits
 	"esri/dijit/Geocoder",
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, domConstruct, MapConfig, Map, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, domConstruct, MapConfig, Map, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -111,6 +112,9 @@ define([
 					forestCoverParams,
 					forestUseLayer,
 					forestUseParams,
+					protectAreasLayer,
+					agroSuitabilityLayer,
+					agroSuitabilityParams,
 					self = this;
 
 			fireParams = new ImageParameters();
@@ -208,11 +212,33 @@ define([
 				visible: false
 			});
 
+			protectAreasLayer = new ArcGISTiledMapServiceLayer(MapConfig.pal.url, {
+				id: MapConfig.pal.id,
+				visible: false
+			});
+
+			// Uses opsd config, which is the same as cons, elev, slope, rain, soilDr, soilDe, soilAc, soilTy.  
+			// They are all part of the same dynamic layer so any config item could be used
+			agroSuitabilityParams = new ImageParameters();
+			agroSuitabilityParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			agroSuitabilityParams.layerIds = [];
+			agroSuitabilityParams.format = "png32";
+
+			agroSuitabilityLayer = new ArcGISDynamicLayer(MapConfig.opsd.url, {
+				imageParameters: agroSuitabilityParams,
+				id: MapConfig.opsd.id,
+				visible: false
+			});
+
 			app.map.addLayers([
 				// Forest Change Layers
 				formaAlertsLayer,
 				lossLayer,
 				gainLayer,
+				// Conservation Layers
+				protectAreasLayer,
+				// Agricultural Suitability Layers
+				agroSuitabilityLayer,
 				// Forest Cover Layers
 				treeCoverDensityLayer,
 				forestCoverLayer,
@@ -233,6 +259,8 @@ define([
 			treeCoverDensityLayer.on('error', this.addLayerError);
 			forestCoverLayer.on('error', this.addLayerError);
 			forestUseLayer.on('error', this.addLayerError);
+			protectAreasLayer.on('error', this.addLayerError);
+			agroSuitabilityLayer.on('error', this.addLayerError);
 
 		},
 

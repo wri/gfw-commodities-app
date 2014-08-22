@@ -20,9 +20,34 @@ define([
     componentDidMount: function () {
     	// Component is Done, Enforce Rules or Toggle Items Here if Necessary
     	// This is probably the right spot to check to make sure only one option
-    	// per radio container is selected
+    	// per radio container is selected or select none if none are selected
 
+    	// Radio Button Groups
+    	var radioGroups = ['forest-change','forest-cover','agro-suitability'],
+    			noneComponent,
+    			foundActive;
 
+    	radioGroups.forEach(function (group) {
+    		foundActive = false;
+    		_components.forEach(function (component) {
+    			if (component.props.filter === group) {
+    				// Locate the none radio button
+    				if (component.props.key.search("none_") > -1) {
+    					noneComponent = component;
+    				}
+    				// Check if any are active
+    				if (component.state.active) {
+    					foundActive = true;
+    				}
+    			}
+    		});
+    		// If none are active, select the none radio button
+    		if (!foundActive) {
+    			noneComponent.setState({
+    				active: true
+    			});
+    		}
+    	});
 
     },
 
@@ -115,7 +140,6 @@ define([
 
           // Add New if None is not selected and isNew
 		      if (component.props.key.search("none_") === -1) {
-		      	console.log("HEy");
 		      	Hasher.toggleLayers(component.props.key);
 						topic.publish('showLayer', component.props.key);
 		      }

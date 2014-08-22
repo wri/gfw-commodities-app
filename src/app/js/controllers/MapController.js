@@ -14,9 +14,10 @@ define([
 	"map/MapModel",
 	"utils/Hasher",
 	"utils/Animator",
-	"controllers/LayerController",
+	"map/Controls",
+	"map/LayerController",
 	"components/LayerList"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, MapConfig, Map, Finder, MapModel, Hasher, Animator, LayerController, LayerList) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, MapConfig, Map, Finder, MapModel, Hasher, Animator, MapControl, LayerController, LayerList) {
 	'use strict';
 
 	var initialized = false,
@@ -121,6 +122,12 @@ define([
 				domStyle.set("master-layer-list", "opacity", 0.0);
 				domStyle.set("master-layer-list", "left", '-1000px');
 			});
+
+			dojoQuery(".fires_toolbox .toolbox-list li").forEach(function (node) {
+				on(node, "click", MapControl.toggleFiresLayerOptions);
+			});
+
+			on(dom.byId("high-confidence"), "change", MapControl.toggleFiresConfidenceLevel);
 
 			// dojoQuery(".layer-list-item.forest-change input").forEach(function (node) {
 			// 	on(node, "change", LayerController.toggleForestChangeLayers.bind(LayerController));

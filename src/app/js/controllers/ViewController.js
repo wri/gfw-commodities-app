@@ -15,14 +15,15 @@ define([
 	return {
 
 		init: function (defaultView) {
+			var self = this;
 			// Initialize Header, Footer, and defaultView
-			this.load('footer', Footer.init);
-			this.load('header', function (template) {
+			self.load('footer', Footer.init);
+			self.load('header', function (template) {
 				Header.init(template);
 				// second parameter signifies the view is not external, always false in this case
 				Header.updateView(defaultView, false);
+				self.load(defaultView);
 			});
-			this.load(defaultView);
 		},
 
 		load: function (view, callback) {

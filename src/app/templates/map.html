@@ -88,5 +88,32 @@
 			</div>
     </div>
     <!-- End Locator Modal -->
+    <!-- Begin Layer Controls Container -->
+    <div id='layer-controls' class="layer-controls-container">
+      <div id="treecover_change_toolbox" class="toolbox treecover_change_toolbox" style="display: none">
+        TreeCover Tools
+      </div>
+      <div id="forma_toolbox" class="toolbox forma_toolbox" style="display: none">
+        Forma Tools
+      </div>
+      <div id="fires_toolbox" class="toolbox fires_toolbox" style="display: none">
+        <div class="toolbox_legend">
+          <p>NASA active fire alerts</p>
+        </div>
+        <div class="toolbox-inner">
+          <ul class="toolbox-list">
+            <li data-filter='7' class="selected">Past Week</li>
+            <li data-filter='3' >Past 72 hours</li>
+            <li data-filter='2' >Past 48 hours</li>
+            <li data-filter='1' >Past 24 hours</li>
+          </ul>
+          <div class="high-confidence-fires">
+            <input type="checkbox" id='high-confidence'>
+            <label for="high-confidence">Only show high confidence fires</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Layer Controls Container -->
 	</div>
 </div>
