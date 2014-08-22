@@ -6,6 +6,7 @@ border-radius()
 
 baseGray = #e6e6e6
 lightGrayFont = #747474
+mediumGray = #888
 
 // Font Family for the Application
 @font-face
@@ -41,3 +42,20 @@ html, body
 
 .gfw .dijitLayoutContainer
 	overflow hidden
+
+.gfw .custom-check
+	background-color mediumGray
+	display inline-block
+	border-radius(5px)
+	position relative
+	height 10px
+	width 17px
+	
+.gfw .custom-check span
+	background-color #fff
+	border-radius(4px)
+	position absolute
+	height 6px
+	width 6px
+	left 2px
+	top 2px

@@ -132,6 +132,9 @@ gainLayer = #5952de
 .gfw .app-header .filter-list .layer-sub-title
 	color mediumGray
 
+.gfw .app-header .filter-list .layer-title
+	margin-left 5px
+
 .gfw .filter-list .layer-list-item
 	border-bottom 1px solid baseLightGray
 	cursor pointer
@@ -163,6 +166,9 @@ gainLayer = #5952de
 /* Special Case Colors for Specific Layers in List */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title
 	color gainLayer
+
+.gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .custom-check
+	background-color gainLayer
 /* Special Case Colors for Specific Layers in List */
 
 /* Layer Controls Colors */
@@ -214,6 +220,34 @@ gainLayer = #5952de
 .gfw .app-header.mapView .company-pages .layer-line
 	background company
 
+/* Checkbox Styles for these layers */
+.gfw .forest-cover.active .custom-check span,
+.gfw .forest-use.active .custom-check span,
+.gfw .conservation.active .custom-check span,
+.gfw .agro-suitability.active .custom-check span,
+.gfw .company-pages.active .custom-check span,
+.gfw .forest-change.active .layer-list-item.active .custom-check span
+	left 9px
+
+.gfw .forest-change.active .layer-list-item.active .custom-check
+	background-color forestChange
+
+.gfw .forest-cover.active .custom-check
+	background-color forestCover
+
+.gfw .forest-use.active .custom-check
+	background-color forestUse
+
+.gfw .conservation.active .custom-check
+	background-color conservation
+
+.gfw .agro-suitability.active .custom-check
+	background-color agroSuit
+
+.gfw .company-pages.active .custom-check
+	background-color company
+
+/* Checkbox Styles for these layers */
 /* Layer Controls Colors */
 .gfw .nav-topper div
 	line-height 43px

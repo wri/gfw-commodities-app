@@ -51,6 +51,9 @@ define([
         React.DOM.li({'className': className,
                       'data-layer': this.props.key},
           React.DOM.div({'onClick': this.toggle,},
+            React.DOM.span({'className': 'custom-check'},
+              React.DOM.span({})
+            ),
             React.DOM.a({'className': 'layer-title'}, this.props.title),
             React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle)
           )
