@@ -198,9 +198,31 @@ define([
 				layer.setLayerDefinitions(layerDefs);
 
 			}
+		},
+
+		setOverlaysVisibleLayers: function () {
+			var visibleLayers = [],
+					layer,
+					key;
+
+			// Layer Ids are in the config, the key to the config file is under the data-layer attribute of the elements
+			dojoQuery(".gfw .overlays-container .overlays-checkbox.selected").forEach(function (node) {
+				key = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+				visibleLayers.push(MapConfig[key].layerId);
+			});
+
+			layer = app.map.getLayer(MapConfig.overlays.id);
+			if (layer) {
+				if (visibleLayers.length === 0) { 
+					visibleLayers.push(-1);
+					layer.hide();
+				} else {
+					layer.show();
+				}
+				layer.setVisibleLayers(visibleLayers);
+			}
+
 		}
-
-
 
 	};
 

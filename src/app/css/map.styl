@@ -113,7 +113,40 @@ orangeHover = rgba(233, 131, 0, 0.45)
 	font-size 20px
 
 .gfw .maptools-modal .overlays-container
-	margin-bottom 15px
+	margin 15px
+
+.gfw .overlays-container .overlays-checkbox
+	color mediumGray
+	cursor pointer
+
+.gfw .overlays-container .overlays-checkbox.selected
+	color orangeSelected
+
+.gfw .overlays-checkbox .custom-check
+	background-color mediumGray
+	display inline-block
+	border-radius(5px)
+	position relative
+	height 10px
+	width 17px
+	
+.gfw .overlays-checkbox .custom-check span
+	background-color #fff
+	border-radius(4px)
+	position absolute
+	height 6px
+	width 6px
+	left 2px
+	top 2px
+
+.gfw .overlays-checkbox.selected .custom-check
+	background-color orangeSelected
+	
+.gfw .overlays-checkbox.selected .custom-check span
+	left 9px
+
+.gfw .overlays-container .custom-check-label
+	margin-left 5px
 
 .gfw .maptools-modal .esriBasemapGallery
 	padding 15px 25px 5px
@@ -213,11 +246,11 @@ orangeHover = rgba(233, 131, 0, 0.45)
 	text-transform uppercase
 	border 1px solid #000
 	display inline-block
-	padding 5px 5px 2px
+	padding 5px 8px 2px
 	border-radius(5px)
 	cursor pointer
 	font-size 11px
-	margin 0 10px
+	margin 0 6px
 
 .gfw .toolbox .selected
 	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif

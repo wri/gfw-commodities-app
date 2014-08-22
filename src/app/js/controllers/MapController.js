@@ -129,6 +129,10 @@ define([
 
 			on(dom.byId("high-confidence"), "change", MapControl.toggleFiresConfidenceLevel);
 
+			dojoQuery(".gfw .overlays-container .overlays-checkbox").forEach(function (node) {
+				on(node, "click", MapControl.toggleOverlays);
+			});
+
 			// dojoQuery(".layer-list-item.forest-change input").forEach(function (node) {
 			// 	on(node, "change", LayerController.toggleForestChangeLayers.bind(LayerController));
 			// });

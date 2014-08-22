@@ -10,7 +10,8 @@ define([], function () {
 			formaAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
 			activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
 			treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
-			protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer";
+			protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
+			mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer";
 
 	return {
 
@@ -22,6 +23,27 @@ define([], function () {
 			sliderPosition: "top-right"
 		},
 
+		// Layers which are not part of the Master Layer UI List Widget (Colored Categories Stripes across top of the map) go below
+
+		overlays: {
+			id: "MapOverlaysLayer",
+			url: mapOverlaysUrl 
+		},
+
+		road: {
+			layerId: 8 
+		},
+		river: {
+			layerId: 11
+		},
+		settle: {
+			layerId: 1
+		},
+		poBounds: {
+			layerId: 5
+		},
+
+		// End Normal Layers not part of the Master Layer UI List
 		// Keys Match list below which builds the Master Layer UI List
 		// NOTE: If a item is specified in the layersUI below it needs to have a key defined here
 		// If they are on the same layer, give them the same id and url and only add that layer to the map once

@@ -18,7 +18,6 @@ function (declare, AppConfig, ko) {
       Model.vm.showBasemapGallery = ko.observable(false);
       Model.vm.showLocatorOptions = ko.observable(false);
       Model.vm.showClearPinsOption = ko.observable(false);
-      Model.vm.showLayerControls = ko.observable(false);
 
       // Header Properties
       // Model.vm.forestUse = ko.observable(false);

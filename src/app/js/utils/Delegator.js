@@ -52,7 +52,7 @@ define([
 				}
 			});
 
-			topic.subscribe('updateLayer', function (props) {	
+			topic.subscribe('updateLayer', function (props) {
 				if (props.layerType === "tiled") {
 					var config = MapConfig[props.key];
 					if (config) {

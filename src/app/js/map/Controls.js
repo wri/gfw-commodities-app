@@ -55,6 +55,19 @@ define([
 
 			LayerController.setFiresLayerDefinition(filter, highConfidence);
 
+		},
+
+		// this function should also have the ability to handle string (dom node id's) to turn these on
+		toggleOverlays: function (evt, nodeId) {
+			if (evt) {
+				domClass.toggle(evt.currentTarget, 'selected');
+			} else if (nodeId) {
+				// May Extend this to take an array so if 4 nodes need to be updated, I dont update the layer 4 times
+				// instead, toggle all the classes and then update the layer, in this case, nodeId would be an array
+				domClass.toggle(dom.byId(nodeId), 'selected');
+			}
+
+			LayerController.setOverlaysVisibleLayers();
 		}
 
 	};

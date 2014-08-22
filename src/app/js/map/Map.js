@@ -115,6 +115,8 @@ define([
 					protectAreasLayer,
 					agroSuitabilityLayer,
 					agroSuitabilityParams,
+					mapOverlaysLayer,
+					mapOverlaysParams,
 					self = this;
 
 			fireParams = new ImageParameters();
@@ -230,6 +232,17 @@ define([
 				visible: false
 			});
 
+			mapOverlaysParams = new ImageParameters();
+			mapOverlaysParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			mapOverlaysParams.layerIds = [];
+			mapOverlaysParams.format = "png32";
+
+			mapOverlaysLayer = new ArcGISDynamicLayer(MapConfig.overlays.url, {
+				imageParameters: mapOverlaysParams,
+				id: MapConfig.overlays.id,
+				visible: false
+			});
+
 			app.map.addLayers([
 				// Forest Change Layers
 				formaAlertsLayer,
@@ -245,7 +258,9 @@ define([
 				// Forest Use Layers
 				forestUseLayer,
 				// Points Layers
-				firesLayer
+				firesLayer,
+				// Overlays
+				mapOverlaysLayer
 			]);
 
 			on.once(app.map, 'layers-add-result', function () {
@@ -261,6 +276,7 @@ define([
 			forestUseLayer.on('error', this.addLayerError);
 			protectAreasLayer.on('error', this.addLayerError);
 			agroSuitabilityLayer.on('error', this.addLayerError);
+			mapOverlaysLayer.on('error', this.addLayerError);
 
 		},
 
