@@ -18,6 +18,7 @@ define([
 			if (initialized) {
 				return;
 			}
+
 			initialized = true;
 			dom.byId("app-header").innerHTML = template;
 			this.bindEvents();

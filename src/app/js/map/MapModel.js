@@ -19,6 +19,10 @@ function (declare, AppConfig, ko) {
       Model.vm.showLocatorOptions = ko.observable(false);
       Model.vm.showClearPinsOption = ko.observable(false);
 
+
+      // Cached Query Results if they are small enough and repeated often
+      // Model.vm.formaAlertsLayerNames = ko.observable(); <-- NO LONGER NEEDED
+
       // Header Properties
       // Model.vm.forestUse = ko.observable(false);
       // Model.vm.forestCover = ko.observable(false);

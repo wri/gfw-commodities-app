@@ -1,5 +1,6 @@
 define([
 	"dojo/dom-class",
+	"dijit/registry",
 	"utils/Loader",	
 	"controllers/Header",
 	"controllers/Footer",
@@ -9,8 +10,10 @@ define([
 	"controllers/DataController",
 	"controllers/MethodsController",
 	"controllers/PublicationsController"
-], function (domClass, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
+], function (domClass, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
 	'use strict';
+
+	var loadedViews = {};
 
 	return {
 
@@ -32,10 +35,22 @@ define([
 			if (!callback) {
 				callback = this.getCallback(view);
 			}
-			Loader.getTemplate(view).then(function (template) {
-				callback(template);
+
+			// If the View has already been loaded, dont fetch the content again
+			if (loadedViews[view]) {
+				callback();
 				self.viewLoaded(view);
-			});
+				// Resize Became Necessary after adding tundra.css
+				registry.byId("stackContainer").resize();
+			} else {
+				loadedViews[view] = true;
+				Loader.getTemplate(view).then(function (template) {
+					callback(template);
+					self.viewLoaded(view);
+					// Resize Became Necessary after adding tundra.css
+					registry.byId("stackContainer").resize();
+				});
+			}
 
 		},
 

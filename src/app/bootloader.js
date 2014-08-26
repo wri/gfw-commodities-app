@@ -36,7 +36,8 @@
 			src = 'http://js.arcgis.com/3.10/',
 			css = [
 				{ src: 'app/css/app.css', cdn: false },
-				{ src: 'http://js.arcgis.com/3.10/js/esri/css/esri.css', cdn: true }
+				{ src: 'http://js.arcgis.com/3.10/js/esri/css/esri.css', cdn: true },
+				{ src: 'http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css', cdn: true}
 			];
 
 	var loadScript = function (src, attrs) {

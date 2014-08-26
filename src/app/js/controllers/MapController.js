@@ -55,7 +55,8 @@ define([
 
 			map.on("layers-loaded", function () {
 				// Render any React Components - These will activate any default or hashed layers
-				// Only use this after the layers have been loaded
+				// Only use this after the layers have been loaded,
+				// Also call other functions in renderComponents that build UI elements 
 				self.renderComponents();
 			});
 
@@ -185,21 +186,11 @@ define([
 
 		renderComponents: function () {
 
-			// var items = [],
-			// 		key;
-
-			// for (key in MapConfig.masterLayerList) {
-			// 	items.push(MapConfig.masterLayerList[key]);
-			// }
-
-			// // Push in Null Entry to Disable Group of Layers
-			// arrayUtils.forEach(MapConfig.masterListRadioButtons, function (radio) {
-			// 	items.push(radio);
-			// });
-
 			layerList = new LayerList({
 				items: MapConfig.layersUI
 			}, "master-layer-list");
+
+			MapControl.generateTimeSliders();
 
 		}
 

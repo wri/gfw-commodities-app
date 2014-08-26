@@ -1,10 +1,18 @@
 define([
 	"dojo/dom",
 	"dojo/query",
+	"dojo/Deferred",
 	"dojo/dom-class",
 	"dojo/dom-style",
-	"map/LayerController"
-], function (dom, dojoQuery, domClass, domStyle, LayerController) {
+	"dijit/registry",
+	"dojo/dom-construct",
+	"map/config",
+	"map/MapModel",
+	"map/LayerController",
+	"esri/request",
+	"esri/TimeExtent",
+  "esri/dijit/TimeSlider"
+], function (dom, dojoQuery, Deferred, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider) {
 	'use strict';
 
 	return {
@@ -68,6 +76,79 @@ define([
 			}
 
 			LayerController.setOverlaysVisibleLayers();
+		},
+
+		generateTimeSliders: function () {
+			this.buildFormaSlider();
+			this.buildTreeCoverChangeSlider();
+		},
+
+		buildFormaSlider: function () {
+			var incrementer = 0,
+					baseYear = 13,
+					labels = [],
+					timeSlider,
+					timeExtent,
+					month;
+
+			timeSlider = new TimeSlider({
+				style: "width: 500px;height: 50px;",
+				id: "formaSlider"
+			}, dom.byId("formaAlertSlider"));
+
+			timeExtent = new TimeExtent();
+
+			timeSlider.setThumbCount(1);
+			timeSlider.setThumbMovingRate(2000);
+			timeSlider.setLoop(true);
+
+			domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
+      registry.byId(timeSlider.previousBtn.id).domNode.style["vertical-align"] = "text-bottom";
+      registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
+
+      this.fetchFORMAAlertsLabels().then(function (res) {
+      	if (res) {
+      		for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
+      			month = i % 12 === 0 ? 12 : i % 12;
+      			if (i % 12 === 0) { ++incrementer; }
+      			labels.push(month + "-" + (baseYear + incrementer));
+      		}
+
+      		timeExtent.startTime = new Date("1/1/2013 UTC");
+      		timeExtent.endTime = new Date();
+      		timeSlider.createTimeStopsByCount(timeExtent, res.maxValues[0]);
+          timeSlider.setLabels(labels);
+          timeSlider.setThumbIndexes([labels.length - 1]);
+          timeSlider.startup();
+      	}
+      });
+
+
+		},
+
+		buildTreeCoverChangeSlider: function () {
+			//treeCoverSlider
+		},
+
+		fetchFORMAAlertsLabels: function () {
+			var deferred = new Deferred(),
+					req;
+
+			req = request({
+				url: MapConfig.forma.url,
+				content: {"f": "pjson"},
+				handleAs: "json",
+				callbackParamName: "callback"
+			});
+
+			req.then(function (res) {
+				deferred.resolve(res);
+			}, function (err) {
+				console.error(err);
+				deferred.resolve(false);
+			});
+
+			return deferred.promise;
 		}
 
 	};
