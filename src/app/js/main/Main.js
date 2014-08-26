@@ -1,4 +1,5 @@
 define([
+	"dojox/mobile/parser",
 	"main/config",
 	"esri/config",
 	"dojo/_base/array",
@@ -8,10 +9,9 @@ define([
 	"utils/Delegator",
 	"controllers/ViewController",
 	// Load Necessary Layout Widgets and Parser Here
-	"dojox/mobile/parser",
   "dijit/layout/ContentPane",
   "dijit/layout/StackContainer"
-], function (AppConfig, esriConfig, arrayUtils, Hasher, Helper, Delegator, ViewController, parser) {
+], function (parser, AppConfig, esriConfig, arrayUtils, Hasher, Helper, Delegator, ViewController) {
 	'use strict';
 	return {
 

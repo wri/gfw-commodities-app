@@ -863,12 +863,19 @@ body {
 }
 
 /* line 223 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .layer-controls-container .treecover_change_toolbox {
+  margin-left: -300px;
+  height: 60px;
+  width: 600px;
+}
+
+/* line 228 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-inner {
   margin: 11px 0 0 0;
   text-align: center;
 }
 
-/* line 227 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 232 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-list {
   list-style-type: none;
   display: inline-block;
@@ -876,7 +883,7 @@ body {
   margin: 0;
 }
 
-/* line 233 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 238 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-list li {
   text-transform: uppercase;
   border: 1px solid #000;
@@ -890,30 +897,35 @@ body {
   margin: 0 6px;
 }
 
-/* line 243 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .selected {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   background-color: #e98300;
   color: #fff;
 }
 
-/* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 253 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .fires_toolbox .high-confidence-fires {
   margin: 4px 35px 0;
   font-size: 13px;
   float: left;
 }
 
-/* line 253 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 258 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .slider-container {
-  width: 500px;
+  width: 600px;
   height: 60px;
 }
 
-/* line 257 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 262 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .slider-container .dijitRuleLabel {
   -webkit-transform: rotate(-55deg);
   transform: rotate(-55deg);
   margin-top: 4px;
   width: 30px;
+}
+
+/* line 268 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .slider-container table:first-of-type td:first-of-type {
+  width: 10px;
 }

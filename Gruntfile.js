@@ -33,7 +33,8 @@ module.exports = function (grunt) {
     uglify: {
       build: {
         options: {
-          banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd/") %> */'
+          banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd/") %> */',
+          preserveComments: false
         },
         files: {
           'build/app/bootloader.js': 'src/app/bootloader.js'

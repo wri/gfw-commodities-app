@@ -49,8 +49,7 @@ define([], function () {
 		// If they are on the same layer, give them the same id and url and only add that layer to the map once
 		// the toolsNode is for layers that have custom tools to work with them, it is the root dom node of the toolbox
 		tcc: {
-			id: "TreeCoverChange",
-			toolsNode: "treecover_change_toolbox"
+			id: "TreeCoverChange"
 		},
 		gain: {
 			id: "Gain",
@@ -415,7 +414,15 @@ define([], function () {
 	      type: "radio",
 	      layerType: "none"
 	    }
-		]
+		],
+
+		// Miscellaneous Settings
+		treeCoverLossSlider: {
+			baseYear: 2000,
+			numYears: 12
+		} 
+
+
 	};
 
 });

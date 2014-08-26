@@ -92,15 +92,16 @@ define([
 					month;
 
 			timeSlider = new TimeSlider({
-				style: "width: 500px;height: 50px;",
+				style: "width: 100%;",
 				id: "formaSlider"
 			}, dom.byId("formaAlertSlider"));
 
 			timeExtent = new TimeExtent();
 
 			timeSlider.setThumbCount(1);
-			timeSlider.setThumbMovingRate(2000);
-			timeSlider.setLoop(true);
+			timeSlider.setThumbMovingRate(1500);
+			timeSlider.setLoop(false); // Bug when true when it wraps around, it thinks its thumb
+			// is still at the last index and does not know that its at 0 index
 
 			domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
       registry.byId(timeSlider.previousBtn.id).domNode.style["vertical-align"] = "text-bottom";
@@ -121,13 +122,68 @@ define([
           timeSlider.setThumbIndexes([labels.length - 1]);
           timeSlider.startup();
       	}
+
+      	timeSlider.on("time-extent-change", function (evt) {
+      		// These values are not updated immediately, call requestAnimationFrame 
+      		// to execute on the next available frame
+      		var values;
+      		requestAnimationFrame(function () {
+      			values = [0, timeSlider.thumbIndexes[0]];
+      			LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
+      		});
+      	});
+
       });
 
 
 		},
 
 		buildTreeCoverChangeSlider: function () {
-			//treeCoverSlider
+			// treeCoverLossSlider.baseYear & numYears
+			var sliderConfig = MapConfig.treeCoverLossSlider,
+					labels = [],
+					timeSlider,
+					timeExtent;
+
+			timeSlider = new TimeSlider({
+				style: "width: 100%;",
+				id: "treeCoverSlider"
+			}, dom.byId("treeCoverSlider"));
+
+			timeExtent = new TimeExtent();
+
+			timeSlider.setThumbCount(1);
+			timeSlider.setThumbMovingRate(1500);
+			timeSlider.setLoop(false); // Bug when true when it wraps around, it thinks its thumb
+			// is still at the last index and does not know that its at 0 index
+
+			domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
+      registry.byId(timeSlider.previousBtn.id).domNode.style["vertical-align"] = "text-bottom";
+      registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
+
+      // Create Labels from Config file
+      for (var i = 0, length = sliderConfig.numYears; i <= length; i++) {
+      	labels.push('' + (sliderConfig.baseYear + i));
+      }
+
+  		timeExtent.startTime = new Date("1/1/2013 UTC");
+  		timeExtent.endTime = new Date();
+  		timeSlider.createTimeStopsByCount(timeExtent, labels.length);
+      timeSlider.setLabels(labels);
+      timeSlider.setThumbIndexes([labels.length - 1]);
+      timeSlider.startup();
+      	
+
+    	timeSlider.on("time-extent-change", function (evt) {
+    		// These values are not updated immediately, call requestAnimationFrame 
+    		// to execute on the next available frame
+    		var values;
+    		requestAnimationFrame(function () {
+    			values = [0, timeSlider.thumbIndexes[0]];
+    			LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
+    		});
+    	});
+
 		},
 
 		fetchFORMAAlertsLabels: function () {
