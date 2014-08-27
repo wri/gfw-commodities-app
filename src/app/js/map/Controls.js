@@ -2,6 +2,7 @@ define([
 	"dojo/dom",
 	"dojo/query",
 	"dojo/Deferred",
+	"dojo/_base/fx",
 	"dojo/dom-class",
 	"dojo/dom-style",
 	"dijit/registry",
@@ -12,7 +13,7 @@ define([
 	"esri/request",
 	"esri/TimeExtent",
   "esri/dijit/TimeSlider"
-], function (dom, dojoQuery, Deferred, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider) {
+], function (dom, dojoQuery, Deferred, Fx, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider) {
 	'use strict';
 
 	return {
@@ -104,7 +105,7 @@ define([
 			// is still at the last index and does not know that its at 0 index
 
 			domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
-      registry.byId(timeSlider.previousBtn.id).domNode.style["vertical-align"] = "text-bottom";
+      registry.byId(timeSlider.previousBtn.id).domNode.style.display = "none";
       registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
 
       this.fetchFORMAAlertsLabels().then(function (res) {
@@ -120,7 +121,7 @@ define([
       		timeSlider.createTimeStopsByCount(timeExtent, res.maxValues[0]);
           timeSlider.setLabels(labels);
           timeSlider.setThumbIndexes([labels.length - 1]);
-          timeSlider.startup();
+          timeSlider.startup();          
       	}
 
       	timeSlider.on("time-extent-change", function (evt) {
@@ -158,7 +159,7 @@ define([
 			// is still at the last index and does not know that its at 0 index
 
 			domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
-      registry.byId(timeSlider.previousBtn.id).domNode.style["vertical-align"] = "text-bottom";
+      registry.byId(timeSlider.previousBtn.id).domNode.style.display = "none";
       registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
 
       // Create Labels from Config file
@@ -205,6 +206,26 @@ define([
 			});
 
 			return deferred.promise;
+		},
+
+		toggleLegendContainer: function () {
+			var node = dom.byId("legend-container"),
+          height = node.offsetHeight === 280 ? 30 : 280;
+
+      Fx.animateProperty({
+        node: node,
+        properties: {
+            height: height
+        },
+        duration: 500,
+        onEnd: function () {
+        	if (height === 30) {
+		        domClass.add("legend-title", "closed");
+		      } else {
+		        domClass.remove("legend-title", "closed");
+		      }
+        }
+      }).play();
 		}
 
 	};

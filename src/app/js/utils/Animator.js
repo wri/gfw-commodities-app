@@ -8,11 +8,12 @@
       win.oRequestAnimationFrame ||
       win.msRequestAnimationFrame ||
       function (callback) {
-        window.setTimeout(callback, 1000 / 20);
+        window.setTimeout(callback, 1000 / 60);
       };
 	})();
 
 	var Animator = {};
+	var fps = 1000 / 60;
 
 	Animator.fadeIn = function (itemIds, options, callback) {
 
@@ -22,7 +23,7 @@
 
 		var	id = itemIds.shift(),
 				element = document.getElementById(id),
-				steps = 16 / options.duration || 500;		
+				steps = fps / (options.duration || 500);		
 
 		function fade() {
 			// 1 * element.style.opacity is necessary to convert string to number for addition
@@ -43,6 +44,12 @@
 		}
 		win.requestAnimationFrame(fade);
 	};
+
+	// Animator.slide = function (options, callback) {
+
+	// 	// Options must contain node, and some properties object containing which properties to animate
+
+	// };
 
 
   if (typeof define === "function" && define.amd) {

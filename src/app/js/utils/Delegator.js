@@ -35,7 +35,6 @@ define([
 			topic.subscribe('showLayer', function (layerId) {
 				var config = MapConfig[layerId];
 				if (config) {
-					console.dir(config);
 					LayerController.showLayer(config);
 					if (config.toolsNode) {
 						Controls.toggleToolbox(config, 'show');

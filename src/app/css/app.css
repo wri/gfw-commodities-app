@@ -391,7 +391,7 @@ body {
 }
 
 /* line 223 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-/* Checkbox Styles for these layers */
+/* Checkbox and Radio Styles for these layers */
 
 /* line 224 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check span,
@@ -404,47 +404,112 @@ body {
 }
 
 /* line 232 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .forest-change.active .layer-list-item.active .custom-check {
+.gfw .forest-change.active .layer-list-item.active .custom-check,
+.gfw .forest-change.active .radio-icon span {
   background-color: #e72698;
 }
 
-/* line 235 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .forest-cover.active .custom-check {
+/* line 236 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .forest-cover.active .custom-check,
+.gfw .forest-cover.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 238 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .forest-use.active .custom-check {
+/* line 240 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .forest-use.active .custom-check,
+.gfw .forest-use.active .radio-icon span {
   background-color: #c98e6c;
 }
 
-/* line 241 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .conservation.active .custom-check {
+/* line 244 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .conservation.active .custom-check,
+.gfw .conservation.active .radio-icon span {
   background-color: #3182bd;
 }
 
-/* line 244 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .agro-suitability.active .custom-check {
+/* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .agro-suitability.active .custom-check,
+.gfw .agro-suitability.active .radio-icon span {
   background-color: #fdb22c;
 }
 
-/* line 247 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-.gfw .company-pages.active .custom-check {
+/* line 252 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .company-pages.active .custom-check,
+.gfw .company-pages.active .radio-icon span {
   background-color: #5e138a;
 }
 
-/* line 250 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
-/* Checkbox Styles for these layers */
+/* line 256 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .layer-list-item .radio-icon {
+  display: inline-block;
+  border-radius: 35px;
+  -moz-border-radius: 35px;
+  -webkit-border-radius: 35px;
+  position: relative;
+  height: 8px;
+  width: 8px;
+}
 
-/* line 251 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 263 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .layer-list-item.active .radio-icon {
+  top: 3px;
+}
+
+/* line 266 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .layer-list-item.active .radio-icon span {
+  display: inline-block;
+  border-radius: 35px;
+  -moz-border-radius: 35px;
+  -webkit-border-radius: 35px;
+  position: relative;
+  height: 4px;
+  width: 4px;
+  left: 2px;
+  top: -6px;
+}
+
+/* line 275 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .forest-change .radio-icon {
+  border: 1px solid #e72698;
+}
+
+/* line 278 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .forest-cover .radio-icon {
+  border: 1px solid #b2d26e;
+}
+
+/* line 281 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .forest-use .radio-icon {
+  border: 1px solid #c98e6c;
+}
+
+/* line 284 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .conservation .radio-icon {
+  border: 1px solid #3182bd;
+}
+
+/* line 287 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .agro-suitability .radio-icon {
+  border: 1px solid #fdb22c;
+}
+
+/* line 290 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .company-pages .radio-icon {
+  border: 1px solid #5e138a;
+}
+
+/* line 293 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* Checkbox and Radio Styles for these layers */
+
+/* line 294 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 252 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 295 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-topper div {
   line-height: 43px;
 }
 
-/* line 255 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 298 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
@@ -454,7 +519,7 @@ body {
   left: 0;
 }
 
-/* line 263 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 306 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -466,7 +531,7 @@ body {
   z-index: 200;
 }
 
-/* line 273 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 316 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -480,14 +545,14 @@ body {
   top: 20px;
 }
 
-/* line 283 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list {
   display: inline-block;
   list-style-type: none;
   float: right;
 }
 
-/* line 288 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 331 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -501,24 +566,24 @@ body {
   margin: 0 2px;
 }
 
-/* line 298 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 341 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 301 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 344 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 304 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 347 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 309 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 352 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
@@ -552,7 +617,7 @@ body {
 
 /* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 14 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 15 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container {
   position: absolute;
   bottom: 0;
@@ -561,31 +626,42 @@ body {
   top: 0;
 }
 
-/* line 21 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 22 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSlider {
   background: none;
   color: #f0ab00;
   border: none;
 }
 
-/* line 26 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 27 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSlider div {
   background-color: #fff;
 }
 
-/* line 29 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 30 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSliderIncrementButton,
 .gfw .map-container .esriSimpleSliderDecrementButton {
   padding: 1px;
   border: none;
 }
 
-/* line 33 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 34 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSliderIncrementButton {
   margin-bottom: 2px;
 }
 
-/* line 36 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 37 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .map-container .esriControlsBR {
+  right: inherit;
+  left: 5px;
+}
+
+/* line 41 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .map-container .esriAttribution {
+  display: none;
+}
+
+/* line 44 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .HomeButton .home {
   background-image: url("images/ico-home.png");
   border-radius: 0px;
@@ -594,12 +670,12 @@ body {
   padding: 1px;
 }
 
-/* line 41 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 49 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .HomeButton {
   margin-bottom: 4px;
 }
 
-/* line 44 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 52 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .locator-widget-button,
 .gfw .basemap-gallery-button,
 .gfw .share-button {
@@ -615,25 +691,25 @@ body {
   z-index: 50;
 }
 
-/* line 54 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 62 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .locator-widget-button {
   background: url("images/locate.png") no-repeat #fff -1px -35px;
   top: 125px;
 }
 
-/* line 58 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .basemap-gallery-button {
   background: url("images/basemap.png") no-repeat #fff -1px -35px;
   top: 162px;
 }
 
-/* line 62 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 70 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .share-button {
   background: url("images/share-icon.png") no-repeat #fff -2px -35px;
   top: 199px;
 }
 
-/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 74 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .locator-widget-button:hover,
 .gfw .basemap-gallery-button:hover,
 .gfw .share-button:hover,
@@ -643,7 +719,7 @@ body {
   background-color: #cdcdcd;
 }
 
-/* line 74 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 82 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .simpleGeocoder {
   position: absolute;
   z-index: 50;
@@ -651,12 +727,12 @@ body {
   top: 20px;
 }
 
-/* line 80 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 88 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .simpleGeocoder .esriGeocoder {
   border: 2px solid #888;
 }
 
-/* line 83 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 91 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .modal-link {
   position: absolute;
   background: #fff;
@@ -666,17 +742,17 @@ body {
   z-index: 48;
 }
 
-/* line 91 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .basemap-linker {
   top: 162px;
 }
 
-/* line 94 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 102 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .locator-linker {
   top: 125px;
 }
 
-/* line 97 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 105 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .maptools-modal {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -692,7 +768,7 @@ body {
   top: 60px;
 }
 
-/* line 109 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 117 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .container-header {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   border-bottom: 1px solid #b2b2b2;
@@ -700,93 +776,93 @@ body {
   font-size: 20px;
 }
 
-/* line 115 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 123 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .overlays-container {
   margin: 15px;
 }
 
-/* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 126 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-container .overlays-checkbox {
   color: #888;
   cursor: pointer;
 }
 
-/* line 122 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 130 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-container .overlays-checkbox.selected {
   color: #e98300;
 }
 
-/* line 125 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 133 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-checkbox.selected .custom-check {
   background-color: #e98300;
 }
 
-/* line 128 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 136 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-checkbox.selected .custom-check span {
   left: 9px;
 }
 
-/* line 131 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 139 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-container .custom-check-label {
   margin-left: 5px;
 }
 
-/* line 134 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 142 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .esriBasemapGallery {
   padding: 15px 25px 5px;
 }
 
-/* line 137 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 145 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .line-splitter {
   border-bottom: 1px solid #b2b2b2;
 }
 
-/* line 140 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 148 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .goto-area-search {
   display: inline-block;
   margin: 10px 0;
 }
 
-/* line 144 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 152 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton {
   margin: 5px;
 }
 
-/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 155 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton .zoomLocateButton:hover,
 .gfw .search-option-go-button:hover {
   background: #e98300;
 }
 
-/* line 150 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 158 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton .zoomLocateButton {
   background: #888;
   height: 25px;
   width: 100px;
 }
 
-/* line 155 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 163 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .dms-inputs,
 .gfw .maptools-modal .lat-long-inputs {
   height: 20px;
 }
 
-/* line 158 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 166 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .dms-inputs {
   width: 60px;
 }
 
-/* line 161 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 169 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .area-search-radio-container {
   margin: 2px 5px;
 }
 
-/* line 164 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 172 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .area-search-inputs {
   margin: 5px;
 }
 
-/* line 167 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 175 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .clear-search-pins {
   text-decoration: underline;
   margin: 10px 20px;
@@ -795,7 +871,7 @@ body {
   color: #00f;
 }
 
-/* line 174 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 182 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton span {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   display: block !important;
@@ -804,7 +880,7 @@ body {
   color: #fff;
 }
 
-/* line 181 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 189 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .search-option-go-button {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   background: #888;
@@ -820,7 +896,7 @@ body {
   color: #fff;
 }
 
-/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 201 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container > .toolbox {
   box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.25);
   background-color: #fff;
@@ -829,12 +905,12 @@ body {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
   z-index: 50;
   left: 50%;
 }
 
-/* line 203 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 211 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .toolbox_legend {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   position: absolute;
@@ -842,48 +918,47 @@ body {
   left: 0;
 }
 
-/* line 209 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 217 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .toolbox_legend > p {
   text-shadow: 0 0 3px #fff;
   margin: 0;
 }
 
-/* line 213 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 221 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .fires_toolbox {
   margin-left: -225px;
   height: 60px;
   width: 450px;
 }
 
-/* line 218 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 226 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .forma_toolbox {
   margin-left: -300px;
   height: 60px;
   width: 600px;
 }
 
-/* line 223 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 231 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .treecover_change_toolbox {
   margin-left: -300px;
   height: 60px;
   width: 600px;
 }
 
-/* line 228 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 236 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-inner {
-  margin: 11px 0 0 0;
   text-align: center;
 }
 
-/* line 232 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 239 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-list {
   list-style-type: none;
   display: inline-block;
+  margin: 11px 0 0;
   padding: 0;
-  margin: 0;
 }
 
-/* line 238 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 245 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-list li {
   text-transform: uppercase;
   border: 1px solid #000;
@@ -897,35 +972,116 @@ body {
   margin: 0 6px;
 }
 
-/* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 255 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .selected {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   background-color: #e98300;
   color: #fff;
 }
 
-/* line 253 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 260 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .fires_toolbox .high-confidence-fires {
   margin: 4px 35px 0;
   font-size: 13px;
   float: left;
 }
 
-/* line 258 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 265 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .slider-container {
   width: 600px;
   height: 60px;
 }
 
-/* line 262 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 269 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .toolbox .esriTimeSlider {
+  margin-top: 5px;
+}
+
+/* line 272 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .slider-container .dijitRuleLabel {
   -webkit-transform: rotate(-55deg);
   transform: rotate(-55deg);
-  margin-top: 4px;
+  margin-top: 6px;
   width: 30px;
 }
 
-/* line 268 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 278 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .slider-container table:first-of-type td:first-of-type {
-  width: 10px;
+  width: 40px;
 }
+
+/* line 281 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .legend-container {
+  font-family: Arial, sans-serif;
+  border: 1px solid #888;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-bottom: none;
+  position: absolute;
+  overflow: hidden;
+  cursor: pointer;
+  font-size: 13px;
+  height: 280px;
+  width: 250px;
+  z-index: 50;
+  right: 20px;
+  bottom: 0;
+}
+
+/* line 298 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .legend-title {
+  background-image: url("images/ico-carat-down.png");
+  background-position: 95% 10px;
+  background-repeat: no-repeat;
+  background-color: #ececed;
+  box-sizing: border-box;
+  font-weight: bold;
+  line-height: 30px;
+  color: #f0ab00;
+  cursor: pointer;
+  height: 30px;
+}
+
+/* line 310 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .legend-title.closed {
+  background-image: url("images/ico-carat-up.png");
+}
+
+/* line 313 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .legend-title span {
+  margin-left: 5px;
+}
+
+/* line 316 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .legend-content {
+  height: 250px;
+  width: 100%;
+}
+
+/* line 320 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw #legend {
+  padding: 0 0 0 10px;
+  overflow-y: auto;
+  height: 100%;
+  width: 230px;
+}
+
+/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* Overrides for Esri Legend */
+
+/* line 327 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw #legend #legend_msg,
+.gfw #legend .esriLegendServiceLabel {
+  display: none;
+}
+
+/* line 330 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw #legend .esriLegendService {
+  padding-bottom: 0px;
+}
+
+/* line 332 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* Overrides for Esri Legend */

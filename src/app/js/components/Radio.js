@@ -44,6 +44,9 @@ define([
                       'data-layer': this.props.key,
                       'data-name': this.props.filter },
           React.DOM.div({'onClick': this.toggle},
+            React.DOM.span({'className': 'radio-icon'},
+              React.DOM.span({})
+            ),
             React.DOM.a({'className': 'layer-title'}, this.props.title),
             React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle)
           ),

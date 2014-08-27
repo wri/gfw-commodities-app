@@ -5,10 +5,11 @@ define([
 	"dojo/topic",
 	"dojo/dom-class",
 	"dojo/dom-style",
+	"dijit/registry",
 	"dojo/_base/array",
 	"utils/Hasher",
 	"esri/layers/RasterFunction",
-], function (MapConfig, dom, dojoQuery, topic, domClass, domStyle, arrayUtils, Hasher, RasterFunction) {
+], function (MapConfig, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, RasterFunction) {
 
 	return {
 
@@ -80,6 +81,7 @@ define([
 			var layer = app.map.getLayer(layerConfig.id);
 			if (layer) {
 				layer.setVisibility(!layer.visible);
+				this.refreshLegendWidget();
 			}
 		},
 
@@ -113,6 +115,7 @@ define([
 				} else {
 					layer.hide();
 				}
+				this.refreshLegendWidget();
 			}
 
 		},
@@ -133,6 +136,7 @@ define([
 			if (layer) {
 				if (!layer.visible) {
 					layer.show();
+					this.refreshLegendWidget();
 				}
 			}
 		},
@@ -144,6 +148,7 @@ define([
 			if (layer) {
 				if (layer.visible) {
 					layer.hide();
+					this.refreshLegendWidget();
 				}
 			}
 		},
@@ -158,6 +163,7 @@ define([
 				visibleLayers.push(layerConfig.layerId);
 				layer.setVisibleLayers(visibleLayers);
 				layer.show();
+				this.refreshLegendWidget();
 			}
 		},
 
@@ -197,7 +203,7 @@ define([
 				}
 
 				layer.setLayerDefinitions(layerDefs);
-
+				this.refreshLegendWidget();
 			}
 		},
 
@@ -221,6 +227,7 @@ define([
 					layer.show();
 				}
 				layer.setVisibleLayers(visibleLayers);
+				this.refreshLegendWidget();
 			}
 
 		},
@@ -261,6 +268,10 @@ define([
 				},
 				"variableName": "Raster"
 			});
+		},
+
+		refreshLegendWidget: function () {
+			registry.byId("legend").refresh();
 		}
 
 	};

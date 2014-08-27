@@ -4,6 +4,7 @@ border-radius()
 	-moz-border-radius arguments
 	-webkit-border-radius arguments
 
+lightGray = #ececed
 mediumGray = #888
 goldFont = #f0ab00
 greyBorder = #b2b2b2
@@ -32,6 +33,13 @@ orangeHover = rgba(233, 131, 0, 0.45)
 
 .gfw .map-container .esriSimpleSliderIncrementButton
 	margin-bottom 2px
+
+.gfw .map-container .esriControlsBR
+	right inherit
+	left 5px
+
+.gfw .map-container .esriAttribution
+	display none
 
 .gfw .map-container .HomeButton .home
 	background-image url('images/ico-home.png')
@@ -196,7 +204,7 @@ orangeHover = rgba(233, 131, 0, 0.45)
 	border 1px solid #000
 	border-radius(5px)
 	position absolute
-	bottom 40px	
+	bottom 20px	
 	z-index 50
 	left 50%
 
@@ -226,14 +234,13 @@ orangeHover = rgba(233, 131, 0, 0.45)
 	width 600px
 
 .gfw .toolbox .toolbox-inner
-	margin 11px 0 0 0
 	text-align center
 
 .gfw .toolbox .toolbox-list
 	list-style-type none
 	display inline-block
+	margin 11px 0 0
 	padding 0
-	margin 0
 	
 .gfw .toolbox .toolbox-list li
 	text-transform uppercase
@@ -259,11 +266,67 @@ orangeHover = rgba(233, 131, 0, 0.45)
 	width 600px
 	height 60px
 
+.gfw .toolbox .esriTimeSlider
+	margin-top 5px
+
 .gfw .slider-container .dijitRuleLabel
 	-webkit-transform rotate(-55deg);
 	transform rotate(-55deg)
-	margin-top 4px
+	margin-top 6px
 	width 30px
 
 .gfw .slider-container table:first-of-type td:first-of-type
-	width 10px
+	width 40px
+
+.gfw .legend-container
+	font-family Arial, sans-serif
+	border 1px solid mediumGray
+	border-radius(5px 5px 0 0)
+	background-color #fff
+	box-sizing border-box
+	border-bottom none
+	position absolute
+	overflow hidden
+	cursor pointer
+	font-size 13px
+	height 280px
+	width 250px
+	z-index 50
+	right 20px
+	bottom 0
+
+.gfw .legend-title
+	background-image url('images/ico-carat-down.png')
+	background-position 95% 10px
+	background-repeat no-repeat
+	background-color lightGray
+	box-sizing border-box
+	font-weight bold
+	line-height 30px
+	color goldFont
+	cursor pointer
+	height 30px
+
+.gfw .legend-title.closed
+	background-image url('images/ico-carat-up.png')
+
+.gfw .legend-title span
+	margin-left 5px
+
+.gfw .legend-content
+	height 250px
+	width 100%
+
+.gfw #legend
+	padding 0 0 0 10px
+	overflow-y auto
+	height 100%
+	width 230px
+
+/* Overrides for Esri Legend */
+.gfw #legend #legend_msg, .gfw #legend .esriLegendServiceLabel
+	display none
+
+.gfw #legend .esriLegendService
+	padding-bottom 0px
+/* Overrides for Esri Legend */

@@ -220,7 +220,7 @@ gainLayer = #5952de
 .gfw .app-header.mapView .company-pages .layer-line
 	background company
 
-/* Checkbox Styles for these layers */
+/* Checkbox and Radio Styles for these layers */
 .gfw .forest-cover.active .custom-check span,
 .gfw .forest-use.active .custom-check span,
 .gfw .conservation.active .custom-check span,
@@ -229,25 +229,68 @@ gainLayer = #5952de
 .gfw .forest-change.active .layer-list-item.active .custom-check span
 	left 9px
 
-.gfw .forest-change.active .layer-list-item.active .custom-check
+.gfw .forest-change.active .layer-list-item.active .custom-check,
+.gfw .forest-change.active .radio-icon span
 	background-color forestChange
 
-.gfw .forest-cover.active .custom-check
+.gfw .forest-cover.active .custom-check,
+.gfw .forest-cover.active .radio-icon span
 	background-color forestCover
 
-.gfw .forest-use.active .custom-check
+.gfw .forest-use.active .custom-check,
+.gfw .forest-use.active .radio-icon span
 	background-color forestUse
 
-.gfw .conservation.active .custom-check
+.gfw .conservation.active .custom-check,
+.gfw .conservation.active .radio-icon span
 	background-color conservation
 
-.gfw .agro-suitability.active .custom-check
+.gfw .agro-suitability.active .custom-check,
+.gfw .agro-suitability.active .radio-icon span
 	background-color agroSuit
 
-.gfw .company-pages.active .custom-check
+.gfw .company-pages.active .custom-check,
+.gfw .company-pages.active .radio-icon span
 	background-color company
 
-/* Checkbox Styles for these layers */
+.gfw .layer-list-item .radio-icon
+	display inline-block
+	border-radius(35px)
+	position relative
+	height 8px
+	width 8px
+
+.gfw .layer-list-item.active .radio-icon
+	top 3px
+
+.gfw .layer-list-item.active .radio-icon span
+	display inline-block
+	border-radius(35px)
+	position relative
+	height 4px
+	width 4px
+	left 2px
+	top -6px
+
+.gfw .forest-change .radio-icon
+	border 1px solid forestChange
+	
+.gfw .forest-cover .radio-icon
+	border 1px solid forestCover
+
+.gfw .forest-use .radio-icon
+	border 1px solid forestUse
+
+.gfw .conservation .radio-icon
+	border 1px solid conservation
+
+.gfw .agro-suitability .radio-icon
+	border 1px solid agroSuit
+
+.gfw .company-pages .radio-icon
+	border 1px solid company
+
+/* Checkbox and Radio Styles for these layers */
 /* Layer Controls Colors */
 .gfw .nav-topper div
 	line-height 43px

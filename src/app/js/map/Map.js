@@ -3,6 +3,8 @@ define([
 	"dojo/_base/declare",
 	"dojo/on",
 	"dojo/dom",
+	"dijit/registry",
+	"dojo/_base/array",
 	"dojo/dom-construct",
 	// My Modules
 	"map/config",
@@ -15,11 +17,12 @@ define([
 	"esri/layers/ArcGISTiledMapServiceLayer",
 	"esri/layers/ArcGISDynamicMapServiceLayer",
 	// Esri Dijjits
+	"esri/dijit/Legend",
 	"esri/dijit/Geocoder",
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, domConstruct, MapConfig, Map, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, Map, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -61,6 +64,7 @@ define([
 		addWidgets: function () {
 
 			var home,
+					legend,
 					locator,
 					geoCoder,
 					basemapGallery;
@@ -95,6 +99,13 @@ define([
       	}      	
       }, "simple-geocoder");
       geoCoder.startup();
+
+      legend = new Legend({
+        map: this.map,
+        layerInfos: [],
+        autoUpdate: true
+      }, "legend");
+      legend.startup();
 
 		},
 
@@ -263,8 +274,21 @@ define([
 				mapOverlaysLayer
 			]);
 
-			on.once(app.map, 'layers-add-result', function () {
-				self.emit('layers-loaded', {});
+			on.once(app.map, 'layers-add-result', function (response) {
+				self.emit('layers-loaded', { response: response });
+
+				var layerInfos = arrayUtils.map(response.layers, function (item) {
+					return {
+						layer: item.layer
+					};
+				});
+
+				layerInfos = arrayUtils.filter(layerInfos, function (item) {
+					return !item.layer.url ? false : item.layer.url.search('ImageServer') < 0;
+				});
+
+				registry.byId("legend").refresh(layerInfos);
+
 			});
 
 			firesLayer.on('error', this.addLayerError);

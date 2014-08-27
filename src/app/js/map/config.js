@@ -17,9 +17,9 @@ define([], function () {
 
 		mapOptions: {
 			basemap: 'gray',
-			centerX: 0,
-			centerY: 0,
-			zoom: 3,
+			centerX: 114,
+			centerY: 3,
+			zoom: 5,
 			sliderPosition: "top-right"
 		},
 
@@ -53,8 +53,7 @@ define([], function () {
 		},
 		gain: {
 			id: "Gain",
-			url: treeCoverGainUrl,
-			toolsNode: "treecover_change_toolbox"
+			url: treeCoverGainUrl
 		},
 		loss: {
 			id: "Loss",

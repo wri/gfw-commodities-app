@@ -38,8 +38,8 @@ define([
 			}
 
 			initialized = true;
-			registry.byId("stackContainer").selectChild("mapView");
 			registry.byId("mapView").set('content', template);
+			registry.byId("stackContainer").selectChild("mapView");
 
 			// This is not esri map, it is custom map class, esri map object available as map.map
 			map = new Map(MapConfig.mapOptions);
@@ -132,6 +132,10 @@ define([
 
 			dojoQuery(".gfw .overlays-container .overlays-checkbox").forEach(function (node) {
 				on(node, "click", MapControl.toggleOverlays);
+			});
+
+			on(dom.byId("legend-title"), "click", function () {
+				MapControl.toggleLegendContainer();
 			});
 
 			// dojoQuery(".layer-list-item.forest-change input").forEach(function (node) {
