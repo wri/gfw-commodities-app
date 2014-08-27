@@ -205,12 +205,17 @@ body {
 /* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .layer-line {
   margin-top: 13px;
-  padding: 0 1px;
   width: 100%;
   height: 4px;
+  padding: 0;
 }
 
 /* line 105 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .app-header .layer-list-header .layer-line {
+  padding: 0 4px;
+}
+
+/* line 108 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header #master-layer-list {
   box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.15);
   background-color: #fff;
@@ -224,14 +229,14 @@ body {
   top: 65px;
 }
 
-/* line 115 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list-title {
   text-align: center;
   margin: 15px auto;
   display: block;
 }
 
-/* line 120 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 123 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   list-style-type: none;
@@ -240,44 +245,44 @@ body {
   margin: 0;
 }
 
-/* line 127 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 130 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-sub-title {
   margin: 3px 3px 3px 15px;
   font-size: 10px;
 }
 
-/* line 131 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 134 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-title,
 .gfw .app-header .filter-list .layer-sub-title {
   color: #888;
 }
 
-/* line 135 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-title {
   margin-left: 5px;
 }
 
-/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .layer-list-item {
   border-bottom: 1px solid #e6e6e6;
   cursor: pointer;
   padding: 5px;
 }
 
-/* line 143 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 146 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .layer-list-item.hidden {
   display: none;
 }
 
-/* line 146 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 149 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item input[type='radio'] {
   margin: 3px 0;
 }
 
-/* line 149 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 152 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 151 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list ul {
   list-style-type: none;
   margin-left: 20px;
@@ -285,115 +290,115 @@ body {
   padding: 0;
 }
 
-/* line 157 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 160 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list ul > li {
   border: none;
 }
 
-/* line 160 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 163 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item .layer-title,
 .gfw .forest-change.active .layer-list-item .layer-sub-title {
   color: #888;
 }
 
-/* line 164 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 167 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 166 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 169 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 167 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 170 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title {
   color: #5952de;
 }
 
-/* line 170 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 173 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .custom-check {
   background-color: #5952de;
 }
 
-/* line 172 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 175 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 174 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 175 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 178 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change,
 .gfw .forest-change.active .layer-title,
 .gfw .forest-change.active .layer-list-item.active .layer-title {
   color: #e72698;
 }
 
-/* line 180 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 183 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover,
 .gfw .app-header.mapView .forest-cover.active .layer-title,
 .gfw .forest-cover.active .layer-list-item.active .layer-title {
   color: #b2d26e;
 }
 
-/* line 185 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 188 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use,
 .gfw .app-header.mapView .forest-use.active .layer-title,
 .gfw .forest-use.active .layer-list-item.active .layer-title {
   color: #c98e6c;
 }
 
-/* line 190 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation,
 .gfw .app-header.mapView .conservation.active .layer-title,
 .gfw .conservation.active .layer-list-item.active .layer-title {
   color: #3182bd;
 }
 
-/* line 195 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 198 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability,
 .gfw .app-header.mapView .agro-suitability.active .layer-title,
 .gfw .agro-suitability.active .layer-list-item.active .layer-title {
   color: #fdb22c;
 }
 
-/* line 200 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 203 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages,
 .gfw .app-header.mapView .company-pages.active .layer-title,
 .gfw .company-pages.active .layer-list-item.active .layer-title {
   color: #5e138a;
 }
 
-/* line 205 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 208 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change .layer-line {
   background: #e72698;
 }
 
-/* line 208 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 211 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover .layer-line {
   background: #b2d26e;
 }
 
-/* line 211 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 214 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use .layer-line {
   background: #c98e6c;
 }
 
-/* line 214 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 217 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation .layer-line {
   background: #3182bd;
 }
 
-/* line 217 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 220 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability .layer-line {
   background: #fdb22c;
 }
 
-/* line 220 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 223 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages .layer-line {
   background: #5e138a;
 }
 
-/* line 223 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 226 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 224 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 227 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check span,
 .gfw .forest-use.active .custom-check span,
 .gfw .conservation.active .custom-check span,
@@ -403,43 +408,43 @@ body {
   left: 9px;
 }
 
-/* line 232 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 235 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active .custom-check,
 .gfw .forest-change.active .radio-icon span {
   background-color: #e72698;
 }
 
-/* line 236 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 239 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check,
 .gfw .forest-cover.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 240 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 243 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-use.active .custom-check,
 .gfw .forest-use.active .radio-icon span {
   background-color: #c98e6c;
 }
 
-/* line 244 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 247 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .conservation.active .custom-check,
 .gfw .conservation.active .radio-icon span {
   background-color: #3182bd;
 }
 
-/* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 251 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .agro-suitability.active .custom-check,
 .gfw .agro-suitability.active .radio-icon span {
   background-color: #fdb22c;
 }
 
-/* line 252 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 255 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .company-pages.active .custom-check,
 .gfw .company-pages.active .radio-icon span {
   background-color: #5e138a;
 }
 
-/* line 256 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 259 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item .radio-icon {
   display: inline-block;
   border-radius: 35px;
@@ -450,12 +455,12 @@ body {
   width: 8px;
 }
 
-/* line 263 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 266 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon {
   top: 3px;
 }
 
-/* line 266 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 269 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon span {
   display: inline-block;
   border-radius: 35px;
@@ -468,48 +473,48 @@ body {
   top: -6px;
 }
 
-/* line 275 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 278 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change .radio-icon {
   border: 1px solid #e72698;
 }
 
-/* line 278 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 281 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover .radio-icon {
   border: 1px solid #b2d26e;
 }
 
-/* line 281 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 284 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-use .radio-icon {
   border: 1px solid #c98e6c;
 }
 
-/* line 284 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 287 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .conservation .radio-icon {
   border: 1px solid #3182bd;
 }
 
-/* line 287 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 290 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .agro-suitability .radio-icon {
   border: 1px solid #fdb22c;
 }
 
-/* line 290 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 293 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .company-pages .radio-icon {
   border: 1px solid #5e138a;
 }
 
-/* line 293 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 296 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 294 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 297 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 295 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 298 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-topper div {
   line-height: 43px;
 }
 
-/* line 298 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 301 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
@@ -519,7 +524,7 @@ body {
   left: 0;
 }
 
-/* line 306 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 309 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -531,7 +536,7 @@ body {
   z-index: 200;
 }
 
-/* line 316 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 319 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -545,14 +550,15 @@ body {
   top: 20px;
 }
 
-/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 329 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list {
   display: inline-block;
   list-style-type: none;
   float: right;
+  padding: 0;
 }
 
-/* line 331 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 335 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -566,24 +572,24 @@ body {
   margin: 0 2px;
 }
 
-/* line 341 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 345 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 344 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 348 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 347 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 351 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 352 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 356 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
@@ -905,7 +911,7 @@ body {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   position: absolute;
-  bottom: 20px;
+  bottom: 35px;
   z-index: 50;
   left: 50%;
 }
@@ -1083,5 +1089,10 @@ body {
   padding-bottom: 0px;
 }
 
-/* line 332 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 333 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw #legend > div:nth-last-child(2) {
+  padding-bottom: 10px;
+}
+
+/* line 336 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Esri Legend */

@@ -53,11 +53,13 @@ define([], function () {
 		},
 		gain: {
 			id: "Gain",
-			url: treeCoverGainUrl
+			url: treeCoverGainUrl,
+			legendLayerId: 31
 		},
 		loss: {
 			id: "Loss",
 			url: treeCoverLossUrl,
+			legendLayerId: 11,
 			defaultRange: [1, 13],
 			colormap: [[1, 219, 101, 152]],
 			toolsNode: "treecover_change_toolbox"
@@ -65,6 +67,7 @@ define([], function () {
 		forma: {
 			id: "FormaAlerts",
 			url: formaAlertsUrl,
+			legendLayerId: 30,
 			defaultRange: [1, 19],
 			colormap: [[1, 255, 0, 197]],
 			toolsNode: "forma_toolbox"
@@ -77,7 +80,8 @@ define([], function () {
 		},
 		tcd: {
 			id: "TreeCoverDensity",
-			url: treeCoverDensityUrl
+			url: treeCoverDensityUrl,
+			legendLayerId: 29
 		},
 
 		/***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
@@ -180,6 +184,15 @@ define([], function () {
 			layerId: 14
 		},
 		/***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
+
+		/*** 
+			This does not map to any UI elements, it is a hidden layer whose 
+			sole purpose is showing legends for ImageService layers
+		***/
+		legendLayer: {
+			id: 'LegendLayer',
+			url: dynamicMapServiceUrl
+		},
 
 		// BELOW IS the data structure that will build the layer list widget
 		// The Keys below match the keys above and tie these UI elements to the correct layer config

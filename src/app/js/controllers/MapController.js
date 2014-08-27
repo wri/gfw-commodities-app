@@ -58,6 +58,10 @@ define([
 				// Only use this after the layers have been loaded,
 				// Also call other functions in renderComponents that build UI elements 
 				self.renderComponents();
+
+				// Connect Events
+				self.bindUIEvents();
+				
 			});
 
 			// Fade in the map controls, first, get a list of the ids		
@@ -69,14 +73,16 @@ define([
 				duration: 100
 			});
 
-			// Connect Events
-			self.bindUIEvents();
-
 		},
 
 		bindUIEvents: function () {
 
 			var self = this;
+
+			on(app.map, "mouse-move", function(evt) {
+        MapModel.set('currentLatitude', evt.mapPoint.getLatitude().toFixed(4));
+        MapModel.set('currentLongitude', evt.mapPoint.getLongitude().toFixed(4));
+      });
 
 			on(dom.byId("locator-widget-button"), "click", function () {
 				MapModel.set('showBasemapGallery', false);

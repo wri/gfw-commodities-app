@@ -9,7 +9,8 @@ define([
 	"dojo/_base/array",
 	"utils/Hasher",
 	"esri/layers/RasterFunction",
-], function (MapConfig, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, RasterFunction) {
+	"esri/layers/LayerDrawingOptions"
+], function (MapConfig, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, RasterFunction, LayerDrawingOptions) {
 
 	return {
 
@@ -129,10 +130,6 @@ define([
 				return;
 			}
 
-			if (layerConfig.legendLayerId) {
-				this.updateLegendInDynamicLayer();
-			}
-
 			if (layer) {
 				if (!layer.visible) {
 					layer.show();
@@ -165,10 +162,6 @@ define([
 				layer.show();
 				this.refreshLegendWidget();
 			}
-		},
-
-		updateLegendInDynamicLayer: function (layerConfig) {
-
 		},
 
 		setFiresLayerDefinition: function (filter, highConfidence) {
@@ -271,6 +264,34 @@ define([
 		},
 
 		refreshLegendWidget: function () {
+			var legendLayer = app.map.getLayer(MapConfig.legendLayer.id),
+					densityConf = MapConfig.tcd,
+					formaConf = MapConfig.forma,
+					lossConf = MapConfig.loss,
+					gainConf = MapConfig.gain,
+					confItems = [densityConf, formaConf, lossConf, gainConf],
+					visibleLayers = [];
+
+			// Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
+			// If they are visible, show them in the legend by adding their ids to visibleLayers.
+			// Make sure to set layer drawing options for those values so they do not display 
+			// over their ImageService counterparts
+
+			arrayUtils.forEach(confItems, function (item) {
+				if (app.map.getLayer(item.id).visible) {
+					visibleLayers.push(item.legendLayerId);
+				}
+			});
+
+			if (visibleLayers.length > 0) {
+				legendLayer.setVisibleLayers(visibleLayers);
+				if (!legendLayer.visible) {
+					legendLayer.show();
+				}
+			} else {
+				legendLayer.hide();
+			}
+
 			registry.byId("legend").refresh();
 		}
 

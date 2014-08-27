@@ -113,6 +113,8 @@ define([
 
 			var firesLayer,
 					fireParams,
+					legendLayer,
+					legendParams,
 					formaAlertsLayer,
 					formaParams,
 					gainLayer,
@@ -138,6 +140,17 @@ define([
 			firesLayer = new ArcGISDynamicLayer(MapConfig.fires.url, {
 				imageParameters: fireParams,
 				id: MapConfig.fires.id,
+				visible: false
+			});
+
+			legendParams = new ImageParameters();
+			legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			legendParams.layerIds = [];
+			legendParams.format = "png32";
+
+			legendLayer = new ArcGISDynamicLayer(MapConfig.legendLayer.url, {
+				imageParameters: legendParams,
+				id: MapConfig.legendLayer.id,
 				visible: false
 			});
 
@@ -255,6 +268,8 @@ define([
 			});
 
 			app.map.addLayers([
+				// Hidden Legend Layer
+				legendLayer,
 				// Forest Change Layers
 				formaAlertsLayer,
 				lossLayer,

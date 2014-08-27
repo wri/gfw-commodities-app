@@ -18,6 +18,8 @@ function (declare, AppConfig, ko) {
       Model.vm.showBasemapGallery = ko.observable(false);
       Model.vm.showLocatorOptions = ko.observable(false);
       Model.vm.showClearPinsOption = ko.observable(false);
+      Model.vm.currentLatitude = ko.observable();
+      Model.vm.currentLongitude = ko.observable();
 
 
       // Cached Query Results if they are small enough and repeated often
