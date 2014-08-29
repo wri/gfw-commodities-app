@@ -16,8 +16,9 @@ define([
 	"utils/Animator",
 	"map/Controls",
 	"map/LayerController",
+	"analysis/Analyzer",
 	"components/LayerList"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, MapConfig, Map, Finder, MapModel, Hasher, Animator, MapControl, LayerController, LayerList) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, MapConfig, Map, Finder, MapModel, Hasher, Animator, MapControl, LayerController, Analyzer, LayerList) {
 	'use strict';
 
 	var initialized = false,
@@ -142,6 +143,10 @@ define([
 
 			on(dom.byId("legend-title"), "click", function () {
 				MapControl.toggleLegendContainer();
+			});
+
+			on(dom.byId("wizard-tab"), "click", function () {
+				Analyzer.toggleWizard();
 			});
 
 			// dojoQuery(".layer-list-item.forest-change input").forEach(function (node) {

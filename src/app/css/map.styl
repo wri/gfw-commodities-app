@@ -4,6 +4,14 @@ border-radius()
 	-moz-border-radius arguments
 	-webkit-border-radius arguments
 
+top-border-radius()
+	-webkit-border-top-right-radius arguments
+	-webkit-border-top-left-radius arguments
+	-moz-border-radius topright arguments
+	-moz-border-radius topleft arguments
+	border-top-right-radius arguments
+	border-top-left-radius arguments
+
 lightGray = #ececed
 mediumGray = #888
 goldFont = #f0ab00
@@ -11,6 +19,7 @@ greyBorder = #b2b2b2
 hoverBackground = #CDCDCD
 orangeSelected = rgb(233, 131, 0)
 orangeHover = rgba(233, 131, 0, 0.45)
+wizardTab = #5bcb3d
 
 .gfw .map-container 
 	position absolute
@@ -18,6 +27,10 @@ orangeHover = rgba(233, 131, 0, 0.45)
 	right 0
 	left 0
 	top 0
+
+.gfw .map
+	position absolute
+	left 0
 
 .gfw .map-container .esriSimpleSlider
 	background none
@@ -270,7 +283,8 @@ orangeHover = rgba(233, 131, 0, 0.45)
 	margin-top 5px
 
 .gfw .slider-container .dijitRuleLabel
-	-webkit-transform rotate(-55deg);
+	-webkit-transform rotate(-55deg)
+	-ms-transform rotate(-55deg)
 	transform rotate(-55deg)
 	margin-top 6px
 	width 30px
@@ -332,5 +346,92 @@ orangeHover = rgba(233, 131, 0, 0.45)
 
 .gfw #legend > div:nth-last-child(2)
 	padding-bottom 10px
-
 /* Overrides for Esri Legend */
+
+/*** BEGIN WIZARD STYLING ***/
+.gfw .wizard-container
+	background-color #fff
+	position absolute
+	z-index 5
+	bottom 0
+	left 0
+	top 0
+
+.gfw .wizard-tab
+	font-family Arial, sans-serif
+	-webkit-transform rotate(90deg)
+	-ms-transform rotate(90deg)
+	transform rotate(90deg)
+	background-color wizardTab
+	top-border-radius(5px)
+	position absolute
+	font-size 22px
+	cursor pointer
+	padding 10px
+	left -30px
+	top 150px
+	z-index 5
+
+.gfw .wizard .wizard-root
+	margin 10px
+
+.gfw .wizard-header
+	margin-bottom 20px
+
+.gfw .wizard-header .title
+	text-decoration underline
+	font-size 30px
+
+.gfw .wizard-header .button
+	border 1px solid mediumGray
+	background-color lightGray
+	border-radius(5px)
+	font-weight bold
+	padding 8px 10px
+	cursor pointer
+	margin 0 5px
+	float right
+
+.gfw .wizard-header .breadcrumbs
+	margin 10px 0
+	clear both
+
+.gfw .wizard-header .breadcrumbs .active
+	font-weight bold
+	color #000
+
+.gfw .wizard-header .breadcrumbs .enabled
+	cursor pointer
+	color goldFont
+
+.gfw .wizard-header .breadcrumbs .carat
+	color #000
+
+.gfw .wizard-header .breadcrumbs,
+.gfw .wizard-header .breadcrumbs span:not(.enabled) .carat
+	color lightGray
+	font-size 22px
+
+.gfw .wizard-body .hidden
+	display none
+
+.gfw .wizard-body .step-title
+	margin-bottom 5px
+	font-size 26px
+
+.gfw .wizard-body .s1-radio-container
+	font-size 22px
+	margin 10px
+
+.gfw .wizard-body .next-button-container
+	font-size 24px
+	margin 20px 0
+	float right
+
+.gfw .wizard-body .next-button
+	background-color orangeSelected
+	border 1px solid mediumGray
+	border-radius(5px)
+	padding 10px 20px
+	
+/*** END WIZARD STYLING ***/

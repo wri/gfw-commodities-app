@@ -84,6 +84,7 @@ module.exports = function (grunt) {
             'map': 'app/js/map',
             'main': 'app/js/main',
             'utils': 'app/js/utils',
+            'analysis': 'app/js/analysis',
             'templates': 'app/templates',
             'controllers': 'app/js/controllers',
             'components': 'app/js/components',
