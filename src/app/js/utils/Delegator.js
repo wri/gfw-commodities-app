@@ -2,10 +2,11 @@ define([
 	"dojo/topic",
 	"map/config",
 	"map/Controls",
-	"map/LayerController",
+	"analysis/Analyzer",
+	"map/LayerController",,
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, Analyzer, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {
@@ -62,6 +63,8 @@ define([
 					LayerController.updateLayer(props);
 				}
 			});
+
+			// Actions triggered form the Analysis Wizard
 
 		}
 

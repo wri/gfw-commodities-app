@@ -1,20 +1,21 @@
 define([
-	"react"
-], function (React) {
+	"react",
+  "analysis/config"
+], function (React, AnalyzerConfig) {
 
   // Variables
-  var title = "Step 1: Select Area",
-      option1 = 'Create custom area',
-      option2 = 'Administrative unit',
-      option3 = 'Commercial entity',
-      option4 = 'Certified area',
-      option5 = 'Mill point';
+  var title = AnalyzerConfig.stepOne.title,//"Step 1: Select Area",
+      option1 = AnalyzerConfig.stepOne.option1,
+      option2 = AnalyzerConfig.stepOne.option2,
+      option3 = AnalyzerConfig.stepOne.option3,
+      option4 = AnalyzerConfig.stepOne.option4,
+      option5 = AnalyzerConfig.stepOne.option5;
   
   // Helper Functions
   function getDefaultState() {
     return {
       completed: true,
-      selectedOption: 'adminUnitOption'
+      selectedOption: option2.id
     };
   }
 
@@ -24,9 +25,15 @@ define([
       return getDefaultState();
     },
 
+    componentDidMount: function () {
+      this.props.callback.update(getDefaultState().selectedOption);
+    },
+
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
-        this.replaceState(getDefaultState());
+        var defaults = getDefaultState();
+        this.replaceState(defaults);
+        this.props.callback.update(defaults.selectedOption);
       }
     },
 
@@ -35,24 +42,24 @@ define([
         React.DOM.div({'className': 'step'},
           React.DOM.div({'className': 'step-title'}, title),
           React.DOM.div({'className': 's1-radio-container'},
-            React.DOM.input({'id': 'customAreaOption', 'type': 'radio', onChange: this._changeSelection,'name': 'first-step', 'checked': this.state.selectedOption === 'customAreaOption'}),
-            React.DOM.label({'htmlFor': 'customAreaOption'}, option1)
+            React.DOM.input({'id': option1.id, 'type': 'radio', onChange: this._changeSelection,'name': 'first-step', 'checked': this.state.selectedOption === option1.id}),
+            React.DOM.label({'htmlFor': option1.id}, option1.label)
           ),
           React.DOM.div({'className': 's1-radio-container'},
-            React.DOM.input({'id': 'adminUnitOption', 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === 'adminUnitOption'}),
-            React.DOM.label({'htmlFor': 'adminUnitOption'}, option2)
+            React.DOM.input({'id': option2.id, 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === option2.id}),
+            React.DOM.label({'htmlFor': option2.id}, option2.label)
           ),
           React.DOM.div({'className': 's1-radio-container'},
-            React.DOM.input({'id': 'commercialEntityOption', 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === 'commercialEntityOption'}),
-            React.DOM.label({'htmlFor': 'commercialEntityOption'}, option3)
+            React.DOM.input({'id': option3.id, 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === option3.id}),
+            React.DOM.label({'htmlFor': option3.id}, option3.label)
           ),
           React.DOM.div({'className': 's1-radio-container'},
-            React.DOM.input({'id': 'certifiedAreaOption', 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === 'certifiedAreaOption'}),
-            React.DOM.label({'htmlFor': 'certifiedAreaOption'}, option4)
+            React.DOM.input({'id': option4.id, 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === option4.id}),
+            React.DOM.label({'htmlFor': option4.id}, option4.label)
           ),
           React.DOM.div({'className': 's1-radio-container'},
-            React.DOM.input({'id': 'millPointOption', 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === 'millPointOption'}),
-            React.DOM.label({'htmlFor': 'millPointOption'}, option5)
+            React.DOM.input({'id': option5.id, 'type': 'radio', onChange: this._changeSelection, 'name': 'first-step', 'checked': this.state.selectedOption === option5.id}),
+            React.DOM.label({'htmlFor': option5.id}, option5.label)
           ),
           React.DOM.div({'className':'next-button-container'},
             React.DOM.span({'className': 'next-button', onClick: this._moveOn }, "Next")

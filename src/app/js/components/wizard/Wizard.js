@@ -1,12 +1,15 @@
 define([
 	"react",
+  "analysis/config",
   "components/wizard/StepOne",
   "components/wizard/StepTwo",
   "components/wizard/StepThree",
-  "components/wizard/StepFour"
-], function (React, StepOne, StepTwo, StepThree, StepFour) {
+  "components/wizard/StepFour",
+  // Other Helpful Modules
+  "dojo/topic"
+], function (React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, topic) {
 
-	var breadcrumbs = ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"];
+	var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
   function getDefaultState() {
     return {
@@ -14,7 +17,6 @@ define([
       payload: {}
     };
   }
-
 
   // This Component has some dynamic properties that get created to trigger refresh on the children or
   // keep track of items that effect some childrens rendering
@@ -26,7 +28,7 @@ define([
     },
 
     componentDidMount: function () {
-
+      
     },
 
     componentDidUpdate: function () {
@@ -36,7 +38,6 @@ define([
           isResetting: false
         });
       }
-      console.dir(this.props);
     },
 
     render: function () {
@@ -53,7 +54,6 @@ define([
           React.DOM.div({'className': 'wizard-header'},
             React.DOM.span({'className': 'title'}, "Analysis"),
             React.DOM.span({'className': 'reset button', onClick: this._reset }, "Reset"),
-            React.DOM.span({'className': 'fullscreen button'}, "Full screen"),
             React.DOM.div({'className': 'breadcrumbs'},
               breadcrumbs.map(this._breadcrumbMapper, this)
             )
@@ -116,6 +116,10 @@ define([
       this.setProps({
         selectedArea: value
       });
+    },
+
+    _setListItems: function (items) {
+
     }
 
   });

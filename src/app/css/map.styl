@@ -19,7 +19,6 @@ greyBorder = #b2b2b2
 hoverBackground = #CDCDCD
 orangeSelected = rgb(233, 131, 0)
 orangeHover = rgba(233, 131, 0, 0.45)
-wizardTab = #5bcb3d
 wizardBlue = #00688B
 
 .gfw .map-container 
@@ -360,15 +359,16 @@ wizardBlue = #00688B
 
 .gfw .wizard-tab
 	font-family Arial, sans-serif
+	background-color orangeSelected
 	-webkit-transform rotate(90deg)
 	-ms-transform rotate(90deg)
 	transform rotate(90deg)
-	background-color wizardTab
 	top-border-radius(5px)
 	position absolute
-	font-size 22px
+	font-size 20px
 	cursor pointer
 	padding 10px
+	color #fff
 	left -30px
 	top 150px
 	z-index 5
@@ -381,7 +381,7 @@ wizardBlue = #00688B
 
 .gfw .wizard-header .title
 	text-decoration underline
-	font-size 30px
+	font-size 26px
 
 .gfw .wizard-header .button
 	border 1px solid mediumGray
@@ -411,22 +411,22 @@ wizardBlue = #00688B
 .gfw .wizard-header .breadcrumbs,
 .gfw .wizard-header .breadcrumbs span:not(.enabled) .carat
 	color lightGray
-	font-size 22px
+	font-size 20px
 
 .gfw .wizard-body .hidden
 	display none
 
 .gfw .wizard-body .step-title
 	margin-bottom 5px
-	font-size 26px
+	font-size 24px
 
 .gfw .wizard-body .s1-radio-container
-	font-size 22px
+	font-size 18px
 	margin 10px
 
 .gfw .wizard-body .next-button-container
 	font-size 24px
-	margin 20px 0
+	margin 20px
 	float right
 
 .gfw .wizard-body .next-button
@@ -436,5 +436,26 @@ wizardBlue = #00688B
 	border-radius(5px)
 	cursor pointer
 	color #fff
-	
+
+.gfw .wizard-body .next-button.disabled
+	background-color mediumGray
+	cursor default
+	opacity 0.5
+	color #000
+
+.gfw .step .drawing-tools
+	text-align center
+	font-size 18px
+	margin 10px 0
+
+.gfw .step .drawing-tool-button
+	background-color lightGray
+	display inline-block
+	padding 8px 10px 4px
+	border-radius(5px)
+	cursor pointer
+	margin 0 5px
+
+.gfw .step .drawing-tool-button:hover
+	background-color orangeHover	
 /*** END WIZARD STYLING ***/
