@@ -3,7 +3,7 @@ define([
 	"map/config",
 	"map/Controls",
 	"analysis/Analyzer",
-	"map/LayerController",,
+	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
 ], function (topic, MapConfig, Controls, Analyzer, LayerController, MapController, ViewController) {
@@ -63,8 +63,6 @@ define([
 					LayerController.updateLayer(props);
 				}
 			});
-
-			// Actions triggered form the Analysis Wizard
 
 		}
 
