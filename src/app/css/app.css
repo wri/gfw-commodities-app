@@ -1298,3 +1298,8 @@ body {
 .gfw .step .drawing-tool-button.active {
   background-color: #e98300;
 }
+
+/* line 153 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .custom-feature-row {
+  cursor: pointer;
+}
