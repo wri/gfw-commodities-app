@@ -68,11 +68,10 @@ define([
 
 
 			// If the Wizard has not been created yet, do so now
+			// but wait for the container to become visible to do so
 			if (wizard === undefined) {
 				setTimeout(function () {
-					wizard = new Wizard({
-
-					}, "wizard");
+					wizard = new Wizard({}, "wizard");
 				}, duration);
 			}
 
@@ -82,6 +81,18 @@ define([
 				mapAnimation
 			]).play();
 
+		},
+
+		/*
+			Takes a evt with a graphic inside it as a parameter, sets the UI in the wizard to a specific step and selects the feature
+		*/
+		customFeatureClicked: function (evt) {
+			if (evt.graphic) {
+				// Set to Step 2, the parameter is index based so 0,1,2,3, 1 is the second step
+				wizard._externalSetStep(1);
+				// In this case, set the RefinedArea to the evt.graphic
+				wizard._updateAnalysisArea(evt.graphic);
+			}
 		}
 
 	};

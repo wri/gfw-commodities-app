@@ -45,11 +45,27 @@ wizardBlue = #00688B
 	top 150px
 	z-index 5
 
-.gfw .wizard .wizard-root
-	margin 10px
+.gfw .wizard, .gfw .wizard .wizard-root
+	height 100%
+	width 100%
 
 .gfw .wizard-header
-	margin-bottom 20px
+	position absolute
+	height 65px
+	right 10px
+	left 10px
+	top 10px
+
+.gfw .wizard-body
+	position absolute
+	bottom 10px
+	right 10px
+	left 10px
+	top 85px
+
+.gfw .wizard-body > div
+	overflow-y auto
+	height 100%
 
 .gfw .wizard-header .title
 	text-decoration underline
@@ -121,9 +137,15 @@ wizardBlue = #00688B
 .gfw .step .clear-custom-features
 	text-decoration underline
 	display inline-block
-	margin 10px 0 20px
+	margin 10px 0 0
 	cursor pointer
 	color blue
+
+.gfw .step .drawing-instructions
+	margin 10px 0
+
+.gfw .step .upload-instructions
+	margin-bottom 5px
 
 .gfw .step .selected-analysis-area
 	font-size 18px
@@ -153,3 +175,21 @@ wizardBlue = #00688B
 
 .gfw .custom-feature-row
 	cursor pointer
+
+.gfw .upload-toolbox form
+	text-align center
+
+.gfw .upload-toolbox #dropdownContainerName
+	text-align center
+	margin 20px 0
+
+.gfw .custom-graphics-list-container
+	margin 20px 0
+
+.gfw .dijitComboBoxMenuPopup
+	max-height 300px
+
+.gfw .wizard .dijitInputField
+	padding 3px 10px 0
+
+

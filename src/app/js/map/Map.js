@@ -8,6 +8,7 @@ define([
 	"dojo/dom-construct",
 	// My Modules
 	"map/config",
+	"analysis/Analyzer",
 	// Esri Modules
 	"esri/map",
 	"esri/layers/GraphicsLayer",
@@ -23,7 +24,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, Analyzer, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -48,6 +49,7 @@ define([
 			self.map.on('load', function () {
 				self.map.resize();
 				self.mapLoaded();
+				self.emit('map-ready', {});
 			});
 
 
@@ -56,10 +58,8 @@ define([
 		mapLoaded: function () {
 			// Clear out default Esri Graphic at 0,0, dont know why its even there
       this.map.graphics.clear();
-
 			this.addWidgets();
 			this.addLayers();
-			this.emit('map-ready', {});
 		},
 
 		addWidgets: function () {
@@ -326,6 +326,9 @@ define([
 			agroSuitabilityLayer.on('error', this.addLayerError);
 			mapOverlaysLayer.on('error', this.addLayerError);
 			customGraphicsLayer.on('error', this.addLayerError);
+
+			// Add Layer Specific Events Here
+			customGraphicsLayer.on('click', Analyzer.customFeatureClicked);
 
 		},
 

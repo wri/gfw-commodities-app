@@ -14,7 +14,7 @@ define([
   function getDefaultState() {
     return {
       currentStep: 0,
-      payload: {}
+      analysisArea: undefined
     };
   }
 
@@ -44,10 +44,13 @@ define([
 
       var props = this.props;
 
+      // Mixin any state/props that need to be mixed in here
+      props.analysisArea = this.state.analysisArea;
+
       props.callback = {
         nextStep: this._nextStep,
         update: this._updateSelectedArea,
-        updatePayload: this._updatePayload
+        updateAnalysisArea: this._updateAnalysisArea
       };
 
       return (
@@ -102,11 +105,12 @@ define([
       this.setState({
         currentStep: this.state.currentStep + 1
       });
+      console.dir(this.state);
     },
 
     _reset: function () {
       // Call setProps to trigger reset on children
-      this.setProps({
+      this.replaceProps({
         isResetting: true
       });
       // Reset this components state
@@ -119,14 +123,23 @@ define([
       });
     },
 
-    _setListItems: function (items) {
-
+    _updateAnalysisArea: function (feature) {
+      this.setState({
+        analysisArea: feature
+      });
     },
 
-    _updatePayload: function (key, value) {
-      // Dont Call setState unless there is a specific need to 
-      // rerender UI elements
-      this.state.payload[key] = value;
+    // Function that can be used in the Analyzer.js file to programmatically set which step it is on
+    _externalSetStep: function (step) {
+      if (step >= 0 || step <= 3) {
+        this.setState({
+          currentStep: step
+        });
+      }
+    },
+
+    _generatePayload: function () {
+      // Publish an event with a payload of information necessary for performing analysis
     }
 
   });

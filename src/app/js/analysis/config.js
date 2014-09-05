@@ -44,14 +44,24 @@ define([], function () {
 			commArea: commArea,
 			certArea: certArea,
 			millPoint: millPoint,
-			currentFeatureText: "Current feature for analysis: "
+			currentFeatureText: "Current feature for analysis: ",
+			labelField: "WRI_label"
 		},
 
 		customArea: {
 			instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
+			instructionsPartTwo: "Select a feature from below and click \"Next\" to proceed.",
 			freehandLabel: 'Freehand',
 			uploadLabel: 'Upload',
-			polyLabel: 'Polygon'
+			polyLabel: 'Polygon',
+			uploadInstructions: [
+				'Select a zip file(.zip) containing a shapefile(.shp,.dbf,.prj) from your local file system.',
+				'The shapefile must be in Geographic Coordinate System (WGS84).',
+				'The shapefile must be of POLYGON geometry type.',
+				'The shapefile must not exceed 1 Megabyte.'
+			],
+			incorrectFileTypeError: "Your shapefile must be of type .zip, please choose another file.",
+			portalUrl: "http://www.arcgis.com/sharing/rest/content/features/generate"
 		}
 
 	};

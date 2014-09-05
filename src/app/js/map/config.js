@@ -1,6 +1,5 @@
 define([], function () {
 
-
 	// The dynamicMapServiceUrl is used by several layers, make sure if you change it all layers and layer ids are still working
 	// The dynamicMapServiceUrl is currently being used by the following layers (by key):
 	// ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm

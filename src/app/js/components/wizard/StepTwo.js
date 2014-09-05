@@ -15,13 +15,13 @@ define([
       adminUnit = AnalyzerConfig.stepTwo.adminUnit,
       millPoint = AnalyzerConfig.stepTwo.millPoint,
       certArea = AnalyzerConfig.stepTwo.certArea,
-      commArea = AnalyzerConfig.stepTwo.commArea;
+      commArea = AnalyzerConfig.stepTwo.commArea,
+      labelField = AnalyzerConfig.stepTwo.labelField;
 
   // Helper Functions
   function getDefaultState() {
     return {
-      completed: false,
-      analysisArea: undefined
+      completed: false
     };
   }
 
@@ -38,12 +38,19 @@ define([
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
+        return;
+      }
+
+      if (newProps.analysisArea) {
+        this.setState({
+          completed: true
+        });
+      } else {
+        this.replaceState(getDefaultState());
       }
     },
 
     render: function () {
-
-      this.props.updateAnalysisArea = this._updateAnalysisArea;
 
       return (
         React.DOM.div({'className': 'step'},
@@ -66,7 +73,7 @@ define([
           React.DOM.div({'className': 'selected-analysis-area'},
             React.DOM.span({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
             React.DOM.span({'className': 'current-selection'}, 
-              (this.state.analysisArea ? this.state.analysisArea.attributes.label : "none")
+              (this.props.analysisArea ? this.props.analysisArea.attributes[labelField] : "none")
             )
           ),
           React.DOM.div({'className':'next-button-container'},
@@ -82,7 +89,6 @@ define([
     _checkRequirements: function () {
       if (this.state.completed) {
         this.props.callback.nextStep();
-        this.props.callback.updatePayload("feature", this.state.analysisArea);
       }
     },
 
@@ -90,22 +96,6 @@ define([
       this.setState({
         completed: completionStatus
       });
-    },
-
-    _updateAnalysisArea: function (feature) {
-
-      // This function serves dual purpose, essentially a toggle function
-      // if feature is defined, this step is considered completed and the anaylsisArea is set
-      // Else, reset to default state
-
-      if (feature) {
-        this.setState({
-          analysisArea: feature,
-          completed: true
-        });
-      } else {
-        this.setState(getDefaultState());
-      }
     }
 
   });
