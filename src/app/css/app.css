@@ -1254,30 +1254,31 @@ body {
 /* line 121 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .clear-custom-features {
   text-decoration: underline;
+  display: inline-block;
   margin: 10px 0 20px;
   cursor: pointer;
   color: #00f;
 }
 
-/* line 127 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 128 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .selected-analysis-area {
   font-size: 18px;
 }
 
-/* line 130 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 131 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .current-selection {
   font-weight: bold;
   color: #f0ab00;
 }
 
-/* line 134 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 135 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tools {
   text-align: center;
   font-size: 18px;
   margin: 10px 0;
 }
 
-/* line 139 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 140 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button {
   background-color: #ececed;
   display: inline-block;
@@ -1289,17 +1290,17 @@ body {
   margin: 0 5px;
 }
 
-/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 148 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 150 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 151 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button.active {
   background-color: #e98300;
 }
 
-/* line 153 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .custom-feature-row {
   cursor: pointer;
 }
