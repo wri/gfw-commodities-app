@@ -43,7 +43,8 @@ define([], function () {
 			adminUnit: adminUnit,
 			commArea: commArea,
 			certArea: certArea,
-			millPoint: millPoint
+			millPoint: millPoint,
+			currentFeatureText: "Current feature for analysis: "
 		},
 
 		customArea: {

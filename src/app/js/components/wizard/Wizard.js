@@ -46,7 +46,8 @@ define([
 
       props.callback = {
         nextStep: this._nextStep,
-        update: this._updateSelectedArea
+        update: this._updateSelectedArea,
+        updatePayload: this._updatePayload
       };
 
       return (
@@ -120,6 +121,12 @@ define([
 
     _setListItems: function (items) {
 
+    },
+
+    _updatePayload: function (key, value) {
+      // Dont Call setState unless there is a specific need to 
+      // rerender UI elements
+      this.state.payload[key] = value;
     }
 
   });

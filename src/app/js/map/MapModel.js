@@ -21,17 +21,8 @@ function (declare, AppConfig, ko) {
       Model.vm.currentLatitude = ko.observable();
       Model.vm.currentLongitude = ko.observable();
 
-
-      // Cached Query Results if they are small enough and repeated often
-      // Model.vm.formaAlertsLayerNames = ko.observable(); <-- NO LONGER NEEDED
-
-      // Header Properties
-      // Model.vm.forestUse = ko.observable(false);
-      // Model.vm.forestCover = ko.observable(false);
-      // Model.vm.forestChange = ko.observable(false);
-      // Model.vm.conservation = ko.observable(false);
-      // Model.vm.agroSuitability = ko.observable(false);
-      // Model.vm.filterTitle = ko.observable("");
+      // Storage of specific objects
+      Model.vm.drawnGraphics = ko.observableArray([]);
 
       // Apply Bindings upon initialization
       ko.applyBindings(Model.vm, document.getElementById(el));

@@ -43,6 +43,10 @@ define([], function () {
 			layerId: 5
 		},
 
+		customGraphicsLayer: {
+			id: "CustomFeatures"
+		},
+
 		// End Normal Layers not part of the Master Layer UI List
 		// Keys Match list below which builds the Master Layer UI List
 		// NOTE: If a item is specified in the layersUI below it needs to have a key defined here

@@ -10,6 +10,7 @@ define([
 	"map/config",
 	// Esri Modules
 	"esri/map",
+	"esri/layers/GraphicsLayer",
 	"esri/layers/RasterFunction",
 	"esri/layers/ImageParameters",
 	"esri/layers/ImageServiceParameters",
@@ -22,7 +23,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, Map, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -130,6 +131,7 @@ define([
 					agroSuitabilityParams,
 					mapOverlaysLayer,
 					mapOverlaysParams,
+					customGraphicsLayer,
 					self = this;
 
 			fireParams = new ImageParameters();
@@ -267,6 +269,10 @@ define([
 				visible: false
 			});
 
+			customGraphicsLayer = new GraphicsLayer({
+				id: MapConfig.customGraphicsLayer.id
+			});
+
 			app.map.addLayers([
 				// Hidden Legend Layer
 				legendLayer,
@@ -286,7 +292,10 @@ define([
 				// Points Layers
 				firesLayer,
 				// Overlays
-				mapOverlaysLayer
+				mapOverlaysLayer,
+				// Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
+				// If needs be, seperate these out into multiple Graphics Layers
+				customGraphicsLayer
 			]);
 
 			on.once(app.map, 'layers-add-result', function (response) {
@@ -316,6 +325,7 @@ define([
 			protectAreasLayer.on('error', this.addLayerError);
 			agroSuitabilityLayer.on('error', this.addLayerError);
 			mapOverlaysLayer.on('error', this.addLayerError);
+			customGraphicsLayer.on('error', this.addLayerError);
 
 		},
 

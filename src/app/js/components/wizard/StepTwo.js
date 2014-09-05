@@ -20,7 +20,8 @@ define([
   // Helper Functions
   function getDefaultState() {
     return {
-      completed: false
+      completed: false,
+      analysisArea: undefined
     };
   }
 
@@ -41,6 +42,9 @@ define([
     },
 
     render: function () {
+
+      this.props.updateAnalysisArea = this._updateAnalysisArea;
+
       return (
         React.DOM.div({'className': 'step'},
           React.DOM.div({'className': 'step-title'}, title),
@@ -59,6 +63,12 @@ define([
           React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== commArea ? 'hidden' : '')},
             new CommercialEntity(this.props)
           ),
+          React.DOM.div({'className': 'selected-analysis-area'},
+            React.DOM.span({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
+            React.DOM.span({'className': 'current-selection'}, 
+              (this.state.analysisArea ? this.state.analysisArea.attributes.label : "none")
+            )
+          ),
           React.DOM.div({'className':'next-button-container'},
             React.DOM.span({
               'className': 'next-button ' + (this.state.completed ? '' : 'disabled'), 
@@ -70,8 +80,31 @@ define([
     },
 
     _checkRequirements: function () {
-      if (this.state.complete) {
+      if (this.state.completed) {
         this.props.callback.nextStep();
+        this.props.callback.updatePayload("feature", this.state.analysisArea);
+      }
+    },
+
+    _setCompletion: function (completionStatus) {
+      this.setState({
+        completed: completionStatus
+      });
+    },
+
+    _updateAnalysisArea: function (feature) {
+
+      // This function serves dual purpose, essentially a toggle function
+      // if feature is defined, this step is considered completed and the anaylsisArea is set
+      // Else, reset to default state
+
+      if (feature) {
+        this.setState({
+          analysisArea: feature,
+          completed: true
+        });
+      } else {
+        this.setState(getDefaultState());
       }
     }
 
