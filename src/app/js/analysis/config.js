@@ -50,7 +50,45 @@ define([], function () {
 
 		stepThree: {
 			title: "Step 3: Select Analysis",
-			description: "Select which type of analysis you would like included in your results and then click next."
+			description: "Select which type of analysis you would like included in your results and then click \"Next\".",
+			cb1: {
+				label: 'Forest Change',
+				value: 'forest'
+			},
+			cb2: {
+				label: 'Tree cover loss and fires',
+				value: 'loss'
+			},
+			cb3: {
+				label: 'FORMA clearance alerts',
+				value: 'forma'
+			},
+			cb4: {
+				label: 'Suitability',
+				value: 'suit'
+			},
+			cb5: {
+				label: 'Risk Assessment',
+				value: 'risk'
+			},
+			millPoint: millPoint
+		},
+
+		stepFour: {
+			title: "Step 4: Refine Analysis",
+			description: "Select which data sets you would like to include in your analysis and then click \"Perform Analysis\".  You must select at least one data set.",
+			checkboxes: [
+				{label: 'Primary Forests', value: 'primForest', checked: true},
+				{label: 'Tree Cover Density', value: 'treeDensity'},
+				{label: 'Legal Classes', value: 'legal'},
+				{label: 'Protected Areas', value: 'protected'},
+				{label: 'Forest Carbon Stocks', value: 'carbon'},
+				{label: 'Intact Forests', value: 'intact'},
+				{label: 'Land Cover', value: 'landCover'},
+				{label: 'Peat Lands', value: 'peat'},
+				{label: 'Suitability', value: 'suit'},
+				{label: 'RSPO Land Use Change Analysis', value: 'rspo'}
+			]
 		},
 
 		customArea: {

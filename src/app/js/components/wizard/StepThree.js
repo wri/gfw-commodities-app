@@ -4,26 +4,7 @@ define([
   "components/wizard/WizardCheckbox"
 ], function (React, AnalyzerConfig, WizardCheckbox) {
 
-  var cb1 = {
-        label: "Forest Change",
-        value: "forest"
-      };
-      cb2 = {
-        label: "Tree cover loss and fires",
-        value: "loss"
-      };
-      cb3 = {
-        label: "FORMA clearance alerts",
-        value: "forma"
-      };
-      cb4 = {
-        label: "Suitability",
-        value: "suit"
-      };
-      cb5 = {
-        label: "Risk Assessment",
-        value: "risk"
-      };
+  var config = AnalyzerConfig.stepThree;
 
   function getDefaultState() {
     return {
@@ -51,42 +32,44 @@ define([
     render: function () {
       return (
         React.DOM.div({'className': 'step select-analysis'},
-          React.DOM.div({'className': 'step-title'}, AnalyzerConfig.stepThree.title),
-          React.DOM.p({'className': 'step-description'}, AnalyzerConfig.stepThree.description),
+          React.DOM.div({'className': 'step-title'}, config.title),
+          React.DOM.p({'className': 'step-description'}, config.description),
           new WizardCheckbox({
-            'label': cb1.label,
-            'value': cb1.value,
+            'label': config.cb1.label,
+            'value': config.cb1.value,
             'change': this._showChildren, 
             'isResetting': this.props.isResetting,
             'defaultChecked': true
           }),
           React.DOM.div({'className': 'child-checkboxes ' + (this.state.showForestChangeChildren ? '' : 'hidden')},
             new WizardCheckbox({
-              'label': cb2.label,
-              'value': cb2.value,
+              'label': config.cb2.label,
+              'value': config.cb2.value,
               'change': this._selectionMade, 
               'isResetting': this.props.isResetting,
               'defaultChecked': true,
             }),
             new WizardCheckbox({
-              'label': cb3.label,
-              'value': cb3.value,
+              'label': config.cb3.label,
+              'value': config.cb3.value,
               'change': this._selectionMade, 
               'isResetting': this.props.isResetting
             })
           ),
           new WizardCheckbox({
-            'label': cb4.label,
-            'value': cb4.value,
+            'label': config.cb4.label,
+            'value': config.cb4.value,
             'change': this._selectionMade, 
             'isResetting': this.props.isResetting
           }),
-          new WizardCheckbox({
-            'label': cb5.label,
-            'value': cb5.value,
-            'change': this._selectionMade, 
-            'isResetting': this.props.isResetting
-          }),
+          React.DOM.div({'className': (this.props.selectedArea === config.millPoint ? '' : 'hidden')},
+            new WizardCheckbox({
+              'label': config.cb5.label,
+              'value': config.cb5.value,
+              'change': this._selectionMade, 
+              'isResetting': this.props.isResetting
+            })
+          ),
           React.DOM.div({'className':'next-button-container'},
             React.DOM.span({
               'className': 'next-button ' + (this.state.completed ? '' : 'disabled'), 
@@ -121,16 +104,16 @@ define([
 
       // If any one of these cases pass, we are safe to move on
       // if cb1 and either cb2 or cb3 are active
-      if (activeValues.indexOf(cb1.value) > -1 && 
-          (activeValues.indexOf(cb2.value) > -1 || activeValues.indexOf(cb3.value) > -1)) {
+      if (activeValues.indexOf(config.cb1.value) > -1 && 
+          (activeValues.indexOf(config.cb2.value) > -1 || activeValues.indexOf(config.cb3.value) > -1)) {
         completed = true;
       }
       // if cb4 is active
-      if (activeValues.indexOf(cb4.value) > -1) {
+      if (activeValues.indexOf(config.cb4.value) > -1) {
         completed = true;
       }
       // if cb5 is active
-      if (activeValues.indexOf(cb5.value) > -1) {
+      if (activeValues.indexOf(config.cb5.value) > -1) {
         completed = true;
       }
 
@@ -151,14 +134,14 @@ define([
 
       // If Forest Change(cb1) is false, make sure that Tree Cover Loss(cb2) and Forma Alerts(cb3) are also false,
       // If more children are added below risk(cb4) and suit(cb5), this is place to handle those cases as well
-      if (!payload[cb1.value]) {
-        payload[cb2.value] = false;
-        payload[cb3.value] = false;
+      if (!payload[config.cb1.value]) {
+        payload[config.cb2.value] = false;
+        payload[config.cb3.value] = false;
       }
 
       // Remove Forest Change from the payload as it is not part of the analysis, its just a parent category
       // If more children are added below risk(cb4) and suit(cb5), this is place to remove parents
-      delete payload[cb1.value];
+      delete payload[config.cb1.value];
 
       return payload;
     },

@@ -15,6 +15,7 @@ define([
     return {
       currentStep: 0,
       analysisArea: undefined,
+      analysisSets: undefined,
       analysisTypes: undefined
     };
   }
@@ -52,7 +53,9 @@ define([
         nextStep: this._nextStep,
         update: this._updateSelectedArea,
         updateAnalysisArea: this._updateAnalysisArea,
-        updateAnalysisType: this._updateAnalysisType
+        updateAnalysisType: this._updateAnalysisType,
+        updateAnalysisDatasets: this._updateAnalysisDatasets,
+        performAnalysis: this._performAnalysis
       };
 
       return (
@@ -107,10 +110,6 @@ define([
       this.setState({
         currentStep: this.state.currentStep + 1
       });
-      var self = this;
-      requestAnimationFrame(function () {
-        console.dir(self.state);
-      });
     },
 
     _reset: function () {
@@ -140,6 +139,12 @@ define([
       });
     },
 
+    _updateAnalysisDatasets: function (datasets) {
+      this.setState({
+        analysisSets: datasets
+      });
+    },
+
     // Function that can be used in the Analyzer.js file to programmatically set which step it is on
     _externalSetStep: function (step) {
       if (step >= 0 || step <= 3) {
@@ -149,8 +154,14 @@ define([
       }
     },
 
-    _generatePayload: function () {
-      // Publish an event with a payload of information necessary for performing analysis
+    _performAnalysis: function () {
+      // Grab All Necessary Props from State and Pass them on
+      // React updates state in the next available animation frame, wait until this component has 
+      // performad any necessary state changes before beginning analysis
+      var self = this;
+      requestAnimationFrame(function () {
+        console.dir(self.state.analysisSets);
+      });
     }
 
   });

@@ -4,6 +4,13 @@ define([
 
   return React.createClass({
 
+    // EXPERIMENTAL TO SEE HOW IT WORKS
+    // DEFINE REQUIRED PROPERTIES HERE (LIKE SPECIFIYNG WHICH PARAMETERS AER REQUIRED IN CLASS INSTANTIATION)
+    propTypes: {
+      label: React.PropTypes.string.isRequired,
+      value: React.PropTypes.string.isRequired
+    },
+
     getInitialState: function () {
       return {
         active: this.props.defaultChecked || false
