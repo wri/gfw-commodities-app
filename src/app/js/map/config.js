@@ -42,8 +42,21 @@ define([], function () {
 			layerId: 5
 		},
 
+		// The Following Layers are used by the Wizard
+
 		customGraphicsLayer: {
 			id: "CustomFeatures"
+		},
+
+		wizardGraphicsLayer: {
+			id: "WizardTempGraphics"
+		},
+
+		adminUnitsLayer: {
+			id: 'AdminBoundaries',
+			url: mapOverlaysUrl,
+			whereField: 'NAME_0',
+			layerId: 7
 		},
 
 		// End Normal Layers not part of the Master Layer UI List

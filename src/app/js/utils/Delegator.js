@@ -2,11 +2,12 @@ define([
 	"dojo/topic",
 	"map/config",
 	"map/Controls",
+	"analysis/Query",
 	"analysis/Analyzer",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, Analyzer, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, AnalyzerQuery, Analyzer, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {
@@ -16,6 +17,15 @@ define([
 			// View Controller Events
 			topic.subscribe('changeView', function (newView) {
 				ViewController.load(newView);
+			});
+
+			// Events coming from the Wizard
+			topic.subscribe('setAdminBoundariesDefenition', function (filter) {
+				LayerController.setAdminBoundariesLayerDefinition(filter);
+				// If filter is none, dont zoom to none, above will turn layer off when none is selected
+				if (filter) {
+					AnalyzerQuery.zoomToBoundaries(filter);
+				}
 			});
 
 			// Layer Controller Functions
@@ -28,7 +38,6 @@ define([
 						var operation = app.map.getLayer(config.id).visible ? 'hide' : 'show';
 						Controls.toggleToolbox(config, operation);
 					}
-
 					LayerController.toggleLayers(config);
 				}
 			});

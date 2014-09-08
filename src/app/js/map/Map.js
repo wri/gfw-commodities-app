@@ -132,6 +132,9 @@ define([
 					mapOverlaysLayer,
 					mapOverlaysParams,
 					customGraphicsLayer,
+					adminBoundariesParams,
+					adminBoundariesLayer,
+					wizardGraphicsLayer,
 					self = this;
 
 			fireParams = new ImageParameters();
@@ -269,6 +272,21 @@ define([
 				visible: false
 			});
 
+			adminBoundariesParams = new ImageParameters();
+			adminBoundariesParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			adminBoundariesParams.layerIds = [MapConfig.adminUnitsLayer.layerId];
+			adminBoundariesParams.format = "png32";
+
+			adminBoundariesLayer = new ArcGISDynamicLayer(MapConfig.adminUnitsLayer.url, {
+				imageParameters: adminBoundariesParams,
+				id: MapConfig.adminUnitsLayer.id,
+				visible: false
+			});
+
+			wizardGraphicsLayer = new GraphicsLayer({
+				id: MapConfig.wizardGraphicsLayer.id
+			});
+
 			customGraphicsLayer = new GraphicsLayer({
 				id: MapConfig.customGraphicsLayer.id
 			});
@@ -292,9 +310,11 @@ define([
 				// Points Layers
 				firesLayer,
 				// Overlays
+				adminBoundariesLayer,
 				mapOverlaysLayer,
 				// Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
 				// If needs be, seperate these out into multiple Graphics Layers
+				wizardGraphicsLayer,
 				customGraphicsLayer
 			]);
 

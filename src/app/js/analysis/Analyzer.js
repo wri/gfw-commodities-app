@@ -5,8 +5,10 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-style",
 	"dojo/dom-geometry",
+	// My Modules
+	"analysis/Query",
 	"components/wizard/Wizard"
-], function (coreFx, dom, Fx, domClass, domStyle, domGeom, Wizard) {
+], function (coreFx, dom, Fx, domClass, domStyle, domGeom, AnalyzerQuery, Wizard) {
 	'use strict';
 
 	var wizard;
@@ -68,8 +70,10 @@ define([
 
 
 			// If the Wizard has not been created yet, do so now
-			// but wait for the container to become visible to do so
+			// but wait for the container to become visible to do so,
+			// Also, start fetching initial data that will be necessary for the UI's
 			if (wizard === undefined) {
+				AnalyzerQuery.getSetupData();
 				setTimeout(function () {
 					wizard = new Wizard({}, "wizard");
 				}, duration);

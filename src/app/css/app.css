@@ -1398,3 +1398,21 @@ body {
 .gfw .wizard-checkbox.active .wizard-checkbox-label {
   color: #e98300;
 }
+
+/* line 218 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .step .list-container {
+  margin: 5px;
+}
+
+/* line 221 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .list-container .wizard-list-item {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* line 225 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .list-container .wizard-list-child-item {
+  font-weight: normal;
+  margin-left: 10px;
+  font-size: 16px;
+}

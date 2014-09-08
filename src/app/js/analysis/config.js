@@ -7,6 +7,9 @@ define([], function () {
 			certArea = "certifiedAreaOption",
 			millPoint = "millPointOption";
 
+	// URLS
+	var adminUnitQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
+
 	return {
 
 		wizard: {
@@ -105,6 +108,33 @@ define([], function () {
 			],
 			incorrectFileTypeError: "Your shapefile must be of type .zip, please choose another file.",
 			portalUrl: "http://www.arcgis.com/sharing/rest/content/features/generate"
+		},
+
+		adminUnit: {
+			instructions: 'Select a country to view it\'s first or second level administrative units:',
+			instructionsPartTwo: "Select a feature from below and click \"Next\" to proceed.",
+			countriesQuery: {
+				url: adminUnitQueryUrl + '/6',
+				where: "NAME_0 IS NOT NULL",
+				outFields: ["NAME_0"],
+				orderBy: ["NAME_0"],
+				groupBy: ["NAME_0"],
+				statistic: { // This is necessary to support the groupBy, cannot currently groupBy without statisticsQuery :( 
+					"statisticType": 'count',
+					"onStatisticField": 'OBJECTID',
+					"outStatisticFieldName": 'OBJECTID'
+				},
+				labelValueField: 'NAME_0' // For label and value in select box
+			},
+			lowLevelUnitsQuery: {
+				url: adminUnitQueryUrl + '/7',
+				whereField: 'NAME_0',
+				requiredField: 'NAME_1',
+				outFields: ['NAME_0','NAME_1','NAME_2','OBJECTID'],
+				orderBy: ['NAME_1', 'NAME_2'],
+				labelField: 'NAME_2',
+				valueField: 'OBJECTID'
+			}
 		}
 
 	};

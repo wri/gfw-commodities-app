@@ -21,8 +21,10 @@ function (declare, AppConfig, ko) {
       Model.vm.currentLatitude = ko.observable();
       Model.vm.currentLongitude = ko.observable();
 
-      // Storage of specific objects
-      Model.vm.drawnGraphics = ko.observableArray([]);
+      // Storage of specific objects for Wizard
+      // Admin Unit
+      Model.vm.allCountries = ko.observableArray([]);
+      Model.vm.lowerLevelAdminUnits = ko.observableArray([]);
 
       // Apply Bindings upon initialization
       ko.applyBindings(Model.vm, document.getElementById(el));
