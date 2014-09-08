@@ -51,17 +51,23 @@ define([
 			map.on("map-ready", function () {
 				// Bind the Model to the Map Panel, and then again to the list in the header
 				mapModel = MapModel.initialize("map-container");
-				// MapModel.applyTo("master-layer-list");
+				// Render any React Components - These will activate any default or hashed layers
+				// Only use this after the map has been loaded,
+				// Also call other functions in renderComponents that build UI elements 
+				self.renderComponents();
+				// Connect Events
+				self.bindUIEvents();
 			});
 
 			map.on("layers-loaded", function () {
+				/** CODE MOVED TO map-ready EVENT ABOVE **/
 				// Render any React Components - These will activate any default or hashed layers
 				// Only use this after the layers have been loaded,
 				// Also call other functions in renderComponents that build UI elements 
-				self.renderComponents();
+				// self.renderComponents();
 
 				// Connect Events
-				self.bindUIEvents();
+				// self.bindUIEvents();
 				
 			});
 
