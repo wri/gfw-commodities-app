@@ -1361,3 +1361,40 @@ body {
 .gfw .wizard .dijitInputField {
   padding: 3px 10px 0;
 }
+
+/* line 195 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .wizard-checkbox-container {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+/* line 199 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .wizard .wizard-checkbox {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* line 203 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .wizard .child-checkboxes {
+  margin-left: 15px;
+}
+
+/* line 206 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .wizard .wizard-checkbox-label {
+  margin-left: 5px;
+}
+
+/* line 209 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .wizard-checkbox.active .custom-check {
+  background-color: #e98300;
+}
+
+/* line 212 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .wizard-checkbox.active .custom-check span {
+  left: 9px;
+}
+
+/* line 215 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .wizard-checkbox.active .wizard-checkbox-label {
+  color: #e98300;
+}

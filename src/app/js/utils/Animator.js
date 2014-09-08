@@ -53,11 +53,13 @@
 
 
   if (typeof define === "function" && define.amd) {
-    define([], function() {
+    define(function() {
     	return Animator;
 	  });
+	} else if (typeof module === 'object' && module.exports) {
+		module.exports = Animator;
 	} else {
-		window.animator = Animator;
+		win.animator = Animator;
 	}
 
 })(window, document, define);

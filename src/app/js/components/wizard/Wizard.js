@@ -14,7 +14,8 @@ define([
   function getDefaultState() {
     return {
       currentStep: 0,
-      analysisArea: undefined
+      analysisArea: undefined,
+      analysisTypes: undefined
     };
   }
 
@@ -50,7 +51,8 @@ define([
       props.callback = {
         nextStep: this._nextStep,
         update: this._updateSelectedArea,
-        updateAnalysisArea: this._updateAnalysisArea
+        updateAnalysisArea: this._updateAnalysisArea,
+        updateAnalysisType: this._updateAnalysisType
       };
 
       return (
@@ -105,7 +107,10 @@ define([
       this.setState({
         currentStep: this.state.currentStep + 1
       });
-      console.dir(this.state);
+      var self = this;
+      requestAnimationFrame(function () {
+        console.dir(self.state);
+      });
     },
 
     _reset: function () {
@@ -126,6 +131,12 @@ define([
     _updateAnalysisArea: function (feature) {
       this.setState({
         analysisArea: feature
+      });
+    },
+
+    _updateAnalysisType: function (typesOfAnalysis) {
+      this.setState({
+        analysisTypes: typesOfAnalysis
       });
     },
 

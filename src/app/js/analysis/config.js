@@ -48,6 +48,11 @@ define([], function () {
 			labelField: "WRI_label"
 		},
 
+		stepThree: {
+			title: "Step 3: Select Analysis",
+			description: "Select which type of analysis you would like included in your results and then click next."
+		},
+
 		customArea: {
 			instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
 			instructionsPartTwo: "Select a feature from below and click \"Next\" to proceed.",
