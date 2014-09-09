@@ -114,7 +114,7 @@ define([], function () {
 			instructions: 'Select a country to view it\'s first or second level administrative units:',
 			instructionsPartTwo: "Select a feature from below and click \"Next\" to proceed.",
 			countriesQuery: {
-				url: adminUnitQueryUrl + '/6',
+				url: adminUnitQueryUrl + '/7',
 				where: "NAME_0 IS NOT NULL",
 				outFields: ["NAME_0"],
 				orderBy: ["NAME_0"],
@@ -134,6 +134,10 @@ define([], function () {
 				orderBy: ['NAME_1', 'NAME_2'],
 				labelField: 'NAME_2',
 				valueField: 'OBJECTID'
+			},
+			countryBoundaries: {
+				url: adminUnitQueryUrl + '/6',
+				whereField: 'NAME_0'
 			}
 		}
 

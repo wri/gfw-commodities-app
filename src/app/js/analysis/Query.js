@@ -117,7 +117,7 @@ define([
 		*/
 		zoomToBoundaries: function (filter) {
 			var query = new Query(),
-					config = AnalyzerConfig.adminUnit.lowLevelUnitsQuery;
+					config = AnalyzerConfig.adminUnit.countryBoundaries;
 
 			query.where = config.whereField + " = '" + filter + "'";
 			query.returnGeometry = true;

@@ -26,11 +26,44 @@ define([
     },
 
 		render: function () {
-			return React.DOM.div({'className': 'wizard-list-item'},
-				React.DOM.span({'className': 'wizard-list-item-icon'}),
-				React.DOM.span({'data-value': this.props.value, 'onClick': this._click}, this.props.label),
-				(this.props.children ? this.props.children.map(this._childrenMapper, this) : null)
-			);
+
+			if (this.props.filter === '') {
+				// No Filter applied, render like usual
+				return React.DOM.div({'className': 'wizard-list-item'},
+					React.DOM.span({'className': 'wizard-list-item-icon'}),
+					React.DOM.span({'data-value': this.props.value, 'onClick': this._click}, this.props.label),
+					(this.props.children ? this.props.children.map(this._childrenMapper, this) : null)
+				);
+			} else {
+				if (this._searchChildrenForMatches(this.props.children, this.props.filter)) {
+					// Filter applied, if any children match the filter, render the parent as normal and the children
+					return React.DOM.div({'className': 'wizard-list-item'},
+						React.DOM.span({'className': 'wizard-list-item-icon'}),
+						React.DOM.span({'data-value': this.props.value, 'onClick': this._click}, this.props.label),
+						(this.props.children ? this.props.children.map(this._childrenMapper, this) : null)
+					);
+				} else {
+					// Filter applied, none of the children match, if the root matches, show it, else hide it
+					var label = this.props.label.toLowerCase(),
+							className = 'wizard-list-item ' + 
+													(label.search(this.props.filter) > -1 ? '' : 'hidden');
+
+					return React.DOM.div({'className': className},
+						React.DOM.span({'className': 'wizard-list-item-icon'}),
+						React.DOM.span({'data-value': this.props.value, 'onClick': this._click}, this.props.label)
+					);
+				}
+			}
+		},
+
+		_searchChildrenForMatches: function (children, filter) {
+			return children.some(function (child) {
+				if (child.label.toLowerCase().search(filter) > -1) {
+					return true;
+				} else {
+					return false;
+				}
+			});
 		},
 
 		_childrenMapper: function (item) {
