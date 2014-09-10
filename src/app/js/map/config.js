@@ -52,11 +52,28 @@ define([], function () {
 			id: "WizardTempGraphics"
 		},
 
+		
+		// Only Add One of these below that have the id WizardDynamicLayer
+		// Only one layer but separate config makes easier to work with in other areas of application
 		adminUnitsLayer: {
-			id: 'AdminBoundaries',
+			id: 'WizardDynamicLayer',
 			url: mapOverlaysUrl,
 			whereField: 'NAME_0',
 			layerId: 7
+		},
+
+		certificationSchemeLayer: {
+			id: 'WizardDynamicLayer',
+			url: mapOverlaysUrl,
+			whereField: 'CERT_SCHEME',
+			layerId: 13
+		},
+
+		commercialEntitiesLayer: {
+			id: 'WizardDynamicLayer',
+			url: mapOverlaysUrl,
+			whereField: 'TYPE',
+			layerId: 13
 		},
 
 		// End Normal Layers not part of the Master Layer UI List

@@ -4,7 +4,7 @@ define([
 ], function (React, AnalyzerConfig) {
 
   // Variables
-  var title = AnalyzerConfig.stepOne.title,//"Step 1: Select Area",
+  var title = AnalyzerConfig.stepOne.title,
       option1 = AnalyzerConfig.stepOne.option1,
       option2 = AnalyzerConfig.stepOne.option2,
       option3 = AnalyzerConfig.stepOne.option3,
@@ -34,6 +34,10 @@ define([
         var defaults = getDefaultState();
         this.replaceState(defaults);
         this.props.callback.update(defaults.selectedOption);
+      } else if (newProps.selectedArea) {
+        this.setState({
+          selectedOption: newProps.selectedArea
+        });
       }
     },
 
@@ -69,9 +73,9 @@ define([
     },
 
     _changeSelection: function (e) {
-      this.setState({
-        selectedOption: e.target.id
-      });
+      // this.setState({
+      //   selectedOption: e.target.id
+      // });
       this.props.callback.update(e.target.id);
     },
 

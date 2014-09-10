@@ -104,21 +104,22 @@ define([
 			}
 		},
 
-		setAdminBoundariesLayerDefinition: function (filter) {
-			var layerConfig = MapConfig.adminUnitsLayer,
-					layer = app.map.getLayer(layerConfig.id),
+		setWizardDynamicLayerDefinition: function (config, filter) {
+			var layer = app.map.getLayer(config.id),
 					layerDefs = [],
 					where;
 
 			if (layer) {
 				if (filter !== undefined) {
-					where = layerConfig.whereField + " = '" + filter + "'";
-					layerDefs[layerConfig.layerId] = where;
+					where = config.whereField + " = '" + filter + "'";
+					layerDefs[config.layerId] = where;
+					layer.setVisibleLayers([config.layerId], true);
 					layer.setLayerDefinitions(layerDefs);
 					layer.show();
 				} else {
 					layer.hide();
 				}
+				this.refreshLegendWidget();
 			}
 		},
 

@@ -134,6 +134,8 @@ define([
 					customGraphicsLayer,
 					adminBoundariesParams,
 					adminBoundariesLayer,
+					wizardDynamicParams,
+					wizardDynamicLayer,
 					wizardGraphicsLayer,
 					self = this;
 
@@ -272,13 +274,15 @@ define([
 				visible: false
 			});
 
-			adminBoundariesParams = new ImageParameters();
-			adminBoundariesParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-			adminBoundariesParams.layerIds = [MapConfig.adminUnitsLayer.layerId];
-			adminBoundariesParams.format = "png32";
+			// Uses adminUnitsLayer config, which is the same as certificationSchemeLayer.  
+			// They are all part of the same dynamic layer so any config item could be used
+			wizardDynamicParams = new ImageParameters();
+			wizardDynamicParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			wizardDynamicParams.layerIds = [];
+			wizardDynamicParams.format = "png32";
 
-			adminBoundariesLayer = new ArcGISDynamicLayer(MapConfig.adminUnitsLayer.url, {
-				imageParameters: adminBoundariesParams,
+			wizardDynamicLayer = new ArcGISDynamicLayer(MapConfig.adminUnitsLayer.url, {
+				imageParameters: wizardDynamicParams,
 				id: MapConfig.adminUnitsLayer.id,
 				visible: false
 			});
@@ -310,7 +314,7 @@ define([
 				// Points Layers
 				firesLayer,
 				// Overlays
-				adminBoundariesLayer,
+				wizardDynamicLayer,
 				mapOverlaysLayer,
 				// Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
 				// If needs be, seperate these out into multiple Graphics Layers
@@ -344,6 +348,7 @@ define([
 			forestUseLayer.on('error', this.addLayerError);
 			protectAreasLayer.on('error', this.addLayerError);
 			agroSuitabilityLayer.on('error', this.addLayerError);
+			wizardDynamicLayer.on('error', this.addLayerError);
 			mapOverlaysLayer.on('error', this.addLayerError);
 			customGraphicsLayer.on('error', this.addLayerError);
 

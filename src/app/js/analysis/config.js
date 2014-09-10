@@ -7,8 +7,11 @@ define([], function () {
 			certArea = "certifiedAreaOption",
 			millPoint = "millPointOption";
 
-	// URLS
-	var adminUnitQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
+	// URLS - CURRENT IS STAGING, PRODUCTION URL BELOW
+	var adminUnitQueryUrl = 'http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
+
+	// PRODUCTION URL
+	// 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
 
 	return {
 
@@ -138,6 +141,51 @@ define([], function () {
 			countryBoundaries: {
 				url: adminUnitQueryUrl + '/6',
 				whereField: 'NAME_0'
+			}
+		},
+
+		commercialEntity: {
+			instructions: 'Select a commodity type:',
+			instructionsPartTwo: 'Select a feature from below and click \"Next\" to proceed.',
+			commodityOptions: [
+				{label:'None', value: 'NONE'},
+				{label:'Logging concession', value: 'Logging concession'},
+				{label:'Mining concession', value: 'Mining concession'},
+				{label:'Oil palm concession', value: 'Oil palm concession'},
+				{label:'Wood fiber plantation', value: 'Wood fiber plantation'}
+			],
+			commodityQuery: {
+				url: adminUnitQueryUrl + '/13',
+				whereField: 'TYPE',
+				outFields: ['GROUP_NAME', 'Name', 'TYPE', 'OBJECTID'],
+				orderBy: ['Name'],
+				labelField: 'Name', // Children
+				valueField: 'OBJECTID',
+				requiredField: 'GROUP_NAME'// Bucket a.k.a. parent
+			}
+		},
+
+		certifiedArea: {
+			instructions: 'Select a commodity type:',
+			instructionsPartTwo: 'Select a Certification Scheme:',
+			instructionsPartThree: "Select a feature from below and click \"Next\" to proceed.",
+			commodityOptions: [
+				{label:'Oil palm concession', value: 'Oil palm concession'}
+			],
+			certificationOptions: [
+				{label:'None', value: 'NONE'},
+				{label:'RSPO', value: 'RSPO'}
+			],
+
+			schemeQuery: {
+				url: adminUnitQueryUrl + '/13',
+				whereField: 'CERT_SCHEME',
+				secondaryWhereField: 'TYPE',
+				outFields: ['GROUP_NAME', 'Name', 'CERT_SCHEME', 'OBJECTID'],
+				orderBy: ['Name'],
+				labelField: 'Name', // Children
+				valueField: 'OBJECTID',
+				requiredField: 'GROUP_NAME' // Bucket a.k.a. parent
 			}
 		}
 

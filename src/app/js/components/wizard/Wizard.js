@@ -6,8 +6,9 @@ define([
   "components/wizard/StepThree",
   "components/wizard/StepFour",
   // Other Helpful Modules
-  "dojo/topic"
-], function (React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, topic) {
+  "dojo/topic",
+  "map/config"
+], function (React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, topic, MapConfig) {
 
 	var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
@@ -119,6 +120,10 @@ define([
       });
       // Reset this components state
       this.replaceState(getDefaultState());
+      // Clear the WizardGraphicsLayer
+      app.map.getLayer(MapConfig.wizardGraphicsLayer.id).clear();
+      // Hide the Dynamic Layer Associated with the Wizard
+      app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
     },
 
     _updateSelectedArea: function (value) {
@@ -160,7 +165,7 @@ define([
       // performad any necessary state changes before beginning analysis
       var self = this;
       requestAnimationFrame(function () {
-        console.dir(self.state.analysisSets);
+        console.dir(self.state);
       });
     }
 

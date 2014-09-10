@@ -2,12 +2,13 @@ define([
 	"dojo/Deferred",
 	"dojo/_base/array",
 	"esri/tasks/query",
+	"esri/graphicsUtils",
 	"esri/tasks/QueryTask",
 	"esri/tasks/StatisticDefinition",
 	// My Modules
 	"analysis/config",
 	"map/MapModel"
-], function (Deferred, arrayUtils, Query, QueryTask, StatisticDefinition, AnalyzerConfig, MapModel) {
+], function (Deferred, arrayUtils, Query, graphicsUtils, QueryTask, StatisticDefinition, AnalyzerConfig, MapModel) {
 	'use strict';
 
 	return {
@@ -61,6 +62,7 @@ define([
 					query = new Query(),
 					config = AnalyzerConfig.adminUnit.lowLevelUnitsQuery,
 					buckets = {},
+					self = this,
 					data = [],
 					attrs;
 
@@ -69,64 +71,166 @@ define([
 			query.outFields = config.outFields;
 			query.orderByFields = config.orderBy;
 
-			this._query(config.url, query, function (res) {
-				// Format data into an easy to consume format
-				/*
-					[
-						{'label': 'B', 'value': 'b'},
-  				 	{'label': 'C', 'value': 'c', 'children': [
-						  	{'label': 'd', 'value': 'd'},
-						  	{'label': 'e', 'value': 'e'},
-							]
-					  }
-					]
-				*/
-				arrayUtils.forEach(res.features, function (feature) {
-					attrs = feature.attributes;
-
-					if (buckets.hasOwnProperty(attrs[config.requiredField])) {
-						buckets[attrs[config.requiredField]].children.push({
-							'label': attrs[config.labelField],
-							'value': attrs[config.valueField]
-						});
-					} else {
-						// requiredField is label for bucket, labelField is label for all children, valueField is value for all items
-						buckets[attrs[config.requiredField]] = {
-							'label': attrs[config.requiredField],
-							'value': attrs[config.valueField],
-							'children': []
-						};
-					}
-
-				});
-
-				// Now push each bucket into an array
-				for (var key in buckets) {
-					data.push(buckets[key]);
+			function handleResponse(res) {				
+				if (res.features.length > 0) {
+					data = self._formatData(config, res.features);
+					deferred.resolve(data);
 				}
+			}
 
-				deferred.resolve(data);
-
-			}, this._queryErrorHandler);
+			this._query(config.url, query, handleResponse, this._queryErrorHandler);
 
 			return deferred.promise;
 		},
 
 		/*
-			Simple Query to zoom to a country boundary
+			Simple Query to retrieve a feature by its Object ID
 		*/
-		zoomToBoundaries: function (filter) {
+		getFeatureById: function (url, objectId) {
+			var deferred = new Deferred(),
+					query = new Query();
+
+			query.where = "OBJECTID = " + objectId;
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+
+			this._query(url, query, function (res) {
+				if (res.features.length === 1) {
+					deferred.resolve(res.features[0]);
+				}
+			}, this._queryErrorHandler);
+
+			return deferred.promise;
+
+		},
+
+		/*
+			Simple Query to retrieve features by their Certification Scheme and Type
+		*/
+
+		getFeaturesByScheme: function (scheme, type) {
+			var config = AnalyzerConfig.certifiedArea.schemeQuery,
+					deferred = new Deferred(),
+					query = new Query(),
+					self = this,
+					data = [];
+
+			function handleResponse(res) {
+				if (res.features.length > 0) {
+					data = self._formatData(config, res.features);
+					deferred.resolve(data);
+				}
+			}
+
+			query.where = config.whereField + " = '" + scheme + "' AND " + config.secondaryWhereField + " = '" + type + "'";
+			query.returnGeometry = false;
+			query.outFields = config.outFields;
+			query.orderByFields = config.orderBy;
+
+			this._query(config.url, query, handleResponse, this._queryErrorHandler);
+
+			return deferred.promise;
+
+		},
+
+		/*
+			Simple Query to retrieve features by their Commodity Type
+		*/
+		getFeaturesByCommodity: function (type) {
+			var config = AnalyzerConfig.commercialEntity.commodityQuery,
+					deferred = new Deferred(),
+					query = new Query(),
+					self = this,
+					data = [];
+
+			function handleResponse(res) {
+				if (res.features.length > 0) {
+					data = self._formatData(config, res.features);
+					deferred.resolve(data);
+				}
+			}
+
+			query.where = config.whereField + " = '" + type + "'";
+			query.returnGeometry = false;
+			query.outFields = config.outFields;
+			query.orderByFields = config.orderBy;
+
+			this._query(config.url, query, handleResponse, this._queryErrorHandler);
+
+			return deferred.promise;
+		},
+
+		/*
+			Simple Query to zoom to features by a whereField in their config and a filter value
+			@Params
+				config must have url, and whereField defined
+				filter is obvious, zoom where whereField = 'filter'
+		*/
+		zoomToFeatures: function (config, filter) {
 			var query = new Query(),
-					config = AnalyzerConfig.adminUnit.countryBoundaries;
+					extent;
 
 			query.where = config.whereField + " = '" + filter + "'";
 			query.returnGeometry = true;
-			query.outFields = [config.whereField];
+			query.geometryPrecision = 0;
 
 			this._query(config.url, query, function (res) {
-				console.dir(res);
+				if (res.features.length > 0) {
+					extent = graphicsUtils.graphicsExtent(res.features);
+					app.map.setExtent(extent, true);
+				}
 			}, this._queryErrorHandler);
+		},
 
+		/*
+			@Params: 
+				config object containing three fields, requiredField (bucket label), labelField (label for children), valueField (value for item)
+				features array
+			@Return
+				returns an array of data formatted for the NestedList Component
+
+			@Format
+				[
+					{'label': 'B', 'value': 'b'},
+				 	{'label': 'C', 'value': 'c', 'children': [
+					  	{'label': 'd', 'value': 'd'},
+					  	{'label': 'e', 'value': 'e'},
+						]
+				  }
+				]
+		*/
+
+		_formatData: function (config, features) {
+			var buckets = {},
+					data = [],			
+					attrs;
+
+			arrayUtils.forEach(features, function (feature) {
+				attrs = feature.attributes;
+
+				if (buckets.hasOwnProperty(attrs[config.requiredField])) {
+					buckets[attrs[config.requiredField]].children.push({
+						'label': attrs[config.labelField],
+						'value': attrs[config.valueField]
+					});
+				} else {
+					// requiredField is label for bucket, labelField is label for all children, valueField is value for all items,
+					// Use LabelField as a backup for the bucket label
+					buckets[attrs[config.requiredField]] = {
+						'label': attrs[config.requiredField] || attrs[config.labelField],
+						'value': attrs[config.valueField],
+						'children': []
+					};
+				}
+
+			});
+
+			// Now push each bucket into an array
+			for (var key in buckets) {
+				data.push(buckets[key]);
+			}
+
+			return data;
 		},
 
 		/*

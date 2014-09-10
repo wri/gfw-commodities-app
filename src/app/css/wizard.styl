@@ -63,6 +63,9 @@ wizardBlue = #00688B
 	left 10px
 	top 85px
 
+.gfw .wizard-body select
+	font-size 16px
+
 .gfw .wizard-body > div
 	overflow-y auto
 	height 100%
@@ -101,7 +104,8 @@ wizardBlue = #00688B
 	color lightGray
 	font-size 20px
 
-.gfw .wizard-body .hidden
+.gfw .wizard-body .hidden,
+.gfw .wizard-body .loading-wheel.hidden
 	display none
 
 .gfw .wizard-body .step-title
@@ -226,3 +230,20 @@ wizardBlue = #00688B
 	font-weight normal
 	margin-left 10px
 	font-size 16px
+
+.gfw .list-container .wizard-list-item span:last-of-type,
+.gfw .list-container .wizard-list-item span:last-of-type
+	cursor pointer
+
+.gfw .wizard-body .country-select,
+.gfw .wizard-body .commodity-type-select,
+.gfw .wizard-body .certification-scheme-select
+	vertical-align top
+
+.gfw .wizard-body .loading-wheel
+	background url('images/loader.gif')
+	background-size 24px
+	display inline-block
+	height 24px
+	width 24px
+

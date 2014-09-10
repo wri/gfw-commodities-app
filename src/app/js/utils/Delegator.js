@@ -3,11 +3,12 @@ define([
 	"map/config",
 	"map/Controls",
 	"analysis/Query",
+	"analysis/config",
 	"analysis/Analyzer",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, AnalyzerQuery, Analyzer, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, AnalyzerQuery, AnalyzerConfig, Analyzer, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {
@@ -20,11 +21,27 @@ define([
 			});
 
 			// Events coming from the Wizard
-			topic.subscribe('setAdminBoundariesDefenition', function (filter) {
-				LayerController.setAdminBoundariesLayerDefinition(filter);
+			topic.subscribe('setAdminBoundariesDefinition', function (filter) {
+				LayerController.setWizardDynamicLayerDefinition(MapConfig.adminUnitsLayer, filter);
 				// If filter is none, dont zoom to none, above will turn layer off when none is selected
 				if (filter) {
-					AnalyzerQuery.zoomToBoundaries(filter);
+					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.adminUnit.countryBoundaries, filter);
+				}
+			});
+
+			topic.subscribe('setCertificationSchemeDefinition', function (scheme) {
+				LayerController.setWizardDynamicLayerDefinition(MapConfig.certificationSchemeLayer, scheme);
+				// If filter is none, dont zoom to none, above will turn layer off when none is selected
+				if (scheme) {
+					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.certifiedArea.schemeQuery, scheme);
+				}
+			});
+
+			topic.subscribe("setCommercialEntityDefinition", function (entityType) {
+				LayerController.setWizardDynamicLayerDefinition(MapConfig.commercialEntitiesLayer, entityType);
+				// If filter is none, dont zoom to none, above will turn layer off when none is selected
+				if (entityType) {
+					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);
 				}
 			});
 

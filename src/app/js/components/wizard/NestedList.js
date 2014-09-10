@@ -31,7 +31,7 @@ define([
 				// No Filter applied, render like usual
 				return React.DOM.div({'className': 'wizard-list-item'},
 					React.DOM.span({'className': 'wizard-list-item-icon'}),
-					React.DOM.span({'data-value': this.props.value, 'onClick': this._click}, this.props.label),
+					React.DOM.span({'data-value': this.props.value, 'data-type':'group', 'onClick': this._click}, this.props.label),
 					(this.props.children ? this.props.children.map(this._childrenMapper, this) : null)
 				);
 			} else {
@@ -39,7 +39,7 @@ define([
 					// Filter applied, if any children match the filter, render the parent as normal and the children
 					return React.DOM.div({'className': 'wizard-list-item'},
 						React.DOM.span({'className': 'wizard-list-item-icon'}),
-						React.DOM.span({'data-value': this.props.value, 'onClick': this._click}, this.props.label),
+						React.DOM.span({'data-value': this.props.value, 'data-type':'group', 'onClick': this._click}, this.props.label),
 						(this.props.children ? this.props.children.map(this._childrenMapper, this) : null)
 					);
 				} else {
@@ -50,7 +50,7 @@ define([
 
 					return React.DOM.div({'className': className},
 						React.DOM.span({'className': 'wizard-list-item-icon'}),
-						React.DOM.span({'data-value': this.props.value, 'onClick': this._click}, this.props.label)
+						React.DOM.span({'data-value': this.props.value, 'data-type':'group', 'onClick': this._click}, this.props.label)
 					);
 				}
 			}
@@ -73,7 +73,7 @@ define([
 
 			return React.DOM.div({'className': className},
 				React.DOM.span({'className': 'wizard-list-child-item-icon'}),
-				React.DOM.span({'data-value': item.value, 'onClick': this._click}, item.label)				
+				React.DOM.span({'data-value': item.value, 'data-type':'individual', 'onClick': this._click}, item.label)				
 			);
 		},
 
@@ -96,11 +96,22 @@ define([
       return (getDefaultState());
     },
 
+    componentWillReceiveProps: function (newProps) {
+      if (newProps.isResetting) {
+        this.replaceState(getDefaultState());
+      }
+    },
+
     render: function () {
       return (
       	React.DOM.div({'className': 'nested-list'},
       		React.DOM.div({'className': 'searchBox'},
-          	React.DOM.input({'placeholder': 'Search', 'type': 'text', 'onChange': this._setFilter})
+          	React.DOM.input({
+          		'placeholder': 'Search', 
+          		'type': 'text',
+          		'value': this.state.filter,
+          		'onChange': this._setFilter
+          	})
 	        ),
 	        React.DOM.div({'className': 'list-container ' + (this.state.filter !== '' ? 'filtered' : '')},
 	          this.props.data.map(this._mapper, this)

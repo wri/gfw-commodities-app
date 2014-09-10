@@ -7,8 +7,9 @@ define([
 	"dojo/dom-geometry",
 	// My Modules
 	"analysis/Query",
+	"analysis/config",
 	"components/wizard/Wizard"
-], function (coreFx, dom, Fx, domClass, domStyle, domGeom, AnalyzerQuery, Wizard) {
+], function (coreFx, dom, Fx, domClass, domStyle, domGeom, AnalyzerQuery, AnalyzerConfig, Wizard) {
 	'use strict';
 
 	var wizard;
@@ -92,6 +93,8 @@ define([
 		*/
 		customFeatureClicked: function (evt) {
 			if (evt.graphic) {
+				// Make the root selection the appropriate one, for Custom Area, it is option 1
+				wizard._updateSelectedArea(AnalyzerConfig.stepOne.option1.id);
 				// Set to Step 2, the parameter is index based so 0,1,2,3, 1 is the second step
 				wizard._externalSetStep(1);
 				// In this case, set the RefinedArea to the evt.graphic
