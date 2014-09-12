@@ -158,7 +158,7 @@ define([], function () {
 				url: adminUnitQueryUrl + '/13',
 				whereField: 'TYPE',
 				outFields: ['GROUP_NAME', 'Name', 'TYPE', 'OBJECTID'],
-				orderBy: ['Name'],
+				orderBy: ['GROUP_NAME','Name'],
 				labelField: 'Name', // Children
 				valueField: 'OBJECTID',
 				requiredField: 'GROUP_NAME'// Bucket a.k.a. parent
@@ -182,7 +182,7 @@ define([], function () {
 				whereField: 'CERT_SCHEME',
 				secondaryWhereField: 'TYPE',
 				outFields: ['GROUP_NAME', 'Name', 'CERT_SCHEME', 'OBJECTID'],
-				orderBy: ['Name'],
+				orderBy: ['GROUP_NAME','Name'],
 				labelField: 'Name', // Children
 				valueField: 'OBJECTID',
 				requiredField: 'GROUP_NAME' // Bucket a.k.a. parent

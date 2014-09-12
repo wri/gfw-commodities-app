@@ -1,0 +1,23 @@
+
+/* line 62 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+
+/* line 12 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+@font-face {
+  font-family: "Arial MT Condensed Bold";
+  src: url("fonts/ArialMTStd-BoldCond.otf") format("opentype");
+}
+
+/* line 16 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+@font-face {
+  font-family: "Arial MT Condensed Light";
+  src: url("fonts/ArialMTStd-LightCond.otf") format("opentype");
+}
+
+/* line 20 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+html,
+body {
+  font-family: "Arial MT Condensed Light", Arial, Georgia, sans-serif;
+  background: LightGray;
+}

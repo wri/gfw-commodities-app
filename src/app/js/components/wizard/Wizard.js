@@ -132,7 +132,15 @@ define([
       });
     },
 
-    _updateAnalysisArea: function (feature) {
+    _updateAnalysisArea: function (feature, optionalLabel) {
+      // If optional label exists, pass it down as props, it will exist when feature is not
+      // a graphic but instead an array of graphics
+      if (optionalLabel) {
+        this.setProps({
+          optionalLabel: optionalLabel
+        });
+      }
+
       this.setState({
         analysisArea: feature
       });
@@ -163,10 +171,22 @@ define([
       // Grab All Necessary Props from State and Pass them on
       // React updates state in the next available animation frame, wait until this component has 
       // performad any necessary state changes before beginning analysis
-      var self = this;
+      // Call window.open here to make sure page opens correctly and not in new window
+      var self = this,
+          win = window.open('./app/js/report/Report.html', 'Report', '');
+
       requestAnimationFrame(function () {
-        console.dir(self.state);
+        if (win === null || typeof(win) === undefined || win === undefined) {
+          alert("Popup blocker needs to be off");
+        } else {
+          win.payload = {
+            features: self.state.analysisArea,
+            datasets: self.state.analysisSets,
+            types: self.state.analysisTypes
+          };
+        }
       });
+      
     }
 
   });

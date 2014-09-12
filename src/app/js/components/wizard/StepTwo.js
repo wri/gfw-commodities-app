@@ -73,7 +73,10 @@ define([
           React.DOM.div({'className': 'selected-analysis-area'},
             React.DOM.span({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
             React.DOM.span({'className': 'current-selection'}, 
-              (this.props.analysisArea ? this.props.analysisArea.attributes[labelField] : "none")
+              (this.props.analysisArea ? 
+                (this.props.optionalLabel ? this.props.optionalLabel : this.props.analysisArea.attributes[labelField])
+                : "none"
+              )
             )
           ),
           React.DOM.div({'className':'next-button-container'},

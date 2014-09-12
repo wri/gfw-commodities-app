@@ -8,7 +8,7 @@ define([
 	"dojo/dom-construct",
 	// My Modules
 	"map/config",
-	"analysis/Analyzer",
+	"analysis/WizardHelper",
 	// Esri Modules
 	"esri/map",
 	"esri/layers/GraphicsLayer",
@@ -24,7 +24,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, Analyzer, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -353,7 +353,7 @@ define([
 			customGraphicsLayer.on('error', this.addLayerError);
 
 			// Add Layer Specific Events Here
-			customGraphicsLayer.on('click', Analyzer.customFeatureClicked);
+			customGraphicsLayer.on('click', WizardHelper.customFeatureClicked);
 
 		},
 

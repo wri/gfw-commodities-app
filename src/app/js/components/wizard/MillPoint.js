@@ -18,7 +18,7 @@ define([
 
     render: function () {
       return (
-        React.DOM.div({}, "Mill Point")
+        React.DOM.div({}, "Coming Soon!")
       );
     }
 

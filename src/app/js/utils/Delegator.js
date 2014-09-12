@@ -4,11 +4,10 @@ define([
 	"map/Controls",
 	"analysis/Query",
 	"analysis/config",
-	"analysis/Analyzer",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, AnalyzerQuery, AnalyzerConfig, Analyzer, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, AnalyzerQuery, AnalyzerConfig, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {

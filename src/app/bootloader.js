@@ -11,6 +11,7 @@
 	      packages: [
 	        {name: "main", location: URL + "/js/main"},
 	        {name: "utils", location: URL + "/js/utils"},
+	        {name: "report", location: URL + "/js/report"},
 	        {name: "analysis", location: URL + "/js/analysis"},
 	        {name: "templates", location: URL + "/templates"},
 	        {name: "components", location: URL + "/js/components"},

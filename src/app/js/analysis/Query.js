@@ -78,9 +78,40 @@ define([
 				}
 			}
 
-			this._query(config.url, query, handleResponse, this._queryErrorHandler);
+			this._query(config.url, query, handleResponse, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
 
 			return deferred.promise;
+		},
+
+		/*
+			Simple Query to retrieve a feature by its Group Name
+		*/
+		getFeaturesByGroupName: function (config, groupName) {
+			var deferred = new Deferred(),
+					query = new Query(),
+					self = this;
+
+			// Config is analysis/config using items like adminUnit.lowLevelUnitsQuery or commercialEntity.commodityQuery
+			query.where = config.requiredField + " = '" + groupName + "'";
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+
+			this._query(config.url, query, function (res) {
+				if (res.features.length > 0) {
+					deferred.resolve(res.features);
+				} else {
+					deferred.resolve(false);
+				}
+			}, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
+
+			return deferred.promise;
+
 		},
 
 		/*
@@ -88,7 +119,8 @@ define([
 		*/
 		getFeatureById: function (url, objectId) {
 			var deferred = new Deferred(),
-					query = new Query();
+					query = new Query(),
+					self = this;
 
 			query.where = "OBJECTID = " + objectId;
 			query.returnGeometry = true;
@@ -98,7 +130,10 @@ define([
 				if (res.features.length === 1) {
 					deferred.resolve(res.features[0]);
 				}
-			}, this._queryErrorHandler);
+			}, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
 
 			return deferred.promise;
 
@@ -127,7 +162,10 @@ define([
 			query.outFields = config.outFields;
 			query.orderByFields = config.orderBy;
 
-			this._query(config.url, query, handleResponse, this._queryErrorHandler);
+			this._query(config.url, query, handleResponse, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
 
 			return deferred.promise;
 
@@ -150,12 +188,15 @@ define([
 				}
 			}
 
-			query.where = config.whereField + " = '" + type + "'";
+			query.where = config.whereField + " = '" + type + "' AND " + config.requiredField + " IS NOT NULL";
 			query.returnGeometry = false;
 			query.outFields = config.outFields;
 			query.orderByFields = config.orderBy;
 
-			this._query(config.url, query, handleResponse, this._queryErrorHandler);
+			this._query(config.url, query, handleResponse, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
 
 			return deferred.promise;
 		},
@@ -214,13 +255,19 @@ define([
 						'value': attrs[config.valueField]
 					});
 				} else {
-					// requiredField is label for bucket, labelField is label for all children, valueField is value for all items,
-					// Use LabelField as a backup for the bucket label
+					// requiredField is label for bucket, labelField is label for all children, valueField is value for all items
 					buckets[attrs[config.requiredField]] = {
-						'label': attrs[config.requiredField] || attrs[config.labelField],
+						'label': attrs[config.requiredField],
 						'value': attrs[config.valueField],
 						'children': []
 					};
+
+					// Now push the first child in
+					buckets[attrs[config.requiredField]].children.push({
+						'label': attrs[config.labelField],
+						'value': attrs[config.valueField]
+					});
+
 				}
 
 			});

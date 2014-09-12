@@ -10,9 +10,10 @@ define([
   "dojo/topic",
   "esri/Color",
   "esri/graphic",
+  "esri/graphicsUtils",
   "esri/symbols/SimpleFillSymbol",
   "esri/symbols/SimpleLineSymbol"
-], function (React, MapConfig, MapModel, AnalyzerQuery, AnalyzerConfig, NestedList, topic, Color, Graphic, SimpleFillSymbol, SimpleLineSymbol) {
+], function (React, MapConfig, MapModel, AnalyzerQuery, AnalyzerConfig, NestedList, topic, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
 
   var config = AnalyzerConfig.adminUnit,
       adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
@@ -95,12 +96,31 @@ define([
     },
 
     _lowLevelAdminUnitClick: function (target) {
-      var objectId = target.dataset.value,
+      var featureType = target.dataset.type,
+          objectId = target.dataset.value,
           wizardGraphicsLayer,
           self = this,
           graphic;
 
-      if (objectId) {
+      if (featureType === "group") {
+        // Takes URL and group name, group name will always be the targets innerHTML
+        AnalyzerQuery.getFeaturesByGroupName(config.lowLevelUnitsQuery, target.innerHTML).then(function (features) {
+          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+          if (features && wizardGraphicsLayer) {
+            wizardGraphicsLayer.clear();
+            features.forEach(function (feature) {
+              // Add it to the map and make it the current selection, give it a label
+              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerHTML;
+              graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
+              wizardGraphicsLayer.add(graphic);
+            });
+            // Mark this as your current selection and pass in an optional label since analysis area
+            // is an array of graphics instead of a single graphic
+            self.props.callback.updateAnalysisArea(features, target.innerHTML);
+            app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
+          }
+        });
+      } else if (objectId) {
         AnalyzerQuery.getFeatureById(config.lowLevelUnitsQuery.url, objectId).then(function (feature) {
 
           // Add it to the map and make it the current selection, give it a label
