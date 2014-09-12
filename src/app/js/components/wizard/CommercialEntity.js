@@ -104,13 +104,13 @@ define([
 
       if (featureType === "group") {
         // Takes URL and group name, group name will always be the targets innerHTML
-        AnalyzerQuery.getFeaturesByGroupName(config.commodityQuery, target.innerHTML).then(function (features) {
+        AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
           if (features && wizardGraphicsLayer) {
             wizardGraphicsLayer.clear();
             features.forEach(function (feature) {
               // Add it to the map and make it the current selection, give it a label
-              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerHTML;
+              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
               graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
               wizardGraphicsLayer.add(graphic);              
             });
@@ -124,7 +124,7 @@ define([
         AnalyzerQuery.getFeatureById(config.commodityQuery.url, objectId).then(function (feature) {
 
           // Add it to the map and make it the current selection, give it a label
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerHTML;
+          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
           graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
           if (wizardGraphicsLayer) {

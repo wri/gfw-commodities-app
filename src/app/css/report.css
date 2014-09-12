@@ -3,21 +3,85 @@
 
 /* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 12 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 13 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 @font-face {
   font-family: "Arial MT Condensed Bold";
   src: url("fonts/ArialMTStd-BoldCond.otf") format("opentype");
 }
 
-/* line 16 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 17 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 @font-face {
   font-family: "Arial MT Condensed Light";
   src: url("fonts/ArialMTStd-LightCond.otf") format("opentype");
 }
 
-/* line 20 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 21 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 html,
 body {
   font-family: "Arial MT Condensed Light", Arial, Georgia, sans-serif;
-  background: LightGray;
+  background: #fff;
+}
+
+/* line 25 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw #report {
+  margin: 20px auto;
+  width: 960px;
+}
+
+/* line 29 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .report-header {
+  background: url("images/header_tree_background.jpg") repeat-x scroll center top transparent;
+  border: 1px solid #000;
+  border-bottom: 0px;
+  min-height: 100px;
+}
+
+/* line 35 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .report-body {
+  border: 1px solid #000;
+}
+
+/* line 38 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw #title {
+  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  padding-top: 10px;
+  margin-left: 10px;
+  max-width: 750px;
+  font-size: 36px;
+}
+
+/* line 45 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .total-area {
+  padding: 5px 0 15px;
+  margin-left: 10px;
+}
+
+/* line 49 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .total-area-value {
+  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+}
+
+/* line 52 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .subscribe-alerts {
+  background-color: #f44;
+  padding: 5px 8px 3px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  position: absolute;
+  cursor: pointer;
+  color: #fff;
+  right: 10px;
+  top: 10px;
+}
+
+/* line 62 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .print-button {
+  background: url("images/print-icon.png") no-repeat -1px -35px;
+  position: absolute;
+  cursor: pointer;
+  height: 28px;
+  width: 32px;
+  right: 10px;
+  top: 50px;
 }

@@ -7,6 +7,7 @@ border-radius()
 baseGray = #e6e6e6
 lightGrayFont = #747474
 mediumGray = #888
+redButton = #F44
 
 // Font Family for the Application
 @font-face
@@ -19,4 +20,51 @@ mediumGray = #888
 
 html, body 
 	font-family "Arial MT Condensed Light", Arial, Georgia, sans-serif
-	background LightGray
+	background white
+	
+.gfw #report
+	margin 20px auto
+	width 960px
+
+.gfw .report-header
+	background url("images/header_tree_background.jpg") repeat-x scroll center top transparent
+	border 1px solid black
+	border-bottom 0px
+	min-height 100px
+
+.gfw .report-body
+	border 1px solid black
+	
+.gfw #title
+	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	padding-top 10px
+	margin-left 10px
+	max-width 750px
+	font-size 36px
+
+.gfw .total-area
+	padding 5px 0 15px
+	margin-left 10px
+
+.gfw .total-area-value
+	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif	
+
+.gfw .subscribe-alerts
+	background-color redButton
+	padding 5px 8px 3px
+	border-radius(5px)
+	position absolute
+	cursor pointer
+	color white
+	right 10px
+	top 10px
+
+.gfw .print-button
+	background url('images/print-icon.png') no-repeat -1px -35px
+	position absolute
+	cursor pointer
+	height 28px
+	width 32px
+	right 10px
+	top 50px
+

@@ -162,6 +162,10 @@ define([], function () {
 				labelField: 'Name', // Children
 				valueField: 'OBJECTID',
 				requiredField: 'GROUP_NAME'// Bucket a.k.a. parent
+			},
+			groupQuery: {
+				url: adminUnitQueryUrl + '/27',
+				requiredField: 'GROUP_NAME'
 			}
 		},
 
@@ -186,6 +190,10 @@ define([], function () {
 				labelField: 'Name', // Children
 				valueField: 'OBJECTID',
 				requiredField: 'GROUP_NAME' // Bucket a.k.a. parent
+			},
+			groupQuery: {
+				url: adminUnitQueryUrl + '/28',
+				requiredField: 'GROUP_NAME'
 			}
 		}
 

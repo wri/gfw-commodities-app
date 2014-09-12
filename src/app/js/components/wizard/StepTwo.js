@@ -74,7 +74,7 @@ define([
             React.DOM.span({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
             React.DOM.span({'className': 'current-selection'}, 
               (this.props.analysisArea ? 
-                (this.props.optionalLabel ? this.props.optionalLabel : this.props.analysisArea.attributes[labelField])
+                (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel)
                 : "none"
               )
             )

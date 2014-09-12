@@ -4,7 +4,8 @@
   'use strict';
 
   var src = [
-    'http://js.arcgis.com/3.10/'
+    'http://js.arcgis.com/3.10/',
+    'http://code.jquery.com/jquery-1.11.0.min.js'
   ],
   css = [
     'http://js.arcgis.com/3.10/js/esri/css/esri.css',

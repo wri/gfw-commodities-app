@@ -9,11 +9,10 @@
 	  <meta name="google-translate-customization" content="7c3525fe24f9031c-a8fc5e781072c0fe-g601838a822eefc5b-21" />	  
 	  <script async src="ReportLoader.js"></script>
 	  <style>
-			html,body,#map{height: 100%;width: 100%;padding: 0;margin: 0;}
-			#app-header,#app-body,#app-footer{width: 100%;}
+			html,body{height: 100%;width: 100%;padding: 0;margin: 0;}
 			.gfw .relative{position: relative;}
 			.gfw .reset{clear: both;}
-			.gfw .dijitHidden{display: none !important;}
+			.gfw .hidden{display: none;}
 	  </style>
 		<!--[if lt IE 9]>
       <script src="app/libs/es5-shim.min.js"></script>
@@ -22,8 +21,23 @@
     <![endif]-->
 	</head>
 	<body class="gfw tundra">
-		<div id="report">
-			
+		<div id="report" class="relative hidden">
+			<section class="report-header">
+				<div id="title"></div>
+				<div id="subscribeToAlerts" class="subscribe-alerts">
+					Subscribe to Clearance Alerts
+				</div>
+				<div class="total-area">
+					<span>Total Area (ha):</span>
+					<span id='total-area' class="total-area-value"></span>
+				</div>
+				<div id="print" class="print-button">
+					
+				</div>
+			</section>
+			<section class="report-body">
+				
+			</section>
 		</div>
 	</body>
 </html>
