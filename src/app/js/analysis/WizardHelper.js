@@ -22,6 +22,7 @@ define([
 					MAX_WIDTH = 700, 
 					MIN_WIDTH = 450,
 					halfMapWidth = mapWidth / 2,
+					orignalCenterPoint,
 					duration = 500,
 					wizardAnimation,
 					tabAnimation,
@@ -30,6 +31,9 @@ define([
 
 			wizardWidth = (halfMapWidth >= MIN_WIDTH && halfMapWidth <= MAX_WIDTH) ? halfMapWidth : 
 										(halfMapWidth < MIN_WIDTH) ? MIN_WIDTH : MAX_WIDTH;
+
+			// Get original center point before animation and set it after animation complete
+			orignalCenterPoint = app.map.extent.getCenter();
 
 			if (domClass.contains(wizardContainer, "activated")) {
 				domStyle.set('wizard', 'display', 'none');
@@ -62,7 +66,8 @@ define([
 				},
 				duration: duration,
 				onEnd: function () {
-					app.map.resize();
+					app.map.resize(true);
+					app.map.centerAt(orignalCenterPoint);
 					if (wizardWidth > 0) {
 						domStyle.set('wizard', 'display', 'block');
 					}
