@@ -103,6 +103,7 @@ define([
 				// Set to Step 2, the parameter is index based so 0,1,2,3, 1 is the second step
 				wizard._externalSetStep(1);
 				// In this case, set the RefinedArea to the evt.graphic
+				// Graphics will need a WRI_label field that will be used as a label in the UI
 				wizard._updateAnalysisArea(evt.graphic);
 			}
 		}

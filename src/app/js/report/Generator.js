@@ -79,7 +79,7 @@ define([
 
 		beginAnalysis: function () {
 
-			// Start process to fetch the area
+			// Start process to fetch the area -check
 			// Get a list of deferred functions to execute
 			// split that list based on the size to managable chunks
 			// execute each chunk synchronously so we dont overwhelm the server

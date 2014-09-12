@@ -91,8 +91,7 @@ define([], function () {
 				{label: 'Forest Carbon Stocks', value: 'carbon'},
 				{label: 'Intact Forests', value: 'intact'},
 				{label: 'Land Cover', value: 'landCover'},
-				{label: 'Peat Lands', value: 'peat'},
-				{label: 'Suitability', value: 'suit'},
+				{label: 'Peat Lands', value: 'peat'},				
 				{label: 'RSPO Land Use Change Analysis', value: 'rspo'}
 			]
 		},

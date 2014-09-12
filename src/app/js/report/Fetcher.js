@@ -36,7 +36,88 @@ define([
 				geometryService.areasAndLengths(parameters, success, failure);
 			}, failure);
 
-		}
+		},
+
+		getPrimaryForestResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getTreeCoverResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getLegalClassResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getProtectedAreaResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getCarbonStocksResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getIntactForestResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getLandCoverResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getPeatLandsResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		getRSPOResults: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		// Main Query Calls Go Here
+
+		_getTotalLossData: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		_getFireAlertData: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		_getClearanceAlertData: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
+		_getSuitabilityData: function () {
+			var deferred = new Deferred();
+
+			return deferred.promise;
+		},
+
 
 	};
 
