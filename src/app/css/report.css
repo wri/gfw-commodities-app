@@ -85,3 +85,42 @@ body {
   right: 10px;
   top: 50px;
 }
+
+/* line 71 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .print-button.disabled {
+  background: url("images/print-icon.png") no-repeat -1px 0px;
+  cursor: wait;
+}
+
+/* line 75 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .loading-wheel {
+  background: url("images/loader.gif");
+  background-size: 24px;
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+}
+
+/* line 82 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .loading-wheel.hidden {
+  display: none;
+}
+
+/* line 87 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .result-container {
+  margin: 20px;
+}
+
+/* line 90 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .report-body .title {
+  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-size: 24px;
+}
+
+/* line 94 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .report-body .left-panel,
+.gfw .report-body .right-panel {
+  display: inline-block;
+  margin: 0 10px;
+  width: 430px;
+}

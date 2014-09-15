@@ -112,8 +112,8 @@ define([
       	if (res) {
       		for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
       			month = i % 12 === 0 ? 12 : i % 12;
-      			if (i % 12 === 0) { ++incrementer; }
       			labels.push(month + "-" + (baseYear + incrementer));
+      			if (i % 12 === 0) { ++incrementer; }
       		}
 
       		timeExtent.startTime = new Date("1/1/2013 UTC");

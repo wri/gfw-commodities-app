@@ -5,7 +5,8 @@
 
   var src = [
     'http://js.arcgis.com/3.10/',
-    'http://code.jquery.com/jquery-1.11.0.min.js'
+    'http://code.jquery.com/jquery-1.11.0.min.js',
+    'http://code.highcharts.com/highcharts.js'
   ],
   css = [
     'http://js.arcgis.com/3.10/js/esri/css/esri.css',
@@ -73,6 +74,36 @@
     }
   }
 
+
+  /* Polyfills and/or prototype additions */
+  /*
+    takes an array of bounds and returns an array with every value between the bounds
+    ex.
+      [1,5]._fromBounds -> [1,2,3,4,5]
+    @param {array} originalArray
+    @return {array}
+  */
+  Array.prototype.fromBounds = function () {
+    if (this.length !== 2) { return this; }
+    var res = [], index = this[0], length = this[1];
+    for (index; index <= length; index++) {
+      res.push(index);
+    }
+    return res;
+  };
+  
+  /*
+    @param {array} originalArray
+    @param {number} chunkSize
+    @return {array}
+  */
+  Array.prototype.chunk = function (chunkSize) {
+    var resultingArrays = [], index = 0;
+    for(index; index < this.length; index += chunkSize)
+      resultingArrays.push(this.slice(index, index + chunkSize));
+    return resultingArrays;
+  };
+
   win.requestAnimationFrame = (function() {
     return win.requestAnimationFrame ||
       win.webkitRequestAnimationFrame ||
@@ -80,6 +111,7 @@
       win.oRequestAnimationFrame ||
       win.msRequestAnimationFrame;
   })();
+  /* Polyfills and/or prototype additions */
 
   if (win.requestAnimationFrame) {
     win.requestAnimationFrame(loadDependencies);
