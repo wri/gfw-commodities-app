@@ -1,6 +1,7 @@
 define([
-	"report/config"
-], function (ReportConfig) {
+	"report/config",
+	"dojo/number"
+], function (ReportConfig, number) {
 	'use strict';
 
 	// Container IDS for charts and tables are as Follows
@@ -35,6 +36,25 @@ define([
 					"<div class='result-block mill-points'>" +
 						"<div class='mill-table' id='" + config.rootNode + "_mill'></div>" +
 					"</div>";
+
+			// Append root to fragment and then fragment to document
+			fragment.appendChild(node);
+			document.getElementById('report-results-section').appendChild(fragment);
+
+		},
+
+		/*
+			@param {object} config
+		*/
+		renderRSPOContainer: function (config) {
+			var fragment = document.createDocumentFragment(),
+					node = document.createElement('div');
+
+			node.id = config.rootNode;
+			node.className = "result-container";
+			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+					"<div class='rspo-table-container' id='" + config.rootNode + "_table'></div>" + 
+					"<div class='rspo-chart-container' id='" + config.rootNode + "_chart'></div>";
 
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
@@ -240,6 +260,163 @@ define([
 
 			}
 
+		},
+
+		/*
+			Add No Data Available Text to the Appropriate location
+			@param {object} response
+			@param {object} config
+			@param {function} encoder
+		*/
+		renderRSPOData: function (response, config, encoder) {
+			var lossValues = ReportConfig.rspo.lossBounds.fromBounds(),
+					self = this;
+
+			// If there are results, build the table, else, mark dataNotAvailable to true
+			if (response.histograms.length > 0) {
+				var BASEYEAR = 2005,
+						MAXCOUNT = 7,
+						// variables to be used
+						resultContent = "",
+						agroPart = "",
+						priPart = "",
+						secPart = "",
+						nonPart = "",
+						years = [],
+						agro = [],
+						pri = [],
+						sec = [],
+						non = [],
+						location,
+						counts,
+						i, j, k, l, m, n;
+
+				// Start building the table and build the headers
+				resultContent = "<table class='rspo-results-table'><tr><th>Forest Type</th>";
+				for (i = 0; i <= MAXCOUNT; i++) {
+					years.push(BASEYEAR + i);
+					resultContent += "<th>" + (BASEYEAR + i) + "</th>";
+				}
+				resultContent += "</tr>";
+
+				// Pull the correct values out of the histogram 
+				counts = response.histograms[0].counts;
+
+				for (j = 0; j < lossValues.length; j++) {
+					location = encoder.encode(lossValues[j], 2);
+					pri.push(counts[location]);
+				}
+
+				for (k = 0; k < lossValues.length; k++) {
+					location = encoder.encode(lossValues[k], 3);
+					sec.push(counts[location]);
+				}
+
+				for (l = 0; l < lossValues.length; l++) {
+					location = encoder.encode(lossValues[l], 1);
+					agro.push(counts[location]);
+				}
+
+				for (m = 0; m < lossValues.length; m++) {
+					location = encoder.encode(lossValues[m], 0);
+					non.push(counts[location]);
+				}
+
+				priPart = "<tr><td>Primary</td>";
+				secPart = "<tr><td>Secondary</td>";
+				agroPart = "<tr><td>Agroforestry</td>";
+				nonPart = "<tr><td>Non-Forest</td>";
+
+				for (n = 0; n < pri.length; n++) {
+					priPart += "<td>" + (number.format(pri[n]) || "N/A") + "</td>";
+					secPart += "<td>" + (number.format(sec[n]) || "N/A") + "</td>";
+					agroPart += "<td>" + (number.format(agro[n]) || "N/A") + "</td>";
+					nonPart += "<td>" + (number.format(non[n]) || "N/A") + "</td>";
+				}
+
+				priPart += "</tr>";
+				secPart += "</tr>";
+				agroPart += "</tr>";
+				nonPart += "</tr>";
+
+				resultContent += priPart + secPart + agroPart + nonPart + "</table>";
+				resultContent += "<div class='change-area-unit'>(Change in Hectares)</div>";
+
+				document.getElementById(config.rootNode + '_table').innerHTML = resultContent;
+				this.renderRSPOChart(config, pri, sec, agro, non, years);
+
+			} else {
+				document.getElementById(config.rootNode + '_table').innerHTML = "<div class='data-not-available'>No Data Available for this Site.</div>";
+				return;
+			}
+
+		},
+
+		/*
+			Add No Data Available Text to the Appropriate location
+			@param {object} config
+			@param {array} primary
+			@param {array} secondary
+			@param {array} agroforestry
+			@param {array} nonforest
+			@param {array} years
+		*/
+		renderRSPOChart: function (config, primary, secondary, agroforestry, nonforest, years) {
+
+			var textColorObject = {
+				color: '#000'
+			},
+			labelsDesign = {
+				style: textColorObject
+			};
+
+			$("#" + config.rootNode + '_chart').highcharts({
+				chart: {
+					backgroundColor: '#FFF',
+					type: 'column'
+				},
+				colors: config.colors,
+				title: {
+					text: null
+				},
+				legend: {
+					align: 'center',
+					verticalAlign: 'top',
+					enabled: true
+				},
+				xAxis: {
+					categories: years,
+					labels: labelsDesign
+				},
+				yAxis: {
+					title: {
+						text: '',
+						style: textColorObject
+					},
+					labels: labelsDesign
+				},
+				plotOptions: {
+					column: {
+						stacking: 'normal'
+					}
+				},
+				tooltip: {
+					formatter: function () {
+						return '<strong>' + this.key + '</strong><br/>' + 
+										this.series.name + ': ' + number.format(this.y) + '<br/>' +
+										'Total: ' + number.format(this.point.stackTotal);
+					}
+				},
+				credits: {
+					enabled: false
+				},
+				series: [
+					{'name': 'Primary', data: primary },
+					{'name': 'Secondary', data: secondary},
+					{'name': 'Agroforestry', data: agroforestry},
+					{'name': 'Non-Forest', data: nonforest}
+				]
+			});
 		},
 
 		/*

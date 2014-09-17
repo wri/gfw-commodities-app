@@ -166,8 +166,40 @@ define([
 
 		getRSPOResults: function () {
 			this._debug('Fetcher >>> getRSPOResults');
-			var deferred = new Deferred();
-			deferred.resolve(true);
+			var deferred = new Deferred(),
+					config = ReportConfig.rspo,
+					url = ReportConfig.imageServiceUrl,
+					encoder = this._getEncodingFunction(config.lossBounds, config.bounds),
+					renderingRule = encoder.render(ReportConfig.totalLoss.rasterId, config.rasterId),
+					content = {
+						geometryType: 'esriGeometryPolygon',
+						geometry: JSON.stringify(report.geometry),
+						renderingRule: renderingRule,
+						pixelSize: 100,
+						f: 'json'
+					},
+					self = this;
+
+			function success(res) {
+				ReportRenderer.renderRSPOData(res, config, encoder);
+				deferred.resolve(true);
+			}
+
+			function failure(error) {
+				if (error.details) {
+					if (err.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+						content.pixelSize = 500;
+						self._computeHistogram(url, content, success, failure);
+					} else {
+						deferred.resolve(false);
+					}
+				} else {
+					deferred.resolve(false);
+				}
+			}
+
+			ReportRenderer.renderRSPOContainer(config);
+			this._computeHistogram(url, content, success, failure);
 			return deferred.promise;
 		},
 
@@ -205,6 +237,8 @@ define([
 					if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
 						content.pixelSize = 500;
 						self._computeHistogram(url, content, success, failure);
+					} else {
+						deferred.resolve(false);
 					}
 				} else {
 					deferred.resolve(false);

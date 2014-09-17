@@ -179,19 +179,18 @@ define([
 			
 			Deferred's Mapping
 
-			suit - Fetcher._getSuitabilityData()
+			suit - Fetcher._getSuitabilityAnalysis()
+			fires - Fetcher._getFireAlertAnalysis()
 			mill - Fetcher._getMillPointAnalysis()
+			primForest - Fetcher.getPrimaryForestResults()
+			protected - Fetcher.getProtectedAreaResults()
+			treeDensity - Fetcher.getTreeCoverResults()
 			carbon - Fetcher.getCarbonStocksResults()
 			intact - Fetcher.getIntactForestResults()
 			landCover - Fetcher.getLandCoverResults()
 			legal - Fetcher.getLegalClassResults()
-			peat - Fetcher.getPeatLandsResults();
-			primForest - Fetcher.getPrimaryForestResults()
-			protected - Fetcher.getProtectedAreaResults()
+			peat - Fetcher.getPeatLandsResults()
 			rspo - Fetcher.getRSPOResults()
-			treeDensity - Fetcher.getTreeCoverResults()
-			fires - Fetcher._getFireAlertAnalysis()
-
 		*/
 
 		/*
@@ -205,7 +204,7 @@ define([
 
 				switch (item) {
 					case "suit":
-						deferreds.push(Fetcher._getSuitabilityData());
+						deferreds.push(Fetcher._getSuitabilityAnalysis());
 					break;
 					case "mill":
 						deferreds.push(Fetcher._getMillPointAnalysis());

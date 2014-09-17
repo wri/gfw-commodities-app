@@ -52,6 +52,15 @@ define([], function () {
 
 		/* Here are all the other Layers used in the results */
 
+		rspo: {
+			rootNode: "rspoData",
+			title: "RSPO Land Use Change Analysis",
+			rasterId: "$5",
+			bounds: [0, 3],
+			lossBounds: [5, 12],
+			colors: ['#87CEEB','#00AA00','#DD0000','#8A2BE2']
+		},
+
 		primaryForest: {
 			rootNode: "primaryForest",
 			title: "Primary Forests - Indonesia",
@@ -69,15 +78,51 @@ define([], function () {
 		},
 
 		treeCover: {
-
+			rootNode: "treeCoverDensity",
+			title: "Tree Cover Density",
+			rasterId: "$518",
+			bounds: [1, 5],
+			labels: ["0 - 10%", "11 - 25%", "26 - 50%", "51 - 75%", "76 - 100%"],
+			clearanceChart: {
+				title: "Clearance Alerts on Tree Cover Density since 2012",
+				type: "pie"
+			},
+			lossChart: {
+				title: "Annual Tree Cover Loss (in hectares) on Tree Cover Density"
+			},
+			colors: ["#ccf1a5", "#a4c27a", "#859a59", "#65763e", "#4b5923"]
 		},
 
 		legalClass: {
-
+			rootNode: "legalClasses",
+			title: "Legal Classifications",
+			rasterId: "$7",
+	    bounds: [1,5],
+	    labels: ["Convertible Production Forest","Limited Production Forest","Non-forest","Production Forest","Protected Area"],
+	    clearanceChart: {
+	      title: "Clearance Alerts on Legal Classifications since 2012",
+	      type: "pie"
+	    },
+	    tclChart: {
+	      title: "Annual Tree Cover Loss (in hectares) on Legal Classifications"
+	    },
+	    colors: ["rgb(230, 152, 0)","rgb(116, 196, 118)","rgb(255, 255, 190)","rgb(199, 233, 192)","rgb(35, 139, 69)"]
 		},
 
 		protectedArea: {
-
+			rootNode: "protectedAreas",
+			title: "Protected Areas",
+			rasterId: "$10",
+	    bounds: [0,1],
+	    labels: ["Protected Area"],
+	    clearanceChart: {
+	      title: "Clearance Alerts on Protected Areas since 2012",
+	      type: "bar"
+	    },
+	    tclChart: {
+	      title: "Annual Tree Cover Loss (in hectares) on Protected Areas"
+	    },
+	    colors: ["#296eaa"]
 		},
 
 		carbonStock: {
@@ -106,10 +151,6 @@ define([], function () {
 				title: "Annual Tree Cover Loss (in hectares) on Peat Lands",
 			},
 			colors: ["#161D9C"]
-		},
-
-		rspo: {
-
 		}
 
 	};

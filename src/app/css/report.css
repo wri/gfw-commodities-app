@@ -124,3 +124,31 @@ body {
   margin: 0 10px;
   width: 430px;
 }
+
+/* line 100 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .rspo-results-table {
+  border-collapse: collapse;
+  text-align: center;
+  border-spacing: 0;
+  margin: 20px auto;
+  width: 80%;
+}
+
+/* line 107 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .rspo-results-table th,
+.gfw .rspo-results-table tr td:first-child {
+  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+}
+
+/* line 111 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .rspo-results-table th,
+.gfw .rspo-results-table td {
+  border: 1px solid #adadad;
+  padding: 5px 0 2px;
+}
+
+/* line 116 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .rspo-results-table .change-area-unit {
+  margin-right: 10%;
+  float: right;
+}

@@ -100,8 +100,8 @@ define([
 			if (evt.graphic) {
 				// Make the root selection the appropriate one, for Custom Area, it is option 1
 				wizard._updateSelectedArea(AnalyzerConfig.stepOne.option1.id);
-				// Set to Step 2, the parameter is index based so 0,1,2,3, 1 is the second step
-				wizard._externalSetStep(1);
+				// Set to Step 3, the parameter is index based so 0,1,2,3, 2 is the third step
+				wizard._externalSetStep(2);
 				// In this case, set the RefinedArea to the evt.graphic
 				// Graphics will need a WRI_label field that will be used as a label in the UI
 				wizard._updateAnalysisArea(evt.graphic);
