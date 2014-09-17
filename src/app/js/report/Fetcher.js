@@ -7,11 +7,15 @@ define([
 	"report/Renderer",
 	// esri modules
 	"esri/request",
+	"esri/tasks/query",
+	"esri/tasks/QueryTask",
 	"esri/geometry/Polygon",
 	"esri/tasks/GeometryService",
   "esri/tasks/AreasAndLengthsParameters"
-], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, esriRequest, Polygon, GeometryService, AreasAndLengthsParameters) {
+], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, esriRequest, Query, QueryTask, Polygon, GeometryService, AreasAndLengthsParameters) {
 	'use strict';
+
+	var _fireQueriesToRender = [];
 
 	return {
 
@@ -50,7 +54,9 @@ define([
 					config = ReportConfig.primaryForest;
 
 			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
 			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
 
 			all([
 				this._getTotalLossAnalysis(config),
@@ -64,11 +70,17 @@ define([
 
 		getTreeCoverResults: function () {
 			this._debug('Fetcher >>> getTreeCoverResults');
-			var deferred = new Deferred();
+			var deferred = new Deferred(),
+					config = ReportConfig.treeCover;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
 			
 			all([
-				this._getTotalLossAnalysis(),
-				this._getClearanceAlertAnalysis()
+				this._getTotalLossAnalysis(config),
+				this._getClearanceAlertAnalysis(config)
 			]).then(function () {
 				deferred.resolve(true);
 			});
@@ -78,11 +90,17 @@ define([
 
 		getLegalClassResults: function () {
 			this._debug('Fetcher >>> getLegalClassResults');
-			var deferred = new Deferred();
+			var deferred = new Deferred(),
+					config = ReportConfig.legalClass;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
 			
 			all([
-				this._getTotalLossAnalysis(),
-				this._getClearanceAlertAnalysis()
+				this._getTotalLossAnalysis(config),
+				this._getClearanceAlertAnalysis(config)
 			]).then(function () {
 				deferred.resolve(true);
 			});
@@ -92,11 +110,18 @@ define([
 
 		getProtectedAreaResults: function () {
 			this._debug('Fetcher >>> getProtectedAreaResults');
-			var deferred = new Deferred();
+			var deferred = new Deferred(),
+					config = ReportConfig.protectedArea;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
 			
+			// true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
 			all([
-				this._getTotalLossAnalysis(),
-				this._getClearanceAlertAnalysis()
+				this._getTotalLossAnalysis(config, true),
+				this._getClearanceAlertAnalysis(config, true)
 			]).then(function () {
 				deferred.resolve(true);
 			});
@@ -106,11 +131,17 @@ define([
 
 		getCarbonStocksResults: function () {
 			this._debug('Fetcher >>> getCarbonStocksResults');
-			var deferred = new Deferred();
-			
+			var deferred = new Deferred(),
+					config = ReportConfig.carbonStock;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
+
 			all([
-				this._getTotalLossAnalysis(),
-				this._getClearanceAlertAnalysis()
+				this._getTotalLossAnalysis(config),
+				this._getClearanceAlertAnalysis(config)
 			]).then(function () {
 				deferred.resolve(true);
 			});
@@ -120,11 +151,18 @@ define([
 
 		getIntactForestResults: function () {
 			this._debug('Fetcher >>> getIntactForestResults');
-			var deferred = new Deferred();
+			var deferred = new Deferred(),
+					config = ReportConfig.intactForest;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
 			
+			// true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
 			all([
-				this._getTotalLossAnalysis(),
-				this._getClearanceAlertAnalysis()
+				this._getTotalLossAnalysis(config, true),
+				this._getClearanceAlertAnalysis(config, true)
 			]).then(function () {
 				deferred.resolve(true);
 			});
@@ -152,7 +190,10 @@ define([
 					config = ReportConfig.peatLands;
 
 			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
 			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
+
 			// true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
 			all([
 				this._getTotalLossAnalysis(config, true),
@@ -313,10 +354,39 @@ define([
 			return deferred.promise;
 		},
 
-		_getFireAlertAnalysis: function (config) {
+		_getFireAlertAnalysis: function () {
 			this._debug('Fetcher >>> _getFireAlertAnalysis');
-			var deferred = new Deferred();
-			deferred.resolve(true);
+			var deferred = new Deferred(),
+					self = this,
+					defs = [],
+					params2,
+					params1,
+					task2,
+					task1;
+
+			params1 = new Query();
+			params2 = new Query();
+			
+			task1 = new QueryTask(ReportConfig.fires.url + "/0");
+			task2 = new QueryTask(ReportConfig.fires.url + "/2");
+
+			params1.geometry = report.geometry;
+			params2.geometry = report.geometry;
+			params1.returnGeometry = false;
+			params2.returnGeometry = false;
+			params1.outFields = ["*"];
+			params2.outFields = ["*"];
+			params1.where = "1 = 1";
+			params2.where = "1 = 1";
+
+			all([
+				task1.execute(params1),
+				task2.execute(params2)
+			]).then(function (results) {
+				ReportRenderer.renderFireData(_fireQueriesToRender, results);
+				deferred.resolve(true);
+			});
+
 			return deferred.promise;
 		},
 

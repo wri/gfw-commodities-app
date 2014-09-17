@@ -126,6 +126,11 @@ body {
 }
 
 /* line 100 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .report-body .right-panel {
+  float: right;
+}
+
+/* line 103 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table {
   border-collapse: collapse;
   text-align: center;
@@ -134,21 +139,55 @@ body {
   width: 80%;
 }
 
-/* line 107 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 110 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table tr td:first-child {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
 }
 
-/* line 111 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 114 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table td {
   border: 1px solid #adadad;
   padding: 5px 0 2px;
 }
 
-/* line 116 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 119 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table .change-area-unit {
   margin-right: 10%;
   float: right;
+}
+
+/* line 123 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .active-fires-badge {
+  border: 2px solid #000;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 10px auto;
+  width: 300px;
+}
+
+/* line 130 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .active-fires-badge div {
+  margin: 10px 0;
+}
+
+/* line 133 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .active-fires-label {
+  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  color: #f44;
+  font-size: 28px;
+}
+
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .active-fires-label div {
+  line-height: 42px;
+  font-size: 42px;
+  margin: 0;
+}
+
+/* line 143 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .total-active-fires-label {
+  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-size: 16px;
 }

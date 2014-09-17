@@ -33,14 +33,12 @@
       ["on", "dojo/on"]
     ],
     deps: [
+      'report/Generator',
       'dojo/domReady!'
     ],
-    callback: function() {
-      require([
-        "report/Generator"
-      ], function (Generator) {
-        Generator.init();
-      });
+    callback: function(Generator) {
+      loadScript('http://code.highcharts.com/modules/exporting.js');
+      Generator.init();
     }
   }; // End dojoConfig
 

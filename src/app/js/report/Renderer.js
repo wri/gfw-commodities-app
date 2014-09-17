@@ -1,7 +1,8 @@
 define([
 	"report/config",
-	"dojo/number"
-], function (ReportConfig, number) {
+	"dojo/number",
+	"dojo/_base/array"
+], function (ReportConfig, number, arrayUtils) {
 	'use strict';
 
 	// Container IDS for charts and tables are as Follows
@@ -259,6 +260,142 @@ define([
 				});
 
 			}
+
+		},
+
+		/*
+			Render Pie Chart and Badge as appropriate for the individual layers
+			@param {object} configObjects
+			@param {array} results
+		*/
+		renderFireData: function (configObjects, results) {
+			// Combine the Results
+			var features = results[0].features.concat(results[1].features),
+					datasetTotal,
+					chartData,
+					rootNode,
+					config,
+					i;
+
+			// Helper Functions
+			/*
+				@param {string} rootNode
+				@param {number} activeFires number fires intersecting with dataset
+				@param {number} totalActiveFires total number of fires in geometry
+				@param {string} description description for the dataset used in the badge
+			*/
+			function createBadge(rootNode, activeFires, totalActiveFires, description) {
+				var fragment = document.createDocumentFragment(),
+						node = document.createElement('div');
+
+				node.className = "active-fires-badge";
+				node.innerHTML = "<div>There are currently</div>" +
+						"<div class='active-fires-label'>" +
+							"<div>" + activeFires + "</div>" +
+							"<span>active fires</span>" +
+						"</div>" +
+						"<div>" + description + "</div>" +
+						"<div class='total-active-fires-label'><span>" + totalActiveFires + " total active fires</span></div>";
+
+				// Append root to fragment and then fragment to document
+				fragment.appendChild(node);
+				document.getElementById(rootNode + '_fire').appendChild(fragment);
+			}
+
+			/*
+				@param {string} rootNode
+				@param {array} data 
+				@param {string} labels
+				@param {string} colors
+				@param {string} bounds
+				@param {string} title
+				@param {string} description
+			*/
+			function createChart(rootNode, data, labels, colors, bounds, title, description) {
+				var resultingData = [],
+						labelCounter = 0,
+						chartColors = [],
+						i;
+
+				for (i = 0; i < data.length; i++) {
+					if (i >= bounds[0] && i <= bounds[1]) {
+						if (data[i] !== 0 && !isNaN(data[i])) {
+							resultingData.push([labels[labelCounter], data[i]]);
+							chartColors.push(colors[labelCounter]);
+						}
+						labelCounter++;
+					}
+				}
+
+				if (resultingData.length > 0) {
+
+					$("#" + rootNode + "_fire").highcharts({
+						chart: {
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: null
+						},
+						colors: chartColors,
+						title: {
+							text: null
+						},
+						plotOptions: {
+							pie: {
+								size: '75%',
+								allowPointSelect: true,
+								cursor: 'pointer',
+								showInLegend: true,
+								dataLabels: {
+									enabled: false
+								}
+							}
+						},
+						credits: {
+							enabled: true
+						},
+						legend: {
+							enabled: false
+						},
+						series: [{
+							type: 'pie',
+							name: 'Fires',
+							data: resultingData
+						}]
+					});
+
+				} else {
+					createBadge(rootNode, 0, 0, description);
+				}
+
+			}
+			// Helper Functions
+
+
+			arrayUtils.forEach(configObjects, function (item) {
+
+				rootNode = item.rootNode;
+				config = ReportConfig.fires[item.fireKey];
+				
+				if (features.length === 0) {
+					createBadge(rootNode, 0, 0, config.badgeDesc);
+				} else if (config.type === 'pie') {
+					chartData = [];
+					// Set initial values to 0 for all labels
+					for (i = 0; i <= config.labels.length; i++) {
+						chartData[i] = 0; 
+					}
+					arrayUtils.forEach(features, function (feature) {
+						chartData[feature.attributes[config.field]]++;
+					});
+					createChart(rootNode, chartData, config.labels, config.colors, config.bounds, config.title, config.badgeDesc);
+				} else {
+					datasetTotal = 0;
+					arrayUtils.forEach(features, function (feature) {
+						datasetTotal += isNaN(parseInt(feature.attributes[config.field])) ? 0 : parseInt(feature.attributes[config.field]);
+					});
+					createBadge(rootNode, datasetTotal, features.length, config.badgeDesc);
+				}
+			});
 
 		},
 
