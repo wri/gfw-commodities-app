@@ -25,12 +25,12 @@ define([
             query(".nav-item").forEach(function(node){
                 //Add the a link function
                 node.onclick = function (){
-                    changeNavItem (node);
+                    changeNavItem (node, "about");
                 }
 
             });
 
-            function changeNavItem (node) {
+            function changeNavItem (node, context) {
                 query(".nav-subpage.selected ").forEach(function(selectedDiv){
                     domClass.remove(selectedDiv, "selected");
                     domStyle.set(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "display", "none");

@@ -523,7 +523,7 @@ body {
 .dropdown_arrow,
 .arrow_down,
 .scroll-icon {
-  background: url("../images/static-icons.png") no-repeat scroll 0% 0% transparent;
+  background: url("images/static-icons.png") no-repeat scroll 0% 0% transparent;
 }
 
 /* line 378 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
