@@ -90,7 +90,7 @@ body {
 
 /* line 5 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .content-header {
-  height: 200px;
+  height: auto;
   width: 100%;
   background: url("images/header_block.jpg");
   margin: 40px 0 40px 0;
@@ -101,11 +101,10 @@ body {
   font-weight: normal;
   position: relative;
   color: #fff;
-  left: 30px;
-  top: 30px;
+  padding: 40px 50px 0 50px;
 }
 
-/* line 18 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 17 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .content-header h4 {
   font-weight: normal;
   position: relative;
@@ -114,36 +113,36 @@ body {
   top: 20px;
 }
 
-/* line 26 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 25 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /* CSS Document */
 
-/* line 27 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 26 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /* header view */
 
-/* line 29 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 28 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentHeaderBottomView {
   height: 212px !important;
 }
 
-/* line 33 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 32 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPageHeaderView {
   box-shadow: none !important;
   border-bottom: 0px solid #fff !important;
 }
 
-/* line 39 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 38 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /* header view end */
 
-/* line 42 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 41 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /*Accordion Stuff*/
 
-/* line 44 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 43 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .ac-container {
   margin: 0 auto;
   width: 600px;
 }
 
-/* line 49 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 48 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container label {
   padding: 0px;
   position: relative;
@@ -159,43 +158,43 @@ body {
   margin-bottom: 0px;
 }
 
-/* line 63 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container label:hover {
   color: #98bd17;
 }
 
-/* line 67 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 66 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container input:checked + .source_header label {
   color: #98bd17;
 }
 
-/* line 71 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 70 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container .expand_arrow {
   margin-top: -60px;
 }
 
-/* line 75 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 74 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container .source_description {
   margin-top: -60px;
   margin-right: 50px;
 }
 
-/* line 81 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 80 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_header label {
   font: bold 12px/60px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 
-/* line 87 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 
-/* line 91 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container input:checked + label,
 .ac-container input:checked + label:hover {
   text-shadow: 0px 1px 1px rgba(255,255,255,0.6);
   box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3), 0px 2px 2px rgba(0,0,0,0.1);
 }
 
-/* line 98 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 97 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container label:hover:after,
 .ac-container input:checked + label:hover:after {
   content: '';
@@ -207,19 +206,19 @@ body {
 /*background: transparent url(../images/arrow_down.png) no-repeat center center;	*/
 }
 
-/* line 109 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 108 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container input:checked + .source_header .expand_arrow {
   background-position: 0px -76px;
 }
 
-/* line 113 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 112 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 
-/* line 116 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 115 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container input {
   display: none;
 }
 
-/* line 119 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 118 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container article {
   background: rgba(255,255,255,0.5);
   margin-top: -1px;
@@ -229,33 +228,33 @@ body {
   z-index: 10;
 }
 
-/* line 129 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 128 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 
-/* line 132 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 131 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .ac-container input:checked ~ article.ac-auto {
   height: auto;
 }
 
-/* line 138 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 137 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage #accordion {
   margin: 0 auto;
   width: 600px;
 }
 
-/* line 143 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 142 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage ul {
   margin: 0;
   padding: 0;
 }
 
-/* line 148 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 147 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage ul li {
   list-style: none;
   margin-bottom: 0px;
 /*background-color:#34495e;*/
 }
 
-/* line 154 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 153 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage ul li h2 {
   margin: 0;
   padding: 10px;
@@ -265,41 +264,41 @@ body {
   border-bottom: 1px #efefef solid;
 }
 
-/* line 163 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 162 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage ul li a {
   text-decoration: none;
 }
 
-/* line 167 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 166 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage ul li .content {
   height: 0;
   overflow: hidden;
 }
 
-/* line 172 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 171 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage ul li .content:target {
   height: auto;
   border-bottom: 1px #efefef solid;
 }
 
-/* line 178 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /*.contentPage ul li .content p {
 	padding:10px;
 	color:#ecf0f1;
 	}		*/
 
-/* line 183 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 182 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /*Accordion Stuff End*/
 
-/* line 186 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 185 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /* from calums css */
 
-/* line 189 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 188 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage {
   zoom: 1;
 }
 
-/* line 193 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 192 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .dataContentSize,
 .aboutContentSize,
 .methodsContentSize,
@@ -309,19 +308,19 @@ body {
 	height: auto !important;*/
 }
 
-/* line 200 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 199 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .content-container {
   margin: 0px 0px 40px 0px;
 }
 
-/* line 204 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 203 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .content-inner-container {
   width: 960px;
   margin: 0 auto;
   padding: 0 10px;
 }
 
-/* line 210 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 209 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .header-container {
   margin: 60px 0 40px;
   height: auto;
@@ -329,13 +328,13 @@ body {
   background: url("images/header_block-8287b2677353772b13b9e784b627e9ae.jpg");
 }
 
-/* line 216 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 215 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .header-block-title h1,
 .contentPage .header-block-desc p {
   color: #fff;
 }
 
-/* line 220 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 219 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .header-block-title h1 {
   padding: 40px 50px 0 50px;
   font-size: 47px;
@@ -343,7 +342,7 @@ body {
   font-weight: 600;
 }
 
-/* line 228 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 227 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .header-block-desc p {
   padding: 0px 50px 40px 50px;
   font-size: 17px;
@@ -352,7 +351,7 @@ body {
   color: rgba(255,255,255,0.7);
 }
 
-/* line 236 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 235 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter {
   border-top: 1px solid rgba(255,255,255,0.15);
   height: 98px;
@@ -361,7 +360,7 @@ body {
   bottom: 0px;
 }
 
-/* line 244 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 243 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li {
   float: left;
   height: 100%;
@@ -369,7 +368,7 @@ body {
   border-left: 1px solid rgba(255,255,255,0.15);
 }
 
-/* line 251 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 250 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li a {
   display: block;
   width: 212px;
@@ -386,14 +385,14 @@ body {
   font-weight: 400;
 }
 
-/* line 267 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 266 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li a:hover {
   color: #fff;
   border: 3px solid rgba(255,255,255,0.5);
   cursor: pointer;
 }
 
-/* line 273 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 272 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li a i {
   float: right;
   display: block;
@@ -403,19 +402,19 @@ body {
   background-position: 0 -174px;
 }
 
-/* line 282 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 281 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .navigation_left {
   float: left;
   width: 313px;
 }
 
-/* line 287 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 286 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .navigation_left ul {
   list-style: none;
   margin: 0 0;
 }
 
-/* line 292 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 291 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .navigation_left a {
   display: block;
   line-height: 56px;
@@ -430,17 +429,17 @@ body {
   background: #f2f2f3;
 }
 
-/* line 306 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 305 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .navigation_left li {
   margin-bottom: 0px;
 }
 
-/* line 310 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 309 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .navigation_left a:hover {
   background: #e5e5e7;
 }
 
-/* line 314 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 313 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .navigation_left a.selected {
   background: #fff;
   position: relative;
@@ -448,7 +447,7 @@ body {
   color: #999;
 }
 
-/* line 321 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 320 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .item-title {
   border-bottom: 1px solid #ccc;
   line-height: 55px;
@@ -456,7 +455,7 @@ body {
   background: #f2f2f3;
 }
 
-/* line 328 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 327 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .item-title i {
   display: inline-block;
   height: 10px;
@@ -465,7 +464,7 @@ body {
   background-position: 0 -222px;
 }
 
-/* line 336 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 335 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage .content_right {
   float: left;
   width: 600px;
@@ -475,46 +474,46 @@ body {
   background: #fff;
 }
 
-/* line 346 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 345 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /* from calums css end */
 
-/* line 349 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 348 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 /* From GFW - for Templates */
 
-/* line 350 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 349 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_category_title {
   margin-bottom: 10px;
   font-size: 37px;
   color: #464052;
 }
 
-/* line 355 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 354 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_category_description {
   font: 13px/1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #999;
 }
 
-/* line 360 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 359 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_header strong {
   font: bold 12px/60px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 
-/* line 365 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 364 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_header {
   border-top: 1px solid #ccc;
   color: #464052;
   cursor: pointer;
 }
 
-/* line 370 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 369 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_header em {
   float: right;
   color: #999;
   font: italic 13px/60px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 375 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 374 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .static-icons-sprite,
 .header_block__footer a i,
 .header_block__footer a i.play,
@@ -527,7 +526,7 @@ body {
   background: url("../images/static-icons.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 379 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 378 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .arrow_down {
   display: inline-block;
   height: 10px;
@@ -536,7 +535,7 @@ body {
   background-position: 0px -212px;
 }
 
-/* line 387 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 386 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .expand_arrow,
 .dropdown_arrow {
   display: block;
@@ -547,9 +546,9 @@ body {
   background-position: 0px -16px;
 }
 
-/* line 398 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 397 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 
-/* line 402 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 401 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .single-source-item,
 .source_body,
 .source_coverage {
@@ -558,7 +557,7 @@ body {
   color: #666;
 }
 
-/* line 408 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 407 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_download,
 .source_coverage_download {
   text-align: right;
@@ -566,7 +565,7 @@ body {
   border-top: 1px solid #ccc;
 }
 
-/* line 414 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 413 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_download a,
 .source_coverage_download a {
   display: inline-block;
@@ -579,25 +578,25 @@ body {
   border-radius: 16px;
 }
 
-/* line 425 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 424 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_table {
   border-top: 1px solid #ccc;
   margin-bottom: 30px;
 }
 
-/* line 429 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 428 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .sources_row {
   display: table;
   width: 100%;
   margin: 0px;
 }
 
-/* line 434 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 433 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .sources_row.even {
   background: none repeat scroll 0% 0% #f2f2f3;
 }
 
-/* line 437 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 436 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .sources_row dt {
   display: table-cell;
   width: 120px;
@@ -608,7 +607,7 @@ body {
   text-transform: uppercase;
 }
 
-/* line 447 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 446 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .sources_row dd {
   display: table-cell;
   padding: 10px 10px 10px 15px;
@@ -617,44 +616,44 @@ body {
   font-size: 13px;
 }
 
-/* line 455 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 454 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_dropdown {
   background: #eee;
   margin-bottom: 30px;
 }
 
-/* line 460 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 459 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_dropdown_header .overview_title {
   margin: 0;
   padding: 0 10px;
   line-height: 60px;
 }
 
-/* line 466 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 465 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_dropdown_body.active,
 .source_dropdown_body.sinlge_active,
 .source_dropdown_menu.active {
   display: block;
 }
 
-/* line 470 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 469 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_dropdown_body {
   padding: 0 10px 10px;
 }
 
-/* line 474 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 473 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_dropdown_menu,
 .source_dropdown_body {
   display: none;
 }
 
-/* line 478 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 477 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_dropdown_menu ul {
   margin-left: 10px;
   padding-bottom: 10px;
 }
 
-/* line 483 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 482 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .overview_title,
 .source_coverage_title {
   margin: 30px 0px 10px;
@@ -662,29 +661,29 @@ body {
   color: #463f52;
 }
 
-/* line 489 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 488 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_header.last {
   border-bottom: 1px solid #ccc;
 }
 
-/* line 493 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 492 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source-item.expanded .source_header {
   color: #98bd17;
 }
 
-/* line 497 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 496 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source-item:hover .source_header,
 .source-item.selected .source_header {
   color: #98bd17;
 }
 
-/* line 501 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 500 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_body .hidden,
 .source_coverage .hidden {
   display: none;
 }
 
-/* line 505 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 504 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_body .read_more,
 .source_coverage .read_more {
   padding: 10px 0px;
@@ -692,14 +691,14 @@ body {
   text-align: center;
 }
 
-/* line 511 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 510 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .single-source-item p,
 .source_body p,
 .source_coverage p {
   margin-bottom: 10px;
 }
 
-/* line 515 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 514 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .single-source-item p.credits,
 .source_body p.credits,
 .source_coverage p.credits {
@@ -708,7 +707,7 @@ body {
   color: #aaa;
 }
 
-/* line 521 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 520 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .single-source-item p.credits strong,
 .source_body p.credits strong,
 .source_coverage p.credits strong {
@@ -717,7 +716,7 @@ body {
   color: #aaa;
 }
 
-/* line 527 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 526 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .single-source-item p.credits a,
 .source_body p.credits a,
 .source_coverage p.credits a {
@@ -725,7 +724,7 @@ body {
   text-decoration: underline;
 }
 
-/* line 532 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 531 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_body .bullets li,
 .source_coverage .bullets li {
   margin: 0px 0px 10px 20px;
@@ -733,18 +732,18 @@ body {
   background: url("images/bullet.png") no-repeat scroll 0px 8px transparent;
 }
 
-/* line 538 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 537 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .source_coverage_download .source_coverage_title {
   float: left;
 }
 
-/* line 542 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 541 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .contentPage a {
   text-decoration: none;
   color: #a1ba42;
 }
 
-/* line 546 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 545 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logoContainer {
 /*border: 1px solid #000;*/
   overflow: hidden;
@@ -752,34 +751,34 @@ body {
   width: 100%;
 }
 
-/* line 552 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 551 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .aboutLogo {
   float: left;
   height: 100px;
   margin: 10px;
 }
 
-/* line 558 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 557 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .aboutLogo img {
   height: 100%;
   width: auto;
 }
 
-/* line 563 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 562 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list {
   margin: 30px auto 0;
   padding: 0;
   text-align: center;
 }
 
-/* line 569 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 568 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list li {
   display: inline-block;
   margin: 0 36px 38px 0;
   padding: 0;
 }
 
-/* line 575 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 574 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list li a,
 .logo_list li span {
   display: inline-block;
@@ -787,12 +786,12 @@ body {
   height: 80px;
 }
 
-/* line 581 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 580 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .center {
   text-align: center;
 }
 
-/* line 585 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 584 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .static-logos-sprite,
 .logo_list .osfac,
 .logo_list .osfac:hover,
@@ -840,252 +839,252 @@ body {
   background: url("images/static-logos.png") no-repeat;
 }
 
-/* line 589 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 588 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .wri {
   background-position: 0 -960px;
 }
 
-/* line 592 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 591 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .wri:hover {
   background-position: 0 -640px;
 }
 
-/* line 596 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 595 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .google {
   background-position: 0 -1600px;
 }
 
-/* line 599 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 598 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .google:hover {
   background-position: 0 -800px;
 }
 
-/* line 603 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 602 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .esri {
   background-position: 0 -1040px;
 }
 
-/* line 606 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 605 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .esri:hover {
   background-position: 0 -400px;
 }
 
-/* line 610 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 609 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .universitymaryland {
   background-position: 0 -240px;
 }
 
-/* line 613 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 612 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .universitymaryland:hover {
   background-position: 0 0px;
 }
 
-/* line 617 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 616 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .unep {
   background-position: 0 -1120px;
 }
 
-/* line 620 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 619 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .unep:hover {
   background-position: 0 -480px;
 }
 
-/* line 624 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 623 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .imazon {
   background-position: 0 -2400px;
 }
 
-/* line 627 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 626 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .imazon:hover {
   background-position: 0 -1760px;
 }
 
-/* line 631 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 630 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .centerglobaldevelopment {
   background-position: 0 -720px;
 }
 
-/* line 634 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 633 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .centerglobaldevelopment:hover {
   background-position: 0 -160px;
 }
 
-/* line 638 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 637 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .osfac {
   background-position: 0 -1200px;
 }
 
-/* line 641 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 640 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .osfac:hover {
   background-position: 0 -320px;
 }
 
-/* line 645 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 644 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .gfwca {
   background-position: 0 -1440px;
 }
 
-/* line 648 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 647 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .gfwca:hover {
   background-position: 0 -1360px;
 }
 
-/* line 652 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 651 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .scanex {
   background-position: 0 -2080px;
 }
 
-/* line 655 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 654 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .scanex:hover {
   background-position: 0 -1520px;
 }
 
-/* line 659 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 658 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .twrus {
   background-position: 0 -1680px;
 }
 
-/* line 662 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 661 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .twrus:hover {
   background-position: 0 -1280px;
 }
 
-/* line 666 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 665 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .goodall {
   background-position: 0 -3120px;
 }
 
-/* line 669 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 668 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .goodall:hover {
   background-position: 0 -3040px;
 }
 
-/* line 673 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 672 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .norwegian {
   background-position: 0 -2000px;
 }
 
-/* line 676 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 675 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .norwegian:hover {
   background-position: 0 -2160px;
 }
 
-/* line 680 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 679 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .usaid {
   background-position: 0 -560px;
 }
 
-/* line 683 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 682 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .usaid:hover {
   background-position: 0 -80px;
 }
 
-/* line 687 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 686 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .gef {
   background-position: 0 -1840px;
 }
 
-/* line 690 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 689 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .gef:hover {
   background-position: 0 -880px;
 }
 
-/* line 694 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 693 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .ukaid {
   background-position: 0 -2320px;
 }
 
-/* line 697 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 696 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .ukaid:hover {
   background-position: 0 -1920px;
 }
 
-/* line 701 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 700 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .tilafund {
   background-position: 0 -3280px;
 }
 
-/* line 704 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 703 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .tilafund:hover {
   background-position: 0 -3360px;
 }
 
-/* line 708 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 707 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .dutchforeign {
   background-position: 0 -2560px;
 }
 
-/* line 711 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 710 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .dutchforeign:hover {
   background-position: 0 -2640px;
 }
 
-/* line 716 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 715 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .sida {
   background-position: 0 -2960px;
 }
 
-/* line 719 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 718 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .sida:hover {
   background-position: 0 -2880px;
 }
 
-/* line 723 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 722 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .bobolink {
   background-position: 0 -3200px;
 }
 
-/* line 727 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 726 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .danida {
   background-position: 0 -2800px;
 }
 
-/* line 730 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 729 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .logo_list .danida:hover {
   background-position: 0 -2240px;
 }
 
-/* line 735 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 734 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .digital-globe {
   background: url("../images/dg_logo_grey.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 738 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 737 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .digital-globe:hover {
   background: url("../images/dg_logo_clr.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 741 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 740 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .bpredd {
   background: url("../images/bp_redd_grey.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 744 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 743 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .bpredd:hover {
   background: url("../images/bp_redd_clr.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 747 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 746 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .bnbp {
   background: url("../images/BNPBlogo-greyscale.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 750 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 749 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .bnbp:hover {
   background: url("../images/BNPBlogo.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 753 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 752 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .blueraster {
   background: url("images/br_grey.png") no-repeat;
 }
 
-/* line 756 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 755 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .blueraster:hover {
   background: url("../images/br_color.png") no-repeat;
 }
 
-/* line 759 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 758 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 .coming-soon {
   padding: 20px;
 }

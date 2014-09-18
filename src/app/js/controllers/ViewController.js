@@ -1,5 +1,6 @@
 define([
 	"dojo/dom-class",
+    "dojo/query",
 	"dijit/registry",
 	"utils/Loader",	
 	"controllers/Header",
@@ -10,7 +11,7 @@ define([
 	"controllers/DataController",
 	"controllers/MethodsController",
 	"controllers/PublicationsController"
-], function (domClass, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
+], function (domClass, query, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
 	'use strict';
 
 	var loadedViews = {};
@@ -42,6 +43,7 @@ define([
 				self.viewLoaded(view);
 				// Resize Became Necessary after adding tundra.css
 				registry.byId("stackContainer").resize();
+                console.log("Previously Loaded");
 			} else {
 				loadedViews[view] = true;
 				Loader.getTemplate(view).then(function (template) {
@@ -50,6 +52,7 @@ define([
 					// Resize Became Necessary after adding tundra.css
 					registry.byId("stackContainer").resize();
 				});
+
 			}
 
 		},

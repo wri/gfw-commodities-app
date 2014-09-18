@@ -1,19 +1,31 @@
 <div id="aboutInnerContainer" class="content-inner-container">
     <div id="aboutHeader" class="content-header">
-        <h1>About</h1>
-        <h4>Global Forest Watch Commodities is an online platform that empowers companies to analyze the impact of key commodities on forests, using the latest and most powerful data available. GFW Commodities builds on the groundbreaking platform, <a href='http://www.globalforestwatch.org' target='_blank'>Global Forest Watch</a>, but with a specific focus on companies who buy and sell major commodities that impact forests, such as palm oil, beef, soy, wood pulp. GFW Commodities is free to use and follows an open data approach in putting decision-relevant information in the hands of companies who want to minimize forest-related risks in their supply chain. </p><p>GFW Commodities is supported by a diverse group of partners that contribute data, technical capabilities, funding, and expertise. The partnership is convened by the World Resources Institute. See a full list of partners below.</p><p><iframe width='860' height='484' src='http://www.youtube.com/embed/g3SB8pPrjAo' frameborder='0' allowfullscreen></iframe></p></h4>
+        <div id="aboutHeaderTitle" class="header-block-title">
+            <h1>About</h1>
+        </div>
+        <div id="aboutHeaderDesc" class="header-block-desc">
+            <p>Global Forest Watch Commodities is an online platform that empowers companies to analyze the impact of key commodities on forests, using the latest and most powerful data available. GFW Commodities builds on the groundbreaking platform, <a href='http://www.globalforestwatch.org' target='_blank'>Global Forest Watch</a>, but with a specific focus on companies who buy and sell major commodities that impact forests, such as palm oil, beef, soy, wood pulp. GFW Commodities is free to use and follows an open data approach in putting decision-relevant information in the hands of companies who want to minimize forest-related risks in their supply chain. </p>
+            <p>GFW Commodities is supported by a diverse group of partners that contribute data, technical capabilities, funding, and expertise. The partnership is convened by the World Resources Institute. See a full list of partners below.</p>
+            <p><iframe width='860' height='484' src='http://www.youtube.com/embed/g3SB8pPrjAo' frameborder='0' allowfullscreen></iframe></p>
+        </div>
     </div>
     <div id="aboutContentContainer" class="content-container">
         <div id="navLeft" class="navigation_left">
             <ul id="aboutNavList" class="navigation-list">
                 <li id="navListTitle" class="item-title"><i class="caret-down"></i></li>
-                <div data-bind="foreach:leftLinks">
+                <li id="aboutGFWNav" class="nav-item"><a class="nav-subpage selected">ABOUT GFW COMMITIES</a></li>
+                <li id="aboutHistoryNav" class="nav-item"><a class="nav-subpage">HISTORY</a></li>
+                <li id="aboutPartnersNav" class="nav-item"><a class="nav-subpage">PARTNERS</a></li>
+                <li id="aboutUsersNav" class="nav-item"><a class="nav-subpage">USERS</a></li>
+                <li id="aboutVideosNav" class="nav-item"><a class="nav-subpage">VIDEOS</a></li>
+
+<!--                <div data-bind="foreach:leftLinks">
                     <li data-bind="click:$root.linkClick"><a data-bind="html:name,css:{selected:selected}"></a></li>
-                </div>
+                </div>-->
             </ul>
         </div>
         <div id="contentRight" data-bind="html:htmlContent" class="content_right">
-            <div id="aboutGFW">
+            <div id="aboutGFW"  style="display: block">
                 <h2 class="source_category_title">How GFW Commodities Works</h2>
 
                 <div class="source_body">
@@ -37,7 +49,7 @@
 
                 </div>
             </div>
-            <div id="aboutHistory">
+            <div id="aboutHistory"  style="display: none">
                 <h2 class="source_category_title">History</h2>
 
                 <p class="source_category_description"></p>
@@ -51,7 +63,7 @@
             </dvi>
 
         </div>
-            <div id="aboutPartner">
+            <div id="aboutPartners"  style="display: none">
                 <h2 class="source_category_title"></h2>
 
                 <p class="source_category_description">
@@ -199,7 +211,7 @@
 
 
             </div>
-            <div id="aboutUsers">
+            <div id="aboutUsers"  style="display: none">
                 <h2 class="source_category_title">Users</h2>
 
                 <p class="source_category_description"> </p>
@@ -220,7 +232,7 @@
                     </ol>
                 </div>
             </div>
-            <div id="aboutVideos">
+            <div id="aboutVideos"  style="display: none">
                 <h2 class="source_category_title">Videos</h2>
 
                 <p class="source_category_description">
