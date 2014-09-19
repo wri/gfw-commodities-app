@@ -49,6 +49,18 @@ define([], function () {
 			peatLandsBounds = [0, 1],
 			peatLandsColors = ["#161D9C"];
 
+	var lcGlobalLabels = ["Agriculture","Mixed africulture and forest","Grassland / Shrub","Mixed forest and grassland","Non-forest","Primary Forest","Secondary Forest","Settlements","Swamp","Water Bodies"],
+			lcGlobalBounds = [1, 10],
+			lcGlobalColors = ["#d89827","#86fc1f","#fdffb6","#b98f57","#CCC","#5fa965","#c7ffb6","#fca0bf","#538996","#65a2f8"];
+
+	var lcAsiaLabels = ["Agriculture","Agroforestry","Fish pond","Grassland / Shrub","Mining","Oil Palm Plantation","Primary Forest","Rubber Plantation","Secondary Forest","Settlements","Swamp","Timber Plantation","Water Bodies"],
+			lcAsiaBounds = [1, 13],
+			lcAsiaColors = ["#d89827","#26fc79","#b1e3fc","#fdffb6","#000","#d89827","#5fa965","#eeb368","#c7ffb6","#fca0bf","#538996","#745b37","#65a2f8"];
+
+	var lcIndoLabels = ["Agriculture","Estate crop plantation","Fish pond","Grassland / Shrub","Mining","Primary Forest","Secondary Forest","Settlements","Swamp","Timber Plantation","Water Bodies"],
+			lcIndoBounds = [1, 11],
+			lcIndoColors = ["#d89827","#eeb368","#b1e3fc","#fdffb6","#000","#5fa965","#c7ffb6","#fca0bf","#538996","#745b37","#65a2f8"];
+
 	return {
 
 		corsEnabledServers: [
@@ -221,8 +233,53 @@ define([], function () {
 			fireKey: 'peatLands' // Key to the Fires Config for items related to this
 		},
 
-		landCover: {
-
+		landCoverGlobal: {
+			rootNode: 'globalLandCover',
+			title: 'Land Cover - Global',
+			rasterId: '$3',
+			bounds: lcGlobalBounds,
+			labels: lcGlobalLabels,
+			clearanceChart: {
+				title: 'Clearance Alerts on Land Cover - Global since 2012',
+				type: 'pie'
+			},
+			lossChart: {
+				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Global'
+			},
+			colors: lcGlobalColors,
+			fireKey: 'landCoverGlobal' // Key to the Fires Config for items related to this
+		},
+		landCoverAsia: {
+			rootNode: 'asiaLandCover',
+			title: 'Land Cover - Southeast Asia',
+			rasterId: '$4',
+			bounds: lcAsiaBounds,
+			labels: lcAsiaLabels,
+			clearanceChart: {
+				title: 'Clearance Alerts on Land Cover - Southeast Asia since 2012',
+				type: 'pie'
+			},
+			lossChart: {
+				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Southeast Asia'
+			},
+			colors: lcAsiaColors,
+			fireKey: 'landCoverAsia' // Key to the Fires Config for items related to this
+		},
+		landCoverIndo: {
+			rootNode: 'indoLandCover',
+			title: 'Land Cover - Indonesia',
+			rasterId: '$6',
+			bounds: lcIndoBounds,
+			labels: lcIndoLabels,
+			clearanceChart: {
+				title: 'Clearance Alerts on Land Cover - Indonesia since 2012',
+				type: 'pie'
+			},
+			lossChart: {
+				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Indonesia'
+			},
+			colors: lcIndoColors,
+			fireKey: 'landCoverIndo' // Key to the Fires Config for items related to this
 		},
 		
 		fires: {
@@ -278,8 +335,32 @@ define([], function () {
 				field: 'peat',
 				badgeDesc: 'on peat lands out of'
 			},
-			landCover: {
-
+			landCoverGlobal: {
+				type: 'pie',
+				field: 'lc_global',
+				labels: lcGlobalLabels,
+				bounds: lcGlobalBounds,
+				colors: lcGlobalColors,
+				title: 'Active Fires by Land Cover - Global over the past 7 days',
+				badgeDesc: 'on land cover global out of'
+			},
+			landCoverAsia: {
+				type: 'pie',
+				field: 'lc_seasia',
+				labels: lcAsiaLabels,
+				bounds: lcAsiaBounds,
+				colors: lcAsiaColors,
+				title: 'Active Fires by Land Cover - Southeast Asia over the past 7 days',
+				badgeDesc: 'on land cover southeast asia out of'
+			},
+			landCoverIndo: {
+				type: 'pie',
+				field: 'lc_ind',
+				labels: lcIndoLabels,
+				bounds: lcIndoBounds,
+				colors: lcIndoColors,
+				title: 'Active Fires by Land Cover - Indonesia over the past 7 days',
+				badgeDesc: 'on land cover indonesia out of'
 			}
 		}
 

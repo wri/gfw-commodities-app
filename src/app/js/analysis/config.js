@@ -90,7 +90,9 @@ define([], function () {
 				{label: 'Protected Areas', value: 'protected'},
 				{label: 'Forest Carbon Stocks', value: 'carbon'},
 				{label: 'Intact Forests', value: 'intact'},
-				{label: 'Land Cover', value: 'landCover'},
+				{label: 'Land Cover - Global', value: 'landCoverGlob'},
+				{label: 'Land Cover - Southeast Asia', value: 'landCoverAsia'},
+				{label: 'Land Cover - Indonesia', value: 'landCoverIndo'},
 				{label: 'Peat Lands', value: 'peat'},				
 				{label: 'RSPO Land Use Change Analysis', value: 'rspo'}
 			]

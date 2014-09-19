@@ -32,6 +32,7 @@ define([
 		// and not radio buttons, which is why it has it's own function and cannot use updateDynamicLayer,
 		// This queries other checkboxes in the same layer to find out which needs to be added to visible layers
 		updateLayer: function (props) {
+			console.log("updateLayer");
 			var conf = MapConfig[props.key],
 					layer = app.map.getLayer(conf.id),
 					queryClass = props.filter,
@@ -228,7 +229,8 @@ define([
 					formaConf = MapConfig.forma,
 					lossConf = MapConfig.loss,
 					gainConf = MapConfig.gain,
-					confItems = [densityConf, formaConf, lossConf, gainConf],
+					primForConf = MapConfig.primForest,
+					confItems = [densityConf, formaConf, lossConf, gainConf, primForConf],
 					visibleLayers = [];
 
 			// Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,

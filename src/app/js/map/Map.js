@@ -122,6 +122,7 @@ define([
 					lossLayer,
 					lossParams,
 					treeCoverDensityLayer,
+					primaryForestLayer,
 					forestCoverLayer,
 					forestCoverParams,
 					forestUseLayer,
@@ -219,6 +220,11 @@ define([
 				visible: false
 			});
 
+			primaryForestLayer = new ArcGISImageServiceLayer(MapConfig.primForest.url, {
+				id: MapConfig.primForest.id,
+				visible: false
+			});
+
 			// Uses ifl config, which is the same as peat, tfcs, ldcover, legal.  They
 			// are all part of the same dynamic layer so any config item could be used
 			forestCoverParams = new ImageParameters();
@@ -308,6 +314,7 @@ define([
 				agroSuitabilityLayer,
 				// Forest Cover Layers
 				treeCoverDensityLayer,
+				primaryForestLayer,
 				forestCoverLayer,
 				// Forest Use Layers
 				forestUseLayer,
@@ -344,6 +351,7 @@ define([
 			lossLayer.on('error', this.addLayerError);
 			gainLayer.on('error', this.addLayerError);
 			treeCoverDensityLayer.on('error', this.addLayerError);
+			primaryForestLayer.on('error', this.addLayerError);
 			forestCoverLayer.on('error', this.addLayerError);
 			forestUseLayer.on('error', this.addLayerError);
 			protectAreasLayer.on('error', this.addLayerError);

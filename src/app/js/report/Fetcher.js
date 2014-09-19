@@ -170,13 +170,59 @@ define([
 			return deferred.promise;
 		},
 
-		getLandCoverResults: function () {
-			this._debug('Fetcher >>> getLandCoverResults');
-			var deferred = new Deferred();
+		getLandCoverGlobalResults: function () {
+			this._debug('Fetcher >>> getLandCoverGlobalResults');
+			var deferred = new Deferred(),
+					config = ReportConfig.landCoverGlobal;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
 			
 			all([
-				this._getTotalLossAnalysis(),
-				this._getClearanceAlertAnalysis()
+				this._getTotalLossAnalysis(config),
+				this._getClearanceAlertAnalysis(config)
+			]).then(function () {
+				deferred.resolve(true);
+			});
+
+			return deferred.promise;
+		},
+
+		getLandCoverAsiaResults: function () {
+			this._debug('Fetcher >>> getLandCoverAsiaResults');
+			var deferred = new Deferred(),
+					config = ReportConfig.landCoverAsia;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
+			
+			all([
+				this._getTotalLossAnalysis(config),
+				this._getClearanceAlertAnalysis(config)
+			]).then(function () {
+				deferred.resolve(true);
+			});
+
+			return deferred.promise;
+		},
+
+		getLandCoverIndonesiaResults: function () {
+			this._debug('Fetcher >>> getLandCoverIndonesiaResults');
+			var deferred = new Deferred(),
+					config = ReportConfig.landCoverIndo;
+
+			// Create the container for all the results
+			// Add this config to Fires so the Fires request knows to add data here
+			ReportRenderer.renderContainers(config);
+			_fireQueriesToRender.push(config);
+			
+			all([
+				this._getTotalLossAnalysis(config),
+				this._getClearanceAlertAnalysis(config)
 			]).then(function () {
 				deferred.resolve(true);
 			});

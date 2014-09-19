@@ -10,7 +10,8 @@ define([], function () {
 			activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
 			treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
 			protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
-			mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer";
+			mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
+			primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer";
 
 	return {
 
@@ -81,6 +82,9 @@ define([], function () {
 		// NOTE: If a item is specified in the layersUI below it needs to have a key defined here
 		// If they are on the same layer, give them the same id and url and only add that layer to the map once
 		// the toolsNode is for layers that have custom tools to work with them, it is the root dom node of the toolbox
+		// If the layer is an image service layer that needs to pull a legend from a dynamic layer, look at 
+		// LayerController.refreshLegendWidget, it will need to add the config for the layer to the confItems array
+		// This way it will know that when that layer is shown or hidden, refresh with the appropriate legendLayerId
 		tcc: {
 			id: "TreeCoverChange"
 		},
@@ -115,6 +119,11 @@ define([], function () {
 			id: "TreeCoverDensity",
 			url: treeCoverDensityUrl,
 			legendLayerId: 29
+		},
+		primForest: {
+			id: "PrimaryForest",
+			url: primaryForestUrl,
+			legendLayerId: 33
 		},
 
 		/***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
@@ -314,6 +323,14 @@ define([], function () {
 	      filter: "forest-cover",
 	      type: "radio",
 	      layerType: "dynamic"
+	    },
+	    {
+	      key: "primForest",
+	      title: "Primary Forests",
+	      subtitle: "(2000, 30m, Indonesia)",
+	      filter: "forest-cover",
+	      type: "radio",
+	      layerType: "image"
 	    },
 	    {
 	      key: "ldcover",

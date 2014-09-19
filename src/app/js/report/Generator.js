@@ -87,7 +87,8 @@ define([
 			split the lookup list based on the size to managable chunks using this._chunk
 			execute each chunk synchronously so we dont overwhelm the server using processRequests
 			  -- These deferred functions will request data, visualize it, and insert it into dom (all in Fetcher)
-			uses _getDeferredsForItems to return actual deferreds based on items in lookup list
+			uses _getDeferredsForItems to return actual deferreds based on items in lookup list,
+			Once the major requests are completed, then fire off the fires query
 		*/
 		beginAnalysis: function () {
 
@@ -104,7 +105,7 @@ define([
 					// Get Deferreds, wait til they are done, then call self to check for more
 					all(self._getDeferredsForItems(chunk)).then(processRequests);
 				} else {
-					self.analysisComplete();
+					self.getFiresAnalysis();
 				}
 			}
 
@@ -118,7 +119,7 @@ define([
 				// Now that all dependencies and initial Queries are resolved, start processing all the analyses deferreds
 				// If the number of requests is less then three, do all now, else chunk the requests and start processing them
 				if (requests.length < 3) {
-					all(self._getDeferredsForItems(requests)).then(self.analysisComplete);
+					all(self._getDeferredsForItems(requests)).then(self.getFiresAnalysis);
 				} else {
 					// Get an array of arrays, each containing 3 lookup items so 
 					// we can request three analyses at a time
@@ -128,6 +129,13 @@ define([
 
 			});
 
+		},
+
+		getFiresAnalysis: function () {
+			var self = this;
+			if (report.analyzeTreeCoverLoss) {
+				all([Fetcher._getFireAlertAnalysis()]).then(self.analysisComplete);
+			}
 		},
 
 		/*
@@ -166,10 +174,6 @@ define([
 						requests.push(key);
 					}
 				}
-			}
-
-			if (report.analyzeTreeCoverLoss) {
-				requests.push('fires');
 			}
 
 			return requests;
@@ -215,8 +219,14 @@ define([
 					case "intact":
 						deferreds.push(Fetcher.getIntactForestResults());
 					break;
-					case "landCover":
-						deferreds.push(Fetcher.getLandCoverResults());
+					case "landCoverGlob":
+						deferreds.push(Fetcher.getLandCoverGlobalResults());
+					break;
+					case "landCoverAsia":
+						deferreds.push(Fetcher.getLandCoverAsiaResults());
+					break;
+					case "landCoverIndo":
+						deferreds.push(Fetcher.getLandCoverIndonesiaResults());
 					break;
 					case "legal":
 						deferreds.push(Fetcher.getLegalClassResults());
@@ -235,9 +245,6 @@ define([
 					break;
 					case "treeDensity":
 						deferreds.push(Fetcher.getTreeCoverResults());
-					break;
-					case "fires":
-						deferreds.push(Fetcher._getFireAlertAnalysis());
 					break;
 					default:
 					break;
