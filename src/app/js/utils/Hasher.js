@@ -2,7 +2,7 @@ define([
 	"dojo/hash",
 	"dojo/io-query",
 	"dojo/topic",
-	"dojo/_base/array"
+	"dojo/_base/array",
 ], function (hash, ioQuery, topic, arrayUtils) {
 	'use strict';
 

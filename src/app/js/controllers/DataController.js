@@ -4,8 +4,9 @@ define([
     "dojo/dom-class",
     "dojo/dom-style",
     "dijit/registry",
-    "controllers/NavListController"
-], function (dom, query, domClass, domStyle, registry, NavListController) {
+    "utils/NavListController",
+    "utils/Hasher"
+], function (dom, query, domClass, domStyle, registry, NavListController, Hasher) {
     'use strict';
 
 	var initialized = false;
@@ -23,7 +24,19 @@ define([
 			registry.byId("stackContainer").selectChild("dataView");
 			registry.byId("dataView").set('content', template);
 
-            NavListController.loadNavControl("data");
+            var context = "data";
+            NavListController.loadNavControl(context);
+            NavListController.loadNavView(context);
+
+            var divs = document.getElementsByTagName('input');
+            for(var i=0; i < divs.length; i++) {
+                divs[i].onclick = function(){
+                    Hasher.setHash("s", this.id)
+                    console.log(this);
+                }
+            }
+
+
 
 		}
 

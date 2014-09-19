@@ -1,6 +1,7 @@
 define([
 	"dojo/dom-class",
     "dojo/query",
+    "dojo/io-query",
 	"dijit/registry",
 	"utils/Loader",	
 	"controllers/Header",
@@ -11,7 +12,7 @@ define([
 	"controllers/DataController",
 	"controllers/MethodsController",
 	"controllers/PublicationsController"
-], function (domClass, query, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
+], function (domClass, query, ioQuery, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
 	'use strict';
 
 	var loadedViews = {};
@@ -33,6 +34,7 @@ define([
 		load: function (view, callback) {
 			var self = this;
 
+            console.log("changing view");
 			if (!callback) {
 				callback = this.getCallback(view);
 			}

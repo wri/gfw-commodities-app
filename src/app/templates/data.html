@@ -11,16 +11,16 @@
         <div id="navLeft" class="navigation_left">
             <ul id="dataNavList" class="navigation-list">
                 <li id="navListTitle" class="item-title"><i class="caret-down"></i></li>
-                <li id="dataForestChangeNav" class="nav-item"><a class="nav-subpage selected">FOREST CHANGE</a></li>
-                <li id="dataForestAndLandCoverNav" class="nav-item"><a class="nav-subpage">FOREST AND LAND COVER</a></li>
-                <li id="dataLandUseNav" class="nav-item"><a class="nav-subpage">LAND USE</a></li>
-                <li id="dataConservationNav" class="nav-item"><a class="nav-subpage">CONSERVATION</a></li>
-                <li id="dataSuitabilityNav" class="nav-item"><a class="nav-subpage">SUITABILITY</a></li>
-                <li id="dataDataPolicyNav" class="nav-item"><a class="nav-subpage">DATA POLICY</a></li>
+                <li id="dataForestChangeNav" class="nav-item"><a class="nav-item-a default-selection">FOREST CHANGE</a></li>
+                <li id="dataForestAndLandCoverNav" class="nav-item"><a class="nav-item-a">FOREST AND LAND COVER</a></li>
+                <li id="dataLandUseNav" class="nav-item"><a class="nav-item-a">LAND USE</a></li>
+                <li id="dataConservationNav" class="nav-item"><a class="nav-item-a">CONSERVATION</a></li>
+                <li id="dataSuitabilityNav" class="nav-item"><a class="nav-item-a">SUITABILITY</a></li>
+                <li id="dataDataPolicyNav" class="nav-item"><a class="nav-item-a">DATA POLICY</a></li>
             </ul>
         </div>
         <div id="contentRight" data-bind="html:htmlContent" class="content_right">
-            <div id="dataForestChange"  style="display: block">
+            <div id="dataForestChange"  class="nav-subpage default-selection" style="display: none">
                 <h2 class="source_category_title">Forest change</h2>
 
                 <div class="source_body">
@@ -501,7 +501,7 @@
                     </section>
                 </div>
             </div>
-            <div id="dataForestAndLandCover"  style="display: none">
+            <div id="dataForestAndLandCover"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">Forest and Land Cover</h2>
 
                 <p class="source_category_description">Forest cover data measure the extent of forests, forest ecosystems, and related features such as carbon stocks</p>
@@ -1033,7 +1033,7 @@
                 </div>
 
             </div>
-            <div id="dataLandUse"  style="display: none">
+            <div id="dataLandUse"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">Forest Use</h2>
 
                 <p class="source_category_description">
@@ -1612,7 +1612,7 @@
 
 
             </div>
-            <div id="dataConservation"  style="display: none">
+            <div id="dataConservation"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">Conservation</h2>
 
                 <p class="source_category_description"> Conservation data measure information that is important for preservation and enhancement of protected areas and natural resources such as biodiversity. </p>
@@ -1761,7 +1761,7 @@
                     </section>
                 </div>
             </div>
-            <div id="dataSuitability"  style="display: none">
+            <div id="dataSuitability"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">Suitability</h2>
 
                 <p class="source_category_description">
@@ -1841,7 +1841,7 @@
                     </section>
                 </div>
             </div>
-            <div id="dataDataPolicy"  style="display: none">
+            <div id="dataDataPolicy"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">Data Policy</h2>
 
                 <p class="source_category_description">

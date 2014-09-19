@@ -11,14 +11,14 @@
         <div id="navLeft" class="navigation_left">
             <ul id="methodsNavList" class="navigation-list">
                 <li id="navListTitle" class="item-title"><i class="caret-down"></i></li>
-                <li id="methodsDataAnalysisNav" class="nav-item"><a class="nav-subpage selected">DATA ANALYSIS</a></li>
-                <li id="methodsForestAnalyzerNav" class="nav-item"><a class="nav-subpage">FOREST ANALYZER</a></li>
-                <li id="methodsSuitabilityMapperNav" class="nav-item"><a class="nav-subpage">SUITABILITY MAPPER</a></li>
-                <li id="methodsRSPOToolsNav" class="nav-item"><a class="nav-subpage">RSPO TOOLS</a></li>
+                <li id="methodsDataAnalysisNav" class="nav-item"><a class="nav-item-a default-selection">DATA ANALYSIS</a></li>
+                <li id="methodsForestAnalyzerNav" class="nav-item"><a class="nav-item-a">FOREST ANALYZER</a></li>
+                <li id="methodsSuitabilityMapperNav" class="nav-item"><a class="nav-item-a">SUITABILITY MAPPER</a></li>
+                <li id="methodsRSPOToolsNav" class="nav-item"><a class="nav-item-a">RSPO TOOLS</a></li>
             </ul>
         </div>
         <div id="contentRight" data-bind="html:htmlContent" class="content_right">
-            <div id="methodsDataAnalysis"  style="display: block">
+            <div id="methodsDataAnalysis"  class="nav-subpage default-selection" style="display: none">
                 <h2 class="source_category_title">How does GFW Commodities analyze data?</h2>
 
                 <div class="source_body">
@@ -26,7 +26,7 @@
                     <p>You can learn more about how Global Forest Watch works <a href="http://www.globalforestwatch.org/howto/general_questions" target="_blank">here</a>.</p>
                 </div>
             </div>
-            <div id="methodsForestAnalyzer"  style="display: none">
+            <div id="methodsForestAnalyzer"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">Forest Analyzer</h2>
 
                 <p class="source_category_description"></p>
@@ -35,7 +35,7 @@
                     <p>Methodology documents coming soon!</p>
                 </div>
             </div>
-            <div id="methodsSuitabilityMapper"  style="display: none">
+            <div id="methodsSuitabilityMapper"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">Suitability Mapper</h2>
 
                 <p class="source_category_description"></p>
@@ -57,7 +57,7 @@
                 </div>
 
             </div>
-            <div id="methodsRSPOTools"  style="display: none">
+            <div id="methodsRSPOTools"  class="nav-subpage" style="display: none">
                 <h2 class="source_category_title">RSPO</h2>
 
                 <p class="source_category_description"> </p>

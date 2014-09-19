@@ -47,6 +47,8 @@ define([
 
 		updateView: function (view, isExternal) {
 
+            console.log("Updated View")
+
 			if (isExternal === "true") {
 				this.redirectPage(view);
 				return;
