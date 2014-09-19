@@ -91,7 +91,8 @@ define([], function () {
 		},
 
 		suitability: {
-
+			rootNode: "suitabilityAnalysis",
+			title: "Suitability"
 		},
 
 		// The following is a dependency for all clearance alerts queries, this gets the number of labels and bounds

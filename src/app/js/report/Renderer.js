@@ -64,6 +64,30 @@ define([
 		},
 
 		/*
+			@param {object} config
+		*/
+		renderSuitabilityContainer: function (config) {
+			var fragment = document.createDocumentFragment(),
+					node = document.createElement('div');
+
+			node.id = config.rootNode;
+			node.className = "result-container";
+			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+					"<div class='suitability-container'>" +
+						"<div class='left-panel'>" +
+							"<div id='" + config.rootNode + "_content' class='suitability-content'></div>" +
+						"</div>" +
+						"<div class='right-panel'>" +
+							"<div id='" + config.rootNode + "_chart' class='suitability-chart'></div>" +
+						"</div>" +
+					"</div>";
+
+			// Append root to fragment and then fragment to document
+			fragment.appendChild(node);
+			document.getElementById('report-results-section').appendChild(fragment);
+		},
+
+		/*
 			@param {array} histogramData
 			@param {object} config
 			@param {function} encoder
@@ -554,6 +578,10 @@ define([
 					{'name': 'Non-Forest', data: nonforest}
 				]
 			});
+		},
+
+		renderSuitabilityData: function (payload) {
+
 		},
 
 		/*

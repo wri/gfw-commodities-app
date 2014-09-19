@@ -23,7 +23,7 @@ define([
 					active: active
 				});
 
-        if (this.props.useRadioCallback) {
+        if (this.props.useRadioCallback || this.props.key === 'suit') {
           topic.publish('toggleLayer', this.props.key);
         } else {
           // Call these functions on the next animation frame to give React time 

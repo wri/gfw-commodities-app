@@ -9,6 +9,7 @@ define([
 	// My Modules
 	"map/config",
 	"analysis/WizardHelper",
+	"map/SuitabilityImageServiceLayer",
 	// Esri Modules
 	"esri/map",
 	"esri/layers/GraphicsLayer",
@@ -24,7 +25,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -128,6 +129,7 @@ define([
 					forestUseLayer,
 					forestUseParams,
 					protectAreasLayer,
+					customSuitabilityLayer,
 					agroSuitabilityLayer,
 					agroSuitabilityParams,
 					mapOverlaysLayer,
@@ -225,6 +227,11 @@ define([
 				visible: false
 			});
 
+			customSuitabilityLayer = new SuitabilityImageServiceLayer(MapConfig.suit.url, {
+				id: MapConfig.suit.id,
+				visible: false
+			});
+
 			// Uses ifl config, which is the same as peat, tfcs, ldcover, legal.  They
 			// are all part of the same dynamic layer so any config item could be used
 			forestCoverParams = new ImageParameters();
@@ -303,21 +310,22 @@ define([
 
 			app.map.addLayers([
 				// Hidden Legend Layer
-				legendLayer,
-				// Forest Change Layers
-				formaAlertsLayer,
-				lossLayer,
-				gainLayer,
-				// Conservation Layers
-				protectAreasLayer,
-				// Agricultural Suitability Layers
-				agroSuitabilityLayer,
+				legendLayer,				
 				// Forest Cover Layers
 				treeCoverDensityLayer,
 				primaryForestLayer,
 				forestCoverLayer,
+				// Agricultural Suitability Layers
+				agroSuitabilityLayer,
+				customSuitabilityLayer,
 				// Forest Use Layers
 				forestUseLayer,
+				// Conservation Layers
+				protectAreasLayer,
+				// Forest Change Layers
+				formaAlertsLayer,
+				lossLayer,
+				gainLayer,
 				// Points Layers
 				firesLayer,
 				// Overlays
@@ -352,6 +360,7 @@ define([
 			gainLayer.on('error', this.addLayerError);
 			treeCoverDensityLayer.on('error', this.addLayerError);
 			primaryForestLayer.on('error', this.addLayerError);
+			customSuitabilityLayer.on('error', this.addLayerError);
 			forestCoverLayer.on('error', this.addLayerError);
 			forestUseLayer.on('error', this.addLayerError);
 			protectAreasLayer.on('error', this.addLayerError);

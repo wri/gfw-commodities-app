@@ -71,7 +71,7 @@ define([
 
       item.visible = (this.state.filter === item.filter);
       item.handle = this._handle;
-      item.postCreate = this._postCreate;      
+      item.postCreate = this._postCreate;  
 
       if (item.type === "radio") {
         return new Radio(item);
@@ -96,7 +96,8 @@ define([
         active: newState
       });
       Hasher.toggleLayers(component.props.key);
-      if (component.props.useRadioCallback) {
+
+      if (component.props.useRadioCallback || component.props.key === 'suit') {
         topic.publish('toggleLayer', component.props.key);
       } else {
         // Call this function on the next animation frame to give React time 
@@ -122,21 +123,23 @@ define([
       });
 
       if (previous) {
-      	isNewSelection = (previous.props.key !== component.props.key);
+      	isNewSelection = (previous.props.key !== component.props.key);        
         if (isNewSelection) {
           
-          previous.setState({
-            active: false
-          });
+          if (previous.props.type !== 'check') {
+            previous.setState({
+              active: false
+            });
 
-          // Remove Previous Hash but ignore it if None was previous
-          if (previous.props.key.search("none_") === -1) {
-          	Hasher.toggleLayers(previous.props.key);
-						topic.publish('hideLayer', previous.props.key);
+            // Remove Previous Hash but ignore it if None was previous
+            if (previous.props.key.search("none_") === -1) {
+              Hasher.toggleLayers(previous.props.key);
+              topic.publish('hideLayer', previous.props.key);
+            }
+
+            // Toggle Children for Previous if it has any
+            this._toggleChildren(previous, 'remove');
           }
-
-          // Toggle Children for Previous if it has any
-          this._toggleChildren(previous, 'remove');
 
           // Add New if None is not selected and isNew
 		      if (component.props.key.search("none_") === -1) {

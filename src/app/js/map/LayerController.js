@@ -230,7 +230,8 @@ define([
 					lossConf = MapConfig.loss,
 					gainConf = MapConfig.gain,
 					primForConf = MapConfig.primForest,
-					confItems = [densityConf, formaConf, lossConf, gainConf, primForConf],
+					suitConf = MapConfig.suit,
+					confItems = [densityConf, formaConf, lossConf, gainConf, primForConf, suitConf],
 					visibleLayers = [];
 
 			// Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,

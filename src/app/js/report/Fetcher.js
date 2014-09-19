@@ -5,6 +5,7 @@ define([
 	// My Modules
 	"report/config",
 	"report/Renderer",
+	"report/Suitability",
 	// esri modules
 	"esri/request",
 	"esri/tasks/query",
@@ -12,7 +13,7 @@ define([
 	"esri/geometry/Polygon",
 	"esri/tasks/GeometryService",
   "esri/tasks/AreasAndLengthsParameters"
-], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, esriRequest, Query, QueryTask, Polygon, GeometryService, AreasAndLengthsParameters) {
+], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, Suitability, esriRequest, Query, QueryTask, Polygon, GeometryService, AreasAndLengthsParameters) {
 	'use strict';
 
 	var _fireQueriesToRender = [];
@@ -388,8 +389,18 @@ define([
 
 		_getSuitabilityAnalysis: function () {
 			this._debug('Fetcher >>> _getSuitabilityAnalysis');
-			var deferred = new Deferred();
-			deferred.resolve(true);
+			var deferred = new Deferred(),
+					config = ReportConfig.suitability;
+
+			// Create the container for the results
+			ReportRenderer.renderSuitabilityContainer(config);
+
+			// Offload the work to Suitability as it is several small requests
+			Suitability.getSuitabilityData().then(function (payload) {
+				ReportRenderer.renderSuitabilityData(payload);
+				deferred.resolve(true);
+			});
+
 			return deferred.promise;
 		},
 

@@ -126,6 +126,12 @@ define([], function () {
 			legendLayerId: 33
 		},
 
+		suit: {
+			id: "CustomSuitability",
+			url: "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
+			legendLayerId: 17
+		},
+
 		/***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
 		ifl: {
 			id: "ForestCover",
@@ -397,6 +403,14 @@ define([], function () {
 	      layerType: "tiled"
 	    },
 	    {
+	      key: "suit",
+	      title: "Custom Suitability Map",
+	      subtitle: "",
+	      filter: "agro-suitability",
+	      type: "check",
+	      layerType: "image"
+	    },
+	    {
 	      key: "opsd",
 	      title: "Oil Palm suitability default",
 	      subtitle: "",
@@ -482,7 +496,95 @@ define([], function () {
 		treeCoverLossSlider: {
 			baseYear: 2000,
 			numYears: 12
-		} 
+		},
+
+		customSuitabilityDefaults: {
+			computeBinaryRaster: [
+				// Land Cover
+				{
+					id: 0,
+					values: '1,2,3',
+					classCount: 32,
+					operator: 'in',
+					name: 'LCInpR'
+				},
+				// Peat
+				{
+					id: 1,
+					values: '0',
+					classCount: 32,
+					operator: 'in',
+					name: 'PeatInpR'
+				},
+				// Slope
+				{
+					id: 2,
+					values: '30',
+					operator: 'lt',
+					name: 'SlopeInpR'
+				},
+				// Conservation 500 - 5000
+				{
+					id: 3,
+					values: '1000',
+					operator: 'gt',
+					name: 'ConsInpR'
+				},
+				// Water
+				{
+					id: 4,
+					values: '100',
+					operator: 'gt',
+					name: 'WaterInpR'
+				},
+				// Elevation
+				{
+					id: 5,
+					values: '1000',
+					operator: 'lt',
+					name: 'ElevInpR'
+				},
+				// Rainfall
+				{
+					id: 6,
+					values: '1500,7000',
+					operator: 'between',
+					name: 'RainfallInpR'
+				},
+				// Soil Drain
+				{
+					id: 7,
+					values: '2,3,4',
+					classCount: 32,
+					operator: 'in',
+					name: 'SDrainInpR'
+				},
+				// Soil Depth
+				{
+					id: 8,
+					values: '4,5,6,7',
+					classCount: 32,
+					operator: 'in',
+					name: 'SDepthInpR'
+				},
+				// Soil Acidity
+				{
+					id: 9,
+					values: '1,2,3,4,5,6,7',
+					classCount: 32,
+					operator: 'in',
+					name: 'SAcidInpR'
+				},
+				// Soil Type
+				{
+					id: 10,
+					values: '1,2,3,5,6,7,8,9',
+					classCount: 32,
+					operator: 'in',
+					name: 'STypeInpR'
+				}
+			]
+		}
 
 
 	};
