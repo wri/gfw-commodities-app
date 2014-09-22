@@ -1,38 +1,37 @@
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 
-/* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 12 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 12 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 @font-face {
   font-family: "Arial MT Condensed Bold";
   src: url("fonts/ArialMTStd-BoldCond.otf") format("opentype");
 }
 
-/* line 16 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 16 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 @font-face {
   font-family: "Arial MT Condensed Light";
   src: url("fonts/ArialMTStd-LightCond.otf") format("opentype");
 }
 
-/* line 20 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 20 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 html,
 body {
   font-family: "Arial MT Condensed Light", Arial, Georgia, sans-serif;
 }
 
-/* line 25 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 25 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw .light-gray-font {
   color: #747474;
 }
 
-/* line 28 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 28 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw #app-body:not(.mapView) #stackContainer {
   min-height: 300px;
 }
 
-/* line 31 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
-height auto,
+/* line 32 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw #app-body.mapView #stackContainer {
   position: absolute;
   top: 120px;
@@ -41,18 +40,18 @@ height auto,
   left: 0;
 }
 
-/* line 40 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 43 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw .app-footer {
   height: 470px;
   width: 100%;
 }
 
-/* line 44 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 47 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw .dijitLayoutContainer {
   overflow: hidden;
 }
 
-/* line 47 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 50 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw .custom-check {
   background-color: #888;
   display: inline-block;
@@ -64,7 +63,7 @@ height auto,
   width: 17px;
 }
 
-/* line 55 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 58 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw .custom-check span {
   background-color: #fff;
   border-radius: 4px;
@@ -78,16 +77,16 @@ height auto,
 }
 
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 
-/* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 2 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 2 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .dataView {
   background-color: #fff;
 }
 
-/* line 5 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 5 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .content-header {
   height: auto;
   width: 100%;
@@ -95,7 +94,7 @@ height auto,
   margin: 40px 0 40px 0;
 }
 
-/* line 11 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 11 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .content-header h1 {
   font-weight: normal;
   position: relative;
@@ -103,7 +102,7 @@ height auto,
   padding: 40px 50px 0 50px;
 }
 
-/* line 17 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 17 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .content-header h4 {
   font-weight: normal;
   position: relative;
@@ -112,36 +111,36 @@ height auto,
   top: 20px;
 }
 
-/* line 25 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 25 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /* CSS Document */
 
-/* line 26 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 26 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /* header view */
 
-/* line 28 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 28 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentHeaderBottomView {
   height: 212px !important;
 }
 
-/* line 32 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 32 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPageHeaderView {
   box-shadow: none !important;
   border-bottom: 0px solid #fff !important;
 }
 
-/* line 38 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 38 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /* header view end */
 
-/* line 41 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 41 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /*Accordion Stuff*/
 
-/* line 43 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 43 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .ac-container {
   margin: 0 auto;
   width: 600px;
 }
 
-/* line 48 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 48 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container label {
   padding: 0px;
   position: relative;
@@ -157,43 +156,43 @@ height auto,
   margin-bottom: 0px;
 }
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 62 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container label:hover {
   color: #98bd17;
 }
 
-/* line 66 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container input:checked + .source_header label {
   color: #98bd17;
 }
 
-/* line 70 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 70 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container .expand_arrow {
   margin-top: -60px;
 }
 
-/* line 74 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 74 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container .source_description {
   margin-top: -60px;
   margin-right: 50px;
 }
 
-/* line 80 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 80 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_header label {
   font: bold 12px/60px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 86 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 90 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container input:checked + label,
 .ac-container input:checked + label:hover {
   text-shadow: 0px 1px 1px rgba(255,255,255,0.6);
   box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3), 0px 2px 2px rgba(0,0,0,0.1);
 }
 
-/* line 97 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 97 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container label:hover:after,
 .ac-container input:checked + label:hover:after {
   content: '';
@@ -205,19 +204,19 @@ height auto,
 /*background: transparent url(../images/arrow_down.png) no-repeat center center;	*/
 }
 
-/* line 108 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 108 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container input:checked + .source_header .expand_arrow {
   background-position: 0px -76px;
 }
 
-/* line 112 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 112 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 
-/* line 115 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 115 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container input {
   display: none;
 }
 
-/* line 118 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container article {
   background: rgba(255,255,255,0.5);
   margin-top: -1px;
@@ -227,33 +226,33 @@ height auto,
   z-index: 10;
 }
 
-/* line 128 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 128 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 
-/* line 131 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 131 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .ac-container input:checked ~ article.ac-auto {
   height: auto;
 }
 
-/* line 137 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 137 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage #accordion {
   margin: 0 auto;
   width: 600px;
 }
 
-/* line 142 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 142 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage ul {
   margin: 0;
   padding: 0;
 }
 
-/* line 147 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage ul li {
   list-style: none;
   margin-bottom: 0px;
 /*background-color:#34495e;*/
 }
 
-/* line 153 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 153 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage ul li h2 {
   margin: 0;
   padding: 10px;
@@ -263,62 +262,61 @@ height auto,
   border-bottom: 1px #efefef solid;
 }
 
-/* line 162 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 162 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage ul li a {
   text-decoration: none;
 }
 
-/* line 166 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 166 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage ul li .content {
   height: 0;
   overflow: hidden;
 }
 
-/* line 171 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 171 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage ul li .content:target {
   height: auto;
   border-bottom: 1px #efefef solid;
 }
 
-/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /*.contentPage ul li .content p {
 	padding:10px;
 	color:#ecf0f1;
 	}		*/
 
-/* line 182 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 182 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /*Accordion Stuff End*/
 
-/* line 185 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 185 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /* from calums css */
 
-/* line 188 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 188 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage {
   zoom: 1;
   overflow: visible !important;
 }
 
-/* line 193 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
-.dataContentSize,
-.aboutContentSize,
-.methodsContentSize,
-.contentPage {
+/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
+.gfw #app-body.methodsView .contentPage,
+.gfw #app-body.aboutView .contentPage,
+.gfw #app-body.dataView .contentPage {
   height: auto !important;
 }
 
-/* line 199 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 198 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .content-container {
   margin: 0px 0px 40px 0px;
 }
 
-/* line 203 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 202 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .content-inner-container {
   width: 960px;
   margin: 0 auto;
   padding: 0 10px;
 }
 
-/* line 209 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 208 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .header-container {
   margin: 60px 0 40px;
   height: auto;
@@ -326,13 +324,13 @@ height auto,
   background: url("images/header_block-8287b2677353772b13b9e784b627e9ae.jpg");
 }
 
-/* line 215 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 214 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .header-block-title h1,
 .contentPage .header-block-desc p {
   color: #fff;
 }
 
-/* line 219 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 218 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .header-block-title h1 {
   padding: 40px 50px 0 50px;
   font-size: 47px;
@@ -340,7 +338,7 @@ height auto,
   font-weight: 600;
 }
 
-/* line 227 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 226 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .header-block-desc p {
   padding: 0px 50px 40px 50px;
   font-size: 17px;
@@ -349,7 +347,7 @@ height auto,
   color: rgba(255,255,255,0.7);
 }
 
-/* line 235 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 234 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter {
   border-top: 1px solid rgba(255,255,255,0.15);
   height: 98px;
@@ -358,7 +356,7 @@ height auto,
   bottom: 0px;
 }
 
-/* line 243 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 242 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li {
   float: left;
   height: 100%;
@@ -366,7 +364,7 @@ height auto,
   border-left: 1px solid rgba(255,255,255,0.15);
 }
 
-/* line 250 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 249 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li a {
   display: block;
   width: 212px;
@@ -383,14 +381,14 @@ height auto,
   font-weight: 400;
 }
 
-/* line 266 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 265 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li a:hover {
   color: #fff;
   border: 3px solid rgba(255,255,255,0.5);
   cursor: pointer;
 }
 
-/* line 272 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 271 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage #headerBlockFooter li a i {
   float: right;
   display: block;
@@ -400,19 +398,19 @@ height auto,
   background-position: 0 -174px;
 }
 
-/* line 281 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 280 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .navigation_left {
   float: left;
   width: 313px;
 }
 
-/* line 286 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 285 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .navigation_left ul {
   list-style: none;
   margin: 0 0;
 }
 
-/* line 291 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 290 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .navigation_left a {
   display: block;
   line-height: 56px;
@@ -427,17 +425,17 @@ height auto,
   background: #f2f2f3;
 }
 
-/* line 305 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 304 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .navigation_left li {
   margin-bottom: 0px;
 }
 
-/* line 309 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 308 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .navigation_left a:hover {
   background: #e5e5e7;
 }
 
-/* line 313 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 312 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .navigation_left a.selected {
   background: #fff;
   position: relative;
@@ -445,7 +443,7 @@ height auto,
   color: #999;
 }
 
-/* line 320 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 319 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .item-title {
   border-bottom: 1px solid #ccc;
   line-height: 55px;
@@ -453,7 +451,7 @@ height auto,
   background: #f2f2f3;
 }
 
-/* line 327 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .item-title i {
   display: inline-block;
   height: 10px;
@@ -462,7 +460,7 @@ height auto,
   background-position: 0 -222px;
 }
 
-/* line 335 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 334 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage .content_right {
   float: left;
   width: 600px;
@@ -472,46 +470,46 @@ height auto,
   background: #fff;
 }
 
-/* line 345 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 344 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /* from calums css end */
 
-/* line 348 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 347 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 /* From GFW - for Templates */
 
-/* line 349 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 348 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_category_title {
   margin-bottom: 10px;
   font-size: 37px;
   color: #464052;
 }
 
-/* line 354 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 353 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_category_description {
   font: 13px/1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #999;
 }
 
-/* line 359 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 358 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_header strong {
   font: bold 12px/60px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 
-/* line 364 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 363 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_header {
   border-top: 1px solid #ccc;
   color: #464052;
   cursor: pointer;
 }
 
-/* line 369 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 368 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_header em {
   float: right;
   color: #999;
   font: italic 13px/60px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 374 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 373 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .static-icons-sprite,
 .header_block__footer a i,
 .header_block__footer a i.play,
@@ -524,7 +522,7 @@ height auto,
   background: url("images/static-icons.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 378 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 377 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .arrow_down {
   display: inline-block;
   height: 10px;
@@ -533,7 +531,7 @@ height auto,
   background-position: 0px -212px;
 }
 
-/* line 386 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 385 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .expand_arrow,
 .dropdown_arrow {
   display: block;
@@ -544,9 +542,9 @@ height auto,
   background-position: 0px -16px;
 }
 
-/* line 397 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 396 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 
-/* line 401 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 400 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .single-source-item,
 .source_body,
 .source_coverage {
@@ -555,7 +553,7 @@ height auto,
   color: #666;
 }
 
-/* line 407 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 406 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_download,
 .source_coverage_download {
   text-align: right;
@@ -563,7 +561,7 @@ height auto,
   border-top: 1px solid #ccc;
 }
 
-/* line 413 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 412 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_download a,
 .source_coverage_download a {
   display: inline-block;
@@ -576,25 +574,25 @@ height auto,
   border-radius: 16px;
 }
 
-/* line 424 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 423 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_table {
   border-top: 1px solid #ccc;
   margin-bottom: 30px;
 }
 
-/* line 428 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 427 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .sources_row {
   display: table;
   width: 100%;
   margin: 0px;
 }
 
-/* line 433 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 432 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .sources_row.even {
   background: none repeat scroll 0% 0% #f2f2f3;
 }
 
-/* line 436 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 435 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .sources_row dt {
   display: table-cell;
   width: 120px;
@@ -605,7 +603,7 @@ height auto,
   text-transform: uppercase;
 }
 
-/* line 446 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 445 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .sources_row dd {
   display: table-cell;
   padding: 10px 10px 10px 15px;
@@ -614,44 +612,44 @@ height auto,
   font-size: 13px;
 }
 
-/* line 454 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 453 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_dropdown {
   background: #eee;
   margin-bottom: 30px;
 }
 
-/* line 459 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 458 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_dropdown_header .overview_title {
   margin: 0;
   padding: 0 10px;
   line-height: 60px;
 }
 
-/* line 465 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 464 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_dropdown_body.active,
 .source_dropdown_body.sinlge_active,
 .source_dropdown_menu.active {
   display: block;
 }
 
-/* line 469 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 468 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_dropdown_body {
   padding: 0 10px 10px;
 }
 
-/* line 473 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 472 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_dropdown_menu,
 .source_dropdown_body {
   display: none;
 }
 
-/* line 477 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 476 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_dropdown_menu ul {
   margin-left: 10px;
   padding-bottom: 10px;
 }
 
-/* line 482 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 481 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .overview_title,
 .source_coverage_title {
   margin: 30px 0px 10px;
@@ -659,29 +657,29 @@ height auto,
   color: #463f52;
 }
 
-/* line 488 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 487 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_header.last {
   border-bottom: 1px solid #ccc;
 }
 
-/* line 492 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 491 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source-item.expanded .source_header {
   color: #98bd17;
 }
 
-/* line 496 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 495 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source-item:hover .source_header,
 .source-item.selected .source_header {
   color: #98bd17;
 }
 
-/* line 500 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 499 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_body .hidden,
 .source_coverage .hidden {
   display: none;
 }
 
-/* line 504 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 503 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_body .read_more,
 .source_coverage .read_more {
   padding: 10px 0px;
@@ -689,14 +687,14 @@ height auto,
   text-align: center;
 }
 
-/* line 510 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 509 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .single-source-item p,
 .source_body p,
 .source_coverage p {
   margin-bottom: 10px;
 }
 
-/* line 514 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 513 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .single-source-item p.credits,
 .source_body p.credits,
 .source_coverage p.credits {
@@ -705,7 +703,7 @@ height auto,
   color: #aaa;
 }
 
-/* line 520 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 519 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .single-source-item p.credits strong,
 .source_body p.credits strong,
 .source_coverage p.credits strong {
@@ -714,7 +712,7 @@ height auto,
   color: #aaa;
 }
 
-/* line 526 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 525 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .single-source-item p.credits a,
 .source_body p.credits a,
 .source_coverage p.credits a {
@@ -722,7 +720,7 @@ height auto,
   text-decoration: underline;
 }
 
-/* line 531 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 530 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_body .bullets li,
 .source_coverage .bullets li {
   margin: 0px 0px 10px 20px;
@@ -730,18 +728,18 @@ height auto,
   background: url("images/bullet.png") no-repeat scroll 0px 8px transparent;
 }
 
-/* line 537 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 536 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .source_coverage_download .source_coverage_title {
   float: left;
 }
 
-/* line 541 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 540 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .contentPage a {
   text-decoration: none;
   color: #a1ba42;
 }
 
-/* line 545 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 544 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logoContainer {
 /*border: 1px solid #000;*/
   overflow: hidden;
@@ -749,34 +747,34 @@ height auto,
   width: 100%;
 }
 
-/* line 551 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 550 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .aboutLogo {
   float: left;
   height: 100px;
   margin: 10px;
 }
 
-/* line 557 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 556 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .aboutLogo img {
   height: 100%;
   width: auto;
 }
 
-/* line 562 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 561 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list {
   margin: 30px auto 0;
   padding: 0;
   text-align: center;
 }
 
-/* line 568 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 567 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list li {
   display: inline-block;
   margin: 0 36px 38px 0;
   padding: 0;
 }
 
-/* line 574 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 573 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list li a,
 .logo_list li span {
   display: inline-block;
@@ -784,12 +782,12 @@ height auto,
   height: 80px;
 }
 
-/* line 580 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 579 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .center {
   text-align: center;
 }
 
-/* line 584 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 583 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .static-logos-sprite,
 .logo_list .osfac,
 .logo_list .osfac:hover,
@@ -837,278 +835,278 @@ height auto,
   background: url("images/static-logos.png") no-repeat;
 }
 
-/* line 588 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 587 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .wri {
   background-position: 0 -960px;
 }
 
-/* line 591 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 590 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .wri:hover {
   background-position: 0 -640px;
 }
 
-/* line 595 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 594 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .google {
   background-position: 0 -1600px;
 }
 
-/* line 598 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 597 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .google:hover {
   background-position: 0 -800px;
 }
 
-/* line 602 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 601 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .esri {
   background-position: 0 -1040px;
 }
 
-/* line 605 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 604 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .esri:hover {
   background-position: 0 -400px;
 }
 
-/* line 609 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 608 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .universitymaryland {
   background-position: 0 -240px;
 }
 
-/* line 612 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 611 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .universitymaryland:hover {
   background-position: 0 0px;
 }
 
-/* line 616 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 615 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .unep {
   background-position: 0 -1120px;
 }
 
-/* line 619 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 618 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .unep:hover {
   background-position: 0 -480px;
 }
 
-/* line 623 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 622 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .imazon {
   background-position: 0 -2400px;
 }
 
-/* line 626 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 625 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .imazon:hover {
   background-position: 0 -1760px;
 }
 
-/* line 630 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 629 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .centerglobaldevelopment {
   background-position: 0 -720px;
 }
 
-/* line 633 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 632 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .centerglobaldevelopment:hover {
   background-position: 0 -160px;
 }
 
-/* line 637 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 636 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .osfac {
   background-position: 0 -1200px;
 }
 
-/* line 640 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 639 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .osfac:hover {
   background-position: 0 -320px;
 }
 
-/* line 644 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 643 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .gfwca {
   background-position: 0 -1440px;
 }
 
-/* line 647 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 646 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .gfwca:hover {
   background-position: 0 -1360px;
 }
 
-/* line 651 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 650 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .scanex {
   background-position: 0 -2080px;
 }
 
-/* line 654 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 653 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .scanex:hover {
   background-position: 0 -1520px;
 }
 
-/* line 658 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 657 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .twrus {
   background-position: 0 -1680px;
 }
 
-/* line 661 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 660 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .twrus:hover {
   background-position: 0 -1280px;
 }
 
-/* line 665 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 664 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .goodall {
   background-position: 0 -3120px;
 }
 
-/* line 668 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 667 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .goodall:hover {
   background-position: 0 -3040px;
 }
 
-/* line 672 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 671 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .norwegian {
   background-position: 0 -2000px;
 }
 
-/* line 675 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 674 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .norwegian:hover {
   background-position: 0 -2160px;
 }
 
-/* line 679 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 678 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .usaid {
   background-position: 0 -560px;
 }
 
-/* line 682 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 681 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .usaid:hover {
   background-position: 0 -80px;
 }
 
-/* line 686 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 685 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .gef {
   background-position: 0 -1840px;
 }
 
-/* line 689 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 688 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .gef:hover {
   background-position: 0 -880px;
 }
 
-/* line 693 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 692 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .ukaid {
   background-position: 0 -2320px;
 }
 
-/* line 696 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 695 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .ukaid:hover {
   background-position: 0 -1920px;
 }
 
-/* line 700 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 699 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .tilafund {
   background-position: 0 -3280px;
 }
 
-/* line 703 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 702 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .tilafund:hover {
   background-position: 0 -3360px;
 }
 
-/* line 707 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 706 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .dutchforeign {
   background-position: 0 -2560px;
 }
 
-/* line 710 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 709 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .dutchforeign:hover {
   background-position: 0 -2640px;
 }
 
-/* line 715 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 714 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .sida {
   background-position: 0 -2960px;
 }
 
-/* line 718 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 717 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .sida:hover {
   background-position: 0 -2880px;
 }
 
-/* line 722 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 721 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .bobolink {
   background-position: 0 -3200px;
 }
 
-/* line 726 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 725 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .danida {
   background-position: 0 -2800px;
 }
 
-/* line 729 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 728 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .logo_list .danida:hover {
   background-position: 0 -2240px;
 }
 
-/* line 734 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 733 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .digital-globe {
   background: url("../images/dg_logo_grey.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 737 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 736 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .digital-globe:hover {
   background: url("../images/dg_logo_clr.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 740 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 739 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .bpredd {
   background: url("../images/bp_redd_grey.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 743 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 742 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .bpredd:hover {
   background: url("../images/bp_redd_clr.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 746 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 745 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .bnbp {
   background: url("../images/BNPBlogo-greyscale.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 749 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 748 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .bnbp:hover {
   background: url("../images/BNPBlogo.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 752 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 751 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .blueraster {
   background: url("images/br_grey.png") no-repeat;
 }
 
-/* line 755 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 754 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .blueraster:hover {
   background: url("../images/br_color.png") no-repeat;
 }
 
-/* line 758 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 757 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/contentPages.styl */
 .coming-soon {
   padding: 20px;
 }
 
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/footer.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 
-/* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 9 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/footer.styl */
+/* line 9 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .gfw .app-footer {
   background-color: #464352;
 }
 
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 
-/* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 16 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 16 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Filter Colors */
 
-/* line 24 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 24 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Filter Colors */
 
-/* line 27 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 27 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header {
   background: url("images/header_tree_background.jpg") repeat-x scroll center top transparent;
   border-bottom: 1px solid #717d80;
@@ -1117,24 +1115,24 @@ height auto,
   height: 210px;
 }
 
-/* line 34 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 34 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header {
   height: 100%;
   width: 100%;
 }
 
-/* line 38 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 38 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header .inner {
   margin: 0 auto;
   width: 960px;
 }
 
-/* line 42 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 42 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header .outer {
   margin: 0 30px;
 }
 
-/* line 45 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 45 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-topper {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-bottom: 1px solid #9b9b9b;
@@ -1144,39 +1142,39 @@ height auto,
   width: 100%;
 }
 
-/* line 53 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 53 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView {
   height: 120px;
 }
 
-/* line 56 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 56 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.generalView {
   height: 105px;
 }
 
-/* line 59 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 59 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .map-layer-controls {
   display: none;
 }
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 62 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .nav-topper,
 .gfw .app-header.mapView .header-title,
 .gfw .app-header.generalView .header-title {
   display: none;
 }
 
-/* line 67 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 67 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .nav-separator {
   top: 65px;
 }
 
-/* line 70 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 70 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.generalView .nav-separator {
   display: none;
 }
 
-/* line 73 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 73 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .map-layer-controls {
   position: absolute;
   display: block;
@@ -1184,13 +1182,13 @@ height auto,
   top: 65px;
 }
 
-/* line 79 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 79 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .map-layer-controls ul {
   display: inline-block;
   list-style-type: none;
 }
 
-/* line 83 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 83 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .layer-list-header,
 .gfw .app-header .filter-list-title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -1201,17 +1199,17 @@ height auto,
   margin: 0 3px;
 }
 
-/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 93 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .layer-list-header {
   opacity: 0;
 }
 
-/* line 96 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 96 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .layer-list-header a {
   padding: 0 5px;
 }
 
-/* line 99 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .layer-line {
   margin-top: 13px;
   width: 100%;
@@ -1219,12 +1217,12 @@ height auto,
   padding: 0;
 }
 
-/* line 105 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 105 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .layer-list-header .layer-line {
   padding: 0 4px;
 }
 
-/* line 108 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 108 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header #master-layer-list {
   box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.15);
   background-color: #fff;
@@ -1238,14 +1236,14 @@ height auto,
   top: 65px;
 }
 
-/* line 118 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list-title {
   text-align: center;
   margin: 15px auto;
   display: block;
 }
 
-/* line 123 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 123 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   list-style-type: none;
@@ -1254,44 +1252,44 @@ height auto,
   margin: 0;
 }
 
-/* line 130 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 130 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-sub-title {
   margin: 3px 3px 3px 15px;
   font-size: 10px;
 }
 
-/* line 134 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 134 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-title,
 .gfw .app-header .filter-list .layer-sub-title {
   color: #888;
 }
 
-/* line 138 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-title {
   margin-left: 5px;
 }
 
-/* line 141 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .layer-list-item {
   border-bottom: 1px solid #e6e6e6;
   cursor: pointer;
   padding: 5px;
 }
 
-/* line 146 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 146 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .layer-list-item.hidden {
   display: none;
 }
 
-/* line 149 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 149 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item input[type='radio'] {
   margin: 3px 0;
 }
 
-/* line 152 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 152 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 154 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list ul {
   list-style-type: none;
   margin-left: 20px;
@@ -1299,115 +1297,115 @@ height auto,
   padding: 0;
 }
 
-/* line 160 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 160 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header .filter-list ul > li {
   border: none;
 }
 
-/* line 163 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 163 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item .layer-title,
 .gfw .forest-change.active .layer-list-item .layer-sub-title {
   color: #888;
 }
 
-/* line 167 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 167 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 169 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 169 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 170 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 170 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title {
   color: #5952de;
 }
 
-/* line 173 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 173 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .custom-check {
   background-color: #5952de;
 }
 
-/* line 175 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 175 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 178 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 178 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change,
 .gfw .forest-change.active .layer-title,
 .gfw .forest-change.active .layer-list-item.active .layer-title {
   color: #e72698;
 }
 
-/* line 183 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 183 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover,
 .gfw .app-header.mapView .forest-cover.active .layer-title,
 .gfw .forest-cover.active .layer-list-item.active .layer-title {
   color: #b2d26e;
 }
 
-/* line 188 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 188 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use,
 .gfw .app-header.mapView .forest-use.active .layer-title,
 .gfw .forest-use.active .layer-list-item.active .layer-title {
   color: #c98e6c;
 }
 
-/* line 193 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation,
 .gfw .app-header.mapView .conservation.active .layer-title,
 .gfw .conservation.active .layer-list-item.active .layer-title {
   color: #3182bd;
 }
 
-/* line 198 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 198 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability,
 .gfw .app-header.mapView .agro-suitability.active .layer-title,
 .gfw .agro-suitability.active .layer-list-item.active .layer-title {
   color: #fdb22c;
 }
 
-/* line 203 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 203 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages,
 .gfw .app-header.mapView .company-pages.active .layer-title,
 .gfw .company-pages.active .layer-list-item.active .layer-title {
   color: #5e138a;
 }
 
-/* line 208 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 208 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change .layer-line {
   background: #e72698;
 }
 
-/* line 211 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 211 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover .layer-line {
   background: #b2d26e;
 }
 
-/* line 214 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 214 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use .layer-line {
   background: #c98e6c;
 }
 
-/* line 217 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 217 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation .layer-line {
   background: #3182bd;
 }
 
-/* line 220 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 220 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability .layer-line {
   background: #fdb22c;
 }
 
-/* line 223 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 223 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages .layer-line {
   background: #5e138a;
 }
 
-/* line 226 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 226 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 227 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 227 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check span,
 .gfw .forest-use.active .custom-check span,
 .gfw .conservation.active .custom-check span,
@@ -1417,43 +1415,43 @@ height auto,
   left: 9px;
 }
 
-/* line 235 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 235 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active .custom-check,
 .gfw .forest-change.active .radio-icon span {
   background-color: #e72698;
 }
 
-/* line 239 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 239 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check,
 .gfw .forest-cover.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 243 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 243 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-use.active .custom-check,
 .gfw .forest-use.active .radio-icon span {
   background-color: #c98e6c;
 }
 
-/* line 247 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 247 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .conservation.active .custom-check,
 .gfw .conservation.active .radio-icon span {
   background-color: #3182bd;
 }
 
-/* line 251 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 251 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .agro-suitability.active .custom-check,
 .gfw .agro-suitability.active .radio-icon span {
   background-color: #fdb22c;
 }
 
-/* line 255 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 255 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .company-pages.active .custom-check,
 .gfw .company-pages.active .radio-icon span {
   background-color: #5e138a;
 }
 
-/* line 259 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 259 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item .radio-icon {
   display: inline-block;
   border-radius: 35px;
@@ -1464,12 +1462,12 @@ height auto,
   width: 8px;
 }
 
-/* line 266 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 266 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon {
   top: 3px;
 }
 
-/* line 269 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 269 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon span {
   display: inline-block;
   border-radius: 35px;
@@ -1482,48 +1480,48 @@ height auto,
   top: -6px;
 }
 
-/* line 278 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 278 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change .radio-icon {
   border: 1px solid #e72698;
 }
 
-/* line 281 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 281 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover .radio-icon {
   border: 1px solid #b2d26e;
 }
 
-/* line 284 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 284 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-use .radio-icon {
   border: 1px solid #c98e6c;
 }
 
-/* line 287 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 287 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .conservation .radio-icon {
   border: 1px solid #3182bd;
 }
 
-/* line 290 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 290 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .agro-suitability .radio-icon {
   border: 1px solid #fdb22c;
 }
 
-/* line 293 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 293 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .company-pages .radio-icon {
   border: 1px solid #5e138a;
 }
 
-/* line 296 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 296 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 297 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 297 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 298 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 298 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-topper div {
   line-height: 43px;
 }
 
-/* line 301 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 301 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
@@ -1533,7 +1531,7 @@ height auto,
   left: 0;
 }
 
-/* line 309 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 309 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -1545,7 +1543,7 @@ height auto,
   z-index: 200;
 }
 
-/* line 319 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 319 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -1559,7 +1557,7 @@ height auto,
   top: 20px;
 }
 
-/* line 329 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 329 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list {
   display: inline-block;
   list-style-type: none;
@@ -1567,7 +1565,7 @@ height auto,
   padding: 0;
 }
 
-/* line 335 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 335 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1581,58 +1579,58 @@ height auto,
   margin: 0 2px;
 }
 
-/* line 345 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 345 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 348 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 348 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 351 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 351 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 356 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 356 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
 }
 
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 
-/* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 6 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+/* line 6 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #app-body #homeView {
   height: auto !important;
 }
 
-/* line 9 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+/* line 9 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #app-body .background-container {
   overflow: hidden;
   height: 100%;
   width: 100%;
 }
 
-/* line 14 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+/* line 14 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #app-body .background-container img {
   height: auto;
   width: 100%;
 }
 
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 
-/* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 16 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 16 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container {
   position: absolute;
   bottom: 0;
@@ -1641,48 +1639,48 @@ height auto,
   top: 0;
 }
 
-/* line 23 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 23 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map {
   position: absolute;
   left: 0;
 }
 
-/* line 27 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 27 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSlider {
   background: none;
   color: #f0ab00;
   border: none;
 }
 
-/* line 32 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 32 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSlider div {
   background-color: #fff;
 }
 
-/* line 35 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 35 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSliderIncrementButton,
 .gfw .map-container .esriSimpleSliderDecrementButton {
   padding: 1px;
   border: none;
 }
 
-/* line 39 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 39 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriSimpleSliderIncrementButton {
   margin-bottom: 2px;
 }
 
-/* line 42 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 42 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriControlsBR {
   right: inherit;
   left: 5px;
 }
 
-/* line 46 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 46 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .esriAttribution {
   display: none;
 }
 
-/* line 49 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 49 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .HomeButton .home {
   background-image: url("images/ico-home.png");
   border-radius: 0px;
@@ -1691,12 +1689,12 @@ height auto,
   padding: 1px;
 }
 
-/* line 54 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 54 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .HomeButton {
   margin-bottom: 4px;
 }
 
-/* line 57 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 57 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .locator-widget-button,
 .gfw .basemap-gallery-button,
 .gfw .share-button {
@@ -1712,25 +1710,25 @@ height auto,
   z-index: 50;
 }
 
-/* line 67 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 67 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .locator-widget-button {
   background: url("images/locate.png") no-repeat #fff -1px -35px;
   top: 125px;
 }
 
-/* line 71 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 71 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .basemap-gallery-button {
   background: url("images/basemap.png") no-repeat #fff -1px -35px;
   top: 162px;
 }
 
-/* line 75 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 75 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .share-button {
   background: url("images/share-icon.png") no-repeat #fff -2px -35px;
   top: 199px;
 }
 
-/* line 79 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 79 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .locator-widget-button:hover,
 .gfw .basemap-gallery-button:hover,
 .gfw .share-button:hover,
@@ -1740,7 +1738,7 @@ height auto,
   background-color: #cdcdcd;
 }
 
-/* line 87 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 87 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .simpleGeocoder {
   position: absolute;
   z-index: 50;
@@ -1748,12 +1746,12 @@ height auto,
   top: 20px;
 }
 
-/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 93 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .simpleGeocoder .esriGeocoder {
   border: 2px solid #888;
 }
 
-/* line 96 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 96 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .modal-link {
   position: absolute;
   background: #fff;
@@ -1763,17 +1761,17 @@ height auto,
   z-index: 48;
 }
 
-/* line 104 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 104 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .basemap-linker {
   top: 162px;
 }
 
-/* line 107 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 107 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .locator-linker {
   top: 125px;
 }
 
-/* line 110 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 110 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .map-container .maptools-modal {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1789,7 +1787,7 @@ height auto,
   top: 60px;
 }
 
-/* line 122 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 122 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .container-header {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   border-bottom: 1px solid #b2b2b2;
@@ -1797,93 +1795,93 @@ height auto,
   font-size: 20px;
 }
 
-/* line 128 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 128 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .overlays-container {
   margin: 15px;
 }
 
-/* line 131 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 131 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-container .overlays-checkbox {
   color: #888;
   cursor: pointer;
 }
 
-/* line 135 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 135 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-container .overlays-checkbox.selected {
   color: #e98300;
 }
 
-/* line 138 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-checkbox.selected .custom-check {
   background-color: #e98300;
 }
 
-/* line 141 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-checkbox.selected .custom-check span {
   left: 9px;
 }
 
-/* line 144 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 144 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .overlays-container .custom-check-label {
   margin-left: 5px;
 }
 
-/* line 147 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .esriBasemapGallery {
   padding: 15px 25px 5px;
 }
 
-/* line 150 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 150 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .line-splitter {
   border-bottom: 1px solid #b2b2b2;
 }
 
-/* line 153 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 153 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .goto-area-search {
   display: inline-block;
   margin: 10px 0;
 }
 
-/* line 157 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 157 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton {
   margin: 5px;
 }
 
-/* line 160 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 160 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton .zoomLocateButton:hover,
 .gfw .search-option-go-button:hover {
   background: #e98300;
 }
 
-/* line 163 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 163 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton .zoomLocateButton {
   background: #888;
   height: 25px;
   width: 100px;
 }
 
-/* line 168 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 168 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .dms-inputs,
 .gfw .maptools-modal .lat-long-inputs {
   height: 20px;
 }
 
-/* line 171 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 171 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .dms-inputs {
   width: 60px;
 }
 
-/* line 174 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 174 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .area-search-radio-container {
   margin: 2px 5px;
 }
 
-/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .area-search-inputs {
   margin: 5px;
 }
 
-/* line 180 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 180 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .clear-search-pins {
   text-decoration: underline;
   margin: 10px 20px;
@@ -1892,7 +1890,7 @@ height auto,
   color: #00f;
 }
 
-/* line 187 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 187 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .maptools-modal .LocateButton span {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   display: block !important;
@@ -1901,7 +1899,7 @@ height auto,
   color: #fff;
 }
 
-/* line 194 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 194 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .search-option-go-button {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   background: #888;
@@ -1917,7 +1915,7 @@ height auto,
   color: #fff;
 }
 
-/* line 206 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 206 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container > .toolbox {
   box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.25);
   background-color: #fff;
@@ -1931,7 +1929,7 @@ height auto,
   left: 50%;
 }
 
-/* line 216 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 216 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .toolbox_legend {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   position: absolute;
@@ -1939,39 +1937,39 @@ height auto,
   left: 0;
 }
 
-/* line 222 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 222 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .toolbox_legend > p {
   text-shadow: 0 0 3px #fff;
   margin: 0;
 }
 
-/* line 226 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 226 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .fires_toolbox {
   margin-left: -225px;
   height: 60px;
   width: 450px;
 }
 
-/* line 231 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 231 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .forma_toolbox {
   margin-left: -300px;
   height: 60px;
   width: 600px;
 }
 
-/* line 236 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 236 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .treecover_change_toolbox {
   margin-left: -300px;
   height: 60px;
   width: 600px;
 }
 
-/* line 241 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 241 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-inner {
   text-align: center;
 }
 
-/* line 244 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 244 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-list {
   list-style-type: none;
   display: inline-block;
@@ -1979,7 +1977,7 @@ height auto,
   padding: 0;
 }
 
-/* line 250 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 250 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .toolbox-list li {
   text-transform: uppercase;
   border: 1px solid #000;
@@ -1993,32 +1991,32 @@ height auto,
   margin: 0 6px;
 }
 
-/* line 260 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 260 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .selected {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   background-color: #e98300;
   color: #fff;
 }
 
-/* line 265 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 265 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .fires_toolbox .high-confidence-fires {
   margin: 4px 35px 0;
   font-size: 13px;
   float: left;
 }
 
-/* line 270 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 270 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .slider-container {
   width: 600px;
   height: 60px;
 }
 
-/* line 274 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 274 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .toolbox .esriTimeSlider {
   margin-top: 5px;
 }
 
-/* line 277 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 277 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .slider-container .dijitRuleLabel {
   -webkit-transform: rotate(-55deg);
   -ms-transform: rotate(-55deg);
@@ -2027,12 +2025,12 @@ height auto,
   width: 30px;
 }
 
-/* line 284 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 284 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .slider-container table:first-of-type td:first-of-type {
   width: 40px;
 }
 
-/* line 287 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 287 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .legend-container {
   font-family: Arial, sans-serif;
   border: 1px solid #888;
@@ -2053,7 +2051,7 @@ height auto,
   bottom: 0;
 }
 
-/* line 304 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 304 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .legend-title {
   background-image: url("images/ico-carat-down.png");
   background-position: 95% 10px;
@@ -2067,23 +2065,23 @@ height auto,
   height: 30px;
 }
 
-/* line 316 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 316 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .legend-title.closed {
   background-image: url("images/ico-carat-up.png");
 }
 
-/* line 319 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 319 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .legend-title span {
   margin-left: 5px;
 }
 
-/* line 322 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 322 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .legend-content {
   height: 250px;
   width: 100%;
 }
 
-/* line 326 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw #legend {
   padding: 0 0 0 10px;
   overflow-y: auto;
@@ -2091,34 +2089,34 @@ height auto,
   width: 230px;
 }
 
-/* line 332 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 332 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Esri Legend */
 
-/* line 333 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 333 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw #legend #legend_msg,
 .gfw #legend .esriLegendServiceLabel {
   display: none;
 }
 
-/* line 336 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 336 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw #legend .esriLegendService {
   padding-bottom: 0px;
 }
 
-/* line 339 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 339 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw #legend > div:nth-last-child(2) {
   padding-bottom: 10px;
 }
 
-/* line 341 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 341 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Esri Legend */
 
 
-/* line 62 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 
-/* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 24 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 24 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-container {
   background-color: #fff;
   position: absolute;
@@ -2128,7 +2126,7 @@ height auto,
   top: 0;
 }
 
-/* line 32 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 32 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-tab {
   font-family: Arial, sans-serif;
   background-color: #e98300;
@@ -2151,14 +2149,14 @@ height auto,
   z-index: 5;
 }
 
-/* line 48 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 48 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard,
 .gfw .wizard .wizard-root {
   height: 100%;
   width: 100%;
 }
 
-/* line 52 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 52 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header {
   position: absolute;
   height: 65px;
@@ -2167,7 +2165,7 @@ height auto,
   top: 10px;
 }
 
-/* line 59 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 59 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body {
   position: absolute;
   bottom: 10px;
@@ -2176,24 +2174,24 @@ height auto,
   top: 85px;
 }
 
-/* line 66 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body select {
   font-size: 16px;
 }
 
-/* line 69 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 69 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body > div {
   overflow-y: auto;
   height: 100%;
 }
 
-/* line 73 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 73 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .title {
   text-decoration: underline;
   font-size: 26px;
 }
 
-/* line 77 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 77 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .button {
   border: 1px solid #888;
   background-color: #ececed;
@@ -2207,62 +2205,62 @@ height auto,
   float: right;
 }
 
-/* line 87 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 87 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs {
   margin: 10px 0;
   clear: both;
 }
 
-/* line 91 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 91 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs .active {
   font-weight: bold;
   color: #000;
 }
 
-/* line 95 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 95 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs .enabled {
   cursor: pointer;
   color: #f0ab00;
 }
 
-/* line 99 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs .carat {
   color: #000;
 }
 
-/* line 102 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 102 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs,
 .gfw .wizard-header .breadcrumbs span:not(.enabled) .carat {
   color: #ececed;
   font-size: 20px;
 }
 
-/* line 107 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 107 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .hidden,
 .gfw .wizard-body .loading-wheel.hidden {
   display: none;
 }
 
-/* line 111 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 111 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .step-title {
   margin-bottom: 5px;
   font-size: 24px;
 }
 
-/* line 115 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 115 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .s1-radio-container {
   font-size: 18px;
   margin: 10px;
 }
 
-/* line 119 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 119 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .next-button-container {
   font-size: 24px;
   margin: 20px;
   float: right;
 }
 
-/* line 124 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 124 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .next-button {
   background-color: #00688b;
   border: 1px solid #888;
@@ -2274,7 +2272,7 @@ height auto,
   color: #fff;
 }
 
-/* line 132 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 132 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .next-button.disabled {
   background-color: #888;
   cursor: default;
@@ -2282,12 +2280,12 @@ height auto,
   color: #000;
 }
 
-/* line 138 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .s2-tools {
   margin: 20px 0;
 }
 
-/* line 141 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .clear-custom-features {
   text-decoration: underline;
   display: inline-block;
@@ -2296,35 +2294,35 @@ height auto,
   color: #00f;
 }
 
-/* line 148 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 148 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-instructions {
   margin: 10px 0;
 }
 
-/* line 151 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 151 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .upload-instructions {
   margin-bottom: 5px;
 }
 
-/* line 154 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .selected-analysis-area {
   font-size: 18px;
 }
 
-/* line 157 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 157 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .current-selection {
   font-weight: bold;
   color: #f0ab00;
 }
 
-/* line 161 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 161 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tools {
   text-align: center;
   font-size: 18px;
   margin: 10px 0;
 }
 
-/* line 166 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 166 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button {
   background-color: #ececed;
   display: inline-block;
@@ -2336,115 +2334,115 @@ height auto,
   margin: 0 5px;
 }
 
-/* line 174 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 174 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button.active {
   background-color: #e98300;
 }
 
-/* line 180 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 180 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .custom-feature-row {
   cursor: pointer;
 }
 
-/* line 183 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 183 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .upload-toolbox form {
   text-align: center;
 }
 
-/* line 186 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 186 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .upload-toolbox #dropdownContainerName {
   text-align: center;
   margin: 20px 0;
 }
 
-/* line 190 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 190 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .custom-graphics-list-container {
   margin: 20px 0;
 }
 
-/* line 193 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .dijitComboBoxMenuPopup {
   max-height: 300px;
 }
 
-/* line 196 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 196 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .dijitInputField {
   padding: 3px 10px 0;
 }
 
-/* line 199 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 199 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox-container {
   font-size: 18px;
   margin: 5px 0;
 }
 
-/* line 203 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 203 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .wizard-checkbox {
   display: inline-block;
   cursor: pointer;
 }
 
-/* line 207 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 207 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .child-checkboxes {
   margin-left: 15px;
 }
 
-/* line 210 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .wizard-checkbox-label {
   margin-left: 5px;
 }
 
-/* line 213 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 213 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox.active .custom-check {
   background-color: #e98300;
 }
 
-/* line 216 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 216 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox.active .custom-check span {
   left: 9px;
 }
 
-/* line 219 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 219 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox.active .wizard-checkbox-label {
   color: #e98300;
 }
 
-/* line 222 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 222 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .list-container {
   margin: 5px;
 }
 
-/* line 225 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 225 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-item {
   font-weight: bold;
   font-size: 18px;
 }
 
-/* line 229 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 229 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-child-item {
   font-weight: normal;
   margin-left: 10px;
   font-size: 16px;
 }
 
-/* line 234 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 234 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-item span:last-of-type {
   cursor: pointer;
 }
 
-/* line 238 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 238 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .country-select,
 .gfw .wizard-body .commodity-type-select,
 .gfw .wizard-body .certification-scheme-select {
   vertical-align: top;
 }
 
-/* line 243 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 243 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .loading-wheel {
   background: url("images/loader.gif");
   background-size: 24px;
