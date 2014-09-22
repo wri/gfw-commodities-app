@@ -4,12 +4,14 @@ define([
 	"dojo/query",
 	"dojo/dom-class",
 	"utils/Hasher",
-	"main/config"
-], function (on, dom, query, domClass, Hasher, AppConfig) {
+	"main/config",
+    "utils/NavListController"
+], function (on, dom, query, domClass, Hasher, AppConfig, NavListController) {
 	'use strict';
 
 	var state = 'large', // large, small, or mobile
 			initialized = false;
+
 
 	return {
 
@@ -19,9 +21,9 @@ define([
 				return;
 			}
 
-			initialized = true;
 			dom.byId("app-header").innerHTML = template;
 			this.bindEvents();
+            initialized = true;
 		},
 
 		setState: function (newState) {
@@ -39,13 +41,15 @@ define([
 							dataView = target.dataset ? target.dataset.view : target.getAttribute('data-view'),
 							external = target.dataset ? target.dataset.external : target.getAttribute('data-external');
 
-					self.updateView(dataView, external);
+					self.updateView(dataView, external, initialized);
 				});
 			});
 
 		},
 
-		updateView: function (view, isExternal) {
+		updateView: function (view, isExternal, initialized) {
+
+            console.log("Updated View")
 
 			if (isExternal === "true") {
 				this.redirectPage(view);
@@ -60,7 +64,9 @@ define([
 				domClass.add(node, "selected");
 			});
 
-			Hasher.setHash('v', view);
+            if(initialized){
+                Hasher.setHash("v", view);
+            }
 
 		},
 
@@ -82,8 +88,9 @@ define([
 		},
 
 		setForGenericView: function () {
-			domClass.add("nav-content", "outer");
-			domClass.remove("nav-content", "inner");
+            this.setForHome();
+//			domClass.add("nav-content", "outer");
+//			domClass.remove("nav-content", "inner");
 			domClass.remove("app-header", "mapView");
 			domClass.add("app-header", "generalView");
 		},

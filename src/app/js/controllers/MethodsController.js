@@ -1,8 +1,12 @@
 define([
-	"dojo/dom",
-	"dijit/registry"
-], function (dom, registry) {
-	'use strict';
+    "dojo/dom",
+    "dojo/query",
+    "dojo/dom-class",
+    "dojo/dom-style",
+    "dijit/registry",
+    "utils/NavListController"
+], function (dom, query, domClass, domStyle, registry, NavListController) {
+    'use strict';
 
 	var initialized = false;
 
@@ -18,6 +22,10 @@ define([
 			initialized = true;
 			registry.byId("stackContainer").selectChild("methodsView");
 			registry.byId("methodsView").set('content', template);
+
+            var context = "methods";
+            NavListController.loadNavControl(context);
+            NavListController.loadNavView(context);
 
 		}
 
