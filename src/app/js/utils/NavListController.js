@@ -26,6 +26,7 @@ define([
                     if(selectedDiv.parentElement.id.indexOf(context) > -1){
                         domClass.remove(selectedDiv, "selected");
                         domStyle.set(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "display", "none");
+                        domClass.remove(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "selected");
                     }
                 });
 
@@ -58,6 +59,7 @@ define([
                         if(state.n === node.id.replace("Nav", "").replace(context, "")){
                             domClass.add(node.children[0], "selected");
                             domStyle.set(node.id.match(/(.*)Nav/)[1], "display", "block");
+                            domClass.add(node.id.match(/(.*)Nav/)[1], "selected");
                             needsDefaults = false;
                         }
                     }
@@ -78,6 +80,60 @@ define([
             if(state.hasOwnProperty("s")){
                 dom.byId(state.s).checked = true;
             }
+        },
+
+        urlControl: function (view) {
+            //Page should be loaded, set URL
+            //state object used to create url with dojo hasher
+            var state = {}
+            state.v = view;
+
+            //Grab selected nav items and add them to state oject
+            var nodes = query(".nav-item-a.selected");
+            if(nodes.length > 0){
+                nodes.forEach(function(node){
+                    if(node.parentElement.id.indexOf(view) > -1){
+                        state.n = node.parentElement.id.replace("Nav", "").replace(view, "");
+                    }
+                })
+            } else {
+                if(state.n) {
+                    delete state.n;
+                }
+            }
+
+            //Grab subpage mapped from nav item and add to state object
+            var divs = document.getElementsByTagName('input');
+            for(var i=0; i < divs.length; i++) {
+                if(divs[i].checked){
+                    state.s = divs[i].id;
+                } else {
+                    if(state.s){
+                        delete state.s;
+                    }
+                }
+            }
+
+            //Find checked divs in data page
+            //Only in data page, check context (view)
+            var dataClickablesNeedsCleared = true;
+            var divs = document.getElementsByTagName('input');
+            for(var i=0; i < divs.length; i++) {
+                if(divs[i].checked){
+                    state.s = divs[i].id;
+                    dataClickablesNeedsCleared = false;
+                }
+            }
+
+            var onDataPage = (view.indexOf("data") > -1);
+            if(dataClickablesNeedsCleared || !onDataPage){
+                if(state.s){
+                    delete state.s;
+                }
+            }
+            Hasher.setHashFromState(state);
         }
+
+
     };
 })

@@ -3,7 +3,8 @@ define([
 	"dojo/io-query",
 	"dojo/topic",
 	"dojo/_base/array",
-], function (hash, ioQuery, topic, arrayUtils) {
+    "dojo/query"
+], function (hash, ioQuery, topic, arrayUtils, query) {
 	'use strict';
 
 	var currentView;
@@ -34,6 +35,7 @@ define([
 				}
 				currentView = state.v;
 				self.changeView(currentView);
+
 			});
 			return defaultView;
 		},
@@ -47,6 +49,18 @@ define([
 			state[key] = value;
 			hash(ioQuery.objectToQuery(state));
 		},
+
+        setHashFromState: function (state) {
+            hash(ioQuery.objectToQuery(state));
+        },
+
+        removeKey: function (key) {
+            var state = ioQuery.queryToObject(hash());
+            if (state[key]){
+                delete state[key];
+            }
+            hash(ioQuery.objectToQuery(state));
+        },
 
 		toggleLayers: function (layerId) {
 			var state = ioQuery.queryToObject(hash()),

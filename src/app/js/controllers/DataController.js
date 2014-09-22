@@ -29,14 +29,22 @@ define([
             NavListController.loadNavView(context);
 
             var divs = document.getElementsByTagName('input');
-            for(var i=0; i < divs.length; i++) {
+            for(var i=0; i < divs.length; i += 1) {
                 divs[i].onclick = function(){
-                    Hasher.setHash("s", this.id)
-                    console.log(this);
+                    if(this.checked){
+                        Hasher.setHash("s", this.id)
+                    } else {
+                        Hasher.removeKey("s");
+                    }
+                    //need to close all other checked boxes
+                    //so only one can be open at a time.
+                    for(var j=0; j<divs.length; j++){
+                        if(divs[j] !== this){
+                            divs[j].checked = false;
+                        }
+                    }
                 }
             }
-
-
 
 		}
 

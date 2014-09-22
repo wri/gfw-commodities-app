@@ -11,8 +11,10 @@ define([
 	"controllers/AboutController",
 	"controllers/DataController",
 	"controllers/MethodsController",
-	"controllers/PublicationsController"
-], function (domClass, query, ioQuery, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController) {
+	"controllers/PublicationsController",
+    "utils/Hasher",
+    "utils/NavListController"
+], function (domClass, query, ioQuery, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController, Hasher, NavListController) {
 	'use strict';
 
 	var loadedViews = {};
@@ -74,6 +76,9 @@ define([
 			// Set class on app-body
 			domClass.remove("app-body");
 			domClass.add("app-body", view + "View");
+
+            //once page is loaded set drilled down url
+            NavListController.urlControl(view);
 
 		},
 
