@@ -13,6 +13,24 @@ module.exports = function (grunt) {
 
 		pkg: grunt.file.readJSON('package.json'),
 
+    favicons: {
+      options: {
+        trueColor: true,
+        precomposed: true,
+        appleTouchBackgroundColor: "#e2b2c2",
+        coast: true,
+        windowsTile: true,
+        tileBlackWhite: false,
+        tileColor: "auto",
+        html: 'build/out/index.html',
+        HTMLPrefix: "/images/"
+      },
+      icons: {
+        src: 'favicon.png',
+        dest: 'build/images'
+      }
+    },
+
     copy: {
       build: {
         files: [
@@ -144,9 +162,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-ftp-push');
+  grunt.loadNpmTasks('grunt-favicons');
 
   grunt.registerTask('develop', ['watch:stylus']);
   grunt.registerTask('build', ['copy:build','htmlmin:build','uglify:build','imagemin:build','stylus:build','requirejs:build', 'ftp_push:build']);
-  grunt.registerTask('minify', ['copy:build','htmlmin:build','uglify:build','imagemin:build','stylus:build','requirejs:build']);
+  grunt.registerTask('minify', ['favicons','copy:build','htmlmin:build','uglify:build','imagemin:build','stylus:build','requirejs:build']);
 
 };
