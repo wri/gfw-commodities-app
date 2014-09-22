@@ -63,7 +63,8 @@ define([
         React.DOM.div({'className': 'relative wizard-root'},
           React.DOM.div({'className': 'wizard-header'},
             React.DOM.span({'className': 'title'}, "Analysis"),
-            React.DOM.span({'className': 'reset button', onClick: this._reset }, "Reset"),
+            React.DOM.span({'className': 'button', onClick: this._close }, "Close"),
+            React.DOM.span({'className': 'button', onClick: this._reset }, "Reset"),
             React.DOM.div({'className': 'breadcrumbs'},
               breadcrumbs.map(this._breadcrumbMapper, this)
             )
@@ -77,10 +78,10 @@ define([
             ),
             React.DOM.div({'className': this.state.currentStep !== 2 ? 'hidden' : ''},
               new StepThree(props)
-            ),
-            React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
-              new StepFour(props)
             )
+            // React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
+            //   new StepFour(props)
+            // )
           )
         )
       );
@@ -124,6 +125,10 @@ define([
       app.map.getLayer(MapConfig.wizardGraphicsLayer.id).clear();
       // Hide the Dynamic Layer Associated with the Wizard
       app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
+    },
+
+    _close: function () {
+      topic.publish("toggleWizard");
     },
 
     _updateSelectedArea: function (value) {

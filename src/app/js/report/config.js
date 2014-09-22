@@ -4,7 +4,8 @@ define([], function () {
 			clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
 			imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
 			suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
-			firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer";
+			firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
+			fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
 
 	// Totoal Loss
 	var lossBounds = [5, 12],
@@ -115,9 +116,9 @@ define([], function () {
 					}
 				},
 				classIndices: {
-					'CONVERTIBLE': [5],
-					'PRODUCTION': [4, 8],
-					'OTHER': [2]
+					'convertible': [5],
+					'production': [4, 8],
+					'other': [2]
 				}
 			},
 			roadHisto: {
@@ -132,6 +133,25 @@ define([], function () {
 			concessions: {
 				url: 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer',
 				layer: '10'
+			},
+			localRights: {
+				content: "Local rights/interests:  Unknown.  To be determined through field assessments.",
+				fieldAssessmentUrl: fieldAssessmentUrl,
+				fieldAssessmentLabel: "Learn about field assessments.",
+			},
+			chart: {
+				suitable: {
+					color: '#461D7C',
+					name: 'Suitable',
+					id: 'donut-Suitable'
+				},
+				unsuitable: {
+					color: '#FDD023',
+					name: 'Unsuitable',
+					id: 'donut-Unsuitable'
+				},
+				childrenLabels: ['HP/HPT','HPK','APL'],
+				childrenColors: ['#74C476','#E69800','#FFFFBE']
 			}
 		},
 

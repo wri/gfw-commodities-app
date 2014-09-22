@@ -4,10 +4,11 @@ define([
 	"map/Controls",
 	"analysis/Query",
 	"analysis/config",
+	"analysis/WizardHelper",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, AnalyzerQuery, AnalyzerConfig, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {
@@ -20,6 +21,10 @@ define([
 			});
 
 			// Events coming from the Wizard
+			topic.subscribe('toggleWizard', function () {
+				WizardHelper.toggleWizard();
+			});
+
 			topic.subscribe('setAdminBoundariesDefinition', function (filter) {
 				LayerController.setWizardDynamicLayerDefinition(MapConfig.adminUnitsLayer, filter);
 				// If filter is none, dont zoom to none, above will turn layer off when none is selected

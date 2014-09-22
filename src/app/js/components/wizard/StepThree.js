@@ -80,6 +80,16 @@ define([
       );
     },
 
+    _mapper: function (item) {
+      return new WizardCheckbox({
+        'label': item.label,
+        'value': item.value,
+        'change': this._selectionMade,
+        'isResetting': this.props.isResetting, // Pass Down so Components receive the reset command
+        'defaultChecked': item.checked || false
+      });
+    },
+
     _showChildren: function (checked) {
       this.setState({
         showForestChangeChildren: checked
@@ -120,6 +130,10 @@ define([
       this.setState({
         completed: completed
       });
+      
+      /*** Step Four Code Moved Up **
+      return (document.querySelectorAll(".refine-analysis .wizard-checkbox.active").length > 0);
+      /*** Step Four Code Moved Up ***/
     },
 
     _getPayload: function () {

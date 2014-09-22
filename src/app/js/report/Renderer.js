@@ -11,7 +11,7 @@ define([
 	// config.rootNode + '_fire'
 	// config.rootNode + '_mill'
 	// Suitability Analysis
-	// config.rootNode + '_table'
+	// config.rootNode + '_content'
 	// config.rootNode + '_chart'
 
 	return {
@@ -592,16 +592,22 @@ define([
 				2 - getRoadData
 				3 - getConcessionData
 				4 - computeLegalHistogram
-				Note: Each payload looks like this:
+				Note: Each payload looks like this except for getConcessionData:
 				{ data: histoData, pixelSize: 'pixelSize used in calculating'}
+				getConcessionData just has a value: { value: 'Yes or No'}
 		*/
 		renderSuitabilityData: function (config, payloads) {
-			var content = "<table>",
+			var classIndices = config.lcHistogram.classIndices,
+					content = "<table>",
 					convFactor,
 					unsuitable,
 					suitable,
 					area,
 					roadDistance,
+					concession,
+					productionUse,
+					convertibleUse,
+					otherUse,
 					histogram;
 
 			// Get Suitabile Areas
@@ -626,9 +632,23 @@ define([
 			// Get LC Histogram Data
 			histogram = payloads[1];
 			if (histogram) {
-
+				convFactor = Math.pow(histogram.pixelSize / 100, 2);
+				var getValue = function(indices) {
+					var value = 0;
+					for (var i = 0; i < indices.length; i++) {
+						if (histogram.data.counts[indices[i]]) {
+							value += (histogram.data.counts[indices[i]] * convFactor);
+						}
+					}
+					return number.format(value);
+				};
+				productionUse = getValue(classIndices.production);
+				convertibleUse = getValue(classIndices.convertible);
+				otherUse = getValue(classIndices.other);
 			} else {
-
+				productionUse = 'N/A';
+				convertibleUse = 'N/A';
+				otherUse = 'N/A';
 			}
 
 			// Get Road Data
@@ -642,24 +662,182 @@ define([
 			// Get Concession Data
 			histogram = payloads[3];
 			if (histogram) {
-
+				concession = histogram.value;
 			} else {
-				
+				concession = 'N/A';
 			}
-
-			// Get Legal Histogram Data
-			histogram = payloads[4];
-			if (histogram) {
-
-			} else {
-				
-			}
-
 
 			// Set Suitabile Areas content
 			content += "<tr><td>Suitable(ha):</td><td>" + suitable + "</td></tr>";
 			content += "<tr><td>Unsuitable(ha):</td><td>" + unsuitable + "</td></tr>";
+			// Set Road Data Content
+			content += "<tr><td>Distance to nearest road(km):</td><td>" + roadDistance + "</td></tr>";
+			// Set Concession Data Content
+			content += "<tr><td>Existing concessions(Yes/No):</td><td>" + concession + "</td></tr>";
+			// Set LC Histogram Data
+			content += "<tr><td>Legal Classification(ha):</td><td></td></tr>";
+			content += "<tr><td class='child-row'>Production forest(HP/HPT):</td><td>" + productionUse + "</td></tr>";
+			content += "<tr><td class='child-row'>Convertible forest(HPK):</td><td>" + convertibleUse + "</td></tr>";
+			content += "<tr><td class='child-row'>Other land uses(APL):</td><td>" + otherUse + "</td></tr>";
+			content += "</table>";
+			// Add Local rights/interests and field assessment links
+			content += "<p>" + config.localRights.content + "</p>";
+			content += "<div class='field-assessment-link'>" + 
+									 "<a href='" + config.localRights.fieldAssessmentUrl + "'>" + config.localRights.fieldAssessmentLabel + "</a>" + 
+									"</div>";
+
+			document.getElementById(config.rootNode + '_content').innerHTML = content;
+			this.renderSuitabilityChart(config, payloads[4]);
 			
+		},
+
+		/*
+			Take the payload related to the chart and render the chart or a data not available
+			@param {object} config
+			@param {object} payload
+		*/
+		renderSuitabilityChart: function (config, payload) {
+
+			if (!payload) {
+				return;
+			}
+
+			var classIndices = config.lcHistogram.classIndices,
+					convFactor = Math.pow(payload.pixelSize / 100, 2),
+					chartConfig = config.chart,
+					chartData = [],
+					innerValues = [],
+					outerValues = [],
+					convertible,
+					production,
+					other;
+			
+
+			// Build data Objects for chart
+			function buildValues(indices) {
+				var value = {
+					suitable: 0,
+					unsuitable: 0
+				};
+
+				for (var i = 0; i < indices.length; i++) {
+					if (payload.data.counts[indices[i]]) {
+						value.unsuitable += (payload.data.counts[indices[i]] * convFactor);
+						value.suitable += (payload.data.counts[indices[i] + 10] * convFactor);
+					}
+				}
+				return value;
+			}
+
+			convertible = buildValues(classIndices.convertible);
+			production = buildValues(classIndices.production);
+			other = buildValues(classIndices.other);
+
+			// Format the Two Main Entries with the inner entries as children
+			chartData.push({
+				y: (convertible.suitable + production.suitable + other.suitable),
+				color: chartConfig.suitable.color,
+				name: chartConfig.suitable.name,
+				id: chartConfig.suitable.id,
+				children: {
+					categories: chartConfig.childrenLabels,
+					colors: chartConfig.childrenColors,
+					data: [production.suitable, convertible.suitable, other.suitable]
+				}
+			});
+
+			chartData.push({
+				y: (convertible.unsuitable + production.unsuitable + other.unsuitable),
+				color: chartConfig.unsuitable.color,
+				name: chartConfig.unsuitable.name,
+				id: chartConfig.unsuitable.id,
+				children: {
+					categories: chartConfig.childrenLabels,
+					colors: chartConfig.childrenColors,
+					data: [production.unsuitable, convertible.unsuitable, other.unsuitable]
+				}
+			});
+
+			// Begin Building the Chart
+			for (var i = 0; i < chartData.length; i++) {
+				if (chartData[i].y > 0) {
+					innerValues.push({
+						color: chartData[i].color,
+						name: chartData[i].name,
+						id: chartData[i].id,
+						y: chartData[i].y
+					});
+					for (var j = 0; j < chartData[i].children.data.length; j++) {
+            if (chartData[i].children.data[j] > 0) {
+              outerValues.push({
+                name: chartData[i].children.categories[j],
+                color: chartData[i].children.colors[j],
+                y: chartData[i].children.data[j],
+                parentId: chartData[i].id
+              });
+            }
+          }
+				}
+			}
+
+			$("#" + config.rootNode + "_chart").highcharts({
+				chart: {
+					type: 'pie',
+					backgroundColor: '#FFF',
+					plotBorderWidth: null
+				},
+				title: {
+					text: null
+				},
+				tooltip: {
+					valueSuffix: ''
+				},
+				plotOptions: {
+					series: {
+						point: {
+							events: {
+								legendItemClick: function () {
+									var id = this.id,
+											data = this.series.chart.series[1].data;
+									data.forEach(function (item) {
+										if (item.parentId === id) {
+											if (item.visible) { item.setVisible(false);} else { item.setVisible(true);}
+										}
+									});
+								}
+							}
+						}
+					}
+				},
+				legend: {
+					itemStyle: {
+						color: "#000"
+					}
+				},
+				credits: {
+					enabled: false
+				},
+				series: [{
+					name: 'Area',
+					data: innerValues,
+					size: "60%",
+					showInLegend: true,
+					dataLabels: {
+						enabled: false
+					}
+				}, {
+					name: 'Legal Area',
+					data: outerValues,
+					size: "80%",
+					innerSize: "60%",
+					dataLabels: {
+						color: 'black',
+						distance: 5
+					}
+				}]
+			});
+
+
 		},
 
 		/*
