@@ -2130,33 +2130,27 @@ body {
 .gfw .wizard-tab {
   font-family: Arial, sans-serif;
   background-color: #e98300;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-  -webkit-border-top-right-radius: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -moz-border-radius: topright 5px;
-  -moz-border-radius: topleft 5px;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   position: absolute;
-  font-size: 20px;
+  font-size: 14px;
   cursor: pointer;
-  padding: 10px;
+  padding: 5px;
   color: #fff;
-  left: -30px;
-  top: 150px;
-  z-index: 5;
+  left: 20px;
+  top: 20px;
+  z-index: 50;
 }
 
-/* line 48 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 45 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard,
 .gfw .wizard .wizard-root {
   height: 100%;
   width: 100%;
 }
 
-/* line 52 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 49 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header {
   position: absolute;
   height: 65px;
@@ -2165,7 +2159,7 @@ body {
   top: 10px;
 }
 
-/* line 59 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 56 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body {
   position: absolute;
   bottom: 10px;
@@ -2174,24 +2168,24 @@ body {
   top: 85px;
 }
 
-/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 63 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body select {
   font-size: 16px;
 }
 
-/* line 69 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body > div {
   overflow-y: auto;
   height: 100%;
 }
 
-/* line 73 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 70 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .title {
   text-decoration: underline;
   font-size: 26px;
 }
 
-/* line 77 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 74 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .button {
   border: 1px solid #888;
   background-color: #ececed;
@@ -2205,62 +2199,62 @@ body {
   float: right;
 }
 
-/* line 87 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 84 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs {
   margin: 10px 0;
   clear: both;
 }
 
-/* line 91 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 88 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs .active {
   font-weight: bold;
   color: #000;
 }
 
-/* line 95 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 92 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs .enabled {
   cursor: pointer;
   color: #f0ab00;
 }
 
-/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 96 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs .carat {
   color: #000;
 }
 
-/* line 102 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-header .breadcrumbs,
 .gfw .wizard-header .breadcrumbs span:not(.enabled) .carat {
   color: #ececed;
   font-size: 20px;
 }
 
-/* line 107 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 104 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .hidden,
 .gfw .wizard-body .loading-wheel.hidden {
   display: none;
 }
 
-/* line 111 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 108 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .step-title {
   margin-bottom: 5px;
   font-size: 24px;
 }
 
-/* line 115 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 112 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .s1-radio-container {
   font-size: 18px;
   margin: 10px;
 }
 
-/* line 119 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 116 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .next-button-container {
   font-size: 24px;
   margin: 20px;
   float: right;
 }
 
-/* line 124 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 121 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .next-button {
   background-color: #00688b;
   border: 1px solid #888;
@@ -2272,7 +2266,7 @@ body {
   color: #fff;
 }
 
-/* line 132 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 129 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .next-button.disabled {
   background-color: #888;
   cursor: default;
@@ -2280,12 +2274,12 @@ body {
   color: #000;
 }
 
-/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 135 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .s2-tools {
   margin: 20px 0;
 }
 
-/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .clear-custom-features {
   text-decoration: underline;
   display: inline-block;
@@ -2294,35 +2288,35 @@ body {
   color: #00f;
 }
 
-/* line 148 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 145 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-instructions {
   margin: 10px 0;
 }
 
-/* line 151 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 148 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .upload-instructions {
   margin-bottom: 5px;
 }
 
-/* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 151 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .selected-analysis-area {
   font-size: 18px;
 }
 
-/* line 157 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .current-selection {
   font-weight: bold;
   color: #f0ab00;
 }
 
-/* line 161 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 158 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tools {
   text-align: center;
   font-size: 18px;
   margin: 10px 0;
 }
 
-/* line 166 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 163 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button {
   background-color: #ececed;
   display: inline-block;
@@ -2334,115 +2328,115 @@ body {
   margin: 0 5px;
 }
 
-/* line 174 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 171 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 174 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .drawing-tool-button.active {
   background-color: #e98300;
 }
 
-/* line 180 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .custom-feature-row {
   cursor: pointer;
 }
 
-/* line 183 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 180 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .upload-toolbox form {
   text-align: center;
 }
 
-/* line 186 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 183 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .upload-toolbox #dropdownContainerName {
   text-align: center;
   margin: 20px 0;
 }
 
-/* line 190 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 187 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .custom-graphics-list-container {
   margin: 20px 0;
 }
 
-/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 190 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .dijitComboBoxMenuPopup {
   max-height: 300px;
 }
 
-/* line 196 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .dijitInputField {
   padding: 3px 10px 0;
 }
 
-/* line 199 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 196 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox-container {
   font-size: 18px;
   margin: 5px 0;
 }
 
-/* line 203 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 200 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .wizard-checkbox {
   display: inline-block;
   cursor: pointer;
 }
 
-/* line 207 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 204 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .child-checkboxes {
   margin-left: 15px;
 }
 
-/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 207 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .wizard-checkbox-label {
   margin-left: 5px;
 }
 
-/* line 213 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox.active .custom-check {
   background-color: #e98300;
 }
 
-/* line 216 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 213 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox.active .custom-check span {
   left: 9px;
 }
 
-/* line 219 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 216 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox.active .wizard-checkbox-label {
   color: #e98300;
 }
 
-/* line 222 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 219 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .step .list-container {
   margin: 5px;
 }
 
-/* line 225 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 222 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-item {
   font-weight: bold;
   font-size: 18px;
 }
 
-/* line 229 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 226 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-child-item {
   font-weight: normal;
   margin-left: 10px;
   font-size: 16px;
 }
 
-/* line 234 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 231 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-item span:last-of-type {
   cursor: pointer;
 }
 
-/* line 238 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 235 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .country-select,
 .gfw .wizard-body .commodity-type-select,
 .gfw .wizard-body .certification-scheme-select {
   vertical-align: top;
 }
 
-/* line 243 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 240 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-body .loading-wheel {
   background: url("images/loader.gif");
   background-size: 24px;

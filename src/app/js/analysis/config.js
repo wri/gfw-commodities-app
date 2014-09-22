@@ -16,7 +16,8 @@ define([], function () {
 	return {
 
 		wizard: {
-			breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
+			breadcrumbs: ["Select Area", "Refine Area", "Select Analysis"]
+			// breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
 		},
 
 		stepOne: {
@@ -93,7 +94,8 @@ define([], function () {
 				{label: 'Land Cover - Global', value: 'landCoverGlob'},
 				{label: 'Land Cover - Southeast Asia', value: 'landCoverAsia'},
 				{label: 'Land Cover - Indonesia', value: 'landCoverIndo'},
-				{label: 'Peat Lands', value: 'peat'},				
+				{label: 'Peat Lands', value: 'peat'},
+				//{label: 'Suitability', value: 'suit'},
 				{label: 'RSPO Land Use Change Analysis', value: 'rspo'}
 			]
 		},

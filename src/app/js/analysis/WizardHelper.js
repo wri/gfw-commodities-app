@@ -54,7 +54,8 @@ define([
 				node: dom.byId("wizard-tab"),
 				properties: {
 					// The - 30 is because the text is rotated and position needs to be offset
-					left: (wizardWidth - 30)
+					//left: (wizardWidth - 30)
+					opacity: (wizardWidth === 0) ? 1.0 : 0.0
 				},
 				duration: duration
 			});
