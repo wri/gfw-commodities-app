@@ -61,6 +61,10 @@ define([
 			report.analyzeSuitability = window.payload.types.suit;
 			report.analyzeMillPoints = window.payload.types.risk;
 
+			// Next grab any suitability configurations if they are available, they will be used to perform 
+			// a suitability analysis on report.geometry
+			report.suitable = window.payload.suitability;
+
 			// Lastly, grab the datasets from the payload and store them in report so we know which 
 			// datasets we will perform the above analyses on
 			report.datasets = window.payload.datasets;
@@ -119,7 +123,7 @@ define([
 				// Now that all dependencies and initial Queries are resolved, start processing all the analyses deferreds
 				// If the number of requests is less then three, do all now, else chunk the requests and start processing them
 				if (requests.length < 3) {
-					all(self._getDeferredsForItems(requests)).then(self.getFiresAnalysis);
+					all(self._getDeferredsForItems(requests)).then(self.getFiresAnalysis.bind(self));
 				} else {
 					// Get an array of arrays, each containing 3 lookup items so 
 					// we can request three analyses at a time
@@ -135,6 +139,8 @@ define([
 			var self = this;
 			if (report.analyzeTreeCoverLoss) {
 				all([Fetcher._getFireAlertAnalysis()]).then(self.analysisComplete);
+			} else {
+				self.analysisComplete();
 			}
 		},
 

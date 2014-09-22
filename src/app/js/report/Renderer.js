@@ -10,6 +10,9 @@ define([
 	// config.rootNode + '_clearance'
 	// config.rootNode + '_fire'
 	// config.rootNode + '_mill'
+	// Suitability Analysis
+	// config.rootNode + '_table'
+	// config.rootNode + '_chart'
 
 	return {
 
@@ -580,8 +583,83 @@ define([
 			});
 		},
 
-		renderSuitabilityData: function (payload) {
+		/*
+			Gather an array of payloads from the report/Suitability module and create an output
+			@param {object} config
+			@param {array} payloads
+				0 - getSuitableAreas
+				1 - getLCHistogramData
+				2 - getRoadData
+				3 - getConcessionData
+				4 - computeLegalHistogram
+				Note: Each payload looks like this:
+				{ data: histoData, pixelSize: 'pixelSize used in calculating'}
+		*/
+		renderSuitabilityData: function (config, payloads) {
+			var content = "<table>",
+					convFactor,
+					unsuitable,
+					suitable,
+					area,
+					roadDistance,
+					histogram;
 
+			// Get Suitabile Areas
+			histogram = payloads[0];
+			if (histogram) {
+				convFactor = Math.pow(histogram.pixelSize / 100, 2);
+				if (!histogram.data.counts[1]) {
+					suitable = 0;
+					unsuitable = number.format(histogram.data.counts[0] * convFactor);
+					//area = number.format(histogram[0] * convFactor) || "---";
+				} else {
+					suitable = number.format(histogram.data.counts[1] * convFactor) || histogram.data.counts[1];
+					unsuitable = number.format(histogram.data.counts[0] * convFactor) || histogram.data.counts[0];
+					//area = number.format((histogram[0] + histogram[1]) * convFactor) || "---";
+				}
+			} else {
+				suitable = 'N/A';
+				unsuitable = 'N/A';
+				//area = 'N/A';
+			}
+
+			// Get LC Histogram Data
+			histogram = payloads[1];
+			if (histogram) {
+
+			} else {
+
+			}
+
+			// Get Road Data
+			histogram = payloads[2];
+			if (histogram) {
+				roadDistance = parseFloat(histogram.data.min / 1000).toFixed(1);
+			} else {
+				roadDistance = 'N/A';
+			}
+
+			// Get Concession Data
+			histogram = payloads[3];
+			if (histogram) {
+
+			} else {
+				
+			}
+
+			// Get Legal Histogram Data
+			histogram = payloads[4];
+			if (histogram) {
+
+			} else {
+				
+			}
+
+
+			// Set Suitabile Areas content
+			content += "<tr><td>Suitable(ha):</td><td>" + suitable + "</td></tr>";
+			content += "<tr><td>Unsuitable(ha):</td><td>" + unsuitable + "</td></tr>";
+			
 		},
 
 		/*

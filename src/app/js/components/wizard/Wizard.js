@@ -177,18 +177,23 @@ define([
       // is asynchronous and not counted as part of the click handler
       var self = this,
           win = window.open('./app/js/report/Report.html', '_blank'),
-          labelField;
+          labelField,
+          suitableRule;
 
       requestAnimationFrame(function () {
         if (win === null || typeof(win) === undefined || win === undefined) {
           alert("Popup blocker needs to be off");
         } else {
           labelField = AnalyzerConfig.stepTwo.labelField;
+          suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
           win.payload = {
             features: self.state.analysisArea,
             datasets: self.state.analysisSets,
             types: self.state.analysisTypes,
-            title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel)
+            title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
+            suitability: {
+              renderRule: suitableRule
+            } 
           };
         }
       });

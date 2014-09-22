@@ -397,7 +397,7 @@ define([
 
 			// Offload the work to Suitability as it is several small requests
 			Suitability.getSuitabilityData().then(function (payload) {
-				ReportRenderer.renderSuitabilityData(payload);
+				ReportRenderer.renderSuitabilityData(config, payload);
 				deferred.resolve(true);
 			});
 

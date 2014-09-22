@@ -11,7 +11,8 @@ define([], function () {
 			treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
 			protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
 			mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
-			primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer";
+			primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
+			customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
 
 	return {
 
@@ -128,7 +129,7 @@ define([], function () {
 
 		suit: {
 			id: "CustomSuitability",
-			url: "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
+			url: customSuitabilityUrl,
 			legendLayerId: 17
 		},
 

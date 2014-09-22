@@ -3,6 +3,7 @@ define([], function () {
 	var geometryServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
 			clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
 			imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
+			suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
 			firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer";
 
 	// Totoal Loss
@@ -91,8 +92,47 @@ define([], function () {
 		},
 
 		suitability: {
+			url: suitabilityUrl,
+			title: "Suitability",
 			rootNode: "suitabilityAnalysis",
-			title: "Suitability"
+			rasterFunction: "PalmOilSuitability_Histogram",
+			geometryType: 'esriGeometryPolygon',
+			lcHistogram: {
+				renderRule: {
+					rasterFunction: 'lc_histogram',
+					rasterFunctionArguments: {
+						'LCRaster': '$12',
+						'LCInpR': [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8],
+						'LCOutV': [0, 1, 2, 3, 4, 5, 6, 7, 8]
+					}
+				},
+				renderRuleSuitable: {
+					rasterFunction: 'classify_suitability',
+					rasterFunctionArguments: {
+						'TargetRaster': '$12',
+						'InpTarget': [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8],
+						'OutVTarget': [0, 1, 2, 3, 4, 5, 6, 7, 8]
+					}
+				},
+				classIndices: {
+					'CONVERTIBLE': [5],
+					'PRODUCTION': [4, 8],
+					'OTHER': [2]
+				}
+			},
+			roadHisto: {
+				mosaicRule: {
+					'mosaicMethod': 'esriMosaicLockRaster',
+					'lockRasterIds': [14],
+					'ascending': true,
+					'mosaicOperation': 'MT_FIRST'
+				},
+				className: 'ROAD_DISTANCE_KM'
+			},
+			concessions: {
+				url: 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer',
+				layer: '10'
+			}
 		},
 
 		// The following is a dependency for all clearance alerts queries, this gets the number of labels and bounds
