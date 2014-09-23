@@ -38,7 +38,9 @@
     ],
     callback: function(Generator) {
       loadScript('http://code.highcharts.com/modules/exporting.js');
-      Generator.init();
+      setTimeout(function () {
+        Generator.init();
+      }, 500);
     }
   }; // End dojoConfig
 
@@ -50,7 +52,7 @@
         s.setAttribute(key, attrs[key]);
       }
     }
-    doc.getElementsByTagName('body')[0].appendChild(s);
+    doc.getElementsByTagName('body')[0].appendChild(s);    
   };
 
   var loadStyle = function(src) {

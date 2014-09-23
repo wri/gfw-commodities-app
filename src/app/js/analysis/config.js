@@ -16,8 +16,8 @@ define([], function () {
 	return {
 
 		wizard: {
-			breadcrumbs: ["Select Area", "Refine Area", "Select Analysis"]
-			// breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
+			//breadcrumbs: ["Select Area", "Refine Area", "Select Analysis"]
+			breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
 		},
 
 		stepOne: {

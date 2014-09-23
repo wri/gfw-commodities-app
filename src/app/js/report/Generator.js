@@ -100,6 +100,8 @@ define([
 					self = this,
 					chunk;
 
+			console.dir(requests);
+
 			// Helper Function to Continue Making Requests if Necessary
 			function processRequests() {
 				// If the requests array has more chunks to process, process them, else, analysis is complete

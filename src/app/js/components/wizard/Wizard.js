@@ -78,10 +78,10 @@ define([
             ),
             React.DOM.div({'className': this.state.currentStep !== 2 ? 'hidden' : ''},
               new StepThree(props)
+            ),
+            React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
+              new StepFour(props)
             )
-            // React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
-            //   new StepFour(props)
-            // )
           )
         )
       );
