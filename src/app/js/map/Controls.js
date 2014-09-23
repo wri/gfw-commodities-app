@@ -168,14 +168,13 @@ define([
       	labels.push('' + (sliderConfig.baseYear + i));
       }
 
-  	  timeExtent.startTime = new Date("1/2/2000 UTC");
-  	  timeExtent.endTime = new Date("1/1/2013 UTC");
+  	  timeExtent.startTime = new Date("1/1/2013 UTC");
+      timeExtent.endTime = new Date();
   	  timeSlider.createTimeStopsByCount(timeExtent, labels.length);
       timeSlider.setLabels(labels);
       //timeSlider.setThumbIndexes([0,labels.length - 1]);
       timeSlider.setThumbIndexes([0,labels.length]);
       timeSlider.startup();
-      console.log("On startup, thumb 2 at : " + console.log(timeSlider.thumbIndexes[1]));
       	
       	//timeSlider.playPauseBtn._onChangeActive = false;
       	timeSlider.on("play", function (evt) { 
@@ -185,36 +184,23 @@ define([
       		
       		var value1 = timeSlider.thumbIndexes[0];
       		var value2 = timeSlider.thumbIndexes[1];
+      		console.log("On initial Play, thumb 1 at: " + value1);
       		console.log("On initial Play, thumb 2 at: " + value2);
-      		setTimeout(timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2-1]) ,1500);
-      		//console.log("PLAYY!");
-      		//console.log(timeSlider.getCurrentTimeExtent());
 
-      		//timeExtent.startTime = new Date("1/2/2000 UTC");
-  			//timeExtent.endTime = new Date("1/2/2013 UTC");
-  			
-
-      		/*var newStops = timeSlider.timeStops;
-      		timeSlider.timeStops = [];
-      		
-
-      		//Line Below needs an UPDATED time extent Parameter!!
-      		timeSlider.createTimeStopsByCount(timeExtent, (value2 - value1));
-      		timeSlider.timeStops = newStops;
-      		console.log(timeSlider.timeStops);*/
-			// Wait is it time stops? Or does that say there's only That Many OVERALL points in time (so the dataset 
-			// would be divided by that number)? 
+      		setTimeout(function () {
+      			console.log("THAT FIRST DECREMENT!");
+      			//timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2 - 1]);
+      		},1500);
 
       		requestAnimationFrame(function () {
       			console.log("First inside the animation frame; t2: " + value2);
     			values = [0, timeSlider.thumbIndexes[0]];
-    			//console.log(timeSlider);
     			//timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2-1]);
     			console.log("Right afterwards, after we set the indexes: " + timeSlider.thumbIndexes[1]);
-    			//console.log(timeSlider.thumbIndexes[0]);
     			var index = timeSlider.thumbIndexes[0];
-    			
-
+    			if (timeSlider.thumbIndexes[1] == 12) {
+    				timeSlider.setThumbIndexes([value1,value2 - 1]);
+    			}
     			function timeout(i) {
     				//console.log(timeSlider.playing);
     				// If play button is active, have 2 thumbs, & freeze the 2nd. When it isn't have 1 thumb 
@@ -229,68 +215,68 @@ define([
 				    // timeOut, THEN enter the timeOut function per usual w/ 1 thumb at ..1? 0? Idk. This if
 				    // statement should also remove the need for the 2nd part of the else if below. I think.
 				    if ((timeSlider.thumbIndexes[0] == 0 && timeSlider.thumbIndexes[1] == 13) || timeSlider.thumbIndexes[1] == 12) {
-				    	console.log("Original state of slider case!");
-				    	timeSlider.thumbIndexes.splice(1,1);
-			    		timeSlider.setThumbCount(1);
-			    		timeSlider.play();
+				    	//console.log("Original state of slider case!");
+				    	//timeSlider.thumbIndexes.splice(1,1);
+			    		//timeSlider.setThumbCount(1);
+			    		console.log("DID THE TWO THUMBS WORK");
+			    		timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(11)]);
+			    		//timeSlider.play();
 				    }
 
 				    // First loop they both do, then neither, then just thumbIndexOne
 				    setTimeout(function () {
 				    	if (timeSlider.playing == true) {
 				    		timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(value2 - 1)]);
+				    	} else {
+				    		return;
 				    	}
 				    	
 				    	if (timeSlider.thumbIndexes[0] == value2) {
 				    		values = [0, timeSlider.thumbIndexes[0]];
 				    		LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
 				    		timeSlider.pause();
-				    		if (timeSlider.thumbCount == 1) {
-				    			timeSlider.setThumbCount(2);
-				    			timeSlider.setThumbIndexes([value2,value2]);
-				    		}
+				    		/*if (timeSlider.thumbCount == 1) {
+				    			timeSlider.setThumbCount(2); 
+				    			if (value2 == 12) {
+				    				//timeSlider.setThumbIndexes([0,12]);
+				    			} else if (value2 == 11) {
+				    				//timeSlider.setThumbIndexes([0,11]);
+				    			} else {
+				    				timeSlider.setThumbIndexes([value2,value2]);
+				    			}
+				    		}*/
 				    		return;
-				    	} else if (timeSlider.thumbIndexes[1] == 12) {
+				    	} //else if (timeSlider.thumbIndexes[1] == 12) {
 				    		//console.log("Here we set #indexes to 1 and just continue on");
-				    		timeSlider.thumbIndexes.splice(1,1);
+				    		//timeSlider.thumbIndexes.splice(1,1);
 				    		//console.log("Down to one thumb here!");
-				    		timeSlider.setThumbCount(1);
+				    		//timeSlider.setThumbCount(1);
 				    		//console.log(timeSlider);
 				    		//console.log(timeSlider.playing);
-				    		timeSlider.play();
-				    	} else {
+				    		//console.log("ARE WE EVER GETTING HERE??!");
+				    		//timeSlider.play();
+				    	//} else {
 				    		//FREEZE THUMB 2 IN PLACE & MAKE THUMB 1 STOP THERE
 				    		//Maybe call the updateImageServiceRasterFunction below w/o any params? (if I have to)
 				    		
-				    	}
+				    	//}
 				    	
 				    	//console.log("Map Config:");
 				    	//console.log(MapConfig);
 				        values = [0, timeSlider.thumbIndexes[0]];
-				        //values = [timeSlider.thumbIndexes[0], value2];
-				        console.log("Thumbs BEFORE image update are: "+ timeSlider.thumbIndexes[0] + "," + timeSlider.thumbIndexes[1]);
 				        
-				        //console.log(LayerController.updateImageServiceRasterFunction);
 				        LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-				        
-				        console.log("Thumbs AFTER image update are: "+ timeSlider.thumbIndexes[0] + "," + timeSlider.thumbIndexes[1]);
-				        /*LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-				        console.log("Thumbs at: " + timeSlider.thumbIndexes[0] + " & " + timeSlider.thumbIndexes[1]);
-				        timeSlider.setThumbIndexes([value1, value2 - 1]);*/
- 						
- 						//timeSlider.setThumbIndexes([timeSlider.thumbIndex[0] + 1,value2]);
 
- 						//WHERE DO THE THUMB POSITIONS UPDATE? I'll Set #2's back 1 right afterwards!
 				        console.log("Thumbs at: " + timeSlider.thumbIndexes[0] + " & " + timeSlider.thumbIndexes[1]);
 				        i++;
 				        console.log("i is: " + i);
-				        if (timeSlider.thumbIndexes[0] == 12) {
+				        /*if (timeSlider.thumbIndexes[0] == 12) {
 				        	console.log("i is at 12 and we are finished!");
 				        	timeSlider.setThumbCount(2);
 			    			timeSlider.setThumbIndexes([0,13]);
 			    			timeSlider.pause();
 				            return;
-				        }
+				        }*/
 				        //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(thumbTwo-1)]);
 				        //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],5]);
 				        // Weird hitch one turn later where the first index doesn't increment...
