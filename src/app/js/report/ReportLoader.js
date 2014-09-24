@@ -64,7 +64,7 @@
         s.setAttribute(key, attrs[key]);
       }
     }
-    doc.getElementsByTagName('body')[0].appendChild(s);
+    doc.getElementsByTagName('body')[0].appendChild(s);    
   };
 
   var loadStyle = function(src) {
