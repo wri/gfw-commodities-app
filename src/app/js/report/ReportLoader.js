@@ -38,7 +38,21 @@
     ],
     callback: function(Generator) {
       loadScript('http://code.highcharts.com/modules/exporting.js');
-      Generator.init();
+      if (win.payload) {
+        Generator.init(); 
+      } else {
+        var payloadReceived = false;
+        document.addEventListener('PayloadReady', function () {
+          payloadReceived = true;
+          Generator.init();
+        });
+        // Add a timeout condition so we can alert the user if something went wrong
+        setTimeout(function () {
+          if (!payloadReceived) {
+            alert("There was an erorr generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
+          }
+        }, 10000);
+      }
     }
   }; // End dojoConfig
 

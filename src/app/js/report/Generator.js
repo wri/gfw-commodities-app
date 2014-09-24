@@ -19,10 +19,6 @@ define([
 			if (window.payload) {
 				this.applyConfigurations();
 				this.prepareForAnalysis();
-			} else {
-				// There was a problem getting the payload params from the last window
-				// Notify the user here that the report will not load and show the correct warning
-				alert("There was an erorr generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
 			}
 		},
 

@@ -95,7 +95,7 @@ define([], function () {
 				{label: 'Land Cover - Southeast Asia', value: 'landCoverAsia'},
 				{label: 'Land Cover - Indonesia', value: 'landCoverIndo'},
 				{label: 'Peat Lands', value: 'peat'},
-				//{label: 'Suitability', value: 'suit'},
+				{label: 'Suitability', value: 'suit'},
 				{label: 'RSPO Land Use Change Analysis', value: 'rspo'}
 			]
 		},

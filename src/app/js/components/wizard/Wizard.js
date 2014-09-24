@@ -78,10 +78,10 @@ define([
             ),
             React.DOM.div({'className': this.state.currentStep !== 2 ? 'hidden' : ''},
               new StepThree(props)
+            ),
+            React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
+              new StepFour(props)
             )
-            // React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
-            //   new StepFour(props)
-            // )
           )
         )
       );
@@ -183,7 +183,8 @@ define([
       var self = this,
           win = window.open('./app/js/report/Report.html', '_blank'),
           labelField,
-          suitableRule;
+          suitableRule,
+          readyEvent;
 
       requestAnimationFrame(function () {
         if (win === null || typeof(win) === undefined || win === undefined) {
@@ -200,6 +201,11 @@ define([
               renderRule: suitableRule
             } 
           };
+          // Some browsers load really fast and are ready before the payload has been set
+          // create a custom event that the new page can listen to
+          readyEvent = win.document.createEvent('Event');
+          readyEvent.initEvent('PayloadReady', true, true);
+          win.document.dispatchEvent(readyEvent);
         }
       });
       

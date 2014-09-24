@@ -81,6 +81,7 @@ define([
     },
 
     _mapper: function (item) {
+      /*** Step Four Code Moved Up ***/
       return new WizardCheckbox({
         'label': item.label,
         'value': item.value,
@@ -90,15 +91,19 @@ define([
       });
     },
 
-    _showChildren: function (checked) {
-      this.setState({
-        showForestChangeChildren: checked
-      });
-      this._checkRequirements();
-    },
+    // _showChildren: function (checked) {
+    //   this.setState({
+    //     showForestChangeChildren: checked
+    //   });
+    //   this._checkRequirements();
+    // },
 
     _selectionMade: function (checked) {
       this._checkRequirements();
+      /*** Step Four Code Moved Up ***/
+      // this.setState({
+      //   completed: this._checkRequirements()
+      // });
     },
 
     _checkRequirements: function () {
@@ -131,9 +136,8 @@ define([
         completed: completed
       });
       
-      /*** Step Four Code Moved Up **
-      return (document.querySelectorAll(".refine-analysis .wizard-checkbox.active").length > 0);
       /*** Step Four Code Moved Up ***/
+      //return (document.querySelectorAll(".refine-analysis .wizard-checkbox.active").length > 0);
     },
 
     _getPayload: function () {
