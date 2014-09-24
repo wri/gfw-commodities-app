@@ -51,7 +51,7 @@
           if (!payloadReceived) {
             alert("There was an erorr generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
           }
-        }, 10000);
+        }, 5000);
       }
     }
   }; // End dojoConfig

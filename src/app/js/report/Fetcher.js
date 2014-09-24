@@ -334,11 +334,11 @@ define([
 			}
 
 			// If the report analyzeTreeCoverLoss is false, just resolve here
-			if (report.analyzeTreeCoverLoss) {
+			//if (report.analyzeTreeCoverLoss) {
 				this._computeHistogram(url, content, success, failure);
-			} else {
-				deferred.resolve(true);
-			}
+			//} else {
+			//	deferred.resolve(true);
+			//}
 
 			return deferred.promise;
 		},
@@ -367,7 +367,7 @@ define([
 			}
 			
 			// If the report analyzeClearanceAlerts is false, just resolve here
-			if (report.analyzeClearanceAlerts) {
+			//if (report.analyzeClearanceAlerts) {
 				encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
 				renderingRule = useSimpleEncoderRule ? 
 													encoder.getSimpleRule(clearanceConfig.rasterId, config.rasterId) : 
@@ -380,9 +380,9 @@ define([
 					f: 'json'
 				};
 				this._computeHistogram(url, content, success, failure);
-			} else {
-				deferred.resolve(true);
-			}
+			//} else {
+			//	deferred.resolve(true);
+			//}
 
 			return deferred.promise;
 		},
@@ -455,7 +455,7 @@ define([
 					month,
 					req;
 
-			if (report.analyzeClearanceAlerts) {
+			//if (report.analyzeClearanceAlerts) {
 				req = esriRequest({
 					url: config.url,
 					content: {
@@ -477,9 +477,9 @@ define([
 				}, function (err) {
 					deferred.resolve(false, err);
 				});
-			} else {
-				deferred.resolve(true);
-			}
+			// } else {
+			// 	deferred.resolve(true);
+			// }
 
 			return deferred.promise;
 

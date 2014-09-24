@@ -52,10 +52,10 @@ define([
 			}
 
 			// Next, set some properties that we can use to filter what kinds of queries we will be performing
-			report.analyzeClearanceAlerts = window.payload.types.forma;
-			report.analyzeTreeCoverLoss = window.payload.types.loss;
-			report.analyzeSuitability = window.payload.types.suit;
-			report.analyzeMillPoints = window.payload.types.risk;
+			// report.analyzeClearanceAlerts = window.payload.types.forma;
+			// report.analyzeTreeCoverLoss = window.payload.types.loss;
+			// report.analyzeSuitability = window.payload.types.suit;
+			// report.analyzeMillPoints = window.payload.types.risk;
 
 			// Next grab any suitability configurations if they are available, they will be used to perform 
 			// a suitability analysis on report.geometry
@@ -96,8 +96,6 @@ define([
 					self = this,
 					chunk;
 
-			console.dir(requests);
-
 			// Helper Function to Continue Making Requests if Necessary
 			function processRequests() {
 				// If the requests array has more chunks to process, process them, else, analysis is complete
@@ -135,11 +133,11 @@ define([
 
 		getFiresAnalysis: function () {
 			var self = this;
-			if (report.analyzeTreeCoverLoss) {
+			//if (report.analyzeTreeCoverLoss) {
 				all([Fetcher._getFireAlertAnalysis()]).then(self.analysisComplete);
-			} else {
-				self.analysisComplete();
-			}
+			//} else {
+			//	self.analysisComplete();
+			//}
 		},
 
 		/*
@@ -164,21 +162,17 @@ define([
 		_getArrayOfRequests: function () {
 			var requests = [];
 
-			if (report.analyzeSuitability) {
-				requests.push('suit');
-			}
-
-			if (report.analyzeMillPoints) {
+			if (report.datasets.mill) {
 				requests.push('mill');
 			}
 
-			if (report.analyzeTreeCoverLoss || report.analyzeClearanceAlerts) {
+			//if (report.analyzeTreeCoverLoss || report.analyzeClearanceAlerts) {
 				for (var key in report.datasets) {
 					if (report.datasets[key]) {
 						requests.push(key);
 					}
 				}
-			}
+			//}
 
 			return requests;
 		},

@@ -18,6 +18,7 @@ define([
 					active = layerArray.indexOf(this.props.key) > -1,
           self = this;
 
+      // If layer is activated from the hash in the url
 			if (active) {
 				this.setState({
 					active: active
@@ -32,7 +33,7 @@ define([
           requestAnimationFrame(function () {
             topic.publish('updateLayer', self.props);
           });
-        }        
+        }
 			}
     },
 

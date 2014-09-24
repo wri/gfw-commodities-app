@@ -130,7 +130,8 @@ define([], function () {
 		suit: {
 			id: "CustomSuitability",
 			url: customSuitabilityUrl,
-			legendLayerId: 17
+			legendLayerId: 17,
+			toolsNode: "suitability_toolbox"
 		},
 
 		/***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/

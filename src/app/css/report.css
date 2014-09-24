@@ -112,12 +112,21 @@ body {
 }
 
 /* line 90 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+@media print {
+
+/* line 91 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+  .gfw .result-container {
+    page-break-after: always;
+  }
+}
+
+/* line 94 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body .title {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   font-size: 24px;
 }
 
-/* line 94 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 98 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body .left-panel,
 .gfw .report-body .right-panel {
   display: inline-block;
@@ -125,12 +134,17 @@ body {
   width: 430px;
 }
 
-/* line 100 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 104 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .report-body .loss-chart {
+  height: 400px;
+}
+
+/* line 113 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body .right-panel {
   float: right;
 }
 
-/* line 103 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 116 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table {
   border-collapse: collapse;
   text-align: center;
@@ -139,26 +153,26 @@ body {
   width: 80%;
 }
 
-/* line 110 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 123 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table tr td:first-child {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
 }
 
-/* line 114 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 127 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table td {
   border: 1px solid #adadad;
   padding: 5px 0 2px;
 }
 
-/* line 119 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 132 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table .change-area-unit {
   margin-right: 10%;
   float: right;
 }
 
-/* line 123 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 136 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-badge {
   border: 2px solid #000;
   box-sizing: border-box;
@@ -167,37 +181,37 @@ body {
   width: 300px;
 }
 
-/* line 130 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 143 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-badge div {
   margin: 10px 0;
 }
 
-/* line 133 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 146 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-label {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   color: #f44;
   font-size: 28px;
 }
 
-/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 151 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-label div {
   line-height: 42px;
   font-size: 42px;
   margin: 0;
 }
 
-/* line 143 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 156 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .total-active-fires-label {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   font-size: 16px;
 }
 
-/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 160 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .suitability-container .child-row {
   padding-left: 15px;
 }
 
-/* line 150 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 163 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .suitability-container .left-panel {
   min-height: 400px;
 }

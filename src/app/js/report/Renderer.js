@@ -510,7 +510,7 @@ define([
 				this.renderRSPOChart(config, pri, sec, agro, non, years);
 
 			} else {
-				document.getElementById(config.rootNode + '_table').innerHTML = "<div class='data-not-available'>No Data Available for this Site.</div>";
+				document.getElementById(config.rootNode + '_table').innerHTML = "<div class='data-not-available'>No RSPO Data Available for this Site.</div>";
 				return;
 			}
 
@@ -699,6 +699,7 @@ define([
 		renderSuitabilityChart: function (config, payload) {
 
 			if (!payload) {
+				document.getElementById(config.rootNode + "_chart").innerHTML = "<div class='data-not-available'>No Suitability Data Available to chart for this Site.</div>";
 				return;
 			}
 
@@ -846,9 +847,19 @@ define([
 			@param {object} config
 		*/
 		renderAsUnavailable: function (type, config) {
-			var node = document.getElementById(config.rootNode + '_' + type);
+			var node = document.getElementById(config.rootNode + '_' + type),
+					msg = "";
+
+			if (type === 'loss') {
+				msg = "No Tree Cover Loss Data Available for this site.";
+			} else if (type === 'clearance') {
+				msg = "No Clearance Alert Data Available for this site.";
+			} else {
+				msg = "No Mill Point Data Available for this site.";
+			}
+
 			if (node) {
-				node.innerHTML = "No Data Available for this site.";
+				node.innerHTML = msg;
 			}
 		}
 

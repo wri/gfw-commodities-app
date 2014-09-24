@@ -203,6 +203,20 @@ wizardBlue = #00688B
 	width 100px
 	color #FFF
 
+.gfw .layer-controls-container .suitability_toolbox
+	box-shadow 0px 0px 6px 1px rgba(0,0,0,0.25)
+	// SPecify the white so IE still renders some color but others use rgba
+	background-color white
+	background-color rgba(255,255,255,0.75)
+	border 1px solid #000
+	border-radius(5px)
+	position absolute
+	width 300px
+	bottom 50px
+	z-index 50
+	left 20px
+	top 55px
+
 .gfw .layer-controls-container > .toolbox
 	box-shadow 0px 0px 6px 1px rgba(0,0,0,0.25)
 	background-color white
@@ -218,6 +232,12 @@ wizardBlue = #00688B
 	position absolute
 	top -20px
 	left 0
+
+.gfw .layer-controls-container .toolbox_legend_suitability
+	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	position absolute
+	top -40px
+	left 70px
 
 .gfw .layer-controls-container .toolbox_legend > p
 	text-shadow 0 0 3px #fff
@@ -255,7 +275,7 @@ wizardBlue = #00688B
 	border-radius(5px)
 	cursor pointer
 	font-size 11px
-	margin 0 6px
+	margin 0 5px
 
 .gfw .toolbox .selected
 	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif

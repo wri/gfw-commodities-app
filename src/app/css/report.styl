@@ -85,7 +85,11 @@ html, body
 
 // Report container contents begin here
 .gfw .result-container
-	margin 20px
+	margin 20px	
+
+@media print
+	.gfw .result-container
+		page-break-after always
 
 .gfw .report-body .title
 	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
@@ -96,6 +100,15 @@ html, body
 	display inline-block
 	margin 0 10px
 	width 430px
+
+.gfw .report-body .loss-chart
+	height 400px
+
+// // This Must be important, high charts calculates height off parent container
+// // The min-height is set so the output doesnt lose format when there is no data for the charts
+// // If the charts are rendered, make sure their height is 400px and not the min-height of loss-chart
+// .gfw .report-body .loss-chart .highcharts-container
+// 	height 400px !important
 
 .gfw .report-body .right-panel
 	float right

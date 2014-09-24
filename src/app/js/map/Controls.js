@@ -19,11 +19,16 @@ define([
 	return {
 
 		toggleToolbox: function (layerConfig, operation) {
-			// Hide other tools, then show this node if operation is show
-			this.hideAllToolboxes();
-
-			if (operation === 'show') {
-				domStyle.set(layerConfig.toolsNode, 'display', 'block');
+			if (layerConfig.id === 'CustomSuitability') {
+				// Toggle This checkbox independent of other toolboxes
+				var display = (operation === 'show' ? 'block' : 'none');
+				domStyle.set(layerConfig.toolsNode, 'display', display);
+			} else {
+				// Hide other tools, then show this node if operation is show
+				this.hideAllToolboxes();
+				if (operation === 'show') {
+					domStyle.set(layerConfig.toolsNode, 'display', 'block');
+				}
 			}
 		},
 

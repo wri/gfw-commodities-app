@@ -78,10 +78,10 @@ define([
             ),
             React.DOM.div({'className': this.state.currentStep !== 2 ? 'hidden' : ''},
               new StepThree(props)
-            ),
-            React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
-              new StepFour(props)
             )
+            // React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
+            //   new StepFour(props)
+            // )
           )
         )
       );
@@ -195,7 +195,7 @@ define([
           win.payload = {
             features: self.state.analysisArea,
             datasets: self.state.analysisSets,
-            types: self.state.analysisTypes,
+            //types: self.state.analysisTypes,
             title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
             suitability: {
               renderRule: suitableRule
