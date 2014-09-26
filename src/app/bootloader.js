@@ -32,7 +32,7 @@
 	      	// Before Running grunt build, remove main/Main from Require above and main parameter
 	        // from callback, then uncomment below
 	        // Release Version
-	        //loadScript('app/js/app.min.js');
+	        // loadScript('app/js/app.min.js');
 	      }
 			}, // End dojoConfig
 			src = [
