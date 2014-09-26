@@ -224,6 +224,7 @@ define([
 			}, "master-layer-list");
 
 			MapControl.generateTimeSliders();
+			MapControl.generateSuitabilitySliders();
 
 		}
 

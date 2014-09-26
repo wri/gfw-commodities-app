@@ -35,23 +35,23 @@
 	        // loadScript('app/js/app.min.js');
 	      }
 			}, // End dojoConfig
-			src = 'http://js.arcgis.com/3.10/',
+			src = [
+				'http://js.arcgis.com/3.10/',
+				'app/libs/jquery-1.7.1.min.js',
+				'app/libs/jquery-ui-custom.min.js',
+				'app/libs/rangesliders.min.js'
+			],
 			css = [
 				{ src: 'app/css/app.css', cdn: false },
 				{ src: 'http://js.arcgis.com/3.10/js/esri/css/esri.css', cdn: true },
 				{ src: 'http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css', cdn: true}
 			];
 
-	var loadScript = function (src, attrs) {
+	var loadScript = function (src, async) {
 		var s = doc.createElement('script'),
 			h = doc.getElementsByTagName('head')[0];
 		s.src = src;
-		s.async = true;
-		for (var key in attrs) {
-			if (attrs.hasOwnProperty(key)) {
-				s.setAttribute(key, attrs[key]);
-			}
-		}
+		s.async = async;
 		h.appendChild(s);	
 	};
 
@@ -71,11 +71,12 @@
 
 	var loadDependencies = function () {
 		win.dojoConfig = dojoConfig;
-		loadScript(src);
-		var i, length;
-		for (i = 0, length = css.length; i < length; i++) {
+		for (var i = 0, length = css.length; i < length; i++) {
 			loadStyle(css[i].src, css[i].cdn);
 		}
+		for (var j = 0, size = src.length; j < size; j++) {
+      loadScript(src[j], false);
+    }
 	};
 
 	win.requestAnimationFrame = (function() {

@@ -3,6 +3,7 @@ define([
 	"dojo/query",
 	"dojo/Deferred",
 	"dojo/_base/fx",
+	"dojo/_base/array",
 	"dojo/dom-class",
 	"dojo/dom-style",
 	"dijit/registry",
@@ -12,8 +13,11 @@ define([
 	"map/LayerController",
 	"esri/request",
 	"esri/TimeExtent",
-  "esri/dijit/TimeSlider"
-], function (dom, dojoQuery, Deferred, Fx, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider) {
+  "esri/dijit/TimeSlider",
+  "dijit/form/CheckBox",
+  "dijit/layout/ContentPane",
+  "dijit/layout/AccordionContainer"
+], function (dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
 	'use strict';
 
 	return {
@@ -23,6 +27,9 @@ define([
 				// Toggle This checkbox independent of other toolboxes
 				var display = (operation === 'show' ? 'block' : 'none');
 				domStyle.set(layerConfig.toolsNode, 'display', display);
+				// Resize the Accordion and The JQuery Sliders so they look correct
+				registry.byId('suitability-accordion').resize();
+				this.resizeRangeSliders();
 			} else {
 				// Hide other tools, then show this node if operation is show
 				this.hideAllToolboxes();
@@ -231,6 +238,250 @@ define([
 		      }
         }
       }).play();
+		},
+
+		generateSuitabilitySliders: function () {
+
+			var accordion = new Accordion({}, "suitability-accordion"),
+					self = this;
+
+			accordion.addChild(new ContentPane({
+				title: "Environmental"
+			}, "environmental-criteria"));
+
+			accordion.addChild(new ContentPane({
+				title: "Crop"
+			}, "crop-criteria"));
+
+			accordion.startup();
+			this.createCheckboxDijits();
+			this.createRangeSliders();
+
+			// Listen for the accordion to change, then resize the sliders
+			accordion.watch('selectedChildWidget', function (name, oldVal, newVal) {
+				self.resizeRangeSliders();
+			});
+		},
+
+		createCheckboxDijits: function () {
+			var checkbox;
+			arrayUtils.forEach(MapConfig.checkboxItems, function (item) {
+				checkbox = new Checkbox({
+					name: item.name,
+					value: item.value,
+					checked: item.checked,
+					onChange: function () {
+						LayerController.updateCustomSuitabilityLayer(null, item.name);
+					}
+				}, item.node);
+			});
+		},
+
+		createRangeSliders: function () {
+
+			var sliderConfig = MapConfig.suitabilitySliderTooltips;
+
+			// Peat Depth
+			$("#peat-depth-slider").rangeSlider({
+				defaultValues: {min: 0, max: 6},
+				valueLabels: 'change',
+				bounds: {min: 0, max: 6},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return sliderConfig.peat[val];
+				}
+			});
+
+			$("#peat-depth-slider").addClass("singleValueSlider reverseSlider");
+			$("#peat-depth-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(data.values.min, 'peat-depth-slider');
+			});
+
+			// Conservation Area Buffers
+			$("#conservation-area-slider").rangeSlider({
+				defaultValues: {min: 1000, max: 5000},
+				valueLabels: 'change',
+				bounds: {min: 500, max: 5000},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return val + " m";
+				}
+			});
+
+			$("#conservation-area-slider").addClass("singleValueSlider");
+			$("#conservation-area-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(data.values.min, 'conservation-area-slider');
+			});
+
+			// Water Resource Buffers
+			$("#water-resource-slider").rangeSlider({
+				defaultValues: {min: 100, max: 1000},
+				valueLabels: 'change',
+				bounds: {min: 50, max: 1000},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return val + " m";
+				}
+			});
+
+			$("#water-resource-slider").addClass("singleValueSlider");
+			$("#water-resource-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(data.values.min, 'water-resource-slider');
+			});
+
+			// Slope
+			$("#slope-slider").rangeSlider({
+				defaultValues: {min: 30, max: 80},
+				valueLabels: 'change',
+				bounds: {min: 0, max: 80},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return val + "%";
+				}
+			});
+
+			$("#slope-slider").addClass("singleValueSlider reverseSlider");
+			$("#slope-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(data.values.min, 'slope-slider');
+			});
+
+			// Elevation
+			$("#elevation-slider").rangeSlider({
+				defaultValues: {min: 1000, max: 5000},
+				valueLabels: 'hide',
+				bounds: {min: 0, max: 5000},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return val + "m";
+				}
+			});
+
+			$("#elevation-slider").addClass("singleValueSlider reverseSlider");
+			$("#elevation-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(data.values.min, 'elevation-slider');
+			});
+
+			// Rainfall
+			$("#rainfall-slider").rangeSlider({
+				defaultValues: {min: 1500, max: 7000},
+				valueLabels: 'hide',
+				bounds: {min: 1500, max: 7000},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return val + " " + sliderConfig.rainfall.label;
+				}
+			});
+
+			$("#rainfall-slider").addClass("narrowTooltips");
+			$("#rainfall-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(
+					[data.values.min, data.values.max], 
+					'rainfall-slider'
+				);
+			});
+
+			// Soil Drainage
+			$("#soil-drainage-slider").rangeSlider({
+				defaultValues: {min: 2, max: 4},
+				valueLabels: 'hide',
+				bounds: {min: 1, max: 4},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return sliderConfig.drainage[val];
+				}
+			});
+
+			$("#soil-drainage-slider").addClass("narrowTooltips");
+			$("#soil-drainage-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(
+					[data.values.min, data.values.max], 
+					'soil-drainage-slider'
+				);
+			});
+
+			// Soil Depth
+			$("#soil-depth-slider").rangeSlider({
+				defaultValues: {min: 4, max: 7},
+				valueLabels: 'hide',
+				bounds: {min: 1, max: 7},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return sliderConfig.depth[val];
+				}
+			});
+
+			$("#soil-depth-slider").addClass("singleValueSlider narrowTooltips");
+			$("#soil-depth-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(data.values.min, 'soil-depth-slider');
+			});
+
+			// Soil Acidity
+			$("#soil-acid-slider").rangeSlider({
+				defaultValues: {min: 1, max: 7},
+				valueLabels: 'change',
+				bounds: {min: 1, max: 8},
+				step: 1,
+				arrows: false,
+				formatter: function (val) {
+					return sliderConfig.acidity[val];
+				}
+			});
+
+			$("#soil-acid-slider").addClass("narrowTooltips");
+			$("#soil-acid-slider").bind('valuesChanged', function (e, data) {
+				LayerController.updateCustomSuitabilityLayer(
+					[data.values.min, data.values.max], 
+					'soil-acid-slider'
+				);
+			});
+
+		},
+
+		resizeRangeSliders: function () {
+
+			/* Do the Following for Each Slider
+			 - Hide the labels 
+			 - resize the slider
+			 - reactivate the listeners
+			*/ 
+			$("#peat-depth-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#conservation-area-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#water-resource-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#slope-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#elevation-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#rainfall-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#soil-drainage-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#soil-depth-slider").rangeSlider('option', 'valueLabels', 'hide');
+			$("#soil-acid-slider").rangeSlider('option', 'valueLabels', 'hide');
+
+			$("#peat-depth-slider").rangeSlider('resize');
+			$("#conservation-area-slider").rangeSlider('resize');
+			$("#water-resource-slider").rangeSlider('resize');
+			$("#slope-slider").rangeSlider('resize');
+			$("#elevation-slider").rangeSlider('resize');
+			$("#rainfall-slider").rangeSlider('resize');
+			$("#soil-drainage-slider").rangeSlider('resize');
+			$("#soil-depth-slider").rangeSlider('resize');
+			$("#soil-acid-slider").rangeSlider('resize');
+
+			$("#peat-depth-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#conservation-area-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#water-resource-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#slope-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#elevation-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#rainfall-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#soil-drainage-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#soil-depth-slider").rangeSlider('option', 'valueLabels', 'change');
+			$("#soil-acid-slider").rangeSlider('option', 'valueLabels', 'change');
+
 		}
 
 	};

@@ -175,21 +175,22 @@ define([
     _performAnalysis: function () {
       // Grab All Necessary Props from State and Pass them on
       // React updates state in the next available animation frame, wait until this component has 
-      // performad any necessary state changes before beginning analysis
+      // performed any necessary state changes before beginning analysis
       // Call window.open here to make sure page opens correctly and can have multiple instances open
       // Calling window.open in the animationFrame triggers pop-up blocker and/or opens in new window
       // Something to do with calling window.open in a click handler allows it to work but animation frame
       // is asynchronous and not counted as part of the click handler
       var self = this,
-          win = window.open('./app/js/report/Report.html', '_blank'),
           labelField,
           suitableRule,
-          readyEvent;
+          readyEvent,
+          win = window.open('./app/js/report/Report.html', '_blank');
 
-      requestAnimationFrame(function () {
+      //setTimeout(function () {
         if (win === null || typeof(win) === undefined || win === undefined) {
           alert("Popup blocker needs to be off");
         } else {
+          win.focus();
           labelField = AnalyzerConfig.stepTwo.labelField;
           suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
           win.payload = {
@@ -207,7 +208,7 @@ define([
           readyEvent.initEvent('PayloadReady', true, true);
           win.document.dispatchEvent(readyEvent);
         }
-      });
+      //}, 0);
       
     }
 

@@ -5,8 +5,8 @@ define([
   "esri/layers/RasterFunction",
   "esri/layers/ImageServiceParameters",
   "esri/layers/ArcGISImageServiceLayer",
-  "map/config"
-], function (declare, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, MapConfig) {
+  "map/MapModel"
+], function (declare, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model) {
     
   return declare("SuitabilityImageServiceLayer", ArcGISImageServiceLayer, {
     constructor: function () {
@@ -130,13 +130,13 @@ define([
     },
 
     returnRasterSettingsAsObject: function () {
-      var result = {};
-      // Get these values from the model, for integration testing I am using default values
-      // Something like Model.get('suitabilityCustomSettings').computeBinaryRaster
-      var settingsArray = MapConfig.customSuitabilityDefaults.computeBinaryRaster;
+      var result = {},
+          settingsArray = Model.get('suitabilitySettings').computeBinaryRaster;
+
       arrayUtils.forEach(settingsArray, function (setting) {
         result[setting.name] = setting.values;
       });
+      
       return result;
     },
 

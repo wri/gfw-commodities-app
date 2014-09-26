@@ -208,8 +208,7 @@ wizardBlue = #00688B
 	// SPecify the white so IE still renders some color but others use rgba
 	background-color white
 	background-color rgba(255,255,255,0.75)
-	border 1px solid #000
-	border-radius(5px)
+	border 1px solid #000	
 	position absolute
 	width 300px
 	bottom 50px
@@ -236,10 +235,11 @@ wizardBlue = #00688B
 .gfw .layer-controls-container .toolbox_legend_suitability
 	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
 	position absolute
-	top -40px
+	top -25px
 	left 70px
 
-.gfw .layer-controls-container .toolbox_legend > p
+.gfw .layer-controls-container .toolbox_legend > p,
+.gfw .layer-controls-container .toolbox_legend_suitability > p
 	text-shadow 0 0 3px #fff
 	margin 0
 
@@ -303,6 +303,44 @@ wizardBlue = #00688B
 
 .gfw .slider-container table:first-of-type td:first-of-type
 	width 40px
+
+.gfw .suitability_toolbox .suitability-accordion
+	box-sizing border-box
+	height 100%
+
+.gfw .suitability_toolbox .slider-container
+	margin 10px auto 0
+	position relative
+	width 250px
+	height 25px
+
+.gfw .suitability_toolbox .slider-name
+	display inline-block
+	margin-left 20px
+
+.gfw .suitability_toolbox .criteria-separator
+	margin 5px 0 5px 20px
+	display inline-block
+	font-weight bold
+	font-size 15px
+
+.gfw .suitability_toolbox .suitable-checkbox
+	margin 3px 0 3px 20px
+
+.gfw .suitability_toolbox .slider-name:first-of-type
+	margin-top 5px
+
+.gfw .suitability_toolbox .suitable-checkbox:last-of-type
+	margin-bottom 15px
+
+.gfw .suitability_toolbox .slider-labels
+	display inline-block
+	color mediumGray
+	margin-top 12px
+	font-size 10px
+
+.gfw .suitability_toolbox .slider-labels.hundred
+	float right
 
 .gfw .legend-container
 	font-family Arial, sans-serif

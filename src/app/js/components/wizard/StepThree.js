@@ -70,9 +70,18 @@ define([
     },
 
     _selectionMade: function (checked) {
+
+      var completed = this._checkRequirements();
+
+      if (completed) {
+        var payload = this._getPayload();
+        this.props.callback.updateAnalysisDatasets(payload);
+      }
+
       this.setState({
-        completed: this._checkRequirements()
+        completed: completed
       });
+      
     },
 
     _checkRequirements: function () {
@@ -94,8 +103,6 @@ define([
 
     _proceed: function () {
       if (this.state.completed) {
-        var payload = this._getPayload();
-        this.props.callback.updateAnalysisDatasets(payload);
         this.props.callback.performAnalysis();
       }
     }

@@ -2,9 +2,10 @@
 define([
   "dojo/_base/declare",
   "main/config",
+  "map/config",
   "knockout"
 ],
-function (declare, AppConfig, ko) {
+function (declare, AppConfig, MapConfig, ko) {
 
   var Model = declare(null, {
 
@@ -20,6 +21,9 @@ function (declare, AppConfig, ko) {
       Model.vm.showClearPinsOption = ko.observable(false);
       Model.vm.currentLatitude = ko.observable();
       Model.vm.currentLongitude = ko.observable();
+
+      // Storage of Custom Suitability Settings
+      Model.vm.suitabilitySettings = ko.observable(MapConfig.customSuitabilityDefaults);
 
       // Storage of specific objects for Wizard
       // Admin Unit
