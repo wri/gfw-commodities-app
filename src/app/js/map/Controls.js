@@ -12,7 +12,7 @@ define([
 	"map/LayerController",
 	"esri/request",
 	"esri/TimeExtent",
-  "esri/dijit/TimeSlider"
+  	"esri/dijit/TimeSlider"
 ], function (dom, dojoQuery, Deferred, Fx, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider) {
 	'use strict';
 
@@ -82,6 +82,7 @@ define([
 		generateTimeSliders: function () {
 			this.buildFormaSlider();
 			this.buildTreeCoverChangeSlider();
+			this.newTimeSlider();
 		},
 
 		buildFormaSlider: function () {
@@ -147,10 +148,15 @@ define([
 					timeSlider,
 					timeExtent;
 
+					TimeSlider.prototype.onPlay = function() {
+						alert("PLAY!");
+					};
+
 			timeSlider = new TimeSlider({
 				style: "width: 100%;",
 				id: "treeCoverSlider"
 			}, dom.byId("treeCoverSlider"));
+			
 
 			timeExtent = new TimeExtent();
 
@@ -172,27 +178,30 @@ define([
       timeExtent.endTime = new Date();
   	  timeSlider.createTimeStopsByCount(timeExtent, labels.length);
       timeSlider.setLabels(labels);
+
       //timeSlider.setThumbIndexes([0,labels.length - 1]);
       timeSlider.setThumbIndexes([0,labels.length]);
       timeSlider.startup();
       	
-      	//timeSlider.playPauseBtn._onChangeActive = false;
       	timeSlider.on("play", function (evt) { 
+
       		var values;
-      		console.log(timeSlider.domNode);
+      		//console.log(timeSlider.domNode);
       		console.log(timeSlider);
       		
       		var value1 = timeSlider.thumbIndexes[0];
       		var value2 = timeSlider.thumbIndexes[1];
+      		//timeSlider.setThumbIndexes([value1,value2 - 1]);
       		console.log("On initial Play, thumb 1 at: " + value1);
       		console.log("On initial Play, thumb 2 at: " + value2);
 
-      		setTimeout(function () {
+      		/*setTimeout(function () {
       			console.log("THAT FIRST DECREMENT!");
       			//timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2 - 1]);
-      		},1500);
+      		},1500);*/
 
       		requestAnimationFrame(function () {
+      			console.log(timeSlider);
       			console.log("First inside the animation frame; t2: " + value2);
     			values = [0, timeSlider.thumbIndexes[0]];
     			//timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2-1]);
@@ -218,7 +227,7 @@ define([
 				    	//console.log("Original state of slider case!");
 				    	//timeSlider.thumbIndexes.splice(1,1);
 			    		//timeSlider.setThumbCount(1);
-			    		console.log("DID THE TWO THUMBS WORK");
+			    		
 			    		timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(11)]);
 			    		//timeSlider.play();
 				    }
@@ -226,8 +235,12 @@ define([
 				    // First loop they both do, then neither, then just thumbIndexOne
 				    setTimeout(function () {
 				    	if (timeSlider.playing == true) {
+
 				    		timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(value2 - 1)]);
+
 				    	} else {
+				    		timeSlider.thumbIndexes[1]++;
+				    		console.log(timeSlider.thumbIndexes[1]);
 				    		return;
 				    	}
 				    	
@@ -336,7 +349,176 @@ define([
     			LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
     		});
     	});*/
+		
+		},
 
+		newTimeSlider: function() {
+			console.log($('#treecover_change_toolbox').css('display'));
+			if ($('#treecover_change_toolbox').css('display') != 'none') {
+			    //$('.y').removeClass('a');
+			    console.log("TOOLBOX HAS OPENED");
+			}
+
+
+			//document.getElementById('irs-slider to').style.cssText = 'left: 100px';
+			$(".extra-controls #newSlider").click(function() {
+				play();
+				this.innerHTML = "&#x25A0";
+				//console.log($(".extra-controls #newSlider"));
+			});
+			//var newPlay = button[0].childNodes[5].onclick;
+			var newPlay = $(".extra-controls #newSlider");
+			//newPlay.on
+			//console.log(newPlay);
+			//newPlay.play;
+			//newPlay();
+	        var $range = $(".js-range-slider"),
+		    $from = $(".js-from"),
+		    $to = $(".js-to"),
+		    min = 2000,
+		    max = 2012,
+		    from = 2000,
+		    to = 2012;
+		    $(".layer-list-item.forest-change > ul > li").click(function() {
+		   		console.log("***********");
+		   		var $this  =  $(this); 
+		   		ionCallback.call(this);
+			});
+		    
+		    /*$('#newSlider').on({
+			    'click': function(){
+			    	console.log("HERE's A NEW IMAGE??");
+			    	console.log($('#newSlider'));
+			        //$('#newSlider').attr('src','../build/app/css/images/Pause.png');
+			    }
+			});*/
+
+				
+			var ionCallback = function () { 
+				//console.log("CALL BACK CALLED");
+				//$range.ionRangeSlider("update", {
+				$range.ionRangeSlider({
+				    type: "double",
+				    min: min,
+				    max: max,
+				    from: from,
+				    to: to,
+				    step: 1,
+				    hasGrid: true,
+				    onChange: function (data) {
+				        from = data.fromNumber;
+				        to = data.toNumber;
+				        console.log(from + ", " + to);
+				        updateValues();
+				        //$range.ionRangeSlider("update");
+				    },
+				    onPlay: function (obj) {
+				        //console.log(obj);
+				    }
+				});
+			    //$(".js-range-slider").show("fast", function() {
+				    $("#range").ionRangeSlider("update");
+				//});
+			};
+			console.log($range);
+
+			$from.on("change", function () {
+			    from = $(this).prop("value");
+			    if (from < min) {
+			        from = min;
+			    }
+			    if (from > to) {
+			        from = to;
+			    }
+			    updateValues();    
+			    updateRange();
+			});
+
+			$to.on("change", function () {
+			    to = $(this).prop("value");
+			    if (to > max) {
+			        to = max;
+			    }
+			    if (to < from) {
+			        to = from;
+			    }
+			    console.log("2nd thumb changed!");
+			    updateValues();    
+			    updateRange();
+			});
+
+			var updateRange = function () {
+			    $range.ionRangeSlider("update", {
+			        from: from,
+			        to: to
+			    });
+			    //console.log("RANGE UPDATED");
+			};
+
+			var updateValues = function () {
+			    $from.prop("value", from);
+			    $to.prop("value", to);
+			};
+			var i = max - min;
+			var j = 0;
+
+			function play() { 
+				var initialDates = $range[0].value.split(';');
+			    var thumbOne = initialDates[0];
+			    var thumbTwo = initialDates[1];
+			    if (thumbOne == thumbTwo) {
+			    	$('#newSlider').attr('src','&#9658');
+					console.log("WE RETURNED IMMEDIETELY!");
+					return;
+				}
+
+				//$(".extra-controls #newSlider").html("PAUSE"); //THIS ISN't CHANGING THE BUTTON ON RESTART!
+
+				$(".extra-controls #newSlider").click(function() {
+					//this.innerHTML = "PLAY";
+					//console.log("PAUSING!");
+					return;
+				});
+
+			    var values = [0,thumbOne-2000];
+			    console.log("Values to be used: " + values[0] +" "+ values[1]);
+
+				setTimeout(function() { timeout(from,thumbOne,thumbTwo,values); }, 1500);
+					function timeout(from,thumbOne,thumbTwo,values) {
+						LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
+			  			$range.ionRangeSlider("update", {
+						    from: from + 1
+						});
+						var newDates = $range[0].value.split(';');
+						var newThumbTwo = newDates[1];
+						console.log("New THumb 2: " + newThumbTwo);
+						thumbOne++;
+						values = [0,thumbOne-2000];
+						console.log("1: " + thumbOne);
+						console.log(thumbTwo);
+						$(".extra-controls #newSlider").click(function() {
+							if ($("#newSlider").html() == "&#9658") {
+								$("#newSlider").html("&#x25A0");
+								console.log("PAUSING!");
+								return;
+							} else if ($("#newSlider").html() == "&#x25A0") {
+								$("#newSlider").html("&#9658");
+							}
+						});
+						
+						if (thumbOne == thumbTwo || thumbOne == newThumbTwo) {
+							console.log(newSlider);
+							$("#newSlider").html("&#9658");
+						    console.log(newSlider);
+
+							//$('#newSlider').attr('src','&#9658');
+							console.log("WE RETRUNED!");
+							return;
+						}
+						from++;
+			  			setTimeout(function() { timeout(from,thumbOne,thumbTwo,values); }, 1500);
+					}
+			}
 		},
 
 		fetchFORMAAlertsLabels: function () {

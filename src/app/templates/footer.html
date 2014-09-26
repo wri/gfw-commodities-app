@@ -1,5 +1,40 @@
 
+<div data-bind="visible: (appState().v=='home')" class="footerModesContainer">
+
+	<div class="footerWrapper">
+		<div data-bind="foreach:footerModeOptions" class="footerModes">
+			<div class="footerItem"><div data-bind="attr:{class:css}" class="receiveAlerts">
+			<div class="icon"></div>
+				<div data-bind="html:title" class="title">Join the community</div>
+				<div data-bind="html:desc" class="desc">Sign up for our newsletters and commodity reports</div><div data-bind="if: url"></div>
+				<div data-bind="if: url"><a data-bind="html:action,attr: {href: url, target: target}" class="action" href="http://www.globalforestwatch.org/stories/new" target="_blank">Join Today</a></div></div></div>
+			<div class="footerItem">
+			<div data-bind="attr:{class:css}" class="analysisAlerts">
+			<div class="icon"></div>
+			<div data-bind="html:title" class="title">Sign up for alerts</div>
+			<div data-bind="html:desc" class="desc">Receive alerts for clearance activity in your concession or district of choice</div>
+			<div data-bind="if: url"></div>
+			<div data-bind="ifnot: url"><a data-bind="html:action,click:$root.footerSelect" class="action">Sign up now</a></div></div></div>
+			<div class="footerItem">
+			<div data-bind="attr:{class:css}" class="submitStory">
+			<div class="icon"></div><div data-bind="html:title" class="title">View monthly reports</div>
+			<div data-bind="html:desc" class="desc">Read the archive of reports on activity specific to palm oil production</div>
+			<div data-bind="if: url"><a data-bind="html:action,attr: {href: url, target: target}" class="action" href="http://lucas/2278-wri-oil-palm/src/#v=publications" target="_blank">Start Analyzing</a></div><div data-bind="ifnot: url"></div></div></div>
+		</div>
+	</div>
+
+</div>
+
+
 <div id="footer" class="footer">
+
+
+
+
+
+
+
+
 	<div id="site-info" class="site-info inner">
 		<div id="left-footer" class="left">
 	
@@ -17,15 +52,14 @@
 							</iframe>
 						</span>
 					</div></div>
-					<div id="signup" class="footer-share keep-updated"><p>Sign up to receive updates.<a href="http://www.wri.org/global-forest-watch-stay-informed" title="Receive Global Forest Watch updates"><img src="../build/images/envelope-gray.png" class="subscribe"></a><a href="https://twitter.com/globalforests" title="Follow @globalforests"><img src="../build/images/twitter-gray.png" class="subscribe"></a></p></div><div id="service" class="footer-share"><p><a href="http://www.globalforestwatch.org/terms">Terms of Service</a> · <a href="http://stats.pingdom.com/me0q72oj01nt" target="_blank">Global Forest Watch System Status</a></p></div></div>
-
-
-
-
-
+					<div id="signup" class="footer-share keep-updated"><p>Sign up to receive updates.<a href="http://www.wri.org/global-forest-watch-stay-informed" title="Receive Global Forest Watch updates"><img src="../build/images/envelope-gray.png" class="subscribe"></a><a href="https://twitter.com/globalforests" title="Follow @globalforests"><img src="../build/images/twitter-gray.png" class="subscribe">
+					</a></p></div>
+					<div id="service" class="footer-share">
+					<p><a href="http://www.globalforestwatch.org/terms">Terms of Service</a> · <a href="http://stats.pingdom.com/me0q72oj01nt" target="_blank">Global Forest Watch System Status
+					</a></p>
+					</div></div>
 					</div>
 					
-
 					<div id="middle-footer" class="left">
 						<div id="partnerText" class="partner-text">
 							<span><b>GFW Commodities is a project of Global Forest Watch</b></span>
