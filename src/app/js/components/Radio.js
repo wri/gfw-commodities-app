@@ -29,7 +29,17 @@ define([
     },
 
     toggle: function (synEvent) {
-      this.props.handle(this);
+        if(!synEvent.target.classList.contains('layer-info-icon')){
+            this.props.handle(this);
+        }
+    },
+
+    showInfo: function (synEvent) {
+        if(document.getElementsByClassName(this.props.infoDivClass).length){
+            topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+        } else {
+            topic.publish('showInfoPanel', this.props.infoDivClass);
+        }
     },
 
     render: function () {
@@ -48,6 +58,10 @@ define([
               React.DOM.span({})
             ),
             React.DOM.a({'className': 'layer-title'}, this.props.title),
+              (this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" ?
+                  React.DOM.span({'className': 'layer-info-icon', 'onClick': this.showInfo},"X")
+                  : null
+                  ),
             React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle)
           ),
           (this.props.children ? 

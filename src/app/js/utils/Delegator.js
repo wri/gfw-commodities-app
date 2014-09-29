@@ -94,6 +94,8 @@ define([
 				}
 			});
 
+            topic.subscribe('showInfoPanel', MapController.showInfoPanel);
+
 		}
 
 	};

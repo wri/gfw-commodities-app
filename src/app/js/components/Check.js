@@ -1,8 +1,9 @@
 define([
 	"react",
 	"dojo/topic",
-	"utils/Hasher"
-], function (React, topic, Hasher) {
+	"utils/Hasher",
+    "controllers/MapController"
+], function (React, topic, Hasher, MapController) {
 
 	return React.createClass({
 
@@ -37,7 +38,18 @@ define([
     },
 
     toggle: function (synEvent) {
-      this.props.handle(this);
+        if(!synEvent.target.classList.contains('layer-info-icon')){
+            this.props.handle(this);
+        }
+    },
+
+    showInfo: function (synEvent) {
+        if(document.getElementsByClassName(this.props.infoDivClass).length){
+            topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+        } else {
+            topic.publish('showInfoPanel', this.props.infoDivClass);
+        }
+
     },
 
     render: function () {
@@ -50,11 +62,15 @@ define([
       return (
         React.DOM.li({'className': className,
                       'data-layer': this.props.key},
-          React.DOM.div({'onClick': this.toggle,},
+            React.DOM.div({'onClick': this.toggle},
             React.DOM.span({'className': 'custom-check'},
-              React.DOM.span({})
+                React.DOM.span({})
             ),
             React.DOM.a({'className': 'layer-title'}, this.props.title),
+            (this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" ?
+                React.DOM.span({'className': 'layer-info-icon', 'onClick': this.showInfo}, "X")
+                : null
+            ),
             React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle)
           )
         )

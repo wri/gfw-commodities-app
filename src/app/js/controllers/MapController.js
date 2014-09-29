@@ -17,16 +17,19 @@ define([
 	"map/Controls",
 	"map/LayerController",
 	"analysis/WizardHelper",
-	"components/LayerList"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, MapConfig, Map, Finder, MapModel, Hasher, Animator, MapControl, LayerController, WizardHelper, LayerList) {
+	"components/LayerList",
+    "utils/Loader"
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, MapConfig, Map, Finder, MapModel, Hasher, Animator, MapControl, LayerController, WizardHelper, LayerList, Loader) {
 	'use strict';
 
 	var initialized = false,
 			mapModel,
 			layerList,
+            dataDivLoaded = false,
 			map;
+    var infoDiv = document.createElement("infoDiv");
 
-	return {
+    return {
 
 		init: function (template) {
 
@@ -87,9 +90,9 @@ define([
 			var self = this;
 
 			on(app.map, "mouse-move", function(evt) {
-        MapModel.set('currentLatitude', evt.mapPoint.getLatitude().toFixed(4));
-        MapModel.set('currentLongitude', evt.mapPoint.getLongitude().toFixed(4));
-      });
+                MapModel.set('currentLatitude', evt.mapPoint.getLatitude().toFixed(4));
+                MapModel.set('currentLongitude', evt.mapPoint.getLongitude().toFixed(4));
+            });
 
 			on(dom.byId("locator-widget-button"), "click", function () {
 				MapModel.set('showBasemapGallery', false);
@@ -123,7 +126,7 @@ define([
 
 			on(dom.byId("clear-search-pins"), "click", function () {
 				map.map.graphics.clear();
-        MapModel.set('showClearPinsOption', false);
+                MapModel.set('showClearPinsOption', false);
 			});
 
 			dojoQuery(".map-layer-controls li").forEach(function (node) {
@@ -213,8 +216,26 @@ define([
 
 			MapControl.generateTimeSliders();
 
-		}
+		},
 
+        showInfoPanel: function (infoPanelClass) {
+            if (typeof (infoPanelClass) === 'object'){
+                var content = infoPanelClass;
+                MapControl.createDialogBox(content);
+            } else {
+                if(dataDivLoaded){
+                    var content = infoDiv.querySelector("."+infoPanelClass);
+                    MapControl.createDialogBox(content);
+                } else {
+                    Loader.getTemplate("data").then(function (template) {
+                        dataDivLoaded = true;
+                        infoDiv.innerHTML = template;
+                        var content = infoDiv.querySelector("."+infoPanelClass);
+                        MapControl.createDialogBox(content);
+                    })
+                }
+            }
+        }
 	};
 
 });

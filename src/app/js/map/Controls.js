@@ -35,6 +35,31 @@ define([
 			});
 		},
 
+        createDialogBox: function (content) {
+            require([
+                "dijit/Dialog"
+            ], function (Dialog){
+
+                //remove select country
+                var node = content.querySelector(".source_body")
+                if(node.querySelector(".source_extended")) {
+                    node.removeChild(node.querySelector(".source_extended"))
+                }
+
+                //remove checkbox
+                if(content.getElementsByTagName("input").length){
+                    content.removeChild(content.getElementsByTagName("input")[0]);
+                }
+
+                var dialog = new Dialog({
+                    title: "Layer Information",
+                    style: "height: 700px; width: 600px; overflow: auto;"
+                })
+                dialog.setContent(content.innerHTML);
+                dialog.show();
+            });
+        },
+
 		toggleFiresLayerOptions: function (evt) {
 			var target = evt.target ? evt.target : evt.srcElement,
 					filter = target.dataset ? target.dataset.filter : target.getAttribute('data-filter'),

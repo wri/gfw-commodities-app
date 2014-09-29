@@ -273,7 +273,8 @@ define([], function () {
 	          type: "check",
 	          layerType: "image"
 	        }
-	      ]
+	      ],
+          infoDivClass: "forest-change-tree-cover-change"
 	    },
 	    {
 	      key: "forma",
@@ -281,7 +282,8 @@ define([], function () {
 	      subtitle: "(monthly, 500m, humid tropics)",
 	      filter: "forest-change",
 	      type: "radio",
-	      layerType: "image"
+	      layerType: "image",
+          infoDivClass: "forest-change-forma-alerts"
 	    },
 	    {
 	      key: "fires",
@@ -289,7 +291,8 @@ define([], function () {
 	      subtitle: "(past 7 days, 1km, global; NASA)",
 	      filter: "forest-change",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "forest-change-nasa-active-fires"
 	    },
 	    {
 	      key: "none_fc",
@@ -305,7 +308,8 @@ define([], function () {
 	      subtitle: "(year 2000, 30m global)",
 	      filter: "forest-cover",
 	      type: "radio",
-	      layerType: "image"
+	      layerType: "image",
+          infoDivClass: "forest-and-land-cover-tree-cover-density"
 	    },
 	    {
 	      key: "ifl",
@@ -313,7 +317,8 @@ define([], function () {
 	      subtitle: "(year 2000, 30m global)",
 	      filter: "forest-cover",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "forest-and-land-cover-intact-forest-landscape"
 	    },
 	    {
 	      key: "peat",
@@ -321,7 +326,8 @@ define([], function () {
 	      subtitle: "(year 2002, Indonesia)",
 	      filter: "forest-cover",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "forest-and-land-cover-peat-lands"
 	    },
 	    {
 	      key: "tfcs",
@@ -329,7 +335,8 @@ define([], function () {
 	      subtitle: "(early 2000s, 1km, tropics)",
 	      filter: "forest-cover",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "forest-and-land-cover-carbon-stocks"
 	    },
 	    {
 	      key: "primForest",
@@ -337,7 +344,8 @@ define([], function () {
 	      subtitle: "(2000, 30m, Indonesia)",
 	      filter: "forest-cover",
 	      type: "radio",
-	      layerType: "image"
+	      layerType: "image",
+          infoDivClass: "forest-and-land-cover-primary-forest"
 	    },
 	    {
 	      key: "ldcover",
@@ -345,7 +353,8 @@ define([], function () {
 	      subtitle: "(mid 2000s, global)",
 	      filter: "forest-cover",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "forest-and-land-cover-land-cover-global"
 	    },
 	    {
 	      key: "legal",
@@ -353,7 +362,8 @@ define([], function () {
 	      subtitle: "(year 2010, select countries)",
 	      filter: "forest-cover",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "forest-and-land-cover-legal-classifications"
 	    },
 	    {
 	      key: "none_fco",
@@ -369,7 +379,8 @@ define([], function () {
 	      subtitle: "(varies, select countries)",
 	      filter: "forest-use",
 	      type: "check",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "land-use-oil-palm"
 	    },
 	    {
 	      key: "logPerm",
@@ -377,7 +388,8 @@ define([], function () {
 	      subtitle: "(varies, select countries)",
 	      filter: "forest-use",
 	      type: "check",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "land-use-logging"
 	    },
 	    {
 	      key: "minePerm",
@@ -385,7 +397,8 @@ define([], function () {
 	      subtitle: "(varies, select countries)",
 	      filter: "forest-use",
 	      type: "check",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "land-use-mining"
 	    },
 	    {
 	      key: "woodPerm",
@@ -393,7 +406,8 @@ define([], function () {
 	      subtitle: "(varies, select countries)",
 	      filter: "forest-use",
 	      type: "check",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "land-use-wood-fiber-plantation"
 	    },
 	    {
 	      key: "pal",
@@ -401,7 +415,8 @@ define([], function () {
 	      subtitle: "(varies, global)",
 	      filter: "conservation",
 	      type: "check",
-	      layerType: "tiled"
+	      layerType: "tiled",
+          infoDivClass: "conservation-protected-areas"
 	    },
 	    {
 	      key: "suit",
@@ -409,15 +424,17 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "check",
-	      layerType: "image"
+	      layerType: "image",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "opsd",
-	      title: "Oil Palm suitability default",
+	      title: "Oil Palm Suitability",
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "cons",
@@ -425,7 +442,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "elev",
@@ -433,7 +451,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "slope",
@@ -441,7 +460,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "rain",
@@ -449,7 +469,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "soilDr",
@@ -457,7 +478,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "soilDe",
@@ -465,7 +487,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "soilAc",
@@ -473,7 +496,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "soilTy",
@@ -481,7 +505,8 @@ define([], function () {
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
-	      layerType: "dynamic"
+	      layerType: "dynamic",
+          infoDivClass: "suitability-suitability-mapper"
 	    },
 	    {
 	      key: "none_agro",

@@ -1,5 +1,5 @@
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -33,7 +33,7 @@
 /* line 36 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
 html,
 body,
-.app {
+.gfw {
   background-color: #fff;
   height: 100%;
   width: 100%;
@@ -72,6 +72,12 @@ body,
 }
 
 /* line 70 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+.gfw .dijitDialogCloseIcon {
+  right: 10px !important;
+  top: 7px !important;
+}
+
+/* line 74 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
 .gfw .custom-check {
   background-color: #888;
   display: inline-block;
@@ -83,7 +89,7 @@ body,
   width: 17px;
 }
 
-/* line 78 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 82 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
 .gfw .custom-check span {
   background-color: #fff;
   border-radius: 4px;
@@ -97,7 +103,7 @@ body,
 }
 
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1109,7 +1115,7 @@ body,
 }
 
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/footer.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/footer.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1119,7 +1125,7 @@ body,
 }
 
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1326,109 +1332,118 @@ body,
 }
 
 /* line 163 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+.gfw .app-header .layer-info-icon {
+  float: right;
+  background-image: url("images/info-icon.png");
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: center;
+}
+
+/* line 170 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item .layer-title,
 .gfw .forest-change.active .layer-list-item .layer-sub-title {
   color: #888;
 }
 
-/* line 167 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 174 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 169 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 176 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 170 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title {
   color: #5952de;
 }
 
-/* line 173 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 180 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .custom-check {
   background-color: #5952de;
 }
 
-/* line 175 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 182 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 184 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 178 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 185 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change,
 .gfw .forest-change.active .layer-title,
 .gfw .forest-change.active .layer-list-item.active .layer-title {
   color: #e72698;
 }
 
-/* line 183 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 190 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover,
 .gfw .app-header.mapView .forest-cover.active .layer-title,
 .gfw .forest-cover.active .layer-list-item.active .layer-title {
   color: #b2d26e;
 }
 
-/* line 188 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 195 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use,
 .gfw .app-header.mapView .forest-use.active .layer-title,
 .gfw .forest-use.active .layer-list-item.active .layer-title {
   color: #c98e6c;
 }
 
-/* line 193 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 200 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation,
 .gfw .app-header.mapView .conservation.active .layer-title,
 .gfw .conservation.active .layer-list-item.active .layer-title {
   color: #3182bd;
 }
 
-/* line 198 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 205 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability,
 .gfw .app-header.mapView .agro-suitability.active .layer-title,
 .gfw .agro-suitability.active .layer-list-item.active .layer-title {
   color: #fdb22c;
 }
 
-/* line 203 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 210 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages,
 .gfw .app-header.mapView .company-pages.active .layer-title,
 .gfw .company-pages.active .layer-list-item.active .layer-title {
   color: #5e138a;
 }
 
-/* line 208 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 215 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change .layer-line {
   background: #e72698;
 }
 
-/* line 211 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 218 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover .layer-line {
   background: #b2d26e;
 }
 
-/* line 214 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 221 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use .layer-line {
   background: #c98e6c;
 }
 
-/* line 217 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 224 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation .layer-line {
   background: #3182bd;
 }
 
-/* line 220 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 227 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability .layer-line {
   background: #fdb22c;
 }
 
-/* line 223 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 230 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages .layer-line {
   background: #5e138a;
 }
 
-/* line 226 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 233 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 227 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 234 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check span,
 .gfw .forest-use.active .custom-check span,
 .gfw .conservation.active .custom-check span,
@@ -1438,43 +1453,43 @@ body,
   left: 9px;
 }
 
-/* line 235 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 242 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active .custom-check,
 .gfw .forest-change.active .radio-icon span {
   background-color: #e72698;
 }
 
-/* line 239 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 246 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check,
 .gfw .forest-cover.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 243 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 250 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-use.active .custom-check,
 .gfw .forest-use.active .radio-icon span {
   background-color: #c98e6c;
 }
 
-/* line 247 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 254 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .conservation.active .custom-check,
 .gfw .conservation.active .radio-icon span {
   background-color: #3182bd;
 }
 
-/* line 251 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 258 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .agro-suitability.active .custom-check,
 .gfw .agro-suitability.active .radio-icon span {
   background-color: #fdb22c;
 }
 
-/* line 255 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 262 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .company-pages.active .custom-check,
 .gfw .company-pages.active .radio-icon span {
   background-color: #5e138a;
 }
 
-/* line 259 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 266 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .layer-list-item .radio-icon {
   display: inline-block;
   border-radius: 35px;
@@ -1485,12 +1500,12 @@ body,
   width: 8px;
 }
 
-/* line 266 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 273 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon {
   top: 3px;
 }
 
-/* line 269 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 276 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon span {
   display: inline-block;
   border-radius: 35px;
@@ -1503,48 +1518,48 @@ body,
   top: -6px;
 }
 
-/* line 278 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 285 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change .radio-icon {
   border: 1px solid #e72698;
 }
 
-/* line 281 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 288 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-cover .radio-icon {
   border: 1px solid #b2d26e;
 }
 
-/* line 284 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 291 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-use .radio-icon {
   border: 1px solid #c98e6c;
 }
 
-/* line 287 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 294 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .conservation .radio-icon {
   border: 1px solid #3182bd;
 }
 
-/* line 290 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 297 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .agro-suitability .radio-icon {
   border: 1px solid #fdb22c;
 }
 
-/* line 293 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 300 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .company-pages .radio-icon {
   border: 1px solid #5e138a;
 }
 
-/* line 296 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 303 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 297 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 304 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 298 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 305 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-topper div {
   line-height: 43px;
 }
 
-/* line 301 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 308 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
@@ -1554,7 +1569,7 @@ body,
   left: 0;
 }
 
-/* line 309 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 316 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -1566,7 +1581,7 @@ body,
   z-index: 200;
 }
 
-/* line 319 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 326 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -1580,7 +1595,7 @@ body,
   top: 20px;
 }
 
-/* line 329 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 336 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list {
   display: inline-block;
   list-style-type: none;
@@ -1588,7 +1603,7 @@ body,
   padding: 0;
 }
 
-/* line 335 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 342 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1602,31 +1617,31 @@ body,
   margin: 0 2px;
 }
 
-/* line 345 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 352 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 348 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 355 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 351 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 358 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 356 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 363 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
 }
 
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1649,7 +1664,7 @@ body,
 }
 
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -2135,7 +2150,7 @@ body,
 /* Overrides for Esri Legend */
 
 
-/* line 86 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
