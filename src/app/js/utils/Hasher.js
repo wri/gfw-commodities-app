@@ -23,9 +23,6 @@ define([
 				hash(ioQuery.objectToQuery(state));
 			}
 
-			/**** <NOTE> Set Default Layers Here, If the default is the radio option none, set in MapConfig.layersUI ****/
-			/**** under the appropriate radio button with property, active: true </NOTE> ****/
-
 			currentView = state.v;
 			topic.subscribe("/dojo/hashchange", function (changedHash) {
 				state = ioQuery.queryToObject(changedHash);

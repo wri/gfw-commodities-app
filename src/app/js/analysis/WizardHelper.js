@@ -19,8 +19,8 @@ define([
 		toggleWizard: function () {
 			var mapWidth = domGeom.position(dom.byId("map")).w,
 					wizardContainer = dom.byId("wizard-container"),
-					MAX_WIDTH = 700, 
-					MIN_WIDTH = 450,
+					MAX_WIDTH = 600, 
+					MIN_WIDTH = 400,
 					halfMapWidth = mapWidth / 2,
 					orignalCenterPoint,
 					duration = 500,

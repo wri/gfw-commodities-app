@@ -31,6 +31,9 @@ define([
 
     return {
 
+		/* NOTE : Set Default Layers in renderComponents at the bottom of the page, 
+							Hash needs to be updated before the LayerList is created */
+
 		init: function (template) {
 
 			var self = this,
@@ -210,11 +213,21 @@ define([
 
 		renderComponents: function () {
 
+			// Set Default Layers Here if none are present in the URL
+			// Current Default Layers(lyrs) are tcc and loss
+			var state = Hasher.getHash();
+			// If state.lyrs is undefined, set hash, otherwise, load the layers already there
+			if (state.lyrs === undefined) {
+				Hasher.toggleLayers('tcc');
+				Hasher.toggleLayers('loss');
+			}
+
 			layerList = new LayerList({
 				items: MapConfig.layersUI
 			}, "master-layer-list");
 
 			MapControl.generateTimeSliders();
+			MapControl.generateSuitabilitySliders();
 
 		},
 

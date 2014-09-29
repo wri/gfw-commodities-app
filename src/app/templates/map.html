@@ -151,6 +151,137 @@
           </div>
         </div>
       </div>
+      <div id='suitability_toolbox' class="suitability_toolbox" style="display: none">
+        <div class="toolbox_legend_suitability">
+          <p>Suitability Criteria</p>
+        </div>
+        <div id="suitability-accordion" class="suitability-accordion">
+          <div id="environmental-criteria" class="accordion-container">
+            <div class="slider-name">Peat Depth (cm)</div>
+            <div class="slider-container">
+              <div class="slider" id='peat-depth-slider'></div>
+              <div class="slider-labels zero">0 cm</div>
+              <div class="slider-labels hundred">1,200 cm</div>
+            </div>
+            <div class="slider-name">Conservation area buffers (m)</div>
+            <div class="slider-container">
+              <div class="slider" id='conservation-area-slider'></div>
+              <div class="slider-labels zero">500m</div>
+              <div class="slider-labels hundred">5,000 cm</div>
+            </div>
+            <div class="slider-name">Water resource buffers (m)</div>
+            <div class="slider-container">
+              <div class="slider" id='water-resource-slider'></div>
+              <div class="slider-labels zero">50 m</div>
+              <div class="slider-labels hundred">1,000 m</div>
+            </div>
+            <div class="slider-name">Slope (%)</div>
+            <div class="slider-container">
+              <div class="slider" id='slope-slider'></div>
+              <div class="slider-labels zero">0%</div>
+              <div class="slider-labels hundred">80%</div>
+            </div>
+            <div class="criteria-separator">Land Cover - Southeast Asia</div>
+            <div class="suitable-checkbox">
+              <input id="grassland-shrub-check" />
+              <label for="grassland-shrub-check" class="checkbox-label">Grassland/shrub</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="plantations-check" />
+              <label for="plantations-check" class="checkbox-label">Plantations</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="agriculture-check" />
+              <label for="agriculture-check" class="checkbox-label">Agriculture</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="settlements-other-check" />
+              <label for="settlements-other-check" class="checkbox-label">Settlements/other land use</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="primary-forest-check" />
+              <label for="primary-forest-check" class="checkbox-label">Primary forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="secondary-forest-check" />
+              <label for="secondary-forest-check" class="checkbox-label">Secondary forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="wetlands-check" />
+              <label for="wetlands-check" class="checkbox-label">Wetland</label>
+            </div>
+          </div>
+          <div id="crop-criteria" class="accordion-container">
+            <div class="slider-name">Elevation (m)</div>
+            <div class="slider-container">
+              <div class="slider" id="elevation-slider"></div>
+              <div class="slider-labels zero">0 m</div>
+              <div class="slider-labels hundred">5,000 m</div>
+            </div>
+            <div class="slider-name">Rainfall (mm)</div>
+            <div class="slider-container">
+              <div class="slider" id="rainfall-slider"></div>
+              <div class="slider-labels zero">1,500 mm/yr</div>
+              <div class="slider-labels hundred">7,000 mm/yr</div>
+            </div>
+            <div class="slider-name">Soil drainage</div>
+            <div class="slider-container">
+              <div class="slider" id="soil-drainage-slider"></div>
+              <div class="slider-labels zero">Stagnant</div>
+              <div class="slider-labels hundred">Very Excessive</div>
+            </div>
+            <div class="slider-name">Soil depth (cm)</div>
+            <div class="slider-container">
+              <div class="slider" id="soil-depth-slider"></div>
+              <div class="slider-labels zero">Very Shallow</div>
+              <div class="slider-labels hundred">Extremely Deep</div>
+            </div>
+            <div class="slider-name">Soil acidity (pH)</div>
+            <div class="slider-container">
+              <div class="slider" id="soil-acid-slider"></div>
+              <div class="slider-labels zero">Excessively Acid</div>
+              <div class="slider-labels hundred">Slightly Alkaline</div>
+            </div>
+            <div class="criteria-separator">Soil Type</div>
+            <div class="suitable-checkbox">
+              <input id="inceptisol-check" />
+              <label for="inceptisol-check" class="checkbox-label">Inceptisol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="oxisol-check" />
+              <label for="oxisol-check" class="checkbox-label">Oxisol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="alfisol-check" />
+              <label for="alfisol-check" class="checkbox-label">Alfisol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="ultisol-check" />
+              <label for="ultisol-check" class="checkbox-label">Ultisol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="spodosol-check" />
+              <label for="spodosol-check" class="checkbox-label">Spodosol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="entisol-check" />
+              <label for="entisol-check" class="checkbox-label">Entisol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="histosol-check" />
+              <label for="histosol-check" class="checkbox-label">Histosol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="mollisol-check" />
+              <label for="mollisol-check" class="checkbox-label">Mollisol</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="rock-check" />
+              <label for="rock-check" class="checkbox-label">Rock</label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- End Layer Controls Container -->
     <!-- Begin Legend -->

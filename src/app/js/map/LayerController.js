@@ -1,5 +1,6 @@
 define([
 	"map/config",
+	"map/MapModel",
 	"dojo/dom",
 	"dojo/query",
 	"dojo/topic",
@@ -12,7 +13,7 @@ define([
 	"esri/tasks/QueryTask",
 	"esri/layers/RasterFunction",
 	"esri/layers/LayerDrawingOptions"
-], function (MapConfig, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
+], function (MapConfig, MapModel, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
 	return {
 
@@ -223,6 +224,68 @@ define([
 			});
 		},
 
+		updateCustomSuitabilityLayer: function (value, dispatcher) {
+
+			var customLayer = app.map.getLayer(MapConfig.suit.id),
+					settings = MapModel.get('suitabilitySettings'),
+					activeCheckboxes = [];
+
+			switch (dispatcher) {
+				case 'peat-depth-slider':
+					settings.computeBinaryRaster[1].values = this._prepareSuitabilityJSON(0, value);
+				break;
+				case 'conservation-area-slider':
+					settings.computeBinaryRaster[3].values = value;
+				break;
+				case 'water-resource-slider':
+					settings.computeBinaryRaster[4].values = value;
+				break;
+				case 'slope-slider':
+					settings.computeBinaryRaster[2].values = value;
+				break;
+				case 'elevation-slider':
+					settings.computeBinaryRaster[5].values = value;
+				break;
+				case 'rainfall-slider':
+					settings.computeBinaryRaster[6].values = parseInt(value[0]) + "," + parseInt(value[1]);
+				break;
+				case 'soil-drainage-slider':
+					settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1]);
+				break;
+				case 'soil-depth-slider':
+					settings.computeBinaryRaster[8].values = this._prepareSuitabilityJSON(value, 7);
+				break;
+				case 'soil-acid-slider':
+					settings.computeBinaryRaster[9].values = this._prepareSuitabilityJSON(value[0], value[1]);
+				break;
+				case 'landcover-checkbox':
+					// Push in all Active Checkboxes values
+					dojoQuery('#environmental-criteria .suitable-checkbox input:checked').forEach(function (node) {
+						activeCheckboxes.push(node.value);
+					});
+					settings.computeBinaryRaster[0].values = activeCheckboxes.join(",");
+				break;
+				case 'soil-type-checkbox':
+					// Need to include default value to represent unknown values
+					activeCheckboxes.push('6');
+					// Push in all other Active Checkboxes values
+					dojoQuery('#crop-criteria .suitable-checkbox input:checked').forEach(function (node) {
+						activeCheckboxes.push(node.value);
+					});
+					settings.computeBinaryRaster[10].values = activeCheckboxes.join(",");
+				break;
+			}
+
+
+			MapModel.set('suitabilitySettings', settings);
+
+			if (customLayer) {
+				customLayer.refresh();
+			}
+
+
+		},
+
 		refreshLegendWidget: function () {
 			var legendLayer = app.map.getLayer(MapConfig.legendLayer.id),
 					densityConf = MapConfig.tcd,
@@ -255,6 +318,14 @@ define([
 			}
 
 			registry.byId("legend").refresh();
+		},
+
+		_prepareSuitabilityJSON: function (start, end) {
+			var result = [];
+			for (var i = start; i <= end; i++) {
+				result.push(i);
+			}
+			return result.join(",");
 		}
 
 	};

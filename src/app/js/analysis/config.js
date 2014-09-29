@@ -17,7 +17,7 @@ define([], function () {
 
 		wizard: {
 			breadcrumbs: ["Select Area", "Refine Area", "Select Analysis"]
-			// breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
+			//breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
 		},
 
 		stepOne: {
@@ -57,7 +57,8 @@ define([], function () {
 
 		stepThree: {
 			title: "Step 3: Select Analysis",
-			description: "Select which type of analysis you would like included in your results and then click \"Next\".",
+			description: "Select which types of analysis you would like to perform and then click \"Perform Analysis\".  You must select at least one option.",
+			//description: "Select which type of analysis you would like included in your results and then click \"Next\".",
 			cb1: {
 				label: 'Forest Change',
 				value: 'forest'
@@ -78,14 +79,8 @@ define([], function () {
 				label: 'Risk Assessment',
 				value: 'risk'
 			},
-			millPoint: millPoint
-		},
-
-		stepFour: {
-			title: "Step 4: Refine Analysis",
-			description: "Select which data sets you would like to include in your analysis and then click \"Perform Analysis\".  You must select at least one data set.",
 			checkboxes: [
-				{label: 'Primary Forests', value: 'primForest', checked: true},
+				{label: 'Primary Forests', value: 'primForest'},
 				{label: 'Tree Cover Density', value: 'treeDensity'},
 				{label: 'Legal Classes', value: 'legal'},
 				{label: 'Protected Areas', value: 'protected'},
@@ -94,9 +89,35 @@ define([], function () {
 				{label: 'Land Cover - Global', value: 'landCoverGlob'},
 				{label: 'Land Cover - Southeast Asia', value: 'landCoverAsia'},
 				{label: 'Land Cover - Indonesia', value: 'landCoverIndo'},
-				{label: 'Peat Lands', value: 'peat'},
-				//{label: 'Suitability', value: 'suit'},
-				{label: 'RSPO Land Use Change Analysis', value: 'rspo'}
+				{label: 'Peat Lands', value: 'peat'}
+			],
+			suit: {
+				label: 'Oil Palm Suitability',
+				value: 'suit',
+				description: 'Description of the output the user will see when selecting this option.'
+			},
+			rspo: {
+				label: 'RSPO Land Use Change Analysis',
+				value: 'rspo',
+				description: 'Description of the output the user will see when selecting this option.'
+			},
+			millPoint: millPoint
+		},
+
+		stepFour: {
+			title: "Step 4: Refine Analysis",
+			description: "Select which data sets you would like to include in your analysis and then click \"Perform Analysis\".  You must select at least one data set.",
+			checkboxes: [
+				{label: 'Primary Forests', value: 'primForest'},
+				{label: 'Tree Cover Density', value: 'treeDensity'},
+				{label: 'Legal Classes', value: 'legal'},
+				{label: 'Protected Areas', value: 'protected'},
+				{label: 'Forest Carbon Stocks', value: 'carbon'},
+				{label: 'Intact Forests', value: 'intact'},
+				{label: 'Land Cover - Global', value: 'landCoverGlob'},
+				{label: 'Land Cover - Southeast Asia', value: 'landCoverAsia'},
+				{label: 'Land Cover - Indonesia', value: 'landCoverIndo'},
+				{label: 'Peat Lands', value: 'peat'}
 			]
 		},
 

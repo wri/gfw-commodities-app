@@ -130,7 +130,8 @@ define([], function () {
 		suit: {
 			id: "CustomSuitability",
 			url: customSuitabilityUrl,
-			legendLayerId: 17
+			legendLayerId: 17,
+			toolsNode: "suitability_toolbox"
 		},
 
 		/***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
@@ -610,6 +611,159 @@ define([], function () {
 					name: 'STypeInpR'
 				}
 			]
+		},
+
+		checkboxItems: [
+			{
+				node: 'grassland-shrub-check',
+				name: 'landcover-checkbox',
+				value: '1',
+				checked: true
+			},
+			{
+				node: 'plantations-check',
+				name: 'landcover-checkbox',
+				value: '2',
+				checked: true
+			},
+			{
+				node: 'agriculture-check',
+				name: 'landcover-checkbox',
+				value: '3',
+				checked: true
+			},
+			{
+				node: 'settlements-other-check',
+				name: 'landcover-checkbox',
+				value: '4',
+				checked: false
+			},
+			{
+				node: 'primary-forest-check',
+				name: 'landcover-checkbox',
+				value: '5',
+				checked: false
+			},
+			{
+				node: 'secondary-forest-check',
+				name: 'landcover-checkbox',
+				value: '6',
+				checked: false
+			},
+			{
+				node: 'wetlands-check',
+				name: 'landcover-checkbox',
+				value: '7',
+				checked: false
+			},
+			{
+				node: 'inceptisol-check',
+				name: 'soil-type-checkbox',
+				value: '1',
+				checked: true
+			},
+			{
+				node: 'oxisol-check',
+				name: 'soil-type-checkbox',
+				value: '7',
+				checked: true
+			},
+			{
+				node: 'alfisol-check',
+				name: 'soil-type-checkbox',
+				value: '5',
+				checked: true
+			},
+			{
+				node: 'ultisol-check',
+				name: 'soil-type-checkbox',
+				value: '2',
+				checked: true
+			},
+			{
+				node: 'spodosol-check',
+				name: 'soil-type-checkbox',
+				value: '8',
+				checked: true
+			},
+			{
+				node: 'entisol-check',
+				name: 'soil-type-checkbox',
+				value: '3',
+				checked: true
+			},
+			{
+				node: 'histosol-check',
+				name: 'soil-type-checkbox',
+				value: '4',
+				checked: false
+			},
+			{
+				node: 'mollisol-check',
+				name: 'soil-type-checkbox',
+				value: '9',
+				checked: true
+			},
+			{
+				node: 'rock-check',
+				name: 'soil-type-checkbox',
+				value: '10',
+				checked: false
+			}
+		],
+
+		suitabilitySliderTooltips: {
+			"peat":{
+        0: "0 cm",
+        1: "200 cm",
+        2: "400 cm",
+        3: "600 cm",
+        4: "800 cm",
+        5: "1,000 cm",
+        6: "1,200 cm"
+      },
+      "rainfall":{
+        "label": "mm/yr"
+      },
+      "drainage":{
+        1: "very poor",
+        2: "poor, imperfect",
+        3: "well, moderately well",
+        4: "excessive, slightly excessive"
+      },
+      "depth":{
+        1: "none, very shallow (0-10 cm)",
+        2: "shallow (11-25 cm)",
+        3: "mod shallow (26-50 cm)",
+        4: "mod deep (51-75 cm)",
+        5: "deep (76-100 cm)",
+        6: "very deep (101-150 cm)",
+        7: "extremely deep (> 150 cm)"
+      },
+      "acidity":{
+        1: "excessively acid (< 4.0)",
+        2: "extremely acid (4.0 - 4.5)",
+        3: "very strongly acid (4.6 - 5.0)",
+        4: "strongly acid (5.1 - 5.5)",
+        5: "moderately acid (5.6 - 6.0)",
+        6: "slightly acid (6.1 - 6.5)",
+        7: "neutral (6.6 - 7.3)",
+        8: "slightly alkaline (7.4 - 7.8)"
+      },
+      "treeCover": {
+        0: "2001",
+        1: "2002",
+        2: "2003",
+        3: "2004",
+        4: "2005",
+        5: "2006",
+        6: "2007",
+        7: "2008",
+        8: "2009",
+        9: "2010",
+        10: "2011",
+        11: "2012"
+      }
 		}
 
 

@@ -123,9 +123,8 @@ define([
       });
 
       if (previous) {
-      	isNewSelection = (previous.props.key !== component.props.key);        
+      	isNewSelection = (previous.props.key !== component.props.key);
         if (isNewSelection) {
-          
           if (previous.props.type !== 'check') {
             previous.setState({
               active: false
