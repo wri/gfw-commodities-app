@@ -2213,12 +2213,36 @@ body,
 /* line 399 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Esri Legend */
 
+/* line 400 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* Overrides for Info Window */
+
+/* line 401 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .esriPopupWrapper .sizer {
+  width: 330px;
+}
+
+/* line 404 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .esriPopupWrapper .title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 245px;
+}
+
+/* line 410 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.gfw .esriPopupWrapper .zoomTo {
+  display: none;
+}
+
+/* line 412 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* Overrides for Info Window */
+
 
 /* line 86 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
 
 /* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 399 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
+/* line 409 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar

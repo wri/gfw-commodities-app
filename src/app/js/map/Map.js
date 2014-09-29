@@ -12,6 +12,7 @@ define([
 	"map/SuitabilityImageServiceLayer",
 	// Esri Modules
 	"esri/map",
+	"esri/InfoTemplate",
 	"esri/layers/GraphicsLayer",
 	"esri/layers/RasterFunction",
 	"esri/layers/ImageParameters",
@@ -25,7 +26,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -148,6 +149,7 @@ define([
 			fireParams.format = "png32";
 
 			firesLayer = new ArcGISDynamicLayer(MapConfig.fires.url, {
+				//infoTemplates: self._generateInfoTemplate(MapConfig.fires),
 				imageParameters: fireParams,
 				id: MapConfig.fires.id,
 				visible: false
@@ -253,12 +255,14 @@ define([
 			forestUseParams.format = "png32";
 
 			forestUseLayer = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
+				//infoTemplates: self._generateInfoTemplate(MapConfig.oilPerm, [10,26,28,32]),
 				imageParameters: forestUseParams,
 				id: MapConfig.oilPerm.id,
 				visible: false
 			});
 
 			protectAreasLayer = new ArcGISTiledMapServiceLayer(MapConfig.pal.url, {
+				//infoTemplates: self._generateInfoTemplate(MapConfig.pal, [25]),
 				id: MapConfig.pal.id,
 				visible: false
 			});
@@ -376,6 +380,37 @@ define([
 
 		addLayerError: function (err) {
 			console.error(err);
+		},
+
+		/*
+			@param {object} layerConfig - (REQUIRED) Layer config from Map Config with the template, default layers, etc.
+			@param {array} layerNums - (OPTIONAL) Optional array of layer ids to use the template with
+						 - If layerNums is not provided, it will use the defaultLayers property in layerConfig
+		*/
+		_generateInfoTemplate: function (layerConfig, layerNums) {
+
+			var template = layerConfig.infoTemplate,
+					infoTemplate = {},
+					i;
+
+			if (layerNums) {
+				for (i = 0, length = layerNums.length; i < length; i++) {
+					infoTemplate[layerNums[i]] = {
+						infoTemplate: new InfoTemplate(template.title, template.content),
+						layerUrl: template.url || null
+					};
+				}
+			} else {
+				for (i = 0, length = layerConfig.defaultLayers.length; i < length; i++) {
+					infoTemplate[layerConfig.defaultLayers[i]] = {
+						infoTemplate: new InfoTemplate(template.title, template.content),
+						layerUrl: null
+					};
+				}
+			}
+
+			return infoTemplate;
+
 		}
 
 	});

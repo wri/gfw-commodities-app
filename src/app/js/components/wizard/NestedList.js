@@ -122,7 +122,7 @@ define([
 
     _mapper: function (item) {
     	return new ListItem({
-    		'label': item.label,
+    		'label': item.label || "No Name",
     		'value': item.value,
     		'click': this.props.click,
     		'children': item.children,

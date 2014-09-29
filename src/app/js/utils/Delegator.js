@@ -2,13 +2,14 @@ define([
 	"dojo/topic",
 	"map/config",
 	"map/Controls",
+	"map/MapModel",
 	"analysis/Query",
 	"analysis/config",
 	"analysis/WizardHelper",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, MapModel, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {
@@ -35,6 +36,7 @@ define([
 
 			topic.subscribe('setCertificationSchemeDefinition', function (scheme) {
 				LayerController.setWizardDynamicLayerDefinition(MapConfig.certificationSchemeLayer, scheme);
+				MapModel.set('wizardsSchemeEntityValue', 'Oil palm concession');
 				// If filter is none, dont zoom to none, above will turn layer off when none is selected
 				if (scheme) {
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.certifiedArea.schemeQuery, scheme);
@@ -43,6 +45,7 @@ define([
 
 			topic.subscribe("setCommercialEntityDefinition", function (entityType) {
 				LayerController.setWizardDynamicLayerDefinition(MapConfig.commercialEntitiesLayer, entityType);
+				MapModel.set('wizardsSchemeEntityValue', entityType);
 				// If filter is none, dont zoom to none, above will turn layer off when none is selected
 				if (entityType) {
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);

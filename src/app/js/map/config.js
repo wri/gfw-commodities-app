@@ -61,16 +61,24 @@ define([], function () {
 			id: 'WizardDynamicLayer',
 			url: mapOverlaysUrl,
 			whereField: 'NAME_0',
-			layerId: 7
+			layerId: 7,
+			infoTemplate: {
+				content: "<table><tr><td>Name:</td><td>${NAME_1}</td></tr></table>"
+			}
 		},
 
 		certificationSchemeLayer: {
 			id: 'WizardDynamicLayer',
 			url: mapOverlaysUrl,
 			whereField: 'CERT_SCHEME',
-			layerId: 13
+			layerId: 13,
+			infoTemplate: {
+				content: "<table><tr><td>Group:</td><td>${GROUP_NAME}</td></tr>" +
+								 "<tr><td>Type:</td><td>${TYPE}</td></tr></table>"
+			}
 		},
 
+		// Info Template for this layer is immediately above this
 		commercialEntitiesLayer: {
 			id: 'WizardDynamicLayer',
 			url: mapOverlaysUrl,
@@ -114,7 +122,15 @@ define([], function () {
 			id: "ActiveFires",
 			url: activeFiresUrl,
 			defaultLayers: [0, 1, 2, 3],
-			toolsNode: "fires_toolbox"
+			toolsNode: "fires_toolbox",
+			infoTemplate: {
+				content: "<table><tr><td>Latitude: </td><td>${LATITUDE}</td></tr>" + 
+								 "<tr><td>Longitude: </td><td>${LONGITUDE}</td></tr>" + 
+								 "<tr><td>Brightness: </td><td>${BRIGHTNESS}</td></tr>" + 
+								 "<tr><td>Confidence: </td><td>${CONFIDENCE}</td></tr>" + 
+								 "<tr><td>Acquisition Date: </td><td>${ACQ_DATE}</td></tr>" + 
+								 "<tr><td>Acquisition Time: </td><td>${ACQ_TIME}</td></tr></table>"
+			}
 		},
 		tcd: {
 			id: "TreeCoverDensity",
@@ -165,7 +181,15 @@ define([], function () {
 		oilPerm: {
 			id: "ForestUse",
 			url: dynamicMapServiceUrl,
-			layerId: 32
+			layerId: 32,
+			infoTemplate: {
+				content: "<table><tr><td>Concession Type: </td><td>${TYPE}</td></tr>" + 
+								 "<tr><td>Country: </td><td>${Country}</td></tr>" + 
+								 "<tr><td>Group: </td><td>${GROUP_NAME:checkAvailable}</td></tr>" + 
+								 "<tr><td>Certification Status: </td><td>${CERT_STAT:checkAvailable}</td></tr>" + 
+								 "<tr><td>GIS Calculated Area (ha): </td><td>${AREA_HA:NumberFormat}</td></tr>" + 
+								 "<tr><td>Source: </td><td>${Source:checkAvailable}</td></tr></table>"
+			}
 		},
 		logPerm: {
 			id: "ForestUse",
@@ -185,7 +209,13 @@ define([], function () {
 		/***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
 		pal: {
 			id: "ProtectedAreas",
-			url: protectedAreasUrl
+			url: protectedAreasUrl,
+			infoTemplate: {
+				content: "<table><tr><td>Local Name:</td><td>${ORIG_NAME}</td></tr>" +
+								 "<tr><td>Local Designation:</td><td>${DESIG_ENG}</td></tr>" + 
+								 "<tr><td>WDPA ID:</td><td>${WDPAID}</td></tr>" + 
+								 "<tr><td>Source:</td><td>${Source:checkAvailable}</td></tr></table>"
+			}
 		},
 		/***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
 		opsd: { // Oil Palm Suitability Default
