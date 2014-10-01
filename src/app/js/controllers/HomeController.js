@@ -108,7 +108,6 @@ define([
             };
 
             currentModeOption(currentNodeId);
-            //console.log("HERE!");
             //console.log(currentModeOption(currentNodeId));
 
 

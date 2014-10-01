@@ -1,110 +1,209 @@
 
-<div data-bind="visible: (appState().v=='home')" class="footerModesContainer">
+<div class="footerModesContainer" data-bind=
+"visible: (appState().v=='home')">
+    <div class="footerWrapper">
+        <div class="footerModes" data-bind="foreach:footerModeOptions">
+            <div class="footerItem">
+                <div class="receiveAlerts" data-bind="attr:{class:css}">
+                    <div class="icon"></div>
 
-	<div class="footerWrapper">
-		<div data-bind="foreach:footerModeOptions" class="footerModes">
-			<div class="footerItem"><div data-bind="attr:{class:css}" class="receiveAlerts">
-			<div class="icon"></div>
-				<div data-bind="html:title" class="title">Join the community</div>
-				<div data-bind="html:desc" class="desc">Sign up for our newsletters and commodity reports</div><div data-bind="if: url"></div>
-				<div data-bind="if: url"><a data-bind="html:action,attr: {href: url, target: target}" class="action" href="http://www.globalforestwatch.org/stories/new" target="_blank">Join Today</a></div></div></div>
-			<div class="footerItem">
-			<div data-bind="attr:{class:css}" class="analysisAlerts">
-			<div class="icon"></div>
-			<div data-bind="html:title" class="title">Sign up for alerts</div>
-			<div data-bind="html:desc" class="desc">Receive alerts for clearance activity in your concession or district of choice</div>
-			<div data-bind="if: url"></div>
-			<div data-bind="ifnot: url"><a data-bind="html:action,click:$root.footerSelect" class="action">Sign up now</a></div></div></div>
-			<div class="footerItem">
-			<div data-bind="attr:{class:css}" class="submitStory">
-			<div class="icon"></div><div data-bind="html:title" class="title">View monthly reports</div>
-			<div data-bind="html:desc" class="desc">Read the archive of reports on activity specific to palm oil production</div>
-			<div data-bind="if: url"><a data-bind="html:action,attr: {href: url, target: target}" class="action" href="http://lucas/2278-wri-oil-palm/src/#v=publications" target="_blank">Start Analyzing</a></div><div data-bind="ifnot: url"></div></div></div>
-		</div>
-	</div>
+                    <div class="title" data-bind="html:title">
+                        Join the community
+                    </div>
 
+                    <div class="desc" data-bind="html:desc">
+                        Sign up for our newsletters and commodity reports
+                    </div>
+
+                    <div data-bind="if: url"></div>
+
+                    <div data-bind="if: url">
+                        <a class="action" data-bind=
+                        "html:action,attr: {href: url, target: target}"
+                        href="http://www.globalforestwatch.org/stories/new"
+                        target="_blank">Join Today</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footerItem">
+                <div class="analysisAlerts" data-bind="attr:{class:css}">
+                    <div class="icon"></div>
+
+                    <div class="title" data-bind="html:title">
+                        Sign up for alerts
+                    </div>
+
+                    <div class="desc" data-bind="html:desc">
+                        Receive alerts for clearance activity in your
+                        concession or district of choice
+                    </div>
+
+                    <div data-bind="if: url"></div>
+
+                    <div data-bind="ifnot: url">
+                        <a class="action" data-bind=
+                        "html:action,click:$root.footerSelect">Sign up
+                        now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footerItem">
+                <div class="submitStory" data-bind="attr:{class:css}">
+                    <div class="icon"></div>
+
+                    <div class="title" data-bind="html:title">
+                        View monthly reports
+                    </div>
+
+                    <div class="desc" data-bind="html:desc">
+                        Read the archive of reports on activity specific to
+                        palm oil production
+                    </div>
+
+                    <div data-bind="if: url">
+                        <a class="action" data-bind=
+                        "html:action,attr: {href: url, target: target}"
+                        href=
+                        "http://lucas/2278-wri-oil-palm/src/#v=publications"
+                        target="_blank">Start Analyzing</a>
+                    </div>
+
+                    <div data-bind="ifnot: url"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="footer" id="footer">
+    <div class="site-info inner" id="site-info">
+        <div class="left" id="left-footer">
+            <div id="footer-share">
+                <div>
+                    <p>Spread the word. Share GFW Commodities.</p>
+                </div>
 
-<div id="footer" class="footer">
+                <div class="share_buttons" id="shareContainer">
+                    <iframe class=
+                    "twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal"
+                    data-twttr-rendered="true" frameborder="0" id=
+                    "twitter-widget-0" name="twitter-widget-0" scrolling=
+                    "no" src=
+                    "http://platform.twitter.com/widgets/tweet_button.1410989646.html#_=1411074207208&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fcommodities.globalforestwatch.org%2F%23v%3DintroView&amp;size=m&amp;text=GFW%20Commodities&amp;url=http%3A%2F%2Fcommodities.globalforestwatch.org%2F%23v%3DintroView&amp;via=globalforests"
+                    style="width: 109px; height: 20px;" title=
+                    "Twitter Tweet Button"></iframe>
 
+                    <div id="___plusone_0" style=
+                    "text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px; background: transparent;">
+                    <iframe data-gapiattached="true" frameborder="0"
+                        id="I0_1411074207163" marginheight="0" marginwidth=
+                        "0" name="I0_1411074207163" scrolling="no" src=
+                        "https://apis.google.com/se/0/_/+1/fastbutton?usegapi=1&amp;url=http%3A%2F%2Fcommodities.globalforestwatch.org%2F%23v%3DintroView&amp;action=share&amp;annotation=bubble&amp;height=20&amp;width=90&amp;origin=http%3A%2F%2Fcommodities.globalforestwatch.org&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.JiJsACeWA_I.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Ft%3Dzcms%2Frs%3DAItRSTPfL--zjlhwf-sA6yXxtGHdPNOJtw#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&amp;id=I0_1411074207163&amp;parent=http%3A%2F%2Fcommodities.globalforestwatch.org&amp;pfname=&amp;rpctoken=10293735"
+                        style=
+                        "position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;"
+                        tabindex="0" title="+1" width="100%"></iframe>
+                    </div>
 
+                    <div class="fb-share-button fb_iframe_widget"
+                    data-height="25" data-href="www.globalforastwatch.com"
+                    data-type="button_count" data-width="90" style=
+                    "width:90px;height:25px;">
+                        <span style=
+                        "vertical-align: bottom; width: 85px; height: 20px;">
+                        <iframe class="" frameborder="0" height="25px" id=
+                        "f6eb3b52" name="f6eb3b52" scrolling="no" src=
+                        "http://www.facebook.com/plugins/share_button.php?app_id=&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FZEbdHPQfV3x.js%3Fversion%3D41%23cb%3Dfc650ee8%26domain%3Dcommodities.globalforestwatch.org%26origin%3Dhttp%253A%252F%252Fcommodities.globalforestwatch.org%252Ff2f2c75ae4%26relation%3Dparent.parent&amp;height=25&amp;href=http%3A%2F%2Fcommodities.globalforestwatch.org%2Fwww.globalforastwatch.com&amp;locale=en_US&amp;sdk=joey&amp;type=button_count&amp;width=90"
+                        style=
+                        "border: none; visibility: visible; width: 85px; height: 20px;"
+                        title="fb:share_button Facebook Social Plugin"
+                        width="90px"><span style=
+                        "vertical-align: bottom; width: 85px; height: 20px;">
+                        </span></iframe></span>
+                    </div>
+                </div>
 
+                <div class="footer-share keep-updated" id="signup">
+                    <p>Sign up to receive updates.<a href=
+                    "http://www.wri.org/global-forest-watch-stay-informed"
+                    title="Receive Global Forest Watch updates"><img class=
+                    "subscribe" src=
+                    "../build/images/envelope-gray.png"></a><a href=
+                    "https://twitter.com/globalforests" title=
+                    "Follow @globalforests"><img class="subscribe" src=
+                    "../build/images/twitter-gray.png"></a></p>
+                </div>
 
+                <div class="footer-share" id="service">
+                    <p><a href=
+                    "http://www.globalforestwatch.org/terms">Terms of
+                    Service</a> · <a href=
+                    "http://stats.pingdom.com/me0q72oj01nt" target=
+                    "_blank">Global Forest Watch System Status</a></p>
+                </div>
+            </div>
+        </div>
 
+        <div class="left" id="middle-footer">
+            <div class="partner-text" id="partnerText">
+                <span style="font-weight: bold">GFW Commodities is a
+                project of Global Forest Watch</span>
+            </div><a class="partner-icons" href=
+            "http://www.globalforestwatch.org/about/partners" id="gfwIcon"
+            target="_blank"><img src=
+            "../build/images/monochromatic_gfw.jpg"></a>
+        </div>
 
+        <div class="left" id="right-footer">
+            <div class="footer-share keep-updated" id="footer-address">
+                <div class="partnership">
+                    <p>A partnership convened by</p>
+                </div>
 
+                <div class="wri-logo-container">
+                    <a class="footer-logo wri" href="http://www.wri.org"
+                    target="_blank"><img src="../build/images/wri.png"></a>
+                </div>
 
-	<div id="site-info" class="site-info inner">
-		<div id="left-footer" class="left">
-	
-				
-					<div id="footer-share"><div><p>Spread the word. Share GFW Commodities.</p></div>
-					<div id="shareContainer" class="share_buttons"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1410989646.html#_=1411074207208&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fcommodities.globalforestwatch.org%2F%23v%3DintroView&amp;size=m&amp;text=GFW%20Commodities&amp;url=http%3A%2F%2Fcommodities.globalforestwatch.org%2F%23v%3DintroView&amp;via=globalforests" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 109px; height: 20px;"></iframe>
-					<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" width="100%" id="I0_1411074207163" name="I0_1411074207163" src="https://apis.google.com/se/0/_/+1/fastbutton?usegapi=1&amp;url=http%3A%2F%2Fcommodities.globalforestwatch.org%2F%23v%3DintroView&amp;action=share&amp;annotation=bubble&amp;height=20&amp;width=90&amp;origin=http%3A%2F%2Fcommodities.globalforestwatch.org&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.JiJsACeWA_I.O%2Fm%3D__features__%2Fam%3DAQ%2Frt%3Dj%2Fd%3D1%2Ft%3Dzcms%2Frs%3DAItRSTPfL--zjlhwf-sA6yXxtGHdPNOJtw#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&amp;id=I0_1411074207163&amp;parent=http%3A%2F%2Fcommodities.globalforestwatch.org&amp;pfname=&amp;rpctoken=10293735" data-gapiattached="true" title="+1"></iframe></div>
+                <div id="address">
+                    <address>
+                        10 G Street NE Suite 800, Washington, DC 20002,
+                        USA<br>
+                        Phone +1 (202) 729-7600<br>
+                        Fax +1 (202) 729-7610<br>
+                        Email <a href=
+                        "mailto:GFWbusiness@wri.org">GFWbusiness@wri.org</a>
+                    </address>
+                </div><br>
+            </div>
+        </div>
+    </div>
+</div><!--
 
-
-
-					<div class="fb-share-button fb_iframe_widget" style="width:90px;height:25px;" data-href="www.globalforastwatch.com" data-width="90" data-height="25" data-type="button_count" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;height=25&amp;href=http%3A%2F%2Fcommodities.globalforestwatch.org%2Fwww.globalforastwatch.com&amp;locale=en_US&amp;sdk=joey&amp;type=button_count&amp;width=90">
-						<span style="vertical-align: bottom; width: 85px; height: 20px;">
-							<iframe name="f6eb3b52" width="90px" height="25px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:share_button Facebook Social Plugin" src="http://www.facebook.com/plugins/share_button.php?app_id=&amp;channel=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter%2FZEbdHPQfV3x.js%3Fversion%3D41%23cb%3Dfc650ee8%26domain%3Dcommodities.globalforestwatch.org%26origin%3Dhttp%253A%252F%252Fcommodities.globalforestwatch.org%252Ff2f2c75ae4%26relation%3Dparent.parent&amp;height=25&amp;href=http%3A%2F%2Fcommodities.globalforestwatch.org%2Fwww.globalforastwatch.com&amp;locale=en_US&amp;sdk=joey&amp;type=button_count&amp;width=90" style="border: none; visibility: visible; width: 85px; height: 20px;" class="">
-							
-							</iframe>
-						</span>
-					</div></div>
-					<div id="signup" class="footer-share keep-updated"><p>Sign up to receive updates.<a href="http://www.wri.org/global-forest-watch-stay-informed" title="Receive Global Forest Watch updates"><img src="../build/images/envelope-gray.png" class="subscribe"></a><a href="https://twitter.com/globalforests" title="Follow @globalforests"><img src="../build/images/twitter-gray.png" class="subscribe">
-					</a></p></div>
-					<div id="service" class="footer-share">
-					<p><a href="http://www.globalforestwatch.org/terms">Terms of Service</a> · <a href="http://stats.pingdom.com/me0q72oj01nt" target="_blank">Global Forest Watch System Status
-					</a></p>
-					</div></div>
-					</div>
-					
-					<div id="middle-footer" class="left">
-						<div id="partnerText" class="partner-text">
-							<span><b>GFW Commodities is a project of Global Forest Watch</b></span>
-						</div><a id="gfwIcon" class="partner-icons" href="http://www.globalforestwatch.org/about/partners" target="_blank">
-							<img src="../build/images/monochromatic_gfw.jpg">
-						</a>
-					</div>
-					<div id="right-footer" class="left">
-						<div id="footer-address" class="footer-share keep-updated">
-						<div class="partnership"><p>A partnership convened by</p></div>
-						<div class="wri-logo-container"><a href="http://www.wri.org" class="footer-logo wri" target="_blank"><img src="../build/images/wri.png"></a>
-						</div>
-						<div id="address"><address>10 G Street NE Suite 800, Washington, DC 20002, USA<br>Phone +1 (202) 729-7600<br>Fax +1 (202) 729-7610<br>Email <a href="mailto:GFWbusiness@wri.org">GFWbusiness@wri.org</a></address>
-						</div><br>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<!--
-
-	shareHeaderText: "<p>Spread the word. <b>Share GFW Commodities.</b></p>",
-    signUpShare: "<p>Sign up to receive updates." +
-        "<a href='http://www.wri.org/global-forest-watch-stay-informed' title='Receive Global Forest Watch updates'>" +
-        "<img src='app/stylesheets/images/envelope-gray.png' class='subscribe'></a>" +
-        "<a href='https://twitter.com/globalforests' title='Follow @globalforests'>" +
-        "<img src='app/stylesheets/images/twitter-gray.png' class='subscribe'>" +
-        "</a>" +
-        "</p>",
-    address: "<div class='partnership'>" +
-        "<p>A partnership convened by</p>" +
-        "</div>" +
-        "<div class='wri-logo-container'>" +
-        "<a href='http://www.wri.org' class='footer-logo wri' target='_blank'></a>" +
-        "</div>" +
-        "<div id='address'>" +
-        "<address>" +
-        "10 G Street NE Suite 800, Washington, DC 20002, USA<br>" +
-        "Phone +1 (202) 729-7600<br>" +
-        "Fax +1 (202) 729-7610<br>" +
-        "Email <a href='mailto:gfw@wri.org'>gfw@wri.org</a>" +
-        "</address>" +
-        "</div><br>",
-    service: "<p><a href='http://www.globalforestwatch.org/terms'>Terms of Service</a> · <a href='http://stats.pingdom.com/me0q72oj01nt' target='_blank'>Global Forest Watch System Status</a></p>"
+shareHeaderText: "<p>Spread the word. <b>Share GFW Commodities.</b></p>",
+signUpShare: "<p>Sign up to receive updates." +
+    "<a href='http://www.wri.org/global-forest-watch-stay-informed' title='Receive Global Forest Watch updates'>" +
+    "<img src='app/stylesheets/images/envelope-gray.png' class='subscribe'></a>" +
+    "<a href='https://twitter.com/globalforests' title='Follow @globalforests'>" +
+    "<img src='app/stylesheets/images/twitter-gray.png' class='subscribe'>" +
+    "</a>" +
+    "</p>",
+address: "<div class='partnership'>" +
+    "<p>A partnership convened by</p>" +
+    "</div>" +
+    "<div class='wri-logo-container'>" +
+    "<a href='http://www.wri.org' class='footer-logo wri' target='_blank'></a>" +
+    "</div>" +
+    "<div id='address'>" +
+    "<address>" +
+    "10 G Street NE Suite 800, Washington, DC 20002, USA<br>" +
+    "Phone +1 (202) 729-7600<br>" +
+    "Fax +1 (202) 729-7610<br>" +
+    "Email <a href='mailto:gfw@wri.org'>gfw@wri.org</a>" +
+    "</address>" +
+    "</div><br>",
+service: "<p><a href='http://www.globalforestwatch.org/terms'>Terms of Service</a> · <a href='http://stats.pingdom.com/me0q72oj01nt' target='_blank'>Global Forest Watch System Status</a></p>"
 
 </div>
 -->

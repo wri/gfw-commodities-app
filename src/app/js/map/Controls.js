@@ -353,25 +353,11 @@ define([
 		},
 
 		newTimeSlider: function() {
-			console.log($('#treecover_change_toolbox').css('display'));
-			if ($('#treecover_change_toolbox').css('display') != 'none') {
-			    //$('.y').removeClass('a');
-			    console.log("TOOLBOX HAS OPENED");
-			}
 
-
-			//document.getElementById('irs-slider to').style.cssText = 'left: 100px';
 			$(".extra-controls #newSlider").click(function() {
 				play();
-				this.innerHTML = "&#x25A0";
-				//console.log($(".extra-controls #newSlider"));
 			});
-			//var newPlay = button[0].childNodes[5].onclick;
-			var newPlay = $(".extra-controls #newSlider");
-			//newPlay.on
-			//console.log(newPlay);
-			//newPlay.play;
-			//newPlay();
+
 	        var $range = $(".js-range-slider"),
 		    $from = $(".js-from"),
 		    $to = $(".js-to"),
@@ -381,22 +367,11 @@ define([
 		    to = 2012;
 		    $(".layer-list-item.forest-change > ul > li").click(function() {
 		   		console.log("***********");
-		   		var $this  =  $(this); 
+		   		var $this = $(this); 
 		   		ionCallback.call(this);
 			});
-		    
-		    /*$('#newSlider').on({
-			    'click': function(){
-			    	console.log("HERE's A NEW IMAGE??");
-			    	console.log($('#newSlider'));
-			        //$('#newSlider').attr('src','../build/app/css/images/Pause.png');
-			    }
-			});*/
 
-				
 			var ionCallback = function () { 
-				//console.log("CALL BACK CALLED");
-				//$range.ionRangeSlider("update", {
 				$range.ionRangeSlider({
 				    type: "double",
 				    min: min,
@@ -404,23 +379,33 @@ define([
 				    from: from,
 				    to: to,
 				    step: 1,
-				    hasGrid: true,
+				    playing: false,
+				    prettify: false,
+				    //values: ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"],
+				    //hasGrid: true,
 				    onChange: function (data) {
 				        from = data.fromNumber;
 				        to = data.toNumber;
 				        console.log(from + ", " + to);
 				        updateValues();
-				        //$range.ionRangeSlider("update");
+				        $("#range").ionRangeSlider("update");
+				        console.log("Inside update!");
+				        console.log($range.playing);
+				        if ($range.playing != true) {
+					        var values3 = [from - 2000, to - 2000];
+							console.log(values3);
+							LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
+						}
 				    },
-				    onPlay: function (obj) {
-				        //console.log(obj);
-				    }
 				});
-			    //$(".js-range-slider").show("fast", function() {
-				    $("#range").ionRangeSlider("update");
-				//});
+				$("#range").ionRangeSlider("update");
 			};
-			console.log($range);
+
+			/*var years = ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"];
+			var el = $.map(years, function(val, i) {
+		      return "		" + val + "			";
+		    });
+		    $(".extra-controls").html(el.join(""));*/
 
 			$from.on("change", function () {
 			    from = $(this).prop("value");
@@ -442,7 +427,6 @@ define([
 			    if (to < from) {
 			        to = from;
 			    }
-			    console.log("2nd thumb changed!");
 			    updateValues();    
 			    updateRange();
 			});
@@ -452,72 +436,104 @@ define([
 			        from: from,
 			        to: to
 			    });
-			    //console.log("RANGE UPDATED");
 			};
 
 			var updateValues = function () {
 			    $from.prop("value", from);
 			    $to.prop("value", to);
 			};
-			var i = max - min;
-			var j = 0;
 
-			function play() { 
+
+			function play() {
+				
+				console.log($range.playing);
+				if ($range.playing == true) {
+					console.log("Here we must stop");
+					$range.playing = false;
+					$("#newSlider").html("&#9658");
+					return;
+				}
 				var initialDates = $range[0].value.split(';');
 			    var thumbOne = initialDates[0];
 			    var thumbTwo = initialDates[1];
+			    var thumbOneInitial = thumbOne;
+			    // Add css via JQuery here to show where slider started from
+			    // Maybe get the css position of thumbOne.
+			    // Then remove the css line's style on Pause or End  -->  $("").removeClass("");
+			    $(".extra-controls").addClass("sliderStart");
+			    $(".extra-controls").css("left",$(".irs-diapason").css( "left"));
+			    $(".extra-controls").css("left", "+=65");
+			    $("sliderStart").append("<p>2002</p>");
+			    // Now we'll add the irs-dapson's initial left value to it!
+
+
+			    console.log($( ".irs-diapason" ).css( "left"));
+			    console.log($( ".irs-slider.from" ).css( "left"));
+			    
+			    /*$.each(document.styleSheets, function(sheetIndex, sheet) {
+				    console.log("Looking at styleSheet[" + sheetIndex + "]:");
+				    $.each(sheet.cssRules || sheet.rules, function(ruleIndex, rule) {
+				        console.log("rule[" + ruleIndex + "]: " + rule.cssText);
+				    });
+				});*/
+
+			    //var leftValue = $("irs-slider.from").css("left");
+			    //console.log(leftValue);
+			    //console.log($( .irs-slider.from ).css( "left" ));
+
+
+			    console.log("Init: " + thumbOneInitial);
 			    if (thumbOne == thumbTwo) {
-			    	$('#newSlider').attr('src','&#9658');
 					console.log("WE RETURNED IMMEDIETELY!");
+					$range.playing = false;
 					return;
 				}
 
-				//$(".extra-controls #newSlider").html("PAUSE"); //THIS ISN't CHANGING THE BUTTON ON RESTART!
+				$range.playing = true;
+				$("#newSlider").html("&#x25A0");
 
-				$(".extra-controls #newSlider").click(function() {
-					//this.innerHTML = "PLAY";
-					//console.log("PAUSING!");
-					return;
-				});
-
-			    var values = [0,thumbOne-2000];
+			    //var values = [0,thumbOne-2000];
+			    var values = [thumbOneInitial-2000,thumbOne-2000];
 			    console.log("Values to be used: " + values[0] +" "+ values[1]);
 
-				setTimeout(function() { timeout(from,thumbOne,thumbTwo,values); }, 1500);
-					function timeout(from,thumbOne,thumbTwo,values) {
-						LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-			  			$range.ionRangeSlider("update", {
-						    from: from + 1
-						});
-						var newDates = $range[0].value.split(';');
-						var newThumbTwo = newDates[1];
-						console.log("New THumb 2: " + newThumbTwo);
-						thumbOne++;
-						values = [0,thumbOne-2000];
-						console.log("1: " + thumbOne);
-						console.log(thumbTwo);
-						$(".extra-controls #newSlider").click(function() {
-							if ($("#newSlider").html() == "&#9658") {
-								$("#newSlider").html("&#x25A0");
-								console.log("PAUSING!");
-								return;
-							} else if ($("#newSlider").html() == "&#x25A0") {
-								$("#newSlider").html("&#9658");
-							}
-						});
-						
-						if (thumbOne == thumbTwo || thumbOne == newThumbTwo) {
-							console.log(newSlider);
-							$("#newSlider").html("&#9658");
-						    console.log(newSlider);
+			    var playing = $range.playing;
+				var outer = setTimeout(function() {
+					timeout(from,thumbOne,thumbTwo,values,thumbOneInitial); 
+				}, 750);
 
-							//$('#newSlider').attr('src','&#9658');
-							console.log("WE RETRUNED!");
-							return;
-						}
-						from++;
-			  			setTimeout(function() { timeout(from,thumbOne,thumbTwo,values); }, 1500);
+				function timeout(from,thumbOne,thumbTwo,values,thumbOneInitial) {
+					if ($range.playing == false) {
+						return;
 					}
+					console.log("I'm using these..");
+					console.log(values);
+					LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
+		  			$range.ionRangeSlider("update", {
+					    from: from + 1
+					});
+					var newDates = $range[0].value.split(';');
+					var newThumbTwo = newDates[1];
+					
+					thumbOne++;
+					//values = [0,thumbOne-2000];
+					console.log("Start: " + thumbOneInitial);
+					console.log("End: " + thumbOne);
+					values = [thumbOneInitial-2000,thumbOne-2000];
+
+					if (newThumbTwo > thumbTwo) {
+						thumbTwo = newThumbTwo;
+					}
+					if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
+						$("#newSlider").html("&#9658");
+						$range.playing = false;
+						console.log("Finito!");
+						return;
+					}
+					from++;
+					if ($range.playing == true) {
+		  				setTimeout(function() { timeout(from,thumbOne,thumbTwo,values,thumbOneInitial); }, 750);
+		  			}
+				}
 			}
 		},
 

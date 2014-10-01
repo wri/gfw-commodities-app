@@ -97,7 +97,7 @@
     .irs-grid-pol {
         position: absolute;
         top: 0; left: 0;
-        width: 0px; height: 8px;
+        width: 1px; height: 8px;
         background: #000;
     }
     .irs-grid-pol.small {
@@ -106,13 +106,13 @@
     .irs-grid-text {
         position: absolute;
         bottom: 27px; left: 0;
-        width: 100px;
+        width: 40px;
         white-space: nowrap;
         text-align: center;
-        font-size: 12px; line-height: 9px;
+        font-size: 10px; line-height: 10px;
         color: #000;
         z-index: 10;
-        background-color: green;
+        
     }
 
 .irs-disable-mask {
