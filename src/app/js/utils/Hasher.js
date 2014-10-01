@@ -47,17 +47,27 @@ define([
 			hash(ioQuery.objectToQuery(state));
 		},
 
-        setHashFromState: function (state) {
-            hash(ioQuery.objectToQuery(state));
-        },
+    setHashFromState: function (state) {
+    	// We dont wont to overwrite the lyrs part of the hash,
+    	// We need to hold on to that and make sure it is mixed in
+    	// Discuss with Jason, May need to find another way to implement 
+    	// this so it does not mess up his features
 
-        removeKey: function (key) {
-            var state = ioQuery.queryToObject(hash());
-            if (state[key]){
-                delete state[key];
-            }
-            hash(ioQuery.objectToQuery(state));
-        },
+    	var currentHash = this.getHash();
+    	if (currentHash.lyrs) {
+    		state.lyrs = currentHash.lyrs;
+    	}
+
+      hash(ioQuery.objectToQuery(state));
+    },
+
+    removeKey: function (key) {
+      var state = ioQuery.queryToObject(hash());
+      if (state[key]){
+          delete state[key];
+      }
+      hash(ioQuery.objectToQuery(state));
+    },
 
 		toggleLayers: function (layerId) {
 			var state = ioQuery.queryToObject(hash()),
