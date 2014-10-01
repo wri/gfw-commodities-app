@@ -220,6 +220,12 @@ define([], function () {
 								 "<tr><td>Source:</td><td>${Source:checkAvailable}</td></tr></table>"
 			}
 		},
+
+		palHelper: {
+			id: "ProtectedAreasHelper",
+			url: dynamicMapServiceUrl,
+			layerId: 25
+		},
 		/***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
 		opsd: { // Oil Palm Suitability Default
 			id: "AgriculturalSuitability",

@@ -303,13 +303,13 @@ define([
     identifyWizardDynamicLayer: function (mapPoint) {
       var deferred = new Deferred(),
           identifyTask = new IdentifyTask(MapConfig.adminUnitsLayer.url),
+          layer = app.map.getLayer(MapConfig.adminUnitsLayer.id),
           params = new IdentifyParameters(),
-          type = MapModel.get('wizardsSchemeEntityValue'),
           layerDefs = [];
 
       // Layer Defs All Possible Layers
       layerDefs[7] = "1 = 1";
-      layerDefs[13] = "TYPE = '" + type + "'";
+      layerDefs[13] = layer.layerDefinitions[13];
 
       params.tolerance = 3;
       params.returnGeometry = true;
@@ -317,7 +317,7 @@ define([
       params.height = app.map.height;
       params.geometry = mapPoint;
       params.mapExtent = app.map.extent;
-      params.layerIds = app.map.getLayer(MapConfig.adminUnitsLayer.id).visibleLayers;
+      params.layerIds = layer.visibleLayers;
       params.layerDefinitions = layerDefs;
       params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
       

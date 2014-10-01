@@ -29,7 +29,6 @@ function (declare, AppConfig, MapConfig, ko) {
       // Admin Unit
       Model.vm.allCountries = ko.observableArray([]);
       Model.vm.lowerLevelAdminUnits = ko.observableArray([]);
-      Model.vm.wizardsSchemeEntityValue = ko.observable("NONE");
       Model.vm.drawToolsEnabled = ko.observable(false);
 
       // Apply Bindings upon initialization

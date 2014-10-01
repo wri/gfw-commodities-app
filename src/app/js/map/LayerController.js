@@ -20,6 +20,14 @@ define([
 		// Called From Delegator or internally, layerConfig is in the Map Config
 		// This function should only show or hide layers
 		toggleLayers: function (layerConfig) {
+
+			// The WDPA or pal layer has a helper layer it needs to manage
+			// offload that functionality to a different function
+			if (layerConfig.id === MapConfig.pal.id) {
+				this.toggleWDPALayer(layerConfig);
+				return;
+			}
+
 			var layer = app.map.getLayer(layerConfig.id);
 			if (layer) {
 				layer.setVisibility(!layer.visible);
@@ -286,6 +294,54 @@ define([
 
 		},
 
+		checkProtectedAreasLayer: function (evt) {			
+			var helperConfig = MapConfig.palHelper,
+					tiledConfig = MapConfig.pal,
+					helperLayer,
+					mainLayer;
+
+			helperLayer = app.map.getLayer(helperConfig.id);
+			mainLayer = app.map.getLayer(tiledConfig.id);
+
+			if (!mainLayer.visible && !helperLayer.visible) {
+				return;
+			}
+
+			if (app.map.getLevel() > 6) {
+				helperLayer.show();
+				mainLayer.hide();
+			} else {
+				helperLayer.hide();
+				mainLayer.show();
+			}
+
+
+		},
+
+		toggleWDPALayer: function (layerConfig) {
+			var helperConfig = MapConfig.palHelper,
+					tiledConfig = layerConfig,
+					helperLayer,
+					mainLayer;
+
+			helperLayer = app.map.getLayer(helperConfig.id);
+			mainLayer = app.map.getLayer(tiledConfig.id);
+
+			if (mainLayer.visible || helperLayer.visible) {
+				helperLayer.hide();
+				mainLayer.hide();
+			} else {
+				if (app.map.getLevel() > 6) {
+					helperLayer.show();
+				} else {
+					mainLayer.show();
+				}
+			}
+
+			this.refreshLegendWidget();
+
+		},
+
 		refreshLegendWidget: function () {
 			var legendLayer = app.map.getLayer(MapConfig.legendLayer.id),
 					densityConf = MapConfig.tcd,
@@ -316,7 +372,6 @@ define([
 			} else {
 				legendLayer.hide();
 			}
-
 			registry.byId("legend").refresh();
 		},
 
