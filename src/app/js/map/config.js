@@ -66,7 +66,7 @@ define([], function () {
 			whereField: 'NAME_0',
 			layerId: 7,
 			infoTemplate: {
-				content: "<table><tr><td>Name:</td><td>${NAME_1}</td></tr></table>"
+				content: "<table><tr><td>Name:</td><td>${NAME_2}</td></tr></table>"
 			}
 		},
 

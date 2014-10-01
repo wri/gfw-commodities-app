@@ -6,12 +6,13 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-style",
 	"dojo/dom-geometry",
+	"dojo/_base/array",
 	// My Modules
 	"map/config",
 	"analysis/Query",
 	"analysis/config",
 	"components/wizard/Wizard"
-], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, MapConfig, AnalyzerQuery, AnalyzerConfig, Wizard) {
+], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, AnalyzerQuery, AnalyzerConfig, Wizard) {
 	'use strict';
 
 	var wizard;
@@ -170,8 +171,20 @@ define([
 			}
 
 			if (type === "CustomGraphic") {
-				console.log(type, id, label);
-
+				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
+				arrayUtils.some(layer.graphics, function (graphic) {
+					if (graphic.attributes.WRI_ID === parseInt(id)) {
+						if (!self.isOpen()) {
+							self.toggleWizard().then(function () {
+								setWizardProps(graphic);
+							});
+						} else {
+							setWizardProps(graphic);
+						}
+						return true;
+					}
+					return false;
+				});
 			} else {
 				AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
 					feature.attributes.WRI_label = label;

@@ -110,6 +110,11 @@ define([
         return;
       }
 
+      // If drawing tools enabled, dont continue
+      if (MapModel.get('drawToolsEnabled')) {
+        return;
+      }
+
       /*
         featureObject has the following structure properties
         layer - the layer the feature belongs to, current possible values are:
@@ -347,7 +352,7 @@ define([
           template = new InfoTemplate(item.value, 
             MapConfig.adminUnitsLayer.infoTemplate.content +
             "<div><button id='popup-analyze-area' data-label='" + 
-            "${NAME_1}' data-type='AdminBoundary' data-id='${OBJECTID}'>" +
+            "${NAME_2}' data-type='AdminBoundary' data-id='${OBJECTID}'>" +
             "Analyze this area</button></div>"
           );
         } else {
@@ -367,7 +372,7 @@ define([
     getCustomGraphics: function (evt) {
       var deferred = new Deferred();
 
-      if (evt.graphic) {
+      if (evt.graphic && evt.graphic._layer.id === MapConfig.customGraphicsLayer.id) {
         deferred.resolve({
           layer: 'CustomGraphics',
           feature: evt.graphic

@@ -153,6 +153,9 @@ define([
 
       domClass.add(evt.target, "active");
 
+      // Update the Model so other parts of the application can be aware of this
+      MapModel.set('drawToolsEnabled', true);
+
     },
 
     _showUploadTools: function (evt) {
@@ -378,6 +381,7 @@ define([
     _deactivateToolbar: function () {
       drawToolbar.deactivate();
       activeTool = undefined;
+      MapModel.set('drawToolsEnabled', false);
     },
 
     _disableUploadTools: function () {
