@@ -79,8 +79,8 @@ define([
 
 
         o.startModeAnim = function(data) {
-        	//console.log("Data:");
-            //console.log(data);
+        	console.log("Data:");
+            console.log(data);
             stopAnimation = false;
 
             var currentNodeId = 0; //start with last one
@@ -108,6 +108,7 @@ define([
             };
 
             currentModeOption(currentNodeId);
+            //console.log(currentNodeId);
             //console.log(currentModeOption(currentNodeId));
 
 
@@ -121,9 +122,9 @@ define([
 	            //console.log(itemsToAnimate);
 	            var maxItems = itemsToAnimate.length;
 	            //var maxItems = 5;
-	            setTimeout(function() {
-	            	//console.log(itemsToAnimate[id]);
-	            }, 500);
+	            // setTimeout(function() {
+	            // 	console.log(itemsToAnimate[id]);
+	            // }, 500);
 	            
 
 	            var anim = coreFx.chain([
@@ -149,11 +150,12 @@ define([
 	                            nextNodeId = 0;
 	                            currentNodeId = 0;
 	                        }
-	                        //currentNodeId++;
+	                        currentNodeId++;
 	                        //console.log(currentNodeId);
 	                        //console.log(nextNodeId);
 	                        setTimeout(function() {
 	                            currentModeOption(nextNodeId);
+	                            //console.log(nextNodeId);
 	                            if (!stopAnimation) {
 	                                setTimeout(function() {
 	                                    runAnimation(nextNodeId);
@@ -164,8 +166,8 @@ define([
 	                        }, 500); //Time between animations when the circle just sits there
 	                    },
 	                    units: "px",
-	                    duration: 500,
-	                    delay: 2000//Time it takes the circle to slide left and dissipate
+	                    duration: 1000, //Time it takes the circle to slide left and dissipate
+	                    delay: 2000 // Time we wait to animate on Load
 	                })
 	                /*baseFx.animateProperty({
 	                    node: itemsToAnimate[id + 1],
