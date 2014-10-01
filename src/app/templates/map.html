@@ -1,3 +1,4 @@
+
 <div id='map-container' class="map-container">
   <!-- Begin Map Object -->
 	<div id='map' class='map'>
@@ -114,15 +115,32 @@
     <!-- End Locator Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
+
+
+
+
       <div id="treecover_change_toolbox" class="toolbox treecover_change_toolbox" style="display: none">
-        <div class="toolbox_legend">
+      <!-- Begin Custom Slider Container -->
+        <div class="range-slider">
+            <input type="text" class="js-range-slider" value="" />
+        </div>
+        <div class="extra-controls">
+            <!--<input type="text" maxlength="4" value="2000" class="inp js-from" />
+            <input type="text" maxlength="4" value="2012" class="inp js-to" />-->
+            <button id="newSlider">&#9658;</button>
+        </div>
+      <!-- End Custom Slider Container -->
+
+        <!--<div class="toolbox_legend">
           <p>Tree cover change</p>
         </div>
         <div class="toolbox-inner">
           <div class="slider-container">
-            <div id="treeCoverSlider"></div>
+            <div id="treeCoverSlider">
+              sli
+            </div>
           </div>
-        </div>
+        </div>-->
       </div>
       <div id="forma_toolbox" class="toolbox forma_toolbox" style="display: none">
         <div class="toolbox_legend">
@@ -305,3 +323,5 @@
   <div id="wizard" class="wizard"></div>
 </div>
 <!-- End Analysis Wizard -->
+
+
