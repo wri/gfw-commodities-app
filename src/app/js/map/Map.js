@@ -373,9 +373,6 @@ define([
 			mapOverlaysLayer.on('error', this.addLayerError);
 			customGraphicsLayer.on('error', this.addLayerError);
 
-			// Add Layer Specific Events Here
-			customGraphicsLayer.on('click', WizardHelper.customFeatureClicked);
-
 		},
 
 		addLayerError: function (err) {

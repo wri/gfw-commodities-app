@@ -164,21 +164,30 @@ define([
 				url = MapConfig.commercialEntitiesLayer.url;
 				layer = MapConfig.commercialEntitiesLayer.layerId;
 				break;
+				case "CustomGraphic":
+				selectedArea = AnalyzerConfig.stepOne.option1.id;
+				break;
 			}
 
-			AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
-				feature.attributes.WRI_label = label;
-				if (!self.isOpen()) {
-					self.toggleWizard().then(function () {
+			if (type === "CustomGraphic") {
+				console.log(type, id, label);
+
+			} else {
+				AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
+					feature.attributes.WRI_label = label;
+					if (!self.isOpen()) {
+						self.toggleWizard().then(function () {
+							setWizardProps(feature);
+						});
+					} else {
 						setWizardProps(feature);
-					});
-				} else {
-					setWizardProps(feature);
-				}
-			});
+					}
+				});
+			}
 
 			function setWizardProps(feature) {
 				// Make the root selection the appropriate one,
+				// for Custom Graphics, it is option 1
 				// for Admin Units, it is option 2 
 				// for Concessions, it is option 3
 				// for Certified Areas, it is option 4

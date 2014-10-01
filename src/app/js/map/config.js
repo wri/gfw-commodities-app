@@ -47,7 +47,10 @@ define([], function () {
 		// The Following Layers are used by the Wizard
 
 		customGraphicsLayer: {
-			id: "CustomFeatures"
+			id: "CustomFeatures",
+			infoTemplate: {
+				content: "<table><tr><td>Unique ID:</td><td>${WRI_ID:checkAvailable}</td></tr></table>"
+			}
 		},
 
 		wizardGraphicsLayer: {

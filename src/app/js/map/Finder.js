@@ -103,7 +103,7 @@ define([
       }
 
       if (app.map.getLayer(MapConfig.customGraphicsLayer.id).visible) {
-        // Custom Popup For Graphic
+        deferreds.push(self.getCustomGraphics(evt));
       }
 
       if (deferreds.length === 0) {
@@ -131,6 +131,11 @@ define([
             break;
             case "WizardDynamic":
               features = features.concat(self.setWizardTemplates(item.features));
+            break;
+            case "CustomGraphics":
+              // This will only contain a single feature and return a single feature
+              // instead of an array of features
+              features.push(self.setCustomGraphicTemplates(item.feature));
             break;
             default: // Do Nothing
             break;
@@ -357,6 +362,39 @@ define([
         features.push(item.feature);
       });
       return features;
+    },
+
+    getCustomGraphics: function (evt) {
+      var deferred = new Deferred();
+
+      if (evt.graphic) {
+        deferred.resolve({
+          layer: 'CustomGraphics',
+          feature: evt.graphic
+        });
+      } else {
+        deferred.resolve(false);
+      }
+      
+      return deferred.promise;
+    },
+
+    /*
+      @param {object} feature - take a arcgis graphic object
+      @return {object} feature - returns a feature with an infoTemplate applied
+    */
+    setCustomGraphicTemplates: function (feature) {
+      var label = feature.attributes.WRI_label,
+          infoTemplate;
+
+      infoTemplate = new InfoTemplate(label,
+        MapConfig.customGraphicsLayer.infoTemplate.content +
+        "<div><button id='popup-analyze-area' data-label='" + 
+            label + "' data-type='CustomGraphic' data-id='${WRI_ID}'>" +
+            "Analyze this area</button></div>"
+      );
+      feature.setInfoTemplate(infoTemplate);
+      return feature;
     },
 
     // The formatter functions must be in the global scope so attach them to window
