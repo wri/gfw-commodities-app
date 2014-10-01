@@ -77,6 +77,14 @@ define([
 				
 			});
 
+			// Set up Click Listener to Perform Identify
+			app.map.on('click', Finder.performIdentify.bind(Finder));
+
+			// Have the Finder create any formatter functions necessary for info window content
+			// and then have it setup info window specific listeners for specific info windows with buttons
+			Finder.createFormattingFunctions();
+			Finder.setupInfowindowListeners();
+
 			// Fade in the map controls, first, get a list of the ids		
 			dojoQuery(".gfw .map-layer-controls li").forEach(function (item) {
 				ids.push(item.id);
