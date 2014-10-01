@@ -147,8 +147,10 @@ define([
           }
         });
 
-        app.map.infoWindow.setFeatures(features);
-        app.map.infoWindow.show(mapPoint);
+        if (features.length > 0) {
+          app.map.infoWindow.setFeatures(features);
+          app.map.infoWindow.show(mapPoint);
+        }
 
       });
 
