@@ -460,10 +460,10 @@ define([
 			    // Add css via JQuery here to show where slider started from
 			    // Maybe get the css position of thumbOne.
 			    // Then remove the css line's style on Pause or End  -->  $("").removeClass("");
-			    $(".extra-controls").addClass("sliderStart");
+			    /*$(".extra-controls").addClass("sliderStart");
 			    $(".extra-controls").css("left",$(".irs-diapason").css( "left"));
 			    $(".extra-controls").css("left", "+=65");
-			    $("sliderStart").append("<p>2002</p>");
+			    $("sliderStart").append("<p>2002</p>");*/
 			    // Now we'll add the irs-dapson's initial left value to it!
 
 
