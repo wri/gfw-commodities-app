@@ -1855,7 +1855,7 @@ address {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   position: absolute;
-  width: 180px;
+  width: 193px;
   z-index: 500;
   opacity: 0;
   top: 65px;
@@ -1934,112 +1934,115 @@ address {
   background-repeat: no-repeat;
   background-size: 20px 20px;
   background-position: center;
+  height: 20px;
+  width: 20px;
+  color: #888 !important;
 }
 
-/* line 170 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 173 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item .layer-title,
 .gfw .forest-change.active .layer-list-item .layer-sub-title {
   color: #888;
 }
 
-/* line 174 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 176 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 179 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 177 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 180 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title {
   color: #5952de;
 }
 
-/* line 180 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 183 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .custom-check {
   background-color: #5952de;
 }
 
-/* line 182 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 185 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 184 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 187 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 185 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 188 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change,
 .gfw .forest-change.active .layer-title,
 .gfw .forest-change.active .layer-list-item.active .layer-title {
   color: #e72698;
 }
 
-/* line 190 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 193 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover,
 .gfw .app-header.mapView .forest-cover.active .layer-title,
 .gfw .forest-cover.active .layer-list-item.active .layer-title {
   color: #b2d26e;
 }
 
-/* line 195 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 198 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use,
 .gfw .app-header.mapView .forest-use.active .layer-title,
 .gfw .forest-use.active .layer-list-item.active .layer-title {
   color: #c98e6c;
 }
 
-/* line 200 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 203 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation,
 .gfw .app-header.mapView .conservation.active .layer-title,
 .gfw .conservation.active .layer-list-item.active .layer-title {
   color: #3182bd;
 }
 
-/* line 205 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 208 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability,
 .gfw .app-header.mapView .agro-suitability.active .layer-title,
 .gfw .agro-suitability.active .layer-list-item.active .layer-title {
   color: #fdb22c;
 }
 
-/* line 210 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 213 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages,
 .gfw .app-header.mapView .company-pages.active .layer-title,
 .gfw .company-pages.active .layer-list-item.active .layer-title {
   color: #5e138a;
 }
 
-/* line 215 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 218 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change .layer-line {
   background: #e72698;
 }
 
-/* line 218 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 221 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover .layer-line {
   background: #b2d26e;
 }
 
-/* line 221 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 224 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use .layer-line {
   background: #c98e6c;
 }
 
-/* line 224 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 227 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation .layer-line {
   background: #3182bd;
 }
 
-/* line 227 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 230 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability .layer-line {
   background: #fdb22c;
 }
 
-/* line 230 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 233 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages .layer-line {
   background: #5e138a;
 }
 
-/* line 233 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 236 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 234 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 237 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check span,
 .gfw .forest-use.active .custom-check span,
 .gfw .conservation.active .custom-check span,
@@ -2049,43 +2052,43 @@ address {
   left: 9px;
 }
 
-/* line 242 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 245 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active .custom-check,
 .gfw .forest-change.active .radio-icon span {
   background-color: #e72698;
 }
 
-/* line 246 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 249 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check,
 .gfw .forest-cover.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 250 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 253 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-use.active .custom-check,
 .gfw .forest-use.active .radio-icon span {
   background-color: #c98e6c;
 }
 
-/* line 254 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 257 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .conservation.active .custom-check,
 .gfw .conservation.active .radio-icon span {
   background-color: #3182bd;
 }
 
-/* line 258 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 261 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .agro-suitability.active .custom-check,
 .gfw .agro-suitability.active .radio-icon span {
   background-color: #fdb22c;
 }
 
-/* line 262 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 265 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .company-pages.active .custom-check,
 .gfw .company-pages.active .radio-icon span {
   background-color: #5e138a;
 }
 
-/* line 266 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 269 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .layer-list-item .radio-icon {
   display: inline-block;
   border-radius: 35px;
@@ -2096,12 +2099,12 @@ address {
   width: 8px;
 }
 
-/* line 273 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 276 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon {
   top: 3px;
 }
 
-/* line 276 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 279 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon span {
   display: inline-block;
   border-radius: 35px;
@@ -2114,48 +2117,48 @@ address {
   top: -6px;
 }
 
-/* line 285 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 288 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-change .radio-icon {
   border: 1px solid #e72698;
 }
 
-/* line 288 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 291 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-cover .radio-icon {
   border: 1px solid #b2d26e;
 }
 
-/* line 291 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 294 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .forest-use .radio-icon {
   border: 1px solid #c98e6c;
 }
 
-/* line 294 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 297 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .conservation .radio-icon {
   border: 1px solid #3182bd;
 }
 
-/* line 297 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 300 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .agro-suitability .radio-icon {
   border: 1px solid #fdb22c;
 }
 
-/* line 300 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 303 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .company-pages .radio-icon {
   border: 1px solid #5e138a;
 }
 
-/* line 303 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 306 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 304 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 307 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 305 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 308 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-topper div {
   line-height: 43px;
 }
 
-/* line 308 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 311 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
@@ -2165,7 +2168,7 @@ address {
   left: 0;
 }
 
-/* line 316 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 319 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -2177,7 +2180,7 @@ address {
   z-index: 200;
 }
 
-/* line 326 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 329 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -2191,7 +2194,7 @@ address {
   top: 20px;
 }
 
-/* line 336 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 339 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list {
   display: inline-block;
   list-style-type: none;
@@ -2199,7 +2202,7 @@ address {
   padding: 0;
 }
 
-/* line 342 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 345 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -2213,24 +2216,24 @@ address {
   margin: 0 2px;
 }
 
-/* line 352 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 355 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 355 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 358 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 358 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 361 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 363 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 366 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
@@ -2260,88 +2263,185 @@ address {
 }
 
 /* line 18 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
-.homeBgContainer,
-width 100%,
-height 100%,
-overflow hidden,
-.homeBgContainer img,
-height auto,
-.homeModeOptionsContainer,
-position absolute,
-.homeModeOptionsViewerOuter,
-width 350px,
-height 350px,
-z-index 100,
-overflow-x auto,
-overflow-y hidden,
-margin auto,
-margin-top 50px,
-overflow visible,
-.homeModeOptionsViewerOuter .modeGroup,
-transition display 1.5s ease,
-cursor pointer,
-font-size 20px,
-.homeModeOptionsViewerOuter .modeOption,
-border-radius 175px,
-background-color #000,
-color #FFF,
-vertical-align middle,
-text-align center,
-opacity 0.3,
-box-sizing border-box,
-.homeModeOptionsViewerOuter .modeOptionRing,
-background none,
-box-shadow 0px 0px 14px 0px #888888,
-border 10px solid #EC1D38,
-.homeModeOptionsViewerOuter .modeGroup .modeText p,
-font-size 72px,
-color #EC1D38,
-margin-top -50px,
-margin-bottom 0px,
-.homeModeOptionsViewerOuter .modeGroup .modeText,
-font-family "Georgia",
-serif,
-color #CCC,
-left 0px,
-top 140px,
-right 0px,
-.homeModeOptionsViewerOuter .modeGroup .modeText span,
-font-size 32px,
-.homeModeOptionsViewerOuter .modeGroup .modeText span.more-text,
-position relative,
-top -20px,
-#signUpAlertsForm,
-font-family "Arial MT Condensed Light",
-src url("../fonts/ArialMTStd-LightCond.otf") format("opentype"),
-color #464052,
-#signUpAlertsForm .select-container,
-background url('../images/ico-carat-down.png') no-repeat 95% center transparent,
-width 240px,
-#signUpAlertsForm #aoiDistrictPicker,
-background transparent,
--webkit-appearance none,
--moz-appearance none,
-appearance none,
-font-size 14px,
-padding 5px,
-height 30px,
-#signUpAlertsForm #aoiSubDistrictPicker,
-border 1px solid #BBB,
-border-radius 5px,
-font-size 12px,
+.homeBgContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* line 23 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeBgContainer img {
+  width: 100%;
+  height: auto;
+}
+
+/* line 27 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 32 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter {
+  width: 350px;
+  height: 350px;
+  z-index: 100;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: auto;
+  margin-top: 50px;
+  overflow: visible;
+}
+
+/* line 43 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+/*.homeModeOptionsViewerInner
+    width 250px
+    height 250px
+    z-index 100
+    overflow hidden*/
+
+/* line 49 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter .modeGroup {
+  height: 350px;
+  width: 100%;
+  transition: display 1.5s ease;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* line 57 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter .modeOption {
+  border-radius: 175px;
+  -moz-border-radius: 175px;
+  -webkit-border-radius: 175px;
+  background-color: #000;
+  color: #fff;
+  height: 350px;
+  width: 350px;
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  margin: auto;
+  opacity: 0.3;
+  box-sizing: border-box;
+}
+
+/* line 73 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter .modeOptionRing {
+  border-radius: 175px;
+  -moz-border-radius: 175px;
+  -webkit-border-radius: 175px;
+  background: none;
+  height: 350px;
+  box-shadow: 0px 0px 14px 0px #888;
+  width: 350px;
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  margin: auto;
+  border: 10px solid #ec1d38;
+  box-sizing: border-box;
+}
+
+/* line 87 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter .modeGroup .modeText p {
+  font-size: 72px;
+  color: #ec1d38;
+  margin-top: -50px;
+  margin-bottom: 0px;
+}
+
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter .modeGroup .modeText {
+  font-family: "Georgia", serif;
+  color: #ccc;
+  position: absolute;
+  left: 0px;
+  top: 140px;
+  right: 0px;
+  vertical-align: middle;
+}
+
+/* line 102 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter .modeGroup .modeText span {
+  font-size: 32px;
+}
+
+/* line 105 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+.homeModeOptionsViewerOuter .modeGroup .modeText span.more-text {
+  position: relative;
+  top: -20px;
+}
+
+/* line 109 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+#signUpAlertsForm {
+  font-family: "Arial MT Condensed Light";
+  src: url("../fonts/ArialMTStd-LightCond.otf") format("opentype");
+  color: #464052;
+}
+
+/* line 114 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+#signUpAlertsForm .select-container {
+  background: url("../images/ico-carat-down.png") no-repeat 95% center transparent;
+  width: 240px;
+}
+
+/* line 118 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+#signUpAlertsForm #aoiDistrictPicker {
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 14px;
+  padding: 5px;
+  height: 30px;
+  width: 240px;
+}
+
+/* line 128 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+#signUpAlertsForm #aoiSubDistrictPicker {
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  font-size: 12px;
+  width: 240px;
+}
+
+/* line 134 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
 #signUpAlertsForm input[type="email"],
-#signUpAlertsForm input[type="tel"],
-font-size 16px,
-width 235px,
-#signUpAlertsForm #verifyEmailForAlerts,
-display none,
-#alerts-submit-button,
-background #e50036,
-padding 5px 10px,
-color white,
-border none,
-#signUpAlertsForm td,
-padding 2px 6px,
+#signUpAlertsForm input[type="tel"] {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  font-size: 16px;
+  width: 235px;
+  height: 30px;
+}
+
+/* line 140 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+#signUpAlertsForm #verifyEmailForAlerts {
+  font-size: 12px;
+  display: none;
+}
+
+/* line 144 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+#alerts-submit-button {
+  background: #e50036;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+}
+
+/* line 152 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+#signUpAlertsForm td {
+  padding: 2px 6px;
+}
+
+/* line 155 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
 #signUpAlertsForm .error-messages {
   color: #e50036;
 }

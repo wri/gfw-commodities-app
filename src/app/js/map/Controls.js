@@ -77,8 +77,12 @@ define([
 
                 var dialog = new Dialog({
                     title: content.querySelector(".source_title").innerHTML.toUpperCase(),
-                    style: "height: 700px; width: 600px; overflow: auto;"
+                    style: "height: 700px; width: 600px; overflow: auto;",
+					draggable: false,
+					hide: function(){dialog.destroy()}
                 })
+
+				dialog.onClose(function () {console.log("CLOSED")});
                 //for possible title
                 //content.getElementsByClassName("source_title")[0].innerHTML
                 dialog.setContent(contentClone.innerHTML);
