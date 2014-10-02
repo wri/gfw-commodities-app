@@ -47,6 +47,7 @@ define([
 			// Initialize View Controller, He controls loading views, this will initialize the header, footer, and get 
 			// the Header to load the default view, if you need to change the view, do it through the header, he will propogate
 			// the event to the ViewController
+
 			ViewController.init(defaultViewToLoad);
 		}
 

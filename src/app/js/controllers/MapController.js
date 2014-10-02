@@ -62,20 +62,19 @@ define([
 				// Also call other functions in renderComponents that build UI elements 
 				self.renderComponents();
 				// Connect Events
-				self.bindUIEvents();
+				self.bindUIEvents();				
 			});
 
-			map.on("layers-loaded", function () {
-				/** CODE MOVED TO map-ready EVENT ABOVE **/
-				// Render any React Components - These will activate any default or hashed layers
-				// Only use this after the layers have been loaded,
-				// Also call other functions in renderComponents that build UI elements 
-				// self.renderComponents();
+			// Set up zoom listener for Protected Areas Layer
+			app.map.on('zoom-end', LayerController.checkProtectedAreasLayer);
 
-				// Connect Events
-				// self.bindUIEvents();
-				
-			});
+			// Set up Click Listener to Perform Identify
+			app.map.on('click', Finder.performIdentify.bind(Finder));
+
+			// Have the Finder create any formatter functions necessary for info window content
+			// and then have it setup info window specific listeners for specific info windows with buttons
+			Finder.createFormattingFunctions();
+			Finder.setupInfowindowListeners();
 
 			// Fade in the map controls, first, get a list of the ids		
 			dojoQuery(".gfw .map-layer-controls li").forEach(function (item) {
@@ -93,9 +92,9 @@ define([
 			var self = this;
 
 			on(app.map, "mouse-move", function(evt) {
-                MapModel.set('currentLatitude', evt.mapPoint.getLatitude().toFixed(4));
-                MapModel.set('currentLongitude', evt.mapPoint.getLongitude().toFixed(4));
-            });
+        MapModel.set('currentLatitude', evt.mapPoint.getLatitude().toFixed(4));
+        MapModel.set('currentLongitude', evt.mapPoint.getLongitude().toFixed(4));
+      });
 
 			on(dom.byId("locator-widget-button"), "click", function () {
 				MapModel.set('showBasemapGallery', false);

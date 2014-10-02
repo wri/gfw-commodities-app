@@ -2,13 +2,14 @@ define([
 	"dojo/topic",
 	"map/config",
 	"map/Controls",
+	"map/MapModel",
 	"analysis/Query",
 	"analysis/config",
 	"analysis/WizardHelper",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, MapModel, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {

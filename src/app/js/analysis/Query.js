@@ -179,7 +179,8 @@ define([
 					deferred = new Deferred(),
 					query = new Query(),
 					self = this,
-					data = [];
+					data = [],
+					where;
 
 			function handleResponse(res) {
 				if (res.features.length > 0) {
@@ -188,7 +189,11 @@ define([
 				}
 			}
 
-			query.where = config.whereField + " = '" + type + "' AND " + config.requiredField + " IS NOT NULL";
+			where = (type === 'Mining concession' ? 
+												config.whereField + " = '" + type + "'" :
+												config.whereField + " = '" + type + "' AND " + config.requiredField + " IS NOT NULL");
+
+			query.where = where;
 			query.returnGeometry = false;
 			query.outFields = config.outFields;
 			query.orderByFields = config.orderBy;

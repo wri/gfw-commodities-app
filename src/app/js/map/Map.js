@@ -12,6 +12,7 @@ define([
 	"map/SuitabilityImageServiceLayer",
 	// Esri Modules
 	"esri/map",
+	"esri/InfoTemplate",
 	"esri/layers/GraphicsLayer",
 	"esri/layers/RasterFunction",
 	"esri/layers/ImageParameters",
@@ -25,7 +26,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -129,6 +130,8 @@ define([
 					forestUseLayer,
 					forestUseParams,
 					protectAreasLayer,
+					protectAreasHelperParams,
+					protectAreasHelper,
 					customSuitabilityLayer,
 					agroSuitabilityLayer,
 					agroSuitabilityParams,
@@ -263,6 +266,17 @@ define([
 				visible: false
 			});
 
+			protectAreasHelperParams = new ImageParameters();
+			protectAreasHelperParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			protectAreasHelperParams.layerIds = [MapConfig.palHelper.layerId];
+			protectAreasHelperParams.format = "png32";
+
+			protectAreasHelper = new ArcGISDynamicLayer(MapConfig.palHelper.url, {
+				imageParameters: protectAreasHelperParams,
+				id: MapConfig.palHelper.id,
+				visible: false
+			});
+
 			// Uses opsd config, which is the same as cons, elev, slope, rain, soilDr, soilDe, soilAc, soilTy.  
 			// They are all part of the same dynamic layer so any config item could be used
 			agroSuitabilityParams = new ImageParameters();
@@ -322,6 +336,7 @@ define([
 				forestUseLayer,
 				// Conservation Layers
 				protectAreasLayer,
+				protectAreasHelper,
 				// Forest Change Layers
 				formaAlertsLayer,
 				lossLayer,
@@ -364,13 +379,11 @@ define([
 			forestCoverLayer.on('error', this.addLayerError);
 			forestUseLayer.on('error', this.addLayerError);
 			protectAreasLayer.on('error', this.addLayerError);
+			protectAreasHelper.on('error', this.addLayerError);
 			agroSuitabilityLayer.on('error', this.addLayerError);
 			wizardDynamicLayer.on('error', this.addLayerError);
 			mapOverlaysLayer.on('error', this.addLayerError);
 			customGraphicsLayer.on('error', this.addLayerError);
-
-			// Add Layer Specific Events Here
-			customGraphicsLayer.on('click', WizardHelper.customFeatureClicked);
 
 		},
 

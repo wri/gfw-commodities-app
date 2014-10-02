@@ -254,9 +254,10 @@ wizardBlue = #00688B
 	width 600px
 
 .gfw .layer-controls-container .treecover_change_toolbox
-	margin-left -300px
+	margin-left -500px
 	height 60px
-	width 600px
+	width 900px
+	padding-top 5px
 
 .gfw .toolbox .toolbox-inner
 	text-align center
@@ -388,6 +389,36 @@ wizardBlue = #00688B
 	width 230px
 
 /* Overrides for Esri Legend */
+.range-slider
+	margin-left: auto;
+	margin-right: 2%;
+	width: 88%;
+	background-color: white;
+
+.range-slider:after {
+  position: absolute;
+  left: 8%;
+  top: 0;
+  width: 1px;
+  background: black;
+  content: "";
+  height: 100%;
+  display: block;
+}
+
+.sliderStart
+	z-index: 1;
+	display: block;
+	position: absolute;
+	border-right: 2px solid black;
+	top: 0;
+	height: 50%;
+
+#newSlider
+	position: relative;
+	bottom: 23px;
+	left: 22px;
+
 .gfw #legend #legend_msg, .gfw #legend .esriLegendServiceLabel
 	display none
 
@@ -397,3 +428,18 @@ wizardBlue = #00688B
 .gfw #legend > div:nth-last-child(2)
 	padding-bottom 10px
 /* Overrides for Esri Legend */
+/* Overrides for Info Window */
+.gfw .esriPopupWrapper .sizer 
+	width 330px
+
+.gfw .esriPopupWrapper .title
+	text-overflow ellipsis
+	white-space nowrap
+	overflow hidden
+	max-width 245px
+
+.gfw .esriPopupWrapper .zoomTo
+	display none
+/* Overrides for Info Window */
+
+
