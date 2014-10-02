@@ -1,5 +1,5 @@
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -72,12 +72,6 @@ body,
 }
 
 /* line 70 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
-.gfw .dijitDialogCloseIcon {
-  right: 10px !important;
-  top: 7px !important;
-}
-
-/* line 74 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
 .gfw .custom-check {
   background-color: #888;
   display: inline-block;
@@ -89,7 +83,7 @@ body,
   width: 17px;
 }
 
-/* line 82 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+/* line 78 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
 .gfw .custom-check span {
   background-color: #fff;
   border-radius: 4px;
@@ -102,8 +96,31 @@ body,
   top: 2px;
 }
 
+/* line 87 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+.gfw .dijitDialogTitleBar {
+  background: none !important;
+  padding: 10px 6px 3px 7px !important;
+  color: #aaa;
+}
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
+/* line 92 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+.gfw .dijitDialogPaneContent {
+  border-top: none !important;
+}
+
+/* line 95 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+.gfw .dijitDialogCloseIcon {
+  right: 15px !important;
+  top: 15px !important;
+}
+
+/* line 99 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/app.styl */
+.gfw a:link {
+  color: #97bd3d;
+}
+
+
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/contentPages.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1115,7 +1132,7 @@ body,
 }
 
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/footer.styl */
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/footer.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1125,7 +1142,7 @@ body,
 }
 
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/header.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1641,7 +1658,7 @@ body,
 }
 
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/home.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -1664,7 +1681,7 @@ body,
 }
 
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/map.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -2229,7 +2246,7 @@ body,
 /* Overrides for Esri Legend */
 
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/rangeSlider.styl */
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/rangeSlider.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
@@ -2467,7 +2484,7 @@ body,
 }
 
 
-/* line 90 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
+/* line 93 : /Users/jasonhettmansperger/Projects/GFW-2.0/src/app/css/wizard.styl */
 
 /* line 1 : /Users/jasonhettmansperger/Projects/GFW-2.0/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
