@@ -31,29 +31,33 @@ define([
     render: function () {
       return (
         React.DOM.div({'className': 'step select-analysis'},
-          React.DOM.div({'className': 'step-title'}, config.title),
-          React.DOM.p({'className': 'step-description'}, config.description),
-          new WizardCheckbox({
-            'label': config.suit.label,
-            'value': config.suit.value,
-            'change': this._selectionMade, 
-            'isResetting': this.props.isResetting
-          }),
-          React.DOM.p({'className': 'layer-description'}, config.suit.description),
-          new WizardCheckbox({
-            'label': config.rspo.label,
-            'value': config.rspo.value,
-            'change': this._selectionMade, 
-            'isResetting': this.props.isResetting
-          }),
-          React.DOM.p({'className': 'layer-description'}, config.rspo.description),
-          React.DOM.div({'className': 'step-sub-header'}, "Forest Change Analysis Variables"),
-          config.checkboxes.map(this._mapper, this),
-          React.DOM.div({'className':'next-button-container'},
-            React.DOM.span({
-              'className': 'next-button ' + (this.state.completed ? '' : 'disabled'), 
-              'onClick': this._proceed 
-            }, "Perform Analysis")
+          React.DOM.div({'className': 'step-body'},
+            React.DOM.div({'className': 'step-title'}, config.title),
+            React.DOM.p({'className': 'step-description'}, config.description),
+            new WizardCheckbox({
+              'label': config.suit.label,
+              'value': config.suit.value,
+              'change': this._selectionMade, 
+              'isResetting': this.props.isResetting
+            }),
+            React.DOM.p({'className': 'layer-description'}, config.suit.description),
+            new WizardCheckbox({
+              'label': config.rspo.label,
+              'value': config.rspo.value,
+              'change': this._selectionMade, 
+              'isResetting': this.props.isResetting
+            }),
+            React.DOM.p({'className': 'layer-description'}, config.rspo.description),
+            React.DOM.div({'className': 'step-sub-header'}, "Forest Change Analysis Variables"),
+            config.checkboxes.map(this._mapper, this)
+          ),
+          React.DOM.div({'className': 'step-footer'},
+            React.DOM.div({'className':'next-button-container'},
+              React.DOM.span({
+                'className': 'next-button ' + (this.state.completed ? '' : 'disabled'), 
+                'onClick': this._proceed 
+              }, "Perform Analysis")
+            )
           )
         )
       );

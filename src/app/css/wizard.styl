@@ -48,45 +48,77 @@ wizardBlue = #00688B
 
 .gfw .wizard-header
 	position absolute
-	height 65px
-	right 10px
-	left 10px
-	top 10px
+	height 95px
+	right 0
+	left 0
+	top 0
 
 .gfw .wizard-body
 	position absolute
-	bottom 10px
-	right 10px
-	left 10px
-	top 85px
+	top 95px
+	bottom 0
+	right 0
+	left 0
 
-.gfw .wizard-body select
+.gfw .wizard-body .step
+	position absolute
+	bottom 0
+	right 0
+	left 0
+	top 0
+
+.gfw .step .step-body
+	position absolute
+	bottom 50px
+	left 10px
+	right 0
+	top 0
+	
+.gfw .step .step-footer
+	border-top 1px solid greyBorder
+	position absolute
+	height 50px
+	bottom 0
+	right 0
+	left 0
+
+.gfw .wizard-body select,
+.gfw .wizard-body input[type='text']
+	box-sizing border-box
 	font-size 16px
+	width 300px
 
 .gfw .wizard-body > div
 	overflow-y auto
 	height 100%
 
+.gfw .wizard-header .title-section
+	border-bottom 1px solid greyBorder
+	line-height 50px
+	height 50px
+
 .gfw .wizard-header .title
-	text-decoration underline
+	margin-left 10px
 	font-size 26px
 
 .gfw .wizard-header .button
-	border 1px solid mediumGray
-	background-color lightGray
-	border-radius(5px)
-	font-weight bold
-	padding 8px 10px
-	cursor pointer
-	margin 0 5px
-	float right
+	border-left 1px solid greyBorder
+	position absolute
+	text-align center
+
+.gfw .wizard-header .button.close
+	width 40px
+	right 0
+	
+.gfw .wizard-header .button.reset
+	width 80px
+	right 40px
 
 .gfw .wizard-header .breadcrumbs
-	margin 10px 0
+	padding 10px
 	clear both
 
 .gfw .wizard-header .breadcrumbs .active
-	font-weight bold
 	color #000
 
 .gfw .wizard-header .breadcrumbs .enabled
@@ -106,7 +138,6 @@ wizardBlue = #00688B
 	display none
 
 .gfw .wizard-body .step-title
-	margin-bottom 5px
 	font-size 24px
 
 .gfw .wizard-body .step-description
@@ -116,27 +147,29 @@ wizardBlue = #00688B
 	font-size 18px
 	margin 10px
 
+.gfw .s1-radio-container label
+	padding-left 10px
+
 .gfw .wizard-body .next-button-container
-	font-size 24px
-	margin 20px
-	float right
-
-.gfw .wizard-body .next-button
-	background-color wizardBlue
-	border 1px solid mediumGray
-	padding 10px 20px 6px
-	border-radius(5px)
+	background-color orangeSelected
+	position absolute
+	text-align center
 	cursor pointer
-	color #fff
+	font-size 24px
+	height 50px
+	width 120px
+	right 0
 
-.gfw .wizard-body .next-button.disabled
+.gfw .wizard-body .next-button-container.disabled
 	background-color mediumGray
 	cursor default
-	opacity 0.5
-	color #000
 
-.gfw .wizard-body .s2-tools
-	margin 20px 0
+.gfw .wizard-body .next-button
+	line-height 50px
+	color #fff
+
+.gfw .wizard-body .next-button-container.disabled .next-button
+	color #444
 
 .gfw .step .clear-custom-features
 	text-decoration underline
@@ -151,12 +184,32 @@ wizardBlue = #00688B
 .gfw .step .upload-instructions
 	margin-bottom 5px
 
+.gfw .step .instructions
+	margin 5px 0 8px
+
 .gfw .step .selected-analysis-area
+	position absolute
+	right 120px
+	left 0
+
+.gfw .step .current-selection-label
+	position absolute
+	line-height 50px
 	font-size 18px
+	width 150px
+	left 5px
 
 .gfw .step .current-selection
+	position absolute
+	line-height 50px
 	font-weight bold
 	color goldFont
+	font-size 16px
+	left 160px
+	right 5px
+
+.gfw .step .current-selection.big-name
+	line-height 25px
 
 .gfw .step .drawing-tools
 	text-align center
@@ -220,20 +273,41 @@ wizardBlue = #00688B
 	color orangeSelected
 	
 .gfw .step .list-container
-	margin 5px
+	border-top 1px solid greyBorder
+	position absolute
+	overflow-y auto
+	left -10px
+	bottom 5px
+	right 0
 
 .gfw .list-container .wizard-list-item
 	font-weight bold
-	font-size 18px
+	font-size 15px
+
+.gfw .list-container .wizard-list-item span
+	border-bottom 1px solid lightGray
+	cursor pointer
+	display block
+	padding 2px 0
+
+.gfw .list-container .wizard-list-item > span
+	background-color lightGray
+	padding-left 10px
 
 .gfw .list-container .wizard-list-child-item
 	font-weight normal
-	margin-left 10px
-	font-size 16px
 
-.gfw .list-container .wizard-list-item span:last-of-type,
-.gfw .list-container .wizard-list-item span:last-of-type
-	cursor pointer
+.gfw .list-container .wizard-list-child-item > span
+	padding-left 25px
+
+.gfw .admin-unit .list-container
+	top 150px
+
+.gfw .commercial-entity .list-container
+	top 125px
+	
+.gfw .certified-area .list-container
+	top 205px
 
 .gfw .wizard-body .country-select,
 .gfw .wizard-body .commodity-type-select,

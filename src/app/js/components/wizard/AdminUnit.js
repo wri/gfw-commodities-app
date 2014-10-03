@@ -43,7 +43,13 @@ define([
         document.getElementById('country-select').value = "NONE";
       }
 
-      if (newProps.selectedArea === 'adminUnitOption' && newProps.currentStep === 1) {
+      // If the area is this one, the current step is this one
+      // and the previous step is 0, then we should update the layer defs to match this UI
+
+      if (newProps.selectedArea === 'adminUnitOption' && 
+                    this.props.currentStep === 0 &&
+                    newProps.currentStep === 1) {
+        
         var value = document.getElementById("country-select").value;
         if (value !== "NONE") {
           topic.publish("setAdminBoundariesDefinition", value);
@@ -53,7 +59,7 @@ define([
 
     render: function () {
       return (
-        React.DOM.div({'className': 'admin-unit', 'id': 'admin-unit'}, 
+        React.DOM.div({'className': 'admin-unit', 'id': 'admin-unit'},
           React.DOM.p({'className': 'instructions'}, config.instructions),
           React.DOM.div({'className': 'select-container'},
             React.DOM.select({

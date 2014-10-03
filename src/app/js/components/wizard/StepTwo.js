@@ -52,38 +52,43 @@ define([
 
     render: function () {
 
+      var currentSelection = (this.props.analysisArea ? 
+          (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel)
+          : "none");
+
+      var currentSelectionClass = 'current-selection ' + (currentSelection.length > 35 ? 'big-name' : '');
+
       return (
         React.DOM.div({'className': 'step'},
-          React.DOM.div({'className': 'step-title'}, title),
-          React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== millPoint ? 'hidden' : '')},
-            new MillPoint(this.props)
-          ),
-          React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== adminUnit ? 'hidden' : '')},
-            new AdminUnit(this.props)
-          ),
-          React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== customArea ? 'hidden' : '')},
-            new CustomArea(this.props)
-          ),
-          React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== certArea ? 'hidden' : '')},
-            new CertifiedArea(this.props)
-          ),
-          React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== commArea ? 'hidden' : '')},
-            new CommercialEntity(this.props)
-          ),
-          React.DOM.div({'className': 'selected-analysis-area'},
-            React.DOM.span({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
-            React.DOM.span({'className': 'current-selection'}, 
-              (this.props.analysisArea ? 
-                (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel)
-                : "none"
-              )
+          React.DOM.div({'className': 'step-body'},
+            React.DOM.div({'className': 'step-title'}, title),
+            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== millPoint ? 'hidden' : '')},
+              new MillPoint(this.props)
+            ),
+            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== adminUnit ? 'hidden' : '')},
+              new AdminUnit(this.props)
+            ),
+            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== customArea ? 'hidden' : '')},
+              new CustomArea(this.props)
+            ),
+            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== certArea ? 'hidden' : '')},
+              new CertifiedArea(this.props)
+            ),
+            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== commArea ? 'hidden' : '')},
+              new CommercialEntity(this.props)
             )
           ),
-          React.DOM.div({'className':'next-button-container'},
-            React.DOM.span({
-              'className': 'next-button ' + (this.state.completed ? '' : 'disabled'), 
-              onClick: this._checkRequirements 
-            }, "Next")
+          React.DOM.div({'className': 'step-footer'},
+            React.DOM.div({'className': 'selected-analysis-area'},
+              React.DOM.div({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
+              React.DOM.div({'className': currentSelectionClass}, 
+                currentSelection
+              )
+            ),
+            React.DOM.div({'className':'next-button-container ' + (this.state.completed ? '' : 'disabled'), 
+                            onClick: this._checkRequirements},
+              React.DOM.span({'className': 'next-button' }, "Next")
+            )
           )
         )
       );

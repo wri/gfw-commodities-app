@@ -51,7 +51,7 @@ define([], function () {
 			commArea: commArea,
 			certArea: certArea,
 			millPoint: millPoint,
-			currentFeatureText: "Current feature for analysis: ",
+			currentFeatureText: "Current selection: ",
 			labelField: "WRI_label"
 		},
 
@@ -59,6 +59,7 @@ define([], function () {
 			title: "Step 3: Select Analysis",
 			description: "Select which types of analysis you would like to perform and then click \"Perform Analysis\".  You must select at least one option.",
 			//description: "Select which type of analysis you would like included in your results and then click \"Next\".",
+			currentFeatureText: "Current selection: ",
 			cb1: {
 				label: 'Forest Change',
 				value: 'forest'

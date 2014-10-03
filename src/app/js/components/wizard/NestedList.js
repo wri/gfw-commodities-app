@@ -3,18 +3,6 @@ define([
 	"react"
 ], function (React) {
 
-	/*
-		Sample of what the data will look like
-		[
-			{'label': 'A', 'value': 'a'},
-			{'label': 'B', 'value': 'b'},
-			{'label': 'C', 'value': 'c', 'children': [
-				{'label': 'd', 'value': 'd'},
-				{'label': 'e', 'value': 'e'},
-			]}
-		]
-	*/
-
 	var ListItem = React.createClass({
 
 		propTypes: {
@@ -30,7 +18,7 @@ define([
 			if (this.props.filter === '') {
 				// No Filter applied, render like usual
 				return React.DOM.div({'className': 'wizard-list-item'},
-					React.DOM.span({'className': 'wizard-list-item-icon'}),
+					//React.DOM.span({'className': 'wizard-list-item-icon'}),
 					React.DOM.span({'data-value': this.props.value, 'data-type':'group', 'onClick': this._click}, this.props.label),
 					(this.props.children ? this.props.children.map(this._childrenMapper, this) : null)
 				);
@@ -38,7 +26,7 @@ define([
 				if (this._searchChildrenForMatches(this.props.children, this.props.filter)) {
 					// Filter applied, if any children match the filter, render the parent as normal and the children
 					return React.DOM.div({'className': 'wizard-list-item'},
-						React.DOM.span({'className': 'wizard-list-item-icon'}),
+						//React.DOM.span({'className': 'wizard-list-item-icon'}),
 						React.DOM.span({'data-value': this.props.value, 'data-type':'group', 'onClick': this._click}, this.props.label),
 						(this.props.children ? this.props.children.map(this._childrenMapper, this) : null)
 					);
@@ -49,7 +37,7 @@ define([
 													(label.search(this.props.filter) > -1 ? '' : 'hidden');
 
 					return React.DOM.div({'className': className},
-						React.DOM.span({'className': 'wizard-list-item-icon'}),
+						//React.DOM.span({'className': 'wizard-list-item-icon'}),
 						React.DOM.span({'data-value': this.props.value, 'data-type':'group', 'onClick': this._click}, this.props.label)
 					);
 				}
@@ -72,7 +60,7 @@ define([
 											(label.search(this.props.filter) > -1 ? '' : 'hidden');
 
 			return React.DOM.div({'className': className},
-				React.DOM.span({'className': 'wizard-list-child-item-icon'}),
+				//React.DOM.span({'className': 'wizard-list-child-item-icon'}),
 				React.DOM.span({'data-value': item.value, 'data-type':'individual', 'onClick': this._click}, item.label)				
 			);
 		},

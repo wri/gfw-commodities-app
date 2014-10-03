@@ -39,8 +39,12 @@ define([
         this.replaceState(getDefaultState());
       }
 
+      // If the area is this one, we have a selected commodity, the current step is this one
+      // and the previous step is 0, then we should update the layer defs to match this UI
+
       if (newProps.selectedArea === 'commercialEntityOption' && 
                      this.state.selectedCommodity !== 'NONE' &&
+                     this.props.currentStep === 0 &&
                      newProps.currentStep === 1) {
         
         topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);

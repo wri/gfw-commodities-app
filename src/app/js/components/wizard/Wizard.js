@@ -63,9 +63,11 @@ define([
       return (
         React.DOM.div({'className': 'relative wizard-root'},
           React.DOM.div({'className': 'wizard-header'},
-            React.DOM.span({'className': 'title'}, "Analysis"),
-            React.DOM.span({'className': 'button', onClick: this._close }, "Close"),
-            React.DOM.span({'className': 'button', onClick: this._reset }, "Reset"),
+            React.DOM.div({'className': 'title-section'},
+              React.DOM.span({'className': 'title'}, "Analysis"),
+              React.DOM.span({'className': 'button reset', onClick: this._reset }, "Reset"),
+              React.DOM.span({'className': 'button close', onClick: this._close }, "x")
+            ),
             React.DOM.div({'className': 'breadcrumbs'},
               breadcrumbs.map(this._breadcrumbMapper, this)
             )
