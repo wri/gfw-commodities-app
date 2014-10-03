@@ -24,40 +24,27 @@ define([
                 //EventsController.startModeAnim();
                 return;
             }
-
             require(["dojo/templates!/home.html"], function(html) {
-
                 initialized = true;
                 //otherwise load the view
-
                 dom.byId(viewName).innerHTML = html;
                 console.log(html);
                 /*
-
                 EventsController.switchToView(viewObj);
-
-
                 HomeModel.applyBindings(viewName);
-
                 //ANIMATE ONLY AFTER BINDING DONE
-
-
                 EventsController.getPeats();*/
                 /*{
                     resume: true
                 }*/
-                //console.log(html);
-
             });
         };
-
 
                 var homeModeOptions =  [{
                     "html": "Fires occuring in peatland <br> in the last 7 days",
                     "eventName": "goToMap",
                     "display": false
-                },
-                {
+                }, {
                     "html": "<span>View the latest analysis</span>",
                     "eventName": "goToAnalysis",
                     "display": false
@@ -69,14 +56,11 @@ define([
                     "html": "<span>Explore the map</span>",
                     "eventName": "goToMap",
                     "display": false
-                },
-                {
+                }, {
                     "html": "<span class='more-text'>Sign up for SMS and email fire alerts</span>",
                     "eventName": "subscribeToAlerts",
                     "display": false
-                }
-            	];
-
+                }];
 
         o.startModeAnim = function(data) {
         	console.log("Data:");
@@ -117,15 +101,19 @@ define([
 	        var runAnimation = function(id) {
 	            //console.log("animating " + id);
 	            var itemsToAnimate = dojoQuery(".modeGroup");
-	            //var itemsToAnimate = homeModeOptions;
+	            var itemsToAnimate2 = homeModeOptions[0];
 	            //console.log("ITEMS TO ANIMATE:");
+
 	            //console.log(itemsToAnimate);
+	            //console.log(itemsToAnimate2);
 	            var maxItems = itemsToAnimate.length;
+	            //console.log(dojoQuery(".modeGroup")[0]);
 	            //var maxItems = 5;
 	            // setTimeout(function() {
 	            // 	console.log(itemsToAnimate[id]);
 	            // }, 500);
 	            
+	            //Maybe just Add the 5 bubbles into the html page and use dombyId to grab them for the 'node'
 
 	            var anim = coreFx.chain([
 

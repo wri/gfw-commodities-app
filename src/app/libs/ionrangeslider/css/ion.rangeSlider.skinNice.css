@@ -11,7 +11,7 @@
 .irs-line-right,
 .irs-diapason,
 .irs-slider {
-    background: url(../img/sprite-skin-nice.png) repeat-x;
+    /*background: url(../img/sprite-skin-nice.png) repeat-x;*/
 }
 
 .irs {
@@ -24,16 +24,13 @@
     height: 8px; top: 25px;
 }
     .irs-line-left {
-        height: 8px;
-        background-position: 0 -30px;
+        
     }
     .irs-line-mid {
-        height: 8px;
-        background-position: 0 0;
+        
     }
     .irs-line-right {
-        height: 8px;
-        background-position: 100% -30px;
+        
     }
 
 .irs-diapason {
@@ -42,12 +39,15 @@
 }
 
 .irs-slider {
-    width: 22px; height: 22px;
+    background: url(../img/dragger.png);
+    width: 20px; height: 20px;
     top: 17px;
-    background-position: 0 -90px;
+    
 }
+
 #irs-active-slider, .irs-slider:hover {
-    background-position: 0 -120px;
+    background: url(../img/dragger.png);
+    width: 20px; height: 20px;
 }
 
 .irs-min, .irs-max {

@@ -22,6 +22,7 @@
 	      aliases: [
 	      	['knockout', 'libs/knockout-3.1.0/index'],
 	      	['react', 'libs/react-0.11.1.min/index']
+	      	
 	      ],
 	      deps: [
 	      	"main/Main",
@@ -38,6 +39,7 @@
 			src = [
 				'http://js.arcgis.com/3.10/',
 				'app/libs/jquery-1.7.1.min.js',
+				'app/libs/jquery-2.1.1.min.js',
 				'app/libs/jquery-ui-custom.min.js',
 				'app/libs/rangesliders.min.js'
 			],

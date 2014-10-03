@@ -2879,7 +2879,7 @@ padding 2px 6px,
 /* line 392 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/map.styl */
 .range-slider {
   margin-left: auto;
-  margin-right: 2%;
+  margin-right: 3%;
   width: 88%;
   background-color: #fff;
 }
@@ -2956,12 +2956,40 @@ padding 2px 6px,
 /* line 443 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/map.styl */
 /* Overrides for Info Window */
 
+/* line 445 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/map.styl */
+.container2 {
+  margin-top: -22px;
+}
+
+/* line 449 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/map.styl */
+.container2 > div {
+  display: inline-block;
+  display: -moz-inline-box;
+  *display: inline;
+/* For IE7 */
+  zoom: 1;
+/* Trigger hasLayout */
+  width: 8.15%;
+  text-align: center;
+  font-size: 11x;
+}
+
+/* line 459 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/map.styl */
+.container2 > div:first-child {
+  margin-left: 1.5%;
+}
+
+/* line 462 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/map.styl */
+.container2 > div:last-child {
+  width: 7.15%;
+}
+
 
 /* line 90 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/rangeSlider.styl */
 
 /* line 1 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 444 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/rangeSlider.styl */
+/* line 465 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar

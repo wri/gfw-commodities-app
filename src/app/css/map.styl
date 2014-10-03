@@ -391,7 +391,7 @@ wizardBlue = #00688B
 /* Overrides for Esri Legend */
 .range-slider
 	margin-left: auto;
-	margin-right: 2%;
+	margin-right: 3%;
 	width: 88%;
 	background-color: white;
 
@@ -442,4 +442,23 @@ wizardBlue = #00688B
 	display none
 /* Overrides for Info Window */
 
+.container2 {
+	margin-top: -22px;
+}
 
+.container2 > div {
+    display: inline-block;
+    display: -moz-inline-box;
+    *display: inline; /* For IE7 */
+    zoom: 1; /* Trigger hasLayout */
+    width: 8.15%;
+    text-align: center;
+    font-size: 11x;
+}
+
+.container2 > div:first-child {
+    margin-left: 1.5%;
+}
+.container2 > div:last-child {
+    width: 7.15%;
+}

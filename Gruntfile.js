@@ -20,6 +20,7 @@ module.exports = function (grunt) {
           { src: ['src/app/libs/es5-sham.min.js'], dest: 'build/app/libs/es5-sham.min.js', filter: 'isFile' },
           { src: ['src/app/libs/es5-shim.min.js'], dest: 'build/app/libs/es5-shim.min.js', filter: 'isFile' },
           { src: ['src/app/libs/jquery-1.7.1.min.js'], dest: 'build/app/libs/jquery-1.7.1.min.js', filter: 'isFile' },
+          { src: ['src/app/libs/jquery-2.1.1.min.js'], dest: 'build/app/libs/jquery-2.1.1.min.js', filter: 'isFile' },
           { src: ['src/app/libs/jquery-ui-custom.min.js'], dest: 'build/app/libs/jquery-ui-custom.min.js', filter: 'isFile' },
           { src: ['src/app/libs/rangesliders.min.js'], dest: 'build/app/libs/rangesliders.min.js', filter: 'isFile' },
           { src: ['src/.htaccess'], dest: 'build/.htaccess', filter: 'isFile' }
