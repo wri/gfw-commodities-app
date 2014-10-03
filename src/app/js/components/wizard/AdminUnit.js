@@ -42,6 +42,13 @@ define([
         this.replaceState(getDefaultState());
         document.getElementById('country-select').value = "NONE";
       }
+
+      if (newProps.selectedArea === 'adminUnitOption' && newProps.currentStep === 1) {
+        var value = document.getElementById("country-select").value;
+        if (value !== "NONE") {
+          topic.publish("setAdminBoundariesDefinition", value);
+        }
+      }
     },
 
     render: function () {

@@ -18,6 +18,7 @@ function (declare, AppConfig, MapConfig, ko) {
       Model.vm.showLatLongInputs = ko.observable(false);
       Model.vm.showBasemapGallery = ko.observable(false);
       Model.vm.showLocatorOptions = ko.observable(false);
+      Model.vm.showSharingOptions = ko.observable(false);
       Model.vm.showClearPinsOption = ko.observable(false);
       Model.vm.currentLatitude = ko.observable();
       Model.vm.currentLongitude = ko.observable();

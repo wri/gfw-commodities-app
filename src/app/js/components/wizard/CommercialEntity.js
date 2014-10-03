@@ -38,6 +38,14 @@ define([
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
       }
+
+      if (newProps.selectedArea === 'commercialEntityOption' && 
+                     this.state.selectedCommodity !== 'NONE' &&
+                     newProps.currentStep === 1) {
+        
+        topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
+
+      }
     },
 
     render: function () {

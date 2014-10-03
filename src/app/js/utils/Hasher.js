@@ -51,8 +51,8 @@ define([
     	// We dont wont to overwrite the lyrs part of the hash,
     	// We need to hold on to that and make sure it is mixed in
     	// Discuss with Jason, May need to find another way to implement 
-    	// this so it does not mess up his features
-
+    	// this so it does not mess up his features, or we should probably
+    	// stash them and only bring them back when were in the map view
     	var currentHash = this.getHash();
     	if (currentHash.lyrs) {
     		state.lyrs = currentHash.lyrs;

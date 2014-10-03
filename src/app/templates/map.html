@@ -8,6 +8,7 @@
     <div id="simple-geocoder" class="simple-geocoder"></div>
     <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link" style="display: none;"></div>
     <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link" style="display: none;"></div>
+    <div id='sharing-linker' data-bind="visible: showSharingOptions()" class="sharing-linker modal-link" style="display: none;"></div>
     <!-- Begin Basemap/Overlays Modal -->
     <div id="basemap-modal" data-bind="visible: showBasemapGallery()" class="maptools-modal" style="display: none;">
     	<div class="container-header">Overlays</div>
@@ -113,6 +114,13 @@
 			</div>
     </div>
     <!-- End Locator Modal -->
+    <!-- Begin Sharing Modal -->
+    <div id='sharing-modal' data-bind='visible: showSharingOptions()' class="sharing-modal" style="display: none;">
+      <div class="sharing_toolbox">
+        <div class="addthis_sharing_toolbox" data-title="Global Forest Watch Commodities"></div>
+      </div>
+    </div>
+    <!-- End Sharing Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
 

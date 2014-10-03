@@ -49,6 +49,7 @@ define([
 
       // Mixin any state/props that need to be mixed in here
       props.analysisArea = this.state.analysisArea;
+      props.currentStep = this.state.currentStep;
 
       props.callback = {
         nextStep: this._nextStep,

@@ -85,6 +85,9 @@ define([
 				duration: 100
 			});
 
+			// Initialize Add This
+			addthis.init();
+
 		},
 
 		bindUIEvents: function () {
@@ -98,12 +101,20 @@ define([
 
 			on(dom.byId("locator-widget-button"), "click", function () {
 				MapModel.set('showBasemapGallery', false);
+				MapModel.set('showSharingOptions', false);
 				MapModel.set('showLocatorOptions', !MapModel.get('showLocatorOptions'));
 			});
 
 			on(dom.byId("basemap-gallery-button"), "click", function () {
 				MapModel.set('showLocatorOptions', false);
+				MapModel.set('showSharingOptions', false);
 				MapModel.set('showBasemapGallery', !MapModel.get('showBasemapGallery'));
+			});
+
+			on(dom.byId("share-button"), "click", function () {
+				MapModel.set('showLocatorOptions', false);
+				MapModel.set('showBasemapGallery', false);
+				MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
 			});
 
 			on(dom.byId("dms-search"), "change", function (evt) {

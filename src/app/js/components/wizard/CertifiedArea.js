@@ -39,6 +39,15 @@ define([
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
       }
+
+      if (newProps.selectedArea === 'certifiedAreaOption' && 
+                     this.state.selectedScheme !== 'NONE' &&
+                     newProps.currentStep === 1) {
+        
+        topic.publish('setCertificationSchemeDefinition', this.state.selectedScheme);
+
+      }
+
     },
 
     render: function () {
