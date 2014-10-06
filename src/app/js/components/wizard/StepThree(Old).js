@@ -98,7 +98,7 @@ define([
           value;
       
       Array.prototype.forEach.call(nodes, function (node) {
-        value = node.dataset.value;
+        value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
         activeValues.push(value);
       });
 
@@ -128,7 +128,7 @@ define([
           value;
 
       Array.prototype.forEach.call(nodes, function (node) {
-        value = node.dataset.value;
+        value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
         payload[value] = (node.className.search('active') > -1);
       });
 

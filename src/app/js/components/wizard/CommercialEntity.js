@@ -109,8 +109,8 @@ define([
     },
 
     _commodityClicked: function (target) {
-      var featureType = target.dataset.type,
-          objectId = target.dataset.value,
+      var featureType = target.dataset ? target.dataset.type : target.getAttribute('type'),
+          objectId = target.dataset ? target.dataset.value : target.getAttribute('value'),
           wizardGraphicsLayer,
           self = this,
           graphic;

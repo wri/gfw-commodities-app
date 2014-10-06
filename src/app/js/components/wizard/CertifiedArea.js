@@ -132,8 +132,8 @@ define([
     },
 
     _schemeClicked: function (target) {
-      var featureType = target.dataset.type,
-          objectId = target.dataset.value,
+      var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
+          objectId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
           wizardGraphicsLayer,
           self = this,
           graphic;
@@ -146,7 +146,7 @@ define([
             wizardGraphicsLayer.clear();
             features.forEach(function (feature) {
               // Add it to the map and make it the current selection, give it a label
-              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
+              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
               graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
               wizardGraphicsLayer.add(graphic);
             });
@@ -160,7 +160,7 @@ define([
         AnalyzerQuery.getFeatureById(config.schemeQuery.url, objectId).then(function (feature) {
 
           // Add it to the map and make it the current selection, give it a label
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
+          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
           graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
           if (wizardGraphicsLayer) {

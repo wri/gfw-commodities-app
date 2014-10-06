@@ -182,8 +182,8 @@ define([
 		},
 
 		toggleLayerList: function (el) {
-			var filter = el.dataset ? el.dataset.filter : el.getAttribtue('data-filter'),
-					newclass = el.dataset ? el.dataset.class : el.getAttribtue('data-class'),
+			var filter = el.dataset ? el.dataset.filter : el.getAttribute('data-filter'),
+					newclass = el.dataset ? el.dataset.class : el.getAttribute('data-class'),
 					position = domGeom.position(el, true),
 					containerWidth = 180,
 					offset;

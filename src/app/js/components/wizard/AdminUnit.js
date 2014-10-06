@@ -110,8 +110,8 @@ define([
     },
 
     _lowLevelAdminUnitClick: function (target) {
-      var featureType = target.dataset.type,
-          objectId = target.dataset.value,
+      var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
+          objectId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
           wizardGraphicsLayer,
           self = this,
           graphic;

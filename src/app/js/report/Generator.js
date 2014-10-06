@@ -1,5 +1,6 @@
 define([
 	"esri/config",
+	"esri/request",
 	"dojo/Deferred",
 	"dojo/dom-class",
 	"dojo/promise/all",
@@ -7,7 +8,7 @@ define([
 	// Local Modules from report folder
 	"report/config",
 	"report/Fetcher"
-], function (esriConfig, Deferred, domClass, all, arrayUtils, Config, Fetcher) {
+], function (esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Config, Fetcher) {
 	'use strict';
 
 	window.report = {};
