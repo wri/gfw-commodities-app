@@ -340,8 +340,35 @@
 	min-height: 648px;
 	background: rgb(255, 255, 255);
 }
+.esriPopup .titlePane {
+	font-weight: bold !important;
+	padding-top: 5px !important;
+	padding-left: 10px !important;
+	background-color: #F7F7F7 !important;
+	color: black !important;
+}
 
+.esriPopup .titleButton.close{
+	background: url('images/ico-close.png') no-repeat !important;
+	margin-top: 7px;
+	margin-right: 3px;
+}
 
+.esriPopup .titleButton.maximize{
+	display: none !important;
+}
+
+.esriPopup .titleButton.next{
+	background: url('images/ico-carat-right.png') no-repeat !important;
+	margin-top: 5px !important;
+	right: 29px !important;
+}
+
+.esriPopup .titleButton.prev{
+	background: url('images/ico-carat-left.png') no-repeat !important;
+	margin-top: 5px !important;
+	right: 49px !important;
+}
 /* from calums css end */
 
 
@@ -355,6 +382,20 @@
 .source_category_description {
     font: 13px/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #999;
+}
+
+.popupAnalyzeButton {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding-top: 5px;
+	padding-bottom: 6px;
+	border: 2px solid #f0ab00;
+	border-radius: 6px;
+	margin-top: 6px;
+	background-color: #F7F7F7;
+	background-image: url('images/analysis-icon-gray-background.png');
+	background-repeat: no-repeat;
+	padding-left: 28px;
+	background-position-x: 2px;
 }
 
 .source_header strong {
@@ -457,6 +498,11 @@
 	margin-bottom: 30px;
 }
 
+.source_dropdown .countryData {
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
 .source_dropdown_header .overview_title {
 	margin: 0;
 	padding: 0 10px;
@@ -465,6 +511,7 @@
 
 .source_dropdown_body.active, .source_dropdown_body.sinlge_active, .source_dropdown_menu.active {
 	display: block;
+	padding-left: 10px
 }
 
 .source_dropdown_body {
@@ -484,6 +531,14 @@
     margin: 30px 0px 10px;
     font: 21px/1.1 "fira_sans_otmedium";
     color: #463F52;
+}
+
+.source_download_container {
+	font: 21px/1.1 "fira_sans_otmedium";
+	color: #463F52;
+	width: 100%;
+	border: none;
+	margin-bottom: 0px;
 }
 
 .source_header.last{

@@ -59,7 +59,7 @@ define([
             ),
             React.DOM.a({'className': 'layer-title'}, this.props.title),
               (this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" ?
-                  React.DOM.span({'className': 'layer-info-icon', 'onClick': this.showInfo},"X")
+                  React.DOM.span({'className': 'layer-info-icon', 'onClick': this.showInfo})
                   : null
                   ),
             React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle)
