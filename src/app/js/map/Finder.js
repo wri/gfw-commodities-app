@@ -292,7 +292,7 @@ define([
       arrayUtils.forEach(featureObjects, function (item) {
         template = new InfoTemplate(item.value, 
           MapConfig.oilPerm.infoTemplate.content +
-          "<div><button id='popup-analyze-area' data-label='" + 
+          "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
           item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
           "Analyze this area</button></div>"
         );
@@ -353,14 +353,14 @@ define([
         if (item.layerId === 7) {
           template = new InfoTemplate(item.value, 
             MapConfig.adminUnitsLayer.infoTemplate.content +
-            "<div><button id='popup-analyze-area' data-label='" + 
+            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
             "${NAME_2}' data-type='AdminBoundary' data-id='${OBJECTID}'>" +
             "Analyze this area</button></div>"
           );
         } else {
           template = new InfoTemplate(item.value, 
             MapConfig.certificationSchemeLayer.infoTemplate.content +
-            "<div><button id='popup-analyze-area' data-label='" + 
+            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
             item.value + "' data-type='CertScheme' data-id='${OBJECTID}'>" +
             "Analyze this area</button></div>"
           );
@@ -396,7 +396,7 @@ define([
 
       infoTemplate = new InfoTemplate(label,
         MapConfig.customGraphicsLayer.infoTemplate.content +
-        "<div><button id='popup-analyze-area' data-label='" + 
+        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
             label + "' data-type='CustomGraphic' data-id='${WRI_ID}'>" +
             "Analyze this area</button></div>"
       );
