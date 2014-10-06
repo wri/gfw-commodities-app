@@ -24,7 +24,7 @@ define([
 					wizardContainer = dom.byId("wizard-container"),
 					deferred = new Deferred(),
 					MAX_WIDTH = 600, 
-					MIN_WIDTH = 400,
+					MIN_WIDTH = 450,
 					halfMapWidth = mapWidth / 2,
 					orignalCenterPoint,
 					duration = 500,

@@ -68,6 +68,7 @@ define([
           new NestedList({
             'data': this.state.nestedListData,
             'click': this._commodityClicked,
+            'placeholder': 'Search commercial entities...',
             'isResetting': this.props.isResetting
           })
         )

@@ -78,6 +78,7 @@ define([
           new NestedList({
             'data': this.state.nestedListData,
             'click': this._schemeClicked,
+            'placeholder': 'Search certified areas...',
             'isResetting': this.props.isResetting
           })
         )

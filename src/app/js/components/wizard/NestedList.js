@@ -95,7 +95,7 @@ define([
       	React.DOM.div({'className': 'nested-list'},
       		React.DOM.div({'className': 'searchBox'},
           	React.DOM.input({
-          		'placeholder': 'Search', 
+          		'placeholder': this.props.placeholder, 
           		'type': 'text',
           		'value': this.state.filter,
           		'onChange': this._setFilter

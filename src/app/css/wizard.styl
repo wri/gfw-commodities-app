@@ -69,6 +69,7 @@ wizardBlue = #00688B
 
 .gfw .step .step-body
 	position absolute
+	overflow-y auto
 	bottom 50px
 	left 10px
 	right 0
@@ -83,8 +84,11 @@ wizardBlue = #00688B
 	left 0
 
 .gfw .wizard-body select,
-.gfw .wizard-body input[type='text']
+.gfw .admin-unit input[type='text'],
+.gfw .certified-area input[type='text'],
+.gfw .commercial-entity input[type='text']
 	box-sizing border-box
+	margin-left 1px
 	font-size 16px
 	width 300px
 
@@ -155,10 +159,13 @@ wizardBlue = #00688B
 	position absolute
 	text-align center
 	cursor pointer
-	font-size 24px
+	font-size 20px
 	height 50px
 	width 120px
 	right 0
+
+.gfw .select-analysis .next-button-container
+	width 160px
 
 .gfw .wizard-body .next-button-container.disabled
 	background-color mediumGray
@@ -174,8 +181,9 @@ wizardBlue = #00688B
 .gfw .step .clear-custom-features
 	text-decoration underline
 	display inline-block
-	margin 10px 0 0
+	margin 10px 10px 0 0
 	cursor pointer
+	float right
 	color blue
 
 .gfw .step .drawing-instructions
@@ -183,6 +191,7 @@ wizardBlue = #00688B
 
 .gfw .step .upload-instructions
 	margin-bottom 5px
+	font-size 15px
 
 .gfw .step .instructions
 	margin 5px 0 8px
@@ -192,6 +201,9 @@ wizardBlue = #00688B
 	right 120px
 	left 0
 
+.gfw .select-analysis .selected-analysis-area
+	right 160px
+
 .gfw .step .current-selection-label
 	position absolute
 	line-height 50px
@@ -200,9 +212,12 @@ wizardBlue = #00688B
 	left 5px
 
 .gfw .step .current-selection
+	text-overflow ellipsis
+	white-space nowrap
 	position absolute
 	line-height 50px
 	font-weight bold
+	overflow hidden
 	color goldFont
 	font-size 16px
 	left 160px
@@ -238,10 +253,21 @@ wizardBlue = #00688B
 
 .gfw .upload-toolbox #dropdownContainerName
 	text-align center
-	margin 20px 0
+	margin 10px 0
 
 .gfw .custom-graphics-list-container
-	margin 20px 0
+	position absolute
+	overflow-y auto
+	left -10px
+	top 320px
+	bottom 0
+	right 0
+
+.gfw .upload-toolbox.hidden + .custom-graphics-list-container
+	top 150px
+
+.gfw .custom-graphics-list-container
+	margin-left 10px
 
 .gfw .dijitComboBoxMenuPopup
 	max-height 300px
@@ -253,6 +279,10 @@ wizardBlue = #00688B
 	font-size 18px
 	margin 5px 0
 
+.gfw .checkbox-list .wizard-checkbox-container
+	display inline-block
+	width 220px
+
 .gfw .wizard .wizard-checkbox
 	display inline-block
 	cursor pointer
@@ -262,6 +292,8 @@ wizardBlue = #00688B
 
 .gfw .wizard .wizard-checkbox-label
 	margin-left 5px
+	font-size 15px
+	color #000
 
 .gfw .wizard-checkbox.active .custom-check
 	background-color orangeSelected
@@ -273,7 +305,6 @@ wizardBlue = #00688B
 	color orangeSelected
 	
 .gfw .step .list-container
-	border-top 1px solid greyBorder
 	position absolute
 	overflow-y auto
 	left -10px
@@ -301,13 +332,13 @@ wizardBlue = #00688B
 	padding-left 25px
 
 .gfw .admin-unit .list-container
-	top 150px
+	top 184px
 
 .gfw .commercial-entity .list-container
 	top 125px
 	
 .gfw .certified-area .list-container
-	top 205px
+	top 210px
 
 .gfw .wizard-body .country-select,
 .gfw .wizard-body .commodity-type-select,
@@ -322,9 +353,25 @@ wizardBlue = #00688B
 	width 24px
 
 .gfw .select-analysis .layer-description
-	margin 5px 10px
+	margin 0 5px 0 20px
 	font-size 12px
 
 .gfw .select-analysis .step-sub-header
+	margin 10px 0 5px
 	font-weight bold
-	margin 10px 0
+
+.gfw .wizard-body .step-three-top
+	position absolute
+	height 190px 
+	right 0
+	left 0 
+	top 0
+
+.gfw .wizard-body .checkbox-list
+	position absolute
+	overflow-y auto
+	top 190px
+	bottom 0
+	right 0
+	left 0 
+

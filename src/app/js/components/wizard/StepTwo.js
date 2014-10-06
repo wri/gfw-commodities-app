@@ -16,7 +16,14 @@ define([
       millPoint = AnalyzerConfig.stepTwo.millPoint,
       certArea = AnalyzerConfig.stepTwo.certArea,
       commArea = AnalyzerConfig.stepTwo.commArea,
-      labelField = AnalyzerConfig.stepTwo.labelField;
+      labelField = AnalyzerConfig.stepTwo.labelField,
+      customTitles = {};
+
+  customTitles[customArea] = 'Create a custom area';
+  customTitles[adminUnit] = 'Administrative unit';
+  customTitles[millPoint] = 'Mill point';
+  customTitles[certArea] = 'Certified area';
+  customTitles[commArea] = 'Commercial entity';
 
   // Helper Functions
   function getDefaultState() {
@@ -56,12 +63,10 @@ define([
           (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel)
           : "none");
 
-      var currentSelectionClass = 'current-selection ' + (currentSelection.length > 35 ? 'big-name' : '');
-
       return (
         React.DOM.div({'className': 'step'},
           React.DOM.div({'className': 'step-body'},
-            React.DOM.div({'className': 'step-title'}, title),
+            React.DOM.div({'className': 'step-title'}, title + ' - ' + customTitles[this.props.selectedArea]),
             React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== millPoint ? 'hidden' : '')},
               new MillPoint(this.props)
             ),
@@ -81,7 +86,7 @@ define([
           React.DOM.div({'className': 'step-footer'},
             React.DOM.div({'className': 'selected-analysis-area'},
               React.DOM.div({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
-              React.DOM.div({'className': currentSelectionClass}, 
+              React.DOM.div({'className': 'current-selection','title': currentSelection}, 
                 currentSelection
               )
             ),

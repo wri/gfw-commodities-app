@@ -56,7 +56,7 @@ define([], function () {
 		},
 
 		stepThree: {
-			title: "Step 3: Select Analysis",
+			title: "Step 3: Select a variable to analyze",
 			description: "Select which types of analysis you would like to perform and then click \"Perform Analysis\".  You must select at least one option.",
 			//description: "Select which type of analysis you would like included in your results and then click \"Next\".",
 			currentFeatureText: "Current selection: ",
@@ -102,6 +102,10 @@ define([], function () {
 				value: 'rspo',
 				description: 'Description of the output the user will see when selecting this option.'
 			},
+			forestChange: {
+				label: 'Forest Change Analysis Variables',
+				description: 'Choose one or more variable(s) to calculate hectares of forest loss, get a count of active fires and mothly clearance alerts.'
+			},
 			millPoint: millPoint
 		},
 
@@ -124,7 +128,7 @@ define([], function () {
 
 		customArea: {
 			instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
-			instructionsPartTwo: "Select a feature from below and click \"Next\" to proceed.",
+			instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",
 			freehandLabel: 'Freehand',
 			uploadLabel: 'Upload',
 			polyLabel: 'Polygon',
@@ -140,7 +144,7 @@ define([], function () {
 
 		adminUnit: {
 			instructions: 'Select a country to view it\'s first or second level administrative units:',
-			instructionsPartTwo: "Select a feature from below and click \"Next\" to proceed.",
+			instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",
 			countriesQuery: {
 				url: adminUnitQueryUrl + '/7',
 				where: "NAME_0 IS NOT NULL",
@@ -171,7 +175,7 @@ define([], function () {
 
 		commercialEntity: {
 			instructions: 'Select a commodity type:',
-			instructionsPartTwo: 'Select a feature from below and click \"Next\" to proceed.',
+			instructionsPartTwo: 'Select a feature from the list below and click \"Next\" to proceed.',
 			commodityOptions: [
 				{label:'None', value: 'NONE'},
 				{label:'Logging concession', value: 'Logging concession'},
@@ -197,7 +201,7 @@ define([], function () {
 		certifiedArea: {
 			instructions: 'Select a commodity type:',
 			instructionsPartTwo: 'Select a Certification Scheme:',
-			instructionsPartThree: "Select a feature from below and click \"Next\" to proceed.",
+			instructionsPartThree: "Select a feature from the list below and click \"Next\" to proceed.",
 			commodityOptions: [
 				{label:'Oil palm concession', value: 'Oil palm concession'}
 			],

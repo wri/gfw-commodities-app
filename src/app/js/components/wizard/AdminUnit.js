@@ -74,6 +74,7 @@ define([
           new NestedList({
             'data': this.state.nestedListData,
             'click': this._lowLevelAdminUnitClick,
+            'placeholder': 'Search administrative units...',
             'isResetting': this.props.isResetting
           })
         )

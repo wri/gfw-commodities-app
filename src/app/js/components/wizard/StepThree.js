@@ -4,7 +4,8 @@ define([
   "components/wizard/WizardCheckbox"
 ], function (React, AnalyzerConfig, WizardCheckbox) {
 
-  var config = AnalyzerConfig.stepThree;
+  var config = AnalyzerConfig.stepThree,
+      labelField = AnalyzerConfig.stepTwo.labelField;
 
   function getDefaultState() {
     return {
@@ -29,32 +30,48 @@ define([
     },
 
     render: function () {
+
+      var currentSelection = (this.props.analysisArea ? 
+          (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel)
+          : "none");
+
       return (
         React.DOM.div({'className': 'step select-analysis'},
           React.DOM.div({'className': 'step-body'},
-            React.DOM.div({'className': 'step-title'}, config.title),
-            React.DOM.p({'className': 'step-description'}, config.description),
-            new WizardCheckbox({
-              'label': config.suit.label,
-              'value': config.suit.value,
-              'change': this._selectionMade, 
-              'isResetting': this.props.isResetting
-            }),
-            React.DOM.p({'className': 'layer-description'}, config.suit.description),
-            new WizardCheckbox({
-              'label': config.rspo.label,
-              'value': config.rspo.value,
-              'change': this._selectionMade, 
-              'isResetting': this.props.isResetting
-            }),
-            React.DOM.p({'className': 'layer-description'}, config.rspo.description),
-            React.DOM.div({'className': 'step-sub-header'}, "Forest Change Analysis Variables"),
-            config.checkboxes.map(this._mapper, this)
+            React.DOM.div({'className': 'step-three-top'},
+              React.DOM.div({'className': 'step-title'}, config.title),
+              //React.DOM.p({'className': 'step-description'}, config.description),
+              new WizardCheckbox({
+                'label': config.suit.label,
+                'value': config.suit.value,
+                'change': this._selectionMade, 
+                'isResetting': this.props.isResetting
+              }),
+              React.DOM.p({'className': 'layer-description'}, config.suit.description),
+              new WizardCheckbox({
+                'label': config.rspo.label,
+                'value': config.rspo.value,
+                'change': this._selectionMade, 
+                'isResetting': this.props.isResetting
+              }),
+              React.DOM.p({'className': 'layer-description'}, config.rspo.description),
+              React.DOM.div({'className': 'step-sub-header'}, config.forestChange.label),
+              React.DOM.p({'className': 'layer-description'}, config.forestChange.description)
+            ),
+            React.DOM.div({'className': 'checkbox-list'},
+              config.checkboxes.map(this._mapper, this)
+            )
           ),
           React.DOM.div({'className': 'step-footer'},
-            React.DOM.div({'className':'next-button-container'},
+            React.DOM.div({'className': 'selected-analysis-area'},
+              React.DOM.div({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
+              React.DOM.div({'className': 'current-selection','title': currentSelection}, 
+                currentSelection
+              )
+            ),
+            React.DOM.div({'className':'next-button-container ' + (this.state.completed ? '' : 'disabled')},
               React.DOM.span({
-                'className': 'next-button ' + (this.state.completed ? '' : 'disabled'), 
+                'className': 'next-button', 
                 'onClick': this._proceed 
               }, "Perform Analysis")
             )
