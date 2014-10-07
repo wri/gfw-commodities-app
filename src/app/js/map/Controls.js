@@ -22,7 +22,8 @@ define([
 
 	'use strict';
 
-    var jq171 = jQuery.noConflict();
+    var jq171 = jQuery.noConflict(),
+    			sliderInit = false;
 
 	return {
 
@@ -406,11 +407,13 @@ define([
 		    max = 2012,
 		    from = 2000,
 		    to = 2012;
-		    
 
+
+		    
+		    
 		    $(".layer-list-item.forest-change > ul > li").click(function() {
 		   		console.log("***********");
-		   		var $this = $(this); 
+		   		var $this = $(this);
 		   		ionCallback.call(this);
 			});
 
@@ -428,27 +431,63 @@ define([
 				    onChange: function (data) {
 				        from = data.fromNumber;
 				        to = data.toNumber;
-				        console.log(from + ", " + to);
+				        //console.log(from + ", " + to);
 				        updateValues();
 				        $("#range").ionRangeSlider("update");
-				        console.log("Inside update!");
-				        console.log($range.playing);
+
+				        //console.log("Inside update!");
+				        //console.log($range.playing);
 				        if ($range.playing != true) {
+				        	$("#sliderProgressLine").hide();
+				        	$("#playLine2").hide();
 					        var values3 = [from - 2000, to - 2000];
-							console.log(values3);
+							//console.log(values3);
+							for (var i = 1; i < 12; i++) {
+								var item1 = $( ".playLineFiller > div:nth-child(" + i + ")" );
+								var item2 = $( ".container2 > div:nth-child(" + i + ")" );
+								if ((i <= from - 2000) || (i >= to - 2000)) {
+									$(item1.selector).css( "background-color", "transparent" );
+								} else {
+									$(item1.selector).css( "background-color", "#a1ba42" );
+								}
+								if ((i < from - 1999) || (i > to - 2000)) {
+									$(item2.selector).css( "color", "black" );
+								} else {
+									$(item2.selector).css( "color", "#a1ba42" );
+								}
+							}
+							if (to != 2012) {
+								$(".container2 > div:last-child").css( "color", "black" );
+							} else {
+								$(".container2 > div:last-child").css( "color", "#a1ba42" );
+							}
 							LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
 						}
 				    },
 				});
 				$("#range").ionRangeSlider("update");
+				$("#playLine2").hide();
+				$("#sliderProgressLine").hide();
+			
 			};
 
-			/*var years = ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"];
-			var el = $.map(years, function(val, i) {
-		      return "		" + val + "			";
-		    });
-		    $(".extra-controls").html(el.join(""));*/
-		    console.log($range);
+			if (!sliderInit) {
+			 	sliderInit = true;
+		    	ionCallback();
+		    	$(".irs-slider.to").css("left", "792px");
+		    	
+		    	$(".irs-slider.from.last").each(function(){
+		    		var node = this;
+		    		var sliderProgressLine = domConstruct.create("div",{id:"sliderProgressLine"});
+		    		domConstruct.place(sliderProgressLine, node, "after");
+
+		    		var playLine2 = domConstruct.create("div",{id:"playLine2"});
+		    		domConstruct.place(playLine2, node, "after");
+		    		
+		    	});
+
+		    }
+
 			$from.on("change", function () {
 			    from = $(this).prop("value");
 			    if (from < min) {
@@ -487,8 +526,12 @@ define([
 
 
 			function play() {
-				
-				console.log($range.playing);
+				//$(".playLine").hide();
+				$("#sliderProgressLine").hide();
+				$("#playLine2").hide();
+				$('#playLine2').css("left", "0" );
+				$('#sliderProgressLine').css("left", "0" );
+				//console.log($range.playing);
 				if ($range.playing == true) {
 					console.log("Here we must stop");
 					$range.playing = false;
@@ -499,6 +542,31 @@ define([
 			    var thumbOne = initialDates[0];
 			    var thumbTwo = initialDates[1];
 			    var thumbOneInitial = thumbOne;
+
+			    //console.log($(".irs-slider.from.last").css("left"));
+				var sliderStart = $(".irs-slider.from.last").css("left");
+				var sliderStart2 = $(".irs-diapason").css("left");
+				//console.log(sliderStart);
+				console.log(sliderStart2);
+				//sliderStart2 = sliderStart2 - 10;
+				//console.log(sliderStart);
+				console.log('');
+
+				$('#playLine2').css("left", sliderStart);
+				$('#sliderProgressLine').css("left", sliderStart);
+				if (sliderStart == undefined) {
+					console.log("using #2!!");
+					$('#playLine2').css("left", sliderStart2);
+					$('#playLine2').css("left", "-=10px" );
+					$('#sliderProgressLine').css("left", sliderStart2);
+					$('#sliderProgressLine').css("left", "-=10px" );
+				}
+				$('#playLine2').css("left", "-=21px" );
+				$( "#playLine2" ).html( thumbOne );
+
+				$("#playLine2").show();
+				$('#sliderProgressLine').css("left", "+=8px" );
+				$("#sliderProgressLine").show();
 			    // Add css via JQuery here to show where slider started from
 			    // Maybe get the css position of thumbOne.
 			    // Then remove the css line's style on Pause or End  -->  $("").removeClass("");
@@ -509,8 +577,8 @@ define([
 			    // Now we'll add the irs-dapson's initial left value to it!
 
 
-			    console.log($( ".irs-diapason" ).css( "left"));
-			    console.log($( ".irs-slider.from" ).css( "left"));
+			    //console.log($( ".irs-diapason" ).css( "left"));
+			    //console.log($( ".irs-slider.from" ).css( "left"));
 			    
 			    /*$.each(document.styleSheets, function(sheetIndex, sheet) {
 				    console.log("Looking at styleSheet[" + sheetIndex + "]:");
@@ -533,6 +601,7 @@ define([
 
 				$range.playing = true;
 				$("#newSlider").html("&#x25A0");
+				$("#" + thumbOne).show();
 
 			    //var values = [0,thumbOne-2000];
 			    var values = [thumbOneInitial-2000,thumbOne-2000];
@@ -547,8 +616,46 @@ define([
 					if ($range.playing == false) {
 						return;
 					}
-					console.log("I'm using these..");
-					console.log(values);
+					
+					//console.log($("#sliderProgressLine").css("left"));
+					$('#playLine2').css("left", "+=66px" );
+					
+					$('#sliderProgressLine').css("left", "+=66px" );
+					//console.log($("#sliderProgressLine").css("left"));
+					// Above line will show me my starting value, then every iteration, add
+					// a certain amount to my sliderProgress Line's LEFT value. 66px I think.
+
+					// Other fix Amir talked about; my second div of label pop ups isn;t EVER 
+					// showing up! Use the debugger and find out why.
+
+					// Fix positioning of popup labels.
+
+					// If that all works, clean up the css. Maybe make font smaller. 
+
+					$("#" + thumbOne).show();
+					//console.log("I'm using these..");
+					//console.log(values);
+					console.log($("#" + thumbOne).css("display"));
+					//$("#" + oldTick).hide();
+					//console.log($( ".irs-slider.from" ).css( "left"));
+					//.playLine > #2001 
+					var oldTick = thumbOne - 1;
+					var newTick = thumbOne + 1;
+					$("#" + thumbOne).hide();
+					//console.log($("#" + oldTick).css("display"));
+					//$(".playLine > div").hide();
+					
+					//console.log($(".playLine > div:nth-child(4)"));
+					//console.log($(".playLine > div:nth-child(" + thumbOne + ")" + ));
+					//console.log($(".playLine > div:nth-child(" + thumbOne + ")" + ).css("margin-left"));
+					//$("#" + thumbOne).css("width:20%;");
+					//$("#" + thumbOne).css("width:200px;");
+					//$("#" + oldTick).show();
+					//$("#" + newTick).show();
+					//$("#" + thumbOne).show();
+					$("#" + newTick).show();
+					console.log($("#" + thumbOne).css( "display"));
+
 					LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
 		  	// 		$range.ionRangeSlider("update", {
 					//     from: from + 1
@@ -557,6 +664,7 @@ define([
 					var newThumbTwo = newDates[1];
 					
 					thumbOne++;
+					$( "#playLine2" ).html( thumbOne );
 					//values = [0,thumbOne-2000];
 					console.log("Start: " + thumbOneInitial);
 					console.log("End: " + thumbOne);
@@ -566,6 +674,9 @@ define([
 						thumbTwo = newThumbTwo;
 					}
 					if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
+						$("#" + oldTick).hide();
+						//$("#" + thumbOne).hide();
+						//$("#" + newTick).hide();
 						$("#newSlider").html("&#9658");
 						$range.playing = false;
 						console.log("Finito!");
