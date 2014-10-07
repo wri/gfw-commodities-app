@@ -1,9 +1,11 @@
 define([
 	"dojo/dom",
 	"dijit/registry",
-	"dojo/_base/array"
-], function (dom, registry, arrayUtil) {
+	"dojo/_base/array",
+	"models/HomeModel"
+], function (dom, registry, arrayUtil, HomeModel) {
 	'use strict';
+
 
 	    var o = {};
         var initialized = false;
@@ -12,72 +14,32 @@ define([
             viewId: "homeView",
             viewName: "home"
         };
+        
+
+        var stopAnimation = false;        
 
 
-        var stopAnimation = false;
-        o.init = function() {
-            var that = this;
-            if (initialized) {
-                //switch to this view
-                //EventsController.switchToView(viewObj);
+        o.startModeAnim = function() {
 
-                //EventsController.startModeAnim();
-                return;
-            }
-            require(["dojo/templates!/home.html"], function(html) {
-                initialized = true;
-                //otherwise load the view
-                dom.byId(viewName).innerHTML = html;
-                console.log(html);
-                /*
-                EventsController.switchToView(viewObj);
-                HomeModel.applyBindings(viewName);
-                //ANIMATE ONLY AFTER BINDING DONE
-                EventsController.getPeats();*/
-                /*{
-                    resume: true
-                }*/
-            });
-        };
-
-                var homeModeOptions =  [{
-                    "html": "Fires occuring in peatland <br> in the last 7 days",
-                    "eventName": "goToMap",
-                    "display": false
-                }, {
-                    "html": "<span>View the latest analysis</span>",
-                    "eventName": "goToAnalysis",
-                    "display": false
-                }, {
-                    "html": "<span>View the latest imagery</span>",
-                    "eventName": "goToMap",
-                    "display": false
-                }, {
-                    "html": "<span>Explore the map</span>",
-                    "eventName": "goToMap",
-                    "display": false
-                }, {
-                    "html": "<span class='more-text'>Sign up for SMS and email fire alerts</span>",
-                    "eventName": "subscribeToAlerts",
-                    "display": false
-                }];
-
-        o.startModeAnim = function(data) {
-        	console.log("Data:");
-            console.log(data);
             stopAnimation = false;
 
             var currentNodeId = 0; //start with last one
 
             var currentModeOption = function(id) {
+            	
+            	var homeModeOptions = HomeModel.vm.homeModeOptions();
+            	console.log(homeModeOptions);
 
                 var mappedHomModeOptions = arrayUtil.map(homeModeOptions, function(hmOpt, i) {
-                	//console.log("HERE IS THE THING I AM LOOKING FOR:");
+                	
                 	//console.log(hmOpt);
-                	//console.log("AND ALSO:" + i);
+                	
                     if (i === id) {
                         //alert(i);
+                        
                         hmOpt.display = true;
+                        
+
                         //console.log(hmOpt);
                     } else {
                         hmOpt.display = false;
@@ -86,9 +48,10 @@ define([
                     //console.log(hmOpt);
                     return hmOpt;
                 });
-                //HomeModel.vm.homeModeOptions([]);
-                //console.log(mappedHomModeOptions);
-                //HomeModel.vm.homeModeOptions(mappedHomModeOptions);
+                HomeModel.vm.homeModeOptions([]);
+                console.log(mappedHomModeOptions);
+                HomeModel.vm.homeModeOptions(mappedHomModeOptions);
+
             };
 
             currentModeOption(currentNodeId);
@@ -101,10 +64,11 @@ define([
 	        var runAnimation = function(id) {
 	            //console.log("animating " + id);
 	            var itemsToAnimate = dojoQuery(".modeGroup");
-	            var itemsToAnimate2 = homeModeOptions[0];
-	            //console.log("ITEMS TO ANIMATE:");
+	            
+	            //var itemsToAnimate2 = homeModeOptions;
+	            console.log("ITEMS TO ANIMATE:");
 
-	            //console.log(itemsToAnimate);
+	            console.log(itemsToAnimate);
 	            //console.log(itemsToAnimate2);
 	            var maxItems = itemsToAnimate.length;
 	            //console.log(dojoQuery(".modeGroup")[0]);
@@ -113,7 +77,6 @@ define([
 	            // 	console.log(itemsToAnimate[id]);
 	            // }, 500);
 	            
-	            //Maybe just Add the 5 bubbles into the html page and use dombyId to grab them for the 'node'
 
 	            var anim = coreFx.chain([
 
@@ -192,7 +155,10 @@ define([
 			initialized = true;
 			registry.byId("stackContainer").selectChild("homeView");
 			registry.byId("homeView").set('content', template);
-			o.startModeAnim(homeModeOptions);
+			
+			HomeModel.initialize("homeView");
+
+			o.startModeAnim();
 
 		}
 

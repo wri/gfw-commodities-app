@@ -255,7 +255,7 @@ wizardBlue = #00688B
 
 .gfw .layer-controls-container .treecover_change_toolbox
 	margin-left -500px
-	height 60px
+	height 55px
 	width 900px
 	padding-top 5px
 
@@ -397,7 +397,7 @@ wizardBlue = #00688B
 
 .range-slider:after {
   position: absolute;
-  left: 8%;
+  left: 7.5%;
   top: 0;
   width: 1px;
   background: black;
@@ -415,9 +415,11 @@ wizardBlue = #00688B
 	height: 50%;
 
 #newSlider
-	position: relative;
-	bottom: 23px;
-	left: 22px;
+	position: absolute;
+	bottom: 21px;
+	left: 29px;
+	cursor: pointer;
+
 
 .gfw #legend #legend_msg, .gfw #legend .esriLegendServiceLabel
 	display none
@@ -502,137 +504,64 @@ wizardBlue = #00688B
 	bottom: -5px;
 }
 
-.sliderNotches {
-    //display: inline-block;
-    display: inline;
-    //display: -moz-inline-box;
-    *display: inline; /* For IE7 */
-    zoom: 1; /* Trigger hasLayout */
-    //width: 8.0%;
-    text-align: center;
-    font-size: 9px;
-    position: absolute;
-	width: 800px;
-	height: 100px;
-}
-
-.sliderNotches > hr {
-	//margin-bottom: -270px;
-	margin-left: 10%;
-	margin-top: -43px;
-}
-
-#2001Line {
-	padding-left: 10px;
-}
-/*
-.playLine > div:first-child {
-    margin-left: 10%;
-}
-
-.playLine > div:nth-child(2) {
-    margin-left: 17%;
-}
-
-.playLine > div:nth-child(3) {
-    margin-left: 24%;
-}
-
-.playLine > div:nth-child(4) {
-    margin-left: 31%;
-}
-
-.playLine > div:nth-child(5) {
-    margin-left: 38%;
-}
-
-.playLine > div:nth-child(6) {
-    margin-left: 45%;
-}
-
-.playLine > div:nth-child(7) {
-    margin-left: 52%;
-}
-
-.playLine > div:nth-child(8) {
-    margin-left: 59%;
-}
-
-.playLine > div:nth-child(9) {
-    margin-left: 66%;
-}
-
-.playLine > div:nth-child(10) {
-    margin-left: 73%;
-}
-
-.playLine > div:nth-child(11) {
-    margin-left: 80%;
-}
-
-.playLine > div:nth-child(12) {
-    margin-left: 87%;
-}*/
-
 .playLineFiller > div {
 	background: #a1ba42;
 	display: inline-block;
-	height: 18px;
-	width: 18px;
+	height: 10px;
+	width: 35px;
 	position: absolute;
-	//margin-left: 30px;
-	margin-top: -17px;
-
+	margin-top: -11px;
 }
 
 .playLineFiller > div:first-child {
-    margin-left: 66px;
+    margin-left: 58px;
 }
 
 .playLineFiller > div:nth-child(2) {
-    margin-left: 132px;
+    margin-left: 124px;
 }
 
 .playLineFiller > div:nth-child(3) {
-    margin-left: 198px;
+    margin-left: 191px;
 }
 
 .playLineFiller > div:nth-child(4) {
-    margin-left: 264px;
+    margin-left: 256px;
 }
 
 .playLineFiller > div:nth-child(5) {
-    margin-left: 330px;
+    margin-left: 321px;
 }
 
 .playLineFiller > div:nth-child(6) {
-    margin-left: 396px;
+    margin-left: 388px;
 }
 
 .playLineFiller > div:nth-child(7) {
-    margin-left: 462px;
+    margin-left: 452px;
 }
 
 .playLineFiller > div:nth-child(8) {
-    margin-left: 528px;
+    margin-left: 518px;
 }
 
 .playLineFiller > div:nth-child(9) {
-    margin-left: 594px;
+    margin-left: 584px;
 }
 
 .playLineFiller > div:nth-child(10) {
-    margin-left: 660px;
+    margin-left: 649px;
 }
 
 .playLineFiller > div:nth-child(11) {
-    margin-left: 726px;
+    margin-left: 712px;
+    width: 33px;
 }
 
 #sliderProgressLine {
-	border: 1px solid #a1ba42;;
+	//border: 1px solid #a1ba42;;
 	width:1px;
-	height: 63px;
+	height: 60px;
 	position: absolute;
 	top: -5px;
 	background-color: #a1ba42;;
@@ -640,5 +569,118 @@ wizardBlue = #00688B
 
 }
 
+@-moz-document url-prefix() {
+    .playLineFiller > div {
+		width: 34px;
+		margin-top: -12px;
+	}
+	.container2 > div:first-child {
+	    margin-left: 4%;
+	}
+	.container2 > div:last-child {
+	    width: 2%;
+	}
+}
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.playLineFiller > div {
+		width: 32px;
+	}
+	.container2 > div {
+		width: 8.25%;
+	}
+	.container2 > div:first-child {
+	    margin-left: 1%;
+	}
+	.playLineFiller > div:nth-child(1) {
+		margin-left: 55px;
+	}
+	.playLineFiller > div:nth-child(2) {
+		margin-left: 122px;
+	}
+	.playLineFiller > div:nth-child(3) {
+		margin-left: 189px;
+	}
+	.playLineFiller > div:nth-child(4) {
+		margin-left: 254px;
+	}
+	.playLineFiller > div:nth-child(5) {
+		margin-left: 320px;
+	}
+	.playLineFiller > div:nth-child(6) {
+		margin-left: 387px;
+	}
+	.playLineFiller > div:nth-child(7) {
+		margin-left: 452px;
+	}
+	.playLineFiller > div:nth-child(8) {
+		margin-left: 518px;
+	}
+	.playLineFiller > div:nth-child(9) {
+		margin-left: 585px;
+	}
+	.playLineFiller > div:nth-child(10) {
+		margin-left: 650px;
+	}
+	.playLineFiller > div:nth-child(11) {
+		margin-left: 712px;
+		width: 32px;
+	}
+}
+
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
+	.playLineFiller > div {
+		width: 35px;
+	}
+	.container2 > div {
+		width: 8.15%;
+	}
+	.container2 > div:first-child {
+	    margin-left: 1.5%;
+	}
+	.playLineFiller > div:first-child {
+    margin-left: 58px;
+	}
+
+	.playLineFiller > div:nth-child(2) {
+	    margin-left: 124px;
+	}
+
+	.playLineFiller > div:nth-child(3) {
+	    margin-left: 191px;
+	}
+
+	.playLineFiller > div:nth-child(4) {
+	    margin-left: 256px;
+	}
+
+	.playLineFiller > div:nth-child(5) {
+	    margin-left: 321px;
+	}
+
+	.playLineFiller > div:nth-child(6) {
+	    margin-left: 388px;
+	}
+
+	.playLineFiller > div:nth-child(7) {
+	    margin-left: 452px;
+	}
+
+	.playLineFiller > div:nth-child(8) {
+	    margin-left: 518px;
+	}
+
+	.playLineFiller > div:nth-child(9) {
+	    margin-left: 584px;
+	}
+
+	.playLineFiller > div:nth-child(10) {
+	    margin-left: 649px;
+	}
+
+	.playLineFiller > div:nth-child(11) {
+	    margin-left: 712px;
+	    width: 33px;
+	}
+}
 

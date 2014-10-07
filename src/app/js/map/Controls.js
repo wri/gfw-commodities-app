@@ -451,13 +451,13 @@ define([
 									$(item1.selector).css( "background-color", "#a1ba42" );
 								}
 								if ((i < from - 1999) || (i > to - 2000)) {
-									$(item2.selector).css( "color", "black" );
+									$(item2.selector).css( "color", "grey" );
 								} else {
 									$(item2.selector).css( "color", "#a1ba42" );
 								}
 							}
 							if (to != 2012) {
-								$(".container2 > div:last-child").css( "color", "black" );
+								$(".container2 > div:last-child").css( "color", "grey" );
 							} else {
 								$(".container2 > div:last-child").css( "color", "#a1ba42" );
 							}
@@ -482,8 +482,7 @@ define([
 		    		domConstruct.place(sliderProgressLine, node, "after");
 
 		    		var playLine2 = domConstruct.create("div",{id:"playLine2"});
-		    		domConstruct.place(playLine2, node, "after");
-		    		
+		    		domConstruct.place(playLine2, node, "after");	
 		    	});
 
 		    }
@@ -565,7 +564,7 @@ define([
 				$( "#playLine2" ).html( thumbOne );
 
 				$("#playLine2").show();
-				$('#sliderProgressLine').css("left", "+=8px" );
+				$('#sliderProgressLine').css("left", "+=9px" );
 				$("#sliderProgressLine").show();
 			    // Add css via JQuery here to show where slider started from
 			    // Maybe get the css position of thumbOne.

@@ -10,6 +10,7 @@
 	      cacheBust: "v=" + version,
 	      packages: [
 	        {name: "main", location: URL + "/js/main"},
+	        {name: "models", location: URL + "/js/models"},
 	        {name: "utils", location: URL + "/js/utils"},
 	        {name: "report", location: URL + "/js/report"},
 	        {name: "analysis", location: URL + "/js/analysis"},
