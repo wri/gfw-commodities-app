@@ -62,7 +62,6 @@ body,
 
 /* line 63 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/app.styl */
 .gfw .app-footer {
-  height: 470px;
   width: 100%;
 }
 
@@ -1600,18 +1599,20 @@ address {
 
 /* line 315 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerModesContainer {
+  display: none;
   width: 100%;
   height: 300px;
   background-color: #222;
+  margin-top: -5px;
 }
 
-/* line 321 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 323 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerShareContainer {
   width: 100%;
   height: 350px;
 }
 
-/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 328 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerWrapper {
   width: 100%;
   max-width: 960px;
@@ -1620,7 +1621,7 @@ address {
   height: 100%;
 }
 
-/* line 334 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 336 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableWrapper {
   width: 100%;
   height: 350px;
@@ -1630,19 +1631,19 @@ address {
   bottom: 0;
 }
 
-/* line 343 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 345 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .alert-dialog-box .submit-button {
   text-align: center;
   margin: 10px 0;
 }
 
-/* line 348 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 350 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .alert-dialog-box .submit-button button {
   border-radius: 5px;
   font-size: 12px;
 }
 
-/* line 353 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 355 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes {
   height: 350px;
   max-width: 960px;
@@ -1651,13 +1652,13 @@ address {
   background-color: #464352;
 }
 
-/* line 361 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 363 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes a {
   color: #fff;
   font-size: 12px;
 }
 
-/* line 366 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 368 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .container-large {
   width: 365px;
   height: 100%;
@@ -1665,12 +1666,12 @@ address {
   float: left;
 }
 
-/* line 373 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 375 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .container-large>div {
   padding: 10px;
 }
 
-/* line 377 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 379 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .container-small {
   width: 200px;
   height: 100%;
@@ -1678,34 +1679,34 @@ address {
   float: left;
 }
 
-/* line 384 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 386 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .container-small>div {
   padding: 10px;
 }
 
-/* line 388 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 390 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .about-project {
   color: #b1afb6;
   font-size: 12px;
 }
 
-/* line 393 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 395 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .title {
   font-weight: 700;
 }
 
-/* line 397 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 399 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .wri-address {
   color: #b1afb6;
   font-size: 12px;
 }
 
-/* line 402 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 404 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .wri-address .title {
   font-weight: 700;
 }
 
-/* line 406 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 408 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .wri-address .wri-logo {
   font-weight: 700;
   background: url("../images/wri.png") no-repeat scroll 0 0 transparent;
@@ -1715,17 +1716,17 @@ address {
   margin: 10px 0;
 }
 
-/* line 415 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 417 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .share {
   color: #fff;
 }
 
-/* line 419 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 421 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .share .title {
   font-weight: 200;
 }
 
-/* line 424 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 426 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .share-container {
   padding: 10px 20px;
   border-radius: 160px;
@@ -1733,17 +1734,17 @@ address {
   margin: 10px 0;
 }
 
-/* line 431 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 433 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .sign-up {
   margin: 10px 0;
 }
 
-/* line 435 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 437 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .subscribe {
   margin: 0 5px;
 }
 
-/* line 439 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 441 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .gfw-logo {
   background: url("../images/monochromatic_gfw.jpg") no-repeat scroll 0 0 transparent;
   text-align: center;
@@ -1753,7 +1754,7 @@ address {
   margin: 10px;
 }
 
-/* line 448 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 450 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .footer-logo {
   background: url("../images/logos-from-gfw.png") no-repeat scroll 0 0 transparent;
   display: inline-block;
@@ -1762,25 +1763,25 @@ address {
   width: 88px;
 }
 
-/* line 456 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 458 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .footer-logo.digital-globe {
   background: url("../images/dg-globe.png") no-repeat scroll 0 0 transparent;
   height: 28px;
 }
 
-/* line 461 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 463 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .footer-logo.esri {
   background-position: 0 -654px;
   height: 28px;
 }
 
-/* line 466 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 468 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .footer-logo.google {
   background-position: 0 -734px;
   height: 52px;
 }
 
-/* line 471 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
+/* line 473 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/footer.styl */
 .footerMovableModes .footer-logo.bpredd {
   background: url("../images/bpredd.png") no-repeat scroll 0 0 transparent;
   height: 57px;
@@ -2315,40 +2316,42 @@ address {
   height: auto !important;
 }
 
-/* line 9 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 10 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #app-body .background-container {
+  margin-top: -450px;
   overflow: hidden;
   height: 100%;
   width: 100%;
 }
 
-/* line 14 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 17 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #app-body .background-container img {
   height: auto;
   width: 100%;
 }
 
-/* line 18 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 22 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeBgContainer {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-/* line 23 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 28 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeBgContainer img {
   width: 100%;
   height: auto;
 }
 
-/* line 27 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 33 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsContainer {
+  margin-top: 450px;
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-/* line 32 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 40 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter {
   width: 350px;
   height: 350px;
@@ -2360,14 +2363,7 @@ address {
   overflow: visible;
 }
 
-/* line 43 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
-/*.homeModeOptionsViewerInner
-    width 250px
-    height 250px
-    z-index 100
-    overflow hidden*/
-
-/* line 49 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 52 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup {
   height: 350px;
   width: 100%;
@@ -2376,7 +2372,7 @@ address {
   font-size: 20px;
 }
 
-/* line 57 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 61 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeOption {
   border-radius: 175px;
   -moz-border-radius: 175px;
@@ -2393,7 +2389,7 @@ address {
   box-sizing: border-box;
 }
 
-/* line 73 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 76 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeOptionRing {
   border-radius: 175px;
   -moz-border-radius: 175px;
@@ -2410,7 +2406,7 @@ address {
   box-sizing: border-box;
 }
 
-/* line 87 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 92 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText p {
   font-size: 72px;
   color: #ec1d38;
@@ -2418,7 +2414,7 @@ address {
   margin-bottom: 0px;
 }
 
-/* line 93 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText {
   font-family: "Georgia", serif;
   color: #ccc;
@@ -2429,31 +2425,31 @@ address {
   vertical-align: middle;
 }
 
-/* line 102 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 109 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span {
   font-size: 32px;
 }
 
-/* line 105 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 113 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span.more-text {
   position: relative;
   top: -20px;
 }
 
-/* line 109 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm {
   font-family: "Arial MT Condensed Light";
   src: url("../fonts/ArialMTStd-LightCond.otf") format("opentype");
   color: #464052;
 }
 
-/* line 114 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 124 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm .select-container {
   background: url("../images/ico-carat-down.png") no-repeat 95% center transparent;
   width: 240px;
 }
 
-/* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 129 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm #aoiDistrictPicker {
   background: transparent;
   -webkit-appearance: none;
@@ -2465,7 +2461,7 @@ address {
   width: 240px;
 }
 
-/* line 128 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 140 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm #aoiSubDistrictPicker {
   border: 1px solid #bbb;
   border-radius: 5px;
@@ -2475,7 +2471,7 @@ address {
   width: 240px;
 }
 
-/* line 134 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm input[type="email"],
 #signUpAlertsForm input[type="tel"] {
   border-radius: 5px;
@@ -2486,13 +2482,13 @@ address {
   height: 30px;
 }
 
-/* line 140 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 154 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm #verifyEmailForAlerts {
   font-size: 12px;
   display: none;
 }
 
-/* line 144 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 159 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #alerts-submit-button {
   background: #e50036;
   padding: 5px 10px;
@@ -2502,12 +2498,12 @@ address {
   border: none;
 }
 
-/* line 152 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 168 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm td {
   padding: 2px 6px;
 }
 
-/* line 155 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 172 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm .error-messages {
   color: #e50036;
 }
@@ -2896,7 +2892,7 @@ address {
 /* line 274 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .layer-controls-container .treecover_change_toolbox {
   margin-left: -500px;
-  height: 60px;
+  height: 55px;
   width: 900px;
   padding-top: 5px;
 }
@@ -3088,7 +3084,7 @@ address {
 /* line 410 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .range-slider {
   margin-left: auto;
-  margin-right: 2%;
+  margin-right: 3%;
   width: 88%;
   background-color: #fff;
 }
@@ -3096,7 +3092,7 @@ address {
 /* line 416 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .range-slider:after {
   position: absolute;
-  left: 8%;
+  left: 7.5%;
   top: 0;
   width: 1px;
   background: #000;
@@ -3117,39 +3113,40 @@ address {
 
 /* line 435 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 #newSlider {
-  position: relative;
-  bottom: 23px;
-  left: 22px;
+  position: absolute;
+  bottom: 21px;
+  left: 29px;
+  cursor: pointer;
 }
 
-/* line 440 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 442 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw #legend #legend_msg,
 .gfw #legend .esriLegendServiceLabel {
   display: none;
 }
 
-/* line 443 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 445 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw #legend .esriLegendService {
   padding-bottom: 0px;
 }
 
-/* line 446 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 448 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw #legend > div:nth-last-child(2) {
   padding-bottom: 10px;
 }
 
-/* line 448 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 450 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Esri Legend */
 
-/* line 449 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 451 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Info Window */
 
-/* line 450 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 452 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .esriPopupWrapper .sizer {
   width: 330px;
 }
 
-/* line 453 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 455 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .esriPopupWrapper .title {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -3157,20 +3154,335 @@ address {
   max-width: 245px;
 }
 
-/* line 459 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 461 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .gfw .esriPopupWrapper .zoomTo {
   display: none;
 }
 
-/* line 461 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 463 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Info Window */
+
+/* line 465 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.container2 {
+  margin-top: -22px;
+  font-size: 11px;
+}
+
+/* line 470 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.container2 > div {
+  display: inline-block;
+  display: -moz-inline-box;
+  *display: inline;
+/* For IE7 */
+  zoom: 1;
+/* Trigger hasLayout */
+  width: 8.15%;
+  text-align: center;
+  font-size: 11x;
+  color: #a1ba42;
+}
+
+/* line 481 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.container2 > div:first-child {
+  margin-left: 1.5%;
+}
+
+/* line 485 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.container2 > div:last-child {
+  width: 7.15%;
+}
+
+/* line 489 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+#playLine2 {
+  *display: inline;
+/* For IE7 */
+  zoom: 1;
+/* Trigger hasLayout */
+  text-align: center;
+  font-size: 9px;
+  position: absolute;
+  height: 10px;
+  top: -15px;
+  display: none;
+  z-index: 2000;
+  background: #333;
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  min-width: 40px;
+  margin-left: 2px;
+}
+
+/* line 510 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+#playLine2:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #333;
+  right: 0;
+  left: 0;
+  margin: auto;
+  bottom: -5px;
+}
+
+/* line 525 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div {
+  background: #a1ba42;
+  display: inline-block;
+  height: 10px;
+  width: 35px;
+  position: absolute;
+  margin-top: -11px;
+}
+
+/* line 534 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:first-child {
+  margin-left: 58px;
+}
+
+/* line 538 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(2) {
+  margin-left: 124px;
+}
+
+/* line 542 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(3) {
+  margin-left: 191px;
+}
+
+/* line 546 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(4) {
+  margin-left: 256px;
+}
+
+/* line 550 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(5) {
+  margin-left: 321px;
+}
+
+/* line 554 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(6) {
+  margin-left: 388px;
+}
+
+/* line 558 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(7) {
+  margin-left: 452px;
+}
+
+/* line 562 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(8) {
+  margin-left: 518px;
+}
+
+/* line 566 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(9) {
+  margin-left: 584px;
+}
+
+/* line 570 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(10) {
+  margin-left: 649px;
+}
+
+/* line 574 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.playLineFiller > div:nth-child(11) {
+  margin-left: 712px;
+  width: 33px;
+}
+
+/* line 579 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+#sliderProgressLine {
+  width: 1px;
+  height: 60px;
+  position: absolute;
+  top: -5px;
+  background-color: #a1ba42;
+  display: none;
+}
+
+/* line 590 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+@-moz-document url-prefix() {
+
+/* line 591 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div {
+    width: 34px;
+    margin-top: -12px;
+  }
+
+/* line 595 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .container2 > div:first-child {
+    margin-left: 4%;
+  }
+
+/* line 598 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .container2 > div:last-child {
+    width: 2%;
+  }
+}
+
+/* line 603 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+
+/* line 604 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div {
+    width: 32px;
+  }
+
+/* line 607 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .container2 > div {
+    width: 8.25%;
+  }
+
+/* line 610 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .container2 > div:first-child {
+    margin-left: 1%;
+  }
+
+/* line 613 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(1) {
+    margin-left: 55px;
+  }
+
+/* line 616 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(2) {
+    margin-left: 122px;
+  }
+
+/* line 619 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(3) {
+    margin-left: 189px;
+  }
+
+/* line 622 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(4) {
+    margin-left: 254px;
+  }
+
+/* line 625 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(5) {
+    margin-left: 320px;
+  }
+
+/* line 628 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(6) {
+    margin-left: 387px;
+  }
+
+/* line 631 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(7) {
+    margin-left: 452px;
+  }
+
+/* line 634 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(8) {
+    margin-left: 518px;
+  }
+
+/* line 637 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(9) {
+    margin-left: 585px;
+  }
+
+/* line 640 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(10) {
+    margin-left: 650px;
+  }
+
+/* line 643 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(11) {
+    margin-left: 712px;
+    width: 32px;
+  }
+}
+
+/* line 649 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+@media all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+
+/* line 650 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div {
+    width: 35px;
+  }
+
+/* line 653 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .container2 > div {
+    width: 8.15%;
+  }
+
+/* line 656 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .container2 > div:first-child {
+    margin-left: 1.5%;
+  }
+
+/* line 659 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:first-child {
+    margin-left: 58px;
+  }
+
+/* line 663 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(2) {
+    margin-left: 124px;
+  }
+
+/* line 667 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(3) {
+    margin-left: 190px;
+  }
+
+/* line 671 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(4) {
+    margin-left: 255px;
+  }
+
+/* line 675 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(5) {
+    margin-left: 321px;
+  }
+
+/* line 679 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(6) {
+    margin-left: 388px;
+  }
+
+/* line 683 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(7) {
+    margin-left: 452px;
+  }
+
+/* line 687 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(8) {
+    margin-left: 518px;
+  }
+
+/* line 691 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(9) {
+    margin-left: 584px;
+  }
+
+/* line 695 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(10) {
+    margin-left: 649px;
+  }
+
+/* line 699 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+  .playLineFiller > div:nth-child(11) {
+    margin-left: 712px;
+    width: 33px;
+  }
+}
 
 
 /* line 101 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
 
 /* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 462 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
+/* line 704 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar

@@ -80,6 +80,7 @@ define([
             //once page is loaded set drilled down url
             NavListController.urlControl(view);
 
+
 		},
 
 		getCallback: function (view) {
