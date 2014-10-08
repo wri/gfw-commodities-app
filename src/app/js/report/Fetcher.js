@@ -313,7 +313,7 @@ define([
 
 			function success(response) {
 				if (response.histograms.length > 0) {
-					ReportRenderer.renderLossData(response.histograms[0].counts, config, encoder, useSimpleEncoderRule);
+					ReportRenderer.renderLossData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
 				} else {
 					ReportRenderer.renderAsUnavailable('loss', config);
 				}
@@ -355,7 +355,7 @@ define([
 
 			function success(response) {
 				if (response.histograms.length > 0) {
-					ReportRenderer.renderClearanceData(response.histograms[0].counts, config, encoder, useSimpleEncoderRule);
+					ReportRenderer.renderClearanceData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
 				} else {
 					ReportRenderer.renderAsUnavailable('clearance', config);
 				}

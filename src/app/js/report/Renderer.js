@@ -92,11 +92,12 @@ define([
 
 		/*
 			@param {array} histogramData
+			@param {number} pixelSize
 			@param {object} config
 			@param {function} encoder
 			@param {boolean} useSimpleEncoderRule
 		*/
-		renderLossData: function (histogramData, config, encoder, useSimpleEncoderRule) {
+		renderLossData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
 			var lossConfig = ReportConfig.totalLoss,
 					yLabels = config.labels,
 					xLabels = lossConfig.labels,
@@ -181,11 +182,12 @@ define([
 
 		/*
 			@param {array} histogramData
+			@param {number} pixelSize
 			@param {object} config
 			@param {function} encoder
 			@param {boolean} useSimpleEncoderRule
 		*/
-		renderClearanceData: function (histogramData, config, encoder, useSimpleEncoderRule) {
+		renderClearanceData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
 			var yLabels = config.labels,
 					yMapValues = config.bounds.fromBounds(),
 					xMapValues = report.clearanceBounds.fromBounds(),

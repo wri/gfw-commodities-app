@@ -427,7 +427,7 @@ define([
 
 		    
 		    
-		    $(".layer-list-item.forest-change > ul > li").click(function() {
+		   $(".layer-list-item.forest-change > ul > li").click(function() {
 		   		console.log("***********");
 		   		var $this = $(this);
 		   		ionCallback.call(this);
@@ -787,6 +787,17 @@ define([
 
 			var sliderConfig = MapConfig.suitabilitySliderTooltips;
 
+			// jQuery Shim To Allow Older Plugin to Work Correctly with new Version of JQuery
+	    jQuery.browser = {};
+			(function () {
+			    jQuery.browser.msie = false;
+			    jQuery.browser.version = 0;
+			    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+			        jQuery.browser.msie = true;
+			        jQuery.browser.version = RegExp.$1;
+			    }
+			})();
+
 			// Peat Depth
 			jq171("#peat-depth-slider").rangeSlider({
 				defaultValues: {min: 0, max: 6},
@@ -958,6 +969,7 @@ define([
 			 - resize the slider
 			 - reactivate the listeners
 			*/ 
+
 			jq171("#peat-depth-slider").rangeSlider('option', 'valueLabels', 'hide');
 			jq171("#conservation-area-slider").rangeSlider('option', 'valueLabels', 'hide');
 			jq171("#water-resource-slider").rangeSlider('option', 'valueLabels', 'hide');

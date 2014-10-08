@@ -128,9 +128,11 @@ define([
 						pixelSize: 100,
 						geometryType: ReportConfig.suitability.geometryType,
 						geometry: JSON.stringify(report.geometry),
-						mosaicRule: mosaicRule
+						mosaicRule: JSON.stringify(mosaicRule)
 					},
 					payload = {};
+
+			console.log(params);
 
 			function success(res) {
 				if (res.histograms.length > 0) {

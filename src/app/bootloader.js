@@ -40,9 +40,8 @@
 			src = [
 				'http://js.arcgis.com/3.10/',
 				'app/libs/jquery-1.7.1.min.js',
-				'app/libs/jquery-2.1.1.min.js',
 				'app/libs/jquery-ui-custom.min.js',
-				'app/libs/rangesliders.min.js'
+				'app/libs/jQAllRangeSliders-min.js'
 			],
 			css = [
 				{ src: 'app/css/app.css', cdn: false },

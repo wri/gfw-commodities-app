@@ -2835,7 +2835,7 @@ address {
   bottom: 50px;
   z-index: 50;
   left: 20px;
-  top: 55px;
+  top: 75px;
 }
 
 /* line 237 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
@@ -2865,7 +2865,7 @@ address {
   font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
   position: absolute;
   top: -25px;
-  left: 70px;
+  left: 0;
 }
 
 /* line 259 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
@@ -3162,13 +3162,34 @@ address {
 /* line 463 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 /* Overrides for Info Window */
 
+/* line 464 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* Overrides for Checkboxes */
+
 /* line 465 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.suitability-accordion .dijitCheckBox {
+  border: 1px solid #fdd023 !important;
+  background: #fdd023 !important;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+/* line 470 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+.suitability-accordion .dijitCheckBoxChecked {
+  background: #461d7c url("images/ico-checkmark.png") no-repeat center !important;
+  border: 1px solid #461d7c !important;
+}
+
+/* line 473 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* Overrides for Checkboxes */
+
+/* line 475 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .container2 {
   margin-top: -22px;
   font-size: 11px;
 }
 
-/* line 470 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 480 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .container2 > div {
   display: inline-block;
   display: -moz-inline-box;
@@ -3182,17 +3203,17 @@ address {
   color: #a1ba42;
 }
 
-/* line 481 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 491 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .container2 > div:first-child {
   margin-left: 1.5%;
 }
 
-/* line 485 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 495 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .container2 > div:last-child {
   width: 7.15%;
 }
 
-/* line 489 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 499 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 #playLine2 {
   *display: inline;
 /* For IE7 */
@@ -3215,7 +3236,7 @@ address {
   margin-left: 2px;
 }
 
-/* line 510 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 520 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 #playLine2:before {
   content: '';
   display: block;
@@ -3231,7 +3252,7 @@ address {
   bottom: -5px;
 }
 
-/* line 525 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 535 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div {
   background: #a1ba42;
   display: inline-block;
@@ -3241,63 +3262,63 @@ address {
   margin-top: -11px;
 }
 
-/* line 534 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 544 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:first-child {
   margin-left: 58px;
 }
 
-/* line 538 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 548 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(2) {
   margin-left: 124px;
 }
 
-/* line 542 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 552 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(3) {
   margin-left: 191px;
 }
 
-/* line 546 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 556 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(4) {
   margin-left: 256px;
 }
 
-/* line 550 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 560 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(5) {
   margin-left: 321px;
 }
 
-/* line 554 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 564 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(6) {
   margin-left: 388px;
 }
 
-/* line 558 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 568 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(7) {
   margin-left: 452px;
 }
 
-/* line 562 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 572 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(8) {
   margin-left: 518px;
 }
 
-/* line 566 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 576 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(9) {
   margin-left: 584px;
 }
 
-/* line 570 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 580 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(10) {
   margin-left: 649px;
 }
 
-/* line 574 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 584 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 .playLineFiller > div:nth-child(11) {
   margin-left: 712px;
   width: 33px;
 }
 
-/* line 579 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 589 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 #sliderProgressLine {
   width: 1px;
   height: 60px;
@@ -3307,170 +3328,170 @@ address {
   display: none;
 }
 
-/* line 590 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 600 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 @-moz-document url-prefix() {
 
-/* line 591 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 601 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div {
     width: 34px;
     margin-top: -12px;
   }
 
-/* line 595 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 605 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .container2 > div:first-child {
     margin-left: 4%;
   }
 
-/* line 598 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 608 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .container2 > div:last-child {
     width: 2%;
   }
 }
 
-/* line 603 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 613 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 
-/* line 604 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 614 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div {
     width: 32px;
   }
 
-/* line 607 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 617 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .container2 > div {
     width: 8.25%;
   }
 
-/* line 610 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 620 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .container2 > div:first-child {
     margin-left: 1%;
   }
 
-/* line 613 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 623 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(1) {
     margin-left: 55px;
   }
 
-/* line 616 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 626 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(2) {
     margin-left: 122px;
   }
 
-/* line 619 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 629 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(3) {
     margin-left: 189px;
   }
 
-/* line 622 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 632 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(4) {
     margin-left: 254px;
   }
 
-/* line 625 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 635 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(5) {
     margin-left: 320px;
   }
 
-/* line 628 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 638 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(6) {
     margin-left: 387px;
   }
 
-/* line 631 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 641 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(7) {
     margin-left: 452px;
   }
 
-/* line 634 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 644 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(8) {
     margin-left: 518px;
   }
 
-/* line 637 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 647 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(9) {
     margin-left: 585px;
   }
 
-/* line 640 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 650 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(10) {
     margin-left: 650px;
   }
 
-/* line 643 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 653 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(11) {
     margin-left: 712px;
     width: 32px;
   }
 }
 
-/* line 649 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 659 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
 @media all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
 
-/* line 650 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 660 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div {
     width: 35px;
   }
 
-/* line 653 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 663 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .container2 > div {
     width: 8.15%;
   }
 
-/* line 656 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 666 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .container2 > div:first-child {
     margin-left: 1.5%;
   }
 
-/* line 659 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 669 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:first-child {
     margin-left: 58px;
   }
 
-/* line 663 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 673 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(2) {
     margin-left: 124px;
   }
 
-/* line 667 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 677 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(3) {
     margin-left: 190px;
   }
 
-/* line 671 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 681 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(4) {
     margin-left: 255px;
   }
 
-/* line 675 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 685 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(5) {
     margin-left: 321px;
   }
 
-/* line 679 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 689 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(6) {
     margin-left: 388px;
   }
 
-/* line 683 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 693 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(7) {
     margin-left: 452px;
   }
 
-/* line 687 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 697 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(8) {
     margin-left: 518px;
   }
 
-/* line 691 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 701 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(9) {
     margin-left: 584px;
   }
 
-/* line 695 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 705 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(10) {
     margin-left: 649px;
   }
 
-/* line 699 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
+/* line 709 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/map.styl */
   .playLineFiller > div:nth-child(11) {
     margin-left: 712px;
     width: 33px;

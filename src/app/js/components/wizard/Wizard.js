@@ -185,6 +185,7 @@ define([
       // Something to do with calling window.open in a click handler allows it to work but animation frame
       // is asynchronous and not counted as part of the click handler
       var self = this,
+          geometry = self._prepareGeometry(self.state.analysisArea),
           labelField,
           suitableRule,
           readyEvent,
@@ -198,7 +199,7 @@ define([
           labelField = AnalyzerConfig.stepTwo.labelField;
           suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
           win.payload = {
-            geometry: self._prepareGeometry(self.state.analysisArea),
+            geometry: geometry,
             datasets: self.state.analysisSets,
             //types: self.state.analysisTypes,
             title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
