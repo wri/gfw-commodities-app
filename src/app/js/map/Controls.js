@@ -22,6 +22,9 @@ define([
 
 	'use strict';
 
+    var jq171 = jQuery.noConflict(),
+    			sliderInit = false;
+
 	return {
 
 		toggleToolbox: function (layerConfig, operation) {
@@ -420,9 +423,13 @@ define([
 		    max = 2012,
 		    from = 2000,
 		    to = 2012;
+
+
+		    
+		    
 		    $(".layer-list-item.forest-change > ul > li").click(function() {
 		   		console.log("***********");
-		   		var $this = $(this); 
+		   		var $this = $(this);
 		   		ionCallback.call(this);
 			});
 
@@ -433,7 +440,6 @@ define([
 				    max: max,
 				    from: from,
 				    to: to,
-				    step: 1,
 				    playing: false,
 				    prettify: false,
 				    //values: ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"],
@@ -441,26 +447,61 @@ define([
 				    onChange: function (data) {
 				        from = data.fromNumber;
 				        to = data.toNumber;
-				        console.log(from + ", " + to);
+				        //console.log(from + ", " + to);
 				        updateValues();
 				        $("#range").ionRangeSlider("update");
-				        console.log("Inside update!");
-				        console.log($range.playing);
+
+				        //console.log("Inside update!");
+				        //console.log($range.playing);
 				        if ($range.playing != true) {
+				        	$("#sliderProgressLine").hide();
+				        	$("#playLine2").hide();
 					        var values3 = [from - 2000, to - 2000];
-							console.log(values3);
+							//console.log(values3);
+							for (var i = 1; i < 12; i++) {
+								var item1 = $( ".playLineFiller > div:nth-child(" + i + ")" );
+								var item2 = $( ".container2 > div:nth-child(" + i + ")" );
+								if ((i <= from - 2000) || (i >= to - 2000)) {
+									$(item1.selector).css( "background-color", "transparent" );
+								} else {
+									$(item1.selector).css( "background-color", "#a1ba42" );
+								}
+								if ((i < from - 1999) || (i > to - 2000)) {
+									$(item2.selector).css( "color", "grey" );
+								} else {
+									$(item2.selector).css( "color", "#a1ba42" );
+								}
+							}
+							if (to != 2012) {
+								$(".container2 > div:last-child").css( "color", "grey" );
+							} else {
+								$(".container2 > div:last-child").css( "color", "#a1ba42" );
+							}
 							LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
 						}
 				    },
 				});
 				$("#range").ionRangeSlider("update");
+				$("#playLine2").hide();
+				$("#sliderProgressLine").hide();
+			
 			};
 
-			/*var years = ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"];
-			var el = $.map(years, function(val, i) {
-		      return "		" + val + "			";
-		    });
-		    $(".extra-controls").html(el.join(""));*/
+			if (!sliderInit) {
+			 	sliderInit = true;
+		    	ionCallback();
+		    	$(".irs-slider.to").css("left", "792px");
+		    	
+		    	$(".irs-slider.from.last").each(function(){
+		    		var node = this;
+		    		var sliderProgressLine = domConstruct.create("div",{id:"sliderProgressLine"});
+		    		domConstruct.place(sliderProgressLine, node, "after");
+
+		    		var playLine2 = domConstruct.create("div",{id:"playLine2"});
+		    		domConstruct.place(playLine2, node, "after");	
+		    	});
+
+		    }
 
 			$from.on("change", function () {
 			    from = $(this).prop("value");
@@ -500,8 +541,12 @@ define([
 
 
 			function play() {
-				
-				console.log($range.playing);
+				//$(".playLine").hide();
+				$("#sliderProgressLine").hide();
+				$("#playLine2").hide();
+				$('#playLine2').css("left", "0" );
+				$('#sliderProgressLine').css("left", "0" );
+				//console.log($range.playing);
 				if ($range.playing == true) {
 					console.log("Here we must stop");
 					$range.playing = false;
@@ -512,6 +557,31 @@ define([
 			    var thumbOne = initialDates[0];
 			    var thumbTwo = initialDates[1];
 			    var thumbOneInitial = thumbOne;
+
+			    //console.log($(".irs-slider.from.last").css("left"));
+				var sliderStart = $(".irs-slider.from.last").css("left");
+				var sliderStart2 = $(".irs-diapason").css("left");
+				//console.log(sliderStart);
+				console.log(sliderStart2);
+				//sliderStart2 = sliderStart2 - 10;
+				//console.log(sliderStart);
+				console.log('');
+
+				$('#playLine2').css("left", sliderStart);
+				$('#sliderProgressLine').css("left", sliderStart);
+				if (sliderStart == undefined) {
+					console.log("using #2!!");
+					$('#playLine2').css("left", sliderStart2);
+					$('#playLine2').css("left", "-=10px" );
+					$('#sliderProgressLine').css("left", sliderStart2);
+					$('#sliderProgressLine').css("left", "-=10px" );
+				}
+				$('#playLine2').css("left", "-=21px" );
+				$( "#playLine2" ).html( thumbOne );
+
+				$("#playLine2").show();
+				$('#sliderProgressLine').css("left", "+=9px" );
+				$("#sliderProgressLine").show();
 			    // Add css via JQuery here to show where slider started from
 			    // Maybe get the css position of thumbOne.
 			    // Then remove the css line's style on Pause or End  -->  $("").removeClass("");
@@ -522,8 +592,8 @@ define([
 			    // Now we'll add the irs-dapson's initial left value to it!
 
 
-			    console.log($( ".irs-diapason" ).css( "left"));
-			    console.log($( ".irs-slider.from" ).css( "left"));
+			    //console.log($( ".irs-diapason" ).css( "left"));
+			    //console.log($( ".irs-slider.from" ).css( "left"));
 			    
 			    /*$.each(document.styleSheets, function(sheetIndex, sheet) {
 				    console.log("Looking at styleSheet[" + sheetIndex + "]:");
@@ -546,6 +616,7 @@ define([
 
 				$range.playing = true;
 				$("#newSlider").html("&#x25A0");
+				$("#" + thumbOne).show();
 
 			    //var values = [0,thumbOne-2000];
 			    var values = [thumbOneInitial-2000,thumbOne-2000];
@@ -560,16 +631,55 @@ define([
 					if ($range.playing == false) {
 						return;
 					}
-					console.log("I'm using these..");
-					console.log(values);
+					
+					//console.log($("#sliderProgressLine").css("left"));
+					$('#playLine2').css("left", "+=66px" );
+					
+					$('#sliderProgressLine').css("left", "+=66px" );
+					//console.log($("#sliderProgressLine").css("left"));
+					// Above line will show me my starting value, then every iteration, add
+					// a certain amount to my sliderProgress Line's LEFT value. 66px I think.
+
+					// Other fix Amir talked about; my second div of label pop ups isn;t EVER 
+					// showing up! Use the debugger and find out why.
+
+					// Fix positioning of popup labels.
+
+					// If that all works, clean up the css. Maybe make font smaller. 
+
+					$("#" + thumbOne).show();
+					//console.log("I'm using these..");
+					//console.log(values);
+					console.log($("#" + thumbOne).css("display"));
+					//$("#" + oldTick).hide();
+					//console.log($( ".irs-slider.from" ).css( "left"));
+					//.playLine > #2001 
+					var oldTick = thumbOne - 1;
+					var newTick = thumbOne + 1;
+					$("#" + thumbOne).hide();
+					//console.log($("#" + oldTick).css("display"));
+					//$(".playLine > div").hide();
+					
+					//console.log($(".playLine > div:nth-child(4)"));
+					//console.log($(".playLine > div:nth-child(" + thumbOne + ")" + ));
+					//console.log($(".playLine > div:nth-child(" + thumbOne + ")" + ).css("margin-left"));
+					//$("#" + thumbOne).css("width:20%;");
+					//$("#" + thumbOne).css("width:200px;");
+					//$("#" + oldTick).show();
+					//$("#" + newTick).show();
+					//$("#" + thumbOne).show();
+					$("#" + newTick).show();
+					console.log($("#" + thumbOne).css( "display"));
+
 					LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-		  			$range.ionRangeSlider("update", {
-					    from: from + 1
-					});
+		  	// 		$range.ionRangeSlider("update", {
+					//     from: from + 1
+					// });
 					var newDates = $range[0].value.split(';');
 					var newThumbTwo = newDates[1];
 					
 					thumbOne++;
+					$( "#playLine2" ).html( thumbOne );
 					//values = [0,thumbOne-2000];
 					console.log("Start: " + thumbOneInitial);
 					console.log("End: " + thumbOne);
@@ -579,12 +689,15 @@ define([
 						thumbTwo = newThumbTwo;
 					}
 					if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
+						$("#" + oldTick).hide();
+						//$("#" + thumbOne).hide();
+						//$("#" + newTick).hide();
 						$("#newSlider").html("&#9658");
 						$range.playing = false;
 						console.log("Finito!");
 						return;
 					}
-					from++;
+					//from++;
 					if ($range.playing == true) {
 		  				setTimeout(function() { timeout(from,thumbOne,thumbTwo,values,thumbOneInitial); }, 750);
 		  			}
@@ -675,7 +788,7 @@ define([
 			var sliderConfig = MapConfig.suitabilitySliderTooltips;
 
 			// Peat Depth
-			$("#peat-depth-slider").rangeSlider({
+			jq171("#peat-depth-slider").rangeSlider({
 				defaultValues: {min: 0, max: 6},
 				valueLabels: 'change',
 				bounds: {min: 0, max: 6},
@@ -686,13 +799,13 @@ define([
 				}
 			});
 
-			$("#peat-depth-slider").addClass("singleValueSlider reverseSlider");
-			$("#peat-depth-slider").bind('valuesChanged', function (e, data) {
+			jq171("#peat-depth-slider").addClass("singleValueSlider reverseSlider");
+			jq171("#peat-depth-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(data.values.min, 'peat-depth-slider');
 			});
 
 			// Conservation Area Buffers
-			$("#conservation-area-slider").rangeSlider({
+			jq171("#conservation-area-slider").rangeSlider({
 				defaultValues: {min: 1000, max: 5000},
 				valueLabels: 'change',
 				bounds: {min: 500, max: 5000},
@@ -703,13 +816,13 @@ define([
 				}
 			});
 
-			$("#conservation-area-slider").addClass("singleValueSlider");
-			$("#conservation-area-slider").bind('valuesChanged', function (e, data) {
+			jq171("#conservation-area-slider").addClass("singleValueSlider");
+			jq171("#conservation-area-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(data.values.min, 'conservation-area-slider');
 			});
 
 			// Water Resource Buffers
-			$("#water-resource-slider").rangeSlider({
+			jq171("#water-resource-slider").rangeSlider({
 				defaultValues: {min: 100, max: 1000},
 				valueLabels: 'change',
 				bounds: {min: 50, max: 1000},
@@ -720,13 +833,13 @@ define([
 				}
 			});
 
-			$("#water-resource-slider").addClass("singleValueSlider");
-			$("#water-resource-slider").bind('valuesChanged', function (e, data) {
+			jq171("#water-resource-slider").addClass("singleValueSlider");
+			jq171("#water-resource-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(data.values.min, 'water-resource-slider');
 			});
 
 			// Slope
-			$("#slope-slider").rangeSlider({
+			jq171("#slope-slider").rangeSlider({
 				defaultValues: {min: 30, max: 80},
 				valueLabels: 'change',
 				bounds: {min: 0, max: 80},
@@ -737,13 +850,13 @@ define([
 				}
 			});
 
-			$("#slope-slider").addClass("singleValueSlider reverseSlider");
-			$("#slope-slider").bind('valuesChanged', function (e, data) {
+			jq171("#slope-slider").addClass("singleValueSlider reverseSlider");
+			jq171("#slope-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(data.values.min, 'slope-slider');
 			});
 
 			// Elevation
-			$("#elevation-slider").rangeSlider({
+			jq171("#elevation-slider").rangeSlider({
 				defaultValues: {min: 1000, max: 5000},
 				valueLabels: 'hide',
 				bounds: {min: 0, max: 5000},
@@ -754,13 +867,13 @@ define([
 				}
 			});
 
-			$("#elevation-slider").addClass("singleValueSlider reverseSlider");
-			$("#elevation-slider").bind('valuesChanged', function (e, data) {
+			jq171("#elevation-slider").addClass("singleValueSlider reverseSlider");
+			jq171("#elevation-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(data.values.min, 'elevation-slider');
 			});
 
 			// Rainfall
-			$("#rainfall-slider").rangeSlider({
+			jq171("#rainfall-slider").rangeSlider({
 				defaultValues: {min: 1500, max: 7000},
 				valueLabels: 'hide',
 				bounds: {min: 1500, max: 7000},
@@ -771,8 +884,8 @@ define([
 				}
 			});
 
-			$("#rainfall-slider").addClass("narrowTooltips");
-			$("#rainfall-slider").bind('valuesChanged', function (e, data) {
+			jq171("#rainfall-slider").addClass("narrowTooltips");
+			jq171("#rainfall-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(
 					[data.values.min, data.values.max], 
 					'rainfall-slider'
@@ -780,7 +893,7 @@ define([
 			});
 
 			// Soil Drainage
-			$("#soil-drainage-slider").rangeSlider({
+			jq171("#soil-drainage-slider").rangeSlider({
 				defaultValues: {min: 2, max: 4},
 				valueLabels: 'hide',
 				bounds: {min: 1, max: 4},
@@ -791,8 +904,8 @@ define([
 				}
 			});
 
-			$("#soil-drainage-slider").addClass("narrowTooltips");
-			$("#soil-drainage-slider").bind('valuesChanged', function (e, data) {
+			jq171("#soil-drainage-slider").addClass("narrowTooltips");
+			jq171("#soil-drainage-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(
 					[data.values.min, data.values.max], 
 					'soil-drainage-slider'
@@ -800,7 +913,7 @@ define([
 			});
 
 			// Soil Depth
-			$("#soil-depth-slider").rangeSlider({
+			jq171("#soil-depth-slider").rangeSlider({
 				defaultValues: {min: 4, max: 7},
 				valueLabels: 'hide',
 				bounds: {min: 1, max: 7},
@@ -811,13 +924,13 @@ define([
 				}
 			});
 
-			$("#soil-depth-slider").addClass("singleValueSlider narrowTooltips");
-			$("#soil-depth-slider").bind('valuesChanged', function (e, data) {
+			jq171("#soil-depth-slider").addClass("singleValueSlider narrowTooltips");
+			jq171("#soil-depth-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(data.values.min, 'soil-depth-slider');
 			});
 
 			// Soil Acidity
-			$("#soil-acid-slider").rangeSlider({
+			jq171("#soil-acid-slider").rangeSlider({
 				defaultValues: {min: 1, max: 7},
 				valueLabels: 'change',
 				bounds: {min: 1, max: 8},
@@ -828,8 +941,8 @@ define([
 				}
 			});
 
-			$("#soil-acid-slider").addClass("narrowTooltips");
-			$("#soil-acid-slider").bind('valuesChanged', function (e, data) {
+			jq171("#soil-acid-slider").addClass("narrowTooltips");
+			jq171("#soil-acid-slider").bind('valuesChanged', function (e, data) {
 				LayerController.updateCustomSuitabilityLayer(
 					[data.values.min, data.values.max], 
 					'soil-acid-slider'
@@ -845,35 +958,35 @@ define([
 			 - resize the slider
 			 - reactivate the listeners
 			*/ 
-			$("#peat-depth-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#conservation-area-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#water-resource-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#slope-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#elevation-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#rainfall-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#soil-drainage-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#soil-depth-slider").rangeSlider('option', 'valueLabels', 'hide');
-			$("#soil-acid-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#peat-depth-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#conservation-area-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#water-resource-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#slope-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#elevation-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#rainfall-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#soil-drainage-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#soil-depth-slider").rangeSlider('option', 'valueLabels', 'hide');
+			jq171("#soil-acid-slider").rangeSlider('option', 'valueLabels', 'hide');
 
-			$("#peat-depth-slider").rangeSlider('resize');
-			$("#conservation-area-slider").rangeSlider('resize');
-			$("#water-resource-slider").rangeSlider('resize');
-			$("#slope-slider").rangeSlider('resize');
-			$("#elevation-slider").rangeSlider('resize');
-			$("#rainfall-slider").rangeSlider('resize');
-			$("#soil-drainage-slider").rangeSlider('resize');
-			$("#soil-depth-slider").rangeSlider('resize');
-			$("#soil-acid-slider").rangeSlider('resize');
+			jq171("#peat-depth-slider").rangeSlider('resize');
+			jq171("#conservation-area-slider").rangeSlider('resize');
+			jq171("#water-resource-slider").rangeSlider('resize');
+			jq171("#slope-slider").rangeSlider('resize');
+			jq171("#elevation-slider").rangeSlider('resize');
+			jq171("#rainfall-slider").rangeSlider('resize');
+			jq171("#soil-drainage-slider").rangeSlider('resize');
+			jq171("#soil-depth-slider").rangeSlider('resize');
+			jq171("#soil-acid-slider").rangeSlider('resize');
 
-			$("#peat-depth-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#conservation-area-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#water-resource-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#slope-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#elevation-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#rainfall-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#soil-drainage-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#soil-depth-slider").rangeSlider('option', 'valueLabels', 'change');
-			$("#soil-acid-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#peat-depth-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#conservation-area-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#water-resource-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#slope-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#elevation-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#rainfall-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#soil-drainage-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#soil-depth-slider").rangeSlider('option', 'valueLabels', 'change');
+			jq171("#soil-acid-slider").rangeSlider('option', 'valueLabels', 'change');
 
 		}
 

@@ -273,7 +273,7 @@ wizardBlue = #00688B
 
 .gfw .layer-controls-container .treecover_change_toolbox
 	margin-left -500px
-	height 60px
+	height 55px
 	width 900px
 	padding-top 5px
 
@@ -409,13 +409,13 @@ wizardBlue = #00688B
 /* Overrides for Esri Legend */
 .range-slider
 	margin-left: auto;
-	margin-right: 2%;
+	margin-right: 3%;
 	width: 88%;
 	background-color: white;
 
 .range-slider:after {
   position: absolute;
-  left: 8%;
+  left: 7.5%;
   top: 0;
   width: 1px;
   background: black;
@@ -433,9 +433,11 @@ wizardBlue = #00688B
 	height: 50%;
 
 #newSlider
-	position: relative;
-	bottom: 23px;
-	left: 22px;
+	position: absolute;
+	bottom: 21px;
+	left: 29px;
+	cursor: pointer;
+
 
 .gfw #legend #legend_msg, .gfw #legend .esriLegendServiceLabel
 	display none
@@ -460,4 +462,243 @@ wizardBlue = #00688B
 	display none
 /* Overrides for Info Window */
 
+.container2 {
+	margin-top: -22px;
+	font-size: 11px;
+}
+
+.container2 > div {
+    display: inline-block;
+    display: -moz-inline-box;
+    *display: inline; /* For IE7 */
+    zoom: 1; /* Trigger hasLayout */
+    width: 8.15%;
+    text-align: center;
+    font-size: 11x;
+    color: #a1ba42;
+}
+
+.container2 > div:first-child {
+    margin-left: 1.5%;
+}
+
+.container2 > div:last-child {
+    width: 7.15%;
+}
+
+#playLine2 {
+    //display: inline-block;
+    //display: -moz-inline-box;
+    *display: inline; /* For IE7 */
+    zoom: 1; /* Trigger hasLayout */
+    //width: 8.0%;
+    text-align: center;
+    font-size: 9px;
+    position: absolute;
+    height: 10px;
+	top: -15px;
+	display: none;
+	z-index: 2000;
+	background: #333;
+	color: white;
+	padding: 6px 8px;
+	border-radius: 2px;
+	min-width: 40px;
+	margin-left: 2px;
+}
+
+#playLine2:before {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	position: absolute;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #333;
+	right: 0;
+	left: 0;
+	margin: auto;
+	bottom: -5px;
+}
+
+.playLineFiller > div {
+	background: #a1ba42;
+	display: inline-block;
+	height: 10px;
+	width: 35px;
+	position: absolute;
+	margin-top: -11px;
+}
+
+.playLineFiller > div:first-child {
+    margin-left: 58px;
+}
+
+.playLineFiller > div:nth-child(2) {
+    margin-left: 124px;
+}
+
+.playLineFiller > div:nth-child(3) {
+    margin-left: 191px;
+}
+
+.playLineFiller > div:nth-child(4) {
+    margin-left: 256px;
+}
+
+.playLineFiller > div:nth-child(5) {
+    margin-left: 321px;
+}
+
+.playLineFiller > div:nth-child(6) {
+    margin-left: 388px;
+}
+
+.playLineFiller > div:nth-child(7) {
+    margin-left: 452px;
+}
+
+.playLineFiller > div:nth-child(8) {
+    margin-left: 518px;
+}
+
+.playLineFiller > div:nth-child(9) {
+    margin-left: 584px;
+}
+
+.playLineFiller > div:nth-child(10) {
+    margin-left: 649px;
+}
+
+.playLineFiller > div:nth-child(11) {
+    margin-left: 712px;
+    width: 33px;
+}
+
+#sliderProgressLine {
+	//border: 1px solid #a1ba42;;
+	width:1px;
+	height: 60px;
+	position: absolute;
+	top: -5px;
+	background-color: #a1ba42;;
+	display: none;
+
+}
+
+@-moz-document url-prefix() {
+    .playLineFiller > div {
+		width: 34px;
+		margin-top: -12px;
+	}
+	.container2 > div:first-child {
+	    margin-left: 4%;
+	}
+	.container2 > div:last-child {
+	    width: 2%;
+	}
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.playLineFiller > div {
+		width: 32px;
+	}
+	.container2 > div {
+		width: 8.25%;
+	}
+	.container2 > div:first-child {
+	    margin-left: 1%;
+	}
+	.playLineFiller > div:nth-child(1) {
+		margin-left: 55px;
+	}
+	.playLineFiller > div:nth-child(2) {
+		margin-left: 122px;
+	}
+	.playLineFiller > div:nth-child(3) {
+		margin-left: 189px;
+	}
+	.playLineFiller > div:nth-child(4) {
+		margin-left: 254px;
+	}
+	.playLineFiller > div:nth-child(5) {
+		margin-left: 320px;
+	}
+	.playLineFiller > div:nth-child(6) {
+		margin-left: 387px;
+	}
+	.playLineFiller > div:nth-child(7) {
+		margin-left: 452px;
+	}
+	.playLineFiller > div:nth-child(8) {
+		margin-left: 518px;
+	}
+	.playLineFiller > div:nth-child(9) {
+		margin-left: 585px;
+	}
+	.playLineFiller > div:nth-child(10) {
+		margin-left: 650px;
+	}
+	.playLineFiller > div:nth-child(11) {
+		margin-left: 712px;
+		width: 32px;
+	}
+}
+
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
+	.playLineFiller > div {
+		width: 35px;
+	}
+	.container2 > div {
+		width: 8.15%;
+	}
+	.container2 > div:first-child {
+	    margin-left: 1.5%;
+	}
+	.playLineFiller > div:first-child {
+    margin-left: 58px;
+	}
+
+	.playLineFiller > div:nth-child(2) {
+	    margin-left: 124px;
+	}
+
+	.playLineFiller > div:nth-child(3) {
+	    margin-left: 190px;
+	}
+
+	.playLineFiller > div:nth-child(4) {
+	    margin-left: 255px;
+	}
+
+	.playLineFiller > div:nth-child(5) {
+	    margin-left: 321px;
+	}
+
+	.playLineFiller > div:nth-child(6) {
+	    margin-left: 388px;
+	}
+
+	.playLineFiller > div:nth-child(7) {
+	    margin-left: 452px;
+	}
+
+	.playLineFiller > div:nth-child(8) {
+	    margin-left: 518px;
+	}
+
+	.playLineFiller > div:nth-child(9) {
+	    margin-left: 584px;
+	}
+
+	.playLineFiller > div:nth-child(10) {
+	    margin-left: 649px;
+	}
+
+	.playLineFiller > div:nth-child(11) {
+	    margin-left: 712px;
+	    width: 33px;
+	}
+}
 

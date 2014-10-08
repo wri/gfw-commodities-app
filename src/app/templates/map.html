@@ -1,3 +1,10 @@
+<!--[if IE]>
+<style>
+    .playLineFiller > div {
+      margin-top: -12px;
+    }
+</style>
+<![endif]-->
 
 <div id='map-container' class="map-container">
   <!-- Begin Map Object -->
@@ -128,14 +135,36 @@
 
 
       <div id="treecover_change_toolbox" class="toolbox treecover_change_toolbox" style="display: none">
+      <p style="position:absolute;top:-35px;font-size:14px;">Tree cover change</p>
       <!-- Begin Custom Slider Container -->
         <div class="range-slider">
             <input type="text" class="js-range-slider" value="" />
+            <div class="container2">
+              <div>2001</div><div>2002</div>
+              <div>2003</div><div>2004</div><div>2005</div>
+              <div>2006</div><div>2007</div><div>2008</div>
+              <div>2009</div><div>2010</div><div>2011</div><div>2012</div>
+
+            </div>
+            
+            <div class="playLineFiller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              
+            </div>
+
         </div>
         <div class="extra-controls">
-            <!--<input type="text" maxlength="4" value="2000" class="inp js-from" />
-            <input type="text" maxlength="4" value="2012" class="inp js-to" />-->
-            <button id="newSlider">&#9658;</button>
+            <div id="newSlider">&#9658;</div>
         </div>
       <!-- End Custom Slider Container -->
 
