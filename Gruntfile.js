@@ -19,10 +19,15 @@ module.exports = function (grunt) {
           { expand: true, cwd: 'src/app/css/fonts', src: ['**'], dest: 'build/app/css/fonts' },
           { src: ['src/app/libs/es5-sham.min.js'], dest: 'build/app/libs/es5-sham.min.js', filter: 'isFile' },
           { src: ['src/app/libs/es5-shim.min.js'], dest: 'build/app/libs/es5-shim.min.js', filter: 'isFile' },
+
+          { src: ['src/app/libs/ionrangeslider/css/normalize.min.css'], dest: 'build/app/libs/ionrangeslider/css/normalize.min.css', filter: 'isFile' },
+          { src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css'], dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css', filter: 'isFile' },
+          { src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.css'], dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.css', filter: 'isFile' },
+
           { src: ['src/app/libs/jquery-1.7.1.min.js'], dest: 'build/app/libs/jquery-1.7.1.min.js', filter: 'isFile' },
           { src: ['src/app/libs/jquery-2.1.1.min.js'], dest: 'build/app/libs/jquery-2.1.1.min.js', filter: 'isFile' },
           { src: ['src/app/libs/jquery-ui-custom.min.js'], dest: 'build/app/libs/jquery-ui-custom.min.js', filter: 'isFile' },
-          { src: ['src/app/libs/rangesliders.min.js'], dest: 'build/app/libs/rangesliders.min.js', filter: 'isFile' },
+          { src: ['src/app/libs/jQAllRangeSliders-min.js'], dest: 'build/app/libs/jQAllRangeSliders-min.js', filter: 'isFile' },
           { src: ['src/.htaccess'], dest: 'build/.htaccess', filter: 'isFile' }
         ]
       }
@@ -50,6 +55,7 @@ module.exports = function (grunt) {
         files: [
           { dest: 'build/app/bootloader.js', src: 'src/app/bootloader.js' },
           { dest: 'build/app/libs/html5shiv.js', src: 'src/app/libs/html5shiv.js' },
+          { dest: 'build/app/libs/ionrangeslider/js/ion.rangeSlider.min.js', src: 'src/app/libs/ionrangeslider/js/ion.rangeSlider.min.js' },
           { expand: true, cwd: 'src/app/js/report/', dest:'build/app/js/report/', src: '**/*.js' }
         ]
       }
@@ -119,7 +125,7 @@ module.exports = function (grunt) {
       build: {
         options: {
           host: 'staging.blueraster.com',
-          dest: 'html/wri/gfw-commodities/v4/',
+          dest: 'html/wri/gfw-commodities/v5/',
           authKey: 'staging'
         },
         files: [

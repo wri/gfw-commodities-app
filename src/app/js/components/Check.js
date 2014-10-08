@@ -1,9 +1,8 @@
 define([
 	"react",
 	"dojo/topic",
-	"utils/Hasher",
-    "controllers/MapController"
-], function (React, topic, Hasher, MapController) {
+	"utils/Hasher"
+], function (React, topic, Hasher) {
 
 	return React.createClass({
 
