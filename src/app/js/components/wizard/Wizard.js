@@ -7,8 +7,9 @@ define([
   "components/wizard/StepFour",
   // Other Helpful Modules
   "dojo/topic",
+  "dojo/_base/array",
   "map/config"
-], function (React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, topic, MapConfig) {
+], function (React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, topic, arrayUtils, MapConfig) {
 
 	var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
@@ -197,7 +198,7 @@ define([
           labelField = AnalyzerConfig.stepTwo.labelField;
           suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
           win.payload = {
-            features: self.state.analysisArea,
+            geometry: self._prepareGeometry(self.state.analysisArea),
             datasets: self.state.analysisSets,
             //types: self.state.analysisTypes,
             title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
@@ -213,6 +214,28 @@ define([
         }
       //}, 0);
       
+    },
+
+    _prepareGeometry: function (features) {
+      var geometry;
+      if (Object.prototype.toString.call(features) === '[object Array]') {
+        if (features.length === 1) {
+          geometry = features[0].geometry;
+        } else {
+          geometry = features[0].geometry;
+          arrayUtils.forEach(features, function (feature, index) {
+            // Skip the first one, geometry alerady grabbed above
+            if (index > 0) {
+              arrayUtils.forEach(feature.geometry.rings, function (ring) {
+                geometry.addRing(ring);
+              });
+            }
+          });
+        }
+      } else {
+        geometry = features.geometry;
+      }
+      return JSON.stringify(geometry);
     }
 
   });

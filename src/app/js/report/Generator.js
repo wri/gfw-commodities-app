@@ -31,28 +31,11 @@ define([
 
 		prepareForAnalysis: function () {
 
-			var features = window.payload.features;
-
-			// First, if report.payload.features is an array, we need a single geometry to work with,
-			if (Object.prototype.toString.call(features) === '[object Array]') {
-				if (features.length === 1) {
-					report.geometry = features[0].geometry;
-				} else {
-					report.geometry = features[0].geometry;
-					arrayUtils.forEach(features, function (feature, index) {
-						// Skip the first one, geometry alerady grabbed above
-						if (index > 0) {
-							arrayUtils.forEach(feature.geometry.rings, function (ring) {
-								report.geometry.addRing(ring);
-							});
-						}
-					});
-				}
-			} else {
-				report.geometry = features.geometry;
-			}
+			report.geometry = JSON.parse(window.payload.geometry);
 
 			// Next, set some properties that we can use to filter what kinds of queries we will be performing
+			// Logic for the Wizard was changed, below may not be needed but it left here for reference incase
+			// the logic changes again.
 			// report.analyzeClearanceAlerts = window.payload.types.forma;
 			// report.analyzeTreeCoverLoss = window.payload.types.loss;
 			// report.analyzeSuitability = window.payload.types.suit;

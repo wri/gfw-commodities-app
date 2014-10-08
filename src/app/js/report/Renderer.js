@@ -318,11 +318,11 @@ define([
 				node.className = "active-fires-badge";
 				node.innerHTML = "<div>There are currently</div>" +
 						"<div class='active-fires-label'>" +
-							"<div>" + activeFires + "</div>" +
+							"<div>" + number.format(activeFires) + "</div>" +
 							"<span>active fires</span>" +
 						"</div>" +
 						"<div>" + description + "</div>" +
-						"<div class='total-active-fires-label'><span>" + totalActiveFires + " total active fires</span></div>";
+						"<div class='total-active-fires-label'><span>" + number.format(totalActiveFires) + " total active fires</span></div>";
 
 				// Append root to fragment and then fragment to document
 				fragment.appendChild(node);

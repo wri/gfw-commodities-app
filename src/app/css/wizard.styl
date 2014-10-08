@@ -68,11 +68,12 @@ wizardBlue = #00688B
 	top 0
 
 .gfw .step .step-body
+	padding-left 10px
 	position absolute
 	overflow-y auto
 	bottom 50px
-	left 10px
 	right 0
+	left 0
 	top 0
 	
 .gfw .step .step-footer
@@ -153,6 +154,14 @@ wizardBlue = #00688B
 
 .gfw .s1-radio-container label
 	padding-left 10px
+
+.gfw .step .step-one-main-description
+	font-size 14px
+	margin 2px 0
+
+.gfw .step .step-one-option-description
+	margin 2px 25px
+	font-size 13px
 
 .gfw .wizard-body .next-button-container
 	background-color orangeSelected
@@ -259,7 +268,7 @@ wizardBlue = #00688B
 	position absolute
 	overflow-y auto
 	left -10px
-	top 320px
+	top 280px
 	bottom 0
 	right 0
 
@@ -274,18 +283,6 @@ wizardBlue = #00688B
 
 .gfw .wizard .dijitInputField
 	padding 3px 10px 0
-
-.gfw .wizard-checkbox-container
-	font-size 18px
-	margin 5px 0
-
-.gfw .checkbox-list .wizard-checkbox-container
-	display inline-block
-	width 220px
-
-.gfw .wizard .wizard-checkbox
-	display inline-block
-	cursor pointer
 
 .gfw .wizard .child-checkboxes
 	margin-left 15px
@@ -323,16 +320,16 @@ wizardBlue = #00688B
 
 .gfw .list-container .wizard-list-item > span
 	background-color lightGray
-	padding-left 10px
+	padding-left 20px
 
 .gfw .list-container .wizard-list-child-item
 	font-weight normal
 
 .gfw .list-container .wizard-list-child-item > span
-	padding-left 25px
+	padding-left 35px
 
 .gfw .admin-unit .list-container
-	top 184px
+	top 150px
 
 .gfw .commercial-entity .list-container
 	top 125px
@@ -347,10 +344,13 @@ wizardBlue = #00688B
 
 .gfw .wizard-body .loading-wheel
 	background url('images/loader.gif')
-	background-size 24px
+	background-size 18px
 	display inline-block
-	height 24px
-	width 24px
+	position relative
+	height 18px
+	width 18px
+	left 5px
+	top 1px
 
 .gfw .select-analysis .layer-description
 	margin 0 5px 0 20px
@@ -362,16 +362,45 @@ wizardBlue = #00688B
 
 .gfw .wizard-body .step-three-top
 	position absolute
-	height 190px 
+	height 190px
+	left 10px
 	right 0
-	left 0 
 	top 0
 
 .gfw .wizard-body .checkbox-list
 	position absolute
 	overflow-y auto
 	top 190px
+	left 10px
 	bottom 0
 	right 0
-	left 0 
 
+.gfw .wizard-checkbox-container
+	font-size 18px
+	margin 5px 0
+
+.gfw .checkbox-list .wizard-checkbox-container
+	display inline-block
+	width 220px
+
+.gfw .checkbox-list .wizard-checkbox-container:nth-child(odd)
+	width 200px
+
+.gfw .wizard .wizard-checkbox
+	display inline-block
+	cursor pointer
+
+.gfw .nested-list .searchBox input
+	border 1px solid greyBorder
+	border-radius(5px)
+	padding-left 25px
+	width 500px
+	height 30px
+
+.gfw .nested-list .nested-list-search-icon
+	background url('images/simpleGeocoder.png') no-repeat 0px 0px
+	position absolute
+	height 15px
+	width 15px
+	left 5px
+	top 7px

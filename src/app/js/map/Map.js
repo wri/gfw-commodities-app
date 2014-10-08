@@ -49,11 +49,10 @@ define([
 			});
 
 			self.map.on('load', function () {
-				self.map.resize();
 				self.mapLoaded();
+				self.map.resize();
 				self.emit('map-ready', {});
 			});
-
 
 		},
 

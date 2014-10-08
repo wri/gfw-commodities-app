@@ -93,7 +93,8 @@ define([
     render: function () {
       return (
       	React.DOM.div({'className': 'nested-list'},
-      		React.DOM.div({'className': 'searchBox'},
+      		React.DOM.div({'className': 'searchBox relative'},
+      			React.DOM.div({'className': 'nested-list-search-icon'}),
           	React.DOM.input({
           		'placeholder': this.props.placeholder, 
           		'type': 'text',

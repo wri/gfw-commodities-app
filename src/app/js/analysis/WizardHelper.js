@@ -23,8 +23,8 @@ define([
 			var mapWidth = domGeom.position(dom.byId("map")).w,
 					wizardContainer = dom.byId("wizard-container"),
 					deferred = new Deferred(),
-					MAX_WIDTH = 600, 
-					MIN_WIDTH = 450,
+					MAX_WIDTH = 525, // 600 - Currently we are forcing the size to be 525 and not responsive
+					MIN_WIDTH = 525, // 450
 					halfMapWidth = mapWidth / 2,
 					orignalCenterPoint,
 					duration = 500,

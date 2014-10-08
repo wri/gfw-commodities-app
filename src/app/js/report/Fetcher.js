@@ -414,6 +414,7 @@ define([
 		_getFireAlertAnalysis: function () {
 			this._debug('Fetcher >>> _getFireAlertAnalysis');
 			var deferred = new Deferred(),
+					polygon = new Polygon(report.geometry),
 					self = this,
 					defs = [],
 					params2,
@@ -427,8 +428,8 @@ define([
 			task1 = new QueryTask(ReportConfig.fires.url + "/0");
 			task2 = new QueryTask(ReportConfig.fires.url + "/2");
 
-			params1.geometry = report.geometry;
-			params2.geometry = report.geometry;
+			params1.geometry = polygon;
+			params2.geometry = polygon;
 			params1.returnGeometry = false;
 			params2.returnGeometry = false;
 			params1.outFields = ["*"];

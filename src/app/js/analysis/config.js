@@ -22,25 +22,31 @@ define([], function () {
 
 		stepOne: {
 			title: "Step 1: Select Area",
+			description: "Please select one of the options below to begin analyzing.",
 			option1: {
         'id': customArea,
-        'label': 'Create custom area'
+        'label': 'Create custom area',
+        'description': 'Draw a polygon or upload a shapefile to analyze one of it\'s features.'
       },
       option2: {
         'id': adminUnit,
-        'label': 'Administrative unit'
+        'label': 'Administrative unit',
+        'description': 'View first or second level administrative units and select one to analyze.'
       },
       option3: {
         'id': commArea,
-        'label': 'Commercial entity'
+        'label': 'Commercial entity',
+        'description': 'Search through various commercial entities by the type of commodity.'
       },
       option4: {
         'id': certArea,
-        'label': 'Certified area'
+        'label': 'Certified area',
+        'description': 'View RSPO certified areas that are also an oil palm concession.'
       },
       option5: {
         'id': millPoint,
-        'label': 'Mill point'
+        'label': 'Mill point',
+        'description': 'Coming Soon'
       }
 		},
 
