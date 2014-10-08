@@ -98,6 +98,7 @@ module.exports = function (grunt) {
             'libs': 'app/libs',
             'map': 'app/js/map',
             'main': 'app/js/main',
+            'models':'app/js/models',
             'utils': 'app/js/utils',
             'report':  'app/js/report',
             'analysis': 'app/js/analysis',

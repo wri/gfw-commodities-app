@@ -89,17 +89,26 @@ define([
 
 		setForGenericView: function () {
             this.setForHome();
+            console.log("other view");
 //			domClass.add("nav-content", "outer");
 //			domClass.remove("nav-content", "inner");
 			domClass.remove("app-header", "mapView");
 			domClass.add("app-header", "generalView");
+			//domClass.remove("footerModesContainer", "generalView");
+			$(".footerModesContainer").hide();
+
+			// Resize the page here!
+
+
 		},
 
 		setForHome: function () {
+			console.log("home view");
 			domClass.add("nav-content", "inner");
 			domClass.remove("nav-content", "outer");
 			domClass.remove("app-header", "mapView");
 			domClass.remove("app-header", "generalView");
+			$(".footerModesContainer").show();
 		},
 
 		redirectPage: function (view) {
