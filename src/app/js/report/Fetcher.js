@@ -10,10 +10,11 @@ define([
 	"esri/request",
 	"esri/tasks/query",
 	"esri/tasks/QueryTask",
+	"esri/SpatialReference",
 	"esri/geometry/Polygon",
 	"esri/tasks/GeometryService",
   "esri/tasks/AreasAndLengthsParameters"
-], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, Suitability, esriRequest, Query, QueryTask, Polygon, GeometryService, AreasAndLengthsParameters) {
+], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, Suitability, esriRequest, Query, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters) {
 	'use strict';
 
 	var _fireQueriesToRender = [];
@@ -24,6 +25,7 @@ define([
 			this._debug('Fetcher >>> getAreaFromGeometry');
 			var geometryService = new GeometryService(ReportConfig.geometryServiceUrl),
 					parameters = new AreasAndLengthsParameters(),
+					sr = new SpatialReference(54012),
 					polygon = new Polygon(geometry),
 					errorString = "Not Available",
 					area;
@@ -41,10 +43,21 @@ define([
 				document.getElementById("total-area").innerHTML = errorString;
 			}
 
+			// Project Geometry in Eckert Spatial Reference
+			// Then Simplify the Geometry, then get Areas and Lengths
 			parameters.areaUnit = GeometryService.UNIT_HECTARES;
-			geometryService.simplify([polygon], function (simplifiedGeometry) {
-				parameters.polygons = simplifiedGeometry;
-				geometryService.areasAndLengths(parameters, success, failure);
+			geometryService.project([polygon], sr, function (projectedGeometry) {
+				if (projectedGeometry.length > 0) {
+					polygon.rings = projectedGeometry[0].rings;
+					polygon.setSpatialReference(sr);
+					console.dir(polygon);
+				} else {
+					failure();
+				}
+				geometryService.simplify([polygon], function (simplifiedGeometry) {
+					parameters.polygons = simplifiedGeometry;
+					geometryService.areasAndLengths(parameters, success, failure);
+				}, failure);
 			}, failure);
 
 		},
@@ -299,9 +312,10 @@ define([
 					lossConfig = ReportConfig.totalLoss,
 					url = ReportConfig.imageServiceUrl,
 					encoder = this._getEncodingFunction(lossConfig.bounds, config.bounds),
+					rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId,
 					renderingRule = useSimpleEncoderRule ? 
-													encoder.getSimpleRule(lossConfig.rasterId, config.rasterId) : 
-													encoder.render(lossConfig.rasterId, config.rasterId),
+													encoder.getSimpleRule(lossConfig.rasterId, rasterId) : 
+													encoder.render(lossConfig.rasterId, rasterId),
 					content = {
 						geometryType: 'esriGeometryPolygon',
 						geometry: JSON.stringify(report.geometry),

@@ -232,7 +232,7 @@ wizardBlue = #00688B
 	bottom 50px
 	z-index 50
 	left 20px
-	top 75px
+	top 60px
 
 .gfw .layer-controls-container > .toolbox
 	box-shadow 0px 0px 6px 1px rgba(0,0,0,0.25)
@@ -251,10 +251,19 @@ wizardBlue = #00688B
 	left 0
 
 .gfw .layer-controls-container .toolbox_legend_suitability
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
-	position absolute
-	top -25px
-	left 0
+	margin-left 10px
+	line-height 30px
+
+.gfw .layer-controls-container .toolbox_legend_suitability div
+	display inline-block
+
+.gfw .toolbox_legend_suitability .reset-suitability
+	background url('images/reset_symbol.png') no-repeat center right
+	background-size 14px 14px
+	padding-right 20px
+	margin-right 10px
+	cursor pointer
+	float right
 
 .gfw .layer-controls-container .toolbox_legend > p,
 .gfw .layer-controls-container .toolbox_legend_suitability > p
@@ -325,7 +334,11 @@ wizardBlue = #00688B
 
 .gfw .suitability_toolbox .suitability-accordion
 	box-sizing border-box
-	height 100%
+	position absolute
+	top 30px
+	bottom 0
+	right 0
+	left 0
 
 .gfw .suitability_toolbox .slider-container
 	margin 10px auto 0
@@ -471,7 +484,10 @@ wizardBlue = #00688B
 	background #461D7C url('images/ico-checkmark.png') no-repeat center !important
 	border 1px solid #461D7C !important
 /* Overrides for Checkboxes */
-
+/* Overrides for Accordion COntainers that contain sliders and checkboxes */
+#crop-criteria, #environmental-criteria
+	overflow-x hidden
+/* Overrides for Accordion COntainers that contain sliders and checkboxes */
 .container2 {
 	margin-top: -22px;
 	font-size: 11px;

@@ -3,13 +3,14 @@ define([
 	"map/config",
 	"map/Controls",
 	"map/MapModel",
+	"map/LegendSliders",
 	"analysis/Query",
 	"analysis/config",
 	"analysis/WizardHelper",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, MapModel, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, MapModel, LegendSliders, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {
@@ -48,7 +49,7 @@ define([
 				if (entityType) {
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);
 				}
-			});
+			});			
 
 			// Layer Controller Functions
 			topic.subscribe('toggleLayer', function (layerId) {
@@ -95,7 +96,12 @@ define([
 				}
 			});
 
-            topic.subscribe('showInfoPanel', MapController.showInfoPanel);
+			topic.subscribe('generateTransparencySliders', function () {
+				LegendSliders.generateTransparencySliders();
+			});
+
+			// Map Controller Functions
+      topic.subscribe('showInfoPanel', MapController.showInfoPanel);
 
 		}
 

@@ -90,7 +90,7 @@ define([
         deferreds.push(self.identifyFires(mapPoint));
       }
 
-      if (app.map.getLayer(MapConfig.pal.id).visible) {
+      if (app.map.getLayer(MapConfig.pal.id).visible || app.map.getLayer(MapConfig.palHelper.id).visible) {
         deferreds.push(self.identifyWDPA(mapPoint));
       }
 

@@ -103,6 +103,7 @@ define([
 					xLabels = lossConfig.labels,
 					yMapValues = config.bounds.fromBounds(),
 					xMapValues = lossConfig.bounds.fromBounds(),
+					mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
 					series = [],
 					colors = [],
 					location,
@@ -112,7 +113,7 @@ define([
 			if (useSimpleEncoderRule) {
 				series.push({
 					'name': yLabels[0],
-					'data': histogramData.slice(1) // Remove first value as that is all the 0 values we dont want
+					'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
 				});
 				colors.push(config.colors[0]);
 			} else {
@@ -125,7 +126,7 @@ define([
 					}
 					series.push({
 						'name': yLabels[i],
-						'data': data
+						'data': data.map(mapFunction)
 					});
 					colors.push(config.colors[i]);
 				}
@@ -191,6 +192,7 @@ define([
 			var yLabels = config.labels,
 					yMapValues = config.bounds.fromBounds(),
 					xMapValues = report.clearanceBounds.fromBounds(),
+					mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
 					series = [],
 					data = [],
 					location,
@@ -206,6 +208,9 @@ define([
 					}
 					series.push(value);
 				}
+
+				// Account for pixelSize 
+				series.map(mapFunction);
 
 				for (i = 0; i < series.length; i++) {
 					data.push([yLabels[i], series[i]]);

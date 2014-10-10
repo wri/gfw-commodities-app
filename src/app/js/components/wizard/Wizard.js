@@ -67,7 +67,7 @@ define([
             React.DOM.div({'className': 'title-section'},
               React.DOM.span({'className': 'title'}, "Analysis"),
               React.DOM.span({'className': 'button reset', onClick: this._reset }, "Reset"),
-              React.DOM.span({'className': 'button close', onClick: this._close }, "x")
+              React.DOM.span({'className': 'button close', onClick: this._close }, "")
             ),
             React.DOM.div({'className': 'breadcrumbs'},
               breadcrumbs.map(this._breadcrumbMapper, this)

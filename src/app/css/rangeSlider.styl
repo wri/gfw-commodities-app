@@ -1,9 +1,8 @@
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar
- *        and http://cssdeck.com/item/276/pure-css-arrow-with-border-tooltip
+ *         and http://cssdeck.com/item/276/pure-css-arrow-with-border-tooltip
  */
-
 .ui-rangeSlider-withArrows .ui-rangeSlider-container{
   margin: 0 15px;
   -webkit-box-shadow: inset 0px 4px 6px -2px RGBA(0,0,0,0.5);
@@ -198,3 +197,16 @@
 .narrowTooltips .ui-rangeSlider-label {
   max-width: 60px;
 }
+.singleValueSlider .ui-rangeSlider-leftHandle {
+  z-index: 5;
+}
+.ui-rangeSlider .slider-bar-blocker {
+  background-color: #FFF;
+  position: absolute;
+  width: 30px;
+  height: 5px;
+  left: 250px;
+  z-index: 4;
+}
+
+

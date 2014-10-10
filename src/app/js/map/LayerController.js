@@ -1,6 +1,7 @@
 define([
 	"map/config",
 	"map/MapModel",
+	"dojo/on",
 	"dojo/dom",
 	"dojo/query",
 	"dojo/topic",
@@ -13,7 +14,7 @@ define([
 	"esri/tasks/QueryTask",
 	"esri/layers/RasterFunction",
 	"esri/layers/LayerDrawingOptions"
-], function (MapConfig, MapModel, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
+], function (MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
 	return {
 
@@ -30,6 +31,7 @@ define([
 
 			var layer = app.map.getLayer(layerConfig.id);
 			if (layer) {
+
 				layer.setVisibility(!layer.visible);
 				this.refreshLegendWidget();
 			}
@@ -41,7 +43,6 @@ define([
 		// and not radio buttons, which is why it has it's own function and cannot use updateDynamicLayer,
 		// This queries other checkboxes in the same layer to find out which needs to be added to visible layers
 		updateLayer: function (props) {
-			console.log("updateLayer");
 			var conf = MapConfig[props.key],
 					layer = app.map.getLayer(conf.id),
 					queryClass = props.filter,
@@ -351,7 +352,8 @@ define([
 					primForConf = MapConfig.primForest,
 					suitConf = MapConfig.suit,
 					confItems = [densityConf, formaConf, lossConf, gainConf, primForConf, suitConf],
-					visibleLayers = [];
+					visibleLayers = [],
+					self = this;
 
 			// Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
 			// If they are visible, show them in the legend by adding their ids to visibleLayers.
@@ -373,6 +375,10 @@ define([
 				legendLayer.hide();
 			}
 			registry.byId("legend").refresh();
+			
+			on.once(app.map, 'update-end', function () {
+				topic.publish('generateTransparencySliders');
+			});
 		},
 
 		_prepareSuitabilityJSON: function (start, end) {

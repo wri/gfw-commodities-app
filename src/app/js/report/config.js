@@ -2,8 +2,10 @@ define([], function () {
 
 	var geometryServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
 			clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
-			imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-			suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
+			imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
+			//imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
+			suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
+			//suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
 			firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
 			fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
 
@@ -14,7 +16,7 @@ define([], function () {
 
 	// Tree Cover Density
 	var treeCoverLabels = ["0 - 10%", "11 - 25%", "26 - 50%", "51 - 75%", "76 - 100%"],
-			treeCoverBounds = [1, 5],
+			treeCoverBounds = [0, 4],
 			treeCoverColors = ["#ccf1a5", "#a4c27a", "#859a59", "#65763e", "#4b5923"];
 
 	// RSPO
@@ -71,7 +73,8 @@ define([], function () {
 			// "http://firms.modaps.eosdis.nasa.gov",
 			// "http://gfw-apis.appspot.com",
 			// "http://50.18.182.188",
-			"http://gis-potico.wri.org"
+			"http://gis-potico.wri.org",
+			"http://175.41.139.43"
 		],
 
 		geometryServiceUrl: geometryServiceUrl,
@@ -79,7 +82,7 @@ define([], function () {
 
 		/* Begin Main Layers for Analyses */
 		totalLoss: {
-			rasterId: "$517",
+			rasterId: "$12",
 			bounds: lossBounds,
 			labels: lossLabels
 		},
@@ -165,7 +168,6 @@ define([], function () {
 		/* End Main Layers for Analyses */
 
 		/* Here are all the other Layers used in the results */
-
 		rspo: {
 			rootNode: "rspoData",
 			title: "RSPO Land Use Change Analysis",
@@ -178,7 +180,7 @@ define([], function () {
 		primaryForest: {
 			rootNode: "primaryForest",
 			title: "Primary Forests - Indonesia",
-			rasterId: "$519",
+			rasterId: "$11",
 			bounds: primaryForestBounds,
 			labels: primaryForestLabels,
 			clearanceChart: {
@@ -195,7 +197,16 @@ define([], function () {
 		treeCover: {
 			rootNode: "treeCoverDensity",
 			title: "Tree Cover Density",
-			rasterId: "$518",
+			rasterId: "$13",
+			rasterRemap: {
+				'rasterFunction': 'Remap',
+				'rasterFunctionArguments': {
+					'InputRanges': [0,11,11,26,26,51,51,76,76,101],
+					'OutputValues': [0,1,2,3,4],
+					'Raster': '$13',
+					'AllowUnmatched': false
+				}
+			},
 			bounds: treeCoverBounds,
 			labels: treeCoverLabels,
 			clearanceChart: {
