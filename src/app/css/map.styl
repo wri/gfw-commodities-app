@@ -245,13 +245,27 @@ wizardBlue = #00688B
 
 .gfw .layer-controls-container .fires_toolbox
 	margin-left -225px
-	height 60px
+	height 50px
 	width 450px
 
 .gfw .layer-controls-container .forma_toolbox
-	margin-left -300px
-	height 60px
-	width 600px
+	margin-left -500px
+	height 55px
+	width 800px
+	padding-right 25px
+	padding-left 65px
+	padding-top 5px
+
+.gfw .layer-controls-container .forma_toolbox:after {
+  position: absolute;
+  left: 7%;
+  top: 0;
+  width: 1px;
+  background: black;
+  content: "";
+  height: 100%;
+  display: block;
+}
 
 .gfw .layer-controls-container .treecover_change_toolbox
 	margin-left -500px
@@ -261,6 +275,7 @@ wizardBlue = #00688B
 
 .gfw .toolbox .toolbox-inner
 	text-align center
+	padding-left 10px
 
 .gfw .toolbox .toolbox-list
 	list-style-type none
@@ -289,7 +304,7 @@ wizardBlue = #00688B
 	float left
 
 .gfw .toolbox .slider-container
-	width 600px
+	width 800px
 	height 60px
 
 .gfw .toolbox .esriTimeSlider
@@ -420,6 +435,11 @@ wizardBlue = #00688B
 	left: 29px;
 	cursor: pointer;
 
+#newSlider2
+	position: absolute;
+	bottom: 21px;
+	left: 26px;
+	cursor: pointer;
 
 .gfw #legend #legend_msg, .gfw #legend .esriLegendServiceLabel
 	display none
@@ -468,6 +488,26 @@ wizardBlue = #00688B
     width: 7.15%;
 }
 
+.container3 {
+	margin-top: -22px;
+	font-size: 11px;
+}
+
+.container3 > div {
+    display: inline-block;
+    display: -moz-inline-box;
+    *display: inline; /* For IE7 */
+    zoom: 1; /* Trigger hasLayout */
+    width: 4.8%;
+    text-align: center;
+    font-size: 10px;
+    color: #a1ba42;
+}
+
+.container3 > div:first-child {
+    margin-left: 1.5%;
+}
+
 #playLine2 {
     //display: inline-block;
     //display: -moz-inline-box;
@@ -504,6 +544,42 @@ wizardBlue = #00688B
 	bottom: -5px;
 }
 
+#playLine3 {
+    //display: inline-block;
+    //display: -moz-inline-box;
+    *display: inline; /* For IE7 */
+    zoom: 1; /* Trigger hasLayout */
+    //width: 8.0%;
+    text-align: center;
+    font-size: 9px;
+    position: absolute;
+    height: 10px;
+	top: -15px;
+	display: none;
+	z-index: 2000;
+	background: #333;
+	color: white;
+	padding: 6px 8px;
+	border-radius: 2px;
+	min-width: 40px;
+	margin-left: 2px;
+}
+
+#playLine3:before {
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	position: absolute;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #333;
+	right: 0;
+	left: 0;
+	margin: auto;
+	bottom: -5px;
+}
+
 .playLineFiller > div {
 	background: #a1ba42;
 	display: inline-block;
@@ -511,6 +587,15 @@ wizardBlue = #00688B
 	width: 35px;
 	position: absolute;
 	margin-top: -11px;
+}
+
+.playLineFiller2 > div {
+	background: #a1ba42;
+	//display: inline-block;
+	height: 7px;
+	width: 14px;
+	position: absolute;
+	margin-top: -9px;
 }
 
 .playLineFiller > div:first-child {
@@ -558,7 +643,87 @@ wizardBlue = #00688B
     width: 33px;
 }
 
+.playLineFiller2 > div:first-child {
+    margin-left: 45px;
+}
+
+.playLineFiller2 > div:nth-child(2) {
+    margin-left: 85px;
+}
+
+.playLineFiller2 > div:nth-child(3) {
+    margin-left: 125px;
+}
+
+.playLineFiller2 > div:nth-child(4) {
+    margin-left: 163px;
+}
+
+.playLineFiller2 > div:nth-child(5) {
+    margin-left: 203px;
+    width: 15px;
+}
+
+.playLineFiller2 > div:nth-child(6) {
+    margin-left: 243px;
+}
+
+.playLineFiller2 > div:nth-child(7) {
+    margin-left: 285px;
+}
+
+.playLineFiller2 > div:nth-child(8) {
+    margin-left: 325px;
+}
+
+.playLineFiller2 > div:nth-child(9) {
+    margin-left: 365px;
+}
+
+.playLineFiller2 > div:nth-child(10) {
+    margin-left: 405px;
+}
+
+.playLineFiller2 > div:nth-child(11) {
+    margin-left: 445px;
+}
+
+.playLineFiller2 > div:nth-child(12) {
+    margin-left: 485px;
+}
+
+.playLineFiller2 > div:nth-child(13) {
+    margin-left: 525px;
+}
+
+.playLineFiller2 > div:nth-child(14) {
+    margin-left: 565px;
+}
+
+.playLineFiller2 > div:nth-child(15) {
+    margin-left: 605px;
+}
+
+.playLineFiller2 > div:nth-child(16) {
+    margin-left: 645px;
+}
+
+.playLineFiller2 > div:nth-child(17) {
+    margin-left: 685px;
+}
+
 #sliderProgressLine {
+	//border: 1px solid #a1ba42;;
+	width:1px;
+	height: 60px;
+	position: absolute;
+	top: -5px;
+	background-color: #a1ba42;;
+	display: none;
+
+}
+
+#sliderProgressLine2 {
 	//border: 1px solid #a1ba42;;
 	width:1px;
 	height: 60px;
