@@ -47,7 +47,7 @@ define([
           showButtons: false,
           intermediateChanges: false,
           onChange: function (value) {
-            topic.publish('changeLayerTransparency', self.props.key, value);
+            topic.publish('changeLayerTransparency', self.props.key, self.props.layerType, value);
           }
         }, this.props.key + "_slider").startup();
       }

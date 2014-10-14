@@ -353,6 +353,7 @@ define([
 					suitConf = MapConfig.suit,
 					confItems = [densityConf, formaConf, lossConf, gainConf, primForConf, suitConf],
 					visibleLayers = [],
+					layerOptions = [],
 					self = this;
 
 			// Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
@@ -360,14 +361,19 @@ define([
 			// Make sure to set layer drawing options for those values so they do not display 
 			// over their ImageService counterparts
 
+			ldos = new LayerDrawingOptions();
+			ldos.transparency = 100;
+
 			arrayUtils.forEach(confItems, function (item) {
 				if (app.map.getLayer(item.id).visible) {
 					visibleLayers.push(item.legendLayerId);
+					layerOptions[item.legendLayerId] = ldos;
 				}
 			});
 
 			if (visibleLayers.length > 0) {
 				legendLayer.setVisibleLayers(visibleLayers);
+				legendLayer.setLayerDrawingOptions(layerOptions);
 				if (!legendLayer.visible) {
 					legendLayer.show();
 				}
@@ -377,8 +383,56 @@ define([
 			registry.byId("legend").refresh();
 		},
 
-		changeLayerTransparency: function (layerConfig, transparency) {
-			console.log(transparency);
+		changeLayerTransparency: function (layerConfig, layerType, transparency) {
+			switch (layerType) {
+				case "image":
+					this.setLayerOpacity(layerConfig, transparency);
+				break;
+				case "dynamic":
+					this.setDynamicLayerTransparency(layerConfig, transparency);
+				break;
+				case "tiled":
+					this.setLayerOpacity(layerConfig, transparency);
+				break;
+			}
+		},
+
+		setLayerOpacity: function (layerConfig, transparency) {
+			var layer = app.map.getLayer(layerConfig.id);
+			if (layer) {
+				layer.setOpacity(transparency / 100);
+			}
+		},
+
+		setDynamicLayerTransparency: function (layerConfig, transparency) {			
+			var layer = app.map.getLayer(layerConfig.id),
+					layerOptions,
+					ldos;
+
+			if (!layer) {
+				// If the layer is invalid or missing, just return
+				return;
+			}
+
+			ldos = new LayerDrawingOptions();
+			// 100 is fully transparent, our sliders show 0 as transparent and 100 as opaque
+			// Need to flip my transparency value around
+			ldos.transparency = 100 - transparency;
+
+			// If layer has layer drawing options, dont overwrite all of them, append to them or overwrite
+			// only the relevant layer id
+			layerOptions = layer.layerDrawingOptions || [];
+
+			if (layerConfig.layerId) {
+				layerOptions[layerConfig.layerId] = ldos;
+			} else if (layerConfig.defaultLayers) {
+				arrayUtils.forEach(layerConfig.defaultLayers, function (layerId) {
+					layerOptions[layerId] = ldos;
+				}); 
+			}
+
+			layer.setLayerDrawingOptions(layerOptions);
+
 		},
 
 		_prepareSuitabilityJSON: function (start, end) {

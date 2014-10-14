@@ -95,10 +95,10 @@ define([
 				}
 			});
 
-			topic.subscribe('changeLayerTransparency', function (layerKey, transparencyValue) {
+			topic.subscribe('changeLayerTransparency', function (layerKey, layerType, transparencyValue) {
 				var config = MapConfig[layerKey];
 				if (config) {
-					LayerController.changeLayerTransparency(config, transparencyValue);
+					LayerController.changeLayerTransparency(config, layerType, transparencyValue);
 				}
 			});
 
