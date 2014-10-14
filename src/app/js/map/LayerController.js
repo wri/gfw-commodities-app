@@ -375,10 +375,10 @@ define([
 				legendLayer.hide();
 			}
 			registry.byId("legend").refresh();
-			
-			on.once(app.map, 'update-end', function () {
-				topic.publish('generateTransparencySliders');
-			});
+		},
+
+		changeLayerTransparency: function (layerConfig, transparency) {
+			console.log(transparency);
 		},
 
 		_prepareSuitabilityJSON: function (start, end) {

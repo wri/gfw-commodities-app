@@ -2,8 +2,9 @@ define([
 	"react",
 	"dojo/topic",
 	"utils/Hasher",
-	"components/Check"
-], function (React, topic, Hasher, Check) {
+	"components/Check",
+  "dijit/form/HorizontalSlider"
+], function (React, topic, Hasher, Check, HorizontalSlider) {
 
 	var Radio = React.createClass({
 
@@ -18,7 +19,8 @@ define([
     componentDidMount: function () {
       this.props.postCreate(this);
       var layerArray = Hasher.getLayers(),
-					active = layerArray.indexOf(this.props.key) > -1;
+					active = layerArray.indexOf(this.props.key) > -1,
+          self = this;
 
 			if (active) {
 				topic.publish('showLayer', this.props.key);
@@ -26,10 +28,27 @@ define([
 					active: active
 				});
 			}
+
+      // Create the slider if the container exists
+      if (document.getElementById(this.props.key + "_slider")) {
+        new HorizontalSlider({
+          value: 100,
+          minimum: 0,
+          maximum: 100,
+          discreteValues: 100,
+          showButtons: false,
+          intermediateChanges: false,
+          onChange: function (value) {
+            topic.publish('changeLayerTransparency', self.props.key, value);
+          }
+        }, this.props.key + "_slider").startup();
+      }
+
     },
 
     toggle: function (synEvent) {
-        if(!synEvent.target.classList.contains('layer-info-icon')){
+        if(!synEvent.target.classList.contains('layer-info-icon') &&
+            synEvent.target.className.search('dijit') < 0){
             this.props.handle(this);
         }
     },
@@ -61,13 +80,16 @@ define([
               (this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" ?
                   React.DOM.span({'className': 'layer-info-icon', 'onClick': this.showInfo})
                   : null
-                  ),
+              ),
             React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle)
           ),
-          (this.props.children ? 
-            React.DOM.ul({},
-              this.props.children.map(this._mapper)
-            ) : null
+          (this.props.children? 
+            React.DOM.ul({}, this.props.children.map(this._mapper))
+            : this.props.layerType !== 'none' ?
+              React.DOM.div({'className': 'sliderContainer ' + (this.state.active ? '' : 'hidden')}, 
+                React.DOM.div({"id": this.props.key + "_slider"})
+              )
+              : null
           )
         )
       );

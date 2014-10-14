@@ -2,15 +2,14 @@ define([
 	"dojo/topic",
 	"map/config",
 	"map/Controls",
-	"map/MapModel",
-	"map/LegendSliders",
+	"map/MapModel",	
 	"analysis/Query",
 	"analysis/config",
 	"analysis/WizardHelper",
 	"map/LayerController",
 	"controllers/MapController",
 	"controllers/ViewController"
-], function (topic, MapConfig, Controls, MapModel, LegendSliders, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
+], function (topic, MapConfig, Controls, MapModel, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
 	'use strict';
 
 	return {
@@ -96,8 +95,11 @@ define([
 				}
 			});
 
-			topic.subscribe('generateTransparencySliders', function () {
-				LegendSliders.generateTransparencySliders();
+			topic.subscribe('changeLayerTransparency', function (layerKey, transparencyValue) {
+				var config = MapConfig[layerKey];
+				if (config) {
+					LayerController.changeLayerTransparency(config, transparencyValue);
+				}
 			});
 
 			// Map Controller Functions
