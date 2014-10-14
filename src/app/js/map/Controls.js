@@ -243,6 +243,10 @@ define([
                             $(".irs-single").hide();
                             $(".irs-from").show();
                         }
+                        if (to == 19) {
+                            $(".irs-diapason").css("width", "+=8px");
+                            console.log("adding width!");
+                        }
                         //console.log(from + ", " + to);
                         $("#range2").ionRangeSlider("update");
                         if ($range2.playing != true) {
@@ -250,7 +254,7 @@ define([
                             $("#playLine3").hide();
                             //console.log(to + ", " + from);
                             var values3 = [from, to];
-                            for (var i = 1; i < 20; i++) {
+                            for (var i = 1; i < 21; i++) {
                                 var item2 = $(".container3 > div:nth-child(" + i + ")");
                                 // if ((i <= from) || (i >= to)) {
                                 //     $(item1.selector).css("background-color", "transparent");
@@ -299,22 +303,18 @@ define([
                 });
 
                 $(".irs-single").hide();
-                console.log($(".irs-slider.from"));
-                var sliderFrom = $(".irs-slider.from").css("left");
+
+                var sliderFrom = parseInt($("#irs-2 > span.irs > span.irs-from").css('left'));
                 var sliderFrom2 = parseInt($("#irs-2 > span.irs > span.irs-slider.from.last").css('left'));
-                var sliderTo = $("#irs-2 > span.irs > span.irs-slider.to.last").css("left");
 
-
-                //console.log(sliderFrom + " " + sliderTo + " " + sliderFrom2);
                 var sliderDiff = 790 - sliderFrom2;
-                //console.log(" #: " + sliderDiff);
-                //var initialDates2 = $range2[0].value.split(';');
-                //if (initialDates2[0] == "0" && initialDates2[1] == "19") {
+                if (isNaN(sliderFrom2) == true) {
+                    console.log("usiing alertnate");
+                    sliderDiff = 790 - sliderFrom;
+                }
+
                 $(".irs-diapason").css("width", sliderDiff + "px");
-                //}
                 $(".irs-diapason").css("background-color", "#a1ba42");
-                console.log(sliderProgressLine2);
-                console.log(playLine3);
             };
 
             $from.on("change", function() {
@@ -355,13 +355,8 @@ define([
 
 
             function play() {
-                //$("#sliderProgressLine2").hide();
                 $("#playLine3").hide();
                 $('#playLine3').css("left", "0");
-                //$('#sliderProgressLine2').css("left", "30");
-                //var sliderVar = $('#sliderProgressLine2');
-                //console.log(sliderVar);
-                //console.log($range2.playing);
                 if ($range2.playing == true) {
                     console.log("Here we must stop");
                     $range2.playing = false;
@@ -395,7 +390,6 @@ define([
                 var currentMonth = thumbOne % 12;
                 var monthDisplay = months[currentMonth];
 
-
                 $("#playLine3").html(monthDisplay);
 
                 $("#playLine3").show();
@@ -403,10 +397,6 @@ define([
 
                 $("#sliderProgressLine2").show();
                 $('#sliderProgressLine2').css('display', 'block');
-                //console.log($('#sliderProgressLine2').css('display'));
-                console.log($('#sliderProgressLine2').css('left'));
-                //console.log($("#sliderProgressLine2"));
-
 
                 console.log("Init: " + thumbOneInitial);
                 if (thumbOne == thumbTwo) {
@@ -415,12 +405,10 @@ define([
                     $range2.playing = false;
                     return;
                 }
-
                 $range2.playing = true;
                 $("#newSlider2").html("&#x25A0");
 
                 var values = [thumbOneInitial, thumbOne];
-                //console.log("Values to be used: " + values[0] + " " + values[1]);
 
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
@@ -440,18 +428,11 @@ define([
                     $('#playLine3').css("left", "+=41.5px");
                     $('#sliderProgressLine2').css("left", "+=41.5px");
 
-
                     console.log("Values to be used: " + values[0] + " " + values[1]);
                     values[0] = parseInt(values[0]);
                     values[1] = parseInt(values[1]);
-                    console.log("Values to be used: " + values[0] + " " + values[1]);
-                    // we want current and the end, not start and current
-                    // var values2 = [values[1], to];
-                    // var values4 = [thumbOneInitial, thumbOne];
-                    // console.log("Values we should use: " + values2[0] + " " + values2[1]);
 
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
-
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];
