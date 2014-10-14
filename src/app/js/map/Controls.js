@@ -243,7 +243,6 @@ define([
                             $(".irs-single").hide();
                             $(".irs-from").show();
                         }
-
                         //console.log(from + ", " + to);
                         $("#range2").ionRangeSlider("update");
                         if ($range2.playing != true) {
@@ -252,13 +251,13 @@ define([
                             //console.log(to + ", " + from);
                             var values3 = [from, to];
                             for (var i = 1; i < 19; i++) {
-                                var item1 = $(".playLineFiller2 > div:nth-child(" + i + ")");
+                                //var item1 = $(".playLineFiller2 > div:nth-child(" + i + ")");
                                 var item2 = $(".container3 > div:nth-child(" + i + ")");
-                                if ((i <= from) || (i >= to)) {
-                                    $(item1.selector).css("background-color", "transparent");
-                                } else {
-                                    $(item1.selector).css("background-color", "#a1ba42");
-                                }
+                                // if ((i <= from) || (i >= to)) {
+                                //     $(item1.selector).css("background-color", "transparent");
+                                // } else {
+                                //     $(item1.selector).css("background-color", "#a1ba42");
+                                // }
                                 if ((i < from) || (i > to)) {
                                     $(item2.selector).css("color", "grey");
                                 } else {
@@ -270,7 +269,7 @@ define([
                             } else {
                                 $(".container3 > div:last-child").css("color", "#a1ba42");
                             }
-
+                            console.log("Values to be used: " + values3[0] + " " + values3[1]);
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
                     },
@@ -278,7 +277,7 @@ define([
                 $(".irs-slider.to").css("left", "790px");
                 $(".slider-container").show();
 
-                $(".irs-slider.to").each(function() {
+                $("#formaAlertSlider").each(function() {
                     var node = this;
                     var sliderProgressLine2 = domConstruct.create("div", {
                         id: "sliderProgressLine2"
@@ -291,21 +290,24 @@ define([
                     domConstruct.place(playLine3, node, "after");
                 });
 
+                $(".irs-single").hide();
+                console.log($(".irs-slider.from"));
+                var sliderFrom = $(".irs-slider.from").css("left");
+                var sliderFrom2 = parseInt($("#irs-2 > span.irs > span.irs-slider.from.last").css('left'));
+                var sliderTo = $("#irs-2 > span.irs > span.irs-slider.to.last").css("left");
+
+
+                //console.log(sliderFrom + " " + sliderTo + " " + sliderFrom2);
+                var sliderDiff = 790 - sliderFrom2;
+                //console.log(" #: " + sliderDiff);
+                //var initialDates2 = $range2[0].value.split(';');
+                //if (initialDates2[0] == "0" && initialDates2[1] == "19") {
+                $(".irs-diapason").css("width", sliderDiff + "px");
+                //}
+                $(".irs-diapason").css("background-color", "#a1ba42");
                 console.log(sliderProgressLine2);
                 console.log(playLine3);
             };
-
-            // if (!sliderInit2) {
-            //  	sliderInit2 = true;
-            //  	console.log("before ioncallback");
-            // 	//$(".gfw .toolbox .slider-container").ionRangeSlider();
-            //    	//ionCallback();
-            //    	console.log("after ioncallback");
-            //    	$(".irs-slider.to").css("left", "792px");
-
-
-
-            //    }
 
             $from.on("change", function() {
                 from = $(this).prop("value");
@@ -345,14 +347,17 @@ define([
 
 
             function play() {
-                $("#sliderProgressLine2").hide();
+                //$("#sliderProgressLine2").hide();
                 $("#playLine3").hide();
                 $('#playLine3').css("left", "0");
-                $('#sliderProgressLine2').css("left", "0");
+                //$('#sliderProgressLine2').css("left", "30");
+                //var sliderVar = $('#sliderProgressLine2');
+                //console.log(sliderVar);
                 //console.log($range2.playing);
                 if ($range2.playing == true) {
                     console.log("Here we must stop");
                     $range2.playing = false;
+                    $('#sliderProgressLine2').hide();
                     $("#newSlider2").html("&#9658");
                     return;
                 }
@@ -361,32 +366,38 @@ define([
                 var thumbTwo = initialDates[1];
                 var thumbOneInitial = thumbOne;
 
-                var sliderStart = $("#irs-2 > span.irs > span.irs-slider.from.last").css("left");
-                //var sliderStart = $(".irs-slider.from.last").css("left");
-                var sliderStart2 = $(".irs-diapason").css("left");
-                console.log(sliderStart);
-                console.log(sliderStart2);
+                var sliderStart3 = $("#irs-2 > span.irs > span.irs-slider.from.last").css("left");
+                var sliderStart4 = $("#irs-2 > span.irs > span.irs-diapason").css("left");
+                console.log(sliderStart3);
+                console.log(sliderStart4);
                 console.log('');
 
-                $('#playLine3').css("left", sliderStart);
-                $('#sliderProgressLine2').css("left", sliderStart);
-                if (sliderStart == undefined) {
+                $('#playLine3').css("left", sliderStart3);
+                $('#sliderProgressLine2').css("left", sliderStart3);
+                if (sliderStart3 == undefined) {
                     console.log("using #2!!");
-                    $('#playLine3').css("left", sliderStart2);
-                    //$('#playLine3').css("left", "-=10px" );
-                    $('#sliderProgressLine2').css("left", sliderStart2);
-                    //$('#sliderProgressLine2').css("left", "-=10px" );
+                    $('#playLine3').css("left", sliderStart4);
+                    $('#playLine3').css("left", "-=7.5pxpx");
+                    $('#sliderProgressLine2').css("left", sliderStart4);
+                    $('#sliderProgressLine2').css("left", "-=7.5px");
                 }
-                //$('#playLine3').css("left", "-=21px" );
-                $("#playLine3").html(thumbOne);
+                $('#playLine3').css("left", "+=53px");
+                var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
-                console.log($('#playLine3').css('left'));
+                var currentMonth = thumbOne % 12;
+                var monthDisplay = months[currentMonth];
+
+
+                $("#playLine3").html(monthDisplay);
+
                 $("#playLine3").show();
-                $("#playLine3").css("display", "block");
-                console.log($('#playLine3').css('left'));
-                //$('#sliderProgressLine2').css("left", "+=9px" );
+                $('#sliderProgressLine2').css("left", "+=82px");
+
                 $("#sliderProgressLine2").show();
-                console.log($("#sliderProgressLine2"));
+                $('#sliderProgressLine2').css('display', 'block');
+                //console.log($('#sliderProgressLine2').css('display'));
+                console.log($('#sliderProgressLine2').css('left'));
+                //console.log($("#sliderProgressLine2"));
 
 
                 console.log("Init: " + thumbOneInitial);
@@ -399,42 +410,55 @@ define([
 
                 $range2.playing = true;
                 $("#newSlider2").html("&#x25A0");
-                $("#" + thumbOne).show();
-                console.log($("#" + thumbOne));
+                //$("#" + thumbOne).show();
+                //console.log($("#" + thumbOne));
 
                 //var values = [0,thumbOne-2000];
                 var values = [thumbOneInitial, thumbOne];
-                //console.log("Values to be used: " + values[0] +" "+ values[1]);
+                //console.log("Values to be used: " + values[0] + " " + values[1]);
 
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
                     timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                }, 750);
+                }, 500);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
                     if ($range2.playing == false) {
                         return;
                     }
 
+                    months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+                    currentMonth = (thumbOne + 1) % 12;
+                    monthDisplay = months[currentMonth];
+                    //console.log(monthDisplay);
+                    //console.log($("#playLine3").html());
+                    $("#playLine3").html(monthDisplay);
                     //console.log($("#sliderProgressLine2").css("left"));
-                    $('#playLine3').css("left", "+=66px");
-                    $('#playLine3').show();
+                    $('#playLine3').css("left", "+=41.5px");
 
-                    $('#sliderProgressLine2').css("left", "+=66px");
+                    //console.log($("#playLine3").html());
+                    //$('#playLine3').show();
+                    //$('#playLine3').html(monthDisplay);
+                    $('#sliderProgressLine2').css("left", "+=41.5px");
 
-                    $("#" + thumbOne).show();
-                    //console.log("I'm using these..");
-                    //console.log(values);
-                    console.log($("#" + thumbOne).css("display"));
+                    //$("#" + thumbOne).show();
 
-                    var oldTick = thumbOne - 1;
-                    var newTick = thumbOne + 1;
-                    $("#" + thumbOne).hide();
+                    //console.log($("#" + thumbOne).css("display"));
 
-                    $("#" + newTick).show();
-                    console.log($("#" + thumbOne).css("display"));
+                    // var oldTick = thumbOne - 1;
+                    // var newTick = thumbOne + 1;
+                    //$("#" + thumbOne).hide();
 
+                    //$("#" + newTick).show();
+                    //console.log($("#" + thumbOne).css("display"));
+                    console.log("Values to be used: " + values[0] + " " + values[1]);
+
+                    // we want current and the end, not start and current
+                    // var values2 = [values[1], to];
+                    // var values4 = [thumbOneInitial, thumbOne];
+                    // console.log("Values we should use: " + values2[0] + " " + values2[1]);
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
+                    //LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
                     // 		$range2.ionRangeSlider("update", {
                     //     from: from + 1
                     // });
@@ -442,17 +466,16 @@ define([
                     var newThumbTwo = newDates[1];
 
                     thumbOne++;
-                    $("#playLine3").html(thumbOne);
                     //values = [0,thumbOne-2000];
-                    console.log("Start: " + thumbOneInitial);
-                    console.log("End: " + thumbOne);
+                    //console.log("Start: " + thumbOneInitial);
+                    //console.log("End: " + thumbOne);
                     values = [thumbOneInitial, thumbOne];
 
                     if (newThumbTwo > thumbTwo) {
                         thumbTwo = newThumbTwo;
                     }
                     if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
-                        $("#" + oldTick).hide();
+                        //$("#" + oldTick).hide();
                         //$("#" + thumbOne).hide();
                         //$("#" + newTick).hide();
                         $("#newSlider2").html("&#9658");
@@ -464,7 +487,7 @@ define([
                     if ($range2.playing == true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                        }, 750);
+                        }, 500);
                     }
                 }
             }
@@ -694,6 +717,7 @@ define([
         },
 
         newTimeSlider: function() {
+            console.log("hidden?");
 
             $(".extra-controls #newSlider").click(function() {
                 play();
@@ -768,17 +792,18 @@ define([
                         }
                     },
                 });
+
                 $("#range").ionRangeSlider("update");
                 $("#playLine2").hide();
                 $("#sliderProgressLine").hide();
 
             };
-
             if (!sliderInit) {
                 sliderInit = true;
                 ionCallback();
                 $(".irs-slider.to").css("left", "792px");
-
+                $(".irs-diapason").hide();
+                $(".irs-diapason").css("background-color", "transparent");
                 $(".irs-slider.from.last").each(function() {
                     var node = this;
                     var sliderProgressLine = domConstruct.create("div", {
@@ -867,11 +892,11 @@ define([
                     $('#sliderProgressLine').css("left", sliderStart2);
                     $('#sliderProgressLine').css("left", "-=10px");
                 }
-                $('#playLine2').css("left", "-=21px");
+                $('#playLine2').css("left", "-=21.5px");
                 $("#playLine2").html(thumbOne);
 
                 $("#playLine2").show();
-                $('#sliderProgressLine').css("left", "+=9px");
+                $('#sliderProgressLine').css("left", "+=7.5px");
                 $("#sliderProgressLine").show();
                 // Add css via JQuery here to show where slider started from
                 // Maybe get the css position of thumbOne.
@@ -961,7 +986,7 @@ define([
                     //$("#" + thumbOne).show();
                     $("#" + newTick).show();
                     console.log($("#" + thumbOne).css("display"));
-
+                    console.log("values to use: " + values[0] + ", " + values[1]);
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
                     // 		$range.ionRangeSlider("update", {
                     //     from: from + 1

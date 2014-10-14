@@ -3383,7 +3383,7 @@ address {
   width: 1px;
   height: 60px;
   position: absolute;
-  top: -5px;
+  top: 0px;
   background-color: #a1ba42;
   display: none;
 }
@@ -3563,7 +3563,7 @@ address {
 
 /* line 1 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 686 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/rangeSlider.styl */
+/* line 851 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar
