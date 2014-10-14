@@ -205,6 +205,8 @@ define([
 
             $("#master-layer-list > div > ul > li:nth-child(2)").click(function() {
                 console.log("in the Forma slider builder!");
+                $("#playLine3").hide();
+                $("#sliderProgressLine2").hide();
                 var $this = $(this);
                 setTimeout(function() { //TODO : Fix this 
                     ionCallback.call();
@@ -409,7 +411,7 @@ define([
                 $("#newSlider2").html("&#x25A0");
 
                 var values = [thumbOneInitial, thumbOne];
-
+                LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
                     timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
