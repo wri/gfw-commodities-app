@@ -182,26 +182,16 @@ define([
       });
 */
 
-
-
-
-
             $(".extra-controls2 #newSlider2").click(function() {
                 play();
             });
             var $range2 = $(".gfw .toolbox .slider-container"),
-                //var $range2 = $(".js-range-slider"),
-                // type = "double",
                 $from = $(".js-from"),
                 $to = $(".js-to"),
                 min = "1-13",
                 max = "8-14",
                 from = "0",
                 to = "19";
-
-            //#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > p
-            //#master-layer-list > div > ul > li:nth-child(2) > div
-            //#master-layer-list > div > ul > li:nth-child(2)
 
             $("#master-layer-list > div > ul > li:nth-child(2)").click(function() {
                 console.log("in the Forma slider builder!");
@@ -211,16 +201,9 @@ define([
                 setTimeout(function() { //TODO : Fix this 
                     ionCallback.call();
                 }, 300);
-
-            })
-            //    $("li.layer-list-item.forest-change.active").click(function() {
-            //   		console.log("in the Forma slider builder!");
-            //   		var $this = $(this);
-            //   		ionCallback.call(this);
-            // });
+            });
 
             var ionCallback = function() {
-                //console.log("DIRectly inside the ion call back now");
                 $range2.ionRangeSlider({
                     type: "double",
                     min: min,
@@ -249,20 +232,13 @@ define([
                             $(".irs-diapason").css("width", "+=8px");
                             console.log("adding width!");
                         }
-                        //console.log(from + ", " + to);
                         $("#range2").ionRangeSlider("update");
                         if ($range2.playing != true) {
                             $("#sliderProgressLine2").hide();
                             $("#playLine3").hide();
-                            //console.log(to + ", " + from);
                             var values3 = [from, to];
                             for (var i = 1; i < 21; i++) {
                                 var item2 = $(".container3 > div:nth-child(" + i + ")");
-                                // if ((i <= from) || (i >= to)) {
-                                //     $(item1.selector).css("background-color", "transparent");
-                                // } else {
-                                //     $(item1.selector).css("background-color", "#a1ba42");
-                                // }
 
                                 if ((i < from + 1) || (i > to)) {
                                     $(item2.selector).css("color", "grey");
@@ -278,11 +254,6 @@ define([
                                     $(".container3 > div:nth-child(1)").css("color", "black");
                                 }
                             }
-                            // if (to != 19) {
-                            //     $(".container3 > div:last-child").css("color", "grey");
-                            // } else {
-                            //     $(".container3 > div:last-child").css("color", "#a1ba42");
-                            // }
                             console.log("Values to be used: " + values3[0] + " " + values3[1]);
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
@@ -311,12 +282,14 @@ define([
 
                 var sliderDiff = 790 - sliderFrom2;
                 if (isNaN(sliderFrom2) == true) {
-                    console.log("usiing alertnate");
+                    console.log("using alternate");
                     sliderDiff = 790 - sliderFrom;
                 }
 
                 $(".irs-diapason").css("width", sliderDiff + "px");
                 $(".irs-diapason").css("background-color", "#a1ba42");
+                $(".container3 > div").css("color", "#a1ba42");
+
             };
 
             $from.on("change", function() {
@@ -360,7 +333,6 @@ define([
                 $("#playLine3").hide();
                 $('#playLine3').css("left", "0");
                 if ($range2.playing == true) {
-                    console.log("Here we must stop");
                     $range2.playing = false;
                     $('#sliderProgressLine2').hide();
                     $("#newSlider2").html("&#9658");
@@ -430,7 +402,7 @@ define([
                     $('#playLine3').css("left", "+=41.5px");
                     $('#sliderProgressLine2').css("left", "+=41.5px");
 
-                    console.log("Values to be used: " + values[0] + " " + values[1]);
+                    console.log("Values to be used: " + values[0] + ", " + values[1]);
                     values[0] = parseInt(values[0]);
                     values[1] = parseInt(values[1]);
 
@@ -458,15 +430,6 @@ define([
                     }
                 }
             }
-
-
-
-
-
-
-
-
-
         },
 
         buildTreeCoverChangeSlider: function() {
