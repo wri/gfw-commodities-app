@@ -250,25 +250,33 @@ define([
                             $("#playLine3").hide();
                             //console.log(to + ", " + from);
                             var values3 = [from, to];
-                            for (var i = 1; i < 19; i++) {
-                                //var item1 = $(".playLineFiller2 > div:nth-child(" + i + ")");
+                            for (var i = 1; i < 20; i++) {
                                 var item2 = $(".container3 > div:nth-child(" + i + ")");
                                 // if ((i <= from) || (i >= to)) {
                                 //     $(item1.selector).css("background-color", "transparent");
                                 // } else {
                                 //     $(item1.selector).css("background-color", "#a1ba42");
                                 // }
-                                if ((i < from) || (i > to)) {
+
+                                if ((i < from + 1) || (i > to)) {
                                     $(item2.selector).css("color", "grey");
+                                    $(".container3 > div:nth-child(1)").css("color", "black");
+
                                 } else {
                                     $(item2.selector).css("color", "#a1ba42");
                                 }
+                                if (from > 12 || to < 12) {
+                                    $(".container3 > div:nth-child(13)").css("color", "black");
+                                }
+                                if (from == 1 && to == 19) {
+                                    $(".container3 > div:nth-child(1)").css("color", "black");
+                                }
                             }
-                            if (to != 19) {
-                                $(".container3 > div:last-child").css("color", "grey");
-                            } else {
-                                $(".container3 > div:last-child").css("color", "#a1ba42");
-                            }
+                            // if (to != 19) {
+                            //     $(".container3 > div:last-child").css("color", "grey");
+                            // } else {
+                            //     $(".container3 > div:last-child").css("color", "#a1ba42");
+                            // }
                             console.log("Values to be used: " + values3[0] + " " + values3[1]);
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
@@ -410,10 +418,7 @@ define([
 
                 $range2.playing = true;
                 $("#newSlider2").html("&#x25A0");
-                //$("#" + thumbOne).show();
-                //console.log($("#" + thumbOne));
 
-                //var values = [0,thumbOne-2000];
                 var values = [thumbOneInitial, thumbOne];
                 //console.log("Values to be used: " + values[0] + " " + values[1]);
 
@@ -430,54 +435,33 @@ define([
                     months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
                     currentMonth = (thumbOne + 1) % 12;
                     monthDisplay = months[currentMonth];
-                    //console.log(monthDisplay);
-                    //console.log($("#playLine3").html());
-                    $("#playLine3").html(monthDisplay);
-                    //console.log($("#sliderProgressLine2").css("left"));
-                    $('#playLine3').css("left", "+=41.5px");
 
-                    //console.log($("#playLine3").html());
-                    //$('#playLine3').show();
-                    //$('#playLine3').html(monthDisplay);
+                    $("#playLine3").html(monthDisplay);
+                    $('#playLine3').css("left", "+=41.5px");
                     $('#sliderProgressLine2').css("left", "+=41.5px");
 
-                    //$("#" + thumbOne).show();
 
-                    //console.log($("#" + thumbOne).css("display"));
-
-                    // var oldTick = thumbOne - 1;
-                    // var newTick = thumbOne + 1;
-                    //$("#" + thumbOne).hide();
-
-                    //$("#" + newTick).show();
-                    //console.log($("#" + thumbOne).css("display"));
                     console.log("Values to be used: " + values[0] + " " + values[1]);
-
+                    values[0] = parseInt(values[0]);
+                    values[1] = parseInt(values[1]);
+                    console.log("Values to be used: " + values[0] + " " + values[1]);
                     // we want current and the end, not start and current
                     // var values2 = [values[1], to];
                     // var values4 = [thumbOneInitial, thumbOne];
                     // console.log("Values we should use: " + values2[0] + " " + values2[1]);
+
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
-                    //LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
-                    // 		$range2.ionRangeSlider("update", {
-                    //     from: from + 1
-                    // });
+
+
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];
-
                     thumbOne++;
-                    //values = [0,thumbOne-2000];
-                    //console.log("Start: " + thumbOneInitial);
-                    //console.log("End: " + thumbOne);
                     values = [thumbOneInitial, thumbOne];
 
                     if (newThumbTwo > thumbTwo) {
                         thumbTwo = newThumbTwo;
                     }
                     if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
-                        //$("#" + oldTick).hide();
-                        //$("#" + thumbOne).hide();
-                        //$("#" + newTick).hide();
                         $("#newSlider2").html("&#9658");
                         $range2.playing = false;
                         console.log("Finito!");
