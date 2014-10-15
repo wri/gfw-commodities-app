@@ -5,14 +5,15 @@ define([
   "esri/layers/RasterFunction",
   "esri/layers/ImageServiceParameters",
   "esri/layers/ArcGISImageServiceLayer",
-  "map/MapModel"
-], function (declare, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model) {
+  "map/MapModel",
+  "esri/request"
+], function (declare, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model, esriRequest) {
     
   return declare("SuitabilityImageServiceLayer", ArcGISImageServiceLayer, {
     constructor: function () {
       // This line below is very important, without, printing will not know the layer type since this is a custom
       // layer and won't know how to serialize the JSON
-      this.declaredClass = "esri.layers.ArcGISImageServiceLayer";
+      this.declaredClass = "esri.layers.ArcGISImageServiceLayer";      
 
       // raster function arguments must be in same order as in image service moasic dataset
       this.rasterFunctionArguments = {};
@@ -56,9 +57,7 @@ define([
     },
 
     getExportUrl: function (extent, width, height, callback, options) {
-        // function callback(url){
-        //     return;
-        // }
+
     },
 
     getRenderingRule: function () {
@@ -75,7 +74,7 @@ define([
       _self.addThresholdArgument(suitabilitySettings, render_rule, 'Rainfall', _self.rasterFunctionScalars, 'BETWEEN');
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDepth', [0, 1, 2, 3, 4, 5, 6, 7, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'Peat', [0, 1, 2, 3, 4, 5, 6]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7, 99]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7, 8, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDrain', [0, 1, 2, 3, 4, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [0, 1, 2, 3, 4, 5, 6, 7, 8]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SType', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -86,7 +85,7 @@ define([
       return rasterFunction;
     },
 
-    getImageUrl: function (extent, width, height, callback,options) {
+    getImageUrl: function (extent, width, height, callback, options) {
       var _self = this;
       extent = extent._normalize();
 
@@ -95,15 +94,35 @@ define([
           min,
           max,
           tempArray,
-          membership_arguments;
+          membership_arguments,
+          req;
 
       var rasterFunction = _self.getRenderingRule();
       if (options) {
         params = options;
         params.renderingRule = JSON.stringify(rasterFunction);
         params.bbox = bbox.join(",");
+        // If hitting callback directly, I dont need .f = json, only if using the esri request with post
+        // because the request is too long
+        params.f = 'json';
         _self.renderingRule = rasterFunction;
-        callback(_self.url + "/exportImage?",params);
+
+        req = esriRequest({
+          url: _self.url + '/exportImage',
+          content: params,
+          handleAs: 'json',
+          callbackParamName: 'callback'
+        }, {usePost: true});
+
+        req.then(function (res) {
+          try {
+            callback(res.href);
+          } catch (e) {}
+        }, function (err) {
+          console.dir(err);
+        });
+
+        //callback(_self.url + "/exportImage?", params);
       } else {
         params = {
           noData: 0,
@@ -114,7 +133,7 @@ define([
           size: width + "," + height,
           imageSR: 3857,
           bboxSR: 3857,
-          f: "image",
+          f: "json",
           pixelType: 'U8',
           bbox: bbox.join(",")
         };
@@ -124,7 +143,24 @@ define([
           return _self.getRenderingRule();
         };
 
-        callback(_self.url + "/exportImage?" + dojo.objectToQuery(params));
+        req = esriRequest({
+          url: _self.url + '/exportImage',
+          content: params,
+          handleAs: 'json',
+          callbackParamName: 'callback'
+        }, {usePost: true});
+
+        req.then(function (res) {
+          try {
+            console.log('Shucks');
+            callback(res.href);
+          } catch (e) {}
+        }, function (err) {
+          console.dir(err);
+        });
+
+        //callback(_self.url + "/exportImage?" + dojo.objectToQuery(params));
+      
       }
       
     },
@@ -173,9 +209,6 @@ define([
       var includeNulls = ["SDepth","SAcid","SDrain","LC"];
       var val;
       var i;
-
-      console.dir(validValues);
-      console.dir(allValues);
 
       if (includeNulls.indexOf(variableName) > -1 && validValues[0] !== 0)
         validValues.unshift(0);

@@ -231,7 +231,7 @@ define([
 
 			customSuitabilityLayer = new SuitabilityImageServiceLayer(MapConfig.suit.url, {
 				id: MapConfig.suit.id,
-				visible: false
+				visible: false				
 			});
 
 			// Uses ifl config, which is the same as peat, tfcs, ldcover, legal.  They
