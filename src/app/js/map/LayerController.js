@@ -402,6 +402,12 @@ define([
 			if (layer) {
 				layer.setOpacity(transparency / 100);
 			}
+			// Protected Areas Layer has a helper dynamic layer to show closer then zoom level 6
+			// So if we are setting transparency for Protected Areas, pass the helper config on to 
+			// the Set Dynamic Layer Transparency function
+			if (layer.id === 'ProtectedAreas') {
+				this.setDynamicLayerTransparency(MapConfig.palHelper, transparency);
+			}
 		},
 
 		setDynamicLayerTransparency: function (layerConfig, transparency) {			
