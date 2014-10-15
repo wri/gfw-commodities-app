@@ -10,7 +10,7 @@ define([], function () {
 			fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
 
 	// Totoal Loss
-	var lossBounds = [5, 12],
+	var lossBounds = [1, 12],
 			lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012];
 
 
@@ -173,7 +173,7 @@ define([], function () {
 			title: "RSPO Land Use Change Analysis",
 			rasterId: "$5",
 			bounds: rspoBounds,
-			lossBounds: lossBounds,
+			lossBounds: [5, 12],
 			colors: rspoColors
 		},
 
@@ -354,6 +354,9 @@ define([], function () {
 			fireKey: 'landCoverIndo' // Key to the Fires Config for items related to this
 		},
 		
+
+		// If the bounds for the fire queries are different from the bounds on the clearance and loss
+		// analysis, specify them below, otherwise, use the same variable as the analysis above
 		fires: {
 			url: firesQueryUrl,
 			primaryForest: {
@@ -369,7 +372,7 @@ define([], function () {
 				type: 'pie',
 				field: 'treecover',
 				labels: treeCoverLabels,
-				bounds: treeCoverBounds,
+				bounds: [1, 5], // These are different from the bounds used in loss and clearance analysis
 				colors: treeCoverColors,
 				title: 'Active Fires by Tree Cover Density over the past 7 days',
 				badgeDesc: 'on tree cover density out of'

@@ -175,7 +175,8 @@ define([], function () {
 			},
 			countryBoundaries: {
 				url: adminUnitQueryUrl + '/6',
-				whereField: 'NAME_0'
+				whereField: 'NAME_0',
+				requiredField: 'NAME_1' // USed for Admin Unit Group Queries
 			}
 		},
 

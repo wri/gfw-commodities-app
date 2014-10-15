@@ -50,7 +50,6 @@ define([
 				if (projectedGeometry.length > 0) {
 					polygon.rings = projectedGeometry[0].rings;
 					polygon.setSpatialReference(sr);
-					console.dir(polygon);
 				} else {
 					failure();
 				}
@@ -364,6 +363,7 @@ define([
 					url = ReportConfig.imageServiceUrl,
 					self = this,
 					renderingRule,
+					rasterId,
 					content,
 					encoder;
 
@@ -383,9 +383,10 @@ define([
 			// If the report analyzeClearanceAlerts is false, just resolve here
 			//if (report.analyzeClearanceAlerts) {
 				encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
+				rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId;
 				renderingRule = useSimpleEncoderRule ? 
-													encoder.getSimpleRule(clearanceConfig.rasterId, config.rasterId) : 
-													encoder.render(clearanceConfig.rasterId, config.rasterId);
+													encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) : 
+													encoder.render(clearanceConfig.rasterId, rasterId);
 				content = {
 					geometryType: 'esriGeometryPolygon',
 					geometry: JSON.stringify(report.geometry),

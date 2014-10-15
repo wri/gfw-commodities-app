@@ -73,12 +73,12 @@ define([
       _self.addThresholdArgument(suitabilitySettings, render_rule, 'Water', _self.rasterFunctionScalars, 'MIN');
       _self.addThresholdArgument(suitabilitySettings, render_rule, 'Cons', _self.rasterFunctionScalars, 'MIN');
       _self.addThresholdArgument(suitabilitySettings, render_rule, 'Rainfall', _self.rasterFunctionScalars, 'BETWEEN');
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDepth', [0, 1, 2, 3, 4, 5, 6, 7]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDepth', [0, 1, 2, 3, 4, 5, 6, 7, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'Peat', [0, 1, 2, 3, 4, 5, 6]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDrain', [0, 1, 2, 3, 4]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7, 99]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDrain', [0, 1, 2, 3, 4, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [0, 1, 2, 3, 4, 5, 6, 7, 8]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SType', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SType', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
       var rasterFunction = new RasterFunction();
       rasterFunction.rasterFunction = "PalmOilSuitabilityNew";
@@ -173,6 +173,9 @@ define([
       var includeNulls = ["SDepth","SAcid","SDrain","LC"];
       var val;
       var i;
+
+      console.dir(validValues);
+      console.dir(allValues);
 
       if (includeNulls.indexOf(variableName) > -1 && validValues[0] !== 0)
         validValues.unshift(0);

@@ -565,6 +565,7 @@ define([], function () {
 			numYears: 12
 		},
 
+		// Values below are default suitable values for the particular raster
 		customSuitabilityDefaults: {
 			computeBinaryRaster: [
 				// Land Cover
@@ -614,14 +615,14 @@ define([], function () {
 				// Rainfall
 				{
 					id: 6,
-					values: '1500,7000',
+					values: '1500,6000',
 					operator: 'between',
 					name: 'RainfallInpR'
 				},
 				// Soil Drain
 				{
 					id: 7,
-					values: '2,3,4',
+					values: '2,3,4,99',
 					classCount: 32,
 					operator: 'in',
 					name: 'SDrainInpR'
@@ -629,7 +630,7 @@ define([], function () {
 				// Soil Depth
 				{
 					id: 8,
-					values: '4,5,6,7',
+					values: '3,4,5,6,7,99',
 					classCount: 32,
 					operator: 'in',
 					name: 'SDepthInpR'
@@ -637,7 +638,7 @@ define([], function () {
 				// Soil Acidity
 				{
 					id: 9,
-					values: '1,2,3,4,5,6,7',
+					values: '1,2,3,4,5,6,7,99',
 					classCount: 32,
 					operator: 'in',
 					name: 'SAcidInpR'
@@ -645,7 +646,7 @@ define([], function () {
 				// Soil Type
 				{
 					id: 10,
-					values: '1,2,3,5,6,7,8,9',
+					values: '0,1,2,3,5,6,7,8,9',
 					classCount: 32,
 					operator: 'in',
 					name: 'STypeInpR'

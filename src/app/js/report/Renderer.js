@@ -192,7 +192,7 @@ define([
 			var yLabels = config.labels,
 					yMapValues = config.bounds.fromBounds(),
 					xMapValues = report.clearanceBounds.fromBounds(),
-					mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
+					// mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
 					series = [],
 					data = [],
 					location,
@@ -210,7 +210,7 @@ define([
 				}
 
 				// Account for pixelSize 
-				series.map(mapFunction);
+				// series.map(mapFunction);
 
 				for (i = 0; i < series.length; i++) {
 					data.push([yLabels[i], series[i]]);

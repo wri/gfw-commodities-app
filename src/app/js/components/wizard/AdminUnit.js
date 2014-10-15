@@ -118,7 +118,7 @@ define([
 
       if (featureType === "group") {
         // Takes URL and group name, group name will always be the targets innerHTML
-        AnalyzerQuery.getFeaturesByGroupName(config.lowLevelUnitsQuery, target.innerHTML).then(function (features) {
+        AnalyzerQuery.getFeaturesByGroupName(config.countryBoundaries, target.innerHTML).then(function (features) {
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
           if (features && wizardGraphicsLayer) {
             wizardGraphicsLayer.clear();

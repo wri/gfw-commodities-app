@@ -259,13 +259,13 @@ define([
 					settings.computeBinaryRaster[6].values = parseInt(value[0]) + "," + parseInt(value[1]);
 				break;
 				case 'soil-drainage-slider':
-					settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1]);
+					settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1], [99]);
 				break;
 				case 'soil-depth-slider':
-					settings.computeBinaryRaster[8].values = this._prepareSuitabilityJSON(value, 7);
+					settings.computeBinaryRaster[8].values = this._prepareSuitabilityJSON(value, 7, [99]);
 				break;
 				case 'soil-acid-slider':
-					settings.computeBinaryRaster[9].values = this._prepareSuitabilityJSON(value[0], value[1]);
+					settings.computeBinaryRaster[9].values = this._prepareSuitabilityJSON(value[0], value[1], [99]);
 				break;
 				case 'landcover-checkbox':
 					// Push in all Active Checkboxes values
@@ -275,7 +275,8 @@ define([
 					settings.computeBinaryRaster[0].values = activeCheckboxes.join(",");
 				break;
 				case 'soil-type-checkbox':
-					// Need to include default value to represent unknown values
+					// Need to include default values to represent unknown values
+					activeCheckboxes.push('0');
 					activeCheckboxes.push('6');
 					// Push in all other Active Checkboxes values
 					dojoQuery('#crop-criteria .suitable-checkbox input:checked').forEach(function (node) {
@@ -441,10 +442,13 @@ define([
 
 		},
 
-		_prepareSuitabilityJSON: function (start, end) {
+		_prepareSuitabilityJSON: function (start, end, extraValues) {
 			var result = [];
 			for (var i = start; i <= end; i++) {
 				result.push(i);
+			}
+			if (extraValues) {
+				result = result.concat(extraValues);
 			}
 			return result.join(",");
 		}

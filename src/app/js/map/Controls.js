@@ -872,9 +872,9 @@ define([
 			});
 			// Rainfall
 			jq171("#rainfall-slider").rangeSlider({
-				defaultValues: {min: 1500, max: 7000},
+				defaultValues: {min: 1500, max: 6000},
 				valueLabels: 'hide',
-				bounds: {min: 1500, max: 7000},
+				bounds: {min: 1500, max: 6000},
 				step: 1,
 				arrows: false,
 				formatter: function (val) {
@@ -908,7 +908,7 @@ define([
 			});
 			// Soil Depth
 			jq171("#soil-depth-slider").rangeSlider({
-				defaultValues: {min: 4, max: 7},
+				defaultValues: {min: 3, max: 7},
 				valueLabels: 'hide',
 				bounds: {min: 1, max: 7},
 				step: 1,
@@ -957,9 +957,9 @@ define([
       jq171('#water-resource-slider').rangeSlider('values',100,1000);
       jq171('#slope-slider').rangeSlider('values',30,80);
       jq171('#elevation-slider').rangeSlider('values',1000,5000);
-      jq171('#rainfall-slider').rangeSlider('values',1500,7000);
+      jq171('#rainfall-slider').rangeSlider('values',1500,6000);
       jq171('#soil-drainage-slider').rangeSlider('values',2,4);
-      jq171('#soil-depth-slider').rangeSlider('values',4,7);
+      jq171('#soil-depth-slider').rangeSlider('values',3,7);
       jq171('#soil-acid-slider').rangeSlider('values',1,7);
       this.resizeRangeSliders();
       // Reset Checkboxes
