@@ -51,7 +51,6 @@ define([
             HomeModel.vm.homeModeOptions([]);
             //console.log(mappedHomModeOptions);
             HomeModel.vm.homeModeOptions(mappedHomModeOptions);
-
         };
 
         currentModeOption(currentNodeId);
@@ -65,18 +64,9 @@ define([
                 //console.log("animating " + id);
                 var itemsToAnimate = dojoQuery(".modeGroup");
 
-                //var itemsToAnimate2 = homeModeOptions;
-                //console.log("ITEMS TO ANIMATE:");
-
                 //console.log(itemsToAnimate);
-                //console.log(itemsToAnimate2);
                 var maxItems = itemsToAnimate.length;
-                //console.log(dojoQuery(".modeGroup")[0]);
                 //var maxItems = 5;
-                // setTimeout(function() {
-                // 	console.log(itemsToAnimate[id]);
-                // }, 500);
-
 
                 var anim = coreFx.chain([
 
@@ -101,7 +91,7 @@ define([
                                 nextNodeId = 0;
                                 currentNodeId = 0;
                             }
-                            currentNodeId++;
+                            //currentNodeId++;
                             //console.log(currentNodeId);
                             //console.log(nextNodeId);
                             setTimeout(function() {
@@ -109,6 +99,7 @@ define([
                                 //console.log(nextNodeId);
                                 if (!stopAnimation) {
                                     setTimeout(function() {
+                                        //console.log(nextNodeId);
                                         runAnimation(nextNodeId);
                                     }, 1000);
                                     // add next circle after this timeout ends
@@ -160,6 +151,10 @@ define([
 
             o.startModeAnim();
 
+        },
+
+        handleModeClick: function(type) {
+            alert(type);
         }
 
     };

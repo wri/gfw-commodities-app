@@ -1,120 +1,140 @@
 define([
-	"dojo/on",
-	"dojo/dom",
-	"dojo/query",
-	"dojo/dom-class",
-	"utils/Hasher",
-	"main/config",
+    "dojo/on",
+    "dojo/dom",
+    "dojo/query",
+    "dojo/dom-class",
+    "utils/Hasher",
+    "main/config",
     "utils/NavListController"
-], function (on, dom, query, domClass, Hasher, AppConfig, NavListController) {
-	'use strict';
+], function(on, dom, query, domClass, Hasher, AppConfig, NavListController) {
+    'use strict';
 
-	var state = 'large', // large, small, or mobile
-			initialized = false;
+    var state = 'large', // large, small, or mobile
+        initialized = false;
 
 
-	return {
+    return {
 
-		init: function (template) {
+        init: function(template) {
 
-			if (initialized) {
-				return;
-			}
+            if (initialized) {
+                return;
+            }
 
-			dom.byId("app-header").innerHTML = template;
-			this.bindEvents();
+            dom.byId("app-header").innerHTML = template;
+            this.bindEvents();
             initialized = true;
-		},
+        },
 
-		setState: function (newState) {
-			domClass.remove('app-header', state);
-			domClass.add('app-header', newState);
-			state = newState;
-		},
+        setState: function(newState) {
+            domClass.remove('app-header', state);
+            domClass.add('app-header', newState);
+            state = newState;
+        },
 
-		bindEvents: function () {
-			var self = this;
-		
-			query(".header .nav-link").forEach(function (item) {
-				on(item, "click", function (evt) {
-					var target = evt.target ? evt.target : evt.srcElement,
-							dataView = target.dataset ? target.dataset.view : target.getAttribute('data-view'),
-							external = target.dataset ? target.dataset.external : target.getAttribute('data-external');
+        bindEvents: function() {
+            var self = this;
 
-					self.updateView(dataView, external, initialized);
-				});
-			});
+            query(".header .nav-link").forEach(function(item) {
+                on(item, "click", function(evt) {
+                    var target = evt.target ? evt.target : evt.srcElement,
+                        dataView = target.dataset ? target.dataset.view : target.getAttribute('data-view'),
+                        external = target.dataset ? target.dataset.external : target.getAttribute('data-external');
 
-		},
+                    self.updateView(dataView, external, initialized);
+                });
+            });
+            query("#app-footer > div.footerModesContainer > div > div > div:nth-child(3) > div > div:nth-child(4) > a").forEach(function(item) {
+                on(item, "click", function(evt) {
+                    var target = evt.target ? evt.target : evt.srcElement,
+                        dataView = "publications",
+                        external = false;
 
-		updateView: function (view, isExternal, initialized) {
+                    self.updateView(dataView, external, initialized);
+                });
+            });
+            console.log($("div.homeModeOptionsContainer > div > div:nth-child(1)"));
+            // query("#homeView > div > div.homeModeOptionsContainer > div").forEach(function(item) {
+            //     //query("#homeView > div > div.homeModeOptionsContainer > div > div.modeGroup.dijitVisible > div.modeOptionRing").forEach(function(item) {
+            //     //query("#homeView > div > div.homeModeOptionsContainer > div > div.modeGroup.dijitVisible").forEach(function(item) {
+            //     // query("#homeView > div > div.homeModeOptionsContainer > div > div.modeGroup.dijitVisible > div.modeOptionRing > div").forEach(function(item) {
+            //     //query("#homeView > div > div.homeModeOptionsContainer > div > div:nth-child(1)").forEach(function(item) {
+            var item3 = $("div.homeModeOptionsContainer > div > div:nth-child(1)");
+            item3.on("click", function(evt) {
+                console.log("clicked!!");
+            });
+            // });
+
+        },
+
+        updateView: function(view, isExternal, initialized) {
 
             console.log("Updated View")
 
-			if (isExternal === "true") {
-				this.redirectPage(view);
-				return;
-			}
+            if (isExternal === "true") {
+                this.redirectPage(view);
+                return;
+            }
 
-			query(".header .nav-link.selected").forEach(function (node) {
-				domClass.remove(node, 'selected');
-			});
+            query(".header .nav-link.selected").forEach(function(node) {
+                domClass.remove(node, 'selected');
+            });
 
-			query('.nav-link-list [data-view="' + view + '"]').forEach(function (node) {
-				domClass.add(node, "selected");
-			});
+            query('.nav-link-list [data-view="' + view + '"]').forEach(function(node) {
+                domClass.add(node, "selected");
+            });
 
-            if(initialized){
+            if (initialized) {
                 Hasher.setHash("v", view);
             }
 
-		},
+        },
 
-		toggleForView: function (view) {
-			if (view === 'map') {
-				this.setForMap();
-			} else if (view === 'home') {
-				this.setForHome();
-			} else {
-				this.setForGenericView();
-			}
-		},
+        toggleForView: function(view) {
+            if (view === 'map') {
+                this.setForMap();
+            } else if (view === 'home') {
+                this.setForHome();
+            } else {
+                this.setForGenericView();
+            }
+        },
 
-		setForMap: function () {
-			domClass.add("nav-content", "outer");
-			domClass.remove("nav-content", "inner");
-			domClass.add("app-header", "mapView");
-			domClass.remove("app-header", "generalView");
-		},
+        setForMap: function() {
+            domClass.add("nav-content", "outer");
+            domClass.remove("nav-content", "inner");
+            domClass.add("app-header", "mapView");
+            domClass.remove("app-header", "generalView");
+        },
 
-		setForGenericView: function () {
+        setForGenericView: function() {
             this.setForHome();
             console.log("other view");
-//			domClass.add("nav-content", "outer");
-//			domClass.remove("nav-content", "inner");
-			domClass.remove("app-header", "mapView");
-			domClass.add("app-header", "generalView");
-			//domClass.remove("footerModesContainer", "generalView");
-			$(".footerModesContainer").hide();
+            //			domClass.add("nav-content", "outer");
+            //			domClass.remove("nav-content", "inner");
+            domClass.remove("app-header", "mapView");
+            domClass.add("app-header", "generalView");
+            //domClass.remove("footerModesContainer", "generalView");
+            $(".footerModesContainer").hide();
 
-			// Resize the page here!
+            // Resize the page here!
 
 
-		},
+        },
 
-		setForHome: function () {
-			console.log("home view");
-			domClass.add("nav-content", "inner");
-			domClass.remove("nav-content", "outer");
-			domClass.remove("app-header", "mapView");
-			domClass.remove("app-header", "generalView");
-			$(".footerModesContainer").show();
-		},
+        setForHome: function() {
+            console.log("home view");
+            domClass.add("nav-content", "inner");
+            domClass.remove("nav-content", "outer");
+            domClass.remove("app-header", "mapView");
+            domClass.remove("app-header", "generalView");
+            $(".footerModesContainer").show();
+        },
 
-		redirectPage: function (view) {
-			window.open(AppConfig.urls[view], "_blank");
-		}
+        redirectPage: function(view) {
+            window.open(AppConfig.urls[view], "_blank");
+        }
 
-	};
+    };
 
 });
