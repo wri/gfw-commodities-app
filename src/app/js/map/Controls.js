@@ -647,7 +647,6 @@ define([
         },
 
         newTimeSlider: function() {
-            console.log("hidden?");
 
             $(".extra-controls #newSlider").click(function() {
                 play();
@@ -660,9 +659,6 @@ define([
                 max = 2012,
                 from = 2000,
                 to = 2012;
-
-
-
 
             $(".layer-list-item.forest-change > ul > li").click(function() {
                 console.log("***********");
@@ -692,8 +688,6 @@ define([
                         }
                         $("#range").ionRangeSlider("update");
 
-                        //console.log("Inside update!");
-                        //console.log($range.playing);
                         if ($range.playing != true) {
                             $("#sliderProgressLine").hide();
                             $("#playLine2").hide();
@@ -804,23 +798,21 @@ define([
                 var thumbTwo = initialDates[1];
                 var thumbOneInitial = thumbOne;
 
-                //console.log($(".irs-slider.from.last").css("left"));
                 var sliderStart = $(".irs-slider.from.last").css("left");
-                var sliderStart2 = $(".irs-diapason").css("left");
-                //console.log(sliderStart);
+                var sliderStart2 = $("#irs-1 > span.irs > span.irs-slider.from").css("left");
+
                 console.log(sliderStart2);
-                //sliderStart2 = sliderStart2 - 10;
-                //console.log(sliderStart);
-                console.log('');
 
                 $('#playLine2').css("left", sliderStart);
                 $('#sliderProgressLine').css("left", sliderStart);
-                if (sliderStart == undefined) {
+
+                console.log(thumbOne);
+                if (sliderStart == undefined || (sliderStart == "0px" && thumbOne != 2000)) {
                     console.log("using #2!!");
                     $('#playLine2').css("left", sliderStart2);
-                    $('#playLine2').css("left", "-=10px");
+                    $('#playLine2').css("left", "-=1px");
                     $('#sliderProgressLine').css("left", sliderStart2);
-                    $('#sliderProgressLine').css("left", "-=10px");
+                    $('#sliderProgressLine').css("left", "-=1px");
                 }
                 $('#playLine2').css("left", "-=21.5px");
                 $("#playLine2").html(thumbOne);
@@ -896,7 +888,7 @@ define([
                     $("#" + thumbOne).show();
                     //console.log("I'm using these..");
                     //console.log(values);
-                    console.log($("#" + thumbOne).css("display"));
+                    //console.log($("#" + thumbOne).css("display"));
                     //$("#" + oldTick).hide();
                     //console.log($( ".irs-slider.from" ).css( "left"));
                     //.playLine > #2001 
@@ -915,8 +907,8 @@ define([
                     //$("#" + newTick).show();
                     //$("#" + thumbOne).show();
                     $("#" + newTick).show();
-                    console.log($("#" + thumbOne).css("display"));
-                    console.log("values to use: " + values[0] + ", " + values[1]);
+                    // console.log($("#" + thumbOne).css("display"));
+                    // console.log("values to use: " + values[0] + ", " + values[1]);
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
                     // 		$range.ionRangeSlider("update", {
                     //     from: from + 1
