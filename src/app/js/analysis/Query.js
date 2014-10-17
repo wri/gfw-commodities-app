@@ -79,7 +79,7 @@ define([
 			}
 
 			this._query(config.url, query, handleResponse, function (err) {
-				deferred.resolve(false);
+				deferred.resolve([]);
 				self._queryErrorHandler(err);
 			});
 
@@ -103,10 +103,10 @@ define([
 				if (res.features.length > 0) {
 					deferred.resolve(res.features);
 				} else {
-					deferred.resolve(false);
+					deferred.resolve([]);
 				}
 			}, function (err) {
-				deferred.resolve(false);
+				deferred.resolve([]);
 				self._queryErrorHandler(err);
 			});
 

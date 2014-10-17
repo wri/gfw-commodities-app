@@ -2,8 +2,8 @@ define([], function () {
 
 	var geometryServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
 			clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
-			imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-			//imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
+			//imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
+			imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
 			suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
 			//suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
 			firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
@@ -82,7 +82,7 @@ define([], function () {
 
 		/* Begin Main Layers for Analyses */
 		totalLoss: {
-			rasterId: "$12",
+			rasterId: "$517", //12
 			bounds: lossBounds,
 			labels: lossLabels
 		},
@@ -180,7 +180,7 @@ define([], function () {
 		primaryForest: {
 			rootNode: "primaryForest",
 			title: "Primary Forests - Indonesia",
-			rasterId: "$11",
+			rasterId: "$519",  //11
 			bounds: primaryForestBounds,
 			labels: primaryForestLabels,
 			clearanceChart: {
@@ -197,13 +197,13 @@ define([], function () {
 		treeCover: {
 			rootNode: "treeCoverDensity",
 			title: "Tree Cover Density",
-			rasterId: "$13",
+			rasterId: "$520", //13
 			rasterRemap: {
 				'rasterFunction': 'Remap',
 				'rasterFunctionArguments': {
 					'InputRanges': [0,11,11,26,26,51,51,76,76,101],
 					'OutputValues': [0,1,2,3,4],
-					'Raster': '$13',
+					'Raster': '$520',
 					'AllowUnmatched': false
 				}
 			},

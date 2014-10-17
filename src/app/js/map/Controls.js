@@ -33,7 +33,7 @@ define([
 				var display = (operation === 'show' ? 'block' : 'none');
 				domStyle.set(layerConfig.toolsNode, 'display', display);
 				// Resize the Accordion and The JQuery Sliders so they look correct
-				registry.byId('suitability-accordion').resize();
+				// registry.byId('suitability-accordion').resize();
 				this.resizeRangeSliders();
 			} else {
 				// Hide other tools, then show this node if operation is show
@@ -748,25 +748,25 @@ define([
 
 		generateSuitabilitySliders: function () {
 
-			var accordion = new Accordion({}, "suitability-accordion"),
-					self = this;
+			//var accordion = new Accordion({}, "suitability-accordion"),
+			var	self = this;
 
-			accordion.addChild(new ContentPane({
-				title: "Environmental"
-			}, "environmental-criteria"));
+			// accordion.addChild(new ContentPane({
+			// 	title: "Environmental"
+			// }, "environmental-criteria"));
 
-			accordion.addChild(new ContentPane({
-				title: "Crop"
-			}, "crop-criteria"));
+			// accordion.addChild(new ContentPane({
+			// 	title: "Crop"
+			// }, "crop-criteria"));
 
-			accordion.startup();
+			// accordion.startup();
 			this.createCheckboxDijits();
 			this.createRangeSliders();
 
 			// Listen for the accordion to change, then resize the sliders
-			accordion.watch('selectedChildWidget', function (name, oldVal, newVal) {
-				self.resizeRangeSliders();
-			});
+			// accordion.watch('selectedChildWidget', function (name, oldVal, newVal) {
+			// 	self.resizeRangeSliders();
+			// });
 		},
 
 		createCheckboxDijits: function () {

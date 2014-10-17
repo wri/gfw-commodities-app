@@ -291,9 +291,17 @@ define([
 
 			if (customLayer) {
 				customLayer.refresh();
+				this.showSuitabilityLoader();
 			}
 
+		},
 
+		showSuitabilityLoader: function () {
+			domClass.remove('suitability_loader', 'hidden');
+		},
+
+		hideSuitabilityLoader: function () {
+			domClass.add('suitability_loader', 'hidden');
 		},
 
 		checkProtectedAreasLayer: function (evt) {			

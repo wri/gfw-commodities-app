@@ -8,10 +8,10 @@ define([], function () {
 			millPoint = "millPointOption";
 
 	// URLS - CURRENT IS STAGING, PRODUCTION URL BELOW
-	var adminUnitQueryUrl = 'http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
+	// var adminUnitQueryUrl = 'http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
 
 	// PRODUCTION URL
-	// 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
+	var adminUnitQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
 
 	return {
 
@@ -21,11 +21,11 @@ define([], function () {
 		},
 
 		stepOne: {
-			title: "Step 1: Select Area",
+			title: "Step 1: Select Area of interest",
 			description: "Please select one of the options below to begin analyzing.",
 			option1: {
         'id': customArea,
-        'label': 'Create custom area',
+        'label': 'Create custom area (draw or upload)',
         'description': 'Draw a polygon or upload a shapefile to analyze one of it\'s features.'
       },
       option2: {
@@ -35,12 +35,12 @@ define([], function () {
       },
       option3: {
         'id': commArea,
-        'label': 'Commercial entity',
+        'label': 'Commercial entity (group or individual)',
         'description': 'Search through various commercial entities by the type of commodity.'
       },
       option4: {
         'id': certArea,
-        'label': 'Certified area',
+        'label': 'Certified production area',
         'description': 'View RSPO certified areas that are also an oil palm concession.'
       },
       option5: {
@@ -62,7 +62,7 @@ define([], function () {
 		},
 
 		stepThree: {
-			title: "Step 3: Select a variable to analyze",
+			title: "Step 3: Select variables to analyze",
 			description: "Select which types of analysis you would like to perform and then click \"Perform Analysis\".  You must select at least one option.",
 			//description: "Select which type of analysis you would like included in your results and then click \"Next\".",
 			currentFeatureText: "Current selection: ",
@@ -101,16 +101,16 @@ define([], function () {
 			suit: {
 				label: 'Oil Palm Suitability',
 				value: 'suit',
-				description: 'Description of the output the user will see when selecting this option.'
+				description: 'Analyze areas potentially suitable and unsuitable for palm oil development using WRI’s methodology.'
 			},
 			rspo: {
 				label: 'RSPO Land Use Change Analysis',
 				value: 'rspo',
-				description: 'Description of the output the user will see when selecting this option.'
+				description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.'
 			},
 			forestChange: {
-				label: 'Forest Change Analysis Variables',
-				description: 'Choose one or more variable(s) to calculate hectares of forest loss, get a count of active fires and mothly clearance alerts.'
+				label: 'Forest Change Analysis',
+				description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
 			},
 			millPoint: millPoint
 		},
@@ -149,8 +149,8 @@ define([], function () {
 		},
 
 		adminUnit: {
-			instructions: 'Select a country to view it\'s first or second level administrative units:',
-			instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",
+			instructions: 'Select a country:',
+			instructionsPartTwo: "Select a sub-administrative unit.",
 			countriesQuery: {
 				url: adminUnitQueryUrl + '/7',
 				where: "NAME_0 IS NOT NULL",
@@ -176,7 +176,7 @@ define([], function () {
 			countryBoundaries: {
 				url: adminUnitQueryUrl + '/6',
 				whereField: 'NAME_0',
-				requiredField: 'NAME_1' // USed for Admin Unit Group Queries
+				requiredField: 'NAME_1' // Used for Admin Unit Group Queries
 			}
 		},
 

@@ -1,5 +1,6 @@
 define([
   "dojo/_base/declare",
+  "dojo/Evented",
   "dojo/_base/lang",
   "dojo/_base/array",
   "esri/layers/RasterFunction",
@@ -7,9 +8,9 @@ define([
   "esri/layers/ArcGISImageServiceLayer",
   "map/MapModel",
   "esri/request"
-], function (declare, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model, esriRequest) {
+], function (declare, Evented, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model, esriRequest) {
     
-  return declare("SuitabilityImageServiceLayer", ArcGISImageServiceLayer, {
+  return declare("SuitabilityImageServiceLayer", [Evented, ArcGISImageServiceLayer], {
     constructor: function () {
       // This line below is very important, without, printing will not know the layer type since this is a custom
       // layer and won't know how to serialize the JSON
@@ -76,7 +77,8 @@ define([
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'Peat', [0, 1, 2, 3, 4, 5, 6]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7, 8, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDrain', [0, 1, 2, 3, 4, 99]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [0, 1, 2, 3, 4, 5, 6, 7, 8]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 
+                                                                          13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SType', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
       var rasterFunction = new RasterFunction();
@@ -115,11 +117,11 @@ define([
         }, {usePost: true});
 
         req.then(function (res) {
-          try {
-            callback(res.href);
-          } catch (e) {}
+          callback(res.href);
+          _self.emit('image-ready', {});
         }, function (err) {
           console.dir(err);
+          _self.emit('image-ready', {});
         });
 
         //callback(_self.url + "/exportImage?", params);
@@ -151,12 +153,11 @@ define([
         }, {usePost: true});
 
         req.then(function (res) {
-          try {
-            console.log('Shucks');
-            callback(res.href);
-          } catch (e) {}
+          callback(res.href);
+          _self.emit('image-ready', {});
         }, function (err) {
           console.dir(err);
+          _self.emit('image-ready', {});
         });
 
         //callback(_self.url + "/exportImage?" + dojo.objectToQuery(params));

@@ -251,8 +251,11 @@ wizardBlue = #00688B
 	left 0
 
 .gfw .layer-controls-container .toolbox_legend_suitability
-	margin-left 10px
+	border-bottom 1px solid #000
 	line-height 30px
+
+.gfw .suitability_toolbox_label
+	margin-left 10px
 
 .gfw .layer-controls-container .toolbox_legend_suitability div
 	display inline-block
@@ -335,10 +338,39 @@ wizardBlue = #00688B
 .gfw .suitability_toolbox .suitability-accordion
 	box-sizing border-box
 	position absolute
+	overflow-y auto
 	top 30px
 	bottom 0
 	right 0
 	left 0
+
+.gfw .suitability_toolbox .loading-wheel-container
+	background-color greyBorder
+	position absolute
+	opacity 0.75
+	z-index 50
+	bottom 0
+	right 0
+	left 0
+	top 0
+
+.gfw .suitability_toolbox .loading-wheel-container.hidden
+	display none
+
+.gfw .suitability_toolbox .loading-wheel
+	background url('images/loader.gif') no-repeat center
+	background-size 24px
+	position absolute
+	margin-left -12px
+	margin-top -12px
+	height 24px
+	width 24px
+	left 50%
+	top 50%
+
+.gfw .suitability_toolbox .sub-heading
+	font-weight bold
+	margin 10px
 
 .gfw .suitability_toolbox .slider-container
 	margin 10px auto 0

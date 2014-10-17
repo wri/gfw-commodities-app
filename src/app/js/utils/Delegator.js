@@ -102,6 +102,10 @@ define([
 				}
 			});
 
+			topic.subscribe('customSuitabilityImageReady', function () {
+				LayerController.hideSuitabilityLoader();
+			});
+
 			// Map Controller Functions
       topic.subscribe('showInfoPanel', MapController.showInfoPanel);
 

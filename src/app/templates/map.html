@@ -207,12 +207,16 @@
         </div>
       </div>
       <div id='suitability_toolbox' class="suitability_toolbox" style="display: none">
+        <div id='suitability_loader' class="loading-wheel-container hidden">
+          <div class="loading-wheel"></div>
+        </div>
         <div class="toolbox_legend_suitability">
-          <div>Suitability Criteria</div>
+          <div class="suitability_toolbox_label">Suitability Criteria</div>
           <div id="reset-suitability" class="reset-suitability">Reset</div>
         </div>
         <div id="suitability-accordion" class="suitability-accordion">
           <div id="environmental-criteria" class="accordion-container">
+            <div class="sub-heading">Environmental Criteria</div>
             <div class="slider-name">Peat Depth (cm)</div>
             <div class="slider-container">
               <div class="slider" id='peat-depth-slider'></div>
@@ -239,35 +243,92 @@
             </div>
             <div class="criteria-separator">Land Cover - Southeast Asia</div>
             <div class="suitable-checkbox">
-              <input id="grassland-shrub-check" />
-              <label for="grassland-shrub-check" class="checkbox-label">Grassland/shrub</label>
+              <input id="shrub-check" />
+              <label for="shrub-check" class="checkbox-label">Shrub</label>
             </div>
             <div class="suitable-checkbox">
-              <input id="plantations-check" />
-              <label for="plantations-check" class="checkbox-label">Plantations</label>
-            </div>
-            <div class="suitable-checkbox">
-              <input id="agriculture-check" />
-              <label for="agriculture-check" class="checkbox-label">Agriculture</label>
-            </div>
-            <div class="suitable-checkbox">
-              <input id="settlements-other-check" />
-              <label for="settlements-other-check" class="checkbox-label">Settlements/other land use</label>
-            </div>
-            <div class="suitable-checkbox">
-              <input id="primary-forest-check" />
-              <label for="primary-forest-check" class="checkbox-label">Primary forest</label>
+              <input id="bareland-check" />
+              <label for="bareland-check" class="checkbox-label">Bareland</label>
             </div>
             <div class="suitable-checkbox">
               <input id="secondary-forest-check" />
-              <label for="secondary-forest-check" class="checkbox-label">Secondary forest</label>
+              <label for="secondary-forest-check" class="checkbox-label">Secondary Forest</label>
             </div>
             <div class="suitable-checkbox">
-              <input id="wetlands-check" />
-              <label for="wetlands-check" class="checkbox-label">Wetland</label>
+              <input id="dryland-agro-check" />
+              <label for="dryland-agro-check" class="checkbox-label">Dryland Agriculture mixed with shrub</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="water-check" />
+              <label for="water-check" class="checkbox-label">Water Body</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="mining-check" />
+              <label for="mining-check" class="checkbox-label">Mining</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="plantation-forest-check" />
+              <label for="plantation-forest-check" class="checkbox-label">Plantation Forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="estate-crop-check" />
+              <label for="estate-crop-check" class="checkbox-label">Estate Crop Plantation</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="swamp-shrub-check" />
+              <label for="swamp-shrub-check" class="checkbox-label">Swamp shrub</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="primary-swamp-check" />
+              <label for="primary-swamp-check" class="checkbox-label">Primary swamp forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="secondary-swamp-check" />
+              <label for="secondary-swamp-check" class="checkbox-label">Secondary swamp forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="settlement-check" />
+              <label for="settlement-check" class="checkbox-label">Settlement</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="grassland-check" />
+              <label for="grassland-check" class="checkbox-label">Grassland</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="secondary-mangrove-check" />
+              <label for="secondary-mangrove-check" class="checkbox-label">Secondary mangrove forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="dryland-check" />
+              <label for="dryland-check" class="checkbox-label">Dryland agriculture</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="rice-check" />
+              <label for="rice-check" class="checkbox-label">Rice field</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="fish-check" />
+              <label for="fish-check" class="checkbox-label">Fish pond</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="transmigration-check" />
+              <label for="transmigration-check" class="checkbox-label">Transmigration area</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="swamp-check" />
+              <label for="swamp-check" class="checkbox-label">Swamp</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="primary-mangrove-check" />
+              <label for="primary-mangrove-check" class="checkbox-label">Primary mangrove swamp</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="airport-check" />
+              <label for="airport-check" class="checkbox-label">Airport</label>
             </div>
           </div>
           <div id="crop-criteria" class="accordion-container">
+            <div class="sub-heading">Crop Criteria</div>
             <div class="slider-name">Elevation (m)</div>
             <div class="slider-container">
               <div class="slider" id="elevation-slider"></div>
