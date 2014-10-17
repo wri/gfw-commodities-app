@@ -97,16 +97,26 @@ font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-position: 0 0;
 }
 
-@font-face {
-  src: local('Fira Sans OT Medium Regular'),
-  local('Fira Sans Medium Regular'),
-  local('Fira Sans OT Medium'),
-  local('Fira Sans Medium'),
-  local('Fira Sans OT'),
-  local('Fira Sans'),
-  url("fonts/FiraSans/firasansot-medium-webfont.woff") format('woff'),
-  url("fonts/FiraSans/firasansot-medium-webfont.ttf") format('truetype'),
-  url("fonts/FiraSans/firasansot-medium-webfont.svg#fira_sans_otregular") format('svg');
+@font-face{
+  font-family:'fira_sans_otregular';
+  src:url(fonts/firasansot-regular-webfont.eot);
+  src:url(fonts/firasansot-regular-webfont.eot?#iefix) format("embedded-opentype"),url(fonts/firasansot-regular-webfont.woff) format("woff"),url(fonts/firasansot-regular-webfont.ttf) format("truetype"),url(fonts/firasansot-regular-webfont.svg#fira_sans_otregular) format("svg");
+  font-weight:normal;
+  font-style:normal;
+}
+@font-face{
+  font-family:'fira_sans_otmedium';
+  src:url(fonts/firasansot-medium-webfont.eot);
+  src:url(fonts/firasansot-medium-webfont.eot?#iefix) format("embedded-opentype"),url(fonts/firasansot-medium-webfont.woff) format("woff"),url(fonts/firasansot-medium-webfont.ttf) format("truetype"),url(fonts/firasansot-medium-webfont.svg#fira_sans_otmedium) format("svg");
+  font-weight:normal;
+  font-style:normal;
+}
+@font-face{
+  font-family:'fira_sans_otlight';
+  src:url(fonts/firasansot-light-webfont.eot);
+  src:url(fonts/firasansot-light-webfont.eot?#iefix) format("embedded-opentype"),url(fonts/firasansot-light-webfont.woff) format("woff"),url(fonts/firasansot-light-webfont.ttf) format("truetype"),url(fonts/firasansot-light-webfont.svg#fira_sans_otmedium) format("svg");
+  font-weight:normal;
+  font-style:normal;
 }
 
 #footer-share div p{
@@ -114,9 +124,15 @@ font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: rgb(255, 255, 255);
   font-size:17px;
 /*  line-height: 38px;*/
-  font-family: 'Fira Sans OT Medium Regular';
+  font-family: fira_sans_otmedium;
   font-weight: 200;
+  -webkit-font-smoothing: antialiased;
 }
+
+.gfw a:link {
+  color: white;
+}
+
 
 #footer-share div p a{
 	-webkit-font-smoothing: antialiased;
@@ -260,7 +276,7 @@ address {
 }
 
 .footerWrapper .analysisAlerts .icon {
-    background-image:url(../../../build/app/css/images/home-icons.png);
+    background-image:url(../../app/css/images/home-icons.png);
     background-position:0 -400px;
     background-repeat:no-repeat;
     height:92px;
@@ -269,7 +285,7 @@ address {
 }
 
 .footerWrapper .submitStory .icon {
-    background-image:url(../../../build/app/css/images/home-icons.png);
+    background-image:url(../../app/css/images/home-icons.png);
     background-position:0 -740px;
     background-repeat:no-repeat;
     height:92px;
@@ -278,7 +294,7 @@ address {
 }
 
 .footerWrapper .receiveAlerts .icon {
-    background-image:url(../../../build/app/css/images/home-icons.png);
+    background-image:url(../../app/css/images/home-icons.png);
     background-position:0 -540px;
     background-repeat:no-repeat;
     height:92px;

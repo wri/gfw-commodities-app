@@ -34,7 +34,7 @@
     }
 
 .irs-diapason {
-    height: 8px; top: 25px;
+    height: 8px; top: 21px;
     background-position: 0 -60px;
 }
 
@@ -62,13 +62,16 @@
     
 }
 
-.irs-from, .irs-to, .irs-single {
+.irs-from, .irs-to {
     color: #fff;
     font-size: 10px; line-height: 1.333;
     text-shadow: none;
     padding: 1px 5px;
     background: rgb(161, 186, 66);
     border-radius: 3px;
+}
+.irs-single {
+    display:none;
 }
 .lt-ie9 .irs-from, .lt-ie9 .irs-to, .lt-ie9 .irs-single {
     background: #999;

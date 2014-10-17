@@ -1,32 +1,32 @@
 define([
-	"dojo/dom",
-	"dojo/dom-style"
-], function (dom, domStyle) {
-	'use strict';
+    "dojo/dom",
+    "dojo/dom-style"
+], function(dom, domStyle) {
+    'use strict';
 
-	var initialized = false;
+    var initialized = false;
 
-	return {
+    return {
 
-		init: function (template) {
-			
-			if (initialized) {
-				return;
-			}
+        init: function(template) {
 
-			initialized = true;
-			dom.byId("app-footer").innerHTML = template;
+            if (initialized) {
+                return;
+            }
 
-		},
+            initialized = true;
+            dom.byId("app-footer").innerHTML = template;
 
-		toggle: function (hide) {
-			if (hide) {
-				domStyle.set('app-footer', 'display', 'none');
-			} else {
-				domStyle.set('app-footer', 'display', 'block');
-			}
-		}
+        },
 
-	};
+        toggle: function(hide) {
+            if (hide) {
+                domStyle.set('app-footer', 'display', 'none');
+            } else {
+                domStyle.set('app-footer', 'display', 'block');
+            }
+        }
+
+    };
 
 });

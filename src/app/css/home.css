@@ -13,8 +13,8 @@
   height: 100%;
 }
 .homeModeOptionsViewerOuter {
-  width: 350px;
-  height: 350px;
+  width: 300px;
+  height: 300px;
   z-index: 100;
   overflow-x: auto;
   overflow-y: hidden;
@@ -22,13 +22,8 @@
   margin-top: 50px;
   overflow: visible;
 }
-/*.homeModeOptionsViewerInner
-    width 250px
-    height 250px
-    z-index 100
-    overflow hidden*/
 .homeModeOptionsViewerOuter .modeGroup {
-  height: 350px;
+  height: 300px;
   width: 100%;
   -webkit-transition: display 1.5s ease;
   transition: display 1.5s ease;
@@ -36,11 +31,11 @@
   font-size: 20px;
 }
 .homeModeOptionsViewerOuter .modeOption {
-  border-radius: 175px;
+  border-radius: 150px;
   background-color: #000;
   color: #fff;
-  height: 350px;
-  width: 350px;
+  height: 300px;
+  width: 300px;
   vertical-align: middle;
   text-align: center;
   position: absolute;
@@ -50,21 +45,21 @@
   box-sizing: border-box;
 }
 .homeModeOptionsViewerOuter .modeOptionRing {
-  border-radius: 175px;
+  border-radius: 150px;
   background: none;
-  height: 350px;
+  height: 300px;
   box-shadow: 0px 0px 14px 0px #888;
-  width: 350px;
+  width: 300px;
   vertical-align: middle;
   text-align: center;
   position: absolute;
   margin: auto;
-  border: 10px solid #ec1d38;
+  border: 10px solid #E98300;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .homeModeOptionsViewerOuter .modeGroup .modeText p {
-  font-size: 72px;
+  font-size: 88px;
   color: #ec1d38;
   margin-top: -50px;
   margin-bottom: 0px;
@@ -74,7 +69,7 @@
   color: #ccc;
   position: absolute;
   left: 0px;
-  top: 140px;
+  top: 110px;
   right: 0px;
   vertical-align: middle;
 }
@@ -83,7 +78,11 @@
 }
 .homeModeOptionsViewerOuter .modeGroup .modeText span.more-text {
   position: relative;
-  top: -20px;
+  top: -1px;
+}
+.homeModeOptionsViewerOuter .modeGroup .modeText span.less-text {
+    position: relative;
+    top: 10px;
 }
 #signUpAlertsForm {
   font-family: "Arial MT Condensed Light";
@@ -92,16 +91,6 @@
 }
 #signUpAlertsForm .select-container {
   background: url("../images/ico-carat-down.png") no-repeat 95% center transparent;
-  width: 240px;
-}
-#signUpAlertsForm #aoiDistrictPicker {
-  background: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-size: 14px;
-  padding: 5px;
-  height: 30px;
   width: 240px;
 }
 #signUpAlertsForm #aoiSubDistrictPicker {

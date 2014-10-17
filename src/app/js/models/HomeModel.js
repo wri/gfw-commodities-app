@@ -1,52 +1,57 @@
 /* global define */
 define([
-  "dojo/_base/declare",
-  "main/config",  
-  "knockout"
-],
-function (declare, AppConfig,  ko) {
+        "dojo/_base/declare",
+        "main/config",
+        "knockout"
 
-  var Model = declare(null, {
+    ],
+    function(declare, AppConfig, ko) {
 
-    constructor: function (el) {
-      Model.vm = {};
-      Model.root = el;
+        var Model = declare(null, {
 
-      // Create Model Properties
-      console.log("in the HomeModel's constructor!!");
-      Model.vm.homeModeOptions = ko.observableArray(AppConfig.homeModeOptions);
-      
-      Model.vm.modeSelect = function(obj, evt){
-        var eventName = obj.eventName;
-        
-      }
-      
-      // Apply Bindings upon initialization
-      ko.applyBindings(Model.vm, document.getElementById(el));
+            constructor: function(el) {
+                Model.vm = {};
+                Model.root = el;
 
-    }
+                // Create Model Properties
+                console.log("in the HomeModel's constructor!!");
+                Model.vm.homeModeOptions = ko.observableArray(AppConfig.homeModeOptions);
 
-  });
+                Model.vm.modeSelect = function(obj, evt) {
+                    var eventName = obj.eventName;
 
-  Model.get = function (item) {
-    return item === 'model' ? Model.vm : Model.vm[item]();
-  };
+                    require(["controllers/HomeController"], function(HomeController) {
+                        HomeController.handleModeClick(eventName);
+                    })
 
-  Model.set = function (item, value) {
-    Model.vm[item](value);
-  };
+                }
 
-  Model.applyTo = function(el) {
-    ko.applyBindings(Model.vm, document.getElementById(el));
-  };
+                // Apply Bindings upon initialization
+                ko.applyBindings(Model.vm, document.getElementById(el));
 
-  Model.initialize = function (el) {
-    if (!Model.instance) {
-      Model.instance = new Model(el);
-    }
-    return Model.instance;
-  };
+            }
 
-  return Model;
+        });
 
-});
+        Model.get = function(item) {
+            return item === 'model' ? Model.vm : Model.vm[item]();
+        };
+
+        Model.set = function(item, value) {
+            Model.vm[item](value);
+        };
+
+        Model.applyTo = function(el) {
+            ko.applyBindings(Model.vm, document.getElementById(el));
+        };
+
+        Model.initialize = function(el) {
+            if (!Model.instance) {
+                Model.instance = new Model(el);
+            }
+            return Model.instance;
+        };
+
+        return Model;
+
+    });

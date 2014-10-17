@@ -40,7 +40,7 @@
             left: 10px;
         }
             .irs-slider.single:before {
-                position: absolute; display: block; content: "";
+                position: absolute; display: none; content: "";
                 top: -30%; left: -30%;
                 width: 160%; height: 160%;
                 background: rgba(0,0,0,0.0);
@@ -78,11 +78,14 @@
         cursor: default;
     }
 
-    .irs-from, .irs-to, .irs-single {
+    .irs-from, .irs-to {
         position: absolute; display: block;
         top: 0; left: 0;
         cursor: default;
         white-space: nowrap;
+    }
+    .irs-single {
+        display: none;
     }
 
 
