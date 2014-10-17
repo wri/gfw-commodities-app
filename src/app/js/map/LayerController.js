@@ -1,6 +1,7 @@
 define([
 	"map/config",
 	"map/MapModel",
+	"dojo/on",
 	"dojo/dom",
 	"dojo/query",
 	"dojo/topic",
@@ -13,7 +14,7 @@ define([
 	"esri/tasks/QueryTask",
 	"esri/layers/RasterFunction",
 	"esri/layers/LayerDrawingOptions"
-], function (MapConfig, MapModel, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
+], function (MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
 	return {
 
@@ -30,6 +31,7 @@ define([
 
 			var layer = app.map.getLayer(layerConfig.id);
 			if (layer) {
+
 				layer.setVisibility(!layer.visible);
 				this.refreshLegendWidget();
 			}
@@ -41,7 +43,6 @@ define([
 		// and not radio buttons, which is why it has it's own function and cannot use updateDynamicLayer,
 		// This queries other checkboxes in the same layer to find out which needs to be added to visible layers
 		updateLayer: function (props) {
-			console.log("updateLayer");
 			var conf = MapConfig[props.key],
 					layer = app.map.getLayer(conf.id),
 					queryClass = props.filter,
@@ -258,13 +259,13 @@ define([
 					settings.computeBinaryRaster[6].values = parseInt(value[0]) + "," + parseInt(value[1]);
 				break;
 				case 'soil-drainage-slider':
-					settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1]);
+					settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1], [99]);
 				break;
 				case 'soil-depth-slider':
-					settings.computeBinaryRaster[8].values = this._prepareSuitabilityJSON(value, 7);
+					settings.computeBinaryRaster[8].values = this._prepareSuitabilityJSON(value, 7, [99]);
 				break;
 				case 'soil-acid-slider':
-					settings.computeBinaryRaster[9].values = this._prepareSuitabilityJSON(value[0], value[1]);
+					settings.computeBinaryRaster[9].values = this._prepareSuitabilityJSON(value[0], value[1], [99]);
 				break;
 				case 'landcover-checkbox':
 					// Push in all Active Checkboxes values
@@ -274,7 +275,8 @@ define([
 					settings.computeBinaryRaster[0].values = activeCheckboxes.join(",");
 				break;
 				case 'soil-type-checkbox':
-					// Need to include default value to represent unknown values
+					// Need to include default values to represent unknown values
+					activeCheckboxes.push('0');
 					activeCheckboxes.push('6');
 					// Push in all other Active Checkboxes values
 					dojoQuery('#crop-criteria .suitable-checkbox input:checked').forEach(function (node) {
@@ -289,9 +291,17 @@ define([
 
 			if (customLayer) {
 				customLayer.refresh();
+				this.showSuitabilityLoader();
 			}
 
+		},
 
+		showSuitabilityLoader: function () {
+			domClass.remove('suitability_loader', 'hidden');
+		},
+
+		hideSuitabilityLoader: function () {
+			domClass.add('suitability_loader', 'hidden');
 		},
 
 		checkProtectedAreasLayer: function (evt) {			
@@ -351,21 +361,28 @@ define([
 					primForConf = MapConfig.primForest,
 					suitConf = MapConfig.suit,
 					confItems = [densityConf, formaConf, lossConf, gainConf, primForConf, suitConf],
-					visibleLayers = [];
+					visibleLayers = [],
+					layerOptions = [],
+					self = this;
 
 			// Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
 			// If they are visible, show them in the legend by adding their ids to visibleLayers.
 			// Make sure to set layer drawing options for those values so they do not display 
 			// over their ImageService counterparts
 
+			ldos = new LayerDrawingOptions();
+			ldos.transparency = 100;
+
 			arrayUtils.forEach(confItems, function (item) {
 				if (app.map.getLayer(item.id).visible) {
 					visibleLayers.push(item.legendLayerId);
+					layerOptions[item.legendLayerId] = ldos;
 				}
 			});
 
 			if (visibleLayers.length > 0) {
 				legendLayer.setVisibleLayers(visibleLayers);
+				legendLayer.setLayerDrawingOptions(layerOptions);
 				if (!legendLayer.visible) {
 					legendLayer.show();
 				}
@@ -375,10 +392,71 @@ define([
 			registry.byId("legend").refresh();
 		},
 
-		_prepareSuitabilityJSON: function (start, end) {
+		changeLayerTransparency: function (layerConfig, layerType, transparency) {
+			switch (layerType) {
+				case "image":
+					this.setLayerOpacity(layerConfig, transparency);
+				break;
+				case "dynamic":
+					this.setDynamicLayerTransparency(layerConfig, transparency);
+				break;
+				case "tiled":
+					this.setLayerOpacity(layerConfig, transparency);
+				break;
+			}
+		},
+
+		setLayerOpacity: function (layerConfig, transparency) {
+			var layer = app.map.getLayer(layerConfig.id);
+			if (layer) {
+				layer.setOpacity(transparency / 100);
+			}
+			// Protected Areas Layer has a helper dynamic layer to show closer then zoom level 6
+			// So if we are setting transparency for Protected Areas, pass the helper config on to 
+			// the Set Dynamic Layer Transparency function
+			if (layer.id === 'ProtectedAreas') {
+				this.setDynamicLayerTransparency(MapConfig.palHelper, transparency);
+			}
+		},
+
+		setDynamicLayerTransparency: function (layerConfig, transparency) {			
+			var layer = app.map.getLayer(layerConfig.id),
+					layerOptions,
+					ldos;
+
+			if (!layer) {
+				// If the layer is invalid or missing, just return
+				return;
+			}
+
+			ldos = new LayerDrawingOptions();
+			// 100 is fully transparent, our sliders show 0 as transparent and 100 as opaque
+			// Need to flip my transparency value around
+			ldos.transparency = 100 - transparency;
+
+			// If layer has layer drawing options, dont overwrite all of them, append to them or overwrite
+			// only the relevant layer id
+			layerOptions = layer.layerDrawingOptions || [];
+
+			if (layerConfig.layerId) {
+				layerOptions[layerConfig.layerId] = ldos;
+			} else if (layerConfig.defaultLayers) {
+				arrayUtils.forEach(layerConfig.defaultLayers, function (layerId) {
+					layerOptions[layerId] = ldos;
+				}); 
+			}
+
+			layer.setLayerDrawingOptions(layerOptions);
+
+		},
+
+		_prepareSuitabilityJSON: function (start, end, extraValues) {
 			var result = [];
 			for (var i = start; i <= end; i++) {
 				result.push(i);
+			}
+			if (extraValues) {
+				result = result.concat(extraValues);
 			}
 			return result.join(",");
 		}

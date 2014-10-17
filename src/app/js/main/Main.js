@@ -2,6 +2,7 @@ define([
 	"dojox/mobile/parser",
 	"main/config",
 	"esri/config",
+	"esri/urlUtils",
 	"dojo/_base/array",
 	// Load in Custom Modules to Aid in initializing the Application
 	"utils/Hasher",
@@ -11,7 +12,7 @@ define([
 	// Load Necessary Layout Widgets and Parser Here
   "dijit/layout/ContentPane",
   "dijit/layout/StackContainer"
-], function (parser, AppConfig, esriConfig, arrayUtils, Hasher, Helper, Delegator, ViewController) {
+], function (parser, AppConfig, esriConfig, urlUtils, arrayUtils, Hasher, Helper, Delegator, ViewController) {
 	'use strict';
 	return {
 
@@ -33,7 +34,9 @@ define([
 
 			arrayUtils.forEach(AppConfig.corsEnabledServers, function (server) {
 				esriConfig.defaults.io.corsEnabledServers.push(server);
-			});
+			});			
+
+			esriConfig.defaults.io.postLength = 1800;
 
 		},
 

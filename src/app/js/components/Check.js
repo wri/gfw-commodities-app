@@ -1,8 +1,9 @@
 define([
 	"react",
 	"dojo/topic",
-	"utils/Hasher"
-], function (React, topic, Hasher) {
+	"utils/Hasher",
+  "dijit/form/HorizontalSlider"
+], function (React, topic, Hasher, HorizontalSlider) {
 
 	return React.createClass({
 
@@ -35,12 +36,30 @@ define([
           });
         }
 			}
+
+      // Create the slider
+      if (document.getElementById(this.props.key + "_slider")) {
+        new HorizontalSlider({
+          value: 100,
+          minimum: 0,
+          maximum: 100,
+          discreteValues: 100,
+          showButtons: false,
+          intermediateChanges: false,
+          onChange: function (value) {
+            topic.publish('changeLayerTransparency', self.props.key, self.props.layerType, value);
+          }
+        }, this.props.key + "_slider").startup();
+      }
+
+
     },
 
     toggle: function (synEvent) {
-        if(!synEvent.target.classList.contains('layer-info-icon')){
-            this.props.handle(this);
-        }
+      if(!synEvent.target.classList.contains('layer-info-icon') &&
+          synEvent.target.className.search('dijit') < 0){
+        this.props.handle(this);
+      }
     },
 
     showInfo: function (synEvent) {
@@ -71,7 +90,10 @@ define([
                 React.DOM.span({'className': 'layer-info-icon', 'onClick': this.showInfo})
                 : null
             ),
-            React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle)
+            React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle),
+            React.DOM.div({'className': 'sliderContainer ' + (this.state.active ? '' : 'hidden')}, 
+              React.DOM.div({"id": this.props.key + "_slider"})
+            )
           )
         )
       );

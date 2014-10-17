@@ -2,19 +2,21 @@ define([], function () {
 
 	var geometryServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
 			clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
+			//imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
 			imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-			suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
+			suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
+			//suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
 			firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
 			fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
 
 	// Totoal Loss
-	var lossBounds = [5, 12],
+	var lossBounds = [1, 12],
 			lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012];
 
 
 	// Tree Cover Density
 	var treeCoverLabels = ["0 - 10%", "11 - 25%", "26 - 50%", "51 - 75%", "76 - 100%"],
-			treeCoverBounds = [1, 5],
+			treeCoverBounds = [0, 4],
 			treeCoverColors = ["#ccf1a5", "#a4c27a", "#859a59", "#65763e", "#4b5923"];
 
 	// RSPO
@@ -71,7 +73,8 @@ define([], function () {
 			// "http://firms.modaps.eosdis.nasa.gov",
 			// "http://gfw-apis.appspot.com",
 			// "http://50.18.182.188",
-			"http://gis-potico.wri.org"
+			"http://gis-potico.wri.org",
+			"http://175.41.139.43"
 		],
 
 		geometryServiceUrl: geometryServiceUrl,
@@ -79,7 +82,7 @@ define([], function () {
 
 		/* Begin Main Layers for Analyses */
 		totalLoss: {
-			rasterId: "$517",
+			rasterId: "$517", //12
 			bounds: lossBounds,
 			labels: lossLabels
 		},
@@ -165,20 +168,19 @@ define([], function () {
 		/* End Main Layers for Analyses */
 
 		/* Here are all the other Layers used in the results */
-
 		rspo: {
 			rootNode: "rspoData",
 			title: "RSPO Land Use Change Analysis",
 			rasterId: "$5",
 			bounds: rspoBounds,
-			lossBounds: lossBounds,
+			lossBounds: [5, 12],
 			colors: rspoColors
 		},
 
 		primaryForest: {
 			rootNode: "primaryForest",
 			title: "Primary Forests - Indonesia",
-			rasterId: "$519",
+			rasterId: "$519",  //11
 			bounds: primaryForestBounds,
 			labels: primaryForestLabels,
 			clearanceChart: {
@@ -195,7 +197,16 @@ define([], function () {
 		treeCover: {
 			rootNode: "treeCoverDensity",
 			title: "Tree Cover Density",
-			rasterId: "$518",
+			rasterId: "$520", //13
+			rasterRemap: {
+				'rasterFunction': 'Remap',
+				'rasterFunctionArguments': {
+					'InputRanges': [0,11,11,26,26,51,51,76,76,101],
+					'OutputValues': [0,1,2,3,4],
+					'Raster': '$520',
+					'AllowUnmatched': false
+				}
+			},
 			bounds: treeCoverBounds,
 			labels: treeCoverLabels,
 			clearanceChart: {
@@ -343,6 +354,9 @@ define([], function () {
 			fireKey: 'landCoverIndo' // Key to the Fires Config for items related to this
 		},
 		
+
+		// If the bounds for the fire queries are different from the bounds on the clearance and loss
+		// analysis, specify them below, otherwise, use the same variable as the analysis above
 		fires: {
 			url: firesQueryUrl,
 			primaryForest: {
@@ -358,7 +372,7 @@ define([], function () {
 				type: 'pie',
 				field: 'treecover',
 				labels: treeCoverLabels,
-				bounds: treeCoverBounds,
+				bounds: [1, 5], // These are different from the bounds used in loss and clearance analysis
 				colors: treeCoverColors,
 				title: 'Active Fires by Tree Cover Density over the past 7 days',
 				badgeDesc: 'on tree cover density out of'

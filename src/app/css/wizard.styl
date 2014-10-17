@@ -30,13 +30,15 @@ wizardBlue = #00688B
 	top 0
 
 .gfw .wizard-tab
+	background url('images/analysis_symbol_white.png') no-repeat 7px center
 	font-family Arial, sans-serif
 	background-color orangeSelected
+	padding 8px 7px 5px 25px
+	background-size 13px
 	border-radius(5px)
 	position absolute
-	font-size 14px
+	font-size 16px
 	cursor pointer
-	padding 5px
 	color #fff
 	left 20px
 	top 20px
@@ -103,20 +105,27 @@ wizardBlue = #00688B
 	height 50px
 
 .gfw .wizard-header .title
+	background url('images/analysis_symbol_black.png') no-repeat left center
+	padding-left 30px
 	margin-left 10px
 	font-size 26px
 
 .gfw .wizard-header .button
 	border-left 1px solid greyBorder
 	position absolute
-	text-align center
+	cursor pointer
 
 .gfw .wizard-header .button.close
+	background url('images/close_symbol.png') no-repeat center
+	height 50px
 	width 40px
 	right 0
 	
 .gfw .wizard-header .button.reset
-	width 80px
+	background url('images/reset_symbol.png') no-repeat 10px center
+	padding-left 35px
+	color greyBorder
+	width 60px
 	right 40px
 
 .gfw .wizard-header .breadcrumbs
@@ -267,10 +276,10 @@ wizardBlue = #00688B
 .gfw .custom-graphics-list-container
 	position absolute
 	overflow-y auto
-	left -10px
 	top 280px
 	bottom 0
 	right 0
+	left 0
 
 .gfw .upload-toolbox.hidden + .custom-graphics-list-container
 	top 150px
@@ -370,7 +379,7 @@ wizardBlue = #00688B
 .gfw .wizard-body .checkbox-list
 	position absolute
 	overflow-y auto
-	top 190px
+	top 200px
 	left 10px
 	bottom 0
 	right 0

@@ -23,6 +23,7 @@ module.exports = function (grunt) {
           { src: ['src/app/libs/ionrangeslider/css/normalize.min.css'], dest: 'build/app/libs/ionrangeslider/css/normalize.min.css', filter: 'isFile' },
           { src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css'], dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css', filter: 'isFile' },
           { src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.css'], dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.css', filter: 'isFile' },
+          { src: ['src/app/css/home.css'], dest: 'build/app/css/home.css', filter: 'isFile' },
 
           { src: ['src/app/libs/jquery-1.7.1.min.js'], dest: 'build/app/libs/jquery-1.7.1.min.js', filter: 'isFile' },
           { src: ['src/app/libs/jquery-2.1.1.min.js'], dest: 'build/app/libs/jquery-2.1.1.min.js', filter: 'isFile' },

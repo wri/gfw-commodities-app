@@ -232,7 +232,7 @@ wizardBlue = #00688B
 	bottom 50px
 	z-index 50
 	left 20px
-	top 75px
+	top 60px
 
 .gfw .layer-controls-container > .toolbox
 	box-shadow 0px 0px 6px 1px rgba(0,0,0,0.25)
@@ -251,10 +251,22 @@ wizardBlue = #00688B
 	left 0
 
 .gfw .layer-controls-container .toolbox_legend_suitability
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
-	position absolute
-	top -25px
-	left 0
+	border-bottom 1px solid #000
+	line-height 30px
+
+.gfw .suitability_toolbox_label
+	margin-left 10px
+
+.gfw .layer-controls-container .toolbox_legend_suitability div
+	display inline-block
+
+.gfw .toolbox_legend_suitability .reset-suitability
+	background url('images/reset_symbol.png') no-repeat center right
+	background-size 14px 14px
+	padding-right 20px
+	margin-right 10px
+	cursor pointer
+	float right
 
 .gfw .layer-controls-container .toolbox_legend > p,
 .gfw .layer-controls-container .toolbox_legend_suitability > p
@@ -298,7 +310,7 @@ wizardBlue = #00688B
 .gfw .toolbox .toolbox-list
 	list-style-type none
 	display inline-block
-	margin 11px 0 0
+	margin 5px 0 0
 	padding 0
 	
 .gfw .toolbox .toolbox-list li
@@ -340,7 +352,40 @@ wizardBlue = #00688B
 
 .gfw .suitability_toolbox .suitability-accordion
 	box-sizing border-box
-	height 100%
+	position absolute
+	overflow-y auto
+	top 30px
+	bottom 0
+	right 0
+	left 0
+
+.gfw .suitability_toolbox .loading-wheel-container
+	background-color greyBorder
+	position absolute
+	opacity 0.75
+	z-index 50
+	bottom 0
+	right 0
+	left 0
+	top 0
+
+.gfw .suitability_toolbox .loading-wheel-container.hidden
+	display none
+
+.gfw .suitability_toolbox .loading-wheel
+	background url('images/loader.gif') no-repeat center
+	background-size 24px
+	position absolute
+	margin-left -12px
+	margin-top -12px
+	height 24px
+	width 24px
+	left 50%
+	top 50%
+
+.gfw .suitability_toolbox .sub-heading
+	font-weight bold
+	margin 10px
 
 .gfw .suitability_toolbox .slider-container
 	margin 10px auto 0
@@ -491,7 +536,10 @@ wizardBlue = #00688B
 	background #461D7C url('images/ico-checkmark.png') no-repeat center !important
 	border 1px solid #461D7C !important
 /* Overrides for Checkboxes */
-
+/* Overrides for Accordion COntainers that contain sliders and checkboxes */
+#crop-criteria, #environmental-criteria
+	overflow-x hidden
+/* Overrides for Accordion COntainers that contain sliders and checkboxes */
 .container2 {
 	margin-top: -22px;
 	font-size: 11px;

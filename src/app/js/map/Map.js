@@ -3,6 +3,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/on",
 	"dojo/dom",
+	"dojo/topic",
 	"dijit/registry",
 	"dojo/_base/array",
 	"dojo/dom-construct",
@@ -26,7 +27,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -231,7 +232,7 @@ define([
 
 			customSuitabilityLayer = new SuitabilityImageServiceLayer(MapConfig.suit.url, {
 				id: MapConfig.suit.id,
-				visible: false
+				visible: false				
 			});
 
 			// Uses ifl config, which is the same as peat, tfcs, ldcover, legal.  They
@@ -383,6 +384,11 @@ define([
 			wizardDynamicLayer.on('error', this.addLayerError);
 			mapOverlaysLayer.on('error', this.addLayerError);
 			customGraphicsLayer.on('error', this.addLayerError);
+
+			// Add Layer Specific events here
+			customSuitabilityLayer.on('image-ready', function () {
+				topic.publish('customSuitabilityImageReady');
+			});
 
 		},
 

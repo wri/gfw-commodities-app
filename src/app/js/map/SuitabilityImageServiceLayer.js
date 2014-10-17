@@ -1,18 +1,20 @@
 define([
   "dojo/_base/declare",
+  "dojo/Evented",
   "dojo/_base/lang",
   "dojo/_base/array",
   "esri/layers/RasterFunction",
   "esri/layers/ImageServiceParameters",
   "esri/layers/ArcGISImageServiceLayer",
-  "map/MapModel"
-], function (declare, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model) {
+  "map/MapModel",
+  "esri/request"
+], function (declare, Evented, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model, esriRequest) {
     
-  return declare("SuitabilityImageServiceLayer", ArcGISImageServiceLayer, {
+  return declare("SuitabilityImageServiceLayer", [Evented, ArcGISImageServiceLayer], {
     constructor: function () {
       // This line below is very important, without, printing will not know the layer type since this is a custom
       // layer and won't know how to serialize the JSON
-      this.declaredClass = "esri.layers.ArcGISImageServiceLayer";
+      this.declaredClass = "esri.layers.ArcGISImageServiceLayer";      
 
       // raster function arguments must be in same order as in image service moasic dataset
       this.rasterFunctionArguments = {};
@@ -56,9 +58,7 @@ define([
     },
 
     getExportUrl: function (extent, width, height, callback, options) {
-        // function callback(url){
-        //     return;
-        // }
+
     },
 
     getRenderingRule: function () {
@@ -73,12 +73,13 @@ define([
       _self.addThresholdArgument(suitabilitySettings, render_rule, 'Water', _self.rasterFunctionScalars, 'MIN');
       _self.addThresholdArgument(suitabilitySettings, render_rule, 'Cons', _self.rasterFunctionScalars, 'MIN');
       _self.addThresholdArgument(suitabilitySettings, render_rule, 'Rainfall', _self.rasterFunctionScalars, 'BETWEEN');
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDepth', [0, 1, 2, 3, 4, 5, 6, 7]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDepth', [0, 1, 2, 3, 4, 5, 6, 7, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'Peat', [0, 1, 2, 3, 4, 5, 6]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDrain', [0, 1, 2, 3, 4]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [0, 1, 2, 3, 4, 5, 6, 7, 8]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SType', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7, 8, 99]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDrain', [0, 1, 2, 3, 4, 99]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 
+                                                                          13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'SType', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
       var rasterFunction = new RasterFunction();
       rasterFunction.rasterFunction = "PalmOilSuitabilityNew";
@@ -86,7 +87,7 @@ define([
       return rasterFunction;
     },
 
-    getImageUrl: function (extent, width, height, callback,options) {
+    getImageUrl: function (extent, width, height, callback, options) {
       var _self = this;
       extent = extent._normalize();
 
@@ -95,15 +96,35 @@ define([
           min,
           max,
           tempArray,
-          membership_arguments;
+          membership_arguments,
+          req;
 
       var rasterFunction = _self.getRenderingRule();
       if (options) {
         params = options;
         params.renderingRule = JSON.stringify(rasterFunction);
         params.bbox = bbox.join(",");
+        // If hitting callback directly, I dont need .f = json, only if using the esri request with post
+        // because the request is too long
+        params.f = 'json';
         _self.renderingRule = rasterFunction;
-        callback(_self.url + "/exportImage?",params);
+
+        req = esriRequest({
+          url: _self.url + '/exportImage',
+          content: params,
+          handleAs: 'json',
+          callbackParamName: 'callback'
+        }, {usePost: true});
+
+        req.then(function (res) {
+          callback(res.href);
+          _self.emit('image-ready', {});
+        }, function (err) {
+          console.dir(err);
+          _self.emit('image-ready', {});
+        });
+
+        //callback(_self.url + "/exportImage?", params);
       } else {
         params = {
           noData: 0,
@@ -114,7 +135,7 @@ define([
           size: width + "," + height,
           imageSR: 3857,
           bboxSR: 3857,
-          f: "image",
+          f: "json",
           pixelType: 'U8',
           bbox: bbox.join(",")
         };
@@ -124,7 +145,23 @@ define([
           return _self.getRenderingRule();
         };
 
-        callback(_self.url + "/exportImage?" + dojo.objectToQuery(params));
+        req = esriRequest({
+          url: _self.url + '/exportImage',
+          content: params,
+          handleAs: 'json',
+          callbackParamName: 'callback'
+        }, {usePost: true});
+
+        req.then(function (res) {
+          callback(res.href);
+          _self.emit('image-ready', {});
+        }, function (err) {
+          console.dir(err);
+          _self.emit('image-ready', {});
+        });
+
+        //callback(_self.url + "/exportImage?" + dojo.objectToQuery(params));
+      
       }
       
     },

@@ -2,7 +2,7 @@ define([
 	"dojo/topic",
 	"map/config",
 	"map/Controls",
-	"map/MapModel",
+	"map/MapModel",	
 	"analysis/Query",
 	"analysis/config",
 	"analysis/WizardHelper",
@@ -48,7 +48,7 @@ define([
 				if (entityType) {
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);
 				}
-			});
+			});			
 
 			// Layer Controller Functions
 			topic.subscribe('toggleLayer', function (layerId) {
@@ -95,7 +95,19 @@ define([
 				}
 			});
 
-            topic.subscribe('showInfoPanel', MapController.showInfoPanel);
+			topic.subscribe('changeLayerTransparency', function (layerKey, layerType, transparencyValue) {
+				var config = MapConfig[layerKey];
+				if (config) {
+					LayerController.changeLayerTransparency(config, layerType, transparencyValue);
+				}
+			});
+
+			topic.subscribe('customSuitabilityImageReady', function () {
+				LayerController.hideSuitabilityLoader();
+			});
+
+			// Map Controller Functions
+      topic.subscribe('showInfoPanel', MapController.showInfoPanel);
 
 		}
 

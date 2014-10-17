@@ -12,7 +12,8 @@ define([], function () {
 			protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
 			mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
 			primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
-			customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
+			customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer";
+			//customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
 
 	return {
 
@@ -469,7 +470,7 @@ define([], function () {
 	    },
 	    {
 	      key: "opsd",
-	      title: "Oil Palm Suitability",
+	      title: "WRI Suitability Standard - Oil Palm",
 	      subtitle: "",
 	      filter: "agro-suitability",
 	      type: "radio",
@@ -564,12 +565,13 @@ define([], function () {
 			numYears: 12
 		},
 
+		// Values below are default suitable values for the particular raster
 		customSuitabilityDefaults: {
 			computeBinaryRaster: [
 				// Land Cover
 				{
 					id: 0,
-					values: '1,2,3',
+					values: '2,3,5,8,9,11,15,17,18',
 					classCount: 32,
 					operator: 'in',
 					name: 'LCInpR'
@@ -613,14 +615,14 @@ define([], function () {
 				// Rainfall
 				{
 					id: 6,
-					values: '1500,7000',
+					values: '1500,6000',
 					operator: 'between',
 					name: 'RainfallInpR'
 				},
 				// Soil Drain
 				{
 					id: 7,
-					values: '2,3,4',
+					values: '2,3,4,99',
 					classCount: 32,
 					operator: 'in',
 					name: 'SDrainInpR'
@@ -628,7 +630,7 @@ define([], function () {
 				// Soil Depth
 				{
 					id: 8,
-					values: '4,5,6,7',
+					values: '3,4,5,6,7,99',
 					classCount: 32,
 					operator: 'in',
 					name: 'SDepthInpR'
@@ -636,7 +638,7 @@ define([], function () {
 				// Soil Acidity
 				{
 					id: 9,
-					values: '1,2,3,4,5,6,7',
+					values: '1,2,3,4,5,6,7,99',
 					classCount: 32,
 					operator: 'in',
 					name: 'SAcidInpR'
@@ -644,7 +646,7 @@ define([], function () {
 				// Soil Type
 				{
 					id: 10,
-					values: '1,2,3,5,6,7,8,9',
+					values: '0,1,2,3,5,6,7,8,9',
 					classCount: 32,
 					operator: 'in',
 					name: 'STypeInpR'
@@ -654,45 +656,129 @@ define([], function () {
 
 		checkboxItems: [
 			{
-				node: 'grassland-shrub-check',
-				name: 'landcover-checkbox',
-				value: '1',
-				checked: true
-			},
-			{
-				node: 'plantations-check',
+				node: 'shrub-check',
 				name: 'landcover-checkbox',
 				value: '2',
 				checked: true
 			},
 			{
-				node: 'agriculture-check',
+				node: 'bareland-check',
 				name: 'landcover-checkbox',
 				value: '3',
 				checked: true
 			},
 			{
-				node: 'settlements-other-check',
+				node: 'secondary-forest-check',
 				name: 'landcover-checkbox',
 				value: '4',
 				checked: false
 			},
 			{
-				node: 'primary-forest-check',
+				node: 'dryland-agro-check',
 				name: 'landcover-checkbox',
 				value: '5',
-				checked: false
+				checked: true
 			},
 			{
-				node: 'secondary-forest-check',
+				node: 'water-check',
 				name: 'landcover-checkbox',
 				value: '6',
 				checked: false
 			},
 			{
-				node: 'wetlands-check',
+				node: 'mining-check',
 				name: 'landcover-checkbox',
 				value: '7',
+				checked: false
+			},
+			{
+				node: 'plantation-forest-check',
+				name: 'landcover-checkbox',
+				value: '8',
+				checked: true
+			},
+			{
+				node: 'estate-crop-check',
+				name: 'landcover-checkbox',
+				value: '9',
+				checked: true
+			},
+			{
+				node: 'swamp-shrub-check',
+				name: 'landcover-checkbox',
+				value: '10',
+				checked: false
+			},
+			{
+				node: 'primary-swamp-check',
+				name: 'landcover-checkbox',
+				value: '12',
+				checked: false
+			},
+			{
+				node: 'secondary-swamp-check',
+				name: 'landcover-checkbox',
+				value: '13',
+				checked: false
+			},
+			{
+				node: 'settlement-check',
+				name: 'landcover-checkbox',
+				value: '14',
+				checked: false
+			},
+			{
+				node: 'grassland-check',
+				name: 'landcover-checkbox',
+				value: '15',
+				checked: true
+			},
+			{
+				node: 'secondary-mangrove-check',
+				name: 'landcover-checkbox',
+				value: '16',
+				checked: false
+			},
+			{
+				node: 'dryland-check',
+				name: 'landcover-checkbox',
+				value: '17',
+				checked: true
+			},
+			{
+				node: 'rice-check',
+				name: 'landcover-checkbox',
+				value: '18',
+				checked: true
+			},
+			{
+				node: 'fish-check',
+				name: 'landcover-checkbox',
+				value: '19',
+				checked: false
+			},
+			{
+				node: 'transmigration-check',
+				name: 'landcover-checkbox',
+				value: '20',
+				checked: false
+			},
+			{
+				node: 'swamp-check',
+				name: 'landcover-checkbox',
+				value: '21',
+				checked: false
+			},
+			{
+				node: 'primary-mangrove-check',
+				name: 'landcover-checkbox',
+				value: '22',
+				checked: false
+			},
+			{
+				node: 'airport-check',
+				name: 'landcover-checkbox',
+				value: '23',
 				checked: false
 			},
 			{

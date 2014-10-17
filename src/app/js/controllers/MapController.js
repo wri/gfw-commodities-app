@@ -62,7 +62,7 @@ define([
 				// Also call other functions in renderComponents that build UI elements 
 				self.renderComponents();
 				// Connect Events
-				self.bindUIEvents();				
+				self.bindUIEvents();			
 			});
 
 			// Set up zoom listener for Protected Areas Layer
@@ -165,6 +165,10 @@ define([
 
 			on(dom.byId("legend-title"), "click", function () {
 				MapControl.toggleLegendContainer();
+			});
+
+			on(dom.byId("reset-suitability"), "click", function () {
+				MapControl.resetSuitabilitySettings();
 			});
 
 			on(dom.byId("wizard-tab"), "click", function () {
