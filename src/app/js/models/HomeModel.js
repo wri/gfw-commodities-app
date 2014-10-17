@@ -21,7 +21,9 @@ define([
                     var eventName = obj.eventName;
 
                     require(["controllers/HomeController"], function(HomeController) {
+
                         HomeController.handleModeClick(eventName);
+
                     })
 
                 }

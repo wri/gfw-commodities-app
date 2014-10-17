@@ -12,7 +12,6 @@ define([
     var state = 'large', // large, small, or mobile
         initialized = false;
 
-
     return {
 
         init: function(template) {
@@ -53,17 +52,6 @@ define([
                     self.updateView(dataView, external, initialized);
                 });
             });
-            console.log($("div.homeModeOptionsContainer > div > div:nth-child(1)"));
-            // query("#homeView > div > div.homeModeOptionsContainer > div").forEach(function(item) {
-            //     //query("#homeView > div > div.homeModeOptionsContainer > div > div.modeGroup.dijitVisible > div.modeOptionRing").forEach(function(item) {
-            //     //query("#homeView > div > div.homeModeOptionsContainer > div > div.modeGroup.dijitVisible").forEach(function(item) {
-            //     // query("#homeView > div > div.homeModeOptionsContainer > div > div.modeGroup.dijitVisible > div.modeOptionRing > div").forEach(function(item) {
-            //     //query("#homeView > div > div.homeModeOptionsContainer > div > div:nth-child(1)").forEach(function(item) {
-            var item3 = $("div.homeModeOptionsContainer > div > div:nth-child(1)");
-            item3.on("click", function(evt) {
-                console.log("clicked!!");
-            });
-            // });
 
         },
 

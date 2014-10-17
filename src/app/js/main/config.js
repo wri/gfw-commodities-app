@@ -18,7 +18,7 @@ define({
 
     "homeModeOptions": [{
         "html": "Fires occuring in peatland <br> in the last 7 days",
-        "eventName": "goToMap",
+        "eventName": "goToAbout",
         "display": true
     }, {
         "html": "<span>View the latest analysis</span>",
@@ -26,7 +26,7 @@ define({
         "display": false
     }, {
         "html": "<span>View the latest imagery</span>",
-        "eventName": "goToMap",
+        "eventName": "goToData",
         "display": false
     }, {
         "html": "<span class='less-text'>Explore the map</span>",

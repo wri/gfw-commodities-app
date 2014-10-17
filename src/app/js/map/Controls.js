@@ -58,25 +58,25 @@ define([
 
                 "dijit/Dialog",
                 "dojo/_base/lang"
-            ], function (Dialog, Lang){
+            ], function(Dialog, Lang) {
 
                 var node = contentClone.querySelector(".source_body")
-                if(node.querySelector(".source_extended")) {
+                if (node.querySelector(".source_extended")) {
                     node.removeChild(node.querySelector(".source_extended"));
                 }
-                if(node.querySelector(".source_download")){
+                if (node.querySelector(".source_download")) {
                     node.removeChild(node.querySelector(".source_download"));
                 }
-                if(node.querySelector(".overview_title")){
+                if (node.querySelector(".overview_title")) {
                     node.querySelector(".source_summary").removeChild(node.querySelector(".overview_title"));
                 }
-                if(contentClone.querySelector(".source_header")){
+                if (contentClone.querySelector(".source_header")) {
                     contentClone.removeChild(contentClone.querySelector(".source_header"));
 
                 }
                 //remove checkbox
 
-                if(contentClone.getElementsByTagName("input").length){
+                if (contentClone.getElementsByTagName("input").length) {
                     contentClone.removeChild(contentClone.getElementsByTagName("input")[0]);
 
                 }
@@ -84,11 +84,15 @@ define([
                 var dialog = new Dialog({
                     title: content.querySelector(".source_title").innerHTML.toUpperCase(),
                     style: "height: 700px; width: 600px; overflow: auto;",
-					draggable: false,
-					hide: function(){dialog.destroy()}
+                    draggable: false,
+                    hide: function() {
+                        dialog.destroy()
+                    }
                 })
 
-				dialog.onClose(function () {console.log("CLOSED")});
+                dialog.onClose(function() {
+                    console.log("CLOSED")
+                });
                 //for possible title
                 //content.getElementsByClassName("source_title")[0].innerHTML
                 dialog.setContent(contentClone.innerHTML);
@@ -739,6 +743,7 @@ define([
                 $("#range").ionRangeSlider("update");
                 $("#playLine2").hide();
                 $("#sliderProgressLine").hide();
+                $(".irs-single").hide();
 
             };
             if (!sliderInit) {
