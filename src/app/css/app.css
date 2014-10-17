@@ -2155,44 +2155,51 @@ address {
 }
 
 /* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+.gfw .layer-list-item.active[data-layer="gain"] .dijitSliderImageHandleH,
+.gfw .layer-list-item.active[data-layer="gain"] .dijitSliderLeftBumper,
+.gfw .layer-list-item.active[data-layer="gain"] .dijitSliderProgressBarH {
+  background: #5952de !important;
+}
+
+/* line 253 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .forest-cover .dijitSliderImageHandleH,
 .gfw .filter-list .forest-cover .dijitSliderLeftBumper,
 .gfw .filter-list .forest-cover .dijitSliderProgressBarH {
   background: #b2d26e !important;
 }
 
-/* line 253 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 258 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .forest-use .dijitSliderImageHandleH,
 .gfw .filter-list .forest-use .dijitSliderLeftBumper,
 .gfw .filter-list .forest-use .dijitSliderProgressBarH {
   background: #c98e6c !important;
 }
 
-/* line 258 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 263 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .conservation .dijitSliderImageHandleH,
 .gfw .filter-list .conservation .dijitSliderLeftBumper,
 .gfw .filter-list .conservation .dijitSliderProgressBarH {
   background: #3182bd !important;
 }
 
-/* line 263 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 268 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .agro-suitability .dijitSliderImageHandleH,
 .gfw .filter-list .agro-suitability .dijitSliderLeftBumper,
 .gfw .filter-list .agro-suitability .dijitSliderProgressBarH {
   background: #fdb22c !important;
 }
 
-/* line 268 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 273 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .company-pages .dijitSliderImageHandleH,
 .gfw .filter-list .company-pages .dijitSliderLeftBumper,
 .gfw .filter-list .company-pages .dijitSliderProgressBarH {
   background: #5e138a !important;
 }
 
-/* line 274 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 279 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 275 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 280 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check span,
 .gfw .forest-use.active .custom-check span,
 .gfw .conservation.active .custom-check span,
@@ -2202,43 +2209,43 @@ address {
   left: 9px;
 }
 
-/* line 283 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 288 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active .custom-check,
 .gfw .forest-change.active .radio-icon span {
   background-color: #e72698;
 }
 
-/* line 287 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 292 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check,
 .gfw .forest-cover.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 291 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 296 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-use.active .custom-check,
 .gfw .forest-use.active .radio-icon span {
   background-color: #c98e6c;
 }
 
-/* line 295 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 300 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .conservation.active .custom-check,
 .gfw .conservation.active .radio-icon span {
   background-color: #3182bd;
 }
 
-/* line 299 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 304 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .agro-suitability.active .custom-check,
 .gfw .agro-suitability.active .radio-icon span {
   background-color: #fdb22c;
 }
 
-/* line 303 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 308 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .company-pages.active .custom-check,
 .gfw .company-pages.active .radio-icon span {
   background-color: #5e138a;
 }
 
-/* line 307 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 312 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item .radio-icon {
   display: inline-block;
   border-radius: 35px;
@@ -2249,12 +2256,12 @@ address {
   width: 8px;
 }
 
-/* line 314 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 319 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon {
   top: 3px;
 }
 
-/* line 317 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 322 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon span {
   display: inline-block;
   border-radius: 35px;
@@ -2267,48 +2274,48 @@ address {
   top: -6px;
 }
 
-/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 331 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-change .radio-icon {
   border: 1px solid #e72698;
 }
 
-/* line 329 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 334 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-cover .radio-icon {
   border: 1px solid #b2d26e;
 }
 
-/* line 332 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 337 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .forest-use .radio-icon {
   border: 1px solid #c98e6c;
 }
 
-/* line 335 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 340 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .conservation .radio-icon {
   border: 1px solid #3182bd;
 }
 
-/* line 338 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 343 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .agro-suitability .radio-icon {
   border: 1px solid #fdb22c;
 }
 
-/* line 341 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 346 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .company-pages .radio-icon {
   border: 1px solid #5e138a;
 }
 
-/* line 344 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 349 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 345 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 350 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 346 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 351 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-topper div {
   line-height: 43px;
 }
 
-/* line 349 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 354 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
@@ -2318,7 +2325,7 @@ address {
   left: 0;
 }
 
-/* line 357 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 362 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -2330,7 +2337,7 @@ address {
   z-index: 200;
 }
 
-/* line 367 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 372 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -2344,7 +2351,7 @@ address {
   top: 20px;
 }
 
-/* line 377 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 382 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list {
   display: inline-block;
   list-style-type: none;
@@ -2352,7 +2359,7 @@ address {
   padding: 0;
 }
 
-/* line 383 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 388 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -2366,30 +2373,30 @@ address {
   margin: 0 2px;
 }
 
-/* line 393 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 398 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 396 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 401 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 399 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 404 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 404 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 409 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
 }
 
-/* line 408 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
+/* line 413 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/header.styl */
 .gfw .filter-list .sliderContainer {
   margin: 10px 5px;
   padding-top: 5px;
@@ -2923,7 +2930,6 @@ address {
 .gfw .layer-controls-container .suitability_toolbox {
   box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.25);
   background-color: #fff;
-  background-color: rgba(255,255,255,0.75);
   border: 1px solid #000;
   position: absolute;
   width: 300px;

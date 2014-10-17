@@ -269,6 +269,8 @@ define([
 				break;
 				case 'landcover-checkbox':
 					// Push in all Active Checkboxes values
+					// Need to include Cloud as Suitable, its ID is 11
+					activeCheckboxes.push('11');
 					dojoQuery('#environmental-criteria .suitable-checkbox input:checked').forEach(function (node) {
 						activeCheckboxes.push(node.value);
 					});

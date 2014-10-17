@@ -81,7 +81,7 @@ define([
                             React.DOM.span({
                                 'className': 'button close',
                                 onClick: this._close
-                            }, "x")
+                            }, "")
                         ),
                         React.DOM.div({
                                 'className': 'breadcrumbs'

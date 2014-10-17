@@ -55,12 +55,12 @@ define([
 
         createDialogBox: function(content) {
             require([
-
                 "dijit/Dialog",
                 "dojo/_base/lang"
             ], function(Dialog, Lang) {
 
-                var node = contentClone.querySelector(".source_body")
+                var contentClone = Lang.clone(content);
+                var node = contentClone.querySelector(".source_body");
                 if (node.querySelector(".source_extended")) {
                     node.removeChild(node.querySelector(".source_extended"));
                 }
@@ -86,12 +86,12 @@ define([
                     style: "height: 700px; width: 600px; overflow: auto;",
                     draggable: false,
                     hide: function() {
-                        dialog.destroy()
+                        dialog.destroy();
                     }
-                })
+                });
 
                 dialog.onClose(function() {
-                    console.log("CLOSED")
+                    //console.log("CLOSED");
                 });
                 //for possible title
                 //content.getElementsByClassName("source_title")[0].innerHTML

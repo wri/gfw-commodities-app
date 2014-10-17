@@ -86,7 +86,7 @@ define([
           (this.props.children? 
             React.DOM.ul({}, this.props.children.map(this._mapper))
             : this.props.layerType !== 'none' ?
-              React.DOM.div({'className': 'sliderContainer ' + (this.state.active ? '' : 'hidden')}, 
+              React.DOM.div({'title': 'Layer Transparency', 'className': 'sliderContainer ' + (this.state.active ? '' : 'hidden')}, 
                 React.DOM.div({"id": this.props.key + "_slider"})
               )
               : null

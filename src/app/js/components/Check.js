@@ -91,7 +91,7 @@ define([
                 : null
             ),
             React.DOM.p({'className': 'layer-sub-title'}, this.props.subtitle),
-            React.DOM.div({'className': 'sliderContainer ' + (this.state.active ? '' : 'hidden')}, 
+            React.DOM.div({'title': 'Layer Transparency','className': 'sliderContainer ' + (this.state.active ? '' : 'hidden')}, 
               React.DOM.div({"id": this.props.key + "_slider"})
             )
           )
