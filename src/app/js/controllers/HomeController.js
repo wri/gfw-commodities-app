@@ -168,6 +168,23 @@ define([
                 // Blog is external! (requires different function)
             });
 
+        },
+
+        handleDotClick: function(eventName) {
+            console.log(eventName);
+            require(["controllers/Header"], function(Header) {
+                if (eventName == "goToMap") {
+                    Header.updateView("map", false, true);
+                } else if (eventName == "goToAbout") {
+                    Header.updateView("about", false, true);
+                } else if (eventName == "goToAnalysis") {
+                    Header.updateView("methods", false, true);
+                } else if (eventName == "goToData") {
+                    Header.updateView("data", false, true);
+                }
+                // Blog is external! (requires different function)
+            });
+
         }
 
     };

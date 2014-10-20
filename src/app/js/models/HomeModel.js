@@ -14,8 +14,9 @@ define([
                 Model.root = el;
 
                 // Create Model Properties
-                console.log("in the HomeModel's constructor!!");
                 Model.vm.homeModeOptions = ko.observableArray(AppConfig.homeModeOptions);
+                console.log(AppConfig.homeModeOptions);
+
 
                 Model.vm.modeSelect = function(obj, evt) {
                     var eventName = obj.eventName;
