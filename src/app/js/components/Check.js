@@ -81,7 +81,7 @@ define([
       return (
         React.DOM.li({'className': className,
                       'data-layer': this.props.key},
-            React.DOM.div({'onClick': this.toggle},
+            React.DOM.div({'onClick': this.toggle, 'id': this.props.key + '_checkbox'},
             React.DOM.span({'className': 'custom-check'},
                 React.DOM.span({})
             ),

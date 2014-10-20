@@ -96,6 +96,7 @@ define([
 
 			// Config is analysis/config using items like adminUnit.lowLevelUnitsQuery or commercialEntity.commodityQuery
 			query.where = config.requiredField + " = '" + groupName + "'";
+			query.geometryPrecision = 0;
 			query.returnGeometry = true;
 			query.outFields = ["*"];
 
@@ -123,6 +124,7 @@ define([
 					self = this;
 
 			query.where = "OBJECTID = " + objectId;
+			query.geometryPrecision = 0;
 			query.returnGeometry = true;
 			query.outFields = ["*"];
 
@@ -217,6 +219,7 @@ define([
 					extent;
 
 			query.where = config.whereField + " = '" + filter + "'";
+			query.maxAllowableOffset = 3000;
 			query.returnGeometry = true;
 			query.geometryPrecision = 0;
 

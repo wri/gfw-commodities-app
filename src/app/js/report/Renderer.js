@@ -28,14 +28,14 @@ define([
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='result-block total-loss'>" +
 						"<div class='left-panel'>" +
-							"<div class='loss-chart' id='" + config.rootNode + "_loss'></div>" +
+							"<div class='loss-chart' id='" + config.rootNode + "_loss'><div class='loader-wheel'>total loss</div></div>" +
 						"</div>" +
 						"<div class='right-panel'>" +
-							"<div class='fires-chart' id='" + config.rootNode + "_fire'></div>" +
+							"<div class='fires-chart' id='" + config.rootNode + "_fire'><div class='loader-wheel'>active fires</div></div>" +
 						"</div>" +
 					"</div>" +
 					"<div class='result-block clearance-alerts'>" +
-						"<div class='clearance-chart' id='" + config.rootNode + "_clearance'></div>" +
+						"<div class='clearance-chart' id='" + config.rootNode + "_clearance'><div class='loader-wheel'>clearnce alerts</div></div>" +
 					"</div>" +
 					"<div class='result-block mill-points'>" +
 						"<div class='mill-table' id='" + config.rootNode + "_mill'></div>" +
@@ -57,7 +57,7 @@ define([
 			node.id = config.rootNode;
 			node.className = "result-container";
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
-					"<div class='rspo-table-container' id='" + config.rootNode + "_table'></div>" + 
+					"<div class='rspo-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>rspo analysis</div></div>" + 
 					"<div class='rspo-chart-container' id='" + config.rootNode + "_chart'></div>";
 
 			// Append root to fragment and then fragment to document
@@ -320,7 +320,8 @@ define([
 			*/
 			function createBadge(rootNode, activeFires, totalActiveFires, description) {
 				var fragment = document.createDocumentFragment(),
-						node = document.createElement('div');
+						node = document.createElement('div'),
+						dest = document.getElementById(rootNode + '_fire');
 
 				node.className = "active-fires-badge";
 				node.innerHTML = "<div>There are currently</div>" +
@@ -333,7 +334,8 @@ define([
 
 				// Append root to fragment and then fragment to document
 				fragment.appendChild(node);
-				document.getElementById(rootNode + '_fire').appendChild(fragment);
+				dest.innerHTML = "";
+				dest.appendChild(fragment);
 			}
 
 			/*

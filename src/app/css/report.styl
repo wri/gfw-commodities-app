@@ -8,6 +8,7 @@ baseGray = #e6e6e6
 lightGrayFont = #747474
 mediumGray = #888
 redButton = #F44
+orangeButton = rgb(233, 131, 0)
 
 // Font Family for the Application
 @font-face
@@ -50,7 +51,7 @@ html, body
 	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif	
 
 .gfw .subscribe-alerts
-	background-color redButton
+	background-color orangeButton
 	padding 5px 8px 3px
 	border-radius(5px)
 	position absolute
@@ -162,3 +163,54 @@ html, body
 
 .gfw .suitability-container .left-panel
 	min-height 400px
+
+.gfw .loader-wheel
+	background url('images/loader.gif') no-repeat left
+	background-color baseGray
+	background-color rgba(230,230,230,0.75)
+	padding 6px 5px 0 25px
+	border 1px solid #000
+	background-size 22px
+	display inline-block
+	border-radius(5px)
+	height 22px
+
+.gfw .loader-wheel.area
+	position relative
+	width 22px
+	padding 0
+	top 7px
+
+.gfw .checkbox-container
+	padding 5px
+
+.gfw .checkbox-container input
+	margin-right 5px
+	
+.gfw .email-container, .gfw .submit-container, .gfw .message-container
+	text-align center
+	margin 10px 0
+
+.gfw .email-container input
+	border 1px solid baseGray
+	border-radius(5px)
+	line-height 26px
+	padding-left 5px
+	font-size 14px
+	height 26px
+	width 240px
+	outline 0
+
+.gfw .submit-container button
+	border 1px solid baseGray
+	background baseGray
+	border-radius(3px)
+	padding 5px 3px
+	font-size 14px
+	cursor pointer
+	outline 0
+
+.gfw .submit-container button:hover, .gfw .submit-container button:active
+	border 1px solid orangeButton
+	background orangeButton
+

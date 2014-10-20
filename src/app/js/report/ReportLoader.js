@@ -10,6 +10,7 @@
   ],
   css = [
     'http://js.arcgis.com/3.10/js/esri/css/esri.css',
+    'http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css',
     '../../css/report.css'
   ],
   URL = location.pathname.replace(/app\/js\/report.*/, '') + 'app',
@@ -105,9 +106,8 @@
   };
   
   /*
-    @param {array} originalArray
-    @param {number} chunkSize
-    @return {array}
+    @param {number} chunkSize size of each chunk of the returned array
+    @return {array} an array or arrays with each array's length being the specified chunk size
   */
   Array.prototype.chunk = function (chunkSize) {
     var resultingArrays = [], index = 0;

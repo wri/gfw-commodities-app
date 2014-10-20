@@ -25,7 +25,7 @@ define([
 	var initialized = false,
 			mapModel,
 			layerList,
-            dataDivLoaded = false,
+      dataDivLoaded = false,
 			map;
     var infoDiv = document.createElement("infoDiv");
 
@@ -65,8 +65,8 @@ define([
 				self.bindUIEvents();			
 			});
 
-			// Set up zoom listener for Protected Areas Layer
-			app.map.on('zoom-end', LayerController.checkProtectedAreasLayer);
+			// Set up zoom listener for Protected Areas Layer *and now Gain Layer
+			app.map.on('zoom-end', LayerController.checkZoomDependentLayers.bind(LayerController));
 
 			// Set up Click Listener to Perform Identify
 			app.map.on('click', Finder.performIdentify.bind(Finder));
@@ -171,17 +171,15 @@ define([
 				MapControl.resetSuitabilitySettings();
 			});
 
+			on(dom.byId("close-suitability"), "click", function () {
+				// Pass in the key from the MapConfig.LayerUI
+				// for Custom Suitability Layer
+				self.toggleItemInLayerList('suit');
+			});
+
 			on(dom.byId("wizard-tab"), "click", function () {
 				WizardHelper.toggleWizard();
 			});
-
-			// dojoQuery(".layer-list-item.forest-change input").forEach(function (node) {
-			// 	on(node, "change", LayerController.toggleForestChangeLayers.bind(LayerController));
-			// });
-
-			// dojoQuery(".layer-list-item.forest-cover input").forEach(function (node) {
-			// 	on(node, "change", LayerController.toggleForestCoverLayers.bind(LayerController));
-			// });
 
 		},
 
@@ -203,18 +201,6 @@ define([
 			// Add the Appropriate Class so the Items display correct color, styling etc.
 			domClass.remove("master-layer-list");
 			domClass.add("master-layer-list", newclass);
-
-			// If Reverting to Knockout Way, Header data-class need to be changed to first parameter in below functions
-
-			// Hide other List Elements
-			// MapModel.set('forestUse', false);
-			// MapModel.set('forestCover', false);
-			// MapModel.set('forestChange', false);
-			// MapModel.set('conservation', false);
-			// MapModel.set('agroSuitability', false);
-
-			// MapModel.set(filter, true);
-			// MapModel.set('filterTitle', el.children[0].innerHTML);
 
 			// Update the list, reuse the title from the first anchor tag in the element (el)
 			if (layerList) {
@@ -244,6 +230,10 @@ define([
 
 			MapControl.generateTimeSliders();
 
+		},
+
+		toggleItemInLayerList: function (key) {
+			layerList.toggleFormElement(key);
 		},
 
         showInfoPanel: function (infoPanelClass) {

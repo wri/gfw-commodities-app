@@ -1,14 +1,22 @@
 define([
+	"dojo/on",
+	"dojo/dom",
+	"dojo/query",
 	"esri/config",
 	"esri/request",
 	"dojo/Deferred",
 	"dojo/dom-class",
 	"dojo/promise/all",
 	"dojo/_base/array",
+	"dijit/Dialog",
+	"dojox/validate/web",
+	"esri/geometry/Point",
+	"esri/SpatialReference",
+	"esri/geometry/webMercatorUtils",
 	// Local Modules from report folder
 	"report/config",
 	"report/Fetcher"
-], function (esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Config, Fetcher) {
+], function (on, dom, dojoQuery, esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, SpatialReference, webMercatorUtils, Config, Fetcher) {
 	'use strict';
 
 	window.report = {};
@@ -20,6 +28,7 @@ define([
 			if (window.payload) {
 				this.applyConfigurations();
 				this.prepareForAnalysis();
+				this.addSubscriptionDialog();
 			}
 		},
 
@@ -133,6 +142,14 @@ define([
 			domClass.remove("print", "disabled");
 
 			// Add the Print Listener
+			on(dom.byId('print'), 'click', function () {
+				window.print();
+			});
+
+			// Remove all loading wheels and show error messages for the remaining ones
+			dojoQuery(".loader-wheel").forEach(function (node) {
+				node.parentNode.innerHTML = "There was an error getting these results at this time.";
+			});
 
 		},
 
@@ -235,6 +252,190 @@ define([
 			});
 
 			return deferreds;
+		},
+
+		addSubscriptionDialog: function () {
+			var dialog = new Dialog({
+				title: 'Subscribe to Alerts!',
+				style: 'width: 300px;'
+			}),
+			self = this,
+			content = "<div class='subscription-content'>" + 
+									"<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Forma Alerts</label></div>" + 
+									"<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' disabled />Fires Alerts</label></div>" +
+									"<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
+									"<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
+									"<div id='from-response' class='message-container'></div>" +
+								"</div>";
+
+			dialog.setContent(content);
+
+			on(dom.byId("subscribeToAlerts"), 'click', function () {
+				dialog.show();
+			});
+
+			on(dom.byId("subscribe-now"), 'click', function () {
+				// Show loading Wheel
+				// It will be removed when there is an error or on complete
+				dom.byId('from-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
+				self.subscribeToAlerts();
+			});
+
+		},
+
+		subscribeToAlerts: function () {
+			var geoJson = this.convertGeometryToGeometric(report.geometry),
+					emailAddr = dom.byId('user-email').value,
+					formaCheck = dom.byId('forma_check').checked,
+					firesCheck = dom.byId('fires_check').checked,
+					errorMessages = [],
+					messages = {};
+
+			// Set up the text for the messages
+			messages.invalidEmail = 'You must provide a valid email in the form.';
+			messages.noSelection = 'You must select at least one checkbox from the form.';
+			messages.formaSuccess = 'Thank you for subscribing to Forma Alerts.  You should receive a confirmation email soon.';
+			messages.formaFail = 'There was an error with your request to subscribe to Forma alerts.  Please try again later.';
+			messages.fireSuccess = 'Thank you for subscribing to Fires Alerts.  You should receive a confirmation email soon.';
+			messages.fireFail = 'There was an error with your request to subscribe to Fires alerts.  Please try again later.';
+
+			if (!validate.isEmailAddress(emailAddr)) {
+				errorMessages.push(messages.invalidEmail);
+			}
+
+			if (!formaCheck && !firesCheck) {
+				errorMessages.push(messages.noSelection);
+			}
+
+			if (errorMessages.length > 0) {
+				alert('Please fill in the following:\n' + errorMessages.join('\n'));
+			} else {
+				// If both are checked, request both and show the appropriate responses
+				if (formaCheck && firesCheck) {
+					var responses = [];
+					all([
+						this.subscribeToForma(geoJson, emailAddr),
+						this.subscribeToFires(report.geometry, emailAddr)
+					]).then(function (results) {
+						// Check the results and inform the user of the results
+						if (results[0]) {
+							responses.push(messages.formaSuccess);
+						} else {
+							responses.push(messages.formaFail);
+						}
+
+						if (results[1]) {
+							responses.push(messages.fireSuccess);
+						} else {
+							responses.push(messages.fireFail);
+						}
+
+						dom.byId('from-response').innerHTML = responses.join('<br />');
+
+					});
+
+				// Else if just forma alerts are checked, subscribe to those and show the correct responses
+				} else if (formaCheck) {
+					this.subscribeToForma(geoJson, emailAddr).then(function (res) {
+						if (res) {
+							dom.byId('from-response').innerHTML = messages.formaSuccess;
+						} else {
+							dom.byId('from-response').innerHTML = messages.formaFail;
+						}
+					});
+				// Else if just fires alerts are checked, subscribe to those and show the correct responses
+				} else if (firesCheck) {
+					this.subscribeToFires(report.geometry, emailAddr).then(function (res) {
+						if (res) {
+							dom.byId('from-response').innerHTML = messages.fireSuccess;
+						} else {
+							dom.byId('from-response').innerHTML = messages.fireFail;
+						}
+					});
+				}
+
+			}
+			
+		},
+
+		subscribeToForma: function (geoJson, email) {
+			var url = 'http://gfw-apis.appspot.com/subscribe',
+					deferred = new Deferred(),
+					req = new XMLHttpRequest(),
+					params = JSON.stringify({
+						'topic': 'updates/forma',
+						'geom': '{"type": "' + geoJson.type + '", "coordinates":[' + JSON.stringify(geoJson.geom) + ']}',
+						'email': email
+					}),
+					res;
+
+			req.open('POST', url, true);
+			req.onreadystatechange = function () {
+				if (req.readyState === 4) {
+					if (res.status === 200) {
+						res = JSON.parse(req.response);
+						deferred.resolve(res.subscribe);
+					} else {
+						deferred.resolve(false);
+					}
+				}
+			};
+			// Handle any potential network errors here
+			// If there is an application level error, catch it above
+			req.addEventListener('error', function () {
+				deferred.resolve(false);
+			}, false);
+			req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			req.send(params);
+			return deferred.promise;
+		},
+
+		subscribeToFires: function (geometry, email) {
+			var deferred = new Deferred();
+			deferred.resolve(false);
+			return deferred.promise;
+		},
+
+		convertGeometryToGeometric: function (geometry) {
+			var sr = new SpatialReference({
+          	wkid: 102100
+      		}),
+      		geometryArray = [],
+      		newRings = [],
+      		geo,
+      		pt;
+
+      // Helper function to determine if the coordinate is already in the array
+      // This signifies the completion of a ring and means I need to reset the newRings
+      // and start adding coordinates to the new newRings array
+		  function sameCoords(arr, coords) {
+		      var result = false;
+		      arrayUtils.forEach(arr, function(item) {
+		          if (item[0] === coords[0] && item[1] === coords[1]) {
+		              result = true;
+		          }
+		      });
+		      return result;
+		  }
+
+		  arrayUtils.forEach(geometry.rings, function(ringers) {
+		      arrayUtils.forEach(ringers, function(ring) {
+		          pt = new Point(ring, sr);
+		          geo = webMercatorUtils.xyToLngLat(pt.x, pt.y);
+		          if (sameCoords(newRings, geo)) {
+		              newRings.push(geo);
+		              geometryArray.push(newRings);
+		              newRings = [];
+		          } else {
+		              newRings.push(geo);
+		          }
+		      });
+		  });
+
+		  return {
+		      geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
+		      type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
+		  };
 		}
 
 	};

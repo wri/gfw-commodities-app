@@ -121,6 +121,7 @@ define([
 					formaAlertsLayer,
 					formaParams,
 					gainLayer,
+					gainHelperLayer,
 					lossLayer,
 					lossParams,
 					treeCoverDensityLayer,
@@ -215,8 +216,13 @@ define([
 				opacity: 1
 			});
 
-			gainLayer = new ArcGISImageServiceLayer(MapConfig.gain.url, {
+			gainLayer = new ArcGISTiledMapServiceLayer(MapConfig.gain.url, {
 				id: MapConfig.gain.id,
+				visible: false
+			});
+
+			gainHelperLayer = new ArcGISImageServiceLayer(MapConfig.gainHelper.url, {
+				id: MapConfig.gainHelper.id,
 				visible: false
 			});
 
@@ -341,6 +347,7 @@ define([
 				formaAlertsLayer,
 				lossLayer,
 				gainLayer,
+				gainHelperLayer,
 				// Points Layers
 				firesLayer,
 				// Overlays
@@ -362,7 +369,7 @@ define([
 				});
 
 				layerInfos = arrayUtils.filter(layerInfos, function (item) {
-					return !item.layer.url ? false : item.layer.url.search('ImageServer') < 0;
+					return !item.layer.url ? false : (item.layer.url.search('ImageServer') < 0 && item.layer.id.search('Gain') < 0);
 				});
 
 				registry.byId("legend").refresh(layerInfos);
@@ -373,6 +380,7 @@ define([
 			formaAlertsLayer.on('error', this.addLayerError);
 			lossLayer.on('error', this.addLayerError);
 			gainLayer.on('error', this.addLayerError);
+			gainHelperLayer.on('error', this.addLayerError);
 			treeCoverDensityLayer.on('error', this.addLayerError);
 			primaryForestLayer.on('error', this.addLayerError);
 			customSuitabilityLayer.on('error', this.addLayerError);

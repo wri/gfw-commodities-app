@@ -108,6 +108,7 @@ define([
 
 			// Map Controller Functions
       topic.subscribe('showInfoPanel', MapController.showInfoPanel);
+      topic.subscribe('toggleItemInLayerList', MapController.toggleItemInLayerList);
 
 		}
 

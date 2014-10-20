@@ -25,7 +25,12 @@ define([
 			// The WDPA or pal layer has a helper layer it needs to manage
 			// offload that functionality to a different function
 			if (layerConfig.id === MapConfig.pal.id) {
-				this.toggleWDPALayer(layerConfig);
+				this.updateZoomDependentLayer(layerConfig, MapConfig.palHelper, 6);
+				return;
+			}
+
+			if (layerConfig.id === MapConfig.gain.id) {
+				this.updateZoomDependentLayer(layerConfig, MapConfig.gainHelper, 13);
 				return;
 			}
 
@@ -306,10 +311,18 @@ define([
 			domClass.add('suitability_loader', 'hidden');
 		},
 
-		checkProtectedAreasLayer: function (evt) {			
-			var helperConfig = MapConfig.palHelper,
-					tiledConfig = MapConfig.pal,
-					helperLayer,
+		checkZoomDependentLayers: function (evt) {
+			var protectedAreaConfig = MapConfig.pal,
+					protectedAreaHelperConfig = MapConfig.palHelper,
+					gainLayerConfig = MapConfig.gain,
+					gainHelperConfig = MapConfig.gainHelper;
+
+			this.toggleZoomDependentLayer(evt, protectedAreaConfig, protectedAreaHelperConfig, 6);
+			this.toggleZoomDependentLayer(evt, gainLayerConfig, gainHelperConfig, 13);
+		},
+
+		toggleZoomDependentLayer: function (evt, tiledConfig, helperConfig, level) {			
+			var helperLayer,
 					mainLayer;
 
 			helperLayer = app.map.getLayer(helperConfig.id);
@@ -319,7 +332,7 @@ define([
 				return;
 			}
 
-			if (app.map.getLevel() > 6) {
+			if (app.map.getLevel() > level) {
 				helperLayer.show();
 				mainLayer.hide();
 			} else {
@@ -327,23 +340,20 @@ define([
 				mainLayer.show();
 			}
 
-
 		},
 
-		toggleWDPALayer: function (layerConfig) {
-			var helperConfig = MapConfig.palHelper,
-					tiledConfig = layerConfig,
-					helperLayer,
+		updateZoomDependentLayer: function (layerConfig, helperConfig, level) {
+			var helperLayer,
 					mainLayer;
 
 			helperLayer = app.map.getLayer(helperConfig.id);
-			mainLayer = app.map.getLayer(tiledConfig.id);
+			mainLayer = app.map.getLayer(layerConfig.id);
 
 			if (mainLayer.visible || helperLayer.visible) {
 				helperLayer.hide();
 				mainLayer.hide();
 			} else {
-				if (app.map.getLevel() > 6) {
+				if (app.map.getLevel() > level) {
 					helperLayer.show();
 				} else {
 					mainLayer.show();
@@ -418,6 +428,9 @@ define([
 			// the Set Dynamic Layer Transparency function
 			if (layer.id === 'ProtectedAreas') {
 				this.setDynamicLayerTransparency(MapConfig.palHelper, transparency);
+			}
+			if (layer.id === 'Gain') {
+				this.setLayerOpacity(MapConfig.gainHelper, transparency);
 			}
 		},
 

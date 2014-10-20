@@ -287,7 +287,7 @@ define([
 
 			function failure(error) {
 				if (error.details) {
-					if (err.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+					if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
 						content.pixelSize = 500;
 						self._computeHistogram(url, content, success, failure);
 					} else {
@@ -430,6 +430,7 @@ define([
 			this._debug('Fetcher >>> _getFireAlertAnalysis');
 			var deferred = new Deferred(),
 					polygon = new Polygon(report.geometry),
+					errorCount = 0,
 					self = this,
 					defs = [],
 					params2,
@@ -458,6 +459,15 @@ define([
 			]).then(function (results) {
 				ReportRenderer.renderFireData(_fireQueriesToRender, results);
 				deferred.resolve(true);
+			});
+
+			// Handle the possibility of these functions both erroring out
+			task1.on('error', function () {
+				deferred.resolve(false);
+			});
+
+			task2.on('error', function () {
+				deferred.resolve(false);
 			});
 
 			return deferred.promise;

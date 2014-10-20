@@ -197,6 +197,16 @@ define([
 
     _postCreate: function (component) {
       _components.push(component);
+    },
+
+    toggleFormElement: function (key) {
+      // Loop through the components
+      // If the key matches, trigger the onChange callback (a.k.a. props.handle)
+      _components.forEach(function (comp) {
+        if (comp.props.key === key) {
+          comp.props.handle(comp);
+        }
+      });
     }
 
   });
