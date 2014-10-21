@@ -110,7 +110,7 @@ define([
         },
 
         _mapper: function(item) {
-            //console.log(item);
+            console.log(item);
             return new WizardCheckbox({
                 'label': item.label,
                 'value': item.value,

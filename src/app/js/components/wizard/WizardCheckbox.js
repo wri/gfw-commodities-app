@@ -1,7 +1,8 @@
 define([
     "react",
-    "components/Check"
-], function(React, Check) {
+    "components/Check",
+    "dojo/topic"
+], function(React, Check, topic) {
 
     return React.createClass({
 
@@ -40,21 +41,24 @@ define([
                     },
                     React.DOM.div({
                             'className': className,
-                            'onClick': this._toggle,
+
                             'data-value': this.props.value
                         },
                         React.DOM.span({
-                                'className': 'custom-check'
+                                'className': 'custom-check',
+                                'onClick': this._toggle
                             },
                             React.DOM.span({})
                         ),
-                        React.DOM.span({
-                            'className': 'layer-info-icon',
-                            'onClick': Check.showInfo
-                        }),
                         React.DOM.a({
-                            'className': 'wizard-checkbox-label'
-                        }, this.props.label)
+                            'className': 'wizard-checkbox-label',
+                            'onClick': this._toggle
+                        }, this.props.label),
+                        React.DOM.div({
+                            'className': 'layer-info-icon',
+                            'onClick': this.showInfo
+                            //'onClick': Check.showInfo
+                        })
                     )
                 )
             );
@@ -65,6 +69,19 @@ define([
             this.setState({
                 active: !this.state.active
             });
+        },
+
+        showInfo: function(synEvent) {
+            console.log(synEvent);
+            if (document.getElementsByClassName(this.props.infoDivClass).length) {
+                console.log(this.props.infoDivClass);
+                topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+            } else {
+                console.log(this);
+                console.log(this.props.infoDivClass);
+                topic.publish('showInfoPanel', this.props.infoDivClass);
+            }
+
         }
 
     });
