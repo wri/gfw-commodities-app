@@ -16,7 +16,7 @@
   </div>
   <div class="homeModeDotsContainer">
     <div data-bind="foreach:homeModeOptions" class="homeModeOuter">
-      <div data-bind="css:{activeDot:display}" class="homeModeDot">aasd</div>
+      <div data-bind="css:{activeDot:display},click:$root.dotSelect,attr:{title:tooltip}" class="homeModeDot">&nbsp;</div>
     </div>
   </div>
 

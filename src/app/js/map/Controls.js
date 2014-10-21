@@ -59,7 +59,7 @@ define([
                 "dijit/Dialog",
                 "dojo/_base/lang"
             ], function(Dialog, Lang) {
-
+                var contentClone = Lang.clone(content);
                 var node = contentClone.querySelector(".source_body")
                 if (node.querySelector(".source_extended")) {
                     node.removeChild(node.querySelector(".source_extended"));
@@ -287,7 +287,7 @@ define([
                             $("#sliderProgressLine2").hide();
                             $("#playLine3").hide();
                             var values3 = [from, to];
-                            for (var i = 1; i < 21; i++) {
+                            for (var i = 1; i < 22; i++) {
                                 var item2 = $(".container3 > div:nth-child(" + i + ")");
 
                                 if ((i < from + 1) || (i > to)) {
@@ -442,24 +442,18 @@ define([
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
                     timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                }, 500);
+                }, 400);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
                     if ($range2.playing == false) {
                         return;
                     }
-
                     months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-                    console.log(thumbOne);
 
                     var monthNum = parseInt(thumbOne);
                     currentMonth = (monthNum + 1) % 12;
                     //currentMonth = (thumbOne + 1) % 12;
-
                     monthDisplay = months[currentMonth];
-
-                    console.log(monthDisplay);
-
                     $("#playLine3").html(monthDisplay);
                     $('#playLine3').css("left", "+=39.5px");
                     $('#sliderProgressLine2').css("left", "+=39.5px");
@@ -488,7 +482,7 @@ define([
                     if ($range2.playing == true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                        }, 500);
+                        }, 400);
                     }
                 }
             }
@@ -685,9 +679,14 @@ define([
                 ionCallback.call(this);
             });
             $("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div").click(function() {
-                $("#irs-1 > span.irs > span.irs-to").css("left", "760");
-                $("#treecover_change_toolbox > div.range-slider > div.playLineFiller > div").css("background-color", "#a1ba42");
-                $("#treecover_change_toolbox > div.range-slider > div.container2 > div").css("color", "#a1ba42");
+                // $("#irs-1 > span.irs > span.irs-to").css("left", "760");
+                // $("#treecover_change_toolbox > div.range-slider > div.playLineFiller > div").css("background-color", "#a1ba42");
+                // $("#treecover_change_toolbox > div.range-slider > div.container2 > div").css("color", "#a1ba42");
+                // //# irs - active - slider
+                // $("#irs-1 > span.irs > span.irs-from").hide();
+                // $("#irs-1 > span.irs > span.irs-to").hide();
+                // $("#irs-1 > span.irs > span.irs-slider.from").css("left", "0");
+
             });
 
             var ionCallback = function() {

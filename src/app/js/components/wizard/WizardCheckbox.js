@@ -1,6 +1,7 @@
 define([
-    "react"
-], function(React) {
+    "react",
+    "components/Check"
+], function(React, Check) {
 
     return React.createClass({
 
@@ -47,6 +48,10 @@ define([
                             },
                             React.DOM.span({})
                         ),
+                        React.DOM.span({
+                            'className': 'layer-info-icon',
+                            'onClick': Check.showInfo
+                        }),
                         React.DOM.a({
                             'className': 'wizard-checkbox-label'
                         }, this.props.label)
@@ -56,6 +61,7 @@ define([
         },
 
         _toggle: function() {
+            console.log(this);
             this.setState({
                 active: !this.state.active
             });

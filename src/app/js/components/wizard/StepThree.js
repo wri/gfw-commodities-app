@@ -62,6 +62,7 @@ define([
                                 'value': config.rspo.value,
                                 'change': this._selectionMade,
                                 'isResetting': this.props.isResetting
+
                             }),
                             React.DOM.p({
                                 'className': 'layer-description'
@@ -109,6 +110,7 @@ define([
         },
 
         _mapper: function(item) {
+            //console.log(item);
             return new WizardCheckbox({
                 'label': item.label,
                 'value': item.value,
@@ -116,6 +118,10 @@ define([
                 'isResetting': this.props.isResetting, // Pass Down so Components receive the reset command
                 'defaultChecked': item.checked || false
             });
+            // React.DOM.span({
+            //     'className': 'layer-info-icon',
+            //     'onClick': Check.showInfo
+            // });
         },
 
         _selectionMade: function(checked) {

@@ -2378,12 +2378,11 @@ address {
   width: 300px;
   height: 30px;
   align: center;
-  background-color: #f00;
   left: 50%;
   margin-left: -150px;
 }
 
-/* line 44 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 43 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsContainer {
   margin-top: 700px;
   position: absolute;
@@ -2391,7 +2390,7 @@ address {
   height: 100%;
 }
 
-/* line 51 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 50 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter {
   width: 300px;
   height: 300px;
@@ -2403,7 +2402,7 @@ address {
   overflow: visible;
 }
 
-/* line 63 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 62 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOuter {
   width: 300px;
   height: 30px;
@@ -2412,25 +2411,58 @@ address {
   overflow-y: hidden;
   margin: auto;
   overflow: visible;
+  text-align: center;
 }
 
 /* line 74 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeDot {
-  height: 30px;
-  width: 30px;
+  height: 15px;
+  width: 15px;
   margin-left: 10px;
   margin-right: 10px;
   display: inline-block;
-  color: #808080;
+  background-color: #fff;
   transition: all 2s;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  cursor: pointer;
 }
 
-/* line 84 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 86 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+.homeModeDot[title]:hover:after {
+  content: attr(title);
+  padding: 4px 8px;
+  color: #e98300;
+  position: absolute;
+  left: 20;
+  top: 100%;
+  z-index: 20;
+  white-space: nowrap;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: 0px 0px 4px #222;
+  -webkit-box-shadow: 0px 0px 4px #222;
+  box-shadow: 0px 0px 4px #222;
+  background-image: -moz-linear-gradient(top, #eee, #ccc);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eee), color-stop(1, #ccc));
+  background-image: -webkit-linear-gradient(top, #eee, #ccc);
+  background-image: -moz-linear-gradient(top, #eee, #ccc);
+  background-image: -ms-linear-gradient(top, #eee, #ccc);
+  background-image: -o-linear-gradient(top, #eee, #ccc);
+}
+
+/* line 110 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeDot.activeDot {
-  color: #008000;
+  background-color: #e98300;
+  transition: all 2s;
+  border: 1px solid #fff;
 }
 
-/* line 88 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 116 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup {
   height: 300px;
   width: 100%;
@@ -2439,7 +2471,7 @@ address {
   font-size: 20px;
 }
 
-/* line 97 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 125 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeOption {
   border-radius: 150px;
   -moz-border-radius: 150px;
@@ -2456,7 +2488,7 @@ address {
   box-sizing: border-box;
 }
 
-/* line 112 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 140 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeOptionRing {
   border-radius: 150px;
   -moz-border-radius: 150px;
@@ -2473,7 +2505,7 @@ address {
   box-sizing: border-box;
 }
 
-/* line 128 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 156 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText p {
   font-size: 72px;
   color: #ec1d38;
@@ -2481,7 +2513,7 @@ address {
   margin-bottom: 0px;
 }
 
-/* line 135 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 163 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText {
   font-family: "Georgia", serif;
   color: #ccc;
@@ -2492,37 +2524,37 @@ address {
   vertical-align: middle;
 }
 
-/* line 145 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 173 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span {
   font-size: 32px;
 }
 
-/* line 149 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 177 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span.more-text {
   position: relative;
   top: -1px;
 }
 
-/* line 153 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 181 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span.less-text {
   position: relative;
   top: 10px;
 }
 
-/* line 158 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 186 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm {
   font-family: "Arial MT Condensed Light";
   src: url("../fonts/ArialMTStd-LightCond.otf") format("opentype");
   color: #464052;
 }
 
-/* line 164 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 192 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm .select-container {
   background: url("../images/ico-carat-down.png") no-repeat 95% center transparent;
   width: 240px;
 }
 
-/* line 169 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 197 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm #aoiDistrictPicker {
   background: transparent;
   -webkit-appearance: none;
@@ -2534,7 +2566,7 @@ address {
   width: 240px;
 }
 
-/* line 180 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 208 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm #aoiSubDistrictPicker {
   border: 1px solid #bbb;
   border-radius: 5px;
@@ -2544,7 +2576,7 @@ address {
   width: 240px;
 }
 
-/* line 187 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 215 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm input[type="email"],
 #signUpAlertsForm input[type="tel"] {
   border-radius: 5px;
@@ -2555,13 +2587,13 @@ address {
   height: 30px;
 }
 
-/* line 194 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 222 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm #verifyEmailForAlerts {
   font-size: 12px;
   display: none;
 }
 
-/* line 199 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 227 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #alerts-submit-button {
   background: #e50036;
   padding: 5px 10px;
@@ -2571,12 +2603,12 @@ address {
   border: none;
 }
 
-/* line 208 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 236 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm td {
   padding: 2px 6px;
 }
 
-/* line 212 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
+/* line 240 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/home.styl */
 #signUpAlertsForm .error-messages {
   color: #e50036;
 }
@@ -3814,7 +3846,7 @@ address {
 
 /* line 1 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 939 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/rangeSlider.styl */
+/* line 945 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar
