@@ -21,8 +21,6 @@ define([
 
     o.startModeAnim = function() {
 
-        stopAnimation = false;
-
         var currentNodeId = 0; //start with last one
 
         var currentModeOption = function(id) {
@@ -61,7 +59,9 @@ define([
         require(["dojo/fx", "dojo/_base/fx", "dojo/query"], function(coreFx, baseFx, dojoQuery) {
 
             var runAnimation = function(id) {
-                //console.log("animating " + id);
+                console.log("animating " + id);
+
+
                 var itemsToAnimate = dojoQuery(".modeGroup");
 
                 //console.log(itemsToAnimate);
@@ -91,46 +91,65 @@ define([
                                 nextNodeId = 0;
                                 currentNodeId = 0;
                             }
-                            //currentNodeId++;
-                            //console.log(currentNodeId);
-                            //console.log(nextNodeId);
+
                             setTimeout(function() {
-                                currentModeOption(nextNodeId);
+
                                 //console.log(nextNodeId);
                                 if (!stopAnimation) {
+
+                                    currentModeOption(nextNodeId);
+
+
+                                    console.log("Value of StopAnnimation is - " + stopAnimation);
                                     setTimeout(function() {
                                         //console.log(nextNodeId);
-                                        runAnimation(nextNodeId);
+                                        if (!stopAnimation) {
+                                            runAnimation(nextNodeId);
+                                        }
+
                                     }, 1000);
-                                    // add next circle after this timeout ends
-                                    // getelementbyID w/ content
                                 }
-                            }, 500); //Time between animations when the circle just sits there
+                            }, 250); //Time between animations but before the next circle appears
                         },
                         units: "px",
                         duration: 1000, //Time it takes the circle to slide left and dissipate
                         delay: 2000 // Time we wait to animate on Load
                     })
-                    /*baseFx.animateProperty({
-	                    node: itemsToAnimate[id + 1],
-	                    properties: {
-	                        opacity: {
-	                            start: 0,
-	                            end: 1
-	                        }
-	                    },
-	                    duration: 500
-	                })*/
+
                 ]);
-                /*aspect.before(anim, "beforeBegin", function() {
-	                domStyle.set(container, "backgroundColor", "#eee");
-	            });*/
                 anim.play();
-                //.play();
             };
             runAnimation(currentNodeId);
         });
 
+    };
+
+    o.stopModeAnim = function(data) {
+        stopAnimation = true;
+
+        if (data) {
+            //o.startModeAnim(data.id);
+
+            var currentNodeId = data.id;
+
+            var homeModeOptions = HomeModel.vm.homeModeOptions();
+            //console.log(homeModeOptions);
+            HomeModel.vm.homeModeOptions([]);
+
+            var mappedHomModeOptions = arrayUtil.map(homeModeOptions, function(hmOpt, i) {
+
+                if (currentNodeId == i) {
+                    hmOpt.display = true;
+                } else {
+                    hmOpt.display = false;
+                }
+                HomeModel.vm.homeModeOptions.push(hmOpt);
+                return hmOpt;
+            });
+            //debugger;
+            //HomeModel.vm.homeModeOptions(mappedHomModeOptions);
+        }
+        //console.log("stop mode animation ");
     };
 
 
@@ -142,13 +161,11 @@ define([
                 registry.byId("stackContainer").selectChild("homeView");
                 return;
             }
-
             initialized = true;
             registry.byId("stackContainer").selectChild("homeView");
             registry.byId("homeView").set('content', template);
 
             HomeModel.initialize("homeView");
-
             o.startModeAnim();
 
         },
@@ -167,6 +184,18 @@ define([
                 }
                 // Blog is external! (requires different function)
             });
+
+        },
+
+        handleDotClick: function(obj) {
+
+            console.log(obj.id);
+
+            //debugger;
+            o.stopModeAnim(obj);
+
+            //o.startModeAnim(obj.id);
+
 
         }
 

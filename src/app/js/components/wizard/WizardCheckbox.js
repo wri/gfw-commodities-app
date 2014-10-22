@@ -1,6 +1,8 @@
 define([
-    "react"
-], function(React) {
+    "react",
+
+    "dojo/topic"
+], function(React, topic) {
 
     return React.createClass({
 
@@ -39,26 +41,75 @@ define([
                     },
                     React.DOM.div({
                             'className': className,
-                            'onClick': this._toggle,
+
                             'data-value': this.props.value
                         },
                         React.DOM.span({
-                                'className': 'custom-check'
+                                'className': 'custom-check',
+                                'onClick': this._toggle
                             },
                             React.DOM.span({})
                         ),
                         React.DOM.a({
-                            'className': 'wizard-checkbox-label'
-                        }, this.props.label)
+                            'className': 'wizard-checkbox-label',
+                            'onClick': this._toggle
+                        }, this.props.label),
+                        React.DOM.div({
+                            'className': 'layer-info-icon',
+                            'onClick': this.showInfo
+                        })
                     )
                 )
             );
         },
 
         _toggle: function() {
+            console.log(this);
             this.setState({
                 active: !this.state.active
             });
+        },
+
+        showInfo: function(synEvent) {
+            switch (this.props.value) {
+                case "peat":
+                    this.props.infoDivClass = "forest-and-land-cover-peat-lands";
+                    break;
+                case "treeDensity":
+                    this.props.infoDivClass = "forest-and-land-cover-tree-cover-density"
+                    break;
+                case "legal":
+                    this.props.infoDivClass = "forest-and-land-cover-legal-classifications"
+                    break;
+                case "protected":
+                    this.props.infoDivClass = "conservation-protected-areas"
+                    break;
+                case "carbon":
+                    this.props.infoDivClass = "forest-and-land-cover-carbon-stocks"
+                    break;
+                case "intact":
+                    this.props.infoDivClass = "forest-and-land-cover-intact-forest-landscape"
+                    break;
+                case "landCoverGlob":
+                    this.props.infoDivClass = "forest-and-land-cover-land-cover-global"
+                    break;
+                case "primForest":
+                    this.props.infoDivClass = "suitability-suitability-mapper"
+                    break;
+                case "suit":
+                    this.props.infoDivClass = "land-use-oil-palm"
+                    console.log("are we here?");
+                    break;
+            }
+
+            if (document.getElementsByClassName(this.props.infoDivClass).length) {
+                console.log(this.props.infoDivClass);
+                topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+            } else {
+                console.log(this.props.value);
+                topic.publish('showInfoPanel', this.props.infoDivClass);
+            }
+
         }
 
     });

@@ -61,6 +61,7 @@ define([
 
                 var contentClone = Lang.clone(content);
                 var node = contentClone.querySelector(".source_body");
+
                 if (node.querySelector(".source_extended")) {
                     node.removeChild(node.querySelector(".source_extended"));
                 }
@@ -211,18 +212,43 @@ define([
                 $from = $(".js-from"),
                 $to = $(".js-to"),
                 min = "1-13",
-                max = "8-14",
+                max,
                 from = "0",
-                to = "19";
+                to;
+
+            var incrementer = 0,
+                baseYear = 13,
+                labels3 = [],
+                month;
+            this.fetchFORMAAlertsLabels().then(function(res) {
+                if (res) {
+                    //console.log(res.maxValues[0] - res.minValues[0]);
+                    to = res.maxValues[0] - res.minValues[0];
+                    max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 13);
+                    //console.log(max);
+
+                    for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
+                        month = i % 12 === 0 ? 12 : i % 12;
+                        //console.log(month + "-" + (baseYear + incrementer));
+                        if (i % 12 === 0) {
+                            ++incrementer;
+                        }
+                    }
+                } else {
+                    console.log("fetching Forma labels failed!!");
+                }
+            });
 
             $("#master-layer-list > div > ul > li:nth-child(2)").click(function() {
-                console.log("in the Forma slider builder!");
+                //console.log("in the Forma slider builder!");
                 $("#playLine3").hide();
                 $("#sliderProgressLine2").hide();
                 var $this = $(this);
                 setTimeout(function() { //TODO : Fix this 
                     ionCallback.call();
                 }, 300);
+                $("#irs-2 > span.irs > span.irs-to").css("left", "759px");
+                $("#irs-2 > span.irs > span.irs-to").html(max);
             });
 
             var ionCallback = function() {
@@ -236,7 +262,7 @@ define([
                     prettify: false,
                     values: ["1-13", "2-13", "3-13", "4-13", "5-13", "6-13", "7-13",
                         "8-13", "9-13", "10-13", "11-13", "12-13", "1-14", "2-14",
-                        "3-14", "4-14", "5-14", "6-14", "7-14", "8-14"
+                        "3-14", "4-14", "5-14", "6-14", "7-14", "8-14", "9-14"
                     ],
                     onChange: function(data) {
                         from = data.fromNumber;
@@ -246,12 +272,15 @@ define([
                             $(".irs-single").hide();
                             $(".irs-to").show();
                         }
-                        if (from == 18 && to == 19) {
+                        if (from == 19 && to == 20) {
                             $(".irs-single").hide();
                             $(".irs-from").show();
                         }
-                        if (to == 19) {
+                        if (to == 20 && from != 20) {
                             $(".irs-diapason").css("width", "+=8px");
+                        }
+                        if (to == 20 && from == 20) {
+                            $(".irs-diapason").css("width", "-=8px");
                             console.log("adding width!");
                         }
                         $("#range2").ionRangeSlider("update");
@@ -259,7 +288,7 @@ define([
                             $("#sliderProgressLine2").hide();
                             $("#playLine3").hide();
                             var values3 = [from, to];
-                            for (var i = 1; i < 21; i++) {
+                            for (var i = 1; i < 22; i++) {
                                 var item2 = $(".container3 > div:nth-child(" + i + ")");
 
                                 if ((i < from + 1) || (i > to)) {
@@ -282,6 +311,11 @@ define([
                     },
                 });
                 $(".irs-slider.to").css("left", "790px");
+                //var newYearPlacement = $(".container3 > div:nth-child(13)").css("left");
+                //newYearPlacement -= 81.5px;
+                //console.log(newYearPlacement);
+                //$(".playLineFiller2 > div:nth-child(2)").css("margin-left", newYearPlacement);
+
                 $(".slider-container").show();
 
                 $("#formaAlertSlider").each(function() {
@@ -409,20 +443,21 @@ define([
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
                     timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                }, 500);
+                }, 400);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
                     if ($range2.playing == false) {
                         return;
                     }
-
                     months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-                    currentMonth = (thumbOne + 1) % 12;
-                    monthDisplay = months[currentMonth];
 
+                    var monthNum = parseInt(thumbOne);
+                    currentMonth = (monthNum + 1) % 12;
+                    //currentMonth = (thumbOne + 1) % 12;
+                    monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=41.5px");
-                    $('#sliderProgressLine2').css("left", "+=41.5px");
+                    $('#playLine3').css("left", "+=39.5px");
+                    $('#sliderProgressLine2').css("left", "+=39.5px");
 
                     console.log("Values to be used: " + values[0] + ", " + values[1]);
                     values[0] = parseInt(values[0]);
@@ -448,7 +483,7 @@ define([
                     if ($range2.playing == true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                        }, 500);
+                        }, 400);
                     }
                 }
             }
@@ -623,50 +658,6 @@ define([
             //timeSlider.on("previous", function (evt) { console.log("PREV!") });
             //timeSlider.on("next", function (evt) { console.log("NEXTTT!") });
 
-            /*timeSlider.on("time-extent-change", function (evt) {
-    		// These values are not updated immediately, call requestAnimationFrame 
-    		// to execute on the next available frame
-    		// if (play == active) {
-    		// 	return;
-    		// }
-    		
-    		var values;
-    		var secondSliderStop;
-    		//console.log(timeSlider.on("time-extent-change"));
-    		
-
-    		requestAnimationFrame(function () {
-    			values = [0, timeSlider.thumbIndexes[0]];
-    			//console.log(values);
-    			var firstSliderCurrent = timeSlider.thumbIndexes[0];
-    			if (timeSlider.thumbIndexes[1]) {
-	    			var secondSliderCurrent = timeSlider.thumbIndexes[1];
-    			};
-	    		var difference = secondSliderCurrent - firstSliderCurrent;
-	    		console.log("Years to run: " + difference);
-    			//timeSlider.createTimeStopsByCount(timeExtent, (0));
-    			console.log(timeSlider);
-    			console.log(timeSlider._getSliderValue());
-    			console.log(timeSlider._getSliderMinValue());
-    			timeSlider._updateThumbIndexes([3,4]);
-
-
-    			if (1 < secondSliderCurrent < 12) {
-    				console.log("here it would freeze!");
-    			};
-    			secondSliderStop = secondSliderCurrent;
-    			//console.log(timeSlider.getCurrentTimeExtent());
-    			//timeSlider.setThumbIndexes([firstSliderCurrent,secondSliderCurrent]);
-    			//timeSlider.setThumbIndexes([firstSliderCurrent, labels.length -1]);
-
-    			//console.log("First thumb NOW at: " + firstSliderCurrent);
-    			console.log(firstSliderCurrent);
-    			console.log(secondSliderCurrent);
-    			LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-    		});
-    	});*/
-
-
         },
 
         newTimeSlider: function() {
@@ -678,15 +669,25 @@ define([
             var $range = $(".js-range-slider"),
                 $from = $(".js-from"),
                 $to = $(".js-to"),
-                min = 2000,
-                max = 2012,
-                from = 2000,
-                to = 2012;
+                min = 2001,
+                max = 2013,
+                from = 2001,
+                to = 2013;
 
             $(".layer-list-item.forest-change > ul > li").click(function() {
                 console.log("***********");
                 var $this = $(this);
                 ionCallback.call(this);
+            });
+            $("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div").click(function() {
+                // $("#irs-1 > span.irs > span.irs-to").css("left", "760");
+                // $("#treecover_change_toolbox > div.range-slider > div.playLineFiller > div").css("background-color", "#a1ba42");
+                // $("#treecover_change_toolbox > div.range-slider > div.container2 > div").css("color", "#a1ba42");
+                // //# irs - active - slider
+                // $("#irs-1 > span.irs > span.irs-from").hide();
+                // $("#irs-1 > span.irs > span.irs-to").hide();
+                // $("#irs-1 > span.irs > span.irs-slider.from").css("left", "0");
+
             });
 
             var ionCallback = function() {
@@ -706,34 +707,36 @@ define([
                         //console.log(from + ", " + to);
                         updateValues();
                         if (from == to) {
-                            $(".irs-single").hide();
                             $(".irs-to").show();
                         }
-                        $("#range").ionRangeSlider("update");
-
+                        $(".irs-single").hide();
+                        //$("#range").ionRangeSlider("update");
                         if ($range.playing != true) {
                             $("#sliderProgressLine").hide();
                             $("#playLine2").hide();
-                            var values3 = [from - 2000, to - 2000];
+                            var values3 = [from - 2001, to - 2001];
                             //console.log(values3);
                             for (var i = 1; i < 12; i++) {
                                 var item1 = $(".playLineFiller > div:nth-child(" + i + ")");
                                 var item2 = $(".container2 > div:nth-child(" + i + ")");
-                                if ((i <= from - 2000) || (i >= to - 2000)) {
+                                if ((i <= from - 2001) || (i >= to - 2001)) {
                                     $(item1.selector).css("background-color", "transparent");
                                 } else {
                                     $(item1.selector).css("background-color", "#a1ba42");
                                 }
-                                if ((i < from - 1999) || (i > to - 2000)) {
+                                if ((i < from - 2000) || (i > to - 2001)) {
                                     $(item2.selector).css("color", "grey");
                                 } else {
                                     $(item2.selector).css("color", "#a1ba42");
                                 }
                             }
-                            if (to != 2012) {
+                            if (to != 2013) {
                                 $(".container2 > div:last-child").css("color", "grey");
                             } else {
                                 $(".container2 > div:last-child").css("color", "#a1ba42");
+                            }
+                            if (from == 2013) {
+                                $(".container2 > div:last-child").css("color", "grey");
                             }
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
                         }
@@ -749,8 +752,11 @@ define([
             if (!sliderInit) {
                 sliderInit = true;
                 ionCallback();
-                $(".irs-slider.to").css("left", "792px");
+                //$(".irs-slider.to").css("left", "792px");
                 $(".irs-diapason").hide();
+
+
+
                 $(".irs-diapason").css("background-color", "transparent");
                 $(".irs-slider.from.last").each(function() {
                     var node = this;
@@ -831,7 +837,7 @@ define([
                 $('#sliderProgressLine').css("left", sliderStart);
 
                 console.log(thumbOne);
-                if (sliderStart == undefined || (sliderStart == "0px" && thumbOne != 2000)) {
+                if (sliderStart == undefined || (sliderStart == "0px" && thumbOne != 2001)) {
                     console.log("using #2!!");
                     $('#playLine2').css("left", sliderStart2);
                     $('#playLine2').css("left", "-=1px");
@@ -882,8 +888,7 @@ define([
                 $("#" + thumbOne).show();
                 console.log($("#" + thumbOne));
                 //var values = [0,thumbOne-2000];
-                var values = [thumbOneInitial - 2000, thumbOne - 2000];
-                console.log("Values to be used: " + values[0] + " " + values[1]);
+                var values = [thumbOneInitial - 2001, thumbOne - 2001];
 
                 var playing = $range.playing;
                 var outer = setTimeout(function() {
@@ -946,7 +951,7 @@ define([
                     //values = [0,thumbOne-2000];
                     console.log("Start: " + thumbOneInitial);
                     console.log("End: " + thumbOne);
-                    values = [thumbOneInitial - 2000, thumbOne - 2000];
+                    values = [thumbOneInitial - 2001, thumbOne - 2001];
 
                     if (newThumbTwo > thumbTwo) {
                         thumbTwo = newThumbTwo;
