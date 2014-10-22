@@ -35,6 +35,7 @@ define([
                 (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel) : "none");
 
             return (
+
                 React.DOM.div({
                         'className': 'step select-analysis'
                     },
@@ -110,7 +111,6 @@ define([
         },
 
         _mapper: function(item) {
-            console.log(item);
             return new WizardCheckbox({
                 'label': item.label,
                 'value': item.value,

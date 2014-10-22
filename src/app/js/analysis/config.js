@@ -170,6 +170,12 @@ define([], function() {
             }]
         },
 
+        stepFive: {
+
+            description: "The analysis tools within Global Forest Watch Commodities allow users to customize analysis on land cover change, deforestation activity, and areas suitable for development. The following steps will guide you through selecting the geographic area of interest and the type of analysis you would like to conduct, and produce an array of charts according to your selections. The aim of this analysis is to support decisions surrounding land use and risk in forest commodities - we welcome FEEDBACK on these tools in hopes of continuing to improve upon them.",
+
+        },
+
         customArea: {
             instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
             instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",

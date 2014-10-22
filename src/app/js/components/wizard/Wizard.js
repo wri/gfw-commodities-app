@@ -5,11 +5,12 @@ define([
     "components/wizard/StepTwo",
     "components/wizard/StepThree",
     "components/wizard/StepFour",
+    "components/wizard/StepFive",
     // Other Helpful Modules
     "dojo/topic",
     "dojo/_base/array",
     "map/config"
-], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, topic, arrayUtils, MapConfig) {
+], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
@@ -45,13 +46,25 @@ define([
         },
 
         render: function() {
-            console.log('redndered!");')
+            console.log('rendered!');
             var props = this.props;
 
             // Mixin any state/props that need to be mixed in here
             props.analysisArea = this.state.analysisArea;
             props.currentStep = this.state.currentStep;
             console.log("currentStep: " + props.currentStep);
+            if (props.currentStep == 0) {
+                $(".breadcrumbs").hide();
+                $(".gfw .wizard-header").css("height", "-=45px");
+                $(".gfw .wizard-body").css("top", "55px");
+                $(".gfw .wizard-header .button.reset").hide();
+            } else {
+                $(".breadcrumbs").show();
+                $(".gfw .wizard-header").css("height", "+=45px");
+                $(".gfw .wizard-body").css("top", "95px");
+                $(".gfw .wizard-header .button.reset").show();
+                $(".gfw .wizard-header .button.reset").css("top", "0px");
+            }
             props.callback = {
                 nextStep: this._nextStep,
                 update: this._updateSelectedArea,
@@ -95,15 +108,20 @@ define([
                         React.DOM.div({
                                 'className': this.state.currentStep !== 0 ? 'hidden' : ''
                             },
-                            new StepOne(props)
+                            new StepFive(props)
                         ),
                         React.DOM.div({
                                 'className': this.state.currentStep !== 1 ? 'hidden' : ''
                             },
-                            new StepTwo(props)
+                            new StepOne(props)
                         ),
                         React.DOM.div({
                                 'className': this.state.currentStep !== 2 ? 'hidden' : ''
+                            },
+                            new StepTwo(props)
+                        ),
+                        React.DOM.div({
+                                'className': this.state.currentStep !== 3 ? 'hidden' : ''
                             },
                             new StepThree(props)
                         )
@@ -116,8 +134,8 @@ define([
         },
 
         _breadcrumbMapper: function(item, index) {
-            var className = index < this.state.currentStep ? 'enabled' : '';
-            className += this.state.currentStep === index ? ' active' : '';
+            var className = index < (this.state.currentStep - 1) ? 'enabled' : '';
+            className += (this.state.currentStep - 1) === index ? ' active' : '';
 
             return React.DOM.span({
                     'className': className
@@ -136,6 +154,7 @@ define([
         // UI Functions that affect internal properties only
         _changeStep: function(synEvent) {
             var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute("data-index");
+            console.log("Changing step!");
             if (targetIndex < this.state.currentStep) {
                 this.setState({
                     currentStep: (1 * targetIndex) // Convert to Int

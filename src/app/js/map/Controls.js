@@ -221,14 +221,14 @@ define([
                 month;
             this.fetchFORMAAlertsLabels().then(function(res) {
                 if (res) {
-                    console.log(res.maxValues[0] - res.minValues[0]);
+                    //console.log(res.maxValues[0] - res.minValues[0]);
                     to = res.maxValues[0] - res.minValues[0];
                     max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 13);
-                    console.log(max);
+                    //console.log(max);
 
                     for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
                         month = i % 12 === 0 ? 12 : i % 12;
-                        console.log(month + "-" + (baseYear + incrementer));
+                        //console.log(month + "-" + (baseYear + incrementer));
                         if (i % 12 === 0) {
                             ++incrementer;
                         }
@@ -239,7 +239,7 @@ define([
             });
 
             $("#master-layer-list > div > ul > li:nth-child(2)").click(function() {
-                console.log("in the Forma slider builder!");
+                //console.log("in the Forma slider builder!");
                 $("#playLine3").hide();
                 $("#sliderProgressLine2").hide();
                 var $this = $(this);
