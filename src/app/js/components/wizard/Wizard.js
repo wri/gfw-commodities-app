@@ -154,8 +154,9 @@ define([
         // UI Functions that affect internal properties only
         _changeStep: function(synEvent) {
             var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute("data-index");
-            console.log("Changing step!");
-            if (targetIndex < this.state.currentStep) {
+            targetIndex *= 1;
+            targetIndex += 1;
+            if (targetIndex < (this.state.currentStep + 1)) {
                 this.setState({
                     currentStep: (1 * targetIndex) // Convert to Int
                 });

@@ -4462,7 +4462,14 @@ address {
 /* line 167 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/wizard.styl */
 .gfw .step .step-one-main-description {
   font-size: 14px;
-  margin: 2px 0;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: gray;
+  line-height: 20px;
+}
+
+.gfw .step .step-one-main-description a {
+  color: orange;
 }
 
 /* line 171 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/wizard.styl */

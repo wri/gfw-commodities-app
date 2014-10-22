@@ -5,7 +5,7 @@ define([
     "dojo/dom-class",
     "utils/Hasher",
     "main/config",
-    "utils/NavListController"
+    "utils/NavListController",
 ], function(on, dom, query, domClass, Hasher, AppConfig, NavListController) {
     'use strict';
 
@@ -76,6 +76,14 @@ define([
                 Hasher.setHash("v", view);
             }
 
+            // require(["controllers/HomeController"], function(HomeController) {
+
+            //     if (view != "home" && HomeController.isInitialized()) {
+
+            //         console.log("should stop the animation here...")
+            //         HomeController.stopModeAnim();
+            //     }
+            // });
         },
 
         toggleForView: function(view) {
