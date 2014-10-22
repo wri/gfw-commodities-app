@@ -107,6 +107,7 @@ define([
 					series = [],
 					colors = [],
 					location,
+					sliceIndex,
 					data,
 					i, j;
 
@@ -130,6 +131,16 @@ define([
 					});
 					colors.push(config.colors[i]);
 				}
+			}
+
+			// Format the data based on some config value, removeBelowYear
+			// get index of removeBelowYear and use that to splice the data arrays and the xlabels
+			if (config.lossChart.removeBelowYear) {
+				sliceIndex = xLabels.indexOf(config.lossChart.removeBelowYear);
+				xLabels = xLabels.slice(sliceIndex);
+				arrayUtils.forEach(series, function (serie) {
+					serie.data = serie.data.slice(sliceIndex);
+				});
 			}
 
 			$("#" + config.rootNode + '_loss').highcharts({
@@ -199,21 +210,72 @@ define([
 					value,
 					i, j;
 
+			// Config eventually needs to be updated as this is no longer a pie chart
+			// Pie chart code and config are staying this way until client approves
+			// Will still need the if else, the else section constructs a series with only one value
+
 			if (config.clearanceChart.type === 'pie') {
-				for (i = 0; i < yMapValues.length; i++) {
-					value = 0;
-					for (j = 0; j < xMapValues.length; j++) {
-						location = encoder.encode(xMapValues[j], yMapValues[i]);
-						value += (histogramData[location] || 0);
-					}
-					series.push(value);
-				}
+				// for (i = 0; i < yMapValues.length; i++) {
+				// 	value = 0;
+				// 	for (j = 0; j < xMapValues.length; j++) {
+				// 		location = encoder.encode(xMapValues[j], yMapValues[i]);
+				// 		value += (histogramData[location] || 0);
+				// 	}
+				// 	series.push(value);
+				// }
 
 				// Account for pixelSize 
 				// series.map(mapFunction);
 
-				for (i = 0; i < series.length; i++) {
-					data.push([yLabels[i], series[i]]);
+				// for (i = 0; i < series.length; i++) {
+				// 	data.push([yLabels[i], series[i]]);
+				// }
+
+				// $("#" + config.rootNode + '_clearance').highcharts({
+				// 	chart: {
+				// 		plotBackgroundColor: null,
+				// 		plotBorderWidth: null,
+				// 		plotShadow: false
+				// 	},
+				// 	colors: config.colors,
+				// 	title: {
+				// 		text: config.clearanceChart.title
+				// 	},
+				// 	plotOptions: {
+				// 		pie: {
+				// 			allowPointSelect: true,
+				// 			cursor: 'pointer',
+				// 			showInLegend: true,
+				// 			dataLabels: {
+				// 				enabled: false
+				// 			}
+				// 		}
+				// 	},
+				// 	credits: {
+				// 		enabled: false
+				// 	},
+				// 	legend: {
+				// 		enabled: true
+				// 	},
+				// 	series: [{
+				// 		type: 'pie',
+				// 		name: 'Monthly Alerts',
+				// 		data: data
+				// 	}]
+				// });
+	
+				// Format data for line chart
+				for (i = 0; i < yMapValues.length; i++) {
+					value = 0;
+					data = [];
+					for (j = 0; j < xMapValues.length; j++) {
+						location = encoder.encode(xMapValues[j], yMapValues[i]);
+						data.push(histogramData[location] || 0);
+					}
+					series.push({
+						name: yLabels[i],
+						data: data
+					});
 				}
 
 				$("#" + config.rootNode + '_clearance').highcharts({
@@ -226,28 +288,21 @@ define([
 					title: {
 						text: config.clearanceChart.title
 					},
-					plotOptions: {
-						pie: {
-							allowPointSelect: true,
-							cursor: 'pointer',
-							showInLegend: true,
-							dataLabels: {
-								enabled: false
-							}
-						}
+					xAxis: {
+						categories: report.clearanceLabels
 					},
-					credits: {
-						enabled: false
+					yAxis: {
+						title: null
 					},
 					legend: {
 						enabled: true
 					},
-					series: [{
-						type: 'pie',
-						name: 'Monthly Alerts',
-						data: data
-					}]
+					credits: {
+						enabled: false
+					},
+					series: series
 				});
+
 
 			} else {
 
@@ -288,7 +343,7 @@ define([
 						enabled: false
 					},
 					series: [{
-						'name': 'Clearance Alerts',
+						'name': config.title,
 						'data': series
 					}]
 				});
@@ -373,7 +428,7 @@ define([
 						},
 						colors: chartColors,
 						title: {
-							text: null
+							text: "Active Fires"
 						},
 						plotOptions: {
 							pie: {

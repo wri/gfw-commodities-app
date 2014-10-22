@@ -45,8 +45,8 @@ define([
 
       if (newProps.selectedArea === 'certifiedAreaOption' && 
                      this.state.selectedScheme !== 'NONE' &&
-                     this.props.currentStep === 0 &&
-                     newProps.currentStep === 1) {
+                     this.props.currentStep === 1 &&
+                     newProps.currentStep === 2) {
         
         topic.publish('setCertificationSchemeDefinition', this.state.selectedScheme);
 

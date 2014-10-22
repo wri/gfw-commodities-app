@@ -123,6 +123,7 @@ define([
       */
 
       all(deferreds).then(function (featureSets) {
+        console.log("Resolved");
         arrayUtils.forEach(featureSets, function (item) {
           switch (item.layer) {
             case "Fires":
@@ -145,7 +146,7 @@ define([
             default: // Do Nothing
             break;
           }
-        });
+        }); 
 
         if (features.length > 0) {
           app.map.infoWindow.setFeatures(features);

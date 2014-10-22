@@ -174,7 +174,8 @@ define([], function () {
 			rasterId: "$5",
 			bounds: rspoBounds,
 			lossBounds: [5, 12],
-			colors: rspoColors
+			colors: rspoColors,
+
 		},
 
 		primaryForest: {
@@ -184,11 +185,12 @@ define([], function () {
 			bounds: primaryForestBounds,
 			labels: primaryForestLabels,
 			clearanceChart: {
-				title: "Clearance Alerts in Primary Forests since 2012",
+				title: "Clearance Alerts in Primary Forests since 2013",
 				type: "pie"
 			},
 			lossChart: {
 				title: "Annual Tree Cover Loss (in hectares) in Primary Forests",
+				removeBelowYear: 2005
 			},
 			colors: primaryForestColors,
 			fireKey: 'primaryForest' // Key to the Fires Config for items related to this
@@ -210,7 +212,7 @@ define([], function () {
 			bounds: treeCoverBounds,
 			labels: treeCoverLabels,
 			clearanceChart: {
-				title: "Clearance Alerts on Tree Cover Density since 2012",
+				title: "Clearance Alerts on Tree Cover Density since Jan 2013",
 				type: "pie"
 			},
 			lossChart: {
@@ -227,11 +229,12 @@ define([], function () {
 	    bounds: legalClassBounds,
 	    labels: legalClassLabels,
 	    clearanceChart: {
-	      title: "Clearance Alerts on Legal Classifications since 2012",
+	      title: "Clearance Alerts on Legal Classifications since Jan 2013",
 	      type: "pie"
 	    },
 	    lossChart: {
-	      title: "Annual Tree Cover Loss (in hectares) on Legal Classifications"
+	      title: "Annual Tree Cover Loss (in hectares) on Legal Classifications",
+	      removeBelowYear: 2005
 	    },
 	    colors: legalClassColors,
 	    fireKey: 'legalClass' // Key to the Fires Config for items related to this
@@ -244,7 +247,7 @@ define([], function () {
 	    bounds: protectedAreaBounds,
 	    labels: protectedAreaLabels,
 	    clearanceChart: {
-	      title: "Clearance Alerts on Protected Areas since 2012",
+	      title: "Clearance Alerts on Protected Areas since Jan 2013",
 	      type: "bar"
 	    },
 	    lossChart: {
@@ -261,11 +264,12 @@ define([], function () {
 	    bounds: carbonStockBounds,
 	    labels: carbonStockLabels,
 	    clearanceChart: {
-	      title: "Clearance Alerts on Forest Carbon Stocks since 2012",
+	      title: "Clearance Alerts on Forest Carbon Stocks since Jan 2013",
 	      type: "pie"
 	    },
 	    lossChart: {
-	      title: "Annual Tree Cover Loss (in hectares) on Forest Carbon Stocks (Mg C /Ha)"
+	      title: "Annual Tree Cover Loss (in hectares) on Forest Carbon Stocks (Mg C /Ha)",
+	      removeBelowYear: 2005
 	    },
 	    colors: carbonStockColors,
 	    fireKey: 'carbonStock' // Key to the Fires Config for items related to this
@@ -278,7 +282,7 @@ define([], function () {
 	    bounds: intactForestBounds,
 	    labels: intactForestLabels,
 	    clearanceChart: {
-	      title: "Clearance Alerts on Intact Forest Landscapes since 2012",
+	      title: "Clearance Alerts on Intact Forest Landscapes since Jan 2013",
 	      type: "bar"
 	    },
 	    lossChart: {
@@ -295,11 +299,12 @@ define([], function () {
 			bounds: peatLandsBounds,
 			labels: peatLandsLabels,
 			clearanceChart: {
-				title: "Clearance Alerts on Peat Lands since 2012",
+				title: "Clearance Alerts on Peat Lands since Jan 2013",
 				type: "bar"
 			},
 			lossChart: {
 				title: "Annual Tree Cover Loss (in hectares) on Peat Lands",
+				removeBelowYear: 2002
 			},
 			colors: peatLandsColors,
 			fireKey: 'peatLands' // Key to the Fires Config for items related to this
@@ -312,11 +317,12 @@ define([], function () {
 			bounds: lcGlobalBounds,
 			labels: lcGlobalLabels,
 			clearanceChart: {
-				title: 'Clearance Alerts on Land Cover - Global since 2012',
+				title: 'Clearance Alerts on Land Cover - Global since Jan 2013',
 				type: 'pie'
 			},
 			lossChart: {
-				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Global'
+				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Global',
+				removeBelowYear: 2004
 			},
 			colors: lcGlobalColors,
 			fireKey: 'landCoverGlobal' // Key to the Fires Config for items related to this
@@ -328,11 +334,12 @@ define([], function () {
 			bounds: lcAsiaBounds,
 			labels: lcAsiaLabels,
 			clearanceChart: {
-				title: 'Clearance Alerts on Land Cover - Southeast Asia since 2012',
+				title: 'Clearance Alerts on Land Cover - Southeast Asia since Jan 2013',
 				type: 'pie'
 			},
 			lossChart: {
-				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Southeast Asia'
+				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Southeast Asia',
+				removeBelowYear: 2005
 			},
 			colors: lcAsiaColors,
 			fireKey: 'landCoverAsia' // Key to the Fires Config for items related to this
@@ -344,11 +351,12 @@ define([], function () {
 			bounds: lcIndoBounds,
 			labels: lcIndoLabels,
 			clearanceChart: {
-				title: 'Clearance Alerts on Land Cover - Indonesia since 2012',
+				title: 'Clearance Alerts on Land Cover - Indonesia since Jan 2013',
 				type: 'pie'
 			},
 			lossChart: {
-				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Indonesia'
+				title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Indonesia',
+				removeBelowYear: 2006
 			},
 			colors: lcIndoColors,
 			fireKey: 'landCoverIndo' // Key to the Fires Config for items related to this

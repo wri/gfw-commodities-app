@@ -117,8 +117,12 @@ define([
         }, {usePost: true});
 
         req.then(function (res) {
-          callback(res.href);
-          _self.emit('image-ready', {});
+          try {
+            callback(res.href);
+            _self.emit('image-ready', {});
+          } catch (e) {
+            _self.refresh();
+          }
         }, function (err) {
           console.dir(err);
           _self.emit('image-ready', {});
@@ -153,8 +157,12 @@ define([
         }, {usePost: true});
 
         req.then(function (res) {
-          callback(res.href);
-          _self.emit('image-ready', {});
+          try {
+            callback(res.href);
+            _self.emit('image-ready', {});
+          } catch (e) {
+            _self.refresh();
+          }
         }, function (err) {
           console.dir(err);
           _self.emit('image-ready', {});

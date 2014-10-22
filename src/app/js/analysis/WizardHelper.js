@@ -213,8 +213,9 @@ define([
 				// for Certified Areas, it is option 4
 				// selectedArea set in switch statement above
 				wizard._updateSelectedArea(selectedArea);
-				// Set to Step 3, the parameter is index based so 0,1,2,3, 2 is the third step
-				wizard._externalSetStep(2);
+				// Set to Step 3, the parameter is index based like 0,1,2,3, 3 is the third step
+				// because we inserted a introduction step that is now step 0
+				wizard._externalSetStep(3);
 				// In this case, set the RefinedArea to the evt.graphic
 				// Graphics will need a WRI_label field that will be used as a label in the UI
 				wizard._updateAnalysisArea(feature);

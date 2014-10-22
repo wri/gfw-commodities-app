@@ -18,7 +18,9 @@ define([
 
     render: function () {
       return (
-        React.DOM.div({}, "Coming Soon!")
+        React.DOM.div({'className': 'mill-point', 'id': 'mill-point'},
+          "Coming Soon"
+        )
       );
     }
 

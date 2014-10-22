@@ -157,7 +157,7 @@ define([
             console.log("Changing step!");
             if (targetIndex < this.state.currentStep) {
                 this.setState({
-                    currentStep: (1 * targetIndex) // Convert to Int
+                    currentStep: (1 * targetIndex) + 1 // Convert to Int, add 1 because adding intro added a new step
                 });
             }
         },

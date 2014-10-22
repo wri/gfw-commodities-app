@@ -17,7 +17,7 @@ define([
   function getDefaultState() {
     return {
       completed: true,
-      selectedOption: option2.id
+      selectedOption: option3.id
     };
   }
 

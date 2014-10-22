@@ -238,7 +238,8 @@
         </div>
         <div id="suitability-accordion" class="suitability-accordion">
           <div id="environmental-criteria" class="accordion-container">
-            <div class="sub-heading">Environmental</div>
+
+
             <div class="slider-name">Peat Depth (cm)</div>
             <div class="slider-container">
               <div class="slider" id='peat-depth-slider'></div>
@@ -262,6 +263,36 @@
               <div class="slider" id='slope-slider'></div>
               <div class="slider-labels zero">0%</div>
               <div class="slider-labels hundred">80%</div>
+            </div>
+            <div class="slider-name">Elevation (m)</div>
+            <div class="slider-container">
+              <div class="slider" id="elevation-slider"></div>
+              <div class="slider-labels zero">0 m</div>
+              <div class="slider-labels hundred">5,000 m</div>
+            </div>
+            <div class="slider-name">Rainfall (mm)</div>
+            <div class="slider-container">
+              <div class="slider" id="rainfall-slider"></div>
+              <div class="slider-labels zero">1,500 mm/yr</div>
+              <div class="slider-labels hundred">6,000 mm/yr</div>
+            </div>
+            <div class="slider-name">Soil drainage</div>
+            <div class="slider-container">
+              <div class="slider" id="soil-drainage-slider"></div>
+              <div class="slider-labels zero">Stagnant</div>
+              <div class="slider-labels hundred">Very Excessive</div>
+            </div>
+            <div class="slider-name">Soil depth (cm)</div>
+            <div class="slider-container">
+              <div class="slider" id="soil-depth-slider"></div>
+              <div class="slider-labels zero">Very Shallow</div>
+              <div class="slider-labels hundred">Extremely Deep</div>
+            </div>
+            <div class="slider-name">Soil acidity (pH)</div>
+            <div class="slider-container">
+              <div class="slider" id="soil-acid-slider"></div>
+              <div class="slider-labels zero">Excessively Acid</div>
+              <div class="slider-labels hundred">Slightly Alkaline</div>
             </div>
             <div class="criteria-separator">Land Cover</div>
             <div class="suitable-checkbox">
@@ -347,39 +378,6 @@
             <div class="suitable-checkbox">
               <input id="airport-check" />
               <label for="airport-check" class="checkbox-label">Airport</label>
-            </div>
-          </div>
-          <div id="crop-criteria" class="accordion-container">
-            <div class="sub-heading">Crop</div>
-            <div class="slider-name">Elevation (m)</div>
-            <div class="slider-container">
-              <div class="slider" id="elevation-slider"></div>
-              <div class="slider-labels zero">0 m</div>
-              <div class="slider-labels hundred">5,000 m</div>
-            </div>
-            <div class="slider-name">Rainfall (mm)</div>
-            <div class="slider-container">
-              <div class="slider" id="rainfall-slider"></div>
-              <div class="slider-labels zero">1,500 mm/yr</div>
-              <div class="slider-labels hundred">6,000 mm/yr</div>
-            </div>
-            <div class="slider-name">Soil drainage</div>
-            <div class="slider-container">
-              <div class="slider" id="soil-drainage-slider"></div>
-              <div class="slider-labels zero">Stagnant</div>
-              <div class="slider-labels hundred">Very Excessive</div>
-            </div>
-            <div class="slider-name">Soil depth (cm)</div>
-            <div class="slider-container">
-              <div class="slider" id="soil-depth-slider"></div>
-              <div class="slider-labels zero">Very Shallow</div>
-              <div class="slider-labels hundred">Extremely Deep</div>
-            </div>
-            <div class="slider-name">Soil acidity (pH)</div>
-            <div class="slider-container">
-              <div class="slider" id="soil-acid-slider"></div>
-              <div class="slider-labels zero">Excessively Acid</div>
-              <div class="slider-labels hundred">Slightly Alkaline</div>
             </div>
             <div class="criteria-separator">Soil Type</div>
             <div class="suitable-checkbox">
