@@ -315,7 +315,7 @@ define([
       layerDefs[13] = layer.layerDefinitions[13];
 
       params.tolerance = 3;
-      params.returnGeometry = true;
+      params.returnGeometry = false;
       params.width = app.map.width;
       params.height = app.map.height;
       params.geometry = mapPoint;
