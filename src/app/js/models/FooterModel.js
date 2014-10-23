@@ -16,19 +16,19 @@ define([
                 var vm = o.vm;
                 vm.root = el;
 
-                vm.provincesAvailableForAlerts = ko.observableArray([]);
-                vm.districtsAvailableForAlerts = ko.observableArray([]);
-                vm.subDistrictsAvailableForAlerts = ko.observableArray([]);
-                vm.errorMessages = ko.observableArray([]);
-                vm.showErrorMessages = ko.observable(false);
-                vm.showSubDistrictWarning = ko.observable(false);
+            // vm.provincesAvailableForAlerts = ko.observableArray([]);
+            // vm.districtsAvailableForAlerts = ko.observableArray([]);
+            // vm.subDistrictsAvailableForAlerts = ko.observableArray([]);
+            // vm.errorMessages = ko.observableArray([]);
+            // vm.showErrorMessages = ko.observable(false);
+            // vm.showSubDistrictWarning = ko.observable(false);
 
-                vm.appState = ko.observable({});
+            // vm.appState = ko.observable({});
 
 
-                // Create Model Properties
-                //vm.homeModeOptions = ko.observableArray(AppConfig.homeModeOptions);
-                console.log(AppConfig.homeModeOptions);
+            // // Create Model Properties
+            // //vm.homeModeOptions = ko.observableArray(AppConfig.homeModeOptions);
+            // console.log(AppConfig.homeModeOptions);
 
 
                 // vm.modeSelect = function(obj, evt) {

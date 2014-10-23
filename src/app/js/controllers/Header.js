@@ -5,7 +5,7 @@ define([
     "dojo/dom-class",
     "utils/Hasher",
     "main/config",
-    "utils/NavListController",
+    "utils/NavListController"
 ], function(on, dom, query, domClass, Hasher, AppConfig, NavListController) {
     'use strict';
 
@@ -58,6 +58,16 @@ define([
         updateView: function(view, isExternal, initialized) {
 
             console.log("Updated View")
+
+            /*if (view == "home") {
+                require(["controllers/HomeController"], function(HomeController) {
+                    console.log("home has already been initialized");
+                    //if (HomeController.initialized == false) {
+                    HomeController.o.startModeAnim();
+                    //}
+                });
+            }*/
+
 
             if (isExternal === "true") {
                 this.redirectPage(view);
