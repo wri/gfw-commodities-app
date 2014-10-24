@@ -11,12 +11,13 @@ define([
 	"dijit/Dialog",
 	"dojox/validate/web",
 	"esri/geometry/Point",
+	"esri/geometry/Polygon",
 	"esri/SpatialReference",
 	"esri/geometry/webMercatorUtils",
 	// Local Modules from report folder
 	"report/config",
 	"report/Fetcher"
-], function (on, dom, dojoQuery, esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, SpatialReference, webMercatorUtils, Config, Fetcher) {
+], function (on, dom, dojoQuery, esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, webMercatorUtils, Config, Fetcher) {
 	'use strict';
 
 	window.report = {};
@@ -41,6 +42,13 @@ define([
 		prepareForAnalysis: function () {
 
 			report.geometry = JSON.parse(window.payload.geometry);
+
+			// If report.geometry is a circle, we need to make it a new valid polygon
+			if (report.geometry.radius) {
+				var temp = new Polygon();
+				temp.addRing(report.geometry.rings[1]);
+				report.geometry = temp;		
+			}
 
 			// Next, set some properties that we can use to filter what kinds of queries we will be performing
 			// Logic for the Wizard was changed, below may not be needed but it left here for reference incase

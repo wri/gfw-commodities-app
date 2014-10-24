@@ -1,10 +1,11 @@
 define([
 	"react",
 	"dojo/topic",
+  "dojo/dom-class",
 	"utils/Hasher",
 	"components/Check",
   "dijit/form/HorizontalSlider"
-], function (React, topic, Hasher, Check, HorizontalSlider) {
+], function (React, topic, domClass, Hasher, Check, HorizontalSlider) {
 
 	var Radio = React.createClass({
 
@@ -47,7 +48,7 @@ define([
     },
 
     toggle: function (synEvent) {
-        if(!synEvent.target.classList.contains('layer-info-icon') &&
+        if (!domClass.contains(synEvent.target, 'layer-info-icon') &&
             synEvent.target.className.search('dijit') < 0){
             this.props.handle(this);
         }

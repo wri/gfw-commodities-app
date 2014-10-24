@@ -11,7 +11,8 @@ define([], function() {
     // var adminUnitQueryUrl = 'http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
 
     // PRODUCTION URL
-    var adminUnitQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
+    var adminUnitQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
+        millPointMapService = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer';
 
     return {
 
@@ -45,7 +46,7 @@ define([], function() {
             },
             option5: {
                 'id': millPoint,
-                'label': 'Mill point',
+                'label': 'Palm oil mill points',
                 'description': 'View Mill points and their parent company\'s.'
             }
         },
@@ -288,6 +289,22 @@ define([], function() {
                 url: adminUnitQueryUrl + '/28',
                 requiredField: 'GROUP_NAME'
             }
+        },
+
+        millPoints: {
+            instructions: 'Select a commodity type:',
+            instructionsPartTwo: 'Select a feature from the list below and click "Next" to proceed.',
+            commodityOptions: [{
+                label: 'Oil palm concession',
+                value: 'Oil palm concession'
+            }],
+            url: millPointMapService + '/0',
+            api: 'http://risk-api.appspot.com/',
+            outFields: ['Parent_Com', 'Mill_name', 'Entity_ID'],
+            orderBy: ['Parent_Com', 'Mill_name'],
+            labelField: 'Mill_name', // Children
+            valueField: 'Entity_ID',
+            requiredField: 'Parent_Com' // Bucket a.k.a. parent
         }
 
     };

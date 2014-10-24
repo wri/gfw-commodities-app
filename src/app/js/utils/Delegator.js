@@ -32,6 +32,13 @@ define([
 				if (filter) {
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.adminUnit.countryBoundaries, filter);
 				}
+				// Hide the Mill Points layer if its visible
+				var layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+				if (layer) {
+					if (layer.visible) {
+						LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+					}
+				}
 			});
 
 			topic.subscribe('setCertificationSchemeDefinition', function (scheme) {
@@ -39,6 +46,13 @@ define([
 				// If filter is none, dont zoom to none, above will turn layer off when none is selected
 				if (scheme) {
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.certifiedArea.schemeQuery, scheme);
+				}
+				// Hide the Mill Points layer if its visible
+				var layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+				if (layer) {
+					if (layer.visible) {
+						LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+					}
 				}
 			});
 
@@ -48,7 +62,21 @@ define([
 				if (entityType) {
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);
 				}
-			});			
+				// Hide the Mill Points layer if its visible
+				var layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+				if (layer) {
+					if (layer.visible) {
+						LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+					}
+				}
+			});
+
+			topic.subscribe('showMillPoints', function () {
+				// Turn off the dynamic layer by calling this method without passing a 2nd parameter to it
+				LayerController.setWizardDynamicLayerDefinition(MapConfig.certificationSchemeLayer);
+				// Toggle the wizard layer with this, will need to add a definition to it when the data supports it
+				LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+			});	
 
 			// Layer Controller Functions
 			topic.subscribe('toggleLayer', function (layerId) {

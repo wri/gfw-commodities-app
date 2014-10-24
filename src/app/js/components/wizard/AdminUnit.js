@@ -139,7 +139,7 @@ define([
 
           // Add it to the map and make it the current selection, give it a label
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
+          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
           graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
           if (wizardGraphicsLayer) {
             // Clear out any previous 'preview' features

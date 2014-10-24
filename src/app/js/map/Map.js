@@ -143,6 +143,8 @@ define([
 					adminBoundariesLayer,
 					wizardDynamicParams,
 					wizardDynamicLayer,
+					millPointsParams,
+					millPointsLayer,
 					wizardGraphicsLayer,
 					self = this;
 
@@ -320,6 +322,17 @@ define([
 				visible: false
 			});
 
+			millPointsParams = new ImageParameters();
+			millPointsParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			millPointsParams.layerIds = [MapConfig.millPointsLayer.layerId];
+			millPointsParams.format = "png32";
+
+			millPointsLayer = new ArcGISDynamicLayer(MapConfig.millPointsLayer.url, {
+				imageParameters: millPointsParams,
+				id: MapConfig.millPointsLayer.id,
+				visible: false
+			});
+
 			wizardGraphicsLayer = new GraphicsLayer({
 				id: MapConfig.wizardGraphicsLayer.id
 			});
@@ -352,6 +365,7 @@ define([
 				firesLayer,
 				// Overlays
 				wizardDynamicLayer,
+				millPointsLayer,
 				mapOverlaysLayer,
 				// Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
 				// If needs be, seperate these out into multiple Graphics Layers
@@ -392,6 +406,7 @@ define([
 			wizardDynamicLayer.on('error', this.addLayerError);
 			mapOverlaysLayer.on('error', this.addLayerError);
 			customGraphicsLayer.on('error', this.addLayerError);
+			millPointsLayer.on('error', this.addLayerError);
 
 			// Add Layer Specific events here
 			customSuitabilityLayer.on('image-ready', function () {

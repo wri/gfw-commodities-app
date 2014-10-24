@@ -81,29 +81,54 @@ define([
       var mapPoint = evt.mapPoint,
           deferreds = [],
           features = [],
-          self = this;
+          self = this,
+          helperLayer,
+          layer;
 
       // Clear out Previous Features
       app.map.infoWindow.clearFeatures();
 
-      if (app.map.getLayer(MapConfig.fires.id).visible) {
-        deferreds.push(self.identifyFires(mapPoint));
+      layer = app.map.getLayer(MapConfig.fires.id);
+      if (layer) {
+        if (layer.visible) {
+          deferreds.push(self.identifyFires(mapPoint));
+        }
       }
 
-      if (app.map.getLayer(MapConfig.pal.id).visible || app.map.getLayer(MapConfig.palHelper.id).visible) {
-        deferreds.push(self.identifyWDPA(mapPoint));
+      helperLayer = app.map.getLayer(MapConfig.palHelper.id);
+      layer = app.map.getLayer(MapConfig.pal.id);
+      if (layer && helperLayer) {
+        if (layer.visible || helperLayer.visible) {
+          deferreds.push(self.identifyWDPA(mapPoint));
+        }
       }
 
-      if (app.map.getLayer(MapConfig.oilPerm.id).visible) {
-        deferreds.push(self.identifyConcessions(mapPoint));
+      layer = app.map.getLayer(MapConfig.oilPerm.id);
+      if (layer) {
+        if (layer.visible) {
+          deferreds.push(self.identifyConcessions(mapPoint));
+        }
       }
 
-      if (app.map.getLayer(MapConfig.adminUnitsLayer.id).visible) {
-        deferreds.push(self.identifyWizardDynamicLayer(mapPoint));
+      layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
+      if (layer) {
+        if (layer.visible) {
+          deferreds.push(self.identifyWizardDynamicLayer(mapPoint));
+        }
       }
 
-      if (app.map.getLayer(MapConfig.customGraphicsLayer.id).visible) {
-        deferreds.push(self.getCustomGraphics(evt));
+      layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+      if (layer) {
+        if (layer.visible) {
+          deferreds.push(self.identifyMillPoints(mapPoint));
+        }
+      }
+
+      layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
+      if (layer) {
+        if (layer.visible) {
+          deferreds.push(self.getCustomGraphics(evt));
+        }
       }
 
       if (deferreds.length === 0) {
@@ -123,7 +148,6 @@ define([
       */
 
       all(deferreds).then(function (featureSets) {
-        console.log("Resolved");
         arrayUtils.forEach(featureSets, function (item) {
           switch (item.layer) {
             case "Fires":
@@ -137,6 +161,9 @@ define([
             break;
             case "WizardDynamic":
               features = features.concat(self.setWizardTemplates(item.features));
+            break;
+            case "MillPoints":
+              features = features.concat(self.setMillPointTemplates(item.features));
             break;
             case "CustomGraphics":
               // This will only contain a single feature and return a single feature
@@ -366,6 +393,59 @@ define([
             "Analyze this area</button></div>"
           );
         }
+        item.feature.setInfoTemplate(template);
+        features.push(item.feature);
+      });
+      return features;
+    },
+
+    identifyMillPoints: function (mapPoint) {
+      var deferred = new Deferred(),
+          identifyTask = new IdentifyTask(MapConfig.millPointsLayer.url),
+          layer = app.map.getLayer(MapConfig.millPointsLayer.id),
+          params = new IdentifyParameters(),
+          layerDefs = [];
+
+      layerDefs[0] = "1 = 1";
+
+      params.tolerance = 3;
+      params.returnGeometry = false;
+      params.width = app.map.width;
+      params.height = app.map.height;
+      params.geometry = mapPoint;
+      params.mapExtent = app.map.extent;
+      params.layerIds = layer.visibleLayers;
+      params.layerDefinitions = layerDefs;
+      params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
+      
+      identifyTask.execute(params, function (features) {
+        if (features.length > 0) {
+          deferred.resolve({
+            layer: "MillPoints",
+            features: features
+          });
+        } else {
+          deferred.resolve(false);
+        }
+      }, function (error) {
+        deferred.resolve(false);
+      });
+
+      return deferred.promise;
+    },
+
+    setMillPointTemplates: function (featureObjects) {
+      var template,
+          features = [],
+          self = this;
+
+      arrayUtils.forEach(featureObjects, function (item) {
+        template = new InfoTemplate(item.value, 
+          MapConfig.millPointsLayer.infoTemplate.content +
+          "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+          "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
+          "Analyze this area</button></div>"
+        );
         item.feature.setInfoTemplate(template);
         features.push(item.feature);
       });

@@ -13,7 +13,8 @@ define([], function () {
 			protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
 			mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
 			primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
-			customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer";
+			customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
+			millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer';
 			//customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
 
 	return {
@@ -80,6 +81,16 @@ define([], function () {
 			infoTemplate: {
 				content: "<table><tr><td>Group:</td><td>${GROUP_NAME}</td></tr>" +
 								 "<tr><td>Type:</td><td>${TYPE}</td></tr></table>"
+			}
+		},
+
+		millPointsLayer: {
+			id: 'MillPointsLayer',
+			url: millPointsUrl,
+			layerId: 0,
+			infoTemplate: {
+				content: "<table><tr><td>Parent Company:</td><td>${Parent_Com}</td></tr>" +
+								 "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr></table>"
 			}
 		},
 
@@ -845,12 +856,12 @@ define([], function () {
 		suitabilitySliderTooltips: {
 			"peat":{
         0: "0 cm",
-        1: "200 cm",
-        2: "400 cm",
-        3: "600 cm",
-        4: "800 cm",
-        5: "1,000 cm",
-        6: "1,200 cm"
+        1: "Less than 50 cm",
+        2: "50 - 100 cm",
+        3: "100- 200 cm",
+        4: "200 - 400 cm",
+        5: "400 - 800 cm",
+        6: "800 - 1,200 cm"
       },
       "rainfall":{
         "label": "mm/yr"

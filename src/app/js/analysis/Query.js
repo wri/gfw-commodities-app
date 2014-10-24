@@ -115,6 +115,34 @@ define([
 
 		},
 
+				/*
+			Simple Query to retrieve mills by their entity id
+		*/
+		getMillByEntityId: function (entityID) {
+			var deferred = new Deferred(),
+					query = new Query(),
+					self = this;
+
+			query.where = "Entity_ID = '" + entityID + "'";
+			query.geometryPrecision = 2;
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+
+			this._query(AnalyzerConfig.millPoints.url, query, function (res) {
+				if (res.features.length === 1) {
+					deferred.resolve(res.features[0]);
+				} else {
+					deferred.resolve(false);
+				}
+			}, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
+
+			return deferred.promise;
+
+		},
+
 		/*
 			Simple Query to retrieve a feature by its Object ID
 		*/
@@ -171,6 +199,39 @@ define([
 
 			return deferred.promise;
 
+		},
+
+		/*
+			Simple Query to retrieve ALL MILL POINTS
+		*/
+		getMillPointData: function () {
+			var config = AnalyzerConfig.millPoints,
+					deferred = new Deferred(),
+					query = new Query(),
+					self = this,
+					data = [];
+
+			// This May need to change as we have more options for mill points and this function
+			// may need to take an argument specifying a type of filter we want to apply based on which
+			// commodity type the user selected in the app
+			query.where = '1 = 1';
+			query.returnGeometry = false;
+			query.outFields = config.outFields;
+			query.orderByFields = config.orderBy;
+
+			function handleResponse(res) {
+				if (res.features.length > 0) {
+					data = self._formatData(config, res.features);
+					deferred.resolve(data);
+				}
+			}
+
+			this._query(config.url, query, handleResponse, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
+
+			return deferred.promise;
 		},
 
 		/*
@@ -251,7 +312,7 @@ define([
 
 		_formatData: function (config, features) {
 			var buckets = {},
-					data = [],			
+					data = [],
 					attrs;
 
 			arrayUtils.forEach(features, function (feature) {

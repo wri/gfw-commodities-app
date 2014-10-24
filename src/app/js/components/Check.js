@@ -2,9 +2,10 @@ define([
 
     "react",
     "dojo/topic",
+    "dojo/dom-class",
     "utils/Hasher",
     "dijit/form/HorizontalSlider"
-], function(React, topic, Hasher, HorizontalSlider) {
+], function(React, topic, domClass, Hasher, HorizontalSlider) {
 
 
     return React.createClass({
@@ -58,14 +59,13 @@ define([
         },
 
         toggle: function(synEvent) {
-            if (!synEvent.target.classList.contains('layer-info-icon') &&
+            if (!domClass.contains(synEvent.target, 'layer-info-icon') &&
                 synEvent.target.className.search('dijit') < 0) {
                 this.props.handle(this);
             }
         },
 
         showInfo: function(synEvent) {
-            console.log(synEvent);
             if (document.getElementsByClassName(this.props.infoDivClass).length) {
                 console.log(this.props.infoDivClass);
                 topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);

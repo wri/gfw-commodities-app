@@ -139,6 +139,19 @@ define([
 			}
 		},
 
+		setWizardMillPointsLayerDefinition: function (config) {
+			// Option for Layer Definitions will come soon,
+			// for now, just toggle the layer
+			var layer = app.map.getLayer(config.id);
+			if (layer) {
+				if (layer.visible) {
+					layer.hide();
+				} else {
+					layer.show();
+				}
+			}
+		},
+
 		setFiresLayerDefinition: function (filter, highConfidence) {
 			var time = new Date(),
 					layerDefs = [],
@@ -328,6 +341,11 @@ define([
 			helperLayer = app.map.getLayer(helperConfig.id);
 			mainLayer = app.map.getLayer(tiledConfig.id);
 
+			if (mainLayer === undefined || helperLayer === undefined) {
+				// Error Loading Layers and they do not work
+				return;
+			}
+
 			if (!mainLayer.visible && !helperLayer.visible) {
 				return;
 			}
@@ -348,6 +366,11 @@ define([
 
 			helperLayer = app.map.getLayer(helperConfig.id);
 			mainLayer = app.map.getLayer(layerConfig.id);
+
+			if (mainLayer === undefined || helperLayer === undefined) {
+				// Error Loading Layers and they do not work
+				return;
+			}
 
 			if (mainLayer.visible || helperLayer.visible) {
 				helperLayer.hide();
@@ -375,6 +398,7 @@ define([
 					confItems = [densityConf, formaConf, lossConf, gainConf, primForConf, suitConf],
 					visibleLayers = [],
 					layerOptions = [],
+					layer,
 					self = this;
 
 			// Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
@@ -386,9 +410,12 @@ define([
 			ldos.transparency = 100;
 
 			arrayUtils.forEach(confItems, function (item) {
-				if (app.map.getLayer(item.id).visible) {
-					visibleLayers.push(item.legendLayerId);
-					layerOptions[item.legendLayerId] = ldos;
+				layer = app.map.getLayer(item.id);
+				if (layer) {
+					if (layer.visible) {
+						visibleLayers.push(item.legendLayerId);
+						layerOptions[item.legendLayerId] = ldos;
+					}
 				}
 			});
 
@@ -422,6 +449,8 @@ define([
 			var layer = app.map.getLayer(layerConfig.id);
 			if (layer) {
 				layer.setOpacity(transparency / 100);
+			} else {
+				return;
 			}
 			// Protected Areas Layer has a helper dynamic layer to show closer then zoom level 6
 			// So if we are setting transparency for Protected Areas, pass the helper config on to 
