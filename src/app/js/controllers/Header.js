@@ -46,7 +46,7 @@ define([
             query("#app-footer > div.footerModesContainer > div > div > div:nth-child(3) > div > div:nth-child(4) > a").forEach(function(item) {
                 on(item, "click", function(evt) {
                     var target = evt.target ? evt.target : evt.srcElement,
-                        dataView = "publications",
+                        dataView = "data",
                         external = false;
 
                     self.updateView(dataView, external, initialized);

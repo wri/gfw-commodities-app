@@ -248,7 +248,6 @@ define([
                     ionCallback.call();
                 }, 300);
                 $("#irs-2 > span.irs > span.irs-to").css("left", "759px");
-                console.log("Bam! Just went all the way to the max");
                 $("#irs-2 > span.irs > span.irs-to").html(max);
             });
 
@@ -676,34 +675,23 @@ define([
                 to = 2013;
 
             $(".layer-list-item.forest-change > ul > li").click(function() {
-                console.log("***********");
                 var $this = $(this);
                 ionCallback.call(this);
                 console.log($("#irs-1 > span.irs > span.irs-to").css("left"));
                 //$(".irs-slider.to").css("left", "792px");
-                //span.irs-slider.from.last
             });
             $("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div").click(function() {
-
                 var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
-                console.log($("#irs-1 > span.irs > span.irs-slider.to.last").css("left"));
-                if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") == undefined) {
-                    $("#irs-1 > span.irs > span.irs-slider.to").css("left", newLeft);
+                var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
+                newLeft2 *= 1;
+                if (to == 2013) {
+                    $(".irs-slider.to").css("left", "792px");
+                } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") == undefined) {
+                    $("#irs-1 > span.irs > span.irs-slider.to").css("left", ((newLeft2 + 8) + 'px'));
                 } else {
-                    $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", newLeft);
+
+                    $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", ((newLeft2 + 8) + 'px'));
                 }
-                //console.log($("#irs-1 > span.irs > span.irs-slider.to.last").css("left"));
-
-                //$(".irs-slider.to").css("left", "792px");
-                //span.irs-slider.from.last
-                // $("#irs-1 > span.irs > span.irs-to").css("left", "760");
-                // $("#treecover_change_toolbox > div.range-slider > div.playLineFiller > div").css("background-color", "#a1ba42");
-                // $("#treecover_change_toolbox > div.range-slider > div.container2 > div").css("color", "#a1ba42");
-                // //# irs - active - slider
-                // $("#irs-1 > span.irs > span.irs-from").hide();
-                // $("#irs-1 > span.irs > span.irs-to").hide();
-                // $("#irs-1 > span.irs > span.irs-slider.from").css("left", "0");
-
             });
 
             var ionCallback = function() {
@@ -786,6 +774,7 @@ define([
                     });
                     domConstruct.place(playLine2, node, "after");
                 });
+                $(".irs-slider.to").css("left", "792px");
 
             }
 
