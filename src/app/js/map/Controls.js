@@ -37,6 +37,7 @@ define([
                 // registry.byId('suitability-accordion').resize();
                 this.resizeRangeSliders();
             } else {
+                console.log(layerConfig.id);
                 // Hide other tools, then show this node if operation is show
                 this.hideAllToolboxes();
                 if (operation === 'show') {
@@ -670,9 +671,9 @@ define([
                 $from = $(".js-from"),
                 $to = $(".js-to"),
                 min = 2001,
-                max = 2013,
+                max = 2012,
                 from = 2001,
-                to = 2013;
+                to = 2012;
 
             $(".layer-list-item.forest-change > ul > li").click(function() {
                 var $this = $(this);
@@ -723,30 +724,33 @@ define([
                             for (var i = 1; i < 12; i++) {
                                 var item1 = $(".playLineFiller > div:nth-child(" + i + ")");
                                 var item2 = $(".container2 > div:nth-child(" + i + ")");
-                                if ((i <= from - 2001) || (i >= to - 2001)) {
+                                //console.log(item1);
+                                //console.log(item2);
+
+                                if ((i <= from - 2000) || (i >= to - 2000)) {
                                     $(item1.selector).css("background-color", "transparent");
                                 } else {
                                     $(item1.selector).css("background-color", "#a1ba42");
                                 }
-                                if ((i < from - 2000) || (i > to - 2001)) {
+                                if ((i < from - 1999) || (i > to - 2000)) {
                                     $(item2.selector).css("color", "grey");
                                 } else {
                                     $(item2.selector).css("color", "#a1ba42");
                                 }
                             }
-                            if (to != 2013) {
-                                $(".container2 > div:last-child").css("color", "grey");
+                            if (to != 2012) {
+                                $(".container2 > div:nth-child(12)").css("color", "grey");
                             } else {
-                                $(".container2 > div:last-child").css("color", "#a1ba42");
+                                $(".container2 > div:nth-child(12)").css("color", "#a1ba42");
                             }
-                            if (from == 2013) {
-                                $(".container2 > div:last-child").css("color", "grey");
-                            }
+
+
+
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
                         }
                     },
                 });
-
+                $(".container2 > div:last-child").css("color", "grey");
                 $("#range").ionRangeSlider("update");
                 $("#playLine2").hide();
                 $("#sliderProgressLine").hide();
@@ -774,7 +778,7 @@ define([
                     });
                     domConstruct.place(playLine2, node, "after");
                 });
-                $(".irs-slider.to").css("left", "792px");
+                $(".irs-slider.to").css("left", "730px");
 
             }
 
@@ -845,9 +849,9 @@ define([
                 if (sliderStart == undefined || (sliderStart == "0px" && thumbOne != 2001)) {
                     console.log("using #2!!");
                     $('#playLine2').css("left", sliderStart2);
-                    $('#playLine2').css("left", "-=1px");
+                    //$('#playLine2').css("left", "-=1px");
                     $('#sliderProgressLine').css("left", sliderStart2);
-                    $('#sliderProgressLine').css("left", "-=1px");
+                    //$('#sliderProgressLine').css("left", "-=1px");
                 }
                 $('#playLine2').css("left", "-=21.5px");
                 $("#playLine2").html(thumbOne);
@@ -906,9 +910,9 @@ define([
                     }
 
                     //console.log($("#sliderProgressLine").css("left"));
-                    $('#playLine2').css("left", "+=66px");
+                    $('#playLine2').css("left", "+=66.5px");
 
-                    $('#sliderProgressLine').css("left", "+=66px");
+                    $('#sliderProgressLine').css("left", "+=66.5px");
                     //console.log($("#sliderProgressLine").css("left"));
                     // Above line will show me my starting value, then every iteration, add
                     // a certain amount to my sliderProgress Line's LEFT value. 66px I think.
@@ -920,16 +924,16 @@ define([
 
                     // If that all works, clean up the css. Maybe make font smaller. 
 
-                    $("#" + thumbOne).show();
+                    //$("#" + thumbOne).show();
                     //console.log("I'm using these..");
                     //console.log(values);
                     //console.log($("#" + thumbOne).css("display"));
                     //$("#" + oldTick).hide();
                     //console.log($( ".irs-slider.from" ).css( "left"));
                     //.playLine > #2001 
-                    var oldTick = thumbOne - 1;
-                    var newTick = thumbOne + 1;
-                    $("#" + thumbOne).hide();
+                    //var oldTick = thumbOne - 1;
+                    //var newTick = thumbOne + 1;
+                    //$("#" + thumbOne).hide();
                     //console.log($("#" + oldTick).css("display"));
                     //$(".playLine > div").hide();
 
@@ -941,7 +945,7 @@ define([
                     //$("#" + oldTick).show();
                     //$("#" + newTick).show();
                     //$("#" + thumbOne).show();
-                    $("#" + newTick).show();
+                    //$("#" + newTick).show();
                     // console.log($("#" + thumbOne).css("display"));
                     // console.log("values to use: " + values[0] + ", " + values[1]);
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
@@ -962,9 +966,18 @@ define([
                         thumbTwo = newThumbTwo;
                     }
                     if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
-                        $("#" + oldTick).hide();
+                        //$("#" + oldTick).hide();
                         //$("#" + thumbOne).hide();
                         //$("#" + newTick).hide();
+                        if (values[1] - values[0] > 8) {
+                            $('#playLine2').css("left", "-=2px");
+                            $('#sliderProgressLine').css("left", "-=2px");
+                        } else if (values[1] - values[0] > 4) {
+                            $('#playLine2').css("left", "-=1x");
+                            $('#sliderProgressLine').css("left", "-=1px");
+                        }
+
+
                         $("#newSlider").html("&#9658");
                         $range.playing = false;
                         console.log("Finito!");

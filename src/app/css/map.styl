@@ -565,7 +565,7 @@ wizardBlue = #00688B
 	overflow-x hidden
 /* Overrides for Accordion COntainers that contain sliders and checkboxes */
 .container2 {
-	margin-top: -22px;
+	margin-top: 18px;
 	font-size: 11px;
 }
 
@@ -578,14 +578,22 @@ wizardBlue = #00688B
     text-align: center;
     font-size: 11x;
     color: #a1ba42;
+    margin: -10px;
+    position: absolute;
+    top: 33px;
 }
-
+#irs-1 {
+	position: absolute;
+	width: 730px;
+	right: 57px;
+	margin-top: -18px;
+}
 .container2 > div:first-child {
-    margin-left: 1.5%;
+    /*margin-left: 1.5%;*/
 }
 
 .container2 > div:last-child {
-    width: 7.15%;
+    /*width: 7.15%;*/
 }
 
 .container3 {
@@ -802,10 +810,10 @@ wizardBlue = #00688B
 .playLineFiller > div {
 	background: #a1ba42;
 	display: inline-block;
-	height: 10px;
-	width: 35px;
+	height: 8px;
+	width: 34px;
 	position: absolute;
-	margin-top: -11px;
+	margin-top: 2px;
 }
 
 .playLineFiller2 > div {
@@ -900,28 +908,30 @@ wizardBlue = #00688B
 
 }
 
+/* Mozilla */
 @-moz-document url-prefix() {
     .playLineFiller > div {
-		width: 34px;
+		/*width: 34px;*/
 		margin-top: -12px;
 	}
 	.container2 > div:first-child {
-	    margin-left: 4%;
+	    /*margin-left: 4%;*/
 	}
 	.container2 > div:last-child {
-	    width: 2%;
+	    /*width: 2%;*/
 	}
 }
 
+/* For Safari */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.playLineFiller > div {
-		width: 32px;
+		/*width: 32px;*/
 	}
 	.container2 > div {
-		width: 8.25%;
+		/*width: 8.25%;*/
 	}
 	.container2 > div:first-child {
-	    margin-left: 1%;
+	    /*margin-left: 1%;*/
 	}
 	.playLineFiller > div:nth-child(1) {
 		margin-left: 55px;
@@ -959,59 +969,129 @@ wizardBlue = #00688B
 	}
 }
 
+/* Browser-Specific for Chrome (last to overwrite potential changes from others) */
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
 	.playLineFiller > div {
-		width: 35px;
+		width: 34px;
+	}
+	.container2 {
+		width: 850px;
+		margin-left: -15px;
 	}
 	.container2 > div {
-		width: 8.15%;
+		/*width: 9.8%;*/
 	}
 	.container2 > div:first-child {
-	    margin-left: 1.5%;
+	    /*margin-left: -1.5%;*/
 	}
+	.container2 > div:last-child {
+	    /*margin-right: 1.15%;*/
+	}
+
+
+	.container2 > div:first-child {
+    margin-left: -10px;
+	}
+
+	.container2 > div:nth-child(2) {
+	    margin-left: 51px;
+	}
+
+	.container2 > div:nth-child(3) {
+	    margin-left: 117px;
+	}
+
+	.container2 > div:nth-child(4) {
+	    margin-left: 184px;
+	}
+
+	.container2 > div:nth-child(5) {
+	    margin-left: 250px;
+	}
+
+	.container2 > div:nth-child(6) {
+	    margin-left: 315px;
+	}
+
+	.container2 > div:nth-child(7) {
+	    margin-left: 383px;
+	}
+
+	.container2 > div:nth-child(8) {
+	    margin-left: 449px;
+	}
+
+	.container2 > div:nth-child(9) {
+	    margin-left: 515px;
+	}
+
+	.container2 > div:nth-child(10) {
+	    margin-left: 581px;
+	}
+
+	.container2 > div:nth-child(11) {
+	    margin-left: 651px;
+	}
+
+	.container2 > div:nth-child(12) {
+	    margin-left: 717px;
+	}
+
+	.container2 > div:nth-child(13) {
+	    margin-left: 780px;
+	}
+
+
+
 	.playLineFiller > div:first-child {
-    margin-left: 58px;
+    margin-left: 88px;
 	}
 
 	.playLineFiller > div:nth-child(2) {
-	    margin-left: 124px;
+	    margin-left: 90px;
 	}
 
 	.playLineFiller > div:nth-child(3) {
-	    margin-left: 190px;
+	    margin-left: 154px;
 	}
 
 	.playLineFiller > div:nth-child(4) {
-	    margin-left: 255px;
+	    margin-left: 221px;
 	}
 
 	.playLineFiller > div:nth-child(5) {
-	    margin-left: 321px;
+	    margin-left: 286px;
 	}
 
 	.playLineFiller > div:nth-child(6) {
-	    margin-left: 388px;
+	    margin-left: 353px;
 	}
 
 	.playLineFiller > div:nth-child(7) {
-	    margin-left: 452px;
+	    margin-left: 420px;
 	}
 
 	.playLineFiller > div:nth-child(8) {
-	    margin-left: 518px;
+	    margin-left: 486px;
 	}
 
 	.playLineFiller > div:nth-child(9) {
-	    margin-left: 584px;
+	    margin-left: 552px;
 	}
 
 	.playLineFiller > div:nth-child(10) {
-	    margin-left: 649px;
+	    margin-left: 620px;
+	    width: 36px;
 	}
 
 	.playLineFiller > div:nth-child(11) {
-	    margin-left: 712px;
+	    margin-left: 688px;
 	    width: 33px;
+	}
+
+	.playLineFiller > div:nth-child(12) {
+	    margin-left: 753px;
+	    width: 32px;
 	}
 }
 
