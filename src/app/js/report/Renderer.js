@@ -927,10 +927,46 @@ define([
 			@param {object} config
 		*/
 		renderMillAssessment: function (mills, config) {
-			console.dir(mills);
-			console.dir(config);
-			// Temporary, remove loading wheel so I know the call was successful
-			document.getElementById("millPoints_table").innerHTML = JSON.stringify(mills);
+
+			var output = "<table><tr><th></th><th colspan='2'>Concession</th><th colspan='2'>Radius</th></tr>";
+
+			arrayUtils.forEach(mills, function (mill) {
+				output += "<tr><td class='name'>" + window.payload.title + "</td><td colspan='2'>" + mill.risk + "</td><td colspan='2'>" + mill.risk + "</td>";
+				output += "<tr class='column-labels toggleable'><td></td><td>Ranking</td><td>Value</td><td>Ranking</td><td>Value</td>";
+				output += "<tr class='toggleable'><td class='row-name'>RSPO</td><td>" + mill.rspo.concession.risk + "</td><td>" + mill.rspo.concession.raw + "</td><td>" + mill.rspo.radius.risk + "</td><td>" + mill.rspo.radius.raw + "</td>";
+				output += "<tr class='toggleable'><td class='row-name'>Legal</td><td>" + mill.legal.concession.risk + "</td><td>" + mill.legal.concession.raw + "%</td><td>" + mill.legal.radius.risk + "</td><td>" + mill.legal.radius.raw + "%</td>";
+				output += "<tr class='toggleable'><td class='row-name'>Deforestation</td><td>" + mill.deforestation.concession.risk + "</td><td>" + mill.deforestation.concession.raw + "</td><td>" + mill.deforestation.radius.risk + "</td><td>" + mill.deforestation.radius.raw + "</td>";
+				output += "<tr class='toggleable peat-toggle'><td class='row-name'>Peat</td><td>" + mill.peat.concession.risk + "</td><td>" + mill.peat.concession.raw + "</td><td>" + mill.peat.radius.risk + "</td><td>" + mill.peat.radius.raw + "</td>";
+				output += "<tr class='toggleable'><td class='row-name'>Fires</td><td>" + mill.fire.concession.risk + "</td><td>" + mill.fire.concession.raw + "</td><td>" + mill.fire.radius.risk + "</td><td>" + mill.fire.radius.raw + "</td>";
+			});
+									
+			output += "</table>";
+
+			// Temporary Functions to Demo Capabilities
+			var html = "<button id='testOne'>Show All</button><button id='testTwo'>Hide Values</button><button id='testThree'>Toggle Peat</button>";
+
+
+			document.getElementById(config.rootNode + "_table").innerHTML = output + html;
+
+			// Toggle Rows and Columns Easily with jQuery, below are some examples
+			$("#testOne").click(function () {
+				$('.mill-table-container tr.toggleable td:nth-child(3)').show();
+				$('.mill-table-container tr.toggleable td:nth-child(5)').show();
+				$('.mill-table-container tr.toggleable td:nth-child(2)').attr('colspan',1);
+				$('.mill-table-container tr.toggleable td:nth-child(4)').attr('colspan',1);
+			});
+
+			$("#testTwo").click(function () {
+				$('.mill-table-container tr.toggleable td:nth-child(3)').hide();
+				$('.mill-table-container tr.toggleable td:nth-child(5)').hide();
+				$('.mill-table-container tr.toggleable td:nth-child(2)').attr('colspan',2);
+				$('.mill-table-container tr.toggleable td:nth-child(4)').attr('colspan',2);
+			});
+
+			$("#testThree").click(function () {
+				$('.mill-table-container .peat-toggle').toggle();
+			});
+
 		},
 
 		/*

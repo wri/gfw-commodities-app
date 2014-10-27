@@ -20,7 +20,8 @@ orangeButton = rgb(233, 131, 0)
 	src url("fonts/ArialMTStd-LightCond.otf") format("opentype")
 
 html, body 
-	font-family "Arial MT Condensed Light", Arial, Georgia, sans-serif
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	// font-family "Arial MT Condensed Light", Arial, Georgia, sans-serif
 	background white
 	
 .gfw #report
@@ -37,10 +38,12 @@ html, body
 	border 1px solid black
 	
 .gfw #title
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	// font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
 	padding-top 10px
 	margin-left 10px
 	max-width 750px
+	font-weight bold
 	font-size 36px
 
 .gfw .total-area
@@ -48,7 +51,9 @@ html, body
 	margin-left 10px
 
 .gfw .total-area-value
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif	
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	font-weight bold
+	// font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif	
 
 .gfw .subscribe-alerts
 	background-color orangeButton
@@ -93,7 +98,9 @@ html, body
 		page-break-after always
 
 .gfw .report-body .title
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	font-weight bold
+	// font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
 	font-size 24px
 
 .gfw .report-body .left-panel,
@@ -114,7 +121,8 @@ html, body
 .gfw .report-body .right-panel
 	float right
 	
-.gfw .rspo-results-table
+.gfw .rspo-results-table,
+.gfw .mill-table-container table
 	border-collapse collapse
 	text-align center
 	border-spacing 0
@@ -123,10 +131,14 @@ html, body
 
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table tr td:first-child
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	font-weight bold
+	// font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
 
 .gfw .rspo-results-table th,
-.gfw .rspo-results-table td
+.gfw .rspo-results-table td,
+.gfw .mill-table-container th,
+.gfw .mill-table-container td
 	border 1px solid #adadad
 	padding 5px 0 2px
 
@@ -145,7 +157,9 @@ html, body
 	margin 10px 0
 
 .gfw .active-fires-label
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	font-weight bold
+	// font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
 	color redButton
 	font-size 28px
 
@@ -155,7 +169,9 @@ html, body
 	margin 0
 
 .gfw .total-active-fires-label
-	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	font-weight bold
+	// font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
 	font-size 16px
 
 .gfw .suitability-container .child-row
@@ -213,4 +229,14 @@ html, body
 .gfw .submit-container button:hover, .gfw .submit-container button:active
 	border 1px solid orangeButton
 	background orangeButton
-
+	
+.gfw .mill-table-container table
+	text-align center
+	width 100%
+	
+.gfw .mill-table-container .column-labels,
+.gfw .mill-table-container .name
+	font-weight bold
+	
+.gfw .mill-table-container .row-name
+	text-align left

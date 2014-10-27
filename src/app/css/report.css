@@ -18,17 +18,17 @@
 /* line 22 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 html,
 body {
-  font-family: "Arial MT Condensed Light", Arial, Georgia, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #fff;
 }
 
-/* line 26 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 27 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw #report {
   margin: 20px auto;
   width: 960px;
 }
 
-/* line 30 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 31 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-header {
   background: url("images/header_tree_background.jpg") repeat-x scroll center top transparent;
   border: 1px solid #000;
@@ -36,32 +36,34 @@ body {
   min-height: 100px;
 }
 
-/* line 36 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 37 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body {
   border: 1px solid #000;
 }
 
-/* line 39 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 40 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw #title {
-  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding-top: 10px;
   margin-left: 10px;
   max-width: 750px;
+  font-weight: bold;
   font-size: 36px;
 }
 
-/* line 46 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 49 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .total-area {
   padding: 5px 0 15px;
   margin-left: 10px;
 }
 
-/* line 50 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 53 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .total-area-value {
-  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
 }
 
-/* line 53 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 58 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .subscribe-alerts {
   background-color: #e98300;
   padding: 5px 8px 3px;
@@ -75,7 +77,7 @@ body {
   top: 10px;
 }
 
-/* line 63 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 68 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .print-button {
   background: url("images/print-icon.png") no-repeat -1px -35px;
   position: absolute;
@@ -86,13 +88,13 @@ body {
   top: 50px;
 }
 
-/* line 72 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 77 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .print-button.disabled {
   background: url("images/print-icon.png") no-repeat -1px 0px;
   cursor: wait;
 }
 
-/* line 76 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 81 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .loading-wheel {
   background: url("images/loader.gif");
   background-size: 24px;
@@ -101,32 +103,33 @@ body {
   width: 24px;
 }
 
-/* line 83 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 88 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .loading-wheel.hidden {
   display: none;
 }
 
-/* line 88 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 93 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .result-container {
   margin: 20px;
 }
 
-/* line 91 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 96 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 @media print {
 
-/* line 92 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 97 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
   .gfw .result-container {
     page-break-after: always;
   }
 }
 
-/* line 95 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 100 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body .title {
-  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
   font-size: 24px;
 }
 
-/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 106 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body .left-panel,
 .gfw .report-body .right-panel {
   display: inline-block;
@@ -134,18 +137,19 @@ body {
   width: 430px;
 }
 
-/* line 105 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 112 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body .loss-chart {
   height: 400px;
 }
 
-/* line 114 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 121 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .report-body .right-panel {
   float: right;
 }
 
-/* line 117 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
-.gfw .rspo-results-table {
+/* line 124 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .rspo-results-table,
+.gfw .mill-table-container table {
   border-collapse: collapse;
   text-align: center;
   border-spacing: 0;
@@ -153,26 +157,29 @@ body {
   width: 80%;
 }
 
-/* line 124 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 132 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table tr td:first-child {
-  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
 }
 
-/* line 128 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table th,
-.gfw .rspo-results-table td {
+.gfw .rspo-results-table td,
+.gfw .mill-table-container th,
+.gfw .mill-table-container td {
   border: 1px solid #adadad;
   padding: 5px 0 2px;
 }
 
-/* line 133 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 145 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table .change-area-unit {
   margin-right: 10%;
   float: right;
 }
 
-/* line 137 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 149 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-badge {
   border: 2px solid #000;
   box-sizing: border-box;
@@ -181,42 +188,44 @@ body {
   width: 300px;
 }
 
-/* line 144 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 156 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-badge div {
   margin: 10px 0;
 }
 
-/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 159 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-label {
-  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
   color: #f44;
   font-size: 28px;
 }
 
-/* line 152 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 166 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-label div {
   line-height: 42px;
   font-size: 42px;
   margin: 0;
 }
 
-/* line 157 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 171 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .total-active-fires-label {
-  font-family: "Arial MT Condensed Bold", Arial, Georgia, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
   font-size: 16px;
 }
 
-/* line 161 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 177 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .suitability-container .child-row {
   padding-left: 15px;
 }
 
-/* line 164 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 180 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .suitability-container .left-panel {
   min-height: 400px;
 }
 
-/* line 167 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 183 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .loader-wheel {
   background: url("images/loader.gif") no-repeat left;
   background-color: #e6e6e6;
@@ -231,7 +240,7 @@ body {
   height: 22px;
 }
 
-/* line 178 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 194 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .loader-wheel.area {
   position: relative;
   width: 22px;
@@ -239,17 +248,17 @@ body {
   top: 7px;
 }
 
-/* line 184 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 200 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .checkbox-container {
   padding: 5px;
 }
 
-/* line 187 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 203 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .checkbox-container input {
   margin-right: 5px;
 }
 
-/* line 190 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 206 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .email-container,
 .gfw .submit-container,
 .gfw .message-container {
@@ -257,7 +266,7 @@ body {
   margin: 10px 0;
 }
 
-/* line 194 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .email-container input {
   border: 1px solid #e6e6e6;
   border-radius: 5px;
@@ -271,7 +280,7 @@ body {
   outline: 0;
 }
 
-/* line 204 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 220 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .submit-container button {
   border: 1px solid #e6e6e6;
   background: #e6e6e6;
@@ -284,9 +293,26 @@ body {
   outline: 0;
 }
 
-/* line 213 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 229 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .submit-container button:hover,
 .gfw .submit-container button:active {
   border: 1px solid #e98300;
   background: #e98300;
+}
+
+/* line 233 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container table {
+  text-align: center;
+  width: 100%;
+}
+
+/* line 237 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .column-labels,
+.gfw .mill-table-container .name {
+  font-weight: bold;
+}
+
+/* line 241 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .row-name {
+  text-align: left;
 }
