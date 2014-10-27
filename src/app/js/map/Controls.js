@@ -666,6 +666,7 @@ define([
                 ionCallback.call(this);
                 console.log($("#irs-1 > span.irs > span.irs-to").css("left"));
                 console.log("here we callback the Tree Cover Slider");
+
                 //$(".irs-slider.to").css("left", "792px");
             });
             //$("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > span.radio-icon > span").click(function() {
@@ -673,12 +674,12 @@ define([
                 var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
                 var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
                 newLeft2 *= 1;
-                if (to == 2013) {
-                    $(".irs-slider.to").css("left", "792px");
+
+                if (to == 2012) {
+                    $(".irs-slider.to").css("left", "730px");
                 } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") == undefined) {
                     $("#irs-1 > span.irs > span.irs-slider.to").css("left", ((newLeft2 + 8) + 'px'));
                 } else {
-
                     $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", ((newLeft2 + 8) + 'px'));
                 }
                 console.log("here we resize and adjust the Tree Cover ");
