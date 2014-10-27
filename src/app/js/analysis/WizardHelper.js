@@ -115,11 +115,13 @@ define([
 			// Hide Wizard Related Layers
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).hide();
+			app.map.getLayer(MapConfig.millPointsLayer.id).hide();
 		},
 
 		showWizardRelatedLayers: function () {
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).show();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).show();
+			app.map.getLayer(MapConfig.millPointsLayer.id).hide();
 		},
 
 		/*

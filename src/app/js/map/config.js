@@ -85,7 +85,7 @@ define([], function () {
 		},
 
 		millPointsLayer: {
-			id: 'MillPointsLayer',
+			id: 'WizardMillPointsLayer',
 			url: millPointsUrl,
 			layerId: 0,
 			infoTemplate: {
