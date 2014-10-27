@@ -491,7 +491,8 @@ define([
         },
 
         buildTreeCoverChangeSlider: function() {
-            // treeCoverLossSlider.baseYear & numYears
+            /*// treeCoverLossSlider.baseYear & numYears
+            console.log("STILL IN ORGINAL TREE COVER SLIDER??!")
             var sliderConfig = MapConfig.treeCoverLossSlider,
                 labels = [],
                 timeSlider,
@@ -544,10 +545,7 @@ define([
                 console.log("On initial Play, thumb 1 at: " + value1);
                 console.log("On initial Play, thumb 2 at: " + value2);
 
-                /*setTimeout(function () {
-      			console.log("THAT FIRST DECREMENT!");
-      			//timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2 - 1]);
-      		},1500);*/
+
 
                 requestAnimationFrame(function() {
                     console.log(timeSlider);
@@ -598,16 +596,7 @@ define([
                                 values = [0, timeSlider.thumbIndexes[0]];
                                 LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
                                 timeSlider.pause();
-                                /*if (timeSlider.thumbCount == 1) {
-				    			timeSlider.setThumbCount(2); 
-				    			if (value2 == 12) {
-				    				//timeSlider.setThumbIndexes([0,12]);
-				    			} else if (value2 == 11) {
-				    				//timeSlider.setThumbIndexes([0,11]);
-				    			} else {
-				    				timeSlider.setThumbIndexes([value2,value2]);
-				    			}
-				    		}*/
+
                                 return;
                             } //else if (timeSlider.thumbIndexes[1] == 12) {
                             //console.log("Here we set #indexes to 1 and just continue on");
@@ -633,13 +622,7 @@ define([
                             console.log("Thumbs at: " + timeSlider.thumbIndexes[0] + " & " + timeSlider.thumbIndexes[1]);
                             i++;
                             console.log("i is: " + i);
-                            /*if (timeSlider.thumbIndexes[0] == 12) {
-				        	console.log("i is at 12 and we are finished!");
-				        	timeSlider.setThumbCount(2);
-			    			timeSlider.setThumbIndexes([0,13]);
-			    			timeSlider.pause();
-				            return;
-				        }*/
+ 
                             //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(thumbTwo-1)]);
                             //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],5]);
                             // Weird hitch one turn later where the first index doesn't increment...
@@ -657,7 +640,7 @@ define([
                 console.log("PAUUUSE!")
             });
             //timeSlider.on("previous", function (evt) { console.log("PREV!") });
-            //timeSlider.on("next", function (evt) { console.log("NEXTTT!") });
+            //timeSlider.on("next", function (evt) { console.log("NEXTTT!") });*/
 
         },
 
@@ -675,12 +658,17 @@ define([
                 from = 2001,
                 to = 2012;
 
-            $(".layer-list-item.forest-change > ul > li").click(function() {
+            //$("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > span.radio-icon > span").click(function() {
+            //$("#master-layer-list > div > ul > li:nth-child(1)").click(function() {
+            $(".layer-list-item.forest-change").click(function() {
+                //$(".layer-list-item.forest-change > ul > li").click(function() {
                 var $this = $(this);
                 ionCallback.call(this);
                 console.log($("#irs-1 > span.irs > span.irs-to").css("left"));
+                console.log("here we callback the Tree Cover Slider");
                 //$(".irs-slider.to").css("left", "792px");
             });
+            //$("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > span.radio-icon > span").click(function() {
             $("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div").click(function() {
                 var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
                 var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
@@ -693,6 +681,7 @@ define([
 
                     $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", ((newLeft2 + 8) + 'px'));
                 }
+                console.log("here we resize and adjust the Tree Cover ");
             });
 
             var ionCallback = function() {
@@ -744,12 +733,11 @@ define([
                                 $(".container2 > div:nth-child(12)").css("color", "#a1ba42");
                             }
 
-
-
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
                         }
                     },
                 });
+                $(".container2 > div:first-child").css("color", "grey");
                 $(".container2 > div:last-child").css("color", "grey");
                 $("#range").ionRangeSlider("update");
                 $("#playLine2").hide();
@@ -859,31 +847,6 @@ define([
                 $("#playLine2").show();
                 $('#sliderProgressLine').css("left", "+=7.5px");
                 $("#sliderProgressLine").show();
-                // Add css via JQuery here to show where slider started from
-                // Maybe get the css position of thumbOne.
-                // Then remove the css line's style on Pause or End  -->  $("").removeClass("");
-                /*$(".extra-controls").addClass("sliderStart");
-
-			    $(".extra-controls").css("left",$(".irs-diapason").css( "left"));
-			    $(".extra-controls").css("left", "+=65");
-			    $("sliderStart").append("<p>2002</p>");*/
-                // Now we'll add the irs-dapson's initial left value to it!
-
-
-                //console.log($( ".irs-diapason" ).css( "left"));
-                //console.log($( ".irs-slider.from" ).css( "left"));
-
-                /*$.each(document.styleSheets, function(sheetIndex, sheet) {
-				    console.log("Looking at styleSheet[" + sheetIndex + "]:");
-				    $.each(sheet.cssRules || sheet.rules, function(ruleIndex, rule) {
-				        console.log("rule[" + ruleIndex + "]: " + rule.cssText);
-				    });
-				});*/
-
-                //var leftValue = $("irs-slider.from").css("left");
-                //console.log(leftValue);
-                //console.log($( .irs-slider.from ).css( "left" ));
-
 
                 console.log("Init: " + thumbOneInitial);
                 if (thumbOne == thumbTwo) {
@@ -894,9 +857,7 @@ define([
 
                 $range.playing = true;
                 $("#newSlider").html("&#x25A0");
-                $("#" + thumbOne).show();
-                console.log($("#" + thumbOne));
-                //var values = [0,thumbOne-2000];
+
                 var values = [thumbOneInitial - 2001, thumbOne - 2001];
 
                 var playing = $range.playing;
@@ -913,41 +874,8 @@ define([
                     $('#playLine2').css("left", "+=66.5px");
 
                     $('#sliderProgressLine').css("left", "+=66.5px");
-                    //console.log($("#sliderProgressLine").css("left"));
-                    // Above line will show me my starting value, then every iteration, add
-                    // a certain amount to my sliderProgress Line's LEFT value. 66px I think.
 
-                    // Other fix Amir talked about; my second div of label pop ups isn;t EVER 
-                    // showing up! Use the debugger and find out why.
 
-                    // Fix positioning of popup labels.
-
-                    // If that all works, clean up the css. Maybe make font smaller. 
-
-                    //$("#" + thumbOne).show();
-                    //console.log("I'm using these..");
-                    //console.log(values);
-                    //console.log($("#" + thumbOne).css("display"));
-                    //$("#" + oldTick).hide();
-                    //console.log($( ".irs-slider.from" ).css( "left"));
-                    //.playLine > #2001 
-                    //var oldTick = thumbOne - 1;
-                    //var newTick = thumbOne + 1;
-                    //$("#" + thumbOne).hide();
-                    //console.log($("#" + oldTick).css("display"));
-                    //$(".playLine > div").hide();
-
-                    //console.log($(".playLine > div:nth-child(4)"));
-                    //console.log($(".playLine > div:nth-child(" + thumbOne + ")" + ));
-                    //console.log($(".playLine > div:nth-child(" + thumbOne + ")" + ).css("margin-left"));
-                    //$("#" + thumbOne).css("width:20%;");
-                    //$("#" + thumbOne).css("width:200px;");
-                    //$("#" + oldTick).show();
-                    //$("#" + newTick).show();
-                    //$("#" + thumbOne).show();
-                    //$("#" + newTick).show();
-                    // console.log($("#" + thumbOne).css("display"));
-                    // console.log("values to use: " + values[0] + ", " + values[1]);
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
                     // 		$range.ionRangeSlider("update", {
                     //     from: from + 1
@@ -966,9 +894,6 @@ define([
                         thumbTwo = newThumbTwo;
                     }
                     if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
-                        //$("#" + oldTick).hide();
-                        //$("#" + thumbOne).hide();
-                        //$("#" + newTick).hide();
                         if (values[1] - values[0] > 8) {
                             $('#playLine2').css("left", "-=2px");
                             $('#sliderProgressLine').css("left", "-=2px");

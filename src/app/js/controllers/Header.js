@@ -3,10 +3,11 @@ define([
     "dojo/dom",
     "dojo/query",
     "dojo/dom-class",
+    "dijit/Dialog",
     "utils/Hasher",
     "main/config",
     "utils/NavListController"
-], function(on, dom, query, domClass, Hasher, AppConfig, NavListController) {
+], function(on, dom, query, domClass, Dialog, Hasher, AppConfig, NavListController) {
     'use strict';
 
     var state = 'large', // large, small, or mobile
@@ -19,7 +20,7 @@ define([
             if (initialized) {
                 return;
             }
-
+            this.addSubscriptionDialog();
             dom.byId("app-header").innerHTML = template;
             this.bindEvents();
             initialized = true;
@@ -52,7 +53,6 @@ define([
                     self.updateView(dataView, external, initialized);
                 });
             });
-
         },
 
         updateView: function(view, isExternal, initialized) {
@@ -139,7 +139,26 @@ define([
 
         redirectPage: function(view) {
             window.open(AppConfig.urls[view], "_blank");
+        },
+
+        addSubscriptionDialog: function() {
+            var dialog2 = new Dialog({
+                    title: 'Map Analysis Walkthrough',
+                    style: 'width: 300px; text-align: center;'
+                }),
+                self = this,
+                content = "<p><strong>Coming Soon!</strong></p>";
+
+            dialog2.setContent(content);
+
+            query("#app-footer > div.footerModesContainer > div > div > div:nth-child(2) > div > div:nth-child(5) > a").forEach(function(item) {
+                on(item, "click", function(evt) {
+                    dialog2.show();
+                });
+            });
+
         }
+
 
     };
 
