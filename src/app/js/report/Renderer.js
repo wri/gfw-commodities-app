@@ -91,6 +91,23 @@ define([
 		},
 
 		/*
+			@param {object} config
+		*/
+		renderMillContainer: function (config) {
+			var fragment = document.createDocumentFragment(),
+					node = document.createElement('div');
+
+			node.id = config.rootNode;
+			node.className = "result-container";
+			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+					"<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
+
+			// Append root to fragment and then fragment to document
+			fragment.appendChild(node);
+			document.getElementById('report-results-section').appendChild(fragment);
+		},
+
+		/*
 			@param {array} histogramData
 			@param {number} pixelSize
 			@param {object} config
@@ -903,6 +920,17 @@ define([
 			});
 
 
+		},
+
+		/*
+			@param {array} mills An array of mill objects as part of the results, max should be 5
+			@param {object} config
+		*/
+		renderMillAssessment: function (mills, config) {
+			console.dir(mills);
+			console.dir(config);
+			// Temporary, remove loading wheel so I know the call was successful
+			document.getElementById("millPoints_table").innerHTML = JSON.stringify(mills);
 		},
 
 		/*

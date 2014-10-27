@@ -9,10 +9,11 @@ define([
 	"dojo/_base/array",
 	// My Modules
 	"map/config",
+	"utils/GeoHelper",
 	"analysis/Query",
 	"analysis/config",
-	"components/wizard/Wizard"
-], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, AnalyzerQuery, AnalyzerConfig, Wizard) {
+	"components/wizard/Wizard",
+], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, GeoHelper, AnalyzerQuery, AnalyzerConfig, Wizard) {
 	'use strict';
 
 	var wizard;
@@ -148,7 +149,7 @@ define([
 					url = MapConfig.oilPerm.url,
 					self = this,
 					layer;
-
+						
 			// Get Graphic, and set the appropriate content
 			switch (type) {
 				case "Logging concession":
@@ -163,6 +164,9 @@ define([
 				case "Oil palm concession":
 				layer = 32;
 				break;
+				case "RSPO Oil palm concession":
+				layer = 27;
+				break;
 				case "AdminBoundary":
 				selectedArea = AnalyzerConfig.stepOne.option2.id;
 				url = MapConfig.adminUnitsLayer.url;
@@ -174,6 +178,9 @@ define([
 				break;
 				case "CustomGraphic":
 				selectedArea = AnalyzerConfig.stepOne.option1.id;
+				break;
+				case "MillPoint":
+				selectedArea = AnalyzerConfig.stepOne.option5.id;
 				break;
 			}
 
@@ -191,6 +198,18 @@ define([
 						return true;
 					}
 					return false;
+				});
+			} else if (type === "MillPoint") {
+				AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
+					feature.attributes.WRI_label = label;
+					feature = GeoHelper.preparePointAsPolygon(feature);
+					if (!self.isOpen()) {
+						self.toggleWizard().then(function () {
+							setWizardProps(feature);
+						});
+					} else {
+						setWizardProps(feature);
+					}
 				});
 			} else {
 				AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
@@ -211,6 +230,7 @@ define([
 				// for Admin Units, it is option 2 
 				// for Concessions, it is option 3
 				// for Certified Areas, it is option 4
+				// for Mill Points, it is option 5
 				// selectedArea set in switch statement above
 				wizard._updateSelectedArea(selectedArea);
 				// Set to Step 3, the parameter is index based like 0,1,2,3, 3 is the third step
@@ -223,6 +243,10 @@ define([
 
 			// Hide the info window
 			app.map.infoWindow.hide();
+		},
+
+		addGraphicFromPopup: function () {
+
 		},
 
 		isOpen: function () {

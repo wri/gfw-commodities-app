@@ -46,13 +46,11 @@ define([
         },
 
         render: function() {
-            console.log('rendered!');
             var props = this.props;
 
             // Mixin any state/props that need to be mixed in here
             props.analysisArea = this.state.analysisArea;
             props.currentStep = this.state.currentStep;
-            console.log("currentStep: " + props.currentStep);
             if (props.currentStep == 0) {
                 $(".breadcrumbs").hide();
                 $(".gfw .wizard-header").css("height", "-=45px");
@@ -239,6 +237,7 @@ define([
                 labelField,
                 suitableRule,
                 readyEvent,
+                datasets,
                 win = window.open('./app/js/report/Report.html', '_blank');
 
             //setTimeout(function () {
@@ -248,6 +247,7 @@ define([
                 win.focus();
                 labelField = AnalyzerConfig.stepTwo.labelField;
                 suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
+                datasets = self.state.analysisSets;
                 win.payload = {
                     geometry: geometry,
                     datasets: self.state.analysisSets,

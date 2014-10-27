@@ -1,19 +1,12 @@
-// THIS COMPONENT IS A PIECE NECESSARY FOR STEP TWO
-
 define([
 	"react",
   "map/config",
   "dojo/topic",
   "analysis/Query",
   "analysis/config",
-  "esri/units",
-  "esri/Color",
-  "esri/graphic",
-  "esri/geometry/Circle",
-  "components/wizard/NestedList",
-  "esri/symbols/SimpleLineSymbol",
-  "esri/symbols/SimpleFillSymbol"
-], function (React, MapConfig, topic, AnalyzerQuery, AnalyzerConfig, Units, Color, Graphic, Circle, NestedList, SimpleLineSymbol, SimpleFillSymbol) {
+  "utils/GeoHelper",
+  "components/wizard/NestedList"
+], function (React, MapConfig, topic, AnalyzerQuery, AnalyzerConfig, GeoHelper, NestedList) {
 
   var config = AnalyzerConfig.millPoints,
       getDefaultState = function () {
@@ -21,10 +14,7 @@ define([
           nestedListData: [],
           selectedCommodity: config.commodityOptions[0].value
         });
-      },
-      circleSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                     new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2),
-                     new Color([255, 200, 103, 0.65]));
+      };
 
 	return React.createClass({
 
@@ -121,29 +111,23 @@ define([
         // Mills dont support group selection
 
       } else if (entityId) {
-        AnalyzerQuery.getMillByEntityId(entityId).then(function (feature) {
-          // Add it to the map and make it the current selection, give it a label
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
-          longitude = feature.attributes.Longitude;
-          latitude = feature.attributes.Latitude;
-          circle = new Circle([longitude, latitude], {
-            "radius": 50,
-            "radiusUnit": Units.KILOMETERS
-          });
-          graphic = new Graphic(circle, circleSymbol, feature.attributes);
-          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-          if (wizardGraphicsLayer) {
+        wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+        if (wizardGraphicsLayer) {
+          AnalyzerQuery.getMillByEntityId(entityId).then(function (feature) {
+            // Add it to the map and make it the current selection, give it a label
+            feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
+            graphic = GeoHelper.preparePointAsPolygon(feature);
             // Clear out any previous 'preview' features
             wizardGraphicsLayer.clear();
             wizardGraphicsLayer.add(graphic);
             // Mark this as your current selection
             self.props.callback.updateAnalysisArea(graphic);
             // Zoom to extent of new feature
-            app.map.centerAndZoom([longitude, latitude], 9);
-          }
-
-        });
+            app.map.centerAndZoom([graphic.attributes.Longitude, graphic.attributes.Latitude], 9);
+          });
+        }
       }
+      
     }
 
   });

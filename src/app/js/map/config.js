@@ -211,6 +211,33 @@ define([], function () {
 								 "<tr><td>Source: </td><td>${Source:checkAvailable}</td></tr></table>"
 			}
 		},
+		rspoPerm: {
+			id: "ForestUse",
+			url: dynamicMapServiceUrl,
+			layerId: 27,
+			infoTemplate: {
+				content: "<table>" +
+										"<tr><td>Concession Type: </td><td>${TYPE:checkAvailable}</td></tr>" +
+										"<tr><td>Country:</td><td>${Country:checkAvailable}</td></tr>" +
+										"<tr><td>Group:</td><td>${GROUP_NAME:checkAvailable}</td></tr>" +
+										"<tr><td>Certification Status:</td><td>${CERT_STAT:checkAvailable}</td></tr>" +
+										"<tr><td>GIS Calculated Area (ha):</td><td>${AREA_HA:NumberFormat}</td></tr>" +
+										"<tr><td>Certificate ID:</td><td>${Certificat:checkAvailable}</td></tr>" +
+										"<tr><td>Certificate Issue Date:</td><td>${Issued:checkAvailable}</td></tr>" +
+										"<tr><td>Certificate Expiry Date:</td><td>${Expired:checkAvailable}</td></tr>" +
+										"<tr><td>Mill name:</td><td>${Mill:checkAvailable}</td></tr>" +
+										"<tr><td>Mill location:</td><td>${Location:checkAvailable}</td></tr>" +
+										"<tr><td>Mill capacity (t/hour):</td><td>${Capacity:NumberFormat}</td></tr>" +
+										"<tr><td>Certified CPO (mt):</td><td>${CPO:NumberFormat}</td></tr>" +
+										"<tr><td>Certified PK (mt):</td><td>${PK:NumberFormat}</td></tr>" +
+										"<tr><td>Estate Suppliers:</td><td>${Estate:checkAvailable}</td></tr>" +
+										"<tr><td>Estate Area (ha):</td><td>${Estate_1:NumberFormat}</td></tr>" +
+										"<tr><td>Outgrower Area (ha):</td><td>${Outgrowe:NumberFormat}</td></tr>" +
+										"<tr><td>Scheme Smallholder area (ha):</td><td>${SH:NumberFormat}</td></tr>" +
+										"<tr><td>Source: </td><td>${Source:checkAvailable}</td></tr>" +
+									"</table>"
+			}
+		},
 		logPerm: {
 			id: "ForestUse",
 			url: dynamicMapServiceUrl,
@@ -437,7 +464,16 @@ define([], function () {
 	      filter: "forest-use",
 	      type: "check",
 	      layerType: "dynamic",
-          infoDivClass: "land-use-oil-palm"
+        infoDivClass: "land-use-oil-palm"
+	    },
+	    {
+	      key: "rspoPerm",
+	      title: "RSPO oil palm",
+	      subtitle: "(varies, select countries)",
+	      filter: "forest-use",
+	      type: "check",
+	      layerType: "dynamic",
+        infoDivClass: "land-use-oil-palm"
 	    },
 	    {
 	      key: "logPerm",
@@ -446,7 +482,7 @@ define([], function () {
 	      filter: "forest-use",
 	      type: "check",
 	      layerType: "dynamic",
-          infoDivClass: "land-use-logging"
+        infoDivClass: "land-use-logging"
 	    },
 	    {
 	      key: "minePerm",
@@ -455,7 +491,7 @@ define([], function () {
 	      filter: "forest-use",
 	      type: "check",
 	      layerType: "dynamic",
-          infoDivClass: "land-use-mining"
+        infoDivClass: "land-use-mining"
 	    },
 	    {
 	      key: "woodPerm",

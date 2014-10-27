@@ -4,13 +4,13 @@
   'use strict';
 
   var src = [
-    'http://js.arcgis.com/3.10/',
+    'http://js.arcgis.com/3.11/',
     'http://code.jquery.com/jquery-1.11.0.min.js',
     'http://code.highcharts.com/highcharts.js'
   ],
   css = [
-    'http://js.arcgis.com/3.10/js/esri/css/esri.css',
-    'http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css',
+    'http://js.arcgis.com/3.11/esri/css/esri.css',
+    'http://js.arcgis.com/3.11/dijit/themes/tundra/tundra.css',
     '../../css/report.css'
   ],
   URL = location.pathname.replace(/app\/js\/report.*/, '') + 'app',

@@ -4015,7 +4015,7 @@ address {
 
 /* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 1017 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
+/* line 1020 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar
@@ -4766,48 +4766,29 @@ address {
 }
 
 /* line 374 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
-.gfw .wizard-body .step-three-top {
-  position: absolute;
-  height: 190px;
-  left: 10px;
-  right: 0;
-  top: 0;
-}
-
-/* line 381 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
-.gfw .wizard-body .checkbox-list {
-  position: absolute;
-  overflow-y: auto;
-  top: 200px;
-  left: 10px;
-  bottom: 0;
-  right: 0;
-}
-
-/* line 389 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox-container {
   font-size: 18px;
   margin: 5px 0;
 }
 
-/* line 393 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 378 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .checkbox-list .wizard-checkbox-container {
   display: inline-block;
   width: 220px;
 }
 
-/* line 397 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 382 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .checkbox-list .wizard-checkbox-container:nth-child(odd) {
   width: 200px;
 }
 
-/* line 400 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 385 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .wizard-checkbox {
   display: inline-block;
   cursor: pointer;
 }
 
-/* line 404 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 389 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .nested-list .searchBox input {
   border: 1px solid #b2b2b2;
   border-radius: 5px;
@@ -4818,7 +4799,7 @@ address {
   height: 30px;
 }
 
-/* line 411 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 396 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .nested-list .nested-list-search-icon {
   background: url("images/simpleGeocoder.png") no-repeat 0px 0px;
   position: absolute;

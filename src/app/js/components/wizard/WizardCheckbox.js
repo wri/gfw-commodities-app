@@ -41,7 +41,6 @@ define([
                     },
                     React.DOM.div({
                             'className': className,
-
                             'data-value': this.props.value
                         },
                         React.DOM.span({
@@ -64,7 +63,6 @@ define([
         },
 
         _toggle: function() {
-            console.log(this);
             this.setState({
                 active: !this.state.active
             });

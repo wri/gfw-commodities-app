@@ -121,12 +121,17 @@ define([], function() {
             suit: {
                 label: 'Oil Palm Suitability',
                 value: 'suit',
-                description: 'Description of the output the user will see when selecting this option.'
+                description: 'Analyze Areas potentially suitable and unsuitable for palm oil development using WRI\'s methodology.'
             },
             rspo: {
                 label: 'RSPO Land Use Change Analysis',
                 value: 'rspo',
-                description: 'Description of the output the user will see when selecting this option.'
+                description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.'
+            },
+            mill: {
+                label: 'Mill Point Risk Assessment',
+                value: 'mill',
+                description: 'Analyze risk assessment. (Analysis based on 50km buffer)'
             },
             forestChange: {
                 label: 'Forest Change Analysis Variables',

@@ -424,8 +424,41 @@ define([
 
         _getMillPointAnalysis: function() {
             this._debug('Fetcher >>> _getMillPointAnalysis');
-            var deferred = new Deferred();
-            deferred.resolve(true);
+            var deferred = new Deferred(),
+                config = ReportConfig.millPoints,
+                response,
+                req;
+
+            // Create the container for the results
+            ReportRenderer.renderMillContainer(config);
+
+            // Get Results from API
+            req = new XMLHttpRequest();
+
+            req.open('POST', config.url, true);
+            req.onreadystatechange = function (res) {
+              if (req.readyState === 4) {
+                if (req.status === 200) {
+                  response = JSON.parse(req.response);
+                  if (response.mills) {
+                    ReportRenderer.renderMillAssessment(response.mills, config);
+                    deferred.resolve(true);
+                  } else {
+                    deferred.resolve(false);
+                  }
+                } else {
+                  deferred.resolve(false);
+                }
+              }
+            };
+
+            req.addEventListener('error', function () {
+              deferred.resolve(false);
+            }, false);
+
+
+            req.send();
+
             return deferred.promise;
         },
 

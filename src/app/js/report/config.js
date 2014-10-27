@@ -92,7 +92,9 @@ define([], function () {
 		},
 
 		millPoints: {
-
+			url: 'http://risk-api.appspot.com/',
+			title: 'Mill Point Risk Assessment',
+			rootNode: 'millPoints'
 		},
 
 		suitability: {

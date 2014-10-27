@@ -27,12 +27,19 @@ define([
             if (newProps.isResetting) {
                 this.replaceState(getDefaultState());
             }
+
+            if (newProps.selectedArea !== 'millPointOption' && 
+                     this.props.currentStep === 2 &&
+                     newProps.currentStep === 3) {
+                // Recheck requirements and update state if necessary
+                this._selectionMade();
+            }
         },
 
         render: function() {
 
             var currentSelection = (this.props.analysisArea ?
-                (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel) : "none");
+                (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel) : "none");            
 
             return (
 
@@ -68,6 +75,17 @@ define([
                             React.DOM.p({
                                 'className': 'layer-description'
                             }, config.rspo.description),
+                            React.DOM.div({'className': (this.props.selectedArea === 'millPointOption' ? '' : 'hidden')},
+                                new WizardCheckbox({
+                                    'label': config.mill.label,
+                                    'value': config.mill.value,
+                                    'change': this._selectionMade,
+                                    'isResetting': this.props.isResetting
+                                }),
+                                React.DOM.p({
+                                    'className': 'layer-description'
+                                }, config.mill.description)
+                            ),
                             React.DOM.div({
                                 'className': 'step-sub-header'
                             }, config.forestChange.label),
@@ -140,17 +158,43 @@ define([
         },
 
         _checkRequirements: function() {
-            return (document.querySelectorAll(".select-analysis .wizard-checkbox.active").length > 0);
+            var result = false,
+                nodes = document.querySelectorAll(".select-analysis .wizard-checkbox.active"),
+                value;
+
+            // Conditions
+            // At least One item must be checked
+            // If more than one item is checked, we pass
+            if (nodes.length > 0) {
+                if (nodes.length > 1) {
+                    result = true;
+                } else {
+                    // nodes === 1
+                    value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
+                    if (this.props.selectedArea !== 'millPointOption' && value === 'mill') {
+                        // This Fails, result is already false so do nothing
+                    } else {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
         },
 
         _getPayload: function() {
             var nodes = document.querySelectorAll(".select-analysis .wizard-checkbox"),
                 payload = {},
+                self = this,
                 value;
 
             Array.prototype.forEach.call(nodes, function(node) {
                 value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
-                payload[value] = (node.className.search('active') > -1);
+                if (self.props.selectedArea !== 'millPointOption' && value === 'mill') {
+                    // Dont add mills unless millPointOption is the selectedArea
+                } else {
+                    payload[value] = (node.className.search('active') > -1);
+                }
             });
 
             return payload;

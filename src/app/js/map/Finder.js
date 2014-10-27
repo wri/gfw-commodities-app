@@ -318,14 +318,25 @@ define([
           self = this;
 
       arrayUtils.forEach(featureObjects, function (item) {
-        template = new InfoTemplate(item.value, 
-          MapConfig.oilPerm.infoTemplate.content +
-          "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-          item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
-          "Analyze this area</button></div>"
-        );
-        item.feature.setInfoTemplate(template);
-        features.push(item.feature);
+        if (item.layerId === 27) {
+          template = new InfoTemplate(item.value, 
+            MapConfig.rspoPerm.infoTemplate.content +
+            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+            item.value + "' data-type='RSPO Oil palm concession' data-id='${OBJECTID}'>" +
+            "Analyze this area</button></div>"
+          );
+          item.feature.setInfoTemplate(template);
+          features.push(item.feature);
+        } else {
+          template = new InfoTemplate(item.value, 
+            MapConfig.oilPerm.infoTemplate.content +
+            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+            item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
+            "Analyze this area</button></div>"
+          );
+          item.feature.setInfoTemplate(template);
+          features.push(item.feature);
+        }
       });
       return features;
     },

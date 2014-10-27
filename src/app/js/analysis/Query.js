@@ -115,7 +115,7 @@ define([
 
 		},
 
-				/*
+		/*
 			Simple Query to retrieve mills by their entity id
 		*/
 		getMillByEntityId: function (entityID) {

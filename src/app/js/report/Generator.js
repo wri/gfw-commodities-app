@@ -13,11 +13,12 @@ define([
 	"esri/geometry/Point",
 	"esri/geometry/Polygon",
 	"esri/SpatialReference",
+	"esri/tasks/GeometryService",
 	"esri/geometry/webMercatorUtils",
 	// Local Modules from report folder
 	"report/config",
 	"report/Fetcher"
-], function (on, dom, dojoQuery, esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, webMercatorUtils, Config, Fetcher) {
+], function (on, dom, dojoQuery, esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
 	'use strict';
 
 	window.report = {};
@@ -41,34 +42,60 @@ define([
 
 		prepareForAnalysis: function () {
 
+			var self = this;
+
 			report.geometry = JSON.parse(window.payload.geometry);
 
 			// If report.geometry is a circle, we need to make it a new valid polygon
+			// Then reproject it in Web Mercator
 			if (report.geometry.radius) {
-				var temp = new Polygon();
-				temp.addRing(report.geometry.rings[1]);
-				report.geometry = temp;		
+				var geometryService = new GeometryService(Config.geometryServiceUrl),
+						poly = new Polygon(),
+						sr = new SpatialReference(102100),
+						failure;
+
+				failure = function () {
+					// Handle This Issue Here
+					// Discuss with Adrienne How to Handle
+				};
+						
+				poly.addRing(report.geometry.rings[1]);
+
+				geometryService.project([poly], sr, function (projectedGeometry) {
+					if (projectedGeometry.length > 0) {
+						poly.rings = projectedGeometry[0].rings;
+						poly.setSpatialReference(sr);
+						report.geometry = poly;
+						// Set remaining variables needed for analysis, see more thorough description below
+						report.suitable = window.payload.suitability;
+						report.datasets = window.payload.datasets;
+						self.setTitleAndShowReport(window.payload.title);
+						self.beginAnalysis();
+					} else {
+						failure();
+					}
+				}, failure);
+			} else {
+				// Next, set some properties that we can use to filter what kinds of queries we will be performing
+				// Logic for the Wizard was changed, below may not be needed but it left here for reference incase
+				// the logic changes again.
+				// report.analyzeClearanceAlerts = window.payload.types.forma;
+				// report.analyzeTreeCoverLoss = window.payload.types.loss;
+				// report.analyzeSuitability = window.payload.types.suit;
+				// report.analyzeMillPoints = window.payload.types.risk;
+
+				// Next grab any suitability configurations if they are available, they will be used to perform 
+				// a suitability analysis on report.geometry
+				report.suitable = window.payload.suitability;
+
+				// Lastly, grab the datasets from the payload and store them in report so we know which 
+				// datasets we will perform the above analyses on
+				report.datasets = window.payload.datasets;
+
+				// Now that we are ready, set the title, unhide the report, and begin the analysis
+				this.setTitleAndShowReport(window.payload.title);
+				this.beginAnalysis();
 			}
-
-			// Next, set some properties that we can use to filter what kinds of queries we will be performing
-			// Logic for the Wizard was changed, below may not be needed but it left here for reference incase
-			// the logic changes again.
-			// report.analyzeClearanceAlerts = window.payload.types.forma;
-			// report.analyzeTreeCoverLoss = window.payload.types.loss;
-			// report.analyzeSuitability = window.payload.types.suit;
-			// report.analyzeMillPoints = window.payload.types.risk;
-
-			// Next grab any suitability configurations if they are available, they will be used to perform 
-			// a suitability analysis on report.geometry
-			report.suitable = window.payload.suitability;
-
-			// Lastly, grab the datasets from the payload and store them in report so we know which 
-			// datasets we will perform the above analyses on
-			report.datasets = window.payload.datasets;
-
-			// Now that we are ready, set the title, unhide the report, and begin the analysis
-			this.setTitleAndShowReport(window.payload.title);
-			this.beginAnalysis();
 
 		},
 
@@ -170,10 +197,6 @@ define([
 		*/
 		_getArrayOfRequests: function () {
 			var requests = [];
-
-			if (report.datasets.mill) {
-				requests.push('mill');
-			}
 
 			//if (report.analyzeTreeCoverLoss || report.analyzeClearanceAlerts) {
 				for (var key in report.datasets) {
@@ -380,7 +403,7 @@ define([
 			req.open('POST', url, true);
 			req.onreadystatechange = function () {
 				if (req.readyState === 4) {
-					if (res.status === 200) {
+					if (req.status === 200) {
 						res = JSON.parse(req.response);
 						deferred.resolve(res.subscribe);
 					} else {
