@@ -1,7 +1,8 @@
 define([
     "dojo/dom",
-    "dojo/dom-style"
-], function(dom, domStyle) {
+    "dojo/dom-style",
+    "models/FooterModel"
+], function(dom, domStyle, FooterModel) {
     'use strict';
 
     var initialized = false;

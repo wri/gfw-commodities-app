@@ -92,12 +92,21 @@ define([
                     this.props.infoDivClass = "forest-and-land-cover-land-cover-global"
                     break;
                 case "primForest":
-                    this.props.infoDivClass = "suitability-suitability-mapper"
+                    this.props.infoDivClass = "forest-and-land-cover-primary-forest"
                     break;
                 case "suit":
                     this.props.infoDivClass = "land-use-oil-palm"
-                    console.log("are we here?");
                     break;
+                case "rspo":
+                    this.props.infoDivClass = "land-use-rspo-consessions"
+                    break;
+                case "landCoverIndo":
+                    this.props.infoDivClass = "forest-and-land-cover-land-cover-indonesia"
+                    break;
+                case "landCoverAsia":
+                    this.props.infoDivClass = "forest-and-land-cover-land-cover-south-east-asia"
+                    break;
+
             }
 
             if (document.getElementsByClassName(this.props.infoDivClass).length) {

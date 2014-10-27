@@ -59,7 +59,7 @@ define([
         require(["dojo/fx", "dojo/_base/fx", "dojo/query"], function(coreFx, baseFx, dojoQuery) {
 
             var runAnimation = function(id) {
-                console.log("animating " + id);
+                //console.log("animating " + id);
 
 
                 var itemsToAnimate = dojoQuery(".modeGroup");
@@ -93,14 +93,12 @@ define([
                             }
 
                             setTimeout(function() {
-
-                                //console.log(nextNodeId);
                                 if (!stopAnimation) {
 
                                     currentModeOption(nextNodeId);
 
 
-                                    console.log("Value of StopAnnimation is - " + stopAnimation);
+                                    //console.log("Value of StopAnnimation is - " + stopAnimation);
                                     setTimeout(function() {
                                         //console.log(nextNodeId);
                                         if (!stopAnimation) {
@@ -146,11 +144,13 @@ define([
                 HomeModel.vm.homeModeOptions.push(hmOpt);
                 return hmOpt;
             });
-            //debugger;
-            //HomeModel.vm.homeModeOptions(mappedHomModeOptions);
         }
-        //console.log("stop mode animation ");
+
     };
+
+    // o.isInitialized = function() {
+    //     return initialized;
+    // };
 
 
     return {
@@ -171,7 +171,7 @@ define([
         },
 
         handleModeClick: function(eventName) {
-            console.log(eventName);
+            //console.log(eventName);
             require(["controllers/Header"], function(Header) {
                 if (eventName == "goToMap") {
                     Header.updateView("map", false, true);
@@ -188,15 +188,9 @@ define([
         },
 
         handleDotClick: function(obj) {
-
-            console.log(obj.id);
-
-            //debugger;
             o.stopModeAnim(obj);
 
             //o.startModeAnim(obj.id);
-
-
         }
 
     };

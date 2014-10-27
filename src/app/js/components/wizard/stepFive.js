@@ -39,6 +39,10 @@ define([
 
         render: function() {
             // $(".breadcrumbs").hide();
+            //console.log($('.gfw .step .step-one-main-description').html());
+            $("p").html(function(index, value) {
+                return value.replace(/\b(FEEDBACK)\b/g, '<a href="http://blog.globalforestwatch.org/">Feedback</a>');
+            });
             return (
                 React.DOM.div({
                         'className': 'step'

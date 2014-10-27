@@ -152,7 +152,11 @@ define([
         // UI Functions that affect internal properties only
         _changeStep: function(synEvent) {
             var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute("data-index");
-            if (targetIndex < this.state.currentStep) {
+
+            targetIndex *= 1;
+            targetIndex += 1;
+            if (targetIndex < (this.state.currentStep + 1)) {
+
                 this.setState({
                     currentStep: (1 * targetIndex) + 1 // Convert to Int, add 1 because adding intro added a new step
                 });
@@ -291,7 +295,7 @@ define([
         // External Function to Help determine what state the wizard is in, could be useful 
         // for handling various layers and other functions when toggling the wizard or jumping around
         // Leverage some of the published functions for layers, see delegator
-        _getStepAndActiveArea: function () {
+        _getStepAndActiveArea: function() {
             return {
                 currentStep: this.state.currentStep,
                 selectedArea: this.props.selectedArea || 'none'

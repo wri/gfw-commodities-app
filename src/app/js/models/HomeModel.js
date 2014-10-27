@@ -12,7 +12,7 @@ define([
                 Model.root = el;
                 // Create Model Properties
                 Model.vm.homeModeOptions = ko.observableArray(AppConfig.homeModeOptions);
-                console.log(AppConfig.homeModeOptions);
+                //console.log(AppConfig.homeModeOptions);
 
 
                 Model.vm.modeSelect = function(obj, evt) {
