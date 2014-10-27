@@ -38,8 +38,8 @@ define([
       // and the previous step is 0, then we should update the layer defs to match this UI
 
       if (newProps.selectedArea === 'millPointOption' && 
-                     this.props.currentStep === 1 &&
-                     newProps.currentStep === 2) {
+                     this.props.currentStep === 0 &&
+                     newProps.currentStep === 1) {
         
         topic.publish('showMillPoints');
         if (this.state.nestedListData.length === 0) {

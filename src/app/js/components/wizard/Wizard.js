@@ -154,7 +154,7 @@ define([
             var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute("data-index");
 
             targetIndex *= 1;
-            targetIndex += 1;
+            //targetIndex += 1;
             if (targetIndex < (this.state.currentStep + 1)) {
 
                 this.setState({
