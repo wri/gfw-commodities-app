@@ -309,7 +309,8 @@ define([
 						categories: report.clearanceLabels
 					},
 					yAxis: {
-						title: null
+						title: null,
+            min: 0
 					},
 					legend: {
 						enabled: true
@@ -351,7 +352,8 @@ define([
 						categories: report.clearanceLabels
 					},
 					yAxis: {
-						title: null
+						title: null,
+						min: 0
 					},
 					legend: {
 						enabled: false
@@ -932,7 +934,6 @@ define([
 					content = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span><span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>";
 
 			arrayUtils.forEach(mills, function (mill) {
-				console.dir(mill);
 				// Create Header
 				content += "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
 									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>Overall Threat Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";
@@ -941,18 +942,18 @@ define([
 				// Generate Rows for Each section of data
 				content += generateRow('RSPO', mill.rspo);
 				content += generateRow('Legal', mill.legal);
-				content += generateRow('Deforestation', mill.deforestation, true);
+				content += generateRow('Deforestation', mill.deforestation, 'deforest');
 				/* Child Rows */
-				content += generateRow('UMD total loss', mill.deforestation['umd-loss'], null, true);
-				content += generateRow('UMD loss on primary', mill.deforestation['umd-loss-primary'], null, true);
-				content += generateRow('FORMA total loss', mill.deforestation.forma, null, true);
-				content += generateRow('FORMA loss on primary', mill.deforestation['forma-primary'], null, true);
-				content += generateRow('Carbon', mill.deforestation.carbon, null, true);
+				content += generateRow('UMD total loss', mill.deforestation['umd-loss'], null, 'deforest');
+				content += generateRow('UMD loss on primary', mill.deforestation['umd-loss-primary'], null, 'deforest');
+				content += generateRow('FORMA total loss', mill.deforestation.forma, null, 'deforest');
+				content += generateRow('FORMA loss on primary', mill.deforestation['forma-primary'], null, 'deforest');
+				content += generateRow('Carbon', mill.deforestation.carbon, null, 'deforest');
 				/* Child Rows */
-				content += generateRow('Peat', mill.peat, true);
+				content += generateRow('Peat', mill.peat, 'peat');
 				/* Child Rows */
-				content += generateRow('Presence of peat', mill.peat.presence, null, true);
-				content += generateRow('Clearance on peat', mill.peat.clearance, null, true);
+				content += generateRow('Presence of peat', mill.peat.presence, null, 'peat');
+				content += generateRow('Clearance on peat', mill.peat.clearance, null, 'peat');
 				/* Child Rows */
 				content += generateRow('Fires', mill.fire);
 				content += "</table>";
@@ -960,8 +961,9 @@ define([
 			});
 
 			// Takes a piece of the results and returns a html row
-			function generateRow(name, data, isParent, isChild) {
-				var rowClass = isChild ? 'data-row child' : 'data-row';		
+			function generateRow(name, data, parentClass, childClass) {
+				var rowClass = parentClass ? 'data-row parent ' + parentClass : 'data-row';
+				rowClass += childClass ? ' child ' + childClass : '';
 				var frag = "<tr class='" + rowClass + "'><td class='row-name'><span>" + name + "</span></td>";
 				frag += "<td class='" + data.concession.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.concession.risk + "</span></td>";
 				frag += "<td>" + (typeof data.concession.raw === 'number' ? data.concession.raw + '%' : data.concession.raw) + "</td>";
@@ -991,7 +993,13 @@ define([
 				$('.mill-table-container tr.data-row td:nth-child(4)').attr('colspan', colspan);
 			}
 
+			function toggleChildren() {
+				console.dir(arguments);
+			}
+
+			// Set up Click Listeners to give table custom toggling functionality
 			$("#value-toggle").click(toggleValues);
+			$(".mill-table-container tr.parent").click(toggleChildren);
 
 		},
 
