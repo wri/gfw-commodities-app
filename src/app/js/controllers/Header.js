@@ -44,12 +44,15 @@ define([
                     self.updateView(dataView, external, initialized);
                 });
             });
-            query("#app-footer > div.footerModesContainer > div > div > div:nth-child(3) > div > div:nth-child(4) > a").forEach(function(item) {
+
+            query("#dijit_Dialog_0 > div.dijitDialogPaneContent > p > a").forEach(function(item) {
                 on(item, "click", function(evt) {
                     var target = evt.target ? evt.target : evt.srcElement,
-                        dataView = "data",
+                        dataView = "map",
                         external = false;
-
+                    //$('#dijit_Dialog_0').dialog("close");
+                    //$('#dijit_Dialog_0').close();
+                    $("#dijit_Dialog_0 > div.dijitDialogTitleBar > span.dijitDialogCloseIcon").click();
                     self.updateView(dataView, external, initialized);
                 });
             });
@@ -142,14 +145,20 @@ define([
         },
 
         addSubscriptionDialog: function() {
+
             var dialog2 = new Dialog({
-                    title: 'Map Analysis Walkthrough',
                     style: 'width: 300px; text-align: center;'
                 }),
                 self = this,
-                content = "<p><strong>Coming Soon!</strong></p>";
+                content = "<p>To sign up for clearance or fire alerts, go to the Map and select an area to analyze. You can sign up for alerts on that area through the Subscribe button on the analysis report.</p>";
 
             dialog2.setContent(content);
+            $("#dijit_Dialog_0 > div.dijitDialogPaneContent").html(function(index, value) {
+                return value.replace(/\b(Map)\b/g, '<a style="cursor:pointer;color:#e98300;"><strong>Map</strong></a>');
+            });
+
+            $("#dijit_Dialog_0 > div.dijitDialogPaneContent").css("margin-top", "-30px");
+            $("#dijit_Dialog_0 > div.dijitDialogPaneContent").css("margin-bottom", "-10px");
 
             query("#app-footer > div.footerModesContainer > div > div > div:nth-child(2) > div > div:nth-child(5) > a").forEach(function(item) {
                 on(item, "click", function(evt) {
