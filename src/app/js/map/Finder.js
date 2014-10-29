@@ -117,7 +117,7 @@ define([
         }
       }
 
-      layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+      layer = app.map.getLayer(MapConfig.mill.id);
       if (layer) {
         if (layer.visible) {
           deferreds.push(self.identifyMillPoints(mapPoint));
@@ -412,8 +412,8 @@ define([
 
     identifyMillPoints: function (mapPoint) {
       var deferred = new Deferred(),
-          identifyTask = new IdentifyTask(MapConfig.millPointsLayer.url),
-          layer = app.map.getLayer(MapConfig.millPointsLayer.id),
+          identifyTask = new IdentifyTask(MapConfig.mill.url),
+          layer = app.map.getLayer(MapConfig.mill.id),
           params = new IdentifyParameters(),
           layerDefs = [];
 
@@ -452,7 +452,7 @@ define([
 
       arrayUtils.forEach(featureObjects, function (item) {
         template = new InfoTemplate(item.value, 
-          MapConfig.millPointsLayer.infoTemplate.content +
+          MapConfig.mill.infoTemplate.content +
           "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
           "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
           "Analyze this area</button></div>"

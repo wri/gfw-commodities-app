@@ -33,10 +33,12 @@ define([
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.adminUnit.countryBoundaries, filter);
 				}
 				// Hide the Mill Points layer if its visible
-				var layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+				var layer = app.map.getLayer(MapConfig.mill.id);
 				if (layer) {
 					if (layer.visible) {
-						LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+						LayerController.setWizardMillPointsLayerDefinition(MapConfig.mill);
+						// Update the UI to reflect that this layer is off
+						topic.publish('toggleItemInLayerList','mill');
 					}
 				}
 			});
@@ -48,10 +50,12 @@ define([
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.certifiedArea.schemeQuery, scheme);
 				}
 				// Hide the Mill Points layer if its visible
-				var layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+				var layer = app.map.getLayer(MapConfig.mill.id);
 				if (layer) {
 					if (layer.visible) {
-						LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+						LayerController.setWizardMillPointsLayerDefinition(MapConfig.mill);
+						// Update the UI to reflect that this layer is off
+						topic.publish('toggleItemInLayerList','mill');
 					}
 				}
 			});
@@ -63,10 +67,12 @@ define([
 					AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);
 				}
 				// Hide the Mill Points layer if its visible
-				var layer = app.map.getLayer(MapConfig.millPointsLayer.id);
+				var layer = app.map.getLayer(MapConfig.mill.id);
 				if (layer) {
 					if (layer.visible) {
-						LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+						LayerController.setWizardMillPointsLayerDefinition(MapConfig.mill);
+						// Update the UI to reflect that this layer is off
+						topic.publish('toggleItemInLayerList','mill');
 					}
 				}
 			});
@@ -75,7 +81,7 @@ define([
 				// Turn off the dynamic layer by calling this method without passing a 2nd parameter to it
 				LayerController.setWizardDynamicLayerDefinition(MapConfig.certificationSchemeLayer);
 				// Toggle the wizard layer with this, will need to add a definition to it when the data supports it
-				LayerController.setWizardMillPointsLayerDefinition(MapConfig.millPointsLayer);
+				LayerController.setWizardMillPointsLayerDefinition(MapConfig.mill);
 			});	
 
 			// Layer Controller Functions

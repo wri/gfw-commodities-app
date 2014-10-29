@@ -44,8 +44,8 @@ define([
 
       if (newProps.selectedArea === 'commercialEntityOption' && 
                      this.state.selectedCommodity !== 'NONE' &&
-                     this.props.currentStep === 0 &&
-                     newProps.currentStep === 1) {
+                     this.props.currentStep === 1 &&
+                     newProps.currentStep === 2) {
         
         topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
 

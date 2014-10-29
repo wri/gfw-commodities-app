@@ -98,7 +98,7 @@ define([
 					node = document.createElement('div');
 
 			node.id = config.rootNode;
-			node.className = "result-container";
+			node.className = "result-container relative";
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
 
@@ -928,44 +928,58 @@ define([
 		*/
 		renderMillAssessment: function (mills, config) {
 
-			var output = "<table><tr><th></th><th colspan='2'>Concession</th><th colspan='2'>Radius</th></tr>";
+			var millTables = [],
+					content = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span><span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>";
 
 			arrayUtils.forEach(mills, function (mill) {
-				output += "<tr><td class='name'>" + window.payload.title + "</td><td colspan='2'>" + mill.risk + "</td><td colspan='2'>" + mill.risk + "</td>";
-				output += "<tr class='column-labels toggleable'><td></td><td>Ranking</td><td>Value</td><td>Ranking</td><td>Value</td>";
-				output += "<tr class='toggleable'><td class='row-name'>RSPO</td><td>" + mill.rspo.concession.risk + "</td><td>" + mill.rspo.concession.raw + "</td><td>" + mill.rspo.radius.risk + "</td><td>" + mill.rspo.radius.raw + "</td>";
-				output += "<tr class='toggleable'><td class='row-name'>Legal</td><td>" + mill.legal.concession.risk + "</td><td>" + mill.legal.concession.raw + "%</td><td>" + mill.legal.radius.risk + "</td><td>" + mill.legal.radius.raw + "%</td>";
-				output += "<tr class='toggleable'><td class='row-name'>Deforestation</td><td>" + mill.deforestation.concession.risk + "</td><td>" + mill.deforestation.concession.raw + "</td><td>" + mill.deforestation.radius.risk + "</td><td>" + mill.deforestation.radius.raw + "</td>";
-				output += "<tr class='toggleable peat-toggle'><td class='row-name'>Peat</td><td>" + mill.peat.concession.risk + "</td><td>" + mill.peat.concession.raw + "</td><td>" + mill.peat.radius.risk + "</td><td>" + mill.peat.radius.raw + "</td>";
-				output += "<tr class='toggleable'><td class='row-name'>Fires</td><td>" + mill.fire.concession.risk + "</td><td>" + mill.fire.concession.raw + "</td><td>" + mill.fire.radius.risk + "</td><td>" + mill.fire.radius.raw + "</td>";
+				console.dir(mill);
+				// Create Header
+				content += "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
+									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>Overall Threat Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";
+				// Create Table
+				content += "<table><tr><th></th><th colspan='2'>Concession</th><th colspan='2'>Radius</th></tr>";
+				// Generate Rows for Each section of data
+				content += generateRow('RSPO', mill.rspo);
+				content += generateRow('Legal', mill.legal);
+				content += generateRow('Deforestation', mill.deforestation);
+				content += generateRow('Peat', mill.peat);
+				content += generateRow('Fires', mill.fire);
+				content += "</table>";
+				millTables.push(content);
 			});
-									
-			output += "</table>";
 
-			// Temporary Functions to Demo Capabilities
-			var html = "<button id='testOne'>Show All</button><button id='testTwo'>Hide Values</button><button id='testThree'>Toggle Peat</button>";
+			// Takes a piece of the results and returns a html row
+			function generateRow(name, data) {				
+				var frag = "<tr class='data-row'><td class='row-name'>" + name + "</td>";
+				frag += "<td class='" + data.concession.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.concession.risk + "</span></td>";
+				frag += "<td>" + (typeof data.concession.raw === 'number' ? data.concession.raw + '%' : data.concession.raw) + "</td>";
+				frag += "<td class='" + data.radius.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.radius.risk + "</span></td>";
+				frag += "<td>" + (typeof data.radius.raw === 'number' ? data.radius.raw + '%' : data.radius.raw) + "</td>";
+				frag += "</tr>";
+				return frag;
+			}
 
-
-			document.getElementById(config.rootNode + "_table").innerHTML = output + html;
+			document.getElementById(config.rootNode + "_table").innerHTML = millTables.join('<br />');
 
 			// Toggle Rows and Columns Easily with jQuery, below are some examples
-			$("#testOne").click(function () {
-				$('.mill-table-container tr.toggleable td:nth-child(3)').show();
-				$('.mill-table-container tr.toggleable td:nth-child(5)').show();
-				$('.mill-table-container tr.toggleable td:nth-child(2)').attr('colspan',1);
-				$('.mill-table-container tr.toggleable td:nth-child(4)').attr('colspan',1);
-			});
+			// $("#testThree").click(function () {
+			// 	$('.mill-table-container .peat-toggle').toggle();
+			// });
 
-			$("#testTwo").click(function () {
-				$('.mill-table-container tr.toggleable td:nth-child(3)').hide();
-				$('.mill-table-container tr.toggleable td:nth-child(5)').hide();
-				$('.mill-table-container tr.toggleable td:nth-child(2)').attr('colspan',2);
-				$('.mill-table-container tr.toggleable td:nth-child(4)').attr('colspan',2);
-			});
+			// Toggle Functions
+			function toggleValues() {
+				var node = $(".toggle-button-container"),
+						colspan = node.hasClass('active') ? 2 : 1;
+				// Toggle the active class
+				node.toggleClass('active');
+				// Update the look of the table
+				$('.mill-table-container tr.data-row td:nth-child(3)').toggle();
+				$('.mill-table-container tr.data-row td:nth-child(5)').toggle();
+				$('.mill-table-container tr.data-row td:nth-child(2)').attr('colspan', colspan);
+				$('.mill-table-container tr.data-row td:nth-child(4)').attr('colspan', colspan);
+			}
 
-			$("#testThree").click(function () {
-				$('.mill-table-container .peat-toggle').toggle();
-			});
+			$("#value-toggle").click(toggleValues);
 
 		},
 

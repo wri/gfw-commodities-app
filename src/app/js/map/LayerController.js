@@ -482,9 +482,9 @@ define([
             // If layer has layer drawing options, dont overwrite all of them, append to them or overwrite
             // only the relevant layer id
             layerOptions = layer.layerDrawingOptions || [];
-
-            if (layerConfig.layerId) {
+            if (layerConfig.layerId !== undefined) {
                 layerOptions[layerConfig.layerId] = ldos;
+
             } else if (layerConfig.defaultLayers) {
                 arrayUtils.forEach(layerConfig.defaultLayers, function(layerId) {
                     layerOptions[layerId] = ldos;
