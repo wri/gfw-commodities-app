@@ -941,16 +941,28 @@ define([
 				// Generate Rows for Each section of data
 				content += generateRow('RSPO', mill.rspo);
 				content += generateRow('Legal', mill.legal);
-				content += generateRow('Deforestation', mill.deforestation);
-				content += generateRow('Peat', mill.peat);
+				content += generateRow('Deforestation', mill.deforestation, true);
+				/* Child Rows */
+				content += generateRow('UMD total loss', mill.deforestation['umd-loss'], null, true);
+				content += generateRow('UMD loss on primary', mill.deforestation['umd-loss-primary'], null, true);
+				content += generateRow('FORMA total loss', mill.deforestation.forma, null, true);
+				content += generateRow('FORMA loss on primary', mill.deforestation['forma-primary'], null, true);
+				content += generateRow('Carbon', mill.deforestation.carbon, null, true);
+				/* Child Rows */
+				content += generateRow('Peat', mill.peat, true);
+				/* Child Rows */
+				content += generateRow('Presence of peat', mill.peat.presence, null, true);
+				content += generateRow('Clearance on peat', mill.peat.clearance, null, true);
+				/* Child Rows */
 				content += generateRow('Fires', mill.fire);
 				content += "</table>";
 				millTables.push(content);
 			});
 
 			// Takes a piece of the results and returns a html row
-			function generateRow(name, data) {				
-				var frag = "<tr class='data-row'><td class='row-name'>" + name + "</td>";
+			function generateRow(name, data, isParent, isChild) {
+				var rowClass = isChild ? 'data-row child' : 'data-row';		
+				var frag = "<tr class='" + rowClass + "'><td class='row-name'><span>" + name + "</span></td>";
 				frag += "<td class='" + data.concession.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.concession.risk + "</span></td>";
 				frag += "<td>" + (typeof data.concession.raw === 'number' ? data.concession.raw + '%' : data.concession.raw) + "</td>";
 				frag += "<td class='" + data.radius.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.radius.risk + "</span></td>";
