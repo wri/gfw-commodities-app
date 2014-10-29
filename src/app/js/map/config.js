@@ -254,6 +254,16 @@ define([], function () {
 			layerId: 28
 		},
 		/***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
+		// This layer is also under forest use but has its own service
+		mill: {
+			id: 'MillPoints',
+			url: millPointsUrl,
+			layerId: 0,
+			infoTemplate: {
+				content: "<table><tr><td>Parent Company:</td><td>${Parent_Com}</td></tr>" +
+								 "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr></table>"
+			}
+		},
 		pal: {
 			id: "ProtectedAreas",
 			url: protectedAreasUrl,
@@ -501,6 +511,15 @@ define([], function () {
 	      type: "check",
 	      layerType: "dynamic",
           infoDivClass: "land-use-wood-fiber-plantation"
+	    },
+	    {
+	    	key: "mill",
+	    	title: "RSPO Mills",
+	    	subtitle: "(varies, select countries)",
+	    	filter: "forest-use",
+	    	type: "check",
+	    	layerType: "dynamic",
+	    	infoDivClass: "land-use-oil-palm"
 	    },
 	    {
 	      key: "pal",

@@ -187,7 +187,7 @@ define([], function () {
 			bounds: primaryForestBounds,
 			labels: primaryForestLabels,
 			clearanceChart: {
-				title: "Clearance Alerts in Primary Forests since 2013",
+				title: "Clearance Alerts in Primary Forests since Jan 2013",
 				type: "pie"
 			},
 			lossChart: {

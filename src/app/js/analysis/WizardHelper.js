@@ -74,7 +74,7 @@ define([
 				onEnd: function () {
 					deferred.resolve(true);
 					app.map.resize(true);
-					app.map.centerAt(orignalCenterPoint);
+					//app.map.centerAt(orignalCenterPoint);
 					if (wizardWidth > 0) {
 						domStyle.set('wizard', 'display', 'block');
 					}
@@ -115,13 +115,11 @@ define([
 			// Hide Wizard Related Layers
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).hide();
-			app.map.getLayer(MapConfig.millPointsLayer.id).hide();
 		},
 
 		showWizardRelatedLayers: function () {
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).show();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).show();
-			app.map.getLayer(MapConfig.millPointsLayer.id).hide();
 		},
 
 		/*
@@ -208,9 +206,11 @@ define([
 					if (!self.isOpen()) {
 						self.toggleWizard().then(function () {
 							setWizardProps(feature);
+							self.addGraphicFromPopup(feature);
 						});
 					} else {
 						setWizardProps(feature);
+						self.addGraphicFromPopup(feature);
 					}
 				});
 			} else {
@@ -219,9 +219,11 @@ define([
 					if (!self.isOpen()) {
 						self.toggleWizard().then(function () {
 							setWizardProps(feature);
+							self.addGraphicFromPopup(feature);
 						});
 					} else {
 						setWizardProps(feature);
+						self.addGraphicFromPopup(feature);
 					}
 				});
 			}
@@ -247,8 +249,28 @@ define([
 			app.map.infoWindow.hide();
 		},
 
-		addGraphicFromPopup: function () {
+		addGraphicFromPopup: function (feature) {
+			var layer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+					graphic;
 
+			if (layer) {
+				// Remove any previous features
+				layer.clear();
+				// If we have a symbol, add it, else, apply selection symbol and then add it.
+				// then zoom to feature
+				if (feature.symbol) {
+					layer.add(feature);
+					if (feature.geometry.radius) {
+						app.map.centerAndZoom([feature.attributes.Longitude, feature.attributes.Latitude], 9);
+					} else {
+						app.map.setExtent(feature.geometry.getExtent(), true);
+					}
+				} else {
+					feature = GeoHelper.applySelectionSymbolToFeature(feature);
+					layer.add(feature);
+					app.map.setExtent(feature.geometry.getExtent(), true);
+				}
+			}
 		},
 
 		isOpen: function () {

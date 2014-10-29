@@ -9,6 +9,9 @@ lightGrayFont = #747474
 mediumGray = #888
 redButton = #F44
 orangeButton = rgb(233, 131, 0)
+high = #e4132c
+medium = #f4820d
+low = #78c1dc
 
 // Font Family for the Application
 @font-face
@@ -128,6 +131,9 @@ html, body
 	border-spacing 0
 	margin 20px auto
 	width 80%
+	
+.gfw .mill-table-container table
+	margin-top 0px
 
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table tr td:first-child
@@ -137,8 +143,6 @@ html, body
 
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table td,
-.gfw .mill-table-container th,
-.gfw .mill-table-container td
 	border 1px solid #adadad
 	padding 5px 0 2px
 
@@ -234,9 +238,115 @@ html, body
 	text-align center
 	width 100%
 	
+.gfw .mill-table-container th
+	width 33%
+	
+.gfw .mill-table-container th,
+.gfw .mill-table-container td
+	border 1px solid baseGray
+	
 .gfw .mill-table-container .column-labels,
 .gfw .mill-table-container .name
 	font-weight bold
 	
 .gfw .mill-table-container .row-name
+	padding-left 20px
 	text-align left
+	
+.gfw .mill-header
+	background-color baseGray
+	border 1px solid baseGray
+	margin-top 10px
+	height 50px
+	
+.gfw .mill-title
+	line-height 50px
+	margin-left 10px
+	font-weight bold
+
+.gfw .mill-risk-level
+	margin-right 10px
+	line-height 50px
+	float right
+	
+.gfw .overall-risk
+	text-transform uppercase
+	
+.gfw .risk-label
+	text-transform capitalize
+
+.gfw .large-swatch,
+.gfw .small-swatch
+	display inline-block
+	border-radius(35px)
+	position relative
+	margin 0 5px
+	top 1px
+	
+.gfw .large-swatch
+	height 14px
+	width 14px
+	
+.gfw .small-swatch
+	height 10px
+	width 10px
+	
+.gfw .low .overall-risk
+	color low
+
+.gfw .medium .overall-risk
+	color medium
+	
+.gfw .high .overall-risk
+	color high
+	
+.gfw .low .large-swatch,
+.gfw .low .small-swatch
+	background-color low
+	
+.gfw .medium .large-swatch,
+.gfw .medium .small-swatch
+	background-color medium
+	
+.gfw .high .large-swatch,
+.gfw .high .small-swatch
+	background-color high
+	
+.gfw .value-toggle
+	position absolute
+	height 25px
+	right 0
+	top 5px
+	
+.gfw .toggle-button-container
+	background-color baseGray
+	display inline-block
+	border-radius(15px)
+	position relative
+	cursor pointer
+	height 100%
+	width 40px
+	
+.gfw .toggle-button-container.active
+	background-color #5FA41A
+	
+.gfw .toggle-button-container.active .toggle-knob
+	left 18px
+	
+.gfw .toggle-knob
+	background-color #FFF
+	display inline-block
+	border-radius(35px)
+	position absolute
+	height 20px
+	width 20px
+	left 2px
+	top 2px
+	
+.gfw .toggle-label
+	display inline-block
+	padding-right 6px
+	vertical-align top
+	padding-top 6px
+	font-size	12px
+

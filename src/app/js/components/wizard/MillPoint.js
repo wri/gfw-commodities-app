@@ -36,18 +36,28 @@ define([
 
       // If the area is this one, we have a selected commodity, the current step is this one
       // and the previous step is 0, then we should update the layer defs to match this UI
-
       if (newProps.selectedArea === 'millPointOption' && 
-                     this.props.currentStep === 0 &&
-                     newProps.currentStep === 1) {
-        
-        topic.publish('showMillPoints');
+                     this.props.currentStep === 1 &&
+                     newProps.currentStep === 2) {
+
+        // If Mill Points is not visible show it and select it in the UI, otherwise do nothing
+        var layer = app.map.getLayer(MapConfig.mill.id);
+        if (layer) {
+          if (!layer.visible) {
+            topic.publish('showMillPoints');
+            topic.publish('toggleItemInLayerList','mill');
+          }
+        }
+
+      }
+
+      if (newProps.selectedArea === 'millPointOption' && newProps.currentStep === 2) {
         if (this.state.nestedListData.length === 0) {
           // Get Data
           this._loadMillPoints();
         }
-
       }
+
     },
 
     _selectMapper: function (item) {

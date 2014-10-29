@@ -143,8 +143,10 @@ define([
 					adminBoundariesLayer,
 					wizardDynamicParams,
 					wizardDynamicLayer,
-					millPointsParams,
-					millPointsLayer,
+					millParams,
+					millLayer,
+					millPointsWizardParams,
+					millPointsWizardLayer,
 					wizardGraphicsLayer,
 					self = this;
 
@@ -269,6 +271,17 @@ define([
 				visible: false
 			});
 
+			millParams = new ImageParameters();
+			millParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+			millParams.layerIds = [MapConfig.mill.layerId];
+			millParams.format = "png32";
+
+			millLayer = new ArcGISDynamicLayer(MapConfig.mill.url, {
+				imageParameters: millParams,
+				id: MapConfig.mill.id,
+				visible: false
+			});
+
 			protectAreasLayer = new ArcGISTiledMapServiceLayer(MapConfig.pal.url, {
 				id: MapConfig.pal.id,
 				visible: false
@@ -322,17 +335,6 @@ define([
 				visible: false
 			});
 
-			millPointsParams = new ImageParameters();
-			millPointsParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-			millPointsParams.layerIds = [MapConfig.millPointsLayer.layerId];
-			millPointsParams.format = "png32";
-
-			millPointsLayer = new ArcGISDynamicLayer(MapConfig.millPointsLayer.url, {
-				imageParameters: millPointsParams,
-				id: MapConfig.millPointsLayer.id,
-				visible: false
-			});
-
 			wizardGraphicsLayer = new GraphicsLayer({
 				id: MapConfig.wizardGraphicsLayer.id
 			});
@@ -365,7 +367,7 @@ define([
 				firesLayer,
 				// Overlays
 				wizardDynamicLayer,
-				millPointsLayer,
+				millLayer,
 				mapOverlaysLayer,
 				// Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
 				// If needs be, seperate these out into multiple Graphics Layers
@@ -406,7 +408,7 @@ define([
 			wizardDynamicLayer.on('error', this.addLayerError);
 			mapOverlaysLayer.on('error', this.addLayerError);
 			customGraphicsLayer.on('error', this.addLayerError);
-			millPointsLayer.on('error', this.addLayerError);
+			millLayer.on('error', this.addLayerError);
 
 			// Add Layer Specific events here
 			customSuitabilityLayer.on('image-ready', function () {
