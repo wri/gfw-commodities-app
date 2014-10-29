@@ -46,7 +46,6 @@
 }
 .homeModeOptionsViewerOuter .modeOptionRing {
   border-radius: 150px;
-  background: none;
   height: 300px;
   box-shadow: 0px 0px 14px 0px #888;
   width: 300px;
@@ -66,7 +65,7 @@
 }
 .homeModeOptionsViewerOuter .modeGroup .modeText {
   font-family: "Georgia", serif;
-  color: #ccc;
+  color: black;
   position: absolute;
   left: 0px;
   top: 110px;

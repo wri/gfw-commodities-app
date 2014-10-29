@@ -17,11 +17,11 @@ define({
     ],
 
     "homeModeOptions": [{
-        "html": "Fires occuring in peatland <br> in the last 7 days",
-        "eventName": "goToAbout",
+        "html": "<span class='less-text'>Explore the map</span>",
+        "eventName": "goToMap",
         "display": true,
         "id": 0,
-        "tooltip": "Go to the About Page!"
+        "tooltip": "Explore the Map"
     }, {
         "html": "<span>View the latest analysis</span>",
         "eventName": "goToAnalysis",
@@ -35,11 +35,11 @@ define({
         "id": 2,
         "tooltip": "Or try the Data Page"
     }, {
-        "html": "<span class='less-text'>Explore the map</span>",
-        "eventName": "goToMap",
+        "html": "Fires occuring in peatland <br> in the last 7 days",
+        "eventName": "goToAbout",
         "display": false,
         "id": 3,
-        "tooltip": "Explore the Map"
+        "tooltip": "Go to the About Page!"
     }, {
         "html": "<span class='more-text'>Sign up for SMS & fire alerts</span>",
         "eventName": "subscribeToAlerts",
