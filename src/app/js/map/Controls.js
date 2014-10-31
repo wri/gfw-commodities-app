@@ -428,7 +428,7 @@ define([
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
                     timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                }, 400);
+                }, 1500);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
                     if ($range2.playing === false) {
@@ -466,7 +466,7 @@ define([
                     if ($range2.playing == true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                        }, 400);
+                        }, 1500);
                     }
                 }
             }

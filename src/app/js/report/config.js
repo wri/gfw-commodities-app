@@ -83,6 +83,21 @@ define([], function() {
             fires: "http://54.164.126.73/subscribe_by_polygon"
         },
 
+        millPointInfo: {
+            'concession': {
+                'title': 'Concession Analysis',
+                'content': 'A risk assessment for concession areas that fall within the sourcing radius.'
+            },
+            'radius': {
+                'title': 'Radius Analysis',
+                'content': 'A risk assessment for the entire sourcing radius around a mill.'
+            }
+        },
+
+        /*
+          Below is all the config items for the Analysis portion of the report
+        */
+
         geometryServiceUrl: geometryServiceUrl,
         imageServiceUrl: imageServiceUrl,
 

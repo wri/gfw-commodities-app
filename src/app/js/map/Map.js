@@ -13,6 +13,7 @@ define([
 	"map/SuitabilityImageServiceLayer",
 	// Esri Modules
 	"esri/map",
+	"esri/config",
 	"esri/InfoTemplate",
 	"esri/layers/GraphicsLayer",
 	"esri/layers/RasterFunction",
@@ -27,7 +28,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -36,7 +37,19 @@ define([
 
 		constructor: function (options) {
 			declare.safeMixin(this, options);
+			this.addConfigurations();
 			this.createMap();
+		},
+
+		addConfigurations: function () {
+			// Add this to basemaps so I can pass terrain as an option
+			esriConfig.defaults.map.basemaps.terrain = {
+        baseMapLayers: [
+          { url: "http://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer" }, 
+          { url: "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer" } 
+        ],
+        title: "Terrain Basemap"
+      };
 		},
 
 		createMap: function () {

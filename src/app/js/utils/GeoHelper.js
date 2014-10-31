@@ -8,8 +8,8 @@ define([
 ], function (Color, Units, Graphic, Circle, SimpleLineSymbol, SimpleFillSymbol) {
 
   var polySymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                   new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2),
-                   new Color([255, 200, 103, 0.65]));
+                   new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
+                   new Color([255, 200, 103, 0.0]));
 
 	return {
 
