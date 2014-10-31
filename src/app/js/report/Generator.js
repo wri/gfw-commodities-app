@@ -3,7 +3,7 @@ define([
     "dojo/dom",
     "dojo/query",
     "esri/config",
-    "esri/request",
+    "dojo/request/xhr",
     "dojo/Deferred",
     "dojo/dom-class",
     "dojo/promise/all",
@@ -18,7 +18,7 @@ define([
     // Local Modules from report folder
     "report/config",
     "report/Fetcher"
-], function(on, dom, dojoQuery, esriConfig, esriRequest, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
+], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
     'use strict';
 
     window.report = {};
@@ -293,7 +293,7 @@ define([
                 self = this,
                 content = "<div class='subscription-content'>" +
                 "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Forma Alerts</label></div>" +
-                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' disabled />Fires Alerts</label></div>" +
+                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fires Alerts</label></div>" +
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
                 "<div id='from-response' class='message-container'></div>" +
@@ -390,7 +390,7 @@ define([
         },
 
         subscribeToForma: function(geoJson, email) {
-            var url = 'http://gfw-apis.appspot.com/subscribe',
+            var url = Config.alertUrl.forma,
                 deferred = new Deferred(),
                 req = new XMLHttpRequest(),
                 params = JSON.stringify({
@@ -416,15 +416,39 @@ define([
             req.addEventListener('error', function() {
                 deferred.resolve(false);
             }, false);
+
             req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             req.send(params);
             return deferred.promise;
         },
 
         subscribeToFires: function(geometry, email) {
-            var deferred = new Deferred();
-            deferred.resolve(false);
+            var url = Config.alertUrl.fires,
+                deferred = new Deferred(),
+                // req = new XMLHttpRequest(),
+                params = {
+                    'features': JSON.stringify({
+                        "rings": geometry.rings,
+                        "spatialReference": geometry.spatialReference
+                    }),
+                    'msg_addr': email,
+                    'msg_type': 'email',
+                    'area_name': payload.title
+                },
+                res;
+
+            xhr(url, {
+                handleAs: "json",
+                method: "POST",
+                data: params
+            }).then(function() {
+                deferred.resolve(true);
+            }, function(err) {
+                deferred.resolve(false);
+            });
+
             return deferred.promise;
+
         },
 
         convertGeometryToGeometric: function(geometry) {
