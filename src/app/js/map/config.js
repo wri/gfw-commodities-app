@@ -537,7 +537,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "check",
 	      layerType: "image",
-          infoDivClass: "suitability-suitability-mapper"
+        infoDivClass: "suitability-custom-suitability-mapper"
 	    },
 	    {
 	      key: "opsd",
@@ -546,7 +546,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-wri-standard-suitability"
 	    },
 	    {
 	      key: "cons",
@@ -555,7 +555,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-conservation-areas"
 	    },
 	    {
 	      key: "elev",
@@ -564,7 +564,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-elevation"
 	    },
 	    {
 	      key: "slope",
@@ -573,7 +573,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-slope"
 	    },
 	    {
 	      key: "rain",
@@ -582,7 +582,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-rainfall"
 	    },
 	    {
 	      key: "soilDr",
@@ -591,7 +591,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-drainage"
 	    },
 	    {
 	      key: "soilDe",
@@ -600,7 +600,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-depth"
 	    },
 	    {
 	      key: "soilAc",
@@ -609,7 +609,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-acidity"
 	    },
 	    {
 	      key: "soilTy",
@@ -618,7 +618,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-type"
 	    },
 	    {
 	      key: "none_agro",
