@@ -67,11 +67,8 @@ define([
 
         showInfo: function(synEvent) {
             if (document.getElementsByClassName(this.props.infoDivClass).length) {
-                console.log(this.props.infoDivClass);
                 topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
             } else {
-                console.log(this);
-                console.log(this.props.infoDivClass);
                 topic.publish('showInfoPanel', this.props.infoDivClass);
             }
 

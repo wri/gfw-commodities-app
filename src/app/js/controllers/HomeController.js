@@ -26,48 +26,29 @@ define([
         var currentModeOption = function(id) {
 
             var homeModeOptions = HomeModel.vm.homeModeOptions();
-            //console.log(homeModeOptions);
-
-            var mappedHomModeOptions = arrayUtil.map(homeModeOptions, function(hmOpt, i) {
-
-                //console.log(hmOpt);
+            var mappedHomModeOptions = arrayUtil.map(homeModeOptions, function(hmOpt, i) { 
 
                 if (i === id) {
                     //alert(i);
-
                     hmOpt.display = true;
-
-
-                    //console.log(hmOpt);
                 } else {
                     hmOpt.display = false;
-                    //console.log(hmOpt);
                 }
-                //console.log(hmOpt);
                 return hmOpt;
             });
             HomeModel.vm.homeModeOptions([]);
-            //console.log(mappedHomModeOptions);
             HomeModel.vm.homeModeOptions(mappedHomModeOptions);
         };
 
         currentModeOption(currentNodeId);
-        //console.log(currentNodeId);
-        //console.log(currentModeOption(currentNodeId));
-
 
         require(["dojo/fx", "dojo/_base/fx", "dojo/query"], function(coreFx, baseFx, dojoQuery) {
 
             var runAnimation = function(id) {
-                //console.log("animating " + id);
-
 
                 var itemsToAnimate = dojoQuery(".modeGroup");
-
-                //console.log(itemsToAnimate);
                 var maxItems = itemsToAnimate.length;
                 //var maxItems = 5;
-                //console.log(id);
 
                 var anim = coreFx.chain([
 
@@ -95,13 +76,8 @@ define([
 
                             setTimeout(function() {
                                 if (!stopAnimation) {
-
                                     currentModeOption(nextNodeId);
-
-
-                                    //console.log("Value of StopAnnimation is - " + stopAnimation);
                                     setTimeout(function() {
-                                        //console.log(nextNodeId);
                                         if (!stopAnimation) {
                                             runAnimation(nextNodeId);
                                         }
@@ -132,7 +108,6 @@ define([
             var currentNodeId = data.id;
 
             var homeModeOptions = HomeModel.vm.homeModeOptions();
-            //console.log(homeModeOptions);
             HomeModel.vm.homeModeOptions([]);
 
             var mappedHomModeOptions = arrayUtil.map(homeModeOptions, function(hmOpt, i) {
@@ -172,7 +147,6 @@ define([
         },
 
         handleModeClick: function(eventName) {
-            //console.log(eventName);
             require(["controllers/Header"], function(Header) {
                 if (eventName == "goToMap") {
                     Header.updateView("map", false, true);

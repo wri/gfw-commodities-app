@@ -37,7 +37,6 @@ define([
                 // registry.byId('suitability-accordion').resize();
                 this.resizeRangeSliders();
             } else {
-                console.log(layerConfig.id);
                 // Hide other tools, then show this node if operation is show
                 this.hideAllToolboxes();
                 if (operation === 'show') {
@@ -223,25 +222,21 @@ define([
                 month;
             this.fetchFORMAAlertsLabels().then(function(res) {
                 if (res) {
-                    //console.log(res.maxValues[0] - res.minValues[0]);
                     to = res.maxValues[0] - res.minValues[0];
                     max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 13);
-                    //console.log(max);
 
                     for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
                         month = i % 12 === 0 ? 12 : i % 12;
-                        //console.log(month + "-" + (baseYear + incrementer));
                         if (i % 12 === 0) {
                             ++incrementer;
                         }
                     }
                 } else {
-                    console.log("fetching Forma labels failed!!");
+                    //console.log("fetching Forma labels failed!!");
                 }
             });
 
             $("#master-layer-list > div > ul > li:nth-child(2)").click(function() {
-                //console.log("in the Forma slider builder!");
                 $("#playLine3").hide();
                 $("#sliderProgressLine2").hide();
                 var $this = $(this);
@@ -282,7 +277,6 @@ define([
                         }
                         if (to == 20 && from == 20) {
                             $(".irs-diapason").css("width", "-=8px");
-                            console.log("adding width!");
                         }
                         $("#range2").ionRangeSlider("update");
                         if ($range2.playing != true) {
@@ -306,7 +300,6 @@ define([
                                     $(".container3 > div:nth-child(1)").css("color", "black");
                                 }
                             }
-                            console.log("Values to be used: " + values3[0] + " " + values3[1]);
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
                     },
@@ -314,7 +307,6 @@ define([
                 $(".irs-slider.to").css("left", "790px");
                 //var newYearPlacement = $(".container3 > div:nth-child(13)").css("left");
                 //newYearPlacement -= 81.5px;
-                //console.log(newYearPlacement);
                 //$(".playLineFiller2 > div:nth-child(2)").css("margin-left", newYearPlacement);
 
                 $(".slider-container").show();
@@ -338,8 +330,7 @@ define([
                 var sliderFrom2 = parseInt($("#irs-2 > span.irs > span.irs-slider.from.last").css('left'));
 
                 var sliderDiff = 790 - sliderFrom2;
-                if (isNaN(sliderFrom2) == true) {
-                    console.log("using alternate");
+                if (isNaN(sliderFrom2) === true) {
                     sliderDiff = 790 - sliderFrom;
                 }
 
@@ -389,7 +380,7 @@ define([
             function play() {
                 $("#playLine3").hide();
                 $('#playLine3').css("left", "0");
-                if ($range2.playing == true) {
+                if ($range2.playing === true) {
                     $range2.playing = false;
                     $('#sliderProgressLine2').hide();
                     $("#newSlider2").html("&#9658");
@@ -402,14 +393,10 @@ define([
 
                 var sliderStart3 = $("#irs-2 > span.irs > span.irs-slider.from.last").css("left");
                 var sliderStart4 = $("#irs-2 > span.irs > span.irs-diapason").css("left");
-                console.log(sliderStart3);
-                console.log(sliderStart4);
-                console.log('');
 
                 $('#playLine3').css("left", sliderStart3);
                 $('#sliderProgressLine2').css("left", sliderStart3);
-                if (sliderStart3 == undefined) {
-                    console.log("using #2!!");
+                if (sliderStart3 === undefined) {
                     $('#playLine3').css("left", sliderStart4);
                     $('#playLine3').css("left", "-=7.5pxpx");
                     $('#sliderProgressLine2').css("left", sliderStart4);
@@ -429,10 +416,7 @@ define([
                 $("#sliderProgressLine2").show();
                 $('#sliderProgressLine2').css('display', 'block');
 
-                console.log("Init: " + thumbOneInitial);
                 if (thumbOne == thumbTwo) {
-                    console.log("WE RETURNED IMMEDIETELY!");
-                    console.log($range2);
                     $range2.playing = false;
                     return;
                 }
@@ -447,7 +431,7 @@ define([
                 }, 400);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
-                    if ($range2.playing == false) {
+                    if ($range2.playing === false) {
                         return;
                     }
                     months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -459,8 +443,7 @@ define([
                     $("#playLine3").html(monthDisplay);
                     $('#playLine3').css("left", "+=39.5px");
                     $('#sliderProgressLine2').css("left", "+=39.5px");
-
-                    console.log("Values to be used: " + values[0] + ", " + values[1]);
+                    
                     values[0] = parseInt(values[0]);
                     values[1] = parseInt(values[1]);
 
@@ -477,7 +460,6 @@ define([
                     if (thumbOne == thumbTwo || thumbOne == newThumbTwo || thumbOne > newThumbTwo) {
                         $("#newSlider2").html("&#9658");
                         $range2.playing = false;
-                        console.log("Finito!");
                         return;
                     }
                     //from++;
@@ -492,7 +474,6 @@ define([
 
         buildTreeCoverChangeSlider: function() {
             /*// treeCoverLossSlider.baseYear & numYears
-            console.log("STILL IN ORGINAL TREE COVER SLIDER??!")
             var sliderConfig = MapConfig.treeCoverLossSlider,
                 labels = [],
                 timeSlider,
@@ -536,35 +517,22 @@ define([
             timeSlider.on("play", function(evt) {
 
                 var values;
-                //console.log(timeSlider.domNode);
-                console.log(timeSlider);
-
                 var value1 = timeSlider.thumbIndexes[0];
                 var value2 = timeSlider.thumbIndexes[1];
                 //timeSlider.setThumbIndexes([value1,value2 - 1]);
-                console.log("On initial Play, thumb 1 at: " + value1);
-                console.log("On initial Play, thumb 2 at: " + value2);
-
-
 
                 requestAnimationFrame(function() {
-                    console.log(timeSlider);
-                    console.log("First inside the animation frame; t2: " + value2);
                     values = [0, timeSlider.thumbIndexes[0]];
                     //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2-1]);
-                    console.log("Right afterwards, after we set the indexes: " + timeSlider.thumbIndexes[1]);
                     var index = timeSlider.thumbIndexes[0];
                     if (timeSlider.thumbIndexes[1] == 12) {
                         timeSlider.setThumbIndexes([value1, value2 - 1]);
                     }
 
                     function timeout(i) {
-                        //console.log(timeSlider.playing);
                         // If play button is active, have 2 thumbs, & freeze the 2nd. When it isn't have 1 thumb 
                         // & adjust the #ticks count it can run and their values, and fake a 2nd slider!
                         // Then, when the time slider is no longer playing, re-initialize it at the current location. 
-                        //console.log("Thumb 1 at: " + timeSlider.thumbIndexes[0]);
-                        console.log("Thumb 2 at: " + timeSlider.thumbIndexes[1]);
                         var thumbOne = timeSlider.thumbIndexes[0];
                         var thumbTwo = timeSlider.thumbIndexes[1];
                         // Here I want a small edge case that handles if the user just presses play 1st; thumb1 is
@@ -572,7 +540,6 @@ define([
                         // timeOut, THEN enter the timeOut function per usual w/ 1 thumb at ..1? 0? Idk. This if
                         // statement should also remove the need for the 2nd part of the else if below. I think.
                         if ((timeSlider.thumbIndexes[0] == 0 && timeSlider.thumbIndexes[1] == 13) || timeSlider.thumbIndexes[1] == 12) {
-                            //console.log("Original state of slider case!");
                             //timeSlider.thumbIndexes.splice(1,1);
                             //timeSlider.setThumbCount(1);
 
@@ -588,7 +555,6 @@ define([
 
                             } else {
                                 timeSlider.thumbIndexes[1]++;
-                                console.log(timeSlider.thumbIndexes[1]);
                                 return;
                             }
 
@@ -599,35 +565,22 @@ define([
 
                                 return;
                             } //else if (timeSlider.thumbIndexes[1] == 12) {
-                            //console.log("Here we set #indexes to 1 and just continue on");
-                            //timeSlider.thumbIndexes.splice(1,1);
-                            //console.log("Down to one thumb here!");
+                            //timeSlider.thumbIndexes.splice(1,1);                            
                             //timeSlider.setThumbCount(1);
-                            //console.log(timeSlider);
-                            //console.log(timeSlider.playing);
-                            //console.log("ARE WE EVER GETTING HERE??!");
                             //timeSlider.play();
                             //} else {
                             //FREEZE THUMB 2 IN PLACE & MAKE THUMB 1 STOP THERE
                             //Maybe call the updateImageServiceRasterFunction below w/o any params? (if I have to)
 
                             //}
-
-                            //console.log("Map Config:");
-                            //console.log(MapConfig);
                             values = [0, timeSlider.thumbIndexes[0]];
 
                             LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-
-                            console.log("Thumbs at: " + timeSlider.thumbIndexes[0] + " & " + timeSlider.thumbIndexes[1]);
                             i++;
-                            console.log("i is: " + i);
- 
+
                             //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(thumbTwo-1)]);
                             //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],5]);
                             // Weird hitch one turn later where the first index doesn't increment...
-
-                            console.log('');
                             timeout(i);
                         }, 1500);
                     }
@@ -636,11 +589,9 @@ define([
                     //LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
                 });
             });
-            timeSlider.on("pause", function(evt) {
-                console.log("PAUUUSE!")
-            });
-            //timeSlider.on("previous", function (evt) { console.log("PREV!") });
-            //timeSlider.on("next", function (evt) { console.log("NEXTTT!") });*/
+            //timeSlider.on("pause", function(evt) {});
+            //timeSlider.on("previous", function (evt) {});
+            //timeSlider.on("next", function (evt) {});*/
 
         },
 
@@ -664,8 +615,6 @@ define([
                 //$(".layer-list-item.forest-change > ul > li").click(function() {
                 var $this = $(this);
                 ionCallback.call(this);
-                console.log($("#irs-1 > span.irs > span.irs-to").css("left"));
-                console.log("here we callback the Tree Cover Slider");
 
                 //$(".irs-slider.to").css("left", "792px");
             });
@@ -677,12 +626,11 @@ define([
 
                 if (to == 2012) {
                     $(".irs-slider.to").css("left", "730px");
-                } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") == undefined) {
+                } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") === undefined) {
                     $("#irs-1 > span.irs > span.irs-slider.to").css("left", ((newLeft2 + 8) + 'px'));
                 } else {
                     $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", ((newLeft2 + 8) + 'px'));
                 }
-                console.log("here we resize and adjust the Tree Cover ");
             });
 
             var ionCallback = function() {
@@ -699,23 +647,19 @@ define([
                     onChange: function(data) {
                         from = data.fromNumber;
                         to = data.toNumber;
-                        //console.log(from + ", " + to);
                         updateValues();
                         if (from == to) {
                             $(".irs-to").show();
                         }
                         $(".irs-single").hide();
                         //$("#range").ionRangeSlider("update");
-                        if ($range.playing != true) {
+                        if ($range.playing !== true) {
                             $("#sliderProgressLine").hide();
                             $("#playLine2").hide();
                             var values3 = [from - 2001, to - 2001];
-                            //console.log(values3);
                             for (var i = 1; i < 12; i++) {
                                 var item1 = $(".playLineFiller > div:nth-child(" + i + ")");
                                 var item2 = $(".container2 > div:nth-child(" + i + ")");
-                                //console.log(item1);
-                                //console.log(item2);
 
                                 if ((i <= from - 2000) || (i >= to - 2000)) {
                                     $(item1.selector).css("background-color", "transparent");
@@ -814,9 +758,7 @@ define([
                 $("#playLine2").hide();
                 $('#playLine2').css("left", "0");
                 $('#sliderProgressLine').css("left", "0");
-                //console.log($range.playing);
                 if ($range.playing == true) {
-                    console.log("Here we must stop");
                     $range.playing = false;
                     $("#newSlider").html("&#9658");
                     return;
@@ -829,14 +771,10 @@ define([
                 var sliderStart = $(".irs-slider.from.last").css("left");
                 var sliderStart2 = $("#irs-1 > span.irs > span.irs-slider.from").css("left");
 
-                console.log(sliderStart2);
-
                 $('#playLine2').css("left", sliderStart);
                 $('#sliderProgressLine').css("left", sliderStart);
 
-                console.log(thumbOne);
                 if (sliderStart == undefined || (sliderStart == "0px" && thumbOne != 2001)) {
-                    console.log("using #2!!");
                     $('#playLine2').css("left", sliderStart2);
                     //$('#playLine2').css("left", "-=1px");
                     $('#sliderProgressLine').css("left", sliderStart2);
@@ -849,9 +787,7 @@ define([
                 $('#sliderProgressLine').css("left", "+=7.5px");
                 $("#sliderProgressLine").show();
 
-                console.log("Init: " + thumbOneInitial);
                 if (thumbOne == thumbTwo) {
-                    console.log("WE RETURNED IMMEDIETELY!");
                     $range.playing = false;
                     return;
                 }
@@ -867,11 +803,10 @@ define([
                 }, 750);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
-                    if ($range.playing == false) {
+                    if ($range.playing === false) {
                         return;
                     }
 
-                    //console.log($("#sliderProgressLine").css("left"));
                     $('#playLine2').css("left", "+=66.5px");
 
                     $('#sliderProgressLine').css("left", "+=66.5px");
@@ -887,8 +822,6 @@ define([
                     thumbOne++;
                     $("#playLine2").html(thumbOne);
                     //values = [0,thumbOne-2000];
-                    console.log("Start: " + thumbOneInitial);
-                    console.log("End: " + thumbOne);
                     values = [thumbOneInitial - 2001, thumbOne - 2001];
 
                     if (newThumbTwo > thumbTwo) {
@@ -906,11 +839,10 @@ define([
 
                         $("#newSlider").html("&#9658");
                         $range.playing = false;
-                        console.log("Finito!");
                         return;
                     }
                     //from++;
-                    if ($range.playing == true) {
+                    if ($range.playing === true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
                         }, 750);
@@ -936,7 +868,7 @@ define([
             req.then(function(res) {
                 deferred.resolve(res);
             }, function(err) {
-                console.error(err);
+                //console.error(err);
                 deferred.resolve(false);
             });
 

@@ -426,8 +426,6 @@ define([
 						dest = document.getElementById(rootNode + '_fire'),
 						values = [];
 
-				console.dir(data);
-				console.dir(bounds);
 				for (var i = 0; i < data.length; i++) {
 					if (i >= bounds[0] && i <= bounds[1]) {
 						values.push(data[i]);

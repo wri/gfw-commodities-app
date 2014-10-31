@@ -74,46 +74,44 @@ define([
                     this.props.infoDivClass = "forest-and-land-cover-peat-lands";
                     break;
                 case "treeDensity":
-                    this.props.infoDivClass = "forest-and-land-cover-tree-cover-density"
+                    this.props.infoDivClass = "forest-and-land-cover-tree-cover-density";
                     break;
                 case "legal":
-                    this.props.infoDivClass = "forest-and-land-cover-legal-classifications"
+                    this.props.infoDivClass = "forest-and-land-cover-legal-classifications";
                     break;
                 case "protected":
-                    this.props.infoDivClass = "conservation-protected-areas"
+                    this.props.infoDivClass = "conservation-protected-areas";
                     break;
                 case "carbon":
-                    this.props.infoDivClass = "forest-and-land-cover-carbon-stocks"
+                    this.props.infoDivClass = "forest-and-land-cover-carbon-stocks";
                     break;
                 case "intact":
-                    this.props.infoDivClass = "forest-and-land-cover-intact-forest-landscape"
+                    this.props.infoDivClass = "forest-and-land-cover-intact-forest-landscape";
                     break;
                 case "landCoverGlob":
-                    this.props.infoDivClass = "forest-and-land-cover-land-cover-global"
+                    this.props.infoDivClass = "forest-and-land-cover-land-cover-global";
                     break;
                 case "primForest":
-                    this.props.infoDivClass = "forest-and-land-cover-primary-forest"
+                    this.props.infoDivClass = "forest-and-land-cover-primary-forest";
                     break;
                 case "suit":
-                    this.props.infoDivClass = "land-use-oil-palm"
+                    this.props.infoDivClass = "land-use-oil-palm";
                     break;
                 case "rspo":
-                    this.props.infoDivClass = "land-use-rspo-consessions"
+                    this.props.infoDivClass = "land-use-rspo-consessions";
                     break;
                 case "landCoverIndo":
-                    this.props.infoDivClass = "forest-and-land-cover-land-cover-indonesia"
+                    this.props.infoDivClass = "forest-and-land-cover-land-cover-indonesia";
                     break;
                 case "landCoverAsia":
-                    this.props.infoDivClass = "forest-and-land-cover-land-cover-south-east-asia"
+                    this.props.infoDivClass = "forest-and-land-cover-land-cover-south-east-asia";
                     break;
 
             }
 
             if (document.getElementsByClassName(this.props.infoDivClass).length) {
-                console.log(this.props.infoDivClass);
                 topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
             } else {
-                console.log(this.props.value);
                 topic.publish('showInfoPanel', this.props.infoDivClass);
             }
 

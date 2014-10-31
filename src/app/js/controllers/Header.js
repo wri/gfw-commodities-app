@@ -59,9 +59,6 @@ define([
         },
 
         updateView: function(view, isExternal, initialized) {
-
-            console.log("Updated View")
-
             /*if (view == "home") {
                 require(["controllers/HomeController"], function(HomeController) {
                     console.log("home has already been initialized");
@@ -117,9 +114,8 @@ define([
 
         setForGenericView: function() {
             this.setForHome();
-            console.log("other view");
-            //			domClass.add("nav-content", "outer");
-            //			domClass.remove("nav-content", "inner");
+            //domClass.add("nav-content", "outer");
+            //domClass.remove("nav-content", "inner");
             domClass.remove("app-header", "mapView");
             domClass.add("app-header", "generalView");
             //domClass.remove("footerModesContainer", "generalView");
@@ -131,7 +127,6 @@ define([
         },
 
         setForHome: function() {
-            console.log("home view");
             domClass.add("nav-content", "inner");
             domClass.remove("nav-content", "outer");
             domClass.remove("app-header", "mapView");

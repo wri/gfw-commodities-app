@@ -35,12 +35,9 @@ define([
 
         load: function(view, callback) {
             var self = this;
-
-            console.log("changing view");
             if (!callback) {
                 callback = this.getCallback(view);
             }
-            console.log(view);
 
             // If the View has already been loaded, dont fetch the content again
             if (loadedViews[view]) {
@@ -51,7 +48,6 @@ define([
                 // }
                 // Resize Became Necessary after adding tundra.css
                 registry.byId("stackContainer").resize();
-                console.log("Previously Loaded");
             } else {
                 loadedViews[view] = true;
                 Loader.getTemplate(view).then(function(template) {

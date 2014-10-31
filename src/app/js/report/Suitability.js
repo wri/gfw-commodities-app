@@ -132,8 +132,6 @@ define([
 					},
 					payload = {};
 
-			console.log(params);
-
 			function success(res) {
 				if (res.histograms.length > 0) {
 					payload.data = res.histograms[0];

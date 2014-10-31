@@ -11,8 +11,6 @@ define([
 
 	var initialized = false;
 
-	console.dir(domClass);
-
 	return {
 
 		init: function (template) {
@@ -34,7 +32,7 @@ define([
             for(var i=0; i < divs.length; i += 1) {
                 divs[i].onclick = function(){
                     if(this.checked){
-                        Hasher.setHash("s", this.id)
+                        Hasher.setHash("s", this.id);
                     } else {
                         Hasher.removeKey("s");
                     }
@@ -45,7 +43,7 @@ define([
                             divs[j].checked = false;
                         }
                     }
-                }
+                };
             }
 
 			this.initializeCountryDropdowns();
