@@ -166,6 +166,9 @@ html, body
 	// font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
 	color redButton
 	font-size 28px
+	
+.gfw .active-fires-badge.special .active-fires-label span
+	font-size 15px
 
 .gfw .active-fires-label div
 	line-height 42px
@@ -239,11 +242,21 @@ html, body
 	width 100%
 	
 .gfw .mill-table-container th
+	text-transform uppercase
 	width 33%
 	
 .gfw .mill-table-container th,
 .gfw .mill-table-container td
 	border 1px solid baseGray
+	padding 5px
+	
+.gfw .mill-table-container tr.data-row td:nth-child(3),
+.gfw .mill-table-container tr.data-row td:nth-child(5)
+	border-left none
+	
+.gfw .mill-table-container tr.data-row td:nth-child(2),
+.gfw .mill-table-container tr.data-row td:nth-child(4)
+	border-right none
 	
 .gfw .mill-table-container .column-labels,
 .gfw .mill-table-container .name
@@ -252,11 +265,21 @@ html, body
 .gfw .mill-table-container .row-name
 	text-align left
 	
-.gfw .mill-table-container .row-name span
-	margin-left 10px
+.gfw .mill-table-container .row-name span:last-child
+	margin-left 15px
+
+.gfw .data-row.parent .row-name span:last-child
+	margin-left 7px
 	
-.gfw .data-row.child .row-name span
-	margin-left 20px
+.gfw .data-row.child .row-name span:last-child
+	margin-left 25px
+	
+.gfw .mill-table-container .data-row
+	font-weight bold
+	
+.gfw .mill-table-container .data-row.child
+	font-weight normal
+	font-size 12px
 	
 .gfw .mill-header
 	background-color baseGray
@@ -272,6 +295,8 @@ html, body
 .gfw .mill-risk-level
 	margin-right 10px
 	line-height 50px
+	font-weight bold
+	font-size 18px
 	float right
 	
 .gfw .overall-risk
@@ -355,5 +380,25 @@ html, body
 	padding-top 6px
 	font-size	12px
 	
-.gfw .mill-table-container .parent
+.gfw .mill-table-container .parent td:first-child
 	cursor pointer
+	
+.gfw .mill-table-container .parent.open .toggle-icon
+	border-right 4px solid transparent
+	border-left 4px solid transparent
+	border-top 8px solid mediumGray
+	display inline-block
+	height 0
+	width 0
+	top 3px
+	
+.gfw .mill-table-container .parent .toggle-icon
+	border-bottom 4px solid transparent
+	border-top 4px solid transparent
+	border-left 8px solid mediumGray
+	display inline-block
+	position relative
+	height 0
+	left 3px
+	top -3px
+	width 0

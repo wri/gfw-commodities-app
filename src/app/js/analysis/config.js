@@ -27,22 +27,22 @@ define([], function() {
             option1: {
                 'id': customArea,
                 'label': 'Create custom area',
-                'description': 'Draw a polygon or upload a shapefile to analyze one of it\'s features.'
+                'description': 'Draw a polygon or upload a shapefile for analysis.'
             },
             option2: {
                 'id': adminUnit,
                 'label': 'Administrative unit',
-                'description': 'View first or second level administrative units and select one to analyze.'
+                'description': 'Analyze provinces, districts, and other subnational areas.'
             },
             option3: {
                 'id': commArea,
                 'label': 'Commercial entity',
-                'description': 'Search through various commercial entities by the type of commodity.'
+                'description': 'Analyze a group or individual commercial entity.'
             },
             option4: {
                 'id': certArea,
                 'label': 'Certified area',
-                'description': 'View RSPO certified areas that are also an oil palm concession.'
+                'description': 'Analyze RSPO certified palm oil concessions.'
             },
             option5: {
                 'id': millPoint,
@@ -131,11 +131,11 @@ define([], function() {
             mill: {
                 label: 'Mill Point Risk Assessment',
                 value: 'mill',
-                description: 'Analyze risk assessment. (Analysis based on 50km buffer)'
+                description: 'Analyze deforestation-related risks for a mill or set of mills.'
             },
             forestChange: {
                 label: 'Forest Change Analysis Variables',
-                description: 'Choose one or more variable(s) to calculate hectares of forest loss, get a count of active fires and mothly clearance alerts.'
+                description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
             },
             millPoint: millPoint
         },
@@ -177,9 +177,25 @@ define([], function() {
         },
 
         stepFive: {
-
-            description: "The analysis tools within Global Forest Watch Commodities allow users to customize analysis on land cover change, deforestation activity, and areas suitable for development. The following steps will guide you through selecting the geographic area of interest and the type of analysis you would like to conduct, and produce an array of charts according to your selections. The aim of this analysis is to support decisions surrounding land use and risk in forest commodities - we welcome FEEDBACK on these tools in hopes of continuing to improve upon them.",
-
+            beginningText: "Create custom analysis of your area of interest – such as a commodity concession or group of concessions -- considering factors such as:",
+            firstList: [
+                "Tree cover change",
+                "Fire activity",
+                "Primary of intact forest areas",
+                "Protected areas",
+                "Legal classification of land"
+            ],
+            secondaryText: "You can also: ",
+            secondList: [
+                "Upload your own shapefiles for analysis",
+                "Draw an area of interest",
+                "Sign up for alerts for clearance activity"
+            ],
+            finalDivs: [
+                "Step 1: Select area of interest",
+                "Step 2: Refine area of interest",
+                "Step 3: Select variables to analyze"
+            ]
         },
 
         customArea: {

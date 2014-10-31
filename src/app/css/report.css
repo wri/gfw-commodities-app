@@ -205,30 +205,35 @@ border 1px solid #adadad {
 }
 
 /* line 170 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .active-fires-badge.special .active-fires-label span {
+  font-size: 15px;
+}
+
+/* line 173 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .active-fires-label div {
   line-height: 42px;
   font-size: 42px;
   margin: 0;
 }
 
-/* line 175 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 178 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .total-active-fires-label {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 16px;
 }
 
-/* line 181 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 184 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .suitability-container .child-row {
   padding-left: 15px;
 }
 
-/* line 184 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 187 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .suitability-container .left-panel {
   min-height: 400px;
 }
 
-/* line 187 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 190 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .loader-wheel {
   background: url("images/loader.gif") no-repeat left;
   background-color: #e6e6e6;
@@ -243,7 +248,7 @@ border 1px solid #adadad {
   height: 22px;
 }
 
-/* line 198 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 201 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .loader-wheel.area {
   position: relative;
   width: 22px;
@@ -251,17 +256,17 @@ border 1px solid #adadad {
   top: 7px;
 }
 
-/* line 204 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 207 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .checkbox-container {
   padding: 5px;
 }
 
-/* line 207 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .checkbox-container input {
   margin-right: 5px;
 }
 
-/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 213 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .email-container,
 .gfw .submit-container,
 .gfw .message-container {
@@ -269,7 +274,7 @@ border 1px solid #adadad {
   margin: 10px 0;
 }
 
-/* line 214 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 217 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .email-container input {
   border: 1px solid #e6e6e6;
   border-radius: 5px;
@@ -283,7 +288,7 @@ border 1px solid #adadad {
   outline: 0;
 }
 
-/* line 224 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 227 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .submit-container button {
   border: 1px solid #e6e6e6;
   background: #e6e6e6;
@@ -296,52 +301,82 @@ border 1px solid #adadad {
   outline: 0;
 }
 
-/* line 233 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 236 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .submit-container button:hover,
 .gfw .submit-container button:active {
   border: 1px solid #e98300;
   background: #e98300;
 }
 
-/* line 237 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 240 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-table-container table {
   text-align: center;
   width: 100%;
 }
 
-/* line 241 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 244 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-table-container th {
+  text-transform: uppercase;
   width: 33%;
 }
 
-/* line 244 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-table-container th,
 .gfw .mill-table-container td {
   border: 1px solid #e6e6e6;
+  padding: 5px;
 }
 
-/* line 248 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 253 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container tr.data-row td:nth-child(3),
+.gfw .mill-table-container tr.data-row td:nth-child(5) {
+  border-left: none;
+}
+
+/* line 257 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container tr.data-row td:nth-child(2),
+.gfw .mill-table-container tr.data-row td:nth-child(4) {
+  border-right: none;
+}
+
+/* line 261 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-table-container .column-labels,
 .gfw .mill-table-container .name {
   font-weight: bold;
 }
 
-/* line 252 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 265 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-table-container .row-name {
   text-align: left;
 }
 
-/* line 255 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
-.gfw .mill-table-container .row-name span {
-  margin-left: 10px;
+/* line 268 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .row-name span:last-child {
+  margin-left: 15px;
 }
 
-/* line 258 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
-.gfw .data-row.child .row-name span {
-  margin-left: 20px;
+/* line 271 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .data-row.parent .row-name span:last-child {
+  margin-left: 7px;
 }
 
-/* line 261 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 274 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .data-row.child .row-name span:last-child {
+  margin-left: 25px;
+}
+
+/* line 277 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .data-row {
+  font-weight: bold;
+}
+
+/* line 280 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .data-row.child {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+/* line 284 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-header {
   background-color: #e6e6e6;
   border: 1px solid #e6e6e6;
@@ -349,31 +384,33 @@ border 1px solid #adadad {
   height: 50px;
 }
 
-/* line 267 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 290 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-title {
   line-height: 50px;
   margin-left: 10px;
   font-weight: bold;
 }
 
-/* line 272 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 295 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .mill-risk-level {
   margin-right: 10px;
   line-height: 50px;
+  font-weight: bold;
+  font-size: 18px;
   float: right;
 }
 
-/* line 277 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 302 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .overall-risk {
   text-transform: uppercase;
 }
 
-/* line 280 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 305 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .risk-label {
   text-transform: capitalize;
 }
 
-/* line 283 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 308 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .large-swatch,
 .gfw .small-swatch {
   display: inline-block;
@@ -385,52 +422,52 @@ border 1px solid #adadad {
   top: 1px;
 }
 
-/* line 291 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 316 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .large-swatch {
   height: 14px;
   width: 14px;
 }
 
-/* line 295 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 320 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .small-swatch {
   height: 10px;
   width: 10px;
 }
 
-/* line 299 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 324 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .low .overall-risk {
   color: #78c1dc;
 }
 
-/* line 302 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 327 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .medium .overall-risk {
   color: #f4820d;
 }
 
-/* line 305 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 330 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .high .overall-risk {
   color: #e4132c;
 }
 
-/* line 308 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 333 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .low .large-swatch,
 .gfw .low .small-swatch {
   background-color: #78c1dc;
 }
 
-/* line 312 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 337 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .medium .large-swatch,
 .gfw .medium .small-swatch {
   background-color: #f4820d;
 }
 
-/* line 316 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 341 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .high .large-swatch,
 .gfw .high .small-swatch {
   background-color: #e4132c;
 }
 
-/* line 320 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 345 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .value-toggle {
   position: absolute;
   height: 25px;
@@ -438,7 +475,7 @@ border 1px solid #adadad {
   top: 5px;
 }
 
-/* line 326 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 351 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .toggle-button-container {
   background-color: #e6e6e6;
   display: inline-block;
@@ -451,17 +488,17 @@ border 1px solid #adadad {
   width: 40px;
 }
 
-/* line 335 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 360 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .toggle-button-container.active {
   background-color: #5fa41a;
 }
 
-/* line 338 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 363 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .toggle-button-container.active .toggle-knob {
   left: 18px;
 }
 
-/* line 341 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 366 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .toggle-knob {
   background-color: #fff;
   display: inline-block;
@@ -475,11 +512,40 @@ border 1px solid #adadad {
   top: 2px;
 }
 
-/* line 351 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 376 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .toggle-label {
   display: inline-block;
   padding-right: 6px;
   vertical-align: top;
   padding-top: 6px;
   font-size: 12px;
+}
+
+/* line 383 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .parent td:first-child {
+  cursor: pointer;
+}
+
+/* line 386 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .parent.open .toggle-icon {
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 8px solid #888;
+  display: inline-block;
+  height: 0;
+  width: 0;
+  top: 3px;
+}
+
+/* line 395 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+.gfw .mill-table-container .parent .toggle-icon {
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  border-left: 8px solid #888;
+  display: inline-block;
+  position: relative;
+  height: 0;
+  left: 3px;
+  top: -3px;
+  width: 0;
 }

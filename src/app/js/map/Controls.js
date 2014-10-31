@@ -85,7 +85,7 @@ define([
 
                 var dialog = new Dialog({
                     title: content.querySelector(".source_title").innerHTML.toUpperCase(),
-                    style: "height: 700px; width: 600px; overflow: auto;",
+                    style: "height: 600px; width: 600px; overflow-y: auto;",
                     draggable: false,
                     hide: function() {
                         dialog.destroy();
@@ -1016,12 +1016,12 @@ define([
             jq171("#peat-depth-slider").rangeSlider({
                 defaultValues: {
                     min: 0,
-                    max: 6
+                    max: 3
                 },
                 valueLabels: 'change',
                 bounds: {
                     min: 0,
-                    max: 6
+                    max: 3
                 },
                 step: 1,
                 arrows: false,
@@ -1223,7 +1223,7 @@ define([
 
         resetSuitabilitySettings: function() {
             // Reset Sliders
-            jq171('#peat-depth-slider').rangeSlider('values', 0, 6);
+            jq171('#peat-depth-slider').rangeSlider('values', 0, 3);
             jq171('#conservation-area-slider').rangeSlider('values', 1000, 5000);
             jq171('#water-resource-slider').rangeSlider('values', 100, 1000);
             jq171('#slope-slider').rangeSlider('values', 30, 80);

@@ -4728,29 +4728,34 @@ address {
 }
 
 /* line 374 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .select-analysis .sub-title {
+  margin: 5px 0;
+}
+
+/* line 377 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard-checkbox-container {
   font-size: 18px;
   margin: 5px 0;
 }
 
-/* line 378 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 381 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .checkbox-list .wizard-checkbox-container {
   display: inline-block;
   width: 220px;
 }
 
-/* line 382 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 385 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .checkbox-list .wizard-checkbox-container:nth-child(odd) {
   width: 200px;
 }
 
-/* line 385 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 388 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .wizard .wizard-checkbox {
   display: inline-block;
   cursor: pointer;
 }
 
-/* line 389 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 392 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .nested-list .searchBox input {
   border: 1px solid #b2b2b2;
   border-radius: 5px;
@@ -4761,7 +4766,7 @@ address {
   height: 30px;
 }
 
-/* line 396 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+/* line 399 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
 .gfw .nested-list .nested-list-search-icon {
   background: url("images/simpleGeocoder.png") no-repeat 0px 0px;
   position: absolute;
