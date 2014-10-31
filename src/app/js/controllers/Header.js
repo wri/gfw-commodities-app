@@ -71,7 +71,6 @@ define([
                 });
             }*/
 
-
             if (isExternal === "true") {
                 this.redirectPage(view);
                 return;

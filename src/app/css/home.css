@@ -28,7 +28,7 @@
   -webkit-transition: display 1.5s ease;
   transition: display 1.5s ease;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 24px;
 }
 .homeModeOptionsViewerOuter .modeOption {
   border-radius: 150px;
@@ -65,7 +65,7 @@
 }
 .homeModeOptionsViewerOuter .modeGroup .modeText {
   font-family: "Georgia", serif;
-  color: black;
+  color: #ccc;
   position: absolute;
   left: 0px;
   top: 110px;

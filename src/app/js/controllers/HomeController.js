@@ -67,6 +67,7 @@ define([
                 //console.log(itemsToAnimate);
                 var maxItems = itemsToAnimate.length;
                 //var maxItems = 5;
+                //console.log(id);
 
                 var anim = coreFx.chain([
 
@@ -166,23 +167,23 @@ define([
             registry.byId("homeView").set('content', template);
 
             HomeModel.initialize("homeView");
-            //o.startModeAnim();
+            o.startModeAnim();
 
         },
 
         handleModeClick: function(eventName) {
             //console.log(eventName);
             require(["controllers/Header"], function(Header) {
-                //if (eventName == "goToMap") {
-                Header.updateView("map", false, true);
-                //} 
-                /*else if (eventName == "goToAbout") {
-                    Header.updateView("about", false, true);
-                } else if (eventName == "goToAnalysis") {
-                    Header.updateView("methods", false, true);
-                } else if (eventName == "goToData") {
-                    Header.updateView("data", false, true);
-                }*/
+                if (eventName == "goToMap") {
+                    Header.updateView("map", false, true);
+                } else if (eventName == "goToFires") {
+                    Header.updateView("fires", "true", true);
+                } else if (eventName == "goToBlogs") {
+                    Header.updateView("blog", "true", true);
+                } else if (eventName == "goToZSL") {
+                    Header.updateView("SPOTT", "true", true);
+                }
+
             });
 
         },
