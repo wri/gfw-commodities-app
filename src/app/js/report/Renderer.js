@@ -309,7 +309,8 @@ define([
 						categories: report.clearanceLabels
 					},
 					yAxis: {
-						title: null
+						title: null,
+            min: 0
 					},
 					legend: {
 						enabled: true
@@ -351,7 +352,8 @@ define([
 						categories: report.clearanceLabels
 					},
 					yAxis: {
-						title: null
+						title: null,
+						min: 0
 					},
 					legend: {
 						enabled: false
@@ -411,6 +413,46 @@ define([
 			}
 
 			/*
+				THIS FUNCTION EXPECTS EXACTLY 2 LABELS AND DATA VALUES, NO MORE OR LESS
+				@param {string} rootNode
+				@param {array} bounds signifies the bounds of the data classes
+				@param {array} data number fires intersecting with dataset in array relative to labels
+				@param {array} labels array of labels describing which classes have fires in them
+				@param {number} totalFires total number of fires
+			*/
+			function createSpecialBadge(rootNode, data, bounds, labels, totalFires) {
+				var fragment = document.createDocumentFragment(),
+						node = document.createElement('div'),
+						dest = document.getElementById(rootNode + '_fire'),
+						values = [];
+
+				console.dir(data);
+				console.dir(bounds);
+				for (var i = 0; i < data.length; i++) {
+					if (i >= bounds[0] && i <= bounds[1]) {
+						values.push(data[i]);
+					}
+				}
+
+				node.className = "active-fires-badge special";
+				node.innerHTML = "<div>Active fires are detected in:</div>" +
+												 "<div class='active-fires-label'>" +
+												  		"<span>" + labels[0] + " Forests</span>" +
+							 								"<div>" + number.format(values[0] || 0) + "</div>" + 
+							 							"</div>" +
+														"<div class='active-fires-label'>" +
+															"<span>" + labels[1] + " Forests</span>" +
+															"<div>" + number.format(values[1] || 0) + "</div>" + 
+														"</div>" +
+														"<div class='total-active-fires-label'><span>out of " + number.format(totalFires) + " total active fires</span></div>" +
+												 "</div>";
+				// Append root to fragment and then fragment to document
+				fragment.appendChild(node);
+				dest.innerHTML = "";
+				dest.appendChild(fragment);
+			}
+
+			/*
 				@param {string} rootNode
 				@param {array} data 
 				@param {string} labels
@@ -435,7 +477,12 @@ define([
 					}
 				}
 
-				if (resultingData.length > 0) {
+				if (resultingData.length === 0) {
+					createBadge(rootNode, 0, 0, description);
+				} else if (labels.length === 2) {
+					// For Values with only two labels, redirect to a specific type of badge
+					createSpecialBadge(rootNode, data, bounds, labels, features.length);
+				} else {
 
 					$("#" + rootNode + "_fire").highcharts({
 						chart: {
@@ -471,8 +518,6 @@ define([
 						}]
 					});
 
-				} else {
-					createBadge(rootNode, 0, 0, description);
 				}
 
 			}
@@ -929,30 +974,31 @@ define([
 		renderMillAssessment: function (mills, config) {
 
 			var millTables = [],
-					content = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span><span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>";
+					content = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span>" + 
+										"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>";
 
 			arrayUtils.forEach(mills, function (mill) {
-				console.dir(mill);
 				// Create Header
 				content += "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
-									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>Overall Threat Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";
+									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>" + 
+									"Total Mill Risk Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";
 				// Create Table
 				content += "<table><tr><th></th><th colspan='2'>Concession</th><th colspan='2'>Radius</th></tr>";
 				// Generate Rows for Each section of data
-				content += generateRow('RSPO', mill.rspo);
-				content += generateRow('Legal', mill.legal);
-				content += generateRow('Deforestation', mill.deforestation, true);
+				content += generateRow('RSPO certification', mill.rspo);
+				content += generateRow('Deforestation', mill.deforestation, 'deforest');
 				/* Child Rows */
-				content += generateRow('UMD total loss', mill.deforestation['umd-loss'], null, true);
-				content += generateRow('UMD loss on primary', mill.deforestation['umd-loss-primary'], null, true);
-				content += generateRow('FORMA total loss', mill.deforestation.forma, null, true);
-				content += generateRow('FORMA loss on primary', mill.deforestation['forma-primary'], null, true);
-				content += generateRow('Carbon', mill.deforestation.carbon, null, true);
+				content += generateRow('Total tree cover loss', mill.deforestation['umd-loss'], null, 'deforest');
+				content += generateRow('Tree cover loss on primary forest', mill.deforestation['umd-loss-primary'], null, 'deforest');
+				content += generateRow('Total clearance alerts', mill.deforestation.forma, null, 'deforest');
+				content += generateRow('Clearance alerts on primary forest', mill.deforestation['forma-primary'], null, 'deforest');
+				content += generateRow('Tree cover loss on carbon stock', mill.deforestation.carbon, null, 'deforest');
 				/* Child Rows */
-				content += generateRow('Peat', mill.peat, true);
+				content += generateRow('Legality', mill.legal);
+				content += generateRow('Peat', mill.peat, 'peat');
 				/* Child Rows */
-				content += generateRow('Presence of peat', mill.peat.presence, null, true);
-				content += generateRow('Clearance on peat', mill.peat.clearance, null, true);
+				content += generateRow('Presence of peat', mill.peat.presence, null, 'peat');
+				content += generateRow('Clearance on peat', mill.peat.clearance, null, 'peat');
 				/* Child Rows */
 				content += generateRow('Fires', mill.fire);
 				content += "</table>";
@@ -960,23 +1006,25 @@ define([
 			});
 
 			// Takes a piece of the results and returns a html row
-			function generateRow(name, data, isParent, isChild) {
-				var rowClass = isChild ? 'data-row child' : 'data-row';		
-				var frag = "<tr class='" + rowClass + "'><td class='row-name'><span>" + name + "</span></td>";
+			function generateRow(name, data, parentClass, childClass) {
+				// If child is to be open by default, add open class below if parentClass is defined, 
+				// so data-row parent open are all in if parentClass is defined
+				var rowClass = parentClass ? 'data-row parent' : 'data-row';
+				rowClass += childClass ? ' child ' + childClass : '';
+				
+				// If this is a parent, will need a special data-class attribute and an extra span for showing the toggle
+				var frag = "<tr class='" + rowClass + "' " + (parentClass? "data-class='" + parentClass + "'" : "") + ">" + 
+									 "<td class='row-name'>" + (parentClass? "<span class='toggle-icon'></span>" : "") + "<span>" + name + "</span></td>";
 				frag += "<td class='" + data.concession.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.concession.risk + "</span></td>";
-				frag += "<td>" + (typeof data.concession.raw === 'number' ? data.concession.raw + '%' : data.concession.raw) + "</td>";
+				frag += "<td>" + data.concession.raw + "</td>";
 				frag += "<td class='" + data.radius.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.radius.risk + "</span></td>";
-				frag += "<td>" + (typeof data.radius.raw === 'number' ? data.radius.raw + '%' : data.radius.raw) + "</td>";
+				frag += "<td>" + data.radius.raw + "</td>";
 				frag += "</tr>";
 				return frag;
 			}
 
+			// Add the Content
 			document.getElementById(config.rootNode + "_table").innerHTML = millTables.join('<br />');
-
-			// Toggle Rows and Columns Easily with jQuery, below are some examples
-			// $("#testThree").click(function () {
-			// 	$('.mill-table-container .peat-toggle').toggle();
-			// });
 
 			// Toggle Functions
 			function toggleValues() {
@@ -991,7 +1039,21 @@ define([
 				$('.mill-table-container tr.data-row td:nth-child(4)').attr('colspan', colspan);
 			}
 
+			function toggleChildren(evt) {
+				var target = evt.currentTarget,
+						dataClass = target.dataset ? target.dataset.class : target.getAttribute('data-class');
+
+				$('.mill-table-container .data-row.child.' + dataClass).toggle();
+				$(target).toggleClass('open');
+			}
+
+			// Set up Click Listeners to give table custom toggling functionality
 			$("#value-toggle").click(toggleValues);
+			$(".mill-table-container tr.parent").click(toggleChildren);
+
+			// Hide children by default
+			$('.mill-table-container .data-row.child.peat').toggle();
+			$('.mill-table-container .data-row.child.deforest').toggle();
 
 		},
 

@@ -55,7 +55,10 @@ define([
                             React.DOM.div({
                                 'className': 'step-title'
                             }, config.title),
-                            //React.DOM.p({'className': 'step-description'}, config.description),
+                            (   this.props.selectedArea === 'millPointOption' ?
+                                React.DOM.p({'className': 'sub-title'}, "(Analysis based on 50km buffer)") :
+                                null
+                            ),
                             new WizardCheckbox({
                                 'label': config.suit.label,
                                 'value': config.suit.value,

@@ -483,7 +483,7 @@ define([], function () {
 	      filter: "forest-use",
 	      type: "check",
 	      layerType: "dynamic",
-        infoDivClass: "land-use-oil-palm"
+        infoDivClass: "land-use-rspo-consessions"
 	    },
 	    {
 	      key: "logPerm",
@@ -913,10 +913,10 @@ define([], function () {
         0: "0 cm",
         1: "Less than 50 cm",
         2: "50 - 100 cm",
-        3: "100- 200 cm",
-        4: "200 - 400 cm",
-        5: "400 - 800 cm",
-        6: "800 - 1,200 cm"
+        3: "100- 200 cm" //,
+        // 4: "200+ cm"//, // Was 200 - 400
+        // 5: "400 - 800 cm",
+        // 6: "800 - 1,200 cm"
       },
       "rainfall":{
         "label": "mm/yr"

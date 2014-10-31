@@ -99,7 +99,7 @@ define([], function() {
 
         millPoints: {
             url: 'http://risk-api.appspot.com/',
-            title: 'Mill Point Risk Assessment',
+            title: 'Palm Oil Mill Risk Assessment',
             rootNode: 'millPoints'
         },
 
