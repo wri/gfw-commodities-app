@@ -4,7 +4,11 @@ define({
 
     "urls": {
         "gfw": "http://www.globalforestwatch.org/",
-        "blog": "http://blog.globalforestwatch.org/"
+        "blog": "http://blog.globalforestwatch.org/tag/commodities/",
+        "fires": "http://fires.globalforestwatch.org/#v=home",
+        "SPOTT": "http://www.sustainablepalmoil.org/toolkit/"
+
+
     },
 
     "corsEnabledServers": [
@@ -23,29 +27,29 @@ define({
         "id": 0,
         "tooltip": "Explore the Map"
     }, {
-        "html": "<span>View the latest analysis</span>",
-        "eventName": "goToAnalysis",
+        "html": "<span>Check out GFW Fires</span>",
+        "eventName": "goToFires",
         "display": false,
         "id": 1,
-        "tooltip": "Check Out the Analysis Page"
+        "tooltip": "Check out GFW Fires"
     }, {
-        "html": "<span>View the latest imagery</span>",
-        "eventName": "goToData",
-        "display": false,
+        "html": "<span class='less-text'>Explore the map</span>",
+        "eventName": "goToMap",
+        "display": true,
         "id": 2,
-        "tooltip": "Or try the Data Page"
+        "tooltip": "Explore the Map"
     }, {
-        "html": "Fires occuring in peatland <br> in the last 7 days",
-        "eventName": "goToAbout",
+        "html": "Read recent blogs and news about GFW Commodities",
+        "eventName": "goToBlogs",
         "display": false,
         "id": 3,
-        "tooltip": "Go to the About Page!"
+        "tooltip": "Commodities News & Blogs"
     }, {
-        "html": "<span class='more-text'>Sign up for SMS & fire alerts</span>",
-        "eventName": "subscribeToAlerts",
+        "html": "Check out the SPOTT tool created by ZSL",
+        "eventName": "goToZSL",
         "display": false,
         "id": 4,
-        "tooltip": "This one won't take you anywhere"
+        "tooltip": "Check out the SPOTT tool"
     }]
 
 });
