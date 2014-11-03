@@ -24,8 +24,8 @@ define([
 ], function (React, AnalyzerConfig, Color, Graphic, esriRequest, Draw, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, sniff, registry, domClass, Memory, domConstruct, ComboBox, MapConfig, MapModel) {
 
   var customFeatureSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                            new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2),
-                            new Color([103, 200, 255, 0.65])),
+                            new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
+                            new Color([103, 200, 255, 0.0])),
       customFeatures = [],
       graphicsLayer,
       drawToolbar,

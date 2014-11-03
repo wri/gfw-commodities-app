@@ -17,8 +17,8 @@ define([
 
   var config = AnalyzerConfig.certifiedArea,
       adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2),
-                    new Color([255, 200, 103, 0.65]));
+                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
+                    new Color([255, 200, 103, 0.0]));
 
   function getDefaultState() {
     return {

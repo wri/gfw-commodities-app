@@ -296,7 +296,7 @@ define([
                 "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fires Alerts</label></div>" +
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
-                "<div id='from-response' class='message-container'></div>" +
+                "<div id='form-response' class='message-container'></div>" +
                 "</div>";
 
             dialog.setContent(content);
@@ -308,7 +308,7 @@ define([
             on(dom.byId("subscribe-now"), 'click', function() {
                 // Show loading Wheel
                 // It will be removed when there is an error or on complete
-                dom.byId('from-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
+                dom.byId('form-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
                 self.subscribeToAlerts();
             });
 
@@ -361,7 +361,7 @@ define([
                             responses.push(messages.fireFail);
                         }
 
-                        dom.byId('from-response').innerHTML = responses.join('<br />');
+                        dom.byId('form-response').innerHTML = responses.join('<br />');
 
                     });
 
@@ -369,18 +369,18 @@ define([
                 } else if (formaCheck) {
                     this.subscribeToForma(geoJson, emailAddr).then(function(res) {
                         if (res) {
-                            dom.byId('from-response').innerHTML = messages.formaSuccess;
+                            dom.byId('form-response').innerHTML = messages.formaSuccess;
                         } else {
-                            dom.byId('from-response').innerHTML = messages.formaFail;
+                            dom.byId('form-response').innerHTML = messages.formaFail;
                         }
                     });
                     // Else if just fires alerts are checked, subscribe to those and show the correct responses
                 } else if (firesCheck) {
                     this.subscribeToFires(report.geometry, emailAddr).then(function(res) {
                         if (res) {
-                            dom.byId('from-response').innerHTML = messages.fireSuccess;
+                            dom.byId('form-response').innerHTML = messages.fireSuccess;
                         } else {
-                            dom.byId('from-response').innerHTML = messages.fireFail;
+                            dom.byId('form-response').innerHTML = messages.fireFail;
                         }
                     });
                 }

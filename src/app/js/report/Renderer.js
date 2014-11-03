@@ -1,8 +1,9 @@
 define([
 	"report/config",
 	"dojo/number",
+	"dijit/Dialog",
 	"dojo/_base/array"
-], function (ReportConfig, number, arrayUtils) {
+], function (ReportConfig, number, Dialog, arrayUtils) {
 	'use strict';
 
 	// Container IDS for charts and tables are as Follows
@@ -981,7 +982,8 @@ define([
 									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>" + 
 									"Total Mill Risk Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";
 				// Create Table
-				content += "<table><tr><th></th><th colspan='2'>Concession</th><th colspan='2'>Radius</th></tr>";
+				content += "<table><tr><th></th><th colspan='2'>Concession<span class='info-icon' data-type='concession'></span>" + 
+									 "</th><th colspan='2'>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
 				// Generate Rows for Each section of data
 				content += generateRow('RSPO certification', mill.rspo);
 				content += generateRow('Deforestation', mill.deforestation, 'deforest');
@@ -1004,6 +1006,13 @@ define([
 			});
 
 			// Takes a piece of the results and returns a html row
+			/*
+				@param {string} name - Represents Name in table row
+				@param {object} data - Represents segment of response
+				@param {string} parentClass - (OPTIONAL) - class of parent and child
+				@param {string} childClass - (OPTIONAL) - class of child, same as parent
+				@return String - HTML Fragment which is a <tr>
+			*/
 			function generateRow(name, data, parentClass, childClass) {
 				// If child is to be open by default, add open class below if parentClass is defined, 
 				// so data-row parent open are all in if parentClass is defined
@@ -1025,6 +1034,9 @@ define([
 			document.getElementById(config.rootNode + "_table").innerHTML = millTables.join('<br />');
 
 			// Toggle Functions
+			/*
+				Toggle Values Columns and and set colspan to correct values for all rows
+			*/
 			function toggleValues() {
 				var node = $(".toggle-button-container"),
 						colspan = node.hasClass('active') ? 2 : 1;
@@ -1037,6 +1049,10 @@ define([
 				$('.mill-table-container tr.data-row td:nth-child(4)').attr('colspan', colspan);
 			}
 
+			/*
+				Toggle children rows display related to the current targets data-class attribute
+				@param {MouseEvent} evt
+			*/
 			function toggleChildren(evt) {
 				var target = evt.currentTarget,
 						dataClass = target.dataset ? target.dataset.class : target.getAttribute('data-class');
@@ -1045,14 +1061,34 @@ define([
 				$(target).toggleClass('open');
 			}
 
-			// Set up Click Listeners to give table custom toggling functionality
+			// Set up Click Listeners to give table custom toggling functionality and show information on info classes
 			$("#value-toggle").click(toggleValues);
 			$(".mill-table-container tr.parent").click(toggleChildren);
+			$(".mill-table-container .info-icon").click(this.showMillPointInfo);
 
 			// Hide children by default
 			$('.mill-table-container .data-row.child.peat').toggle();
 			$('.mill-table-container .data-row.child.deforest').toggle();
 
+		},
+
+		/*
+				Show popup dialog with information relating to the value of the target's data-type attribute
+				@param {MouseEvent} evt
+			*/
+		showMillPointInfo: function (evt) {
+			var target = evt.currentTarget,
+					type = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
+					config = ReportConfig.millPointInfo[type],
+					dialog;
+
+			dialog = new Dialog({
+				title: config.title,
+				content: config.content,
+				style: "width: 300px;"
+			});
+			
+			dialog.show();
 		},
 
 		/*
