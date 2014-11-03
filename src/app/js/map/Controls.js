@@ -8,6 +8,7 @@ define([
     "dojo/dom-style",
     "dijit/registry",
     "dojo/dom-construct",
+    "utils/Hasher",
     "map/config",
     "map/MapModel",
     "map/LayerController",
@@ -18,7 +19,7 @@ define([
     "dijit/form/CheckBox",
     "dijit/layout/ContentPane",
     "dijit/layout/AccordionContainer"
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
 
     'use strict';
 
@@ -204,7 +205,13 @@ define([
 
       });
 */
-
+            var layerArray = Hasher.getLayers(),
+                active = layerArray.indexOf("forma") > -1;
+            if (active) {
+                setTimeout(function() { //TODO : Fix this 
+                    ionCallback.call();
+                }, 300);
+            }
             $(".extra-controls2 #newSlider2").click(function() {
                 play();
             });
@@ -443,7 +450,7 @@ define([
                     $("#playLine3").html(monthDisplay);
                     $('#playLine3').css("left", "+=39.5px");
                     $('#sliderProgressLine2').css("left", "+=39.5px");
-                    
+
                     values[0] = parseInt(values[0]);
                     values[1] = parseInt(values[1]);
 
