@@ -270,25 +270,37 @@ define([
         },
 
         _prepareGeometry: function(features) {
-            var geometry;
-            if (Object.prototype.toString.call(features) === '[object Array]') {
-                if (features.length === 1) {
-                    geometry = features[0].geometry;
-                } else {
-                    geometry = features[0].geometry;
-                    arrayUtils.forEach(features, function(feature, index) {
-                        // Skip the first one, geometry alerady grabbed above
-                        if (index > 0) {
-                            arrayUtils.forEach(feature.geometry.rings, function(ring) {
-                                geometry.addRing(ring);
-                            });
-                        }
-                    });
-                }
+          var geometry;
+          if (Object.prototype.toString.call(features) === '[object Array]') {
+            if (features.length === 1) {
+              geometry = features[0].geometry;
             } else {
-                geometry = features.geometry;
+              geometry = features[0].geometry;
+              if (!geometry.radius) {
+                arrayUtils.forEach(features, function(feature, index) {
+                  // Skip the first one, geometry alerady grabbed above
+                  if (index > 0) {
+                    arrayUtils.forEach(feature.geometry.rings, function(ring) {
+                      geometry.addRing(ring);
+                    });
+                  }
+                });
+              } else {
+                // I have an array of circles and need labels, geometry, and ids
+                geometry = [];
+                arrayUtils.forEach(features, function (feature) {
+                  geometry.push({
+                    label: feature.attributes.WRI_label,
+                    id: feature.attributes.Entity_ID,
+                    geometry: feature.geometry
+                  });
+                });
+              }
             }
-            return JSON.stringify(geometry);
+          } else {
+              geometry = features.geometry;
+          }
+          return JSON.stringify(geometry);
         },
 
         // External Function to Help determine what state the wizard is in, could be useful 

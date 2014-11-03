@@ -974,10 +974,26 @@ define([
 
 			var millTables = [],
 					content = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span>" + 
-										"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>";
+										"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>",
+					title;
 
 			arrayUtils.forEach(mills, function (mill) {
 				// Create Header
+				// If there were multiple mills, there attributes are in report.mills
+				if (report.mills) {
+					arrayUtils.some(report.mills, function (millAttrs) {
+						if (mill.id === millAttrs.id) {
+							title = millAttrs.label;
+							return true;
+						}
+					});
+					// If no title is found, use default title, this is probably because we are using the MOCK API
+					// and don't have real results back yet
+					if (title === undefined) { title = window.payload.title; }
+				} else {
+					// Else use the window.payload.title as the title, thats the title of an individual mill
+					title = window.payload.title;
+				}
 				content += "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
 									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>" + 
 									"Total Mill Risk Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";

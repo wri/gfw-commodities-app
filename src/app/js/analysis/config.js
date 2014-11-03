@@ -22,12 +22,12 @@ define([], function() {
         },
 
         stepOne: {
-            title: "Step 1: Select Area",
-            description: "Please select one of the options below to begin analyzing.",
+            title: "Step 1: Select Area of interest",
+            description: "Set the area to analyze using one of the following options.",
             option1: {
                 'id': customArea,
                 'label': 'Create custom area',
-                'description': 'Draw a polygon or upload a shapefile for analysis.'
+                'description': 'Draw a polygon or upload a shapefile to analyze.'
             },
             option2: {
                 'id': adminUnit,
@@ -36,8 +36,8 @@ define([], function() {
             },
             option3: {
                 'id': commArea,
-                'label': 'Commercial entity',
-                'description': 'Analyze a group or individual commercial entity.'
+                'label': 'Concession area',
+                'description': 'Analyze an individual concession or a group of concessions.'
             },
             option4: {
                 'id': certArea,
@@ -47,7 +47,7 @@ define([], function() {
             option5: {
                 'id': millPoint,
                 'label': 'Palm oil mill points',
-                'description': 'View Mill points and their parent company\'s.'
+                'description': 'Analyze deforestation-related risks for a mill or set of mills.'
             }
         },
 

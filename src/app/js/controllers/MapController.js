@@ -181,6 +181,25 @@ define([
 				WizardHelper.toggleWizard();
 			});
 
+			// Click info icon in suitabiliyy tools container for all sliders
+			dojoQuery('.suitability-accordion .slider-name .layer-info-icon').forEach(function (node) {
+				on(node, 'click', function (evt) {
+					var target = evt.target ? evt.target : evt.srcElement,
+							dataClass = target.dataset ? target.dataset.class : target.getAttribute('data-class');
+					self.showInfoPanel(dataClass);
+				});
+			});
+
+			// Click info icon in suitabiliyy tools container for Headers of sections of checkboxes
+			dojoQuery('.suitability-accordion .criteria-separator .layer-info-icon').forEach(function (node) {
+				on(node, 'click', function (evt) {
+					var target = evt.target ? evt.target : evt.srcElement,
+							dataClass = target.dataset ? target.dataset.class : target.getAttribute('data-class');
+					self.showInfoPanel(dataClass);
+				});
+			});
+
+
 		},
 
 		toggleLayerList: function (el) {

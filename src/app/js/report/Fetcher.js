@@ -388,7 +388,7 @@ define([
                 URL IS REPLACED
                 CERTAIN LAYER IDS ARE DIFFERENT
                 CHANGE BEFORE DEPLOYMENT
-                EITHER IN CONFIG AND MAKE PREMANENT OR JUST DELETE CONTENT
+                EITHER IN CONFIG AND MAKE PERMANENT OR JUST DELETE CONTENT
                     DIRECTLY BELOW HERE TIL NEXT TEMPORARY COMMENT
             */
 
@@ -485,6 +485,7 @@ define([
               deferred.resolve(false);
             }, false);
 
+            // Construct the POST Content in HERE for each Mill
 
             req.send();
 
