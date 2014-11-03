@@ -16,6 +16,8 @@ define([], function() {
 
     return {
 
+        noNameField: "No Group Information Available",
+
         wizard: {
             breadcrumbs: ["Select Area", "Refine Area", "Select Analysis"]
             //breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]

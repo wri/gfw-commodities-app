@@ -116,6 +116,10 @@ define([
           graphic;
 
       if (featureType === "group") {
+
+        if (target.innerHTML === AnalyzerConfig.noNameField) {
+          return;
+        }
         // Takes URL and group name, group name will always be the targets innerHTML
         AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);

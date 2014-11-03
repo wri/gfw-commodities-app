@@ -2,13 +2,14 @@ define([
 	"react",
   "map/config",
   "dojo/topic",
+  "dojo/query",
   "dojo/dom-class",
   "dojo/_base/array",
   "analysis/Query",
   "analysis/config",
   "utils/GeoHelper",
   "components/wizard/NestedList"
-], function (React, MapConfig, topic, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, NestedList) {
+], function (React, MapConfig, topic, dojoQuery, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, NestedList) {
 
   var config = AnalyzerConfig.millPoints,
       selectedFeatures = [],
@@ -52,6 +53,15 @@ define([
             topic.publish('toggleItemInLayerList','mill');
           }
         }
+
+        // If this component is appearing in the UI, reset some things and load data if its not available
+        // Remove al active classes, set selected features and labels back to default
+        selectedFeatures = [];
+        selectedLabels = [];
+
+        dojoQuery(".gfw .list-container .wizard-list-child-item.active-mill").forEach(function (node) {
+          domClass.remove(node, 'active-mill');
+        });
 
       }
 

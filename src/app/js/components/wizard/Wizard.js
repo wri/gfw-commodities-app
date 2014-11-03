@@ -36,12 +36,25 @@ define([
 
         },
 
-        componentDidUpdate: function() {
+        componentDidUpdate: function(prevProps, prevState) {
             if (this.props.isResetting) {
                 // Reset the isResetting property so any future changes dont accidentally trigger a reset
                 this.setProps({
                     isResetting: false
                 });
+            }
+
+            // User returned to Step 1 so we need to reset some things.
+            if (prevState.currentStep > 1 && this.state.currentStep === 1) {
+              // Reset the analysis area
+              this.setState({
+                analysisArea: undefined
+              });
+              // Clear Graphics from Wizard Layer, it just shows the selection they made
+              var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+              if (wizLayer) {
+                wizLayer.clear();
+              }
             }
         },
 
@@ -51,7 +64,7 @@ define([
             // Mixin any state/props that need to be mixed in here
             props.analysisArea = this.state.analysisArea;
             props.currentStep = this.state.currentStep;
-            if (props.currentStep == 0) {
+            if (props.currentStep === 0) {
                 $(".breadcrumbs").hide();
                 $(".gfw .wizard-header").css("height", "-=45px");
                 $(".gfw .wizard-body").css("top", "55px");
@@ -176,9 +189,15 @@ define([
             // Reset this components state
             this.replaceState(getDefaultState());
             // Clear the WizardGraphicsLayer
-            app.map.getLayer(MapConfig.wizardGraphicsLayer.id).clear();
+            var layer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            if (layer) {
+              layer.clear();
+            }
             // Hide the Dynamic Layer Associated with the Wizard
-            app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
+            layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
+            if (layer) {
+              layer.hide();
+            }            
         },
 
         _close: function() {

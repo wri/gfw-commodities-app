@@ -171,8 +171,8 @@ body {
 
 /* line 144 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
 .gfw .rspo-results-table th,
-.gfw .rspo-results-table td,
-border 1px solid #adadad {
+.gfw .rspo-results-table td {
+  border: 1px solid #adadad;
   padding: 5px 0 2px;
 }
 
