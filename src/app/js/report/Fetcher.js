@@ -34,7 +34,7 @@ define([
             function success(result) {
                 if (result.areas.length === 1) {
                     area = dojoNumber.format(result.areas[0], {
-                        places: 2
+                        places: 0
                     });
                 } else {
                     area = errorString;

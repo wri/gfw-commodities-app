@@ -99,7 +99,8 @@ define([
                     poly = new Polygon(unionedGeometry);
                     geometryService.project([poly], sr, projectionCallback, failure);
                 }, failure);
-                //geometryService.project([poly], sr, success, failure);
+                // Add css class to title to size down the font for multiple mills
+                domClass.add('title','multiples');
             } else if (report.geometry.radius) {
                 // If report.geometry is a circle, we need to make it a new valid polygon
                 // Then reproject it in Web Mercator

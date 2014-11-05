@@ -272,6 +272,7 @@ wizardBlue = #00688B
 
 .gfw .custom-feature-row
 	cursor pointer
+	padding 5px 0
 
 .gfw .upload-toolbox form
 	text-align center
@@ -291,8 +292,12 @@ wizardBlue = #00688B
 .gfw .upload-toolbox.hidden + .custom-graphics-list-container
 	top 150px
 
-.gfw .custom-graphics-list-container
-	margin-left 10px
+.gfw .custom-graphics-list-container .drawing-instructions,
+.gfw .custom-graphics-list-container .custom-feature-row
+	padding-left 10px
+	
+.gfw .custom-graphics-list-container .custom-feature-row:nth-child(odd)
+	background-color lightGray
 
 .gfw .dijitComboBoxMenuPopup
 	max-height 300px

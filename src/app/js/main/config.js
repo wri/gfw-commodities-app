@@ -45,11 +45,11 @@ define({
         "id": 3,
         "tooltip": "Commodities News & Blogs"
     }, {
-        "html": "Check out the SPOTT tool created by ZSL",
+        "html": "Check out ZSL's Transparency Toolkit",
         "eventName": "goToZSL",
         "display": false,
         "id": 4,
-        "tooltip": "Check out the SPOTT tool"
+        "tooltip": "ZSL Transparency Toolkit"
     }]
 
 });
