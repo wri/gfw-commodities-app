@@ -136,7 +136,7 @@ define([], function() {
                 description: 'Analyze deforestation-related risks for a mill or set of mills.'
             },
             forestChange: {
-                label: 'Forest Change Analysis Variables',
+                label: 'Forest Change Analysis',
                 description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
             },
             millPoint: millPoint

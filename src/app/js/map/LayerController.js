@@ -35,6 +35,12 @@ define([
                 return;
             }
 
+            // For the customSuitability Layer, It has to make a request to the server for a url for the image
+            // and then load the image, show a loading wheel as this can be slow at times due to the double request
+            if (layerConfig.id === MapConfig.suit.id) {
+                this.showSuitabilityLoader();
+            }
+
             var layer = app.map.getLayer(layerConfig.id);
             if (layer) {
 
