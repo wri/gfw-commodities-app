@@ -183,7 +183,7 @@ define([], function() {
             firstList: [
                 "Tree cover change",
                 "Fire activity",
-                "Primary of intact forest areas",
+                "Primary or intact forest areas",
                 "Protected areas",
                 "Legal classification of land"
             ],

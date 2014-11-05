@@ -63,7 +63,8 @@ define([
                                 'label': config.suit.label,
                                 'value': config.suit.value,
                                 'change': this._selectionMade,
-                                'isResetting': this.props.isResetting
+                                'isResetting': this.props.isResetting,
+                                'noInfoIcon': true
                             }),
                             React.DOM.p({
                                 'className': 'layer-description'
@@ -72,8 +73,8 @@ define([
                                 'label': config.rspo.label,
                                 'value': config.rspo.value,
                                 'change': this._selectionMade,
-                                'isResetting': this.props.isResetting
-
+                                'isResetting': this.props.isResetting,
+                                'noInfoIcon': true
                             }),
                             React.DOM.p({
                                 'className': 'layer-description'
@@ -83,7 +84,8 @@ define([
                                     'label': config.mill.label,
                                     'value': config.mill.value,
                                     'change': this._selectionMade,
-                                    'isResetting': this.props.isResetting
+                                    'isResetting': this.props.isResetting,
+                                    'noInfoIcon': true
                                 }),
                                 React.DOM.p({
                                     'className': 'layer-description'
