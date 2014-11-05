@@ -153,58 +153,7 @@ define([
         },
 
         buildFormaSlider: function() {
-            /*var incrementer = 0,
-					baseYear = 13,
-					labels = [],
-					timeSlider,
-					timeExtent,
-					month;
 
-			timeSlider = new TimeSlider({
-				style: "width: 100%;",
-				id: "formaSlider"
-			}, dom.byId("formaAlertSlider"));
-
-			timeExtent = new TimeExtent();
-
-			timeSlider.setThumbCount(1);
-			timeSlider.setThumbMovingRate(1500);
-			timeSlider.setLoop(false); // Bug when true when it wraps around, it thinks its thumb
-			// is still at the last index and does not know that its at 0 index
-
-			domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
-      registry.byId(timeSlider.previousBtn.id).domNode.style.display = "none";
-      registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
-
-      this.fetchFORMAAlertsLabels().then(function (res) {
-      	if (res) {
-      		for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
-      			month = i % 12 === 0 ? 12 : i % 12;
-      			labels.push(month + "-" + (baseYear + incrementer));
-      			if (i % 12 === 0) { ++incrementer; }
-      		}
-
-      		timeExtent.startTime = new Date("1/1/2013 UTC");
-      		timeExtent.endTime = new Date();
-      		timeSlider.createTimeStopsByCount(timeExtent, res.maxValues[0]);
-          timeSlider.setLabels(labels);
-          timeSlider.setThumbIndexes([labels.length - 1]);
-          timeSlider.startup();          
-      	}
-
-      	timeSlider.on("time-extent-change", function (evt) {
-      		// These values are not updated immediately, call requestAnimationFrame 
-      		// to execute on the next available frame
-
-      		var values;
-      		requestAnimationFrame(function () {
-      			values = [0, timeSlider.thumbIndexes[0]];
-      			LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
-      		});
-      	});
-
-      });
-*/
             var layerArray = Hasher.getLayers(),
                 active = layerArray.indexOf("forma") > -1;
             if (active) {
@@ -268,21 +217,24 @@ define([
                         "3-14", "4-14", "5-14", "6-14", "7-14", "8-14", "9-14"
                     ],
                     onChange: function(data) {
+                        //console.log(data);
                         from = data.fromNumber;
                         to = data.toNumber;
                         updateValues();
+                        $(".irs-single").hide();
                         if (from == to) {
                             $(".irs-single").hide();
                             $(".irs-to").show();
                         }
-                        if (from == 19 && to == 20) {
+
+                        if (from == (data.max - 1) && to == data.max) {
                             $(".irs-single").hide();
                             $(".irs-from").show();
                         }
-                        if (to == 20 && from != 20) {
-                            $(".irs-diapason").css("width", "+=8px");
+                        if (to == data.max && from != data.max) {
+                            $(".irs-diapason").css("width", "+=7px");
                         }
-                        if (to == 20 && from == 20) {
+                        if (to == data.max && from == data.max) {
                             $(".irs-diapason").css("width", "-=8px");
                         }
                         $("#range2").ionRangeSlider("update");
@@ -290,7 +242,7 @@ define([
                             $("#sliderProgressLine2").hide();
                             $("#playLine3").hide();
                             var values3 = [from, to];
-                            for (var i = 1; i < 22; i++) {
+                            for (var i = 1; i < (data.max + 2); i++) {
                                 var item2 = $(".container3 > div:nth-child(" + i + ")");
 
                                 if ((i < from + 1) || (i > to)) {
@@ -303,7 +255,7 @@ define([
                                 if (from > 12 || to < 12) {
                                     $(".container3 > div:nth-child(13)").css("color", "black");
                                 }
-                                if (from == 1 && to == 19) {
+                                if (from == 1 && to == (data.max - 1)) {
                                     $(".container3 > div:nth-child(1)").css("color", "black");
                                 }
                             }
@@ -312,12 +264,7 @@ define([
                     },
                 });
                 $(".irs-slider.to").css("left", "790px");
-                //var newYearPlacement = $(".container3 > div:nth-child(13)").css("left");
-                //newYearPlacement -= 81.5px;
-                //$(".playLineFiller2 > div:nth-child(2)").css("margin-left", newYearPlacement);
-
                 $(".slider-container").show();
-
                 $("#formaAlertSlider").each(function() {
                     var node = this;
                     var sliderProgressLine2 = domConstruct.create("div", {
@@ -342,8 +289,13 @@ define([
                 }
 
                 $(".irs-diapason").css("width", sliderDiff + "px");
+                // $("#irs-2 > span.irs > span.irs-slider.from.last").css("left", "0px");
+                // $("#irs-2 > span.irs > span.irs-from").css("left", "0px");
+                // $("#irs-2 > span.irs > span.irs-from").html("1-13");
+                // $(".irs-diapason").css("width", "790px");
                 $(".irs-diapason").css("background-color", "#a1ba42");
                 $(".container3 > div").css("color", "#a1ba42");
+
 
             };
 
@@ -432,9 +384,10 @@ define([
                 $("#newSlider2").html("&#x25A0");
 
                 var values = [thumbOneInitial, thumbOne];
-                console.log(values[0] + ", " + values[1]);
+
                 values[0] = parseInt(values[0]);
                 values[1] = parseInt(values[1]);
+
                 LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
@@ -449,7 +402,6 @@ define([
 
                     var monthNum = parseInt(thumbOne);
                     currentMonth = (monthNum + 1) % 12;
-                    //currentMonth = (thumbOne + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
                     $('#playLine3').css("left", "+=39.5px");
@@ -463,7 +415,7 @@ define([
                     values = [thumbOneInitial, thumbOne];
                     values[0] = parseInt(values[0]);
                     values[1] = parseInt(values[1]);
-                    console.log(values[0] + ", " + values[1]);
+
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
 
                     if (newThumbTwo > thumbTwo) {
@@ -474,7 +426,6 @@ define([
                         $range2.playing = false;
                         return;
                     }
-                    //from++;
                     if ($range2.playing == true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
@@ -485,125 +436,7 @@ define([
         },
 
         buildTreeCoverChangeSlider: function() {
-            /*// treeCoverLossSlider.baseYear & numYears
-            var sliderConfig = MapConfig.treeCoverLossSlider,
-                labels = [],
-                timeSlider,
-                timeExtent;
 
-            TimeSlider.prototype.onPlay = function() {
-                alert("PLAY!");
-            };
-
-            timeSlider = new TimeSlider({
-                style: "width: 100%;",
-                id: "treeCoverSlider"
-            }, dom.byId("treeCoverSlider"));
-
-
-            timeExtent = new TimeExtent();
-
-            timeSlider.setThumbCount(2);
-            timeSlider.setThumbMovingRate(1500);
-            timeSlider.setLoop(false); // Bug when true when it wraps around, it thinks its thumb
-            // is still at the last index and does not know that its at 0 index
-
-            domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
-            registry.byId(timeSlider.previousBtn.id).domNode.style.display = "none";
-            registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
-
-            // Create Labels from Config file
-            for (var i = 0, length = sliderConfig.numYears; i <= length; i++) {
-                labels.push('' + (sliderConfig.baseYear + i));
-            }
-
-            timeExtent.startTime = new Date("1/1/2013 UTC");
-            timeExtent.endTime = new Date();
-            timeSlider.createTimeStopsByCount(timeExtent, labels.length);
-            timeSlider.setLabels(labels);
-
-            //timeSlider.setThumbIndexes([0,labels.length - 1]);
-            timeSlider.setThumbIndexes([0, labels.length]);
-            timeSlider.startup();
-
-            timeSlider.on("play", function(evt) {
-
-                var values;
-                var value1 = timeSlider.thumbIndexes[0];
-                var value2 = timeSlider.thumbIndexes[1];
-                //timeSlider.setThumbIndexes([value1,value2 - 1]);
-
-                requestAnimationFrame(function() {
-                    values = [0, timeSlider.thumbIndexes[0]];
-                    //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2-1]);
-                    var index = timeSlider.thumbIndexes[0];
-                    if (timeSlider.thumbIndexes[1] == 12) {
-                        timeSlider.setThumbIndexes([value1, value2 - 1]);
-                    }
-
-                    function timeout(i) {
-                        // If play button is active, have 2 thumbs, & freeze the 2nd. When it isn't have 1 thumb 
-                        // & adjust the #ticks count it can run and their values, and fake a 2nd slider!
-                        // Then, when the time slider is no longer playing, re-initialize it at the current location. 
-                        var thumbOne = timeSlider.thumbIndexes[0];
-                        var thumbTwo = timeSlider.thumbIndexes[1];
-                        // Here I want a small edge case that handles if the user just presses play 1st; thumb1 is
-                        // at 0 & thumb2 is at 13. I want it to go down to one thumb, and play IMMEDIETELY with no
-                        // timeOut, THEN enter the timeOut function per usual w/ 1 thumb at ..1? 0? Idk. This if
-                        // statement should also remove the need for the 2nd part of the else if below. I think.
-                        if ((timeSlider.thumbIndexes[0] == 0 && timeSlider.thumbIndexes[1] == 13) || timeSlider.thumbIndexes[1] == 12) {
-                            //timeSlider.thumbIndexes.splice(1,1);
-                            //timeSlider.setThumbCount(1);
-
-                            timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0], (11)]);
-                            //timeSlider.play();
-                        }
-
-                        // First loop they both do, then neither, then just thumbIndexOne
-                        setTimeout(function() {
-                            if (timeSlider.playing == true) {
-
-                                timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0], (value2 - 1)]);
-
-                            } else {
-                                timeSlider.thumbIndexes[1]++;
-                                return;
-                            }
-
-                            if (timeSlider.thumbIndexes[0] == value2) {
-                                values = [0, timeSlider.thumbIndexes[0]];
-                                LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                                timeSlider.pause();
-
-                                return;
-                            } //else if (timeSlider.thumbIndexes[1] == 12) {
-                            //timeSlider.thumbIndexes.splice(1,1);                            
-                            //timeSlider.setThumbCount(1);
-                            //timeSlider.play();
-                            //} else {
-                            //FREEZE THUMB 2 IN PLACE & MAKE THUMB 1 STOP THERE
-                            //Maybe call the updateImageServiceRasterFunction below w/o any params? (if I have to)
-
-                            //}
-                            values = [0, timeSlider.thumbIndexes[0]];
-
-                            LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                            i++;
-
-                            //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(thumbTwo-1)]);
-                            //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],5]);
-                            // Weird hitch one turn later where the first index doesn't increment...
-                            timeout(i);
-                        }, 1500);
-                    }
-                    timeout(index);
-
-                    //LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                });
-            });
-            //timeSlider.on("pause", function(evt) {});
-            //timeSlider.on("previous", function (evt) {});
-            //timeSlider.on("next", function (evt) {});*/
 
         },
 
@@ -621,16 +454,20 @@ define([
                 from = 2001,
                 to = 2012;
 
-            //$("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > span.radio-icon > span").click(function() {
-            //$("#master-layer-list > div > ul > li:nth-child(1)").click(function() {
             $(".layer-list-item.forest-change").click(function() {
-                //$(".layer-list-item.forest-change > ul > li").click(function() {
                 var $this = $(this);
                 ionCallback.call(this);
-
-                //$(".irs-slider.to").css("left", "792px");
+                var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
+                var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
+                newLeft2 *= 1;
+                if (to == 2012) {
+                    $(".irs-slider.to").css("left", "730px");
+                } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") === undefined) {
+                    $("#irs-1 > span.irs > span.irs-slider.to").css("left", ((newLeft2 + 8) + 'px'));
+                } else {
+                    $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", ((newLeft2 + 8) + 'px'));
+                }
             });
-            //$("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > span.radio-icon > span").click(function() {
             $("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div").click(function() {
                 var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
                 var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
@@ -655,7 +492,6 @@ define([
                     playing: false,
                     prettify: false,
                     //values: ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"],
-                    //hasGrid: true,
                     onChange: function(data) {
                         from = data.fromNumber;
                         to = data.toNumber;
@@ -664,7 +500,6 @@ define([
                             $(".irs-to").show();
                         }
                         $(".irs-single").hide();
-                        //$("#range").ionRangeSlider("update");
                         if ($range.playing !== true) {
                             $("#sliderProgressLine").hide();
                             $("#playLine2").hide();
@@ -705,10 +540,7 @@ define([
             if (!sliderInit) {
                 sliderInit = true;
                 ionCallback();
-                //$(".irs-slider.to").css("left", "792px");
                 $(".irs-diapason").hide();
-
-
 
                 $(".irs-diapason").css("background-color", "transparent");
                 $(".irs-slider.from.last").each(function() {
@@ -765,7 +597,6 @@ define([
 
 
             function play() {
-                //$(".playLine").hide();
                 $("#sliderProgressLine").hide();
                 $("#playLine2").hide();
                 $('#playLine2').css("left", "0");
@@ -788,9 +619,7 @@ define([
 
                 if (sliderStart == undefined || (sliderStart == "0px" && thumbOne != 2001)) {
                     $('#playLine2').css("left", sliderStart2);
-                    //$('#playLine2').css("left", "-=1px");
                     $('#sliderProgressLine').css("left", sliderStart2);
-                    //$('#sliderProgressLine').css("left", "-=1px");
                 }
                 $('#playLine2').css("left", "-=21.5px");
                 $("#playLine2").html(thumbOne);
@@ -808,15 +637,9 @@ define([
                 $("#newSlider").html("&#x25A0");
 
                 var values = [thumbOneInitial - 2001, thumbOne - 2001];
-
-
-
-                console.log(values[0] + ", " + values[1]);
                 values[0] = parseInt(values[0]);
                 values[1] = parseInt(values[1]);
                 LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-
-
 
                 var playing = $range.playing;
                 var outer = setTimeout(function() {
@@ -829,9 +652,7 @@ define([
                     }
 
                     $('#playLine2').css("left", "+=66.5px");
-
                     $('#sliderProgressLine').css("left", "+=66.5px");
-
 
                     var newDates = $range[0].value.split(';');
                     var newThumbTwo = newDates[1];
@@ -840,9 +661,6 @@ define([
                     $("#playLine2").html(thumbOne);
 
                     values = [thumbOneInitial - 2001, thumbOne - 2001];
-                    //values[0] = parseInt(values[0]);
-                    //values[1] = parseInt(values[1]);
-                    console.log(values[0] + ", " + values[1]);
 
                     LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
 
@@ -858,12 +676,10 @@ define([
                             $('#sliderProgressLine').css("left", "-=1px");
                         }
 
-
                         $("#newSlider").html("&#9658");
                         $range.playing = false;
                         return;
                     }
-                    //from++;
                     if ($range.playing === true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
