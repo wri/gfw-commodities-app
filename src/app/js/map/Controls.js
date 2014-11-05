@@ -396,6 +396,7 @@ define([
                 var initialDates = $range2[0].value.split(';');
                 var thumbOne = initialDates[0];
                 var thumbTwo = initialDates[1];
+
                 var thumbOneInitial = thumbOne;
 
                 var sliderStart3 = $("#irs-2 > span.irs > span.irs-slider.from.last").css("left");
@@ -431,6 +432,9 @@ define([
                 $("#newSlider2").html("&#x25A0");
 
                 var values = [thumbOneInitial, thumbOne];
+                console.log(values[0] + ", " + values[1]);
+                values[0] = parseInt(values[0]);
+                values[1] = parseInt(values[1]);
                 LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
@@ -451,15 +455,16 @@ define([
                     $('#playLine3').css("left", "+=39.5px");
                     $('#sliderProgressLine2').css("left", "+=39.5px");
 
-                    values[0] = parseInt(values[0]);
-                    values[1] = parseInt(values[1]);
 
-                    LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];
                     thumbOne++;
                     values = [thumbOneInitial, thumbOne];
+                    values[0] = parseInt(values[0]);
+                    values[1] = parseInt(values[1]);
+                    console.log(values[0] + ", " + values[1]);
+                    LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
 
                     if (newThumbTwo > thumbTwo) {
                         thumbTwo = newThumbTwo;
@@ -804,10 +809,19 @@ define([
 
                 var values = [thumbOneInitial - 2001, thumbOne - 2001];
 
+
+
+                console.log(values[0] + ", " + values[1]);
+                values[0] = parseInt(values[0]);
+                values[1] = parseInt(values[1]);
+                LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
+
+
+
                 var playing = $range.playing;
                 var outer = setTimeout(function() {
                     timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                }, 750);
+                }, 1500);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
                     if ($range.playing === false) {
@@ -819,17 +833,18 @@ define([
                     $('#sliderProgressLine').css("left", "+=66.5px");
 
 
-                    LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                    // 		$range.ionRangeSlider("update", {
-                    //     from: from + 1
-                    // });
                     var newDates = $range[0].value.split(';');
                     var newThumbTwo = newDates[1];
 
                     thumbOne++;
                     $("#playLine2").html(thumbOne);
-                    //values = [0,thumbOne-2000];
+
                     values = [thumbOneInitial - 2001, thumbOne - 2001];
+                    //values[0] = parseInt(values[0]);
+                    //values[1] = parseInt(values[1]);
+                    console.log(values[0] + ", " + values[1]);
+
+                    LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
 
                     if (newThumbTwo > thumbTwo) {
                         thumbTwo = newThumbTwo;
@@ -852,7 +867,7 @@ define([
                     if ($range.playing === true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                        }, 750);
+                        }, 1500);
                     }
                 }
             }
