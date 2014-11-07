@@ -2466,22 +2466,33 @@ address {
 
 /* line 10 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #splashDialog {
-  border: none;
   background: url("images/landing.png");
+  border: 1px solid #888;
 }
 
 /* line 15 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+.gfw #splashDialog a {
+  color: #97bd3d;
+}
+
+/* line 19 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+.gfw #splashDialog label {
+  padding: 0 10px 15px;
+  float: right;
+}
+
+/* line 24 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #splashDialog .dijitDialogTitleBar {
   background: none;
 }
 
-/* line 19 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 28 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #splashDialog .dijitDialogPaneContent {
   background: none;
   font-size: 15px;
 }
 
-/* line 24 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 33 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #app-body .background-container {
   overflow: hidden;
   height: 100%;
@@ -2489,27 +2500,27 @@ address {
   min-height: 500px;
 }
 
-/* line 31 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 40 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .gfw #app-body .background-container img {
   height: auto;
   position: absolute;
   width: 100%;
 }
 
-/* line 37 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 46 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeBgContainer {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-/* line 43 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 52 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeBgContainer img {
   width: 100%;
   height: auto;
 }
 
-/* line 48 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 57 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeDotsContainer {
   margin-top: 370px;
   z-index: 200;
@@ -2521,7 +2532,7 @@ address {
   margin-left: -150px;
 }
 
-/* line 59 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 68 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsContainer {
   position: absolute;
   z-index: 200;
@@ -2529,7 +2540,7 @@ address {
   height: 100%;
 }
 
-/* line 66 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 75 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter {
   width: 300px;
   height: 300px;
@@ -2541,7 +2552,7 @@ address {
   overflow: visible;
 }
 
-/* line 78 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 87 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOuter {
   width: 300px;
   height: 30px;
@@ -2553,7 +2564,7 @@ address {
   text-align: center;
 }
 
-/* line 90 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeDot {
   height: 15px;
   width: 15px;
@@ -2568,7 +2579,7 @@ address {
   cursor: pointer;
 }
 
-/* line 102 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 111 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeDot[title]:hover:after {
   content: attr(title);
   padding: 4px 8px;
@@ -2594,14 +2605,14 @@ address {
   background-image: -o-linear-gradient(top, #eee, #ccc);
 }
 
-/* line 126 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 135 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeDot.activeDot {
   background-color: #e98300;
   transition: all 2s;
   border: 1px solid #fff;
 }
 
-/* line 132 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup {
   height: 300px;
   width: 100%;
@@ -2610,7 +2621,7 @@ address {
   font-size: 24px;
 }
 
-/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 150 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeOption {
   border-radius: 150px;
   -moz-border-radius: 150px;
@@ -2627,7 +2638,7 @@ address {
   box-sizing: border-box;
 }
 
-/* line 156 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 165 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeOptionRing {
   border-radius: 150px;
   -moz-border-radius: 150px;
@@ -2643,7 +2654,7 @@ address {
   box-sizing: border-box;
 }
 
-/* line 172 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 181 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText p {
   font-size: 72px;
   color: #ec1d38;
@@ -2651,7 +2662,7 @@ address {
   margin-bottom: 0px;
 }
 
-/* line 179 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 188 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText {
   font-family: "Georgia", serif;
   color: #808080;
@@ -2662,52 +2673,52 @@ address {
   vertical-align: middle;
 }
 
-/* line 189 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 198 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #homeView > div > div.homeModeOptionsContainer > div > div:nth-child(1) > div.modeOptionRing > div > span {
   color: #000 !important;
 }
 
-/* line 192 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 201 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #homeView > div > div.homeModeOptionsContainer > div > div:nth-child(1) > div.modeOptionRing {
   background-image: url("../../app/css/images/backgroundCircle.png");
 }
 
-/* line 195 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 204 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #homeView > div > div.homeModeOptionsContainer > div > div:nth-child(3) > div.modeOptionRing > div > span {
   color: #000 !important;
 }
 
-/* line 202 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 211 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span {
   font-size: 32px;
 }
 
-/* line 206 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 215 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span.more-text {
   position: relative;
   top: -1px;
 }
 
-/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 219 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 .homeModeOptionsViewerOuter .modeGroup .modeText span.less-text {
   position: relative;
   top: 10px;
 }
 
-/* line 215 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 224 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm {
   font-family: "Arial MT Condensed Light";
   src: url("../fonts/ArialMTStd-LightCond.otf") format("opentype");
   color: #464052;
 }
 
-/* line 221 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 230 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm .select-container {
   background: url("../images/ico-carat-down.png") no-repeat 95% center transparent;
   width: 240px;
 }
 
-/* line 226 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 235 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm #aoiDistrictPicker {
   background: transparent;
   -webkit-appearance: none;
@@ -2719,7 +2730,7 @@ address {
   width: 240px;
 }
 
-/* line 237 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 246 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm #aoiSubDistrictPicker {
   border: 1px solid #bbb;
   border-radius: 5px;
@@ -2729,7 +2740,7 @@ address {
   width: 240px;
 }
 
-/* line 244 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 253 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm input[type="email"],
 #signUpAlertsForm input[type="tel"] {
   border-radius: 5px;
@@ -2740,13 +2751,13 @@ address {
   height: 30px;
 }
 
-/* line 251 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 260 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm #verifyEmailForAlerts {
   font-size: 12px;
   display: none;
 }
 
-/* line 256 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 265 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #alerts-submit-button {
   background: #e50036;
   padding: 5px 10px;
@@ -2756,12 +2767,12 @@ address {
   border: none;
 }
 
-/* line 265 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 274 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm td {
   padding: 2px 6px;
 }
 
-/* line 269 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
+/* line 278 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/home.styl */
 #signUpAlertsForm .error-messages {
   color: #e50036;
 }
