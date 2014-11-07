@@ -25,7 +25,7 @@ define([
       nestedListData: [],
       isLoading: false,
       selectedCommodity: config.commodityOptions[0].value,
-      selectedScheme: config.certificationOptions[0].value
+      selectedScheme: config.certificationOptions[1].value
     };
   }
 
@@ -49,6 +49,17 @@ define([
                      newProps.currentStep === 2) {
         
         topic.publish('setCertificationSchemeDefinition', this.state.selectedScheme);
+
+        // If no data has been loaded, do so now that this view is presented to the user
+        if (this.state.nestedListData.length === 0) {
+          var mockEvt = {
+            target: {
+              value: config.certificationOptions[1].value
+            }
+          };
+          
+          this._loadFeatures(mockEvt);
+        }
 
       }
 
@@ -74,7 +85,7 @@ define([
             config.certificationOptions.map(this._selectMapper, this)
           ),
           React.DOM.span({'className': 'loading-wheel ' + (this.state.isLoading ? '' : 'hidden')}),
-          React.DOM.p({'className': 'instructions'}, config.instructionsPartThree),
+          React.DOM.p({'className': 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartThree),
           new NestedList({
             'data': this.state.nestedListData,
             'click': this._schemeClicked,

@@ -1,9 +1,12 @@
 define([
+    "main/config",
     "dojo/dom",
+    "dojo/cookie",
+    "dijit/Dialog",
     "dijit/registry",
     "dojo/_base/array",
     "models/HomeModel"
-], function(dom, registry, arrayUtil, HomeModel) {
+], function(AppConfig, dom, cookie, Dialog, registry, arrayUtil, HomeModel) {
     'use strict';
 
 
@@ -144,6 +147,9 @@ define([
             HomeModel.initialize("homeView");
             o.startModeAnim();
 
+            // Show the Splash Info Window
+            this.showSplashScreen();
+
         },
 
         handleModeClick: function(eventName) {
@@ -166,6 +172,36 @@ define([
             o.stopModeAnim(obj);
 
             //o.startModeAnim(obj.id);
+        },
+
+        showSplashScreen: function () {
+            // Dialog
+            // Cookie
+            var splashScreen = cookie("hideSplashScreen"),
+                checkboxContent,
+                dialog,
+                value;
+
+            if (!splashScreen) {
+                checkboxContent = "<label><input id='hideSplashScreen' type='checkbox' />&nbsp;&nbsp;Don't ask me again.</label>";
+                dialog = new Dialog({
+                    id: 'splashDialog',
+                    title: 'Welcome to GFW Commodities Analyzer',
+                    style: 'width: 550px;',
+                    content: AppConfig.homeDialog.html + checkboxContent
+                });
+                dialog.show();
+
+                dialog.on('cancel', function () {
+                    value = document.getElementById('hideSplashScreen').checked;
+                    if (value) {
+                        cookie("hideSplashScreen", value, {
+                            expires: 31
+                        });
+                    }
+                });
+            }
+
         }
 
     };

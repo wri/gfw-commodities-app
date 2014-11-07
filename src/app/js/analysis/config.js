@@ -192,17 +192,12 @@ define([], function() {
                 "Upload your own shapefiles for analysis",
                 "Draw an area of interest",
                 "Sign up for alerts for clearance activity"
-            ],
-            finalDivs: [
-                "Step 1: Select area of interest",
-                "Step 2: Refine area of interest",
-                "Step 3: Select variables to analyze"
             ]
         },
 
         customArea: {
             instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
-            instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",
+            instructionsPartTwo: "Select an area from the list below and click \"Next\" to proceed.",
             freehandLabel: 'Freehand',
             uploadLabel: 'Upload',
             polyLabel: 'Polygon',
@@ -218,7 +213,7 @@ define([], function() {
 
         adminUnit: {
             instructions: 'Select a country to view it\'s first or second level administrative units:',
-            instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",
+            instructionsPartTwo: "Select a province or district from the list below and click \"Next\" to proceed.",
             countriesQuery: {
                 url: adminUnitQueryUrl + '/7',
                 where: "NAME_0 IS NOT NULL",
@@ -250,7 +245,7 @@ define([], function() {
 
         commercialEntity: {
             instructions: 'Select a commodity type:',
-            instructionsPartTwo: 'Select a feature from the list below and click \"Next\" to proceed.',
+            instructionsPartTwo: "Select a concession or group from the list below and click \"Next\" to proceed.",
             commodityOptions: [{
                 label: 'None',
                 value: 'NONE'
@@ -285,7 +280,7 @@ define([], function() {
         certifiedArea: {
             instructions: 'Select a commodity type:',
             instructionsPartTwo: 'Select a Certification Scheme:',
-            instructionsPartThree: "Select a feature from the list below and click \"Next\" to proceed.",
+            instructionsPartThree: "Select a concession or group from the list below and click \"Next\" to proceed",
             commodityOptions: [{
                 label: 'Oil palm concession',
                 value: 'Oil palm concession'
@@ -316,7 +311,7 @@ define([], function() {
 
         millPoints: {
             instructions: 'Select a commodity type:',
-            instructionsPartTwo: 'Select a feature from the list below and click "Next" to proceed.',
+            instructionsPartTwo: "Select up to 5 mills from the list below and click \"Next\" to proceed.",
             commodityOptions: [{
                 label: 'Oil palm concession',
                 value: 'Oil palm concession'

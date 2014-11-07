@@ -90,7 +90,7 @@ define([
               'onChange': this._loadMillPoints,
             }, config.commodityOptions.map(this._selectMapper, this))
           ),
-          React.DOM.p({'className': 'instructions'}, config.instructionsPartTwo),
+          React.DOM.p({'className': 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartTwo),
           new NestedList({
             'data': this.state.nestedListData,
             'click': this._millPointSelected,

@@ -261,7 +261,8 @@ define([], function () {
 			layerId: 0,
 			infoTemplate: {
 				content: "<table><tr><td>Parent Company:</td><td>${Parent_Com}</td></tr>" +
-								 "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr></table>"
+								 "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr>" +
+								 "<tr><td>RSPO Certified:</td><td>${RSPO_Certi}</td></tr></table>"
 			}
 		},
 		pal: {
@@ -439,7 +440,41 @@ define([], function () {
 	      filter: "forest-cover",
 	      type: "radio",
 	      layerType: "image",
-          infoDivClass: "forest-and-land-cover-primary-forest"
+        infoDivClass: "forest-and-land-cover-primary-forest"
+       //  children: [
+	      // 	{
+	      //     key: "primForest-1",
+	      //     title: "2000",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   },
+	      //   {
+	      //     key: "primForest-2",
+	      //     title: "2005",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   },
+	      //   {
+	      //     key: "primForest-3",
+	      //     title: "2010",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   },
+	      //   {
+	      //     key: "primForest-4",
+	      //     title: "2012",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   }
+	      // ]
 	    },
 	    {
 	      key: "ldcover",
@@ -519,7 +554,7 @@ define([], function () {
 	    	filter: "forest-use",
 	    	type: "check",
 	    	layerType: "dynamic",
-	    	infoDivClass: "land-use-oil-palm"
+	    	infoDivClass: "land-use-mill-points"
 	    },
 	    {
 	      key: "pal",

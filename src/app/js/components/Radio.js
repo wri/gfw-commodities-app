@@ -31,7 +31,7 @@ define([
 			}
 
       // Create the slider if the container exists
-      if (document.getElementById(this.props.key + "_slider")) {
+      if (document.getElementById(this.props.key + "_slider") && !this.props.noSlider) {
         new HorizontalSlider({
           value: 100,
           minimum: 0,
@@ -78,7 +78,7 @@ define([
               React.DOM.span({})
             ),
             React.DOM.a({'className': 'layer-title'}, this.props.title),
-              (this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" ?
+              (this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" && !this.props.noSlider ?
                   React.DOM.span({'className': 'layer-info-icon', 'onClick': this.showInfo})
                   : null
               ),
@@ -86,7 +86,7 @@ define([
           ),
           (this.props.children? 
             React.DOM.ul({}, this.props.children.map(this._mapper))
-            : this.props.layerType !== 'none' ?
+            : this.props.layerType !== 'none' && !this.props.noSlider ?
               React.DOM.div({'title': 'Layer Transparency', 'className': 'sliderContainer ' + (this.state.active ? '' : 'hidden')}, 
                 React.DOM.div({"id": this.props.key + "_slider"})
               )

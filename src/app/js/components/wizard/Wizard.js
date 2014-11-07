@@ -33,7 +33,11 @@ define([
         },
 
         componentDidMount: function() {
-
+            if (this.props.skipIntro) {
+                this.setState({
+                    currentStep: 3
+                });
+            }
         },
 
         componentDidUpdate: function(prevProps, prevState) {
