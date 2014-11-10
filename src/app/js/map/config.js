@@ -31,7 +31,8 @@ define([], function () {
 
 		overlays: {
 			id: "MapOverlaysLayer",
-			url: mapOverlaysUrl 
+			url: mapOverlaysUrl,
+			defaultLayers: [1,5,8,11]
 		},
 
 		road: {
