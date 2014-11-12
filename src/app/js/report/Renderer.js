@@ -476,6 +476,10 @@ define([
 					}
 				}
 
+				console.dir(resultingData);
+				console.dir(bounds);
+				console.dir(data);
+
 				if (resultingData.length === 0) {
 					createBadge(rootNode, 0, 0, description);
 				} else if (labels.length === 2) {

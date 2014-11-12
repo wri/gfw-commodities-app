@@ -424,12 +424,8 @@ define([
             req.open('POST', url, true);
             req.onreadystatechange = function() {
                 if (req.readyState === 4) {
-                    if (req.status === 200) {
-                        res = JSON.parse(req.response);
-                        deferred.resolve(res.subscribe);
-                    } else {
-                        deferred.resolve(false);
-                    }
+                    res = JSON.parse(req.response);
+                    deferred.resolve(res.subscribe);
                 }
             };
             // Handle any potential network errors here
