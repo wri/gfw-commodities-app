@@ -4969,3 +4969,16 @@ address {
   left: 5px;
   top: 7px;
 }
+
+/* line 431 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/wizard.styl */
+.gfw .select-analysis .coming-soon {
+  background: #dcdcdc;
+  background: rgba(220,220,220,0.9);
+  position: absolute;
+  text-align: center;
+  padding: 13px;
+  z-index: 500;
+  right: 10px;
+  left: 0;
+  top: 0;
+}
