@@ -22,7 +22,6 @@ define([
         // Called From Delegator or internally, layerConfig is in the Map Config
         // This function should only show or hide layers
         toggleLayers: function(layerConfig) {
-
             // The WDPA or pal layer has a helper layer it needs to manage
             // offload that functionality to a different function
             if (layerConfig.id === MapConfig.pal.id) {
@@ -88,7 +87,7 @@ define([
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
-            if (layerConfig.layerId) {
+            if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
             }

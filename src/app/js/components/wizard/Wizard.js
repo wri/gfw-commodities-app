@@ -299,8 +299,8 @@ define([
             if (features.length === 1) {
               outGeo = features[0].geometry;
             } else {
-              outGeo = lang.clone(features[0].geometry);
-              if (!outGeo.radius) {
+              if (!features[0].geometry.radius) {
+                outGeo = lang.clone(features[0].geometry);
                 arrayUtils.forEach(features, function(feature, index) {
                   // Skip the first one, geometry alerady grabbed above
                   if (index > 0) {

@@ -194,6 +194,16 @@ define([], function () {
 			url: dynamicMapServiceUrl,
 			layerId: 22
 		},
+		ldcoverIndo: {
+			id: "ForestCover",
+			url: dynamicMapServiceUrl,
+			layerId: 0
+		},
+		ldcoverAsia: {
+			id: "ForestCover",
+			url: dynamicMapServiceUrl,
+			layerId: 19
+		},
 		legal: {
 			id: "ForestCover",
 			url: dynamicMapServiceUrl,
@@ -487,6 +497,24 @@ define([], function () {
 	      type: "radio",
 	      layerType: "dynamic",
           infoDivClass: "forest-and-land-cover-land-cover-global"
+	    },
+	    {
+	      key: "ldcoverIndo",
+	      title: "Land Cover Indonesia",
+	      subtitle: "(mid 2000s, indonesia)",
+	      filter: "forest-cover",
+	      type: "radio",
+	      layerType: "dynamic",
+        infoDivClass: "forest-and-land-cover-land-cover-indonesia"
+	    },
+	    {
+	      key: "ldcoverAsia",
+	      title: "Land Cover Southeast Asia",
+	      subtitle: "(mid 2000s, southeast asia)",
+	      filter: "forest-cover",
+	      type: "radio",
+	      layerType: "dynamic",
+        infoDivClass: "forest-and-land-cover-land-cover-south-east-asia"
 	    },
 	    {
 	      key: "legal",
