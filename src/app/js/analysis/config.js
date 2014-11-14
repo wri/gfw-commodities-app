@@ -313,7 +313,7 @@ define([], function() {
             instructions: 'Select a commodity type:',
             instructionsPartTwo: "Select up to 5 mills from the list below and click \"Next\" to proceed.",
             commodityOptions: [{
-                label: 'Oil palm concession',
+                label: 'Oil palm',
                 value: 'Oil palm concession'
             }],
             url: millPointMapService + '/0',

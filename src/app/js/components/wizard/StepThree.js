@@ -23,16 +23,18 @@ define([
 
         },
 
+        componentDidUpdate: function (prevProps) {
+            if (this.props.selectedArea !== 'millPointOption' && 
+                     prevProps.currentStep === 2 &&
+                     this.props.currentStep === 3) {
+                // Recheck requirements and update state if necessary
+                this._selectionMade();
+            }
+        },
+
         componentWillReceiveProps: function(newProps) {
             if (newProps.isResetting) {
                 this.replaceState(getDefaultState());
-            }
-
-            if (newProps.selectedArea !== 'millPointOption' && 
-                     this.props.currentStep === 2 &&
-                     newProps.currentStep === 3) {
-                // Recheck requirements and update state if necessary
-                this._selectionMade();
             }
         },
 

@@ -53,7 +53,7 @@ define([], function() {
         peatLandsBounds = [0, 1],
         peatLandsColors = ["#161D9C"];
 
-    var lcGlobalLabels = ["Agriculture", "Mixed africulture and forest", "Grassland / Shrub", "Mixed forest and grassland", "Non-forest", "Primary Forest", "Secondary Forest", "Settlements", "Swamp", "Water Bodies"],
+    var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Grassland / Shrub", "Mixed forest and grassland", "Non-forest", "Primary Forest", "Secondary Forest", "Settlements", "Swamp", "Water Bodies"],
         lcGlobalBounds = [1, 10],
         lcGlobalColors = ["#d89827", "#86fc1f", "#fdffb6", "#b98f57", "#CCC", "#5fa965", "#c7ffb6", "#fca0bf", "#538996", "#65a2f8"];
 
