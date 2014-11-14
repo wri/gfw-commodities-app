@@ -9,8 +9,9 @@ define([
     // Other Helpful Modules
     "dojo/topic",
     "dojo/_base/array",
-    "map/config"
-], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig) {
+    "map/config",
+    "dojo/_base/lang"
+], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
@@ -293,26 +294,26 @@ define([
         },
 
         _prepareGeometry: function(features) {
-          var geometry;
+          var outGeo;
           if (Object.prototype.toString.call(features) === '[object Array]') {
             if (features.length === 1) {
-              geometry = features[0].geometry;
+              outGeo = features[0].geometry;
             } else {
-              geometry = features[0].geometry;
-              if (!geometry.radius) {
+              outGeo = lang.clone(features[0].geometry);
+              if (!outGeo.radius) {
                 arrayUtils.forEach(features, function(feature, index) {
                   // Skip the first one, geometry alerady grabbed above
                   if (index > 0) {
-                    arrayUtils.forEach(feature.geometry.rings, function(ring) {
-                      geometry.addRing(ring);
+                    arrayUtils.forEach(feature.geometry.rings, function(ring, index) {
+                      outGeo.addRing(ring);
                     });
                   }
                 });
               } else {
                 // I have an array of circles and need labels, geometry, and ids
-                geometry = [];
+                outGeo = [];
                 arrayUtils.forEach(features, function (feature) {
-                  geometry.push({
+                  outGeo.push({
                     label: feature.attributes.WRI_label,
                     id: feature.attributes.Entity_ID,
                     geometry: feature.geometry
@@ -321,9 +322,9 @@ define([
               }
             }
           } else {
-              geometry = features.geometry;
+              outGeo = features.geometry;
           }
-          return JSON.stringify(geometry);
+          return JSON.stringify(outGeo);
         },
 
         // External Function to Help determine what state the wizard is in, could be useful 

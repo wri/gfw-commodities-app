@@ -4,8 +4,10 @@ define([], function () {
 	// The dynamicMapServiceUrl is currently being used by the following layers (by key):
 	// ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm
 	var dynamicMapServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer",
-			treeCoverGainUrl = "http://54.241.14.14:6080/arcgis/rest/services/Forest_Gain_2000_2012_map/MapServer",
-			treeCoverGainImageUrl = "http://54.241.14.14:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer",
+			treeCoverGainUrl = 'http://gis-potico.wri.org/arcgis/rest/services/GFW/Forest_Gain_2000_2012_map/MapServer',
+			treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+			//treeCoverGainUrl = "http://54.241.14.14:6080/arcgis/rest/services/Forest_Gain_2000_2012_map/MapServer",
+			//treeCoverGainImageUrl = "http://54.241.14.14:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer",
 			treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
 			formaAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
 			activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
