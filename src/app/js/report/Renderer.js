@@ -79,10 +79,10 @@ define([
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='suitability-container'>" +
 						"<div class='left-panel'>" +
-							"<div id='" + config.rootNode + "_content' class='suitability-content'></div>" +
+							"<div id='" + config.rootNode + "_content' class='suitability-content'><div class='loader-wheel'>suitability</div></div>" +
 						"</div>" +
 						"<div class='right-panel'>" +
-							"<div id='" + config.rootNode + "_chart' class='suitability-chart'></div>" +
+							"<div id='" + config.rootNode + "_chart' class='suitability-chart'><div class='loader-wheel'>suitability</div></div>" +
 						"</div>" +
 					"</div>";
 
@@ -973,12 +973,29 @@ define([
 		renderMillAssessment: function (mills, config) {
 
 			var millTables = [],
-					content = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span>" + 
-										"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>";
+					headerContent = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span>" + 
+										"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>",
+					content = "",
+					title;
 
 			arrayUtils.forEach(mills, function (mill) {
 				// Create Header
-				content += "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
+				// If there were multiple mills, there attributes are in report.mills
+				if (report.mills) {
+					arrayUtils.some(report.mills, function (millAttrs) {
+						if (mill.id === millAttrs.id) {
+							title = millAttrs.label;
+							return true;
+						}
+					});
+					// If no title is found, use default title, this is probably because we are using the MOCK API
+					// and don't have real results back yet
+					if (title === undefined) { title = window.payload.title; }
+				} else {
+					// Else use the window.payload.title as the title, thats the title of an individual mill
+					title = window.payload.title;
+				}
+				content = "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
 									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>" + 
 									"Total Mill Risk Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";
 				// Create Table
@@ -986,19 +1003,19 @@ define([
 									 "</th><th colspan='2'>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
 				// Generate Rows for Each section of data
 				content += generateRow('RSPO certification', mill.rspo);
-				content += generateRow('Deforestation', mill.deforestation, 'deforest');
+				content += generateRow('Deforestation', mill.deforestation, 'deforest-' + mill.id);
 				/* Child Rows */
-				content += generateRow('Total tree cover loss', mill.deforestation['umd-loss'], null, 'deforest');
-				content += generateRow('Tree cover loss on primary forest', mill.deforestation['umd-loss-primary'], null, 'deforest');
-				content += generateRow('Total clearance alerts', mill.deforestation.forma, null, 'deforest');
-				content += generateRow('Clearance alerts on primary forest', mill.deforestation['forma-primary'], null, 'deforest');
-				content += generateRow('Tree cover loss on carbon stock', mill.deforestation.carbon, null, 'deforest');
+				content += generateRow('Total tree cover loss', mill.deforestation['umd-loss'], null, 'deforest-' + mill.id);
+				content += generateRow('Tree cover loss on primary forest', mill.deforestation['umd-loss-primary'], null, 'deforest-' + mill.id);
+				content += generateRow('Total clearance alerts', mill.deforestation.forma, null, 'deforest-' + mill.id);
+				content += generateRow('Clearance alerts on primary forest', mill.deforestation['forma-primary'], null, 'deforest-' + mill.id);
+				content += generateRow('Tree cover loss on carbon stock', mill.deforestation.carbon, null, 'deforest-' + mill.id);
 				/* Child Rows */
 				content += generateRow('Legality', mill.legal);
-				content += generateRow('Peat', mill.peat, 'peat');
+				content += generateRow('Peat', mill.peat, 'peat-' + mill.id);
 				/* Child Rows */
-				content += generateRow('Presence of peat', mill.peat.presence, null, 'peat');
-				content += generateRow('Clearance on peat', mill.peat.clearance, null, 'peat');
+				content += generateRow('Presence of peat', mill.peat.presence, null, 'peat-' + mill.id);
+				content += generateRow('Clearance on peat', mill.peat.clearance, null, 'peat-' + mill.id);
 				/* Child Rows */
 				content += generateRow('Fires', mill.fire);
 				content += "</table>";
@@ -1031,7 +1048,7 @@ define([
 			}
 
 			// Add the Content
-			document.getElementById(config.rootNode + "_table").innerHTML = millTables.join('<br />');
+			document.getElementById(config.rootNode + "_table").innerHTML = headerContent + millTables.join('<br />');
 
 			// Toggle Functions
 			/*
@@ -1067,8 +1084,7 @@ define([
 			$(".mill-table-container .info-icon").click(this.showMillPointInfo);
 
 			// Hide children by default
-			$('.mill-table-container .data-row.child.peat').toggle();
-			$('.mill-table-container .data-row.child.deforest').toggle();
+			$('.mill-table-container .data-row.child').toggle();
 
 		},
 

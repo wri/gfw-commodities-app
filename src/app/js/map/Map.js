@@ -326,7 +326,7 @@ define([
 
 			mapOverlaysParams = new ImageParameters();
 			mapOverlaysParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-			mapOverlaysParams.layerIds = [];
+			mapOverlaysParams.layerIds = MapConfig.overlays.defaultLayers;
 			mapOverlaysParams.format = "png32";
 
 			mapOverlaysLayer = new ArcGISDynamicLayer(MapConfig.overlays.url, {

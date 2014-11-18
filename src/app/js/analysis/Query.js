@@ -254,7 +254,7 @@ define([
 
 			where = (type === 'Mining concession' ? 
 												config.whereField + " = '" + type + "'" :
-												config.whereField + " = '" + type + "' AND " + config.requiredField + " IS NOT NULL");
+												config.whereField + " = '" + type + "'"); // AND " + config.requiredField + " IS NOT NULL");
 
 			query.where = where;
 			query.returnGeometry = false;
@@ -313,26 +313,28 @@ define([
 		_formatData: function (config, features) {
 			var buckets = {},
 					data = [],
+					bucketName,
 					attrs;
 
 			arrayUtils.forEach(features, function (feature) {
 				attrs = feature.attributes;
+				bucketName = attrs[config.requiredField] || AnalyzerConfig.noNameField;
 
-				if (buckets.hasOwnProperty(attrs[config.requiredField])) {
-					buckets[attrs[config.requiredField]].children.push({
+				if (buckets.hasOwnProperty(bucketName)) {
+					buckets[bucketName].children.push({
 						'label': attrs[config.labelField],
 						'value': attrs[config.valueField]
 					});
 				} else {
 					// requiredField is label for bucket, labelField is label for all children, valueField is value for all items
-					buckets[attrs[config.requiredField]] = {
-						'label': attrs[config.requiredField],
+					buckets[bucketName] = {
+						'label': bucketName,
 						'value': attrs[config.valueField],
 						'children': []
 					};
 
 					// Now push the first child in
-					buckets[attrs[config.requiredField]].children.push({
+					buckets[bucketName].children.push({
 						'label': attrs[config.labelField],
 						'value': attrs[config.valueField]
 					});

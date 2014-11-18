@@ -171,7 +171,9 @@ gainLayer = #5952de
 	color #888 !important
 
 .gfw .forest-change.active .layer-list-item .layer-title,
-.gfw .forest-change.active .layer-list-item .layer-sub-title
+.gfw .forest-change.active .layer-list-item .layer-sub-title,
+.gfw .forest-cover.active .layer-list-item .layer-title,
+.gfw .forest-cover.active .layer-list-item .layer-sub-title
 	color mediumGray
 
 .gfw .filter-list .sliderContainer.hidden
@@ -194,7 +196,7 @@ gainLayer = #5952de
 	color forestChange
 
 .gfw .app-header.mapView .forest-cover,
-.gfw .app-header.mapView .forest-cover.active .layer-title,
+.gfw .forest-cover.active .layer-title,
 .gfw .forest-cover.active .layer-list-item.active .layer-title
 	color forestCover
 
@@ -292,6 +294,13 @@ gainLayer = #5952de
 .gfw .forest-cover.active .custom-check,
 .gfw .forest-cover.active .radio-icon span
 	background-color forestCover
+	
+.gfw .forest-cover.active .layer-list-item .custom-check,
+.gfw .forest-cover.active .layer-list-item .radio-icon span
+	background none
+	
+.gfw .forest-cover.active .layer-list-item.active .radio-icon span
+	background-color forestCover
 
 .gfw .forest-use.active .custom-check,
 .gfw .forest-use.active .radio-icon span
@@ -380,10 +389,20 @@ gainLayer = #5952de
 	top 20px
 
 .gfw .nav-link-list
+	margin 20px 145px 0 0
 	display inline-block
 	list-style-type none
 	float right
 	padding 0
+	
+.gfw .app-header .google_translate_element
+	position absolute
+	right 120px
+	top 10px
+
+.gfw .app-header.mapView .google_translate_element
+	right 10px
+	top 20px
 
 .gfw .nav-link-list .nav-link
 	border-radius(5px)

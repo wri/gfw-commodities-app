@@ -20,7 +20,7 @@ define([
 
 	return {
 
-		toggleWizard: function () {
+		toggleWizard: function (skipIntro) {
 			var mapWidth = domGeom.position(dom.byId("map")).w,
 					wizardContainer = dom.byId("wizard-container"),
 					deferred = new Deferred(),
@@ -72,12 +72,12 @@ define([
 				},
 				duration: duration,
 				onEnd: function () {
-					deferred.resolve(true);
 					app.map.resize(true);
 					//app.map.centerAt(orignalCenterPoint);
 					if (wizardWidth > 0) {
 						domStyle.set('wizard', 'display', 'block');
 					}
+					deferred.resolve(true);
 				}
 			});
 
@@ -88,8 +88,12 @@ define([
 			if (wizard === undefined) {
 				AnalyzerQuery.getSetupData();
 				setTimeout(function () {
-					wizard = new Wizard({}, "wizard");
-				}, duration);
+					wizard = new Wizard({
+						skipIntro: skipIntro
+					}, "wizard");
+				}, (duration - 100));
+				// Use duration - 100 to make sure the wizard is defined before the animation completes
+				// and the deferred is resolved
 			}
 
 			coreFx.combine([
@@ -189,7 +193,8 @@ define([
 				arrayUtils.some(layer.graphics, function (graphic) {
 					if (graphic.attributes.WRI_ID === parseInt(id)) {
 						if (!self.isOpen()) {
-							self.toggleWizard().then(function () {
+							// True means skip intro in wizard
+							self.toggleWizard(true).then(function () {
 								setWizardProps(graphic);
 							});
 						} else {
@@ -204,7 +209,8 @@ define([
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
-						self.toggleWizard().then(function () {
+						// True means skip intro in wizard
+						self.toggleWizard(true).then(function () {
 							setWizardProps(feature);
 							self.addGraphicFromPopup(feature);
 						});
@@ -217,7 +223,8 @@ define([
 				AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
 					feature.attributes.WRI_label = label;
 					if (!self.isOpen()) {
-						self.toggleWizard().then(function () {
+						// True means skip intro in wizard
+						self.toggleWizard(true).then(function () {
 							setWizardProps(feature);
 							self.addGraphicFromPopup(feature);
 						});

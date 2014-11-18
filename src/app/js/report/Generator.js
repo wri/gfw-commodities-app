@@ -42,39 +42,71 @@ define([
 
         prepareForAnalysis: function() {
 
-            var self = this;
+            var self = this,
+                geometryService = new GeometryService(Config.geometryServiceUrl),
+                sr = new SpatialReference(102100),
+                projectionCallback,
+                failure,
+                poly;
 
+            // Parse the geometry from the global payload object
             report.geometry = JSON.parse(window.payload.geometry);
 
-            // If report.geometry is a circle, we need to make it a new valid polygon
-            // Then reproject it in Web Mercator
-            if (report.geometry.radius) {
-                var geometryService = new GeometryService(Config.geometryServiceUrl),
-                    poly = new Polygon(),
-                    sr = new SpatialReference(102100),
-                    failure;
+            // Set the title and unhide the report
+            this.setTitleAndShowReport(window.payload.title);
 
-                failure = function() {
-                    // Handle This Issue Here
-                    // Discuss with Adrienne How to Handle
-                };
+            // Next grab any suitability configurations if they are available, they will be used to perform 
+            // a suitability analysis on report.geometry
+            report.suitable = window.payload.suitability;
 
-                poly.addRing(report.geometry.rings[1]);
+            // Lastly, grab the datasets from the payload and store them in report so we know which 
+            // datasets we will perform the above analyses on
+            report.datasets = window.payload.datasets;
 
-                geometryService.project([poly], sr, function(projectedGeometry) {
-                    if (projectedGeometry.length > 0) {
-                        poly.rings = projectedGeometry[0].rings;
-                        poly.setSpatialReference(sr);
-                        report.geometry = poly;
-                        // Set remaining variables needed for analysis, see more thorough description below
-                        report.suitable = window.payload.suitability;
-                        report.datasets = window.payload.datasets;
-                        self.setTitleAndShowReport(window.payload.title);
-                        self.beginAnalysis();
-                    } else {
-                        failure();
-                    }
+            // Failure Callback for Mills
+            failure = function() {
+                // Handle This Issue Here
+                // Discuss with Adrienne How to Handle
+            };
+
+            // Callback for projected Geometries
+            projectionCallback = function (projectedGeometry) {
+                if (projectedGeometry.length > 0) {
+                    poly.rings = projectedGeometry[0].rings;
+                    poly.setSpatialReference(sr);
+                    report.geometry = poly;
+                    self.beginAnalysis();
+                } else {
+                    failure();
+                }
+            };
+
+            // If the geometry is an array, it will be an array of Mill Point Objects with geometry, id, and labels
+            // Arrays of polygons are joined before being sent over so the only array will be of mills
+            if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
+                report.mills = report.geometry;
+                var polygons = [];
+                // First prepare an array of new polygons with only rings from index 1, rings at index 0
+                // represent the center point and are not necessary to be included
+                arrayUtils.forEach(report.geometry, function (feature) {
+                    poly = new Polygon();
+                    poly.addRing(feature.geometry.rings[1]);
+                    polygons.push(poly);
+                });
+                // Then Union the geometries to get one polygon to represent them all,
+                // Then reproject the results into the correct projection, 102100 (sr below)
+                geometryService.union(polygons, function (unionedGeometry) {
+                    poly = new Polygon(unionedGeometry);
+                    geometryService.project([poly], sr, projectionCallback, failure);
                 }, failure);
+                // Add css class to title to size down the font for multiple mills
+                domClass.add('title','multiples');
+            } else if (report.geometry.radius) {
+                // If report.geometry is a circle, we need to make it a new valid polygon
+                // Then reproject it in Web Mercator
+                poly = new Polygon();
+                poly.addRing(report.geometry.rings[1]);
+                geometryService.project([poly], sr, projectionCallback, failure);
             } else {
                 // Next, set some properties that we can use to filter what kinds of queries we will be performing
                 // Logic for the Wizard was changed, below may not be needed but it left here for reference incase
@@ -83,17 +115,7 @@ define([
                 // report.analyzeTreeCoverLoss = window.payload.types.loss;
                 // report.analyzeSuitability = window.payload.types.suit;
                 // report.analyzeMillPoints = window.payload.types.risk;
-
-                // Next grab any suitability configurations if they are available, they will be used to perform 
-                // a suitability analysis on report.geometry
-                report.suitable = window.payload.suitability;
-
-                // Lastly, grab the datasets from the payload and store them in report so we know which 
-                // datasets we will perform the above analyses on
-                report.datasets = window.payload.datasets;
-
-                // Now that we are ready, set the title, unhide the report, and begin the analysis
-                this.setTitleAndShowReport(window.payload.title);
+                console.log("Here");
                 this.beginAnalysis();
             }
 
@@ -292,8 +314,8 @@ define([
                 }),
                 self = this,
                 content = "<div class='subscription-content'>" +
-                "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Forma Alerts</label></div>" +
-                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fires Alerts</label></div>" +
+                "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Monthly Clearance Alerts</label></div>" +
+                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' disabled />Fire Alerts - Coming Soon</label></div>" +
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
                 "<div id='form-response' class='message-container'></div>" +
@@ -403,12 +425,8 @@ define([
             req.open('POST', url, true);
             req.onreadystatechange = function() {
                 if (req.readyState === 4) {
-                    if (req.status === 200) {
-                        res = JSON.parse(req.response);
-                        deferred.resolve(res.subscribe);
-                    } else {
-                        deferred.resolve(false);
-                    }
+                    res = JSON.parse(req.response);
+                    deferred.resolve(res.subscribe);
                 }
             };
             // Handle any potential network errors here

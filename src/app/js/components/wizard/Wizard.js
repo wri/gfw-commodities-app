@@ -9,8 +9,9 @@ define([
     // Other Helpful Modules
     "dojo/topic",
     "dojo/_base/array",
-    "map/config"
-], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig) {
+    "map/config",
+    "dojo/_base/lang"
+], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
@@ -33,15 +34,32 @@ define([
         },
 
         componentDidMount: function() {
-
+            if (this.props.skipIntro) {
+                this.setState({
+                    currentStep: 3
+                });
+            }
         },
 
-        componentDidUpdate: function() {
+        componentDidUpdate: function(prevProps, prevState) {
             if (this.props.isResetting) {
                 // Reset the isResetting property so any future changes dont accidentally trigger a reset
                 this.setProps({
                     isResetting: false
                 });
+            }
+
+            // User returned to Step 1 so we need to reset some things.
+            if (prevState.currentStep > 1 && this.state.currentStep === 1) {
+              // Reset the analysis area
+              this.setState({
+                analysisArea: undefined
+              });
+              // Clear Graphics from Wizard Layer, it just shows the selection they made
+              var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+              if (wizLayer) {
+                wizLayer.clear();
+              }
             }
         },
 
@@ -51,7 +69,7 @@ define([
             // Mixin any state/props that need to be mixed in here
             props.analysisArea = this.state.analysisArea;
             props.currentStep = this.state.currentStep;
-            if (props.currentStep == 0) {
+            if (props.currentStep === 0) {
                 $(".breadcrumbs").hide();
                 $(".gfw .wizard-header").css("height", "-=45px");
                 $(".gfw .wizard-body").css("top", "55px");
@@ -176,9 +194,15 @@ define([
             // Reset this components state
             this.replaceState(getDefaultState());
             // Clear the WizardGraphicsLayer
-            app.map.getLayer(MapConfig.wizardGraphicsLayer.id).clear();
+            var layer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            if (layer) {
+              layer.clear();
+            }
             // Hide the Dynamic Layer Associated with the Wizard
-            app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
+            layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
+            if (layer) {
+              layer.hide();
+            }            
         },
 
         _close: function() {
@@ -270,25 +294,37 @@ define([
         },
 
         _prepareGeometry: function(features) {
-            var geometry;
-            if (Object.prototype.toString.call(features) === '[object Array]') {
-                if (features.length === 1) {
-                    geometry = features[0].geometry;
-                } else {
-                    geometry = features[0].geometry;
-                    arrayUtils.forEach(features, function(feature, index) {
-                        // Skip the first one, geometry alerady grabbed above
-                        if (index > 0) {
-                            arrayUtils.forEach(feature.geometry.rings, function(ring) {
-                                geometry.addRing(ring);
-                            });
-                        }
-                    });
-                }
+          var outGeo;
+          if (Object.prototype.toString.call(features) === '[object Array]') {
+            if (features.length === 1) {
+              outGeo = features[0].geometry;
             } else {
-                geometry = features.geometry;
+              if (!features[0].geometry.radius) {
+                outGeo = lang.clone(features[0].geometry);
+                arrayUtils.forEach(features, function(feature, index) {
+                  // Skip the first one, geometry alerady grabbed above
+                  if (index > 0) {
+                    arrayUtils.forEach(feature.geometry.rings, function(ring, index) {
+                      outGeo.addRing(ring);
+                    });
+                  }
+                });
+              } else {
+                // I have an array of circles and need labels, geometry, and ids
+                outGeo = [];
+                arrayUtils.forEach(features, function (feature) {
+                  outGeo.push({
+                    label: feature.attributes.WRI_label,
+                    id: feature.attributes.Entity_ID,
+                    geometry: feature.geometry
+                  });
+                });
+              }
             }
-            return JSON.stringify(geometry);
+          } else {
+              outGeo = features.geometry;
+          }
+          return JSON.stringify(outGeo);
         },
 
         // External Function to Help determine what state the wizard is in, could be useful 

@@ -78,7 +78,9 @@ define([
                 })
             }
             if(state.hasOwnProperty("s")){
-                dom.byId(state.s).checked = true;
+                if (dom.byId(state.s)) {
+                    dom.byId(state.s).checked = true;
+                }
             }
         },
 

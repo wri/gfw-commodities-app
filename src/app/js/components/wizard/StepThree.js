@@ -23,16 +23,18 @@ define([
 
         },
 
+        componentDidUpdate: function (prevProps) {
+            if (this.props.selectedArea !== 'millPointOption' && 
+                     prevProps.currentStep === 2 &&
+                     this.props.currentStep === 3) {
+                // Recheck requirements and update state if necessary
+                this._selectionMade();
+            }
+        },
+
         componentWillReceiveProps: function(newProps) {
             if (newProps.isResetting) {
                 this.replaceState(getDefaultState());
-            }
-
-            if (newProps.selectedArea !== 'millPointOption' && 
-                     this.props.currentStep === 2 &&
-                     newProps.currentStep === 3) {
-                // Recheck requirements and update state if necessary
-                this._selectionMade();
             }
         },
 
@@ -63,7 +65,8 @@ define([
                                 'label': config.suit.label,
                                 'value': config.suit.value,
                                 'change': this._selectionMade,
-                                'isResetting': this.props.isResetting
+                                'isResetting': this.props.isResetting,
+                                'noInfoIcon': true
                             }),
                             React.DOM.p({
                                 'className': 'layer-description'
@@ -72,18 +75,23 @@ define([
                                 'label': config.rspo.label,
                                 'value': config.rspo.value,
                                 'change': this._selectionMade,
-                                'isResetting': this.props.isResetting
-
+                                'isResetting': this.props.isResetting,
+                                'noInfoIcon': true
                             }),
                             React.DOM.p({
                                 'className': 'layer-description'
                             }, config.rspo.description),
-                            React.DOM.div({'className': (this.props.selectedArea === 'millPointOption' ? '' : 'hidden')},
+                            React.DOM.div({
+                                'className': (this.props.selectedArea === 'millPointOption' ? '' : 'hidden'),
+                                'style': {'position': 'relative'} // Temporary While Below is Coming Soon, Remove when Coming Soon is removed
+                            },
+                                React.DOM.div({'className': 'coming-soon'}, "Mill Point Risk Assessment Coming Soon!"),
                                 new WizardCheckbox({
                                     'label': config.mill.label,
                                     'value': config.mill.value,
                                     'change': this._selectionMade,
-                                    'isResetting': this.props.isResetting
+                                    'isResetting': this.props.isResetting,
+                                    'noInfoIcon': true
                                 }),
                                 React.DOM.p({
                                     'className': 'layer-description'

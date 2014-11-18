@@ -22,7 +22,6 @@ define([
         // Called From Delegator or internally, layerConfig is in the Map Config
         // This function should only show or hide layers
         toggleLayers: function(layerConfig) {
-
             // The WDPA or pal layer has a helper layer it needs to manage
             // offload that functionality to a different function
             if (layerConfig.id === MapConfig.pal.id) {
@@ -33,6 +32,12 @@ define([
             if (layerConfig.id === MapConfig.gain.id) {
                 this.updateZoomDependentLayer(layerConfig, MapConfig.gainHelper, 13);
                 return;
+            }
+
+            // For the customSuitability Layer, It has to make a request to the server for a url for the image
+            // and then load the image, show a loading wheel as this can be slow at times due to the double request
+            if (layerConfig.id === MapConfig.suit.id) {
+                this.showSuitabilityLoader();
             }
 
             var layer = app.map.getLayer(layerConfig.id);
@@ -82,7 +87,7 @@ define([
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
-            if (layerConfig.layerId) {
+            if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
             }

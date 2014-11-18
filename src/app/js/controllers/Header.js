@@ -24,6 +24,13 @@ define([
             dom.byId("app-header").innerHTML = template;
             this.bindEvents();
             initialized = true;
+            // Load in Google Analystics
+            var s = document.createElement('script'),
+                h = document.getElementsByTagName('head')[0];
+            s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            s.async = true;
+            h.appendChild(s);
+
         },
 
         setState: function(newState) {

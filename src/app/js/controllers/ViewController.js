@@ -31,6 +31,7 @@ define([
                 Header.updateView(defaultView, false);
                 self.load(defaultView);
             });
+
         },
 
         load: function(view, callback) {

@@ -53,10 +53,14 @@ define([
                             'className': 'wizard-checkbox-label',
                             'onClick': this._toggle
                         }, this.props.label),
-                        React.DOM.div({
-                            'className': 'layer-info-icon',
-                            'onClick': this.showInfo
-                        })
+                        (
+                            this.props.noInfoIcon ? 
+                            null :
+                            React.DOM.div({
+                                'className': 'layer-info-icon',
+                                'onClick': this.showInfo
+                            })
+                        )
                     )
                 )
             );

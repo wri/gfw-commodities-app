@@ -48,8 +48,7 @@ define([
                             React.DOM.p({}, config.secondaryText),
                             React.DOM.ul({},
                                 config.secondList.map(this._listMapper)
-                            ),
-                            config.finalDivs.map(this._paragraphMapper)
+                            )
                         )
                     ),
                     React.DOM.div({'className': 'step-footer'},

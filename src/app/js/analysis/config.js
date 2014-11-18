@@ -16,18 +16,20 @@ define([], function() {
 
     return {
 
+        noNameField: "No Group Information Available",
+
         wizard: {
             breadcrumbs: ["Select Area", "Refine Area", "Select Analysis"]
             //breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
         },
 
         stepOne: {
-            title: "Step 1: Select Area",
-            description: "Please select one of the options below to begin analyzing.",
+            title: "Step 1: Select Area of interest",
+            description: "Set the area to analyze using one of the following options.",
             option1: {
                 'id': customArea,
                 'label': 'Create custom area',
-                'description': 'Draw a polygon or upload a shapefile for analysis.'
+                'description': 'Draw a polygon or upload a shapefile to analyze.'
             },
             option2: {
                 'id': adminUnit,
@@ -36,8 +38,8 @@ define([], function() {
             },
             option3: {
                 'id': commArea,
-                'label': 'Commercial entity',
-                'description': 'Analyze a group or individual commercial entity.'
+                'label': 'Concession area',
+                'description': 'Analyze an individual concession or a group of concessions.'
             },
             option4: {
                 'id': certArea,
@@ -47,7 +49,7 @@ define([], function() {
             option5: {
                 'id': millPoint,
                 'label': 'Palm oil mill points',
-                'description': 'View Mill points and their parent company\'s.'
+                'description': 'Analyze deforestation-related risks for a mill or set of mills.'
             }
         },
 
@@ -134,7 +136,7 @@ define([], function() {
                 description: 'Analyze deforestation-related risks for a mill or set of mills.'
             },
             forestChange: {
-                label: 'Forest Change Analysis Variables',
+                label: 'Forest Change Analysis',
                 description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
             },
             millPoint: millPoint
@@ -181,7 +183,7 @@ define([], function() {
             firstList: [
                 "Tree cover change",
                 "Fire activity",
-                "Primary of intact forest areas",
+                "Primary or intact forest areas",
                 "Protected areas",
                 "Legal classification of land"
             ],
@@ -190,17 +192,12 @@ define([], function() {
                 "Upload your own shapefiles for analysis",
                 "Draw an area of interest",
                 "Sign up for alerts for clearance activity"
-            ],
-            finalDivs: [
-                "Step 1: Select area of interest",
-                "Step 2: Refine area of interest",
-                "Step 3: Select variables to analyze"
             ]
         },
 
         customArea: {
             instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
-            instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",
+            instructionsPartTwo: "Select an area from the list below and click \"Next\" to proceed.",
             freehandLabel: 'Freehand',
             uploadLabel: 'Upload',
             polyLabel: 'Polygon',
@@ -216,7 +213,7 @@ define([], function() {
 
         adminUnit: {
             instructions: 'Select a country to view it\'s first or second level administrative units:',
-            instructionsPartTwo: "Select a feature from the list below and click \"Next\" to proceed.",
+            instructionsPartTwo: "Select a province or district from the list below and click \"Next\" to proceed.",
             countriesQuery: {
                 url: adminUnitQueryUrl + '/7',
                 where: "NAME_0 IS NOT NULL",
@@ -248,7 +245,7 @@ define([], function() {
 
         commercialEntity: {
             instructions: 'Select a commodity type:',
-            instructionsPartTwo: 'Select a feature from the list below and click \"Next\" to proceed.',
+            instructionsPartTwo: "Select a concession or group from the list below and click \"Next\" to proceed.",
             commodityOptions: [{
                 label: 'None',
                 value: 'NONE'
@@ -283,7 +280,7 @@ define([], function() {
         certifiedArea: {
             instructions: 'Select a commodity type:',
             instructionsPartTwo: 'Select a Certification Scheme:',
-            instructionsPartThree: "Select a feature from the list below and click \"Next\" to proceed.",
+            instructionsPartThree: "Select a concession or group from the list below and click \"Next\" to proceed",
             commodityOptions: [{
                 label: 'Oil palm concession',
                 value: 'Oil palm concession'
@@ -314,9 +311,9 @@ define([], function() {
 
         millPoints: {
             instructions: 'Select a commodity type:',
-            instructionsPartTwo: 'Select a feature from the list below and click "Next" to proceed.',
+            instructionsPartTwo: "Select up to 5 mills from the list below and click \"Next\" to proceed.",
             commodityOptions: [{
-                label: 'Oil palm concession',
+                label: 'Oil palm',
                 value: 'Oil palm concession'
             }],
             url: millPointMapService + '/0',

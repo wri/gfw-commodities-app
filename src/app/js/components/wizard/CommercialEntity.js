@@ -64,7 +64,7 @@ define([
             config.commodityOptions.map(this._selectMapper, this)
           ),
           React.DOM.span({'className': 'loading-wheel ' + (this.state.isLoading ? '' : 'hidden')}),
-          React.DOM.p({'className': 'instructions'}, config.instructionsPartThree),
+          React.DOM.p({'className': 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartTwo),
           new NestedList({
             'data': this.state.nestedListData,
             'click': this._commodityClicked,
@@ -116,6 +116,10 @@ define([
           graphic;
 
       if (featureType === "group") {
+
+        if (target.innerHTML === AnalyzerConfig.noNameField) {
+          return;
+        }
         // Takes URL and group name, group name will always be the targets innerHTML
         AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);

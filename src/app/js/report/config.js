@@ -15,9 +15,9 @@ define([], function() {
 
 
     // Tree Cover Density
-    var treeCoverLabels = ["0 - 10%", "11 - 25%", "26 - 50%", "51 - 75%", "76 - 100%"],
-        treeCoverBounds = [0, 4],
-        treeCoverColors = ["#ccf1a5", "#a4c27a", "#859a59", "#65763e", "#4b5923"];
+    var treeCoverLabels = ["31 - 50%", "51 - 74%", "75 - 100%"],
+        treeCoverBounds = [0, 2],
+        treeCoverColors = ["#ccf1a5", "#859a59", "#4b5923"];
 
     // RSPO
     var rspoBounds = [0, 3],
@@ -53,7 +53,7 @@ define([], function() {
         peatLandsBounds = [0, 1],
         peatLandsColors = ["#161D9C"];
 
-    var lcGlobalLabels = ["Agriculture", "Mixed africulture and forest", "Grassland / Shrub", "Mixed forest and grassland", "Non-forest", "Primary Forest", "Secondary Forest", "Settlements", "Swamp", "Water Bodies"],
+    var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Grassland / Shrub", "Mixed forest and grassland", "Non-forest", "Primary Forest", "Secondary Forest", "Settlements", "Swamp", "Water Bodies"],
         lcGlobalBounds = [1, 10],
         lcGlobalColors = ["#d89827", "#86fc1f", "#fdffb6", "#b98f57", "#CCC", "#5fa965", "#c7ffb6", "#fca0bf", "#538996", "#65a2f8"];
 
@@ -86,11 +86,11 @@ define([], function() {
         millPointInfo: {
             'concession': {
                 'title': 'Concession Analysis',
-                'content': 'A risk assessment for concession areas that fall within the sourcing radius.'
+                'content': 'A risk assessment for concession areas within a 50km sourcing radius of a palm oil mill.'
             },
             'radius': {
                 'title': 'Radius Analysis',
-                'content': 'A risk assessment for the entire sourcing radius around a mill.'
+                'content': 'A risk assessment for the entire area within a 50km sourcing radius around a palm oil mill.'
             }
         },
 
@@ -142,9 +142,9 @@ define([], function() {
                     }
                 },
                 classIndices: {
-                    'convertible': [5],
-                    'production': [4, 8],
-                    'other': [2]
+                    'convertible': [1],
+                    'production': [2, 4],
+                    'other': [3]
                 }
             },
             roadHisto: {
@@ -224,12 +224,12 @@ define([], function() {
             title: "Tree Cover Density",
             rasterId: "$520", //13
             rasterRemap: {
-                'rasterFunction': 'Remap',
-                'rasterFunctionArguments': {
-                    'InputRanges': [0, 11, 11, 26, 26, 51, 51, 76, 76, 101],
-                    'OutputValues': [0, 1, 2, 3, 4],
-                    'Raster': '$520',
-                    'AllowUnmatched': false
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": {
+                    "InputRanges": [31, 51, 51, 75, 75, 101],
+                    "OutputValues": [1, 2, 3],
+                    "Raster": "$520",
+                    "AllowUnmatched": false
                 }
             },
             bounds: treeCoverBounds,

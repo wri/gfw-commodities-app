@@ -34,9 +34,7 @@ define([
 
 			arrayUtils.forEach(AppConfig.corsEnabledServers, function (server) {
 				esriConfig.defaults.io.corsEnabledServers.push(server);
-			});			
-
-			esriConfig.defaults.io.postLength = 1800;
+			});
 
 		},
 

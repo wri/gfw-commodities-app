@@ -34,7 +34,7 @@ define([
             function success(result) {
                 if (result.areas.length === 1) {
                     area = dojoNumber.format(result.areas[0], {
-                        places: 2
+                        places: 0
                     });
                 } else {
                     area = errorString;
@@ -383,6 +383,35 @@ define([
                 deferred.resolve(false);
             }
 
+            /*
+                TEMPORARY HARDCODED VALUES
+                URL IS REPLACED
+                CERTAIN LAYER IDS ARE DIFFERENT
+                CHANGE BEFORE DEPLOYMENT
+                EITHER IN CONFIG AND MAKE PERMANENT OR JUST DELETE CONTENT
+                    DIRECTLY BELOW HERE TIL NEXT TEMPORARY COMMENT
+            */
+
+            url = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer';
+            if (config.rootNode === 'primaryForest') {
+                config.rasterId = '$11';
+            }
+            if (config.rootNode === 'treeCoverDensity') {
+                config.rasterId = '$12';
+                config.rasterRemap = {
+                    'rasterFunction': 'Remap',
+                    'rasterFunctionArguments': {
+                        'InputRanges': [0, 11, 11, 26, 26, 51, 51, 76, 76, 101],
+                        'OutputValues': [0, 1, 2, 3, 4],
+                        'Raster': '$12',
+                        'AllowUnmatched': false
+                    }
+                };
+            }
+            /*
+                TEMPORARY CONTENT ABOVE
+            */
+
             // If the report analyzeClearanceAlerts is false, just resolve here
             //if (report.analyzeClearanceAlerts) {
             encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
@@ -456,6 +485,7 @@ define([
               deferred.resolve(false);
             }, false);
 
+            // Construct the POST Content in HERE for each Mill
 
             req.send();
 
@@ -629,7 +659,7 @@ define([
 			Wrapper function for logging messages
 		*/
         _debug: function(msg) {
-            console.log(msg);
+            //console.log(msg);
         }
 
 

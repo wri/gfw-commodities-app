@@ -4,8 +4,10 @@ define([], function () {
 	// The dynamicMapServiceUrl is currently being used by the following layers (by key):
 	// ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm
 	var dynamicMapServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer",
-			treeCoverGainUrl = "http://54.241.14.14:6080/arcgis/rest/services/Forest_Gain_2000_2012_map/MapServer",
-			treeCoverGainImageUrl = "http://54.241.14.14:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer",
+			treeCoverGainUrl = 'http://gis-potico.wri.org/arcgis/rest/services/GFW/Forest_Gain_2000_2012_map/MapServer',
+			treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+			//treeCoverGainUrl = "http://54.241.14.14:6080/arcgis/rest/services/Forest_Gain_2000_2012_map/MapServer",
+			//treeCoverGainImageUrl = "http://54.241.14.14:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer",
 			treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
 			formaAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
 			activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
@@ -31,7 +33,8 @@ define([], function () {
 
 		overlays: {
 			id: "MapOverlaysLayer",
-			url: mapOverlaysUrl 
+			url: mapOverlaysUrl,
+			defaultLayers: [1,5,8,11]
 		},
 
 		road: {
@@ -191,6 +194,16 @@ define([], function () {
 			url: dynamicMapServiceUrl,
 			layerId: 22
 		},
+		ldcoverIndo: {
+			id: "ForestCover",
+			url: dynamicMapServiceUrl,
+			layerId: 0
+		},
+		ldcoverAsia: {
+			id: "ForestCover",
+			url: dynamicMapServiceUrl,
+			layerId: 19
+		},
 		legal: {
 			id: "ForestCover",
 			url: dynamicMapServiceUrl,
@@ -261,7 +274,8 @@ define([], function () {
 			layerId: 0,
 			infoTemplate: {
 				content: "<table><tr><td>Parent Company:</td><td>${Parent_Com}</td></tr>" +
-								 "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr></table>"
+								 "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr>" +
+								 "<tr><td>RSPO Certified:</td><td>${RSPO_Certi}</td></tr></table>"
 			}
 		},
 		pal: {
@@ -439,7 +453,41 @@ define([], function () {
 	      filter: "forest-cover",
 	      type: "radio",
 	      layerType: "image",
-          infoDivClass: "forest-and-land-cover-primary-forest"
+        infoDivClass: "forest-and-land-cover-primary-forest"
+       //  children: [
+	      // 	{
+	      //     key: "primForest-1",
+	      //     title: "2000",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   },
+	      //   {
+	      //     key: "primForest-2",
+	      //     title: "2005",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   },
+	      //   {
+	      //     key: "primForest-3",
+	      //     title: "2010",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   },
+	      //   {
+	      //     key: "primForest-4",
+	      //     title: "2012",
+	      //     filter: "forest-change",
+	      //     type: "radio",
+	      //     layerType: "image",
+	      //     noSlider: true
+	      //   }
+	      // ]
 	    },
 	    {
 	      key: "ldcover",
@@ -449,6 +497,24 @@ define([], function () {
 	      type: "radio",
 	      layerType: "dynamic",
           infoDivClass: "forest-and-land-cover-land-cover-global"
+	    },
+	    {
+	      key: "ldcoverIndo",
+	      title: "Land Cover Indonesia",
+	      subtitle: "(mid 2000s, indonesia)",
+	      filter: "forest-cover",
+	      type: "radio",
+	      layerType: "dynamic",
+        infoDivClass: "forest-and-land-cover-land-cover-indonesia"
+	    },
+	    {
+	      key: "ldcoverAsia",
+	      title: "Land Cover Southeast Asia",
+	      subtitle: "(mid 2000s, southeast asia)",
+	      filter: "forest-cover",
+	      type: "radio",
+	      layerType: "dynamic",
+        infoDivClass: "forest-and-land-cover-land-cover-south-east-asia"
 	    },
 	    {
 	      key: "legal",
@@ -519,7 +585,7 @@ define([], function () {
 	    	filter: "forest-use",
 	    	type: "check",
 	    	layerType: "dynamic",
-	    	infoDivClass: "land-use-oil-palm"
+	    	infoDivClass: "land-use-mill-points"
 	    },
 	    {
 	      key: "pal",
@@ -537,7 +603,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "check",
 	      layerType: "image",
-          infoDivClass: "suitability-suitability-mapper"
+        infoDivClass: "suitability-custom-suitability-mapper"
 	    },
 	    {
 	      key: "opsd",
@@ -546,7 +612,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-wri-standard-suitability"
 	    },
 	    {
 	      key: "cons",
@@ -555,7 +621,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-conservation-areas"
 	    },
 	    {
 	      key: "elev",
@@ -564,7 +630,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-elevation"
 	    },
 	    {
 	      key: "slope",
@@ -573,7 +639,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-slope"
 	    },
 	    {
 	      key: "rain",
@@ -582,7 +648,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-rainfall"
 	    },
 	    {
 	      key: "soilDr",
@@ -591,7 +657,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-drainage"
 	    },
 	    {
 	      key: "soilDe",
@@ -600,7 +666,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-depth"
 	    },
 	    {
 	      key: "soilAc",
@@ -609,7 +675,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-acidity"
 	    },
 	    {
 	      key: "soilTy",
@@ -618,7 +684,7 @@ define([], function () {
 	      filter: "agro-suitability",
 	      type: "radio",
 	      layerType: "dynamic",
-          infoDivClass: "suitability-suitability-mapper"
+          infoDivClass: "suitability-soil-type"
 	    },
 	    {
 	      key: "none_agro",
