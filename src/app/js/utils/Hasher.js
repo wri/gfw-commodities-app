@@ -7,7 +7,11 @@ define([
 ], function(hash, ioQuery, topic, arrayUtils, query) {
     'use strict';
 
-    var currentView;
+    var currentView,
+        currentX,
+        currentY,
+        currentL;
+
 
     return {
         // Grab initial hash or set initial hash to home and return current view
@@ -26,9 +30,21 @@ define([
             }
 
             currentView = state.v;
+            currentX = state.x;
+            currentY = state.y;
+            currentL = state.l;
             topic.subscribe("/dojo/hashchange", function(changedHash) {
+                var oldState = state;
+
                 state = ioQuery.queryToObject(changedHash);
                 console.log(state);
+
+                if (state.x !== currentX && state.v == "map") {
+                    self.handleHashChange(state, oldState);
+                    debugger;
+                }
+                // If x or y changes, we should trigger a handleHashChange function that enables back button functionality (storing of the old state; which also helps with sharing that specific url)
+
                 // If view has not changed, do nothing
                 if (state.v === currentView) {
                     return;
@@ -38,6 +54,26 @@ define([
 
             });
             return defaultView;
+        },
+
+        handleHashChange: function(newState, oldState) {
+            var that = this;
+            debugger;
+            //o.newState = newState;
+            //var changedView = oldState.v != newState.v;
+            //var mapView = newState.v == "map";
+            var centerChange = ((oldState.x != newState.x) || (oldState.y != newState.y) || (oldState.y != newState.y));
+            //var centerChange = 
+            //handle different scenarios here
+            // if (changedView) {
+            //     that.changeView(newState.v, oldState.v);
+            // }
+            //if (mapView && centerChange) {
+            EventsController.centerChange(newState);
+            MapController.centerChange();
+            //}
+            //currentState = newState; //important
+
         },
 
         getHash: function(key) {
@@ -56,7 +92,13 @@ define([
             // Discuss with Jason, May need to find another way to implement 
             // this so it does not mess up his features, or we should probably
             // stash them and only bring them back when were in the map view
+
             var currentHash = this.getHash();
+            if (currentHash.x) {
+                state.x = currentHash.x;
+                state.y = currentHash.y
+                state.l = currentHash.l;
+            }
             if (currentHash.lyrs) {
                 state.lyrs = currentHash.lyrs;
             }

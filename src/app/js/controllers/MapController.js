@@ -61,7 +61,7 @@ define([
                 var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
                 var x = number.round(extent.getCenter().x, 2);
                 var y = number.round(extent.getCenter().y, 2);
-                debugger;
+
                 Hasher.setHash('x', x);
                 Hasher.setHash('y', y);
                 Hasher.setHash('l', 5);
@@ -73,6 +73,7 @@ define([
                 self.renderComponents();
                 // Connect Events
                 self.bindUIEvents();
+                //window.location.hash += '#food';
             });
 
             // Set up zoom listener for Protected Areas Layer *and now Gain Layer
@@ -287,7 +288,7 @@ define([
             layerList.toggleFormElement(key);
         },
 
-        centerChange: function() {
+        centerChange: function(dataObj) {
             //console.log("center change");
             //console.log(o.map);
             //compare current center and change if different
