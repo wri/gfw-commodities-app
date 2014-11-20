@@ -16,12 +16,13 @@ define([
     "utils/Hasher",
     "utils/Animator",
     "esri/geometry/webMercatorUtils",
+    "esri/geometry/Point",
     "map/Controls",
     "map/LayerController",
     "analysis/WizardHelper",
     "components/LayerList",
     "utils/Loader"
-], function(on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, MapControl, LayerController, WizardHelper, LayerList, Loader) {
+], function(on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, Loader) {
     'use strict';
 
     var initialized = false,
@@ -288,38 +289,45 @@ define([
             layerList.toggleFormElement(key);
         },
 
-        centerChange: function(dataObj) {
+        centerChange: function(x, y, zoom) {
+            debugger;
             //console.log("center change");
             //console.log(o.map);
             //compare current center and change if different
             if (!initialized) {
                 return; //map not initialized yet
             }
-            var currentExtent = webMercatorUtils.webMercatorToGeographic(map.extent);
-            debugger;
-            var x = number.round(currentExtent.getCenter().x, 2);
-            var y = number.round(currentExtent.getCenter().y, 2);
-            var l = o.map.getLevel();
+            var currentExtent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
+
+            var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
+            var x = number.round(extent.getCenter().x, 2);
+            var y = number.round(extent.getCenter().y, 2);
+            var l = map.map.getLevel();
+
+            // Hasher.setHash('x', x);
+            // Hasher.setHash('y', y);
+            // Hasher.setHash('l', 5);
             //var newState = HashController.newState;
             console.log(Hasher.getHash());
             var state = Hasher.getHash();
 
-            Hasher.toggleLayers('tcc');
-            Hasher.toggleLayers('loss');
+            // Hasher.toggleLayers('tcc');
+            // Hasher.toggleLayers('loss');
 
 
-            var centerChangeByUrl = ((parseFloat(newState.x) != x) || (parseFloat(newState.y) != y) || (parseInt(newState.l) != l));
-            //console.log(centerChangeByUrl + " " + newState.y + " " + newState.x);
+            var centerChangeByUrl = ((parseFloat(state.x) != x) || (parseFloat(state.y) != y) || (parseInt(state.l) != l));
+            console.log(centerChangeByUrl + " " + state.y + " " + state.x);
             if (centerChangeByUrl) {
-                o.mapExtentPausable.pause();
-                on.once(o.map, "extent-change", function() {
-                    o.mapExtentPausable.resume();
-                });
-                var ptWM = webMercatorUtils.geographicToWebMercator(new Point(parseFloat(newState.x), parseFloat(newState.y)));
-                o.map.centerAndZoom(ptWM, parseInt(newState.l));
+                //o.mapExtentPausable.pause();
+                // on.once(map.map, "extent-change", function() {
+                //     o.mapExtentPausable.resume();
+                // });
+                var ptWM = webMercatorUtils.geographicToWebMercator(new Point(parseFloat(state.x), parseFloat(state.y)));
 
-                Hasher.setHash(x, xValue);
-                Hasher.setHash(y, yValue);
+                map.map.centerAndZoom(ptWM, parseInt(state.l));
+
+                // Hasher.setHash(x, xValue);
+                // Hasher.setHash(y, yValue);
             }
         },
 

@@ -39,11 +39,9 @@ define([
                 state = ioQuery.queryToObject(changedHash);
                 console.log(state);
 
-                if (state.x !== currentX && state.v == "map") {
-                    self.handleHashChange(state, oldState);
-                    debugger;
+                if ((state.x !== currentX || state.y !== currentY) && state.v == "map") {
+                    topic.publish('centerChange', currentX, currentY, currentL);
                 }
-                // If x or y changes, we should trigger a handleHashChange function that enables back button functionality (storing of the old state; which also helps with sharing that specific url)
 
                 // If view has not changed, do nothing
                 if (state.v === currentView) {
@@ -94,10 +92,11 @@ define([
             // stash them and only bring them back when were in the map view
 
             var currentHash = this.getHash();
-            if (currentHash.x) {
+            if (currentHash.x && currentHash.y) {
                 state.x = currentHash.x;
                 state.y = currentHash.y
                 state.l = currentHash.l;
+
             }
             if (currentHash.lyrs) {
                 state.lyrs = currentHash.lyrs;

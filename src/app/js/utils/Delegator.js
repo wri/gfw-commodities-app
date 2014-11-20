@@ -144,9 +144,10 @@ define([
             topic.subscribe('showInfoPanel', MapController.showInfoPanel);
             topic.subscribe('toggleItemInLayerList', MapController.toggleItemInLayerList);
 
-            topic.subscribe("centerChange", function(dataObj) {
-                MapController.centerChange(dataObj);
+            topic.subscribe("centerChange", function(x, y, zoom) {
+                MapController.centerChange(x, y, zoom);
             });
+
 
         }
 
