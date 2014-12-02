@@ -187,8 +187,9 @@ define([
                             ++incrementer;
                         }
                     }
+
                 } else {
-                    //console.log("fetching Forma labels failed!!");
+                    console.log("fetching Forma labels failed!!");
                 }
             });
 
@@ -204,6 +205,29 @@ define([
             });
 
             var ionCallback = function() {
+                var valuesToUse = [];
+
+                var baseYear = 13;
+                var currentYear, currentMonth;
+
+                for (var i = 1; i < (to + 2); i++) {
+                    currentMonth = (i % 12);
+                    if (currentMonth == 0) {
+                        currentMonth = 12;
+                    }
+                    currentYear = Math.floor(((i - 1) / 12) + baseYear);
+                    valuesToUse.push(currentMonth + "-" + currentYear);
+                    var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
+                    domConstruct.place(yearDot, "yearDotContainer");
+                    domStyle.get(yearDot);
+                    var leftPx = (i * 37.5) + 42.5;
+                    leftPx += "px";
+                    domStyle.set(yearDot, {
+                        "position": "absolute",
+                        "left": leftPx,
+                    });
+                }
+
                 $range2.ionRangeSlider({
                     type: "double",
                     min: min,
@@ -212,10 +236,7 @@ define([
                     to: to,
                     playing: false,
                     prettify: false,
-                    values: ["1-13", "2-13", "3-13", "4-13", "5-13", "6-13", "7-13",
-                        "8-13", "9-13", "10-13", "11-13", "12-13", "1-14", "2-14",
-                        "3-14", "4-14", "5-14", "6-14", "7-14", "8-14", "9-14"
-                    ],
+                    values: valuesToUse,
                     onChange: function(data) {
                         //console.log(data);
                         from = data.fromNumber;
@@ -237,32 +258,35 @@ define([
                         if (to == data.max && from == data.max) {
                             $(".irs-diapason").css("width", "-=8px");
                         }
+
+                        $("#yearDotContainer > div:nth-child(13)").css("color", "black");
                         $("#range2").ionRangeSlider("update");
                         if ($range2.playing != true) {
                             $("#sliderProgressLine2").hide();
                             $("#playLine3").hide();
                             var values3 = [from, to];
                             for (var i = 1; i < (data.max + 2); i++) {
-                                var item2 = $(".container3 > div:nth-child(" + i + ")");
+                                var item2 = $("#yearDotContainer > div:nth-child(" + i + ")");
 
                                 if ((i < from + 1) || (i > to)) {
                                     $(item2.selector).css("color", "grey");
-                                    $(".container3 > div:nth-child(1)").css("color", "black");
+                                    $("#yearDotContainer > div:nth-child(1)").css("color", "black");
 
                                 } else {
                                     $(item2.selector).css("color", "#a1ba42");
                                 }
                                 if (from > 12 || to < 12) {
-                                    $(".container3 > div:nth-child(13)").css("color", "black");
+                                    $("#yearDotContainer > div:nth-child(13)").css("color", "black");
                                 }
                                 if (from == 1 && to == (data.max - 1)) {
-                                    $(".container3 > div:nth-child(1)").css("color", "black");
+                                    $("#yearDotContainer > div:nth-child(1)").css("color", "black");
                                 }
                             }
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
                     },
                 });
+
                 $(".irs-slider.to").css("left", "790px");
                 $(".slider-container").show();
                 $("#formaAlertSlider").each(function() {
@@ -294,7 +318,12 @@ define([
                 // $("#irs-2 > span.irs > span.irs-from").html("1-13");
                 // $(".irs-diapason").css("width", "790px");
                 $(".irs-diapason").css("background-color", "#a1ba42");
-                $(".container3 > div").css("color", "#a1ba42");
+                $("#yearDotContainer > div").css("color", "#a1ba42");
+                var nextYearLeft = $("#yearDotContainer > div:nth-child(13)").css("left");
+                // nextYearLeft = nextYearLeft.split("p");
+                // nextYearLeft = (nextYearLeft[0] - 50) + "px";
+                // console.log(nextYearLeft);
+                $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
 
 
             };
@@ -334,7 +363,6 @@ define([
                 $from.prop("value", from);
                 $to.prop("value", to);
             };
-
 
             function play() {
                 $("#playLine3").hide();
@@ -404,10 +432,8 @@ define([
                     currentMonth = (monthNum + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=39.5px");
-                    $('#sliderProgressLine2').css("left", "+=39.5px");
-
-
+                    $('#playLine3').css("left", "+=37.5px");
+                    $('#sliderProgressLine2').css("left", "+=37.5px");
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];
@@ -519,6 +545,10 @@ define([
                                     $(item2.selector).css("color", "#a1ba42");
                                 }
                             }
+                            var item3 = $("#irs-1 > span.irs > span.irs-from").css("display");
+                            if (item3 === "none") {
+                                $(".playLineFiller > div").css("background-color", "#a1ba42");
+                            } // TODO: Find a better way to make the bars green on 1st thumb drag when the map is loaded w/ the Forma url & then this slider is turned on
                             if (to != 2012) {
                                 $(".container2 > div:nth-child(12)").css("color", "grey");
                             } else {

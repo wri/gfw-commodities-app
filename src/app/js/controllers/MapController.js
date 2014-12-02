@@ -290,7 +290,7 @@ define([
         },
 
         centerChange: function(x, y, zoom) {
-            debugger;
+            //debugger;
             //console.log("center change");
             //console.log(o.map);
             //compare current center and change if different
