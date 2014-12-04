@@ -16,7 +16,7 @@ define([], function() {
 
     // Tree Cover Density
     var treeCoverLabels = ["31 - 50%", "51 - 74%", "75 - 100%"],
-        treeCoverBounds = [0, 2],
+        treeCoverBounds = [1, 3],
         treeCoverColors = ["#ccf1a5", "#859a59", "#4b5923"];
 
     // RSPO
