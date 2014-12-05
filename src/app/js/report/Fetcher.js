@@ -392,26 +392,26 @@ define([
             //         DIRECTLY BELOW HERE TIL NEXT TEMPORARY COMMENT
             // */
 
-            // url = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer';
-            // if (config.rootNode === 'primaryForest') {
-            //     config.rasterId = '$11';
-            // }
-            // if (config.rootNode === 'treeCoverDensity') {
-            //     config.rasterId = '$12';
-            //     config.rasterRemap = {
-            //         'rasterFunction': 'Remap',
-            //         'rasterFunctionArguments': {
-            //             'InputRanges': [0, 11, 11, 26, 26, 51, 51, 76, 76, 101],
-            //             'OutputValues': [0, 1, 2, 3, 4],
-            //             'Raster': '$12',
-            //             'AllowUnmatched': false
-            //         }
-            //     };
-            // }
+            url = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer';
+            if (config.rootNode === 'primaryForest') {
+                config.rasterId = '$11';
+            }
+            if (config.rootNode === 'treeCoverDensity') {
+                config.rasterId = '$12';
+                config.rasterRemap = {
+                    'rasterFunction': 'Remap',
+                    'rasterFunctionArguments': {
+                        "InputRanges": [31, 51, 51, 75, 75, 101],
+                        "OutputValues": [1, 2, 3],
+                        'Raster': '$12',
+                        'AllowUnmatched': false
+                    }
+                };
+            }
+            
             // /*
             //     TEMPORARY CONTENT ABOVE
             // */
-
             // If the report analyzeClearanceAlerts is false, just resolve here
             //if (report.analyzeClearanceAlerts) {
             encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);

@@ -223,6 +223,7 @@ define([], function() {
             rootNode: "treeCoverDensity",
             title: "Tree Cover Density",
             rasterId: "$520", //13
+            formaId: "$12",
             rasterRemap: {
                 "rasterFunction": "Remap",
                 "rasterFunctionArguments": {
