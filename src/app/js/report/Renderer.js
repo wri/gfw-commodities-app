@@ -287,9 +287,7 @@ define([
 					value = 0;
 					data = [];
 					for (j = 0; j < xMapValues.length; j++) {
-						console.log(xMapValues[j], yMapValues[i]);
 						location = encoder.encode(xMapValues[j], yMapValues[i]);
-						console.log(location);
 						data.push(histogramData[location] || 0);
 					}
 					series.push({
@@ -297,8 +295,6 @@ define([
 						data: data
 					});
 				}
-
-				console.log(histogramData);
 
 				$("#" + config.rootNode + '_clearance').highcharts({
 					chart: {

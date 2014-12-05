@@ -363,7 +363,7 @@ define([
             this._debug('Fetcher >>> _getClearanceAlertAnalysis');
             var deferred = new Deferred(),
                 clearanceConfig = ReportConfig.clearanceAlerts,
-                url = ReportConfig.imageServiceUrl,
+                url = ReportConfig.clearanceAnalysisUrl,
                 self = this,
                 renderingRule,
                 rasterId,
@@ -383,35 +383,19 @@ define([
                 deferred.resolve(false);
             }
 
-            // /*
-            //     TEMPORARY HARDCODED VALUES
-            //     URL IS REPLACED
-            //     CERTAIN LAYER IDS ARE DIFFERENT
-            //     CHANGE BEFORE DEPLOYMENT
-            //     EITHER IN CONFIG AND MAKE PERMANENT OR JUST DELETE CONTENT
-            //         DIRECTLY BELOW HERE TIL NEXT TEMPORARY COMMENT
-            // */
 
-            url = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer';
-            if (config.rootNode === 'primaryForest') {
-                config.rasterId = '$11';
-            }
-            if (config.rootNode === 'treeCoverDensity') {
-                config.rasterId = '$12';
-                config.rasterRemap = {
-                    'rasterFunction': 'Remap',
-                    'rasterFunctionArguments': {
-                        "InputRanges": [31, 51, 51, 75, 75, 101],
-                        "OutputValues": [1, 2, 3],
-                        'Raster': '$12',
-                        'AllowUnmatched': false
-                    }
-                };
+            /*
+            * Some layers have special ids that need to be overwritten from the config becuase
+            * the config powers multiple charts and the clearance alerts analysis is the onlyone that
+            * uses a different value, if more layers need this, five them a 'formaId' in report/config.js
+            */
+            if (config.formaId) {
+                config.rasterId = config.formaId;
+                if (config.includeFormaIdInRemap) {
+                    config.rasterRemap.rasterFunctionArguments.Raster = config.formaId;
+                }
             }
             
-            // /*
-            //     TEMPORARY CONTENT ABOVE
-            // */
             // If the report analyzeClearanceAlerts is false, just resolve here
             //if (report.analyzeClearanceAlerts) {
             encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);

@@ -7,7 +7,8 @@ define([], function() {
         suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         //suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
         firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
-        fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
+        fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia",
+        clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
 
     // Totoal Loss
     var lossBounds = [1, 12],
@@ -100,6 +101,7 @@ define([], function() {
 
         geometryServiceUrl: geometryServiceUrl,
         imageServiceUrl: imageServiceUrl,
+        clearanceAnalysisUrl: clearanceAnalysisUrl,
 
         /* Begin Main Layers for Analyses */
         totalLoss: {
@@ -205,6 +207,7 @@ define([], function() {
             rootNode: "primaryForest",
             title: "Primary Forests - Indonesia",
             rasterId: "$519", //11
+            formaId: "$11",
             bounds: primaryForestBounds,
             labels: primaryForestLabels,
             clearanceChart: {
@@ -224,6 +227,7 @@ define([], function() {
             title: "Tree Cover Density",
             rasterId: "$520", //13
             formaId: "$12",
+            includeFormaIdInRemap: true,
             rasterRemap: {
                 "rasterFunction": "Remap",
                 "rasterFunctionArguments": {
