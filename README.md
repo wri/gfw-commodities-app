@@ -2,6 +2,24 @@
 
 > Please Read this when starting work on this project.
 
+## IMPORTANT
+Change the FTP folder in Gruntfile.js before you begin.  Modify "dest" property in this section of code:
+<code>
+    ftp_push: {
+            build: {
+                options: {
+                    host: 'staging.blueraster.com',
+                    dest: 'html/wri/gfw-commodities/v20/',
+                    authKey: 'staging'
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'build',
+                    src: ['**']
+                }]
+            }
+        },
+</code>
 
 ## Getting Started
 <strong>All necesary bower components are already installed, no need to run bower install.</strong>

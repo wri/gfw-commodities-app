@@ -182,7 +182,7 @@ module.exports = function(grunt) {
             build: {
                 options: {
                     host: 'staging.blueraster.com',
-                    dest: 'html/wri/gfw-commodities/v14/',
+                    dest: 'html/wri/gfw-commodities/v20/',
                     authKey: 'staging'
                 },
                 files: [{
