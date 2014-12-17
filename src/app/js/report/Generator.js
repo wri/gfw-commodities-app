@@ -317,7 +317,7 @@ define([
                 self = this,
                 content = "<div class='subscription-content'>" +
                 "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Monthly Clearance Alerts</label></div>" +
-                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' disabled />Fire Alerts - Coming Soon</label></div>" +
+                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fire Alerts</label></div>" +
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
                 "<div id='form-response' class='message-container'></div>" +
