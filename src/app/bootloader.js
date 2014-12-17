@@ -1,7 +1,7 @@
 /* global window, document, location */
 (function (win, doc) {
 	'use strict';
-	var version = "2.0.1", 
+	var version = "2.0.2", 
 			URL = location.pathname.replace(/\/[^/]+$/, "") + 'app',
 			dojoConfig = {
 				parseOnLoad: false, 
@@ -26,15 +26,15 @@
 	      	
 	      ],
 	      deps: [
-	      	"main/Main",
+	      	//"main/Main",
 	      	"dojo/domReady!"
 	      ],
 	      callback: function (Main) {
-	      	Main.init();
+	      	//Main.init();
 	      	// Before Running grunt build, remove main/Main from Require above and main parameter
 	        // from callback, then uncomment below
 	        // Release Version
-	        // loadScript('app/js/app.min.js');
+	         loadScript('app/js/app.min.js');
 	      }
 			}, // End dojoConfig
 			src = [
