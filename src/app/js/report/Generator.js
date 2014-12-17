@@ -6,6 +6,7 @@ define([
     "dojo/request/xhr",
     "dojo/Deferred",
     "dojo/dom-class",
+    "dojo/dom-style",
     "dojo/promise/all",
     "dojo/_base/array",
     "dijit/Dialog",
@@ -18,7 +19,7 @@ define([
     // Local Modules from report folder
     "report/config",
     "report/Fetcher"
-], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
+], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
     'use strict';
 
     window.report = {};
@@ -200,6 +201,7 @@ define([
 
             // Add the Print Listener
             on(dom.byId('print'), 'click', function() {
+                domStyle.set("total-area-info-popup", "visibility", "hidden");
                 window.print();
             });
 

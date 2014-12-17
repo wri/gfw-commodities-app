@@ -2,8 +2,11 @@ define([
 	"report/config",
 	"dojo/number",
 	"dijit/Dialog",
-	"dojo/_base/array"
-], function (ReportConfig, number, Dialog, arrayUtils) {
+	"dojo/_base/array",
+    "dojo/on",
+    "dojo/dom",
+    "dojo/dom-style"
+], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle) {
 	'use strict';
 
 	// Container IDS for charts and tables are as Follows
@@ -46,6 +49,19 @@ define([
 			fragment.appendChild(node);
 			document.getElementById('report-results-section').appendChild(fragment);
 
+            // 20141217 CRB - Added info icon to Total Calculated Area in report header
+            var node = dom.byId("total-area-info-icon")
+            console.log("adding click event to i button", node);
+            on(node, 'click', function(evt) {
+                console.log("i button clicked -- setting popup visibility");
+                domStyle.set("total-area-info-popup", "visibility", "visible");
+            });
+            node = dom.byId("total-area-close-info-icon")
+            console.log("adding click event to i button", node);
+            on(node, 'click', function(evt) {
+                console.log("i button clicked -- setting popup visibility");
+                domStyle.set("total-area-info-popup", "visibility", "hidden");
+            });
 		},
 
 		/*
