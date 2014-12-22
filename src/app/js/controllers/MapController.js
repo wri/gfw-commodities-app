@@ -219,6 +219,10 @@ define([
                 MapControl.resetSuitabilitySettings();
             });
 
+            on(dom.byId("export-suitability"), "click", function() {
+                MapControl.exportSuitabilitySettings();
+            });
+
             on(dom.byId("close-suitability"), "click", function() {
                 // Pass in the key from the MapConfig.LayerUI
                 // for Custom Suitability Layer

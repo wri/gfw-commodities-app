@@ -1043,6 +1043,50 @@ define([
             });
         },
 
+        exportSuitabilitySettings: function() {
+            alert("Export Coming Soon");
+            /*
+            var content = ????????;
+            require([
+                 "dijit/Dialog",
+                 "dojo/_base/lang"
+             ], function(Dialog, Lang) {
+                 var contentClone = Lang.clone(content);
+                 var dialog = new Dialog({
+                    title: content.querySelector(".source_title").innerHTML.toUpperCase(),
+                    style: "height: 600px; width: 600px; overflow-y: auto;",
+                    draggable: false,
+                    hide: function() {
+                        dialog.destroy();
+                    }
+                });
+                dialog.setContent(contentClone.innerHTML);
+                dialog.show();
+            });
+            */
+            /*
+             // Sliders
+            jq171('#peat-depth-slider').rangeSlider('values', 0, 3);
+            jq171('#conservation-area-slider').rangeSlider('values', 1000, 5000);
+            jq171('#water-resource-slider').rangeSlider('values', 100, 1000);
+            jq171('#slope-slider').rangeSlider('values', 30, 80);
+            jq171('#elevation-slider').rangeSlider('values', 1000, 5000);
+            jq171('#rainfall-slider').rangeSlider('values', 1500, 6000);
+            jq171('#soil-drainage-slider').rangeSlider('values', 2, 4);
+            jq171('#soil-depth-slider').rangeSlider('values', 3, 7);
+            jq171('#soil-acid-slider').rangeSlider('values', 1, 7);
+            this.resizeRangeSliders();
+            // Checkboxes
+            var cb;
+            arrayUtils.forEach(MapConfig.checkboxItems, function(item) {
+                cb = registry.byId(item.node);
+                if (cb) {
+                    cb.set('checked', item.checked);
+                }
+            });
+            */
+        },
+
         resizeRangeSliders: function() {
             /* Do the Following for Each Slider
 			 - Hide the labels 
