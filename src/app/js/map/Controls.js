@@ -1044,26 +1044,63 @@ define([
         },
 
         exportSuitabilitySettings: function() {
-            alert("Export Coming Soon");
-            /*
-            var content = ????????;
             require([
-                 "dijit/Dialog",
-                 "dojo/_base/lang"
-             ], function(Dialog, Lang) {
-                 var contentClone = Lang.clone(content);
-                 var dialog = new Dialog({
-                    title: content.querySelector(".source_title").innerHTML.toUpperCase(),
-                    style: "height: 600px; width: 600px; overflow-y: auto;",
+                "dijit/Dialog",
+                "dojo/on",
+                "dojo/_base/lang"
+            ], function(Dialog, on, Lang) {
+                var content = "<p>" + MapConfig.suitabilityExportDialog.instruction + "</p>";
+                content += "<div class='submit-container'>";
+                content += "<button id='export-cancel-now'>Cancel</button> ";
+                content += "<button id='export-download-now'>Download</button>";
+                content += "</div>";
+
+                var dialog = new Dialog({
+                    title: MapConfig.suitabilityExportDialog.title.toUpperCase(),
+                    style: "height: 190px; width: 415px; overflow-y: none;",
                     draggable: false,
                     hide: function() {
                         dialog.destroy();
                     }
                 });
-                dialog.setContent(contentClone.innerHTML);
+                dialog.setContent(content);
                 dialog.show();
+
+                on(dom.byId("export-cancel-now"), 'click', function() {
+                    dialog.destroy();
+                });
+                on(dom.byId("export-download-now"), 'click', function() {
+                    //alert("Export Coming Soon");
+                    var cb, lbl, vals, rev;
+                    var sliders = ["peat-depth-slider","conservation-area-slider","water-resource-slider","slope-slider","elevation-slider","rainfall-slider","soil-drainage-slider","soil-depth-slider","soil-acid-slider"];
+                    arrayUtils.forEach(sliders, function (sliderName) {
+                        lbl = dom.byId(sliderName + "-label");
+                        vals = jq171('#' + sliderName).rangeSlider('values');
+                        rev = domClass.contains(sliderName, "reverseSlider");
+                        console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals);
+                    });
+                    var landCoverSelection = "";
+                    var soilTypeSelection = "";
+                    arrayUtils.forEach(MapConfig.checkboxItems, function(item) {
+                        cb = registry.byId(item.node);
+                        if (cb && cb.get('checked')) {
+                            lbl = dojoQuery("label[for='" + item.node + "']")[0];
+                            //console.log(" :: chb '" + item.node + "': checked? " + cb.get('checked'));
+                            //console.log(" :::: LABEL:", lbl);
+                            if (item.name == "landcover-checkbox") {
+                                if (landCoverSelection != "") landCoverSelection += " | ";
+                                landCoverSelection += lbl.innerHTML;
+                            } else if (item.name == "soil-type-checkbox") {
+                                if (soilTypeSelection != "") soilTypeSelection += " | ";
+                                soilTypeSelection += lbl.innerHTML;
+                            }
+                        }
+                    });
+                    console.log(" :: LANDCOVER: ", landCoverSelection);
+                    console.log(" :: SOIL TYPE: ", soilTypeSelection);
+                    dialog.destroy();
+                });
             });
-            */
             /*
              // Sliders
             jq171('#peat-depth-slider').rangeSlider('values', 0, 3);
