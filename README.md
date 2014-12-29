@@ -18,4 +18,3 @@
 }
 </code></pre>
 <p>The "staging" keyword is the key the plugin is configured to use, if you change tht you will need to modify the task in the Gruntfile, just leave it as is.</p>
-
