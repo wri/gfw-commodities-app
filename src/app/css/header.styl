@@ -1,0 +1,435 @@
+// Useful Functions
+border-radius()
+	border-radius arguments
+	-moz-border-radius arguments
+	-webkit-border-radius arguments
+
+baseLightGray = #e6e6e6
+mediumGray = #888
+darkGray = #444
+darkFont = #333
+separatorGray = #CFCFCF
+navBottomBorder = #9b9b9b
+orangeHover = rgba(233, 131, 0, 0.45)
+orangeSelected = rgb(233, 131, 0)
+
+/* Layer Filter Colors */
+forestChange = #e72698
+forestCover = #B2D26E
+forestUse = #C98E6C
+conservation = #3182BD
+agroSuit = #fdb22c
+company = #5e138a
+gainLayer = #5952de
+/* Layer Filter Colors */
+
+
+.gfw .app-header
+	background url('images/header_tree_background.jpg') repeat-x scroll center top transparent
+	border-bottom 1px solid #717d80
+	border-top 5px solid darkGray
+	box-sizing border-box
+	height 210px
+
+.gfw .header
+	height 100%
+	width 100%
+
+.gfw .header .inner
+	margin 0 auto
+	width 960px
+
+.gfw .header .outer
+	margin 0 30px
+
+.gfw .nav-topper
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	border-bottom 1px solid navBottomBorder
+	background baseLightGray
+	font-size 12px
+	height 43px
+	width 100%
+
+.gfw .app-header.mapView
+	height 120px
+
+.gfw .app-header.generalView
+	height 105px
+
+.gfw .app-header .map-layer-controls
+	display none
+
+.gfw .app-header.mapView .nav-topper, 
+.gfw .app-header.mapView .header-title, 
+.gfw .app-header.generalView .header-title
+	display none
+
+.gfw .app-header.mapView .nav-separator
+	top 65px
+
+.gfw .app-header.generalView .nav-separator
+	display none
+
+.gfw .app-header.mapView .map-layer-controls
+	position absolute
+	display block
+	right 40px
+	top 65px
+
+.gfw .app-header .map-layer-controls ul
+	display inline-block
+	list-style-type none
+
+.gfw .app-header .layer-list-header,
+.gfw .app-header .filter-list-title
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	text-transform uppercase
+	display inline-block
+	font-weight bold
+	font-size 12px
+	// cursor pointer
+	margin 0 3px
+
+.gfw .app-header .layer-list-header
+	opacity 0
+
+.gfw .app-header .layer-list-header a
+	padding 0 5px
+
+.gfw .app-header.mapView .layer-line
+	margin-top 13px
+	width 100%
+	height 4px
+	padding 0
+
+.gfw .app-header .layer-list-header .layer-line
+	padding 0 4px
+
+.gfw .app-header #master-layer-list
+	box-shadow 0px 0px 6px 1px rgba(0,0,0,0.15)
+	background-color white
+	border-radius(2px)
+	position absolute
+	width 193px
+	z-index 500
+	opacity 0
+	top 65px
+
+.gfw .app-header .filter-list-title
+	text-align center
+	margin 15px auto
+	display block
+
+.gfw .app-header .filter-list
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	list-style-type none
+	font-size 13px
+	padding 0
+	margin 0
+
+.gfw .app-header .filter-list .layer-sub-title
+	margin 3px 3px 3px 15px
+	font-size 10px
+
+.gfw .app-header .filter-list .layer-title,
+.gfw .app-header .filter-list .layer-sub-title
+	color mediumGray
+
+.gfw .app-header .filter-list .layer-title
+	margin-left 5px
+
+.gfw .filter-list .layer-list-item
+	border-bottom 1px solid baseLightGray
+	cursor pointer
+	padding 5px
+
+.gfw .filter-list .layer-list-item.hidden
+	display none
+
+.gfw .layer-list-item input[type='radio']
+	margin 3px 0
+
+/* Styling in Nested Lists in the Master Layer List */	
+
+.gfw .app-header .filter-list ul
+	list-style-type none
+	margin-left 20px
+	font-size 13px
+	padding 0
+
+.gfw .app-header .filter-list ul > li
+	border none
+
+.gfw .app-header .layer-info-icon
+	float: right
+	background-image: url('images/info-icon.png')
+	background-repeat: no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	height 20px
+	width 20px
+	color #888 !important
+
+.gfw .forest-change.active .layer-list-item .layer-title,
+.gfw .forest-change.active .layer-list-item .layer-sub-title,
+.gfw .forest-cover.active .layer-list-item .layer-title,
+.gfw .forest-cover.active .layer-list-item .layer-sub-title
+	color mediumGray
+
+.gfw .filter-list .sliderContainer.hidden
+	display none
+
+/* Styling in Nested Lists in the Master Layer List */
+
+/* Special Case Colors for Specific Layers in List */
+.gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title
+	color gainLayer
+
+.gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .custom-check
+	background-color gainLayer
+/* Special Case Colors for Specific Layers in List */
+
+/* Layer Controls Colors */
+.gfw .app-header.mapView .forest-change,
+.gfw .forest-change.active .layer-title,
+.gfw .forest-change.active .layer-list-item.active .layer-title
+	color forestChange
+
+.gfw .app-header.mapView .forest-cover,
+.gfw .forest-cover.active .layer-title,
+.gfw .forest-cover.active .layer-list-item.active .layer-title
+	color forestCover
+
+.gfw .app-header.mapView .forest-use,
+.gfw .app-header.mapView .forest-use.active .layer-title,
+.gfw .forest-use.active .layer-list-item.active .layer-title
+	color forestUse
+
+.gfw .app-header.mapView .conservation,
+.gfw .app-header.mapView .conservation.active .layer-title,
+.gfw .conservation.active .layer-list-item.active .layer-title
+	color conservation
+
+.gfw .app-header.mapView .agro-suitability,
+.gfw .app-header.mapView .agro-suitability.active .layer-title,
+.gfw .agro-suitability.active .layer-list-item.active .layer-title
+	color agroSuit
+
+.gfw .app-header.mapView .company-pages,
+.gfw .app-header.mapView .company-pages.active .layer-title,
+.gfw .company-pages.active .layer-list-item.active .layer-title
+	color company
+
+.gfw .app-header.mapView .forest-change .layer-line
+	background forestChange
+
+.gfw .app-header.mapView .forest-cover .layer-line
+	background forestCover
+
+.gfw .app-header.mapView .forest-use .layer-line
+	background forestUse
+
+.gfw .app-header.mapView .conservation .layer-line
+	background conservation
+
+.gfw .app-header.mapView .agro-suitability .layer-line
+	background agroSuit
+
+.gfw .app-header.mapView .company-pages .layer-line
+	background company
+
+.gfw .filter-list .dijitSliderImageHandleH
+	border-radius(35px)
+	top -7px
+
+.gfw .filter-list .forest-change .dijitSliderImageHandleH,
+.gfw .filter-list .forest-change .dijitSliderLeftBumper,
+.gfw .filter-list .forest-change .dijitSliderProgressBarH
+	background forestChange !important
+
+.gfw .layer-list-item.active[data-layer="gain"] .dijitSliderImageHandleH,
+.gfw .layer-list-item.active[data-layer="gain"] .dijitSliderLeftBumper,
+.gfw .layer-list-item.active[data-layer="gain"] .dijitSliderProgressBarH
+	background gainLayer !important
+
+.gfw .filter-list .forest-cover .dijitSliderImageHandleH,
+.gfw .filter-list .forest-cover .dijitSliderLeftBumper,
+.gfw .filter-list .forest-cover .dijitSliderProgressBarH
+	background forestCover !important
+
+.gfw .filter-list .forest-use .dijitSliderImageHandleH,
+.gfw .filter-list .forest-use .dijitSliderLeftBumper,
+.gfw .filter-list .forest-use .dijitSliderProgressBarH
+	background forestUse !important
+
+.gfw .filter-list .conservation .dijitSliderImageHandleH,
+.gfw .filter-list .conservation .dijitSliderLeftBumper,
+.gfw .filter-list .conservation .dijitSliderProgressBarH
+	background conservation !important
+
+.gfw .filter-list .agro-suitability .dijitSliderImageHandleH,
+.gfw .filter-list .agro-suitability .dijitSliderLeftBumper,
+.gfw .filter-list .agro-suitability .dijitSliderProgressBarH
+	background agroSuit !important
+
+.gfw .filter-list .company-pages .dijitSliderImageHandleH,
+.gfw .filter-list .company-pages .dijitSliderLeftBumper,
+.gfw .filter-list .company-pages .dijitSliderProgressBarH
+	background company !important
+	
+
+/* Checkbox and Radio Styles for these layers */
+.gfw .forest-cover.active .custom-check span,
+.gfw .forest-use.active .custom-check span,
+.gfw .conservation.active .custom-check span,
+.gfw .agro-suitability.active .custom-check span,
+.gfw .company-pages.active .custom-check span,
+.gfw .forest-change.active .layer-list-item.active .custom-check span
+	left 9px
+
+.gfw .forest-change.active .layer-list-item.active .custom-check,
+.gfw .forest-change.active .radio-icon span
+	background-color forestChange
+
+.gfw .forest-cover.active .custom-check,
+.gfw .forest-cover.active .radio-icon span
+	background-color forestCover
+	
+.gfw .forest-cover.active .layer-list-item .custom-check,
+.gfw .forest-cover.active .layer-list-item .radio-icon span
+	background none
+	
+.gfw .forest-cover.active .layer-list-item.active .radio-icon span
+	background-color forestCover
+
+.gfw .forest-use.active .custom-check,
+.gfw .forest-use.active .radio-icon span
+	background-color forestUse
+
+.gfw .conservation.active .custom-check,
+.gfw .conservation.active .radio-icon span
+	background-color conservation
+
+.gfw .agro-suitability.active .custom-check,
+.gfw .agro-suitability.active .radio-icon span
+	background-color agroSuit
+
+.gfw .company-pages.active .custom-check,
+.gfw .company-pages.active .radio-icon span
+	background-color company
+
+.gfw .layer-list-item .radio-icon
+	display inline-block
+	border-radius(35px)
+	position relative
+	height 8px
+	width 8px
+
+.gfw .layer-list-item.active .radio-icon
+	top 3px
+
+.gfw .layer-list-item.active .radio-icon span
+	display inline-block
+	border-radius(35px)
+	position relative
+	height 4px
+	width 4px
+	left 2px
+	top -6px
+
+.gfw .forest-change .radio-icon
+	border 1px solid forestChange
+	
+.gfw .forest-cover .radio-icon
+	border 1px solid forestCover
+
+.gfw .forest-use .radio-icon
+	border 1px solid forestUse
+
+.gfw .conservation .radio-icon
+	border 1px solid conservation
+
+.gfw .agro-suitability .radio-icon
+	border 1px solid agroSuit
+
+.gfw .company-pages .radio-icon
+	border 1px solid company
+
+/* Checkbox and Radio Styles for these layers */
+/* Layer Controls Colors */
+.gfw .nav-topper div
+	line-height 43px
+
+.gfw .nav-separator
+	border-bottom 1px solid separatorGray
+	display inline-block
+	position absolute
+	width 100%
+	top 106px
+	left 0
+
+.gfw .header-logo
+	background url('images/gfwc_logo.jpg') no-repeat center
+	background-position 0 0
+	text-indent -999999px
+	display inline-block
+	position relative
+	height 100px
+	width 90px
+	z-index 200
+
+.gfw .beta-logo
+	font-family Arial, sans-serif
+	border-radius(5px)
+	background mediumGray
+	position relative
+	font-size 11px
+	color white
+	padding 8px
+	top 20px
+
+.gfw .nav-link-list
+	margin 20px 145px 0 0
+	display inline-block
+	list-style-type none
+	float right
+	padding 0
+	
+.gfw .app-header .google_translate_element
+	position absolute
+	right 120px
+	top 10px
+
+.gfw .app-header.mapView .google_translate_element
+	right 10px
+	top 20px
+
+.gfw .nav-link-list .nav-link
+	border-radius(5px)
+	font-family Arial, sans-serif
+	display inline-block
+	font-weight bold
+	padding 6px 8px
+	font-size 12px
+	color darkFont
+	margin 0 2px
+
+.gfw .nav-link-list .nav-link:not(.selected)
+	cursor pointer
+
+.gfw .nav-link-list .nav-link:hover
+	background-color orangeHover
+
+.gfw .nav-link-list .nav-link.selected
+	background-color orangeSelected
+	cursor default
+	color white
+
+.gfw .header-title
+	font-family Georgia, serif
+	font-size 26px
+
+.gfw .filter-list .sliderContainer
+	margin 10px 5px
+	padding-top 5px
+

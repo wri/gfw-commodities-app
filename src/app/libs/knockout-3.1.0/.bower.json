@@ -1,0 +1,12 @@
+{
+  "name": "knockout-3.1.0",
+  "_cacheHeaders": {
+    "Last-Modified": "Thu, 14 Aug 2014 14:05:05 GMT",
+    "Content-Length": "47302",
+    "Content-Type": "application/javascript; charset=utf-8"
+  },
+  "main": "index.js",
+  "_source": "http://knockoutjs.com/downloads/knockout-3.1.0.js",
+  "_target": "*",
+  "_originalSource": "http://knockoutjs.com/downloads/knockout-3.1.0.js"
+}
