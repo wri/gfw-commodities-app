@@ -1070,30 +1070,64 @@ define([
                     dialog.destroy();
                 });
                 on(dom.byId("export-download-now"), 'click', function() {
+                    var text = _getSettingsCSV();
+                    /*
+                    var blob = new Blob([text], {
+                        type: "text/csv;charset=utf-8;"
+                    });
+                    saveAs(blob, "settings.csv");
+                    */
+
+                    dialog.destroy();
+                });
+
+                var _getSettingsCSV = function() {
                     // get slider values & labels (and direction)
                     var sliders = ["peat-depth-slider","conservation-area-slider","water-resource-slider","slope-slider","elevation-slider","rainfall-slider","soil-drainage-slider","soil-depth-slider","soil-acid-slider"];
                     var sliderSelections = "";
-                    var lbl, vals, rev, cfg, temp;
+                    var lbl, vals, bounds, rev, cfg, temp;
                     arrayUtils.forEach(sliders, function (sliderName) {
                         lbl = dom.byId(sliderName + "-label");
                         vals = jq171('#' + sliderName).rangeSlider('values');
+                        bounds = jq171('#' + sliderName).rangeSlider('bounds');
                         rev = domClass.contains(sliderName, "reverseSlider");
-                        //console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals);
+                        console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals, " :: bounds: ", bounds);
 
+                        // get tooltips to use for value-labels, if available
                         temp = sliderName.split("-");
-                        cfg = MapConfig.suitabilitySliderTooltips[temp[0]];
-                        if (cfg == undefined) {
-                            cfg = MapConfig.suitabilitySliderTooltips[temp[1]];
+                        if (temp[0] != "rainfall") {
+                            cfg = MapConfig.suitabilitySliderTooltips[temp[0]];
+                            if (cfg == undefined) {
+                                if (temp[1] == "acid") temp[1] = "acidity";
+                                cfg = MapConfig.suitabilitySliderTooltips[temp[1]];
+                            }
                         }
                         console.log(" :: " + lbl.innerHTML + " :: slider value-labels : ", cfg);
 
                         if (sliderSelections != "") sliderSelections += "\n";
                         sliderSelections += lbl.innerHTML + ",";
                         if (rev) {
-                            //TODO: Figure out proper value in place of hard-coded zero...
-                            sliderSelections += "0-" + vals.min;
+                            if (cfg == undefined) {
+                                sliderSelections += bounds.min + "-" + vals.min;
+                            } else {
+                                var tempList = "";
+                                for (var i=bounds.min; i<=vals.min; ++i) {
+                                    if (tempList != "") tempList += "; ";
+                                    tempList += cfg[i].replace(",","/");
+                                }
+                                sliderSelections += tempList;
+                            }
                         } else {
-                            sliderSelections += vals.min + "-" + vals.max;
+                            if (cfg == undefined) {
+                                sliderSelections += vals.min + "-" + vals.max;
+                            } else {
+                                var tempList = "";
+                                for (var i=vals.min; i<=vals.max; ++i) {
+                                    if (tempList != "") tempList += "; ";
+                                    tempList += cfg[i].replace(",","/");
+                                }
+                                sliderSelections += tempList;
+                            }
                         }
                     });
 
@@ -1128,15 +1162,9 @@ define([
                     console.log("----------------------------------------------");
                     console.log(csvStr);
                     console.log("----------------------------------------------");
-                    /*
-                    var blob = new Blob([text], {
-                        type: "text/csv;charset=utf-8;"
-                    });
-                    saveAs(blob, "settings.csv");
-                    */
 
-                    dialog.destroy();
-                });
+                    return csvStr;
+                }
             });
         },
 
