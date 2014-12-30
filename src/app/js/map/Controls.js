@@ -1070,14 +1070,92 @@ define([
                     dialog.destroy();
                 });
                 on(dom.byId("export-download-now"), 'click', function() {
+                    //Export CSV
                     var text = _getSettingsCSV();
                     var blob = new Blob([text], {
                         type: "text/csv;charset=utf-8;"
                     });
                     saveAs(blob, "settings.csv");
 
+                    //Export GeoTIFF
+                    _saveTIFF();
+
+                    //Close pop-up
                     dialog.destroy();
                 });
+
+                var _saveTIFF = function () {
+                    /*
+                    var _self = this;
+                    require(["esri/request", "mapui", "mainmodel", "dialog", "resources", "on"],
+                        function (esriRequest, MapUI, MainModel, Dialog, Resources, on) {
+                            function exporter(url, content) {
+                                var layersRequest = esriRequest({
+                                    url: url,
+                                    content: content,
+                                    handleAs: "json",
+                                    callbackParamName: "callback"
+                                });
+                                layersRequest.then(
+                                    function (response) {
+                                        // dlg is the dialog created below
+                                        dlg.hide();
+                                        window.open(response.href, "newWin");
+
+                                    }, function (error) {
+                                        console.log("Error: ", error.message);
+                                    });
+                                //xmlhttp.open("POST", result, true);
+                                //xmlhttp.send();
+                            }
+                            var map = MapUI.getMap();
+                            var ext = map.extent;
+                            var width = 1460;
+                            var height = 854;
+                            var bbox =
+                            {
+                                xmax: ext.xmax,
+                                xmin: ext.xmin,
+                                ymax: ext.ymax,
+                                ymin: ext.ymin
+                            };
+                            var params = {
+                                noData: 0,
+                                noDataInterpretation: "esriNoDataMatchAny",
+                                interpolation: "RSP_BilinearInterpolation",
+                                format: "tiff",
+                                size: width + "," + height,
+                                imageSR: 3857,
+                                bboxSR: 3857,
+                                f: "json",
+                                pixelType: 'UNKNOWN'
+                            };
+
+                            var resources = Resources(),
+                                content = resources.en.exportSuitImageContent,
+                                title = resources.en.exportSuitImage;
+
+                            var dlg = registry.byId("exportMapDialog");
+                            dlg.set("title", title);
+                            dlg.set("style", "width: 300px;");
+                            dom.byId("exportMapDialogContent").innerHTML = content;
+                            dlg.show();
+
+                            on.once(dom.byId("exportOK"), "click", function () {
+                                var sl = map.getLayer(toolsconfig.getConfig().suitabilityImageServiceLayer.id).getImageUrl(map.extent,
+                                    width, height, exporter, params);
+                                //_self.exportSuitText();
+                            });
+
+                            on.once(dom.byId("exportCancel"), "click", function () {
+                                dlg.hide();
+                            });
+
+                            //bbox['spatialReference'] = { 'wkid': 3857 };
+                            //_self.computeSuitHistogram("PalmOilSuitability_Histogram", bbox, "esriGeometryEnvelope");
+                        });
+                    */
+                };
 
                 var _getSettingsCSV = function() {
                     // get slider values & labels (and direction)
