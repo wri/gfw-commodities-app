@@ -1071,12 +1071,10 @@ define([
                 });
                 on(dom.byId("export-download-now"), 'click', function() {
                     var text = _getSettingsCSV();
-                    /*
                     var blob = new Blob([text], {
                         type: "text/csv;charset=utf-8;"
                     });
                     saveAs(blob, "settings.csv");
-                    */
 
                     dialog.destroy();
                 });
@@ -1091,7 +1089,7 @@ define([
                         vals = jq171('#' + sliderName).rangeSlider('values');
                         bounds = jq171('#' + sliderName).rangeSlider('bounds');
                         rev = domClass.contains(sliderName, "reverseSlider");
-                        console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals, " :: bounds: ", bounds);
+                        //console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals, " :: bounds: ", bounds);
 
                         // get tooltips to use for value-labels, if available
                         temp = sliderName.split("-");
@@ -1102,7 +1100,7 @@ define([
                                 cfg = MapConfig.suitabilitySliderTooltips[temp[1]];
                             }
                         }
-                        console.log(" :: " + lbl.innerHTML + " :: slider value-labels : ", cfg);
+                        //console.log(" :: " + lbl.innerHTML + " :: slider value-labels : ", cfg);
 
                         if (sliderSelections != "") sliderSelections += "\n";
                         sliderSelections += lbl.innerHTML + ",";
@@ -1159,9 +1157,9 @@ define([
                     csvStr += sliderSelections + "\n";
                     csvStr += "Land Cover," + landCoverSelection + "\n";
                     csvStr += "Soil Type," + soilTypeSelection + "\n";
-                    console.log("----------------------------------------------");
-                    console.log(csvStr);
-                    console.log("----------------------------------------------");
+                    //console.log("----------------------------------------------");
+                    //console.log(csvStr);
+                    //console.log("----------------------------------------------");
 
                     return csvStr;
                 }

@@ -49,6 +49,12 @@ module.exports = function(grunt) {
                     },
 
                     {
+                        src: ['src/app/libs/FileSaver.js'],
+                        dest: 'build/app/libs/FileSaver.js',
+                        filter: 'isFile'
+                    },
+
+                    {
                         src: ['src/app/libs/jquery-1.7.1.min.js'],
                         dest: 'build/app/libs/jquery-1.7.1.min.js',
                         filter: 'isFile'
