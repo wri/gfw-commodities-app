@@ -305,9 +305,10 @@ define([
                     activeCheckboxes.push('0');
                     activeCheckboxes.push('6');
                     // Push in all other Active Checkboxes values
-                    dojoQuery('#crop-criteria .suitable-checkbox input:checked').forEach(function(node) {
+                    dojoQuery('#environmental-criteria .suitable-checkbox-soil input:checked').forEach(function(node) {
                         activeCheckboxes.push(node.value);
                     });
+                    //console.log("****************** soil type checkboxes: " + activeCheckboxes.toString());
                     settings.computeBinaryRaster[10].values = activeCheckboxes.join(",");
                     break;
             }

@@ -1070,17 +1070,37 @@ define([
                     dialog.destroy();
                 });
                 on(dom.byId("export-download-now"), 'click', function() {
-                    //alert("Export Coming Soon");
-                    var cb, lbl, vals, rev;
+                    // get slider values & labels (and direction)
                     var sliders = ["peat-depth-slider","conservation-area-slider","water-resource-slider","slope-slider","elevation-slider","rainfall-slider","soil-drainage-slider","soil-depth-slider","soil-acid-slider"];
+                    var sliderSelections = "";
+                    var lbl, vals, rev, cfg, temp;
                     arrayUtils.forEach(sliders, function (sliderName) {
                         lbl = dom.byId(sliderName + "-label");
                         vals = jq171('#' + sliderName).rangeSlider('values');
                         rev = domClass.contains(sliderName, "reverseSlider");
-                        console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals);
+                        //console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals);
+
+                        temp = sliderName.split("-");
+                        cfg = MapConfig.suitabilitySliderTooltips[temp[0]];
+                        if (cfg == undefined) {
+                            cfg = MapConfig.suitabilitySliderTooltips[temp[1]];
+                        }
+                        console.log(" :: " + lbl.innerHTML + " :: slider value-labels : ", cfg);
+
+                        if (sliderSelections != "") sliderSelections += "\n";
+                        sliderSelections += lbl.innerHTML + ",";
+                        if (rev) {
+                            //TODO: Figure out proper value in place of hard-coded zero...
+                            sliderSelections += "0-" + vals.min;
+                        } else {
+                            sliderSelections += vals.min + "-" + vals.max;
+                        }
                     });
+
+                    // get value-labels for selected checkboxes
                     var landCoverSelection = "";
                     var soilTypeSelection = "";
+                    var cb;
                     arrayUtils.forEach(MapConfig.checkboxItems, function(item) {
                         cb = registry.byId(item.node);
                         if (cb && cb.get('checked')) {
@@ -1088,40 +1108,36 @@ define([
                             //console.log(" :: chb '" + item.node + "': checked? " + cb.get('checked'));
                             //console.log(" :::: LABEL:", lbl);
                             if (item.name == "landcover-checkbox") {
-                                if (landCoverSelection != "") landCoverSelection += " | ";
+                                if (landCoverSelection != "") landCoverSelection += "; ";
                                 landCoverSelection += lbl.innerHTML;
                             } else if (item.name == "soil-type-checkbox") {
-                                if (soilTypeSelection != "") soilTypeSelection += " | ";
+                                if (soilTypeSelection != "") soilTypeSelection += "; ";
                                 soilTypeSelection += lbl.innerHTML;
                             }
                         }
                     });
-                    console.log(" :: LANDCOVER: ", landCoverSelection);
-                    console.log(" :: SOIL TYPE: ", soilTypeSelection);
+                    //console.log(" :: LANDCOVER: ", landCoverSelection);
+                    //console.log(" :: SOIL TYPE: ", soilTypeSelection);
+
+                    //composite CSV
+                    var fields = ['Suitability Parameter', 'Suitability Values'];
+                    var csvStr = fields.join(",") + '\n';
+                    csvStr += sliderSelections + "\n";
+                    csvStr += "Land Cover," + landCoverSelection + "\n";
+                    csvStr += "Soil Type," + soilTypeSelection + "\n";
+                    console.log("----------------------------------------------");
+                    console.log(csvStr);
+                    console.log("----------------------------------------------");
+                    /*
+                    var blob = new Blob([text], {
+                        type: "text/csv;charset=utf-8;"
+                    });
+                    saveAs(blob, "settings.csv");
+                    */
+
                     dialog.destroy();
                 });
             });
-            /*
-             // Sliders
-            jq171('#peat-depth-slider').rangeSlider('values', 0, 3);
-            jq171('#conservation-area-slider').rangeSlider('values', 1000, 5000);
-            jq171('#water-resource-slider').rangeSlider('values', 100, 1000);
-            jq171('#slope-slider').rangeSlider('values', 30, 80);
-            jq171('#elevation-slider').rangeSlider('values', 1000, 5000);
-            jq171('#rainfall-slider').rangeSlider('values', 1500, 6000);
-            jq171('#soil-drainage-slider').rangeSlider('values', 2, 4);
-            jq171('#soil-depth-slider').rangeSlider('values', 3, 7);
-            jq171('#soil-acid-slider').rangeSlider('values', 1, 7);
-            this.resizeRangeSliders();
-            // Checkboxes
-            var cb;
-            arrayUtils.forEach(MapConfig.checkboxItems, function(item) {
-                cb = registry.byId(item.node);
-                if (cb) {
-                    cb.set('checked', item.checked);
-                }
-            });
-            */
         },
 
         resizeRangeSliders: function() {
