@@ -116,7 +116,7 @@ define([
                 // report.analyzeTreeCoverLoss = window.payload.types.loss;
                 // report.analyzeSuitability = window.payload.types.suit;
                 // report.analyzeMillPoints = window.payload.types.risk;
-                console.log("Here");
+                //console.log("Here - Begin Analysis");
                 this.beginAnalysis();
             }
 

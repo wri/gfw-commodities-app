@@ -327,7 +327,7 @@ define([
             // Hasher.setHash('y', y);
             // Hasher.setHash('l', 5);
             //var newState = HashController.newState;
-            console.log(Hasher.getHash());
+            //console.log(Hasher.getHash());
             var state = Hasher.getHash();
 
             // Hasher.toggleLayers('tcc');
@@ -335,7 +335,7 @@ define([
 
 
             var centerChangeByUrl = ((parseFloat(state.x) != x) || (parseFloat(state.y) != y) || (parseInt(state.l) != l));
-            console.log(centerChangeByUrl + " " + state.y + " " + state.x);
+            //console.log(centerChangeByUrl + " " + state.y + " " + state.x);
             if (centerChangeByUrl) {
                 //o.mapExtentPausable.pause();
                 // on.once(map.map, "extent-change", function() {

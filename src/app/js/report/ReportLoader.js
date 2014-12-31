@@ -50,7 +50,7 @@
         // Add a timeout condition so we can alert the user if something went wrong
         setTimeout(function () {
           if (!payloadReceived) {
-            alert("There was an erorr generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
+            alert("There was an error generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
           }
         }, 5000);
       }

@@ -1121,7 +1121,7 @@ define([
                 f: "json",
                 pixelType: 'UNKNOWN'
             };
-            console.log("params", params);
+            //console.log("params", params);
 
             var exporter = function (url, content) {
                 console.log("exporter() :: url = ", url);
@@ -1166,7 +1166,7 @@ define([
             };
 
             var layerID = MapConfig.suit.id;
-            console.log(" :: layerID = " + layerID);
+            //console.log(" :: layerID = " + layerID);
             app.map.getLayer(layerID).getImageUrl(app.map.extent, width, height, exporter, params);
             /*
             var _self = this;

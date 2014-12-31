@@ -51,15 +51,15 @@ define([
 
             // 20141217 CRB - Added info icon to Total Calculated Area in report header
             var node = dom.byId("total-area-info-icon")
-            console.log("adding click event to i button", node);
+            //console.log("adding click event to i button", node);
             on(node, 'click', function(evt) {
-                console.log("i button clicked -- setting popup visibility");
+                //console.log("i button clicked -- setting popup visibility");
                 domStyle.set("total-area-info-popup", "visibility", "visible");
             });
             node = dom.byId("total-area-close-info-icon")
-            console.log("adding click event to i button", node);
+            //console.log("adding click event to i button", node);
             on(node, 'click', function(evt) {
-                console.log("i button clicked -- setting popup visibility");
+                //console.log("i button clicked -- setting popup visibility");
                 domStyle.set("total-area-info-popup", "visibility", "hidden");
             });
 		},

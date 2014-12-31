@@ -37,7 +37,7 @@ define([
                 var oldState = state;
 
                 state = ioQuery.queryToObject(changedHash);
-                console.log(state);
+                //console.log(state);
 
                 if ((state.x !== currentX || state.y !== currentY) && state.v == "map") {
                     topic.publish('centerChange', currentX, currentY, currentL);
