@@ -38,7 +38,7 @@
 	      }
 			}, // End dojoConfig
 			src = [
-				'http://js.arcgis.com/3.10/',
+				'http://js.arcgis.com/3.12/',
 				'app/libs/jquery-1.7.1.min.js',
 				'app/libs/jquery-ui-custom.min.js',
 				'app/libs/jQAllRangeSliders-min.js'
