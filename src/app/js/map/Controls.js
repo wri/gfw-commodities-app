@@ -1053,7 +1053,7 @@ define([
                 //Export Dialog
                 //TODO: Move this HTML into one of the template files.
                 var content = "<p>" + MapConfig.suitabilityExportDialog.instruction + "</p>";
-                content += "<p id='export-error-message' style='color:red;'></p>";
+                content += "<p id='export-error-message' style='color: #e50036;font-size: 12px;'></p>";
                 content += "<div id='export-loading-now' class='submit-container' style='display: none; visibility: hidden;'><div class='loading-wheel-container'><div class='loading-wheel'></div></div></div>"
                 content += "<div id='export-buttons-container' class='submit-container'>";
                 content += "<button id='export-cancel-now'>Cancel</button> ";
@@ -1090,7 +1090,7 @@ define([
                     //Export GeoTIFF
                     _self._saveTIFF(function (errorMsg) {
                         console.log("**callback** (error = " + errorMsg + ")");
-                        domStyle.set(dom.byId("export-buttons-container"), 'visibility','visible');
+                        //domStyle.set(dom.byId("export-buttons-container"), 'visibility','visible');
                         domStyle.set(dom.byId("export-loading-now"), 'visibility','hidden');
                         domStyle.set(dom.byId("export-loading-now"), 'display','none');
                         if (errorMsg == "") {
@@ -1136,13 +1136,33 @@ define([
                 });
                 layersRequest.then(
                     function (response) {
+                        console.log(response);
                         window.open(response.href, "geoTiffWin");
-                         callback("");
+                        callback("");
                     }, function (error) {
                         console.log("Error: ", error.message);
                         callback(error.message);
                     });
                 /**/
+                /*
+                $.ajax({
+                    url: url,
+                    //data: myData,
+                    type: 'GET',
+                    crossDomain: true,
+                    dataType: 'jsonp',
+                     success: function() {
+                         alert("Success");
+                         callback("");
+                     },
+                     error: function(jqXHR, errorMessage) {
+                         alert('Failed!');
+                         console.log("ERROR: ", errorMessage);
+                         callback(errorMessage);
+                     } //,
+                    // beforeSend: setHeader
+                });
+                */
             };
 
             var layerID = MapConfig.suit.id;
