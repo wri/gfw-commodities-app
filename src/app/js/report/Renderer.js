@@ -39,7 +39,7 @@ define([
 						"</div>" +
 					"</div>" +
 					"<div class='result-block clearance-alerts'>" +
-						"<div class='clearance-chart' id='" + config.rootNode + "_clearance'><div class='loader-wheel'>clearnce alerts</div></div>" +
+						"<div class='clearance-chart' id='" + config.rootNode + "_clearance'><div class='loader-wheel'>clearance alerts</div></div>" +
 					"</div>" +
 					"<div class='result-block mill-points'>" +
 						"<div class='mill-table' id='" + config.rootNode + "_mill'></div>" +
