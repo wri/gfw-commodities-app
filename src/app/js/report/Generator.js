@@ -32,12 +32,31 @@ define([
                 this.applyConfigurations();
                 this.prepareForAnalysis();
                 this.addSubscriptionDialog();
+                
+                // 20141217 CRB - Added info icon to Total Calculated Area in report header
+                this.setupHeader();
             }
         },
 
         applyConfigurations: function() {
             arrayUtils.forEach(Config.corsEnabledServers, function(server) {
                 esriConfig.defaults.io.corsEnabledServers.push(server);
+            });
+        },
+
+        // 20141217 CRB - Added info icon to Total Calculated Area in report header
+        setupHeader: function () {
+            var node = dom.byId("total-area-info-icon")
+            console.log("adding click event to i button", node);
+            on(node, 'click', function(evt) {
+                //console.log("i button clicked -- setting popup visibility");
+                domStyle.set("total-area-info-popup", "visibility", "visible");
+            });
+            node = dom.byId("total-area-close-info-icon")
+            //console.log("adding click event to i button", node);
+            on(node, 'click', function(evt) {
+                //console.log("i button clicked -- setting popup visibility");
+                domStyle.set("total-area-info-popup", "visibility", "hidden");
             });
         },
 
