@@ -76,11 +76,13 @@ define([], function() {
             // "http://50.18.182.188",
             "http://gis-potico.wri.org",
             "http://175.41.139.43",
-            "http://54.164.126.73"
+            //"http://54.164.126.73",
+            "https://gfw-fires.wri.org"
         ],
 
         alertUrl: {
-            forma: "http://gfw-apis.appspot.com/subscribe",
+            forma: "https://gfw-apis.appspot.com/subscribe",
+            //fires: "https://gfw-fires.wri.org/subscribe_by_polygon"
             fires: "http://54.164.126.73/subscribe_by_polygon"
         },
 

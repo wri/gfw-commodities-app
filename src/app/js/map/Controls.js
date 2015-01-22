@@ -1043,6 +1043,288 @@ define([
             });
         },
 
+        exportSuitabilitySettings: function() {
+            var _self = this;
+            require([
+                "dijit/Dialog",
+                "dojo/on",
+                "dojo/_base/lang"
+            ], function(Dialog, on, Lang) {
+                //Export Dialog
+                //TODO: Move this HTML into one of the template files.
+                var content = "<p>" + MapConfig.suitabilityExportDialog.instruction + "</p>";
+                content += "<p id='export-error-message' style='color: #e50036;font-size: 12px;'></p>";
+                content += "<div id='export-loading-now' class='submit-container' style='display: none; visibility: hidden;'><div class='loading-wheel-container'><div class='loading-wheel'></div></div></div>"
+                content += "<div id='export-buttons-container' class='submit-container'>";
+                content += "<button id='export-cancel-now'>Cancel</button> ";
+                content += "<button id='export-download-now'>Download</button>";
+                content += "</div>";
+
+                var dialog = new Dialog({
+                    title: MapConfig.suitabilityExportDialog.title.toUpperCase(),
+                    style: "height: 190px; width: 415px; overflow-y: none;",
+                    draggable: false,
+                    hide: function() {
+                        dialog.destroy();
+                    }
+                });
+                dialog.setContent(content);
+                dialog.show();
+
+                on(dom.byId("export-cancel-now"), 'click', function() {
+                    dialog.destroy();
+                });
+                on(dom.byId("export-download-now"), 'click', function() {
+                    //Export CSV
+                    var text = _self._getSettingsCSV();
+                    var blob = new Blob([text], {
+                        type: "text/csv;charset=utf-8;"
+                    });
+                    saveAs(blob, "settings.csv");
+
+                    //dom.byId("export-error-message").innerHTML = "";
+                    domStyle.set(dom.byId("export-buttons-container"), 'visibility','hidden');
+                    domStyle.set(dom.byId("export-loading-now"), 'visibility','visible');
+                    domStyle.set(dom.byId("export-loading-now"), 'display','block');
+
+                    //Export GeoTIFF
+                    _self._saveTIFF(function (errorMsg) {
+                        console.log("**callback** (error = " + errorMsg + ")");
+                        //domStyle.set(dom.byId("export-buttons-container"), 'visibility','visible');
+                        domStyle.set(dom.byId("export-loading-now"), 'visibility','hidden');
+                        domStyle.set(dom.byId("export-loading-now"), 'display','none');
+                        if (errorMsg == "") {
+                            //Close pop-up
+                            dialog.destroy();
+                        } else {
+                            dom.byId("export-error-message").innerHTML = errorMsg;
+                        }
+                    });
+
+                });
+            });
+        },
+
+        _saveTIFF: function (callback) {
+            var _self = this;
+            var ext = app.map.extent;
+            var width = 1460;
+            var height = 854;
+            var params = {
+                noData: 0,
+                noDataInterpretation: "esriNoDataMatchAny",
+                interpolation: "RSP_BilinearInterpolation",
+                format: "tiff",
+                size: width + "," + height,
+                imageSR: 3857,
+                bboxSR: 3857,
+                f: "json",
+                pixelType: 'UNKNOWN'
+            };
+            //console.log("params", params);
+
+            var exporter = function (url, content) {
+                console.log("exporter() :: url = ", url);
+                window.open(url, "geoTiffWin");
+                callback("");
+                /*
+                var layersRequest = request({
+                    url: url,
+                    content: content,
+                    handleAs: "json",
+                    callbackParamName: "callback"
+                });
+                layersRequest.then(
+                    function (response) {
+                        console.log(response);
+                        window.open(response.href, "geoTiffWin");
+                        callback("");
+                    }, function (error) {
+                        console.log("Error: ", error.message);
+                        callback(error.message);
+                    });
+                /**/
+                /*
+                $.ajax({
+                    url: url,
+                    //data: myData,
+                    type: 'GET',
+                    crossDomain: true,
+                    dataType: 'jsonp',
+                     success: function() {
+                         alert("Success");
+                         callback("");
+                     },
+                     error: function(jqXHR, errorMessage) {
+                         alert('Failed!');
+                         console.log("ERROR: ", errorMessage);
+                         callback(errorMessage);
+                     } //,
+                    // beforeSend: setHeader
+                });
+                */
+            };
+
+            var layerID = MapConfig.suit.id;
+            //console.log(" :: layerID = " + layerID);
+            app.map.getLayer(layerID).getImageUrl(app.map.extent, width, height, exporter, params);
+            /*
+            var _self = this;
+            require(["esri/request", "mapui", "mainmodel", "dialog", "resources", "on"],
+                function (esriRequest, MapUI, MainModel, Dialog, Resources, on) {
+                    function exporter(url, content) {
+                        var layersRequest = esriRequest({
+                            url: url,
+                            content: content,
+                            handleAs: "json",
+                            callbackParamName: "callback"
+                        });
+                        layersRequest.then(
+                            function (response) {
+                                // dlg is the dialog created below
+                                dlg.hide();
+                                window.open(response.href, "newWin");
+
+                            }, function (error) {
+                                console.log("Error: ", error.message);
+                            });
+                        //xmlhttp.open("POST", result, true);
+                        //xmlhttp.send();
+                    }
+                    var map = MapUI.getMap();
+                    var ext = map.extent;
+                    var width = 1460;
+                    var height = 854;
+                    var bbox =
+                    {
+                        xmax: ext.xmax,
+                        xmin: ext.xmin,
+                        ymax: ext.ymax,
+                        ymin: ext.ymin
+                    };
+                    var params = {
+                        noData: 0,
+                        noDataInterpretation: "esriNoDataMatchAny",
+                        interpolation: "RSP_BilinearInterpolation",
+                        format: "tiff",
+                        size: width + "," + height,
+                        imageSR: 3857,
+                        bboxSR: 3857,
+                        f: "json",
+                        pixelType: 'UNKNOWN'
+                    };
+
+                    var resources = Resources(),
+                        content = resources.en.exportSuitImageContent,
+                        title = resources.en.exportSuitImage;
+
+                    var dlg = registry.byId("exportMapDialog");
+                    dlg.set("title", title);
+                    dlg.set("style", "width: 300px;");
+                    dom.byId("exportMapDialogContent").innerHTML = content;
+                    dlg.show();
+
+                    on.once(dom.byId("exportOK"), "click", function () {
+                        var sl = map.getLayer(toolsconfig.getConfig().suitabilityImageServiceLayer.id).getImageUrl(map.extent,
+                            width, height, exporter, params);
+                        //_self.exportSuitText();
+                    });
+
+                    on.once(dom.byId("exportCancel"), "click", function () {
+                        dlg.hide();
+                    });
+
+                    //bbox['spatialReference'] = { 'wkid': 3857 };
+                    //_self.computeSuitHistogram("PalmOilSuitability_Histogram", bbox, "esriGeometryEnvelope");
+                });
+            */
+        },
+
+        _getSettingsCSV: function() {
+            // get slider values & labels (and direction)
+            var sliders = ["peat-depth-slider","conservation-area-slider","water-resource-slider","slope-slider","elevation-slider","rainfall-slider","soil-drainage-slider","soil-depth-slider","soil-acid-slider"];
+            var sliderSelections = "";
+            var lbl, vals, bounds, rev, cfg, temp;
+            arrayUtils.forEach(sliders, function (sliderName) {
+                lbl = dom.byId(sliderName + "-label");
+                vals = jq171('#' + sliderName).rangeSlider('values');
+                bounds = jq171('#' + sliderName).rangeSlider('bounds');
+                rev = domClass.contains(sliderName, "reverseSlider");
+                //console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals, " :: bounds: ", bounds);
+
+                // get tooltips to use for value-labels, if available
+                temp = sliderName.split("-");
+                if (temp[0] != "rainfall") {
+                    cfg = MapConfig.suitabilitySliderTooltips[temp[0]];
+                    if (cfg == undefined) {
+                        if (temp[1] == "acid") temp[1] = "acidity";
+                        cfg = MapConfig.suitabilitySliderTooltips[temp[1]];
+                    }
+                }
+                //console.log(" :: " + lbl.innerHTML + " :: slider value-labels : ", cfg);
+
+                if (sliderSelections != "") sliderSelections += "\n";
+                sliderSelections += lbl.innerHTML + ",";
+                if (rev) {
+                    if (cfg == undefined) {
+                        sliderSelections += bounds.min + "-" + vals.min;
+                    } else {
+                        var tempList = "";
+                        for (var i=bounds.min; i<=vals.min; ++i) {
+                            if (tempList != "") tempList += "; ";
+                            tempList += cfg[i].replace(",","/");
+                        }
+                        sliderSelections += tempList;
+                    }
+                } else {
+                    if (cfg == undefined) {
+                        sliderSelections += vals.min + "-" + vals.max;
+                    } else {
+                        var tempList = "";
+                        for (var i=vals.min; i<=vals.max; ++i) {
+                            if (tempList != "") tempList += "; ";
+                            tempList += cfg[i].replace(",","/");
+                        }
+                        sliderSelections += tempList;
+                    }
+                }
+            });
+
+            // get value-labels for selected checkboxes
+            var landCoverSelection = "";
+            var soilTypeSelection = "";
+            var cb;
+            arrayUtils.forEach(MapConfig.checkboxItems, function(item) {
+                cb = registry.byId(item.node);
+                if (cb && cb.get('checked')) {
+                    lbl = dojoQuery("label[for='" + item.node + "']")[0];
+                    //console.log(" :: chb '" + item.node + "': checked? " + cb.get('checked'));
+                    //console.log(" :::: LABEL:", lbl);
+                    if (item.name == "landcover-checkbox") {
+                        if (landCoverSelection != "") landCoverSelection += "; ";
+                        landCoverSelection += lbl.innerHTML;
+                    } else if (item.name == "soil-type-checkbox") {
+                        if (soilTypeSelection != "") soilTypeSelection += "; ";
+                        soilTypeSelection += lbl.innerHTML;
+                    }
+                }
+            });
+            //console.log(" :: LANDCOVER: ", landCoverSelection);
+            //console.log(" :: SOIL TYPE: ", soilTypeSelection);
+
+            //composite CSV
+            var fields = ['Suitability Parameter', 'Suitability Values'];
+            var csvStr = fields.join(",") + '\n';
+            csvStr += sliderSelections + "\n";
+            csvStr += "Land Cover," + landCoverSelection + "\n";
+            csvStr += "Soil Type," + soilTypeSelection + "\n";
+            //console.log("----------------------------------------------");
+            //console.log(csvStr);
+            //console.log("----------------------------------------------");
+
+            return csvStr;
+        },
+
         resizeRangeSliders: function() {
             /* Do the Following for Each Slider
 			 - Hide the labels 

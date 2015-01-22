@@ -51,8 +51,23 @@ define([
             registry.byId("mapView").set('content', template);
             registry.byId("stackContainer").selectChild("mapView");
 
+            // 20141222 CRB - Added restoring of map center & level when sharing url
+            var hashX =  Hasher.getHash('x');
+            var hashY =  Hasher.getHash('y');
+            var hashL =  Hasher.getHash('l');
+            //console.log("**********************> map settings in hash: " + hashX + "/" + hashY + "/" + hashL);
+            var mapOptions = {};
+            for (var prop in MapConfig.mapOptions) {
+                mapOptions[prop] = MapConfig.mapOptions[prop];
+            }
+            if (hashX != undefined && hashX != "") mapOptions.centerX = hashX;
+            if (hashX != undefined && hashX != "") mapOptions.centerY = hashY;
+            if (hashX != undefined && hashX != "") mapOptions.zoom = hashL;
+            //console.log("**********************> map options:", mapOptions);
+
             // This is not esri map, it is custom map class, esri map object available as map.map
-            map = new Map(MapConfig.mapOptions);
+            //map = new Map(MapConfig.mapOptions);
+            map = new Map(mapOptions);
 
             // Set the map object to the global app variable for easy use throughout the project
             app.map = map.map;
@@ -208,6 +223,10 @@ define([
                 MapControl.resetSuitabilitySettings();
             });
 
+            on(dom.byId("export-suitability"), "click", function() {
+                MapControl.exportSuitabilitySettings();
+            });
+
             on(dom.byId("close-suitability"), "click", function() {
                 // Pass in the key from the MapConfig.LayerUI
                 // for Custom Suitability Layer
@@ -312,7 +331,7 @@ define([
             // Hasher.setHash('y', y);
             // Hasher.setHash('l', 5);
             //var newState = HashController.newState;
-            console.log(Hasher.getHash());
+            //console.log(Hasher.getHash());
             var state = Hasher.getHash();
 
             // Hasher.toggleLayers('tcc');
@@ -320,7 +339,7 @@ define([
 
 
             var centerChangeByUrl = ((parseFloat(state.x) != x) || (parseFloat(state.y) != y) || (parseInt(state.l) != l));
-            console.log(centerChangeByUrl + " " + state.y + " " + state.x);
+            //console.log(centerChangeByUrl + " " + state.y + " " + state.x);
             if (centerChangeByUrl) {
                 //o.mapExtentPausable.pause();
                 // on.once(map.map, "extent-change", function() {
