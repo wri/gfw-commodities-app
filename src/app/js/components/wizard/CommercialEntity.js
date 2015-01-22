@@ -123,6 +123,7 @@ define([
         // Takes URL and group name, group name will always be the targets innerHTML
         AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+
           if (features && wizardGraphicsLayer) {
             wizardGraphicsLayer.clear();
             features.forEach(function (feature) {

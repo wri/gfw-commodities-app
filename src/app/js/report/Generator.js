@@ -46,13 +46,12 @@ define([
 
         // 20141217 CRB - Added info icon to Total Calculated Area in report header
         setupHeader: function () {
-            var node = dom.byId("total-area-info-icon")
-            console.log("adding click event to i button", node);
+            var node = dom.byId("total-area-info-icon");
             on(node, 'click', function(evt) {
                 //console.log("i button clicked -- setting popup visibility");
                 domStyle.set("total-area-info-popup", "visibility", "visible");
             });
-            node = dom.byId("total-area-close-info-icon")
+            node = dom.byId("total-area-close-info-icon");
             //console.log("adding click event to i button", node);
             on(node, 'click', function(evt) {
                 //console.log("i button clicked -- setting popup visibility");
@@ -240,7 +239,12 @@ define([
 
             // Remove all loading wheels and show error messages for the remaining ones
             dojoQuery(".loader-wheel").forEach(function(node) {
-                node.parentNode.innerHTML = "There was an error getting these results at this time.";
+                // Ignore the Area Query, It's not part of all the deferreds and may not be done by now
+                // so lets not prematurely show an error message, Fetcher.getAreaFromGeometry will show an
+                // error message if it fails
+                if (node.parentNode.id !== 'total-area') {
+                    node.parentNode.innerHTML = "There was an error getting these results at this time.";
+                }
             });
 
         },
