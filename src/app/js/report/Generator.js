@@ -14,11 +14,12 @@ define([
     "esri/geometry/Polygon",
     "esri/SpatialReference",
     "esri/tasks/GeometryService",
+    "esri/tasks/BufferParameters",
     "esri/geometry/webMercatorUtils",
     // Local Modules from report folder
     "report/config",
     "report/Fetcher"
-], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
+], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, BufferParameters, webMercatorUtils, Config, Fetcher) {
     'use strict';
 
     window.report = {};
@@ -115,7 +116,22 @@ define([
                 // report.analyzeTreeCoverLoss = window.payload.types.loss;
                 // report.analyzeSuitability = window.payload.types.suit;
                 // report.analyzeMillPoints = window.payload.types.risk;
-                console.log("Here");
+                    
+                // var params = new BufferParameters();
+                // var polygon = new Polygon(report.geometry);
+                // params.geometries = [polygon];
+                // params.distances = [1];
+                // params.unit = GeometryService.UNIT_FOOT;
+                // params.bufferSpatialReference = new SpatialReference(3857);
+                // params.outSpatialReference = sr;
+                // params.unionResults = true;
+
+                // geometryService.buffer(params, function (bufferedGeometries) {
+                //     var newPolygon = new Polygon(bufferedGeometries[0]);
+                //     report.geometry = newPolygon;
+                //     self.beginAnalysis();
+                // });
+
                 this.beginAnalysis();
             }
 

@@ -56,7 +56,6 @@ define([
 
         handleHashChange: function(newState, oldState) {
             var that = this;
-            debugger;
             //o.newState = newState;
             //var changedView = oldState.v != newState.v;
             //var mapView = newState.v == "map";
@@ -91,10 +90,10 @@ define([
             // this so it does not mess up his features, or we should probably
             // stash them and only bring them back when were in the map view
 
-            var currentHash = this.getHash();
+            var currentHash = this.getHash();            
             if (currentHash.x && currentHash.y) {
                 state.x = currentHash.x;
-                state.y = currentHash.y
+                state.y = currentHash.y;
                 state.l = currentHash.l;
 
             }
@@ -102,7 +101,12 @@ define([
                 state.lyrs = currentHash.lyrs;
             }
 
+            if (currentHash.wiz) {
+                state.wiz = currentHash.wiz;
+            }
+
             hash(ioQuery.objectToQuery(state));
+
         },
 
         removeKey: function(key) {

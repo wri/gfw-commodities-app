@@ -74,7 +74,11 @@ define([
                 self.renderComponents();
                 // Connect Events
                 self.bindUIEvents();
-                //window.location.hash += '#food';
+                // Check Hash for some defaults and react accordingly
+                var wizardState = Hasher.getHash('wiz');
+                if (wizardState !== undefined && wizardState === 'open') {
+                    WizardHelper.toggleWizard();
+                }
             });
 
             // Set up zoom listener for Protected Areas Layer *and now Gain Layer

@@ -316,8 +316,8 @@ define([
                 encoder = this._getEncodingFunction(lossConfig.bounds, config.bounds),
                 rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId,
                 renderingRule = useSimpleEncoderRule ?
-                encoder.getSimpleRule(lossConfig.rasterId, rasterId) :
-                encoder.render(lossConfig.rasterId, rasterId),
+                    encoder.getSimpleRule(lossConfig.rasterId, rasterId) :
+                    encoder.render(lossConfig.rasterId, rasterId),
                 content = {
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
@@ -530,7 +530,7 @@ define([
                 incrementer = 0,
                 month,
                 req;
-
+ 
             //if (report.analyzeClearanceAlerts) {
             req = esriRequest({
                 url: config.url,
