@@ -2,8 +2,11 @@ define([
 	"report/config",
 	"dojo/number",
 	"dijit/Dialog",
-	"dojo/_base/array"
-], function (ReportConfig, number, Dialog, arrayUtils) {
+	"dojo/_base/array",
+    "dojo/on",
+    "dojo/dom",
+    "dojo/dom-style"
+], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle) {
 	'use strict';
 
 	// Container IDS for charts and tables are as Follows
@@ -36,7 +39,7 @@ define([
 						"</div>" +
 					"</div>" +
 					"<div class='result-block clearance-alerts'>" +
-						"<div class='clearance-chart' id='" + config.rootNode + "_clearance'><div class='loader-wheel'>clearnce alerts</div></div>" +
+						"<div class='clearance-chart' id='" + config.rootNode + "_clearance'><div class='loader-wheel'>clearance alerts</div></div>" +
 					"</div>" +
 					"<div class='result-block mill-points'>" +
 						"<div class='mill-table' id='" + config.rootNode + "_mill'></div>" +
@@ -45,7 +48,6 @@ define([
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
 			document.getElementById('report-results-section').appendChild(fragment);
-
 		},
 
 		/*

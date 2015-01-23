@@ -6,6 +6,7 @@ define([
     "dojo/request/xhr",
     "dojo/Deferred",
     "dojo/dom-class",
+    "dojo/dom-style",
     "dojo/promise/all",
     "dojo/_base/array",
     "dijit/Dialog",
@@ -18,7 +19,7 @@ define([
     // Local Modules from report folder
     "report/config",
     "report/Fetcher"
-], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
+], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
     'use strict';
 
     window.report = {};
@@ -31,12 +32,31 @@ define([
                 this.applyConfigurations();
                 this.prepareForAnalysis();
                 this.addSubscriptionDialog();
+                
+                // 20141217 CRB - Added info icon to Total Calculated Area in report header
+                this.setupHeader();
             }
         },
 
         applyConfigurations: function() {
             arrayUtils.forEach(Config.corsEnabledServers, function(server) {
                 esriConfig.defaults.io.corsEnabledServers.push(server);
+            });
+        },
+
+        // 20141217 CRB - Added info icon to Total Calculated Area in report header
+        setupHeader: function () {
+            var node = dom.byId("total-area-info-icon")
+            console.log("adding click event to i button", node);
+            on(node, 'click', function(evt) {
+                //console.log("i button clicked -- setting popup visibility");
+                domStyle.set("total-area-info-popup", "visibility", "visible");
+            });
+            node = dom.byId("total-area-close-info-icon")
+            //console.log("adding click event to i button", node);
+            on(node, 'click', function(evt) {
+                //console.log("i button clicked -- setting popup visibility");
+                domStyle.set("total-area-info-popup", "visibility", "hidden");
             });
         },
 
@@ -115,7 +135,21 @@ define([
                 // report.analyzeTreeCoverLoss = window.payload.types.loss;
                 // report.analyzeSuitability = window.payload.types.suit;
                 // report.analyzeMillPoints = window.payload.types.risk;
-                console.log("Here");
+                // var params = new BufferParameters();
+                // var polygon = new Polygon(report.geometry);
+                // params.geometries = [polygon];
+                // params.distances = [1];
+                // params.unit = GeometryService.UNIT_FOOT;
+                // params.bufferSpatialReference = new SpatialReference(3857);
+                // params.outSpatialReference = sr;
+                // params.unionResults = true;
+
+                // geometryService.buffer(params, function (bufferedGeometries) {
+                //     var newPolygon = new Polygon(bufferedGeometries[0]);
+                //     report.geometry = newPolygon;
+                //     self.beginAnalysis();
+                // });
+
                 this.beginAnalysis();
             }
 
@@ -200,6 +234,7 @@ define([
 
             // Add the Print Listener
             on(dom.byId('print'), 'click', function() {
+                domStyle.set("total-area-info-popup", "visibility", "hidden");
                 window.print();
             });
 
@@ -315,7 +350,7 @@ define([
                 self = this,
                 content = "<div class='subscription-content'>" +
                 "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Monthly Clearance Alerts</label></div>" +
-                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' disabled />Fire Alerts - Coming Soon</label></div>" +
+                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fire Alerts</label></div>" +
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
                 "<div id='form-response' class='message-container'></div>" +

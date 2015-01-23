@@ -8,6 +8,7 @@ define([
     "dojo/dom-style",
     "dijit/registry",
     "dojo/dom-construct",
+    "utils/Hasher",
     "map/config",
     "map/MapModel",
     "map/LayerController",
@@ -18,7 +19,7 @@ define([
     "dijit/form/CheckBox",
     "dijit/layout/ContentPane",
     "dijit/layout/AccordionContainer"
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
 
     'use strict';
 
@@ -152,59 +153,14 @@ define([
         },
 
         buildFormaSlider: function() {
-            /*var incrementer = 0,
-					baseYear = 13,
-					labels = [],
-					timeSlider,
-					timeExtent,
-					month;
 
-			timeSlider = new TimeSlider({
-				style: "width: 100%;",
-				id: "formaSlider"
-			}, dom.byId("formaAlertSlider"));
-
-			timeExtent = new TimeExtent();
-
-			timeSlider.setThumbCount(1);
-			timeSlider.setThumbMovingRate(1500);
-			timeSlider.setLoop(false); // Bug when true when it wraps around, it thinks its thumb
-			// is still at the last index and does not know that its at 0 index
-
-			domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
-      registry.byId(timeSlider.previousBtn.id).domNode.style.display = "none";
-      registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
-
-      this.fetchFORMAAlertsLabels().then(function (res) {
-      	if (res) {
-      		for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
-      			month = i % 12 === 0 ? 12 : i % 12;
-      			labels.push(month + "-" + (baseYear + incrementer));
-      			if (i % 12 === 0) { ++incrementer; }
-      		}
-
-      		timeExtent.startTime = new Date("1/1/2013 UTC");
-      		timeExtent.endTime = new Date();
-      		timeSlider.createTimeStopsByCount(timeExtent, res.maxValues[0]);
-          timeSlider.setLabels(labels);
-          timeSlider.setThumbIndexes([labels.length - 1]);
-          timeSlider.startup();          
-      	}
-
-      	timeSlider.on("time-extent-change", function (evt) {
-      		// These values are not updated immediately, call requestAnimationFrame 
-      		// to execute on the next available frame
-
-      		var values;
-      		requestAnimationFrame(function () {
-      			values = [0, timeSlider.thumbIndexes[0]];
-      			LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
-      		});
-      	});
-
-      });
-*/
-
+            var layerArray = Hasher.getLayers(),
+                active = layerArray.indexOf("forma") > -1;
+            if (active) {
+                setTimeout(function() { //TODO : Fix this 
+                    ionCallback.call();
+                }, 300);
+            }
             $(".extra-controls2 #newSlider2").click(function() {
                 play();
             });
@@ -231,8 +187,9 @@ define([
                             ++incrementer;
                         }
                     }
+
                 } else {
-                    //console.log("fetching Forma labels failed!!");
+                    console.log("fetching Forma labels failed!!");
                 }
             });
 
@@ -248,6 +205,29 @@ define([
             });
 
             var ionCallback = function() {
+                var valuesToUse = [];
+
+                var baseYear = 13;
+                var currentYear, currentMonth;
+
+                for (var i = 1; i < (to + 2); i++) {
+                    currentMonth = (i % 12);
+                    if (currentMonth == 0) {
+                        currentMonth = 12;
+                    }
+                    currentYear = Math.floor(((i - 1) / 12) + baseYear);
+                    valuesToUse.push(currentMonth + "-" + currentYear);
+                    var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
+                    domConstruct.place(yearDot, "yearDotContainer");
+                    domStyle.get(yearDot);
+                    var leftPx = (i * 37.5) + 42.5;
+                    leftPx += "px";
+                    domStyle.set(yearDot, {
+                        "position": "absolute",
+                        "left": leftPx,
+                    });
+                }
+
                 $range2.ionRangeSlider({
                     type: "double",
                     min: min,
@@ -256,61 +236,59 @@ define([
                     to: to,
                     playing: false,
                     prettify: false,
-                    values: ["1-13", "2-13", "3-13", "4-13", "5-13", "6-13", "7-13",
-                        "8-13", "9-13", "10-13", "11-13", "12-13", "1-14", "2-14",
-                        "3-14", "4-14", "5-14", "6-14", "7-14", "8-14", "9-14"
-                    ],
+                    values: valuesToUse,
                     onChange: function(data) {
+                        //console.log(data);
                         from = data.fromNumber;
                         to = data.toNumber;
                         updateValues();
+                        $(".irs-single").hide();
                         if (from == to) {
                             $(".irs-single").hide();
                             $(".irs-to").show();
                         }
-                        if (from == 19 && to == 20) {
+
+                        if (from == (data.max - 1) && to == data.max) {
                             $(".irs-single").hide();
                             $(".irs-from").show();
                         }
-                        if (to == 20 && from != 20) {
-                            $(".irs-diapason").css("width", "+=8px");
+                        if (to == data.max && from != data.max) {
+                            $(".irs-diapason").css("width", "+=7px");
                         }
-                        if (to == 20 && from == 20) {
+                        if (to == data.max && from == data.max) {
                             $(".irs-diapason").css("width", "-=8px");
                         }
+
+                        $("#yearDotContainer > div:nth-child(13)").css("color", "black");
                         $("#range2").ionRangeSlider("update");
                         if ($range2.playing != true) {
                             $("#sliderProgressLine2").hide();
                             $("#playLine3").hide();
                             var values3 = [from, to];
-                            for (var i = 1; i < 22; i++) {
-                                var item2 = $(".container3 > div:nth-child(" + i + ")");
+                            for (var i = 1; i < (data.max + 2); i++) {
+                                var item2 = $("#yearDotContainer > div:nth-child(" + i + ")");
 
                                 if ((i < from + 1) || (i > to)) {
                                     $(item2.selector).css("color", "grey");
-                                    $(".container3 > div:nth-child(1)").css("color", "black");
+                                    $("#yearDotContainer > div:nth-child(1)").css("color", "black");
 
                                 } else {
                                     $(item2.selector).css("color", "#a1ba42");
                                 }
                                 if (from > 12 || to < 12) {
-                                    $(".container3 > div:nth-child(13)").css("color", "black");
+                                    $("#yearDotContainer > div:nth-child(13)").css("color", "black");
                                 }
-                                if (from == 1 && to == 19) {
-                                    $(".container3 > div:nth-child(1)").css("color", "black");
+                                if (from == 1 && to == (data.max - 1)) {
+                                    $("#yearDotContainer > div:nth-child(1)").css("color", "black");
                                 }
                             }
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
                     },
                 });
+
                 $(".irs-slider.to").css("left", "790px");
-                //var newYearPlacement = $(".container3 > div:nth-child(13)").css("left");
-                //newYearPlacement -= 81.5px;
-                //$(".playLineFiller2 > div:nth-child(2)").css("margin-left", newYearPlacement);
-
                 $(".slider-container").show();
-
                 $("#formaAlertSlider").each(function() {
                     var node = this;
                     var sliderProgressLine2 = domConstruct.create("div", {
@@ -335,8 +313,18 @@ define([
                 }
 
                 $(".irs-diapason").css("width", sliderDiff + "px");
+                // $("#irs-2 > span.irs > span.irs-slider.from.last").css("left", "0px");
+                // $("#irs-2 > span.irs > span.irs-from").css("left", "0px");
+                // $("#irs-2 > span.irs > span.irs-from").html("1-13");
+                // $(".irs-diapason").css("width", "790px");
                 $(".irs-diapason").css("background-color", "#a1ba42");
-                $(".container3 > div").css("color", "#a1ba42");
+                $("#yearDotContainer > div").css("color", "#a1ba42");
+                var nextYearLeft = $("#yearDotContainer > div:nth-child(13)").css("left");
+                // nextYearLeft = nextYearLeft.split("p");
+                // nextYearLeft = (nextYearLeft[0] - 50) + "px";
+                // console.log(nextYearLeft);
+                $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
+
 
             };
 
@@ -376,7 +364,6 @@ define([
                 $to.prop("value", to);
             };
 
-
             function play() {
                 $("#playLine3").hide();
                 $('#playLine3').css("left", "0");
@@ -389,6 +376,7 @@ define([
                 var initialDates = $range2[0].value.split(';');
                 var thumbOne = initialDates[0];
                 var thumbTwo = initialDates[1];
+
                 var thumbOneInitial = thumbOne;
 
                 var sliderStart3 = $("#irs-2 > span.irs > span.irs-slider.from.last").css("left");
@@ -424,6 +412,10 @@ define([
                 $("#newSlider2").html("&#x25A0");
 
                 var values = [thumbOneInitial, thumbOne];
+
+                values[0] = parseInt(values[0]);
+                values[1] = parseInt(values[1]);
+
                 LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
                 var playing = $range2.playing;
                 var outer = setTimeout(function() {
@@ -438,21 +430,19 @@ define([
 
                     var monthNum = parseInt(thumbOne);
                     currentMonth = (monthNum + 1) % 12;
-                    //currentMonth = (thumbOne + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=39.5px");
-                    $('#sliderProgressLine2').css("left", "+=39.5px");
-                    
-                    values[0] = parseInt(values[0]);
-                    values[1] = parseInt(values[1]);
-
-                    LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
+                    $('#playLine3').css("left", "+=37.5px");
+                    $('#sliderProgressLine2').css("left", "+=37.5px");
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];
                     thumbOne++;
                     values = [thumbOneInitial, thumbOne];
+                    values[0] = parseInt(values[0]);
+                    values[1] = parseInt(values[1]);
+
+                    LayerController.updateImageServiceRasterFunction(values, MapConfig.forma);
 
                     if (newThumbTwo > thumbTwo) {
                         thumbTwo = newThumbTwo;
@@ -462,7 +452,6 @@ define([
                         $range2.playing = false;
                         return;
                     }
-                    //from++;
                     if ($range2.playing == true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
@@ -473,125 +462,7 @@ define([
         },
 
         buildTreeCoverChangeSlider: function() {
-            /*// treeCoverLossSlider.baseYear & numYears
-            var sliderConfig = MapConfig.treeCoverLossSlider,
-                labels = [],
-                timeSlider,
-                timeExtent;
 
-            TimeSlider.prototype.onPlay = function() {
-                alert("PLAY!");
-            };
-
-            timeSlider = new TimeSlider({
-                style: "width: 100%;",
-                id: "treeCoverSlider"
-            }, dom.byId("treeCoverSlider"));
-
-
-            timeExtent = new TimeExtent();
-
-            timeSlider.setThumbCount(2);
-            timeSlider.setThumbMovingRate(1500);
-            timeSlider.setLoop(false); // Bug when true when it wraps around, it thinks its thumb
-            // is still at the last index and does not know that its at 0 index
-
-            domConstruct.destroy(registry.byId(timeSlider.nextBtn.id).domNode.parentNode);
-            registry.byId(timeSlider.previousBtn.id).domNode.style.display = "none";
-            registry.byId(timeSlider.playPauseBtn.id).domNode.style["vertical-align"] = "text-bottom";
-
-            // Create Labels from Config file
-            for (var i = 0, length = sliderConfig.numYears; i <= length; i++) {
-                labels.push('' + (sliderConfig.baseYear + i));
-            }
-
-            timeExtent.startTime = new Date("1/1/2013 UTC");
-            timeExtent.endTime = new Date();
-            timeSlider.createTimeStopsByCount(timeExtent, labels.length);
-            timeSlider.setLabels(labels);
-
-            //timeSlider.setThumbIndexes([0,labels.length - 1]);
-            timeSlider.setThumbIndexes([0, labels.length]);
-            timeSlider.startup();
-
-            timeSlider.on("play", function(evt) {
-
-                var values;
-                var value1 = timeSlider.thumbIndexes[0];
-                var value2 = timeSlider.thumbIndexes[1];
-                //timeSlider.setThumbIndexes([value1,value2 - 1]);
-
-                requestAnimationFrame(function() {
-                    values = [0, timeSlider.thumbIndexes[0]];
-                    //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],value2-1]);
-                    var index = timeSlider.thumbIndexes[0];
-                    if (timeSlider.thumbIndexes[1] == 12) {
-                        timeSlider.setThumbIndexes([value1, value2 - 1]);
-                    }
-
-                    function timeout(i) {
-                        // If play button is active, have 2 thumbs, & freeze the 2nd. When it isn't have 1 thumb 
-                        // & adjust the #ticks count it can run and their values, and fake a 2nd slider!
-                        // Then, when the time slider is no longer playing, re-initialize it at the current location. 
-                        var thumbOne = timeSlider.thumbIndexes[0];
-                        var thumbTwo = timeSlider.thumbIndexes[1];
-                        // Here I want a small edge case that handles if the user just presses play 1st; thumb1 is
-                        // at 0 & thumb2 is at 13. I want it to go down to one thumb, and play IMMEDIETELY with no
-                        // timeOut, THEN enter the timeOut function per usual w/ 1 thumb at ..1? 0? Idk. This if
-                        // statement should also remove the need for the 2nd part of the else if below. I think.
-                        if ((timeSlider.thumbIndexes[0] == 0 && timeSlider.thumbIndexes[1] == 13) || timeSlider.thumbIndexes[1] == 12) {
-                            //timeSlider.thumbIndexes.splice(1,1);
-                            //timeSlider.setThumbCount(1);
-
-                            timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0], (11)]);
-                            //timeSlider.play();
-                        }
-
-                        // First loop they both do, then neither, then just thumbIndexOne
-                        setTimeout(function() {
-                            if (timeSlider.playing == true) {
-
-                                timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0], (value2 - 1)]);
-
-                            } else {
-                                timeSlider.thumbIndexes[1]++;
-                                return;
-                            }
-
-                            if (timeSlider.thumbIndexes[0] == value2) {
-                                values = [0, timeSlider.thumbIndexes[0]];
-                                LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                                timeSlider.pause();
-
-                                return;
-                            } //else if (timeSlider.thumbIndexes[1] == 12) {
-                            //timeSlider.thumbIndexes.splice(1,1);                            
-                            //timeSlider.setThumbCount(1);
-                            //timeSlider.play();
-                            //} else {
-                            //FREEZE THUMB 2 IN PLACE & MAKE THUMB 1 STOP THERE
-                            //Maybe call the updateImageServiceRasterFunction below w/o any params? (if I have to)
-
-                            //}
-                            values = [0, timeSlider.thumbIndexes[0]];
-
-                            LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                            i++;
-
-                            //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],(thumbTwo-1)]);
-                            //timeSlider.setThumbIndexes([timeSlider.thumbIndexes[0],5]);
-                            // Weird hitch one turn later where the first index doesn't increment...
-                            timeout(i);
-                        }, 1500);
-                    }
-                    timeout(index);
-
-                    //LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                });
-            });
-            //timeSlider.on("pause", function(evt) {});
-            //timeSlider.on("previous", function (evt) {});
-            //timeSlider.on("next", function (evt) {});*/
 
         },
 
@@ -609,16 +480,20 @@ define([
                 from = 2001,
                 to = 2012;
 
-            //$("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > span.radio-icon > span").click(function() {
-            //$("#master-layer-list > div > ul > li:nth-child(1)").click(function() {
             $(".layer-list-item.forest-change").click(function() {
-                //$(".layer-list-item.forest-change > ul > li").click(function() {
                 var $this = $(this);
                 ionCallback.call(this);
-
-                //$(".irs-slider.to").css("left", "792px");
+                var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
+                var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
+                newLeft2 *= 1;
+                if (to == 2012) {
+                    $(".irs-slider.to").css("left", "730px");
+                } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") === undefined) {
+                    $("#irs-1 > span.irs > span.irs-slider.to").css("left", ((newLeft2 + 8) + 'px'));
+                } else {
+                    $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", ((newLeft2 + 8) + 'px'));
+                }
             });
-            //$("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div > span.radio-icon > span").click(function() {
             $("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div").click(function() {
                 var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
                 var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
@@ -643,7 +518,6 @@ define([
                     playing: false,
                     prettify: false,
                     //values: ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"],
-                    //hasGrid: true,
                     onChange: function(data) {
                         from = data.fromNumber;
                         to = data.toNumber;
@@ -652,7 +526,6 @@ define([
                             $(".irs-to").show();
                         }
                         $(".irs-single").hide();
-                        //$("#range").ionRangeSlider("update");
                         if ($range.playing !== true) {
                             $("#sliderProgressLine").hide();
                             $("#playLine2").hide();
@@ -672,6 +545,10 @@ define([
                                     $(item2.selector).css("color", "#a1ba42");
                                 }
                             }
+                            var item3 = $("#irs-1 > span.irs > span.irs-from").css("display");
+                            if (item3 === "none") {
+                                $(".playLineFiller > div").css("background-color", "#a1ba42");
+                            } // TODO: Find a better way to make the bars green on 1st thumb drag when the map is loaded w/ the Forma url & then this slider is turned on
                             if (to != 2012) {
                                 $(".container2 > div:nth-child(12)").css("color", "grey");
                             } else {
@@ -693,10 +570,7 @@ define([
             if (!sliderInit) {
                 sliderInit = true;
                 ionCallback();
-                //$(".irs-slider.to").css("left", "792px");
                 $(".irs-diapason").hide();
-
-
 
                 $(".irs-diapason").css("background-color", "transparent");
                 $(".irs-slider.from.last").each(function() {
@@ -753,7 +627,6 @@ define([
 
 
             function play() {
-                //$(".playLine").hide();
                 $("#sliderProgressLine").hide();
                 $("#playLine2").hide();
                 $('#playLine2').css("left", "0");
@@ -776,9 +649,7 @@ define([
 
                 if (sliderStart == undefined || (sliderStart == "0px" && thumbOne != 2001)) {
                     $('#playLine2').css("left", sliderStart2);
-                    //$('#playLine2').css("left", "-=1px");
                     $('#sliderProgressLine').css("left", sliderStart2);
-                    //$('#sliderProgressLine').css("left", "-=1px");
                 }
                 $('#playLine2').css("left", "-=21.5px");
                 $("#playLine2").html(thumbOne);
@@ -796,11 +667,14 @@ define([
                 $("#newSlider").html("&#x25A0");
 
                 var values = [thumbOneInitial - 2001, thumbOne - 2001];
+                values[0] = parseInt(values[0]);
+                values[1] = parseInt(values[1]);
+                LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
 
                 var playing = $range.playing;
                 var outer = setTimeout(function() {
                     timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                }, 750);
+                }, 1500);
 
                 function timeout(from, thumbOne, thumbTwo, values, thumbOneInitial) {
                     if ($range.playing === false) {
@@ -808,21 +682,17 @@ define([
                     }
 
                     $('#playLine2').css("left", "+=66.5px");
-
                     $('#sliderProgressLine').css("left", "+=66.5px");
 
-
-                    LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
-                    // 		$range.ionRangeSlider("update", {
-                    //     from: from + 1
-                    // });
                     var newDates = $range[0].value.split(';');
                     var newThumbTwo = newDates[1];
 
                     thumbOne++;
                     $("#playLine2").html(thumbOne);
-                    //values = [0,thumbOne-2000];
+
                     values = [thumbOneInitial - 2001, thumbOne - 2001];
+
+                    LayerController.updateImageServiceRasterFunction(values, MapConfig.loss);
 
                     if (newThumbTwo > thumbTwo) {
                         thumbTwo = newThumbTwo;
@@ -836,16 +706,14 @@ define([
                             $('#sliderProgressLine').css("left", "-=1px");
                         }
 
-
                         $("#newSlider").html("&#9658");
                         $range.playing = false;
                         return;
                     }
-                    //from++;
                     if ($range.playing === true) {
                         setTimeout(function() {
                             timeout(from, thumbOne, thumbTwo, values, thumbOneInitial);
-                        }, 750);
+                        }, 1500);
                     }
                 }
             }
@@ -1173,6 +1041,288 @@ define([
                     cb.set('checked', item.checked);
                 }
             });
+        },
+
+        exportSuitabilitySettings: function() {
+            var _self = this;
+            require([
+                "dijit/Dialog",
+                "dojo/on",
+                "dojo/_base/lang"
+            ], function(Dialog, on, Lang) {
+                //Export Dialog
+                //TODO: Move this HTML into one of the template files.
+                var content = "<p>" + MapConfig.suitabilityExportDialog.instruction + "</p>";
+                content += "<p id='export-error-message' style='color: #e50036;font-size: 12px;'></p>";
+                content += "<div id='export-loading-now' class='submit-container' style='display: none; visibility: hidden;'><div class='loading-wheel-container'><div class='loading-wheel'></div></div></div>"
+                content += "<div id='export-buttons-container' class='submit-container'>";
+                content += "<button id='export-cancel-now'>Cancel</button> ";
+                content += "<button id='export-download-now'>Download</button>";
+                content += "</div>";
+
+                var dialog = new Dialog({
+                    title: MapConfig.suitabilityExportDialog.title.toUpperCase(),
+                    style: "height: 190px; width: 415px; overflow-y: none;",
+                    draggable: false,
+                    hide: function() {
+                        dialog.destroy();
+                    }
+                });
+                dialog.setContent(content);
+                dialog.show();
+
+                on(dom.byId("export-cancel-now"), 'click', function() {
+                    dialog.destroy();
+                });
+                on(dom.byId("export-download-now"), 'click', function() {
+                    //Export CSV
+                    var text = _self._getSettingsCSV();
+                    var blob = new Blob([text], {
+                        type: "text/csv;charset=utf-8;"
+                    });
+                    saveAs(blob, "settings.csv");
+
+                    //dom.byId("export-error-message").innerHTML = "";
+                    domStyle.set(dom.byId("export-buttons-container"), 'visibility','hidden');
+                    domStyle.set(dom.byId("export-loading-now"), 'visibility','visible');
+                    domStyle.set(dom.byId("export-loading-now"), 'display','block');
+
+                    //Export GeoTIFF
+                    _self._saveTIFF(function (errorMsg) {
+                        console.log("**callback** (error = " + errorMsg + ")");
+                        //domStyle.set(dom.byId("export-buttons-container"), 'visibility','visible');
+                        domStyle.set(dom.byId("export-loading-now"), 'visibility','hidden');
+                        domStyle.set(dom.byId("export-loading-now"), 'display','none');
+                        if (errorMsg == "") {
+                            //Close pop-up
+                            dialog.destroy();
+                        } else {
+                            dom.byId("export-error-message").innerHTML = errorMsg;
+                        }
+                    });
+
+                });
+            });
+        },
+
+        _saveTIFF: function (callback) {
+            var _self = this;
+            var ext = app.map.extent;
+            var width = 1460;
+            var height = 854;
+            var params = {
+                noData: 0,
+                noDataInterpretation: "esriNoDataMatchAny",
+                interpolation: "RSP_BilinearInterpolation",
+                format: "tiff",
+                size: width + "," + height,
+                imageSR: 3857,
+                bboxSR: 3857,
+                f: "json",
+                pixelType: 'UNKNOWN'
+            };
+            //console.log("params", params);
+
+            var exporter = function (url, content) {
+                console.log("exporter() :: url = ", url);
+                window.open(url, "geoTiffWin");
+                callback("");
+                /*
+                var layersRequest = request({
+                    url: url,
+                    content: content,
+                    handleAs: "json",
+                    callbackParamName: "callback"
+                });
+                layersRequest.then(
+                    function (response) {
+                        console.log(response);
+                        window.open(response.href, "geoTiffWin");
+                        callback("");
+                    }, function (error) {
+                        console.log("Error: ", error.message);
+                        callback(error.message);
+                    });
+                /**/
+                /*
+                $.ajax({
+                    url: url,
+                    //data: myData,
+                    type: 'GET',
+                    crossDomain: true,
+                    dataType: 'jsonp',
+                     success: function() {
+                         alert("Success");
+                         callback("");
+                     },
+                     error: function(jqXHR, errorMessage) {
+                         alert('Failed!');
+                         console.log("ERROR: ", errorMessage);
+                         callback(errorMessage);
+                     } //,
+                    // beforeSend: setHeader
+                });
+                */
+            };
+
+            var layerID = MapConfig.suit.id;
+            //console.log(" :: layerID = " + layerID);
+            app.map.getLayer(layerID).getImageUrl(app.map.extent, width, height, exporter, params);
+            /*
+            var _self = this;
+            require(["esri/request", "mapui", "mainmodel", "dialog", "resources", "on"],
+                function (esriRequest, MapUI, MainModel, Dialog, Resources, on) {
+                    function exporter(url, content) {
+                        var layersRequest = esriRequest({
+                            url: url,
+                            content: content,
+                            handleAs: "json",
+                            callbackParamName: "callback"
+                        });
+                        layersRequest.then(
+                            function (response) {
+                                // dlg is the dialog created below
+                                dlg.hide();
+                                window.open(response.href, "newWin");
+
+                            }, function (error) {
+                                console.log("Error: ", error.message);
+                            });
+                        //xmlhttp.open("POST", result, true);
+                        //xmlhttp.send();
+                    }
+                    var map = MapUI.getMap();
+                    var ext = map.extent;
+                    var width = 1460;
+                    var height = 854;
+                    var bbox =
+                    {
+                        xmax: ext.xmax,
+                        xmin: ext.xmin,
+                        ymax: ext.ymax,
+                        ymin: ext.ymin
+                    };
+                    var params = {
+                        noData: 0,
+                        noDataInterpretation: "esriNoDataMatchAny",
+                        interpolation: "RSP_BilinearInterpolation",
+                        format: "tiff",
+                        size: width + "," + height,
+                        imageSR: 3857,
+                        bboxSR: 3857,
+                        f: "json",
+                        pixelType: 'UNKNOWN'
+                    };
+
+                    var resources = Resources(),
+                        content = resources.en.exportSuitImageContent,
+                        title = resources.en.exportSuitImage;
+
+                    var dlg = registry.byId("exportMapDialog");
+                    dlg.set("title", title);
+                    dlg.set("style", "width: 300px;");
+                    dom.byId("exportMapDialogContent").innerHTML = content;
+                    dlg.show();
+
+                    on.once(dom.byId("exportOK"), "click", function () {
+                        var sl = map.getLayer(toolsconfig.getConfig().suitabilityImageServiceLayer.id).getImageUrl(map.extent,
+                            width, height, exporter, params);
+                        //_self.exportSuitText();
+                    });
+
+                    on.once(dom.byId("exportCancel"), "click", function () {
+                        dlg.hide();
+                    });
+
+                    //bbox['spatialReference'] = { 'wkid': 3857 };
+                    //_self.computeSuitHistogram("PalmOilSuitability_Histogram", bbox, "esriGeometryEnvelope");
+                });
+            */
+        },
+
+        _getSettingsCSV: function() {
+            // get slider values & labels (and direction)
+            var sliders = ["peat-depth-slider","conservation-area-slider","water-resource-slider","slope-slider","elevation-slider","rainfall-slider","soil-drainage-slider","soil-depth-slider","soil-acid-slider"];
+            var sliderSelections = "";
+            var lbl, vals, bounds, rev, cfg, temp;
+            arrayUtils.forEach(sliders, function (sliderName) {
+                lbl = dom.byId(sliderName + "-label");
+                vals = jq171('#' + sliderName).rangeSlider('values');
+                bounds = jq171('#' + sliderName).rangeSlider('bounds');
+                rev = domClass.contains(sliderName, "reverseSlider");
+                //console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals, " :: bounds: ", bounds);
+
+                // get tooltips to use for value-labels, if available
+                temp = sliderName.split("-");
+                if (temp[0] != "rainfall") {
+                    cfg = MapConfig.suitabilitySliderTooltips[temp[0]];
+                    if (cfg == undefined) {
+                        if (temp[1] == "acid") temp[1] = "acidity";
+                        cfg = MapConfig.suitabilitySliderTooltips[temp[1]];
+                    }
+                }
+                //console.log(" :: " + lbl.innerHTML + " :: slider value-labels : ", cfg);
+
+                if (sliderSelections != "") sliderSelections += "\n";
+                sliderSelections += lbl.innerHTML + ",";
+                if (rev) {
+                    if (cfg == undefined) {
+                        sliderSelections += bounds.min + "-" + vals.min;
+                    } else {
+                        var tempList = "";
+                        for (var i=bounds.min; i<=vals.min; ++i) {
+                            if (tempList != "") tempList += "; ";
+                            tempList += cfg[i].replace(",","/");
+                        }
+                        sliderSelections += tempList;
+                    }
+                } else {
+                    if (cfg == undefined) {
+                        sliderSelections += vals.min + "-" + vals.max;
+                    } else {
+                        var tempList = "";
+                        for (var i=vals.min; i<=vals.max; ++i) {
+                            if (tempList != "") tempList += "; ";
+                            tempList += cfg[i].replace(",","/");
+                        }
+                        sliderSelections += tempList;
+                    }
+                }
+            });
+
+            // get value-labels for selected checkboxes
+            var landCoverSelection = "";
+            var soilTypeSelection = "";
+            var cb;
+            arrayUtils.forEach(MapConfig.checkboxItems, function(item) {
+                cb = registry.byId(item.node);
+                if (cb && cb.get('checked')) {
+                    lbl = dojoQuery("label[for='" + item.node + "']")[0];
+                    //console.log(" :: chb '" + item.node + "': checked? " + cb.get('checked'));
+                    //console.log(" :::: LABEL:", lbl);
+                    if (item.name == "landcover-checkbox") {
+                        if (landCoverSelection != "") landCoverSelection += "; ";
+                        landCoverSelection += lbl.innerHTML;
+                    } else if (item.name == "soil-type-checkbox") {
+                        if (soilTypeSelection != "") soilTypeSelection += "; ";
+                        soilTypeSelection += lbl.innerHTML;
+                    }
+                }
+            });
+            //console.log(" :: LANDCOVER: ", landCoverSelection);
+            //console.log(" :: SOIL TYPE: ", soilTypeSelection);
+
+            //composite CSV
+            var fields = ['Suitability Parameter', 'Suitability Values'];
+            var csvStr = fields.join(",") + '\n';
+            csvStr += sliderSelections + "\n";
+            csvStr += "Land Cover," + landCoverSelection + "\n";
+            csvStr += "Soil Type," + soilTypeSelection + "\n";
+            //console.log("----------------------------------------------");
+            //console.log(csvStr);
+            //console.log("----------------------------------------------");
+
+            return csvStr;
         },
 
         resizeRangeSliders: function() {

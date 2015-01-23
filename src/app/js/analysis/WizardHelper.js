@@ -9,11 +9,12 @@ define([
 	"dojo/_base/array",
 	// My Modules
 	"map/config",
+	"utils/Hasher",
 	"utils/GeoHelper",
 	"analysis/Query",
 	"analysis/config",
 	"components/wizard/Wizard",
-], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, GeoHelper, AnalyzerQuery, AnalyzerConfig, Wizard) {
+], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, Hasher, GeoHelper, AnalyzerQuery, AnalyzerConfig, Wizard) {
 	'use strict';
 
 	var wizard;
@@ -106,6 +107,13 @@ define([
 				this.cleanupWizard();
 			} else {
 				this.showWizardRelatedLayers();
+			}
+
+			// Add this variable to the url to share the status of this drawer
+			if (wizardWidth === 0) {
+				Hasher.removeKey('wiz');
+			} else {
+				Hasher.setHash('wiz', 'open');
 			}
 
 			return deferred.promise;

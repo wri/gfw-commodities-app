@@ -1,117 +1,165 @@
 define([
-	"dojo/hash",
-	"dojo/io-query",
-	"dojo/topic",
-	"dojo/_base/array",
+    "dojo/hash",
+    "dojo/io-query",
+    "dojo/topic",
+    "dojo/_base/array",
     "dojo/query"
-], function (hash, ioQuery, topic, arrayUtils, query) {
-	'use strict';
+], function(hash, ioQuery, topic, arrayUtils, query) {
+    'use strict';
 
-	var currentView;
+    var currentView,
+        currentX,
+        currentY,
+        currentL;
 
-	return {
-		// Grab initial hash or set initial hash to home and return current view
-		init: function () {
-			var state = ioQuery.queryToObject(hash()),
-					defaultView = 'home',
-					self = this;
 
-			if (state.hasOwnProperty('v')) {
-				defaultView = state.v;
-			} else {
-				state.v = 'home';
-				hash(ioQuery.objectToQuery(state));
-			}
+    return {
+        // Grab initial hash or set initial hash to home and return current view
+        init: function() {
+            var state = ioQuery.queryToObject(hash()),
+                defaultView = 'home',
+                self = this;
+            //state['x'];
+            //state['y'];
 
-			currentView = state.v;
-			topic.subscribe("/dojo/hashchange", function (changedHash) {
-				state = ioQuery.queryToObject(changedHash);
-				// If view has not changed, do nothing
-				if (state.v === currentView) {
-					return;
-				}
-				currentView = state.v;
-				self.changeView(currentView);
+            if (state.hasOwnProperty('v')) {
+                defaultView = state.v;
+            } else {
+                state.v = 'home';
+                hash(ioQuery.objectToQuery(state));
+            }
 
-			});
-			return defaultView;
-		},
+            currentView = state.v;
+            currentX = state.x;
+            currentY = state.y;
+            currentL = state.l;
+            topic.subscribe("/dojo/hashchange", function(changedHash) {
+                var oldState = state;
 
-		getHash: function (key) {
-			return key ? ioQuery.queryToObject(hash())[key] : ioQuery.queryToObject(hash());
-		},
+                state = ioQuery.queryToObject(changedHash);
+                //console.log(state);
 
-		setHash: function (key, value) {
-			var state = ioQuery.queryToObject(hash());
-			state[key] = value;
-			hash(ioQuery.objectToQuery(state));
-		},
+                if ((state.x !== currentX || state.y !== currentY) && state.v == "map") {
+                    topic.publish('centerChange', currentX, currentY, currentL);
+                }
 
-    setHashFromState: function (state) {
-    	// We dont wont to overwrite the lyrs part of the hash,
-    	// We need to hold on to that and make sure it is mixed in
-    	// Discuss with Jason, May need to find another way to implement 
-    	// this so it does not mess up his features, or we should probably
-    	// stash them and only bring them back when were in the map view
-    	var currentHash = this.getHash();
-    	if (currentHash.lyrs) {
-    		state.lyrs = currentHash.lyrs;
-    	}
+                // If view has not changed, do nothing
+                if (state.v === currentView) {
+                    return;
+                }
+                currentView = state.v;
+                self.changeView(currentView);
 
-      hash(ioQuery.objectToQuery(state));
-    },
+            });
+            return defaultView;
+        },
 
-    removeKey: function (key) {
-      var state = ioQuery.queryToObject(hash());
-      if (state[key]){
-          delete state[key];
-      }
-      hash(ioQuery.objectToQuery(state));
-    },
+        handleHashChange: function(newState, oldState) {
+            var that = this;
+            //o.newState = newState;
+            //var changedView = oldState.v != newState.v;
+            //var mapView = newState.v == "map";
+            var centerChange = ((oldState.x != newState.x) || (oldState.y != newState.y) || (oldState.y != newState.y));
+            //var centerChange = 
+            //handle different scenarios here
+            // if (changedView) {
+            //     that.changeView(newState.v, oldState.v);
+            // }
+            //if (mapView && centerChange) {
+            EventsController.centerChange(newState);
+            MapController.centerChange();
+            //}
+            //currentState = newState; //important
 
-		toggleLayers: function (layerId) {
-			var state = ioQuery.queryToObject(hash()),
-					lyrsArray,
-					index;
+        },
 
-			lyrsArray = state.lyrs ? state.lyrs.split(",") : [];
-			index = lyrsArray.indexOf(layerId);
+        getHash: function(key) {
+            return key ? ioQuery.queryToObject(hash())[key] : ioQuery.queryToObject(hash());
+        },
 
-			if (index > -1) {
-				lyrsArray.splice(index, 1);
-			} else {
-				lyrsArray.push(layerId);
-			}
+        setHash: function(key, value) {
+            var state = ioQuery.queryToObject(hash());
+            state[key] = value;
+            hash(ioQuery.objectToQuery(state));
+        },
 
-			if (lyrsArray.length === 0) {
-				delete state.lyrs;
-			} else {
-				state.lyrs = lyrsArray.join(',');
-			}
+        setHashFromState: function(state) {
+            // We dont wont to overwrite the lyrs part of the hash,
+            // We need to hold on to that and make sure it is mixed in
+            // Discuss with Jason, May need to find another way to implement 
+            // this so it does not mess up his features, or we should probably
+            // stash them and only bring them back when were in the map view
 
-			hash(ioQuery.objectToQuery(state));
-		},
+            var currentHash = this.getHash();            
+            if (currentHash.x && currentHash.y) {
+                state.x = currentHash.x;
+                state.y = currentHash.y;
+                state.l = currentHash.l;
 
-		getLayers: function () {
-			var layers = ioQuery.queryToObject(hash()).lyrs;
-			return layers ? layers.split(',') : [];
-		},
+            }
+            if (currentHash.lyrs) {
+                state.lyrs = currentHash.lyrs;
+            }
 
-		removeLayers: function (value) {
-			var state = ioQuery.queryToObject(hash()),
-					layers = state.lyrs.split(',');
+            if (currentHash.wiz) {
+                state.wiz = currentHash.wiz;
+            }
 
-			layers.splice(layers.indexOf(value), 1);
-			state.lyrs = layers.join(",");
+            hash(ioQuery.objectToQuery(state));
 
-			hash(ioQuery.objectToQuery(state));
-			
-		},
+        },
 
-		changeView: function (view) {
-			topic.publish('changeView', view);
-		}
+        removeKey: function(key) {
+            var state = ioQuery.queryToObject(hash());
+            if (state[key]) {
+                delete state[key];
+            }
+            hash(ioQuery.objectToQuery(state));
+        },
 
-	};
+        toggleLayers: function(layerId) {
+            var state = ioQuery.queryToObject(hash()),
+                lyrsArray,
+                index;
+
+            lyrsArray = state.lyrs ? state.lyrs.split(",") : [];
+            index = lyrsArray.indexOf(layerId);
+
+            if (index > -1) {
+                lyrsArray.splice(index, 1);
+            } else {
+                lyrsArray.push(layerId);
+            }
+
+            if (lyrsArray.length === 0) {
+                delete state.lyrs;
+            } else {
+                state.lyrs = lyrsArray.join(',');
+            }
+
+            hash(ioQuery.objectToQuery(state));
+        },
+
+        getLayers: function() {
+            var layers = ioQuery.queryToObject(hash()).lyrs;
+            return layers ? layers.split(',') : [];
+        },
+
+        removeLayers: function(value) {
+            var state = ioQuery.queryToObject(hash()),
+                layers = state.lyrs.split(',');
+
+            layers.splice(layers.indexOf(value), 1);
+            state.lyrs = layers.join(",");
+
+            hash(ioQuery.objectToQuery(state));
+
+        },
+
+        changeView: function(view) {
+            topic.publish('changeView', view);
+        }
+
+    };
 
 });

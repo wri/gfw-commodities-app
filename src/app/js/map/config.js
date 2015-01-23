@@ -4,7 +4,7 @@ define([], function () {
 	// The dynamicMapServiceUrl is currently being used by the following layers (by key):
 	// ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm
 	var dynamicMapServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer",
-			treeCoverGainUrl = 'http://gis-potico.wri.org/arcgis/rest/services/GFW/Forest_Gain_2000_2012_map/MapServer',
+			treeCoverGainUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
 			treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
 			//treeCoverGainUrl = "http://54.241.14.14:6080/arcgis/rest/services/Forest_Gain_2000_2012_map/MapServer",
 			//treeCoverGainImageUrl = "http://54.241.14.14:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer",
@@ -976,57 +976,61 @@ define([], function () {
 
 		suitabilitySliderTooltips: {
 			"peat":{
-        0: "0 cm",
-        1: "Less than 50 cm",
-        2: "50 - 100 cm",
-        3: "100- 200 cm" //,
-        // 4: "200+ cm"//, // Was 200 - 400
-        // 5: "400 - 800 cm",
-        // 6: "800 - 1,200 cm"
-      },
-      "rainfall":{
-        "label": "mm/yr"
-      },
-      "drainage":{
-        1: "very poor",
-        2: "poor, imperfect",
-        3: "well, moderately well",
-        4: "excessive, slightly excessive"
-      },
-      "depth":{
-        1: "none, very shallow (0-10 cm)",
-        2: "shallow (11-25 cm)",
-        3: "mod shallow (26-50 cm)",
-        4: "mod deep (51-75 cm)",
-        5: "deep (76-100 cm)",
-        6: "very deep (101-150 cm)",
-        7: "extremely deep (> 150 cm)"
-      },
-      "acidity":{
-        1: "excessively acid (< 4.0)",
-        2: "extremely acid (4.0 - 4.5)",
-        3: "very strongly acid (4.6 - 5.0)",
-        4: "strongly acid (5.1 - 5.5)",
-        5: "moderately acid (5.6 - 6.0)",
-        6: "slightly acid (6.1 - 6.5)",
-        7: "neutral (6.6 - 7.3)",
-        8: "slightly alkaline (7.4 - 7.8)"
-      },
-      "treeCover": {
-        0: "2001",
-        1: "2002",
-        2: "2003",
-        3: "2004",
-        4: "2005",
-        5: "2006",
-        6: "2007",
-        7: "2008",
-        8: "2009",
-        9: "2010",
-        10: "2011",
-        11: "2012"
-      }
-		}
+                0: "0 cm",
+                1: "Less than 50 cm",
+                2: "50 - 100 cm",
+                3: "100- 200 cm" //,
+                // 4: "200+ cm"//, // Was 200 - 400
+                // 5: "400 - 800 cm",
+                // 6: "800 - 1,200 cm"
+            },
+              "rainfall":{
+                "label": "mm/yr"
+            },
+              "drainage":{
+                1: "very poor",
+                2: "poor, imperfect",
+                3: "well, moderately well",
+                4: "excessive, slightly excessive"
+            },
+            "depth":{
+                1: "none, very shallow (0-10 cm)",
+                2: "shallow (11-25 cm)",
+                3: "mod shallow (26-50 cm)",
+                4: "mod deep (51-75 cm)",
+                5: "deep (76-100 cm)",
+                6: "very deep (101-150 cm)",
+                7: "extremely deep (> 150 cm)"
+            },
+            "acidity":{
+                1: "excessively acid (< 4.0)",
+                2: "extremely acid (4.0 - 4.5)",
+                3: "very strongly acid (4.6 - 5.0)",
+                4: "strongly acid (5.1 - 5.5)",
+                5: "moderately acid (5.6 - 6.0)",
+                6: "slightly acid (6.1 - 6.5)",
+                7: "neutral (6.6 - 7.3)",
+                8: "slightly alkaline (7.4 - 7.8)"
+            },
+            "treeCover": {
+                0: "2001",
+                1: "2002",
+                2: "2003",
+                3: "2004",
+                4: "2005",
+                5: "2006",
+                6: "2007",
+                7: "2008",
+                8: "2009",
+                9: "2010",
+                10: "2011",
+                11: "2012"
+            }
+		},
+        suitabilityExportDialog: {
+            title: "Export Suitability Settings and GeoTiff",
+            instruction: "The resolution downloaded for the Suitability Map is based on your current zoom extent. For a higher resolution download, zoom in closer to your area of interest."
+        }
 
 
 	};
