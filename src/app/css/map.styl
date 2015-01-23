@@ -271,6 +271,17 @@ wizardBlue = #00688B
 	padding-left 25px
 	margin-right 10px
 	cursor pointer
+	color #898989
+	float right
+
+.gfw .toolbox_legend_suitability .export-suitability
+	background url('images/export_icon.png') no-repeat 5px center
+	border-left 1px solid greyBorder
+	background-size 14px 14px
+	padding-left 25px
+	margin-right 10px
+	cursor pointer
+	color #898989
 	float right
 
 .gfw .toolbox_legend_suitability .close-suitability
@@ -281,6 +292,25 @@ wizardBlue = #00688B
 	float right
 	height 30px
 	width 25px
+
+
+.gfw .submit-container
+    text-align center
+	margin 10px 0
+
+.gfw .submit-container button
+	border 1px solid baseGray
+	background baseGray
+    border-radius(3px)
+    padding 5px 3px
+	font-size 14px
+	cursor pointer
+	outline 0
+
+.gfw .submit-container button:hover, .gfw .submit-container button:active
+	border 1px solid orangeButton
+	background orangeButton
+
 
 .gfw .layer-controls-container .toolbox_legend > p,
 .gfw .layer-controls-container .toolbox_legend_suitability > p
@@ -420,11 +450,15 @@ wizardBlue = #00688B
 
 .gfw .suitability_toolbox .suitable-checkbox
 	margin 3px 0 3px 20px
+.gfw .suitability_toolbox .suitable-checkbox-soil
+	margin 3px 0 3px 20px
 
 .gfw .suitability_toolbox .slider-name:first-of-type
 	margin-top 5px
 
 .gfw .suitability_toolbox .suitable-checkbox:last-of-type
+	margin-bottom 15px
+.gfw .suitability_toolbox .suitable-checkbox-soil:last-of-type
 	margin-bottom 15px
 
 .gfw .suitability_toolbox .slider-labels
@@ -581,7 +615,8 @@ wizardBlue = #00688B
 	border 1px solid #461D7C !important
 /* Overrides for Checkboxes */
 /* Overrides for Accordion Containers that contain sliders and checkboxes */
-#crop-criteria, #environmental-criteria
+/*#crop-criteria,*/
+#environmental-criteria
 	overflow-x hidden
 /* Overrides for Accordion Containers that contain sliders and checkboxes */
 .container2 {
@@ -609,122 +644,119 @@ wizardBlue = #00688B
 	margin-top: -18px;
 }
 
-.container3 {
+#yearDotContainer {
 	margin-top: -22px;
 	font-size: 12px;
 }
 
-.container3 > div {
-	color: transparent;
-}
-
-.container3 > div:first-child {
-	position: absolute;
-	left: 81.5px;
+#yearDotContainer > div:first-child {
+	//position: absolute;
+	//left: 81.5px;
 	top: 19px;
 	font-size: 150%;
 }
 
-.container3 > div:nth-child(2) {
-    position: absolute;
-	left: 121px;
+
+#yearDotContainer > div:nth-child(3) {
+    //position: absolute;
+	//left: 160.5px;
 }
 
-.container3 > div:nth-child(3) {
-    position: absolute;
-	left: 160.5px;
+#yearDotContainer > div:nth-child(4) {
+    //position: absolute;
+	//left: 200px;
 }
 
-.container3 > div:nth-child(4) {
-    position: absolute;
-	left: 200px;
+#yearDotContainer > div:nth-child(5) {
+    //position: absolute;
+	//left: 239.5px;
 }
 
-.container3 > div:nth-child(5) {
-    position: absolute;
-	left: 239.5px;
+#yearDotContainer > div:nth-child(6) {
+    //position: absolute;
+	//left: 279px;
 }
 
-.container3 > div:nth-child(6) {
-    position: absolute;
-	left: 279px;
+#yearDotContainer > div:nth-child(7) {
+ //    position: absolute;
+	// left: 318.5px;
 }
 
-.container3 > div:nth-child(7) {
-    position: absolute;
-	left: 318.5px;
+#yearDotContainer > div:nth-child(8) {
+ //    position: absolute;
+	// left: 358px;
 }
 
-.container3 > div:nth-child(8) {
-    position: absolute;
-	left: 358px;
+#yearDotContainer > div:nth-child(9) {
+ //    position: absolute;
+	// left: 397.5px;
 }
 
-.container3 > div:nth-child(9) {
-    position: absolute;
-	left: 397.5px;
+#yearDotContainer > div:nth-child(10) {
+ //    position: absolute;
+	// left: 437px;
 }
 
-.container3 > div:nth-child(10) {
-    position: absolute;
-	left: 437px;
+#yearDotContainer > div:nth-child(11) {
+ //    position: absolute;
+	// left: 476.5px;
 }
 
-.container3 > div:nth-child(11) {
-    position: absolute;
-	left: 476.5px;
+#yearDotContainer > div:nth-child(12) {
+ //    position: absolute;
+	// left: 516px;
 }
 
-.container3 > div:nth-child(12) {
-    position: absolute;
-	left: 516px;
-}
-
-.container3 > div:nth-child(13) {
-    position: absolute;
-	left: 555.5px;
+#yearDotContainer > div:nth-child(13) {
+ //    position: absolute;
+	// left: 555.5px;
 	top: 19px;
 	font-size: 150%;
 }
 
-.container3 > div:nth-child(14) {
-    position: absolute;
-	left: 595px;
+#yearDotContainer > div:nth-child(14) {
+ //    position: absolute;
+	// left: 595px;
 }
 
-.container3 > div:nth-child(15) {
-    position: absolute;
-	left: 634.5px;
+#yearDotContainer > div:nth-child(15) {
+ //    position: absolute;
+	// left: 634.5px;
 }
 
-.container3 > div:nth-child(16) {
-    position: absolute;
-	left: 674px;
+#yearDotContainer > div:nth-child(16) {
+ //    position: absolute;
+	// left: 674px;
 }
 
-.container3 > div:nth-child(17) {
-    position: absolute;
-	left: 713.5px;
+#yearDotContainer > div:nth-child(17) {
+ //    position: absolute;
+	// left: 713.5px;
 }
 
-.container3 > div:nth-child(18) {
-    position: absolute;
-	left: 753px;
+#yearDotContainer > div:nth-child(18) {
+ //    position: absolute;
+	// left: 753px;
 }
 
-.container3 > div:nth-child(19) {
-    position: absolute;
-	left: 792.5px;
+#yearDotContainer > div:nth-child(19) {
+ //    position: absolute;
+	// left: 792.5px;
 }
 
-.container3 > div:nth-child(20) {
-    position: absolute;
-	left: 832px;
+#yearDotContainer > div:nth-child(20) {
+ //    position: absolute;
+	// left: 832px;
 }
 
-.container3 > div:nth-child(21) {
-    position: absolute;
-	left: 871.5px;
+#yearDotContainer > div:nth-child(21) {
+ //    position: absolute;
+	// left: 871.5px;
+}
+
+#yearDotContainer > div:nth-child(22) {
+ //    position: absolute;
+	// left: 871.5px;
 }
 
 
@@ -828,10 +860,6 @@ wizardBlue = #00688B
 
 .playLineFiller2 > div:nth-child(1) {
     margin-left: 4px;
-}
-
-.playLineFiller2 > div:nth-child(2) {
-    margin-left: 478px;
 }
 
 #sliderProgressLine {

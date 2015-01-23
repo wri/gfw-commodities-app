@@ -43,13 +43,15 @@ define([
 
 		addConfigurations: function () {
 			// Add this to basemaps so I can pass terrain as an option
-			esriConfig.defaults.map.basemaps.terrain = {
-        baseMapLayers: [
-          { url: "http://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer" }, 
-          { url: "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer" } 
-        ],
-        title: "Terrain Basemap"
-      };
+
+            // 20141231 CRB - Commented out because it breaks when using the ESRI 3.12 library.
+			/*esriConfig.defaults.map.basemaps.terrain = {
+                baseMapLayers: [
+                  { url: "http://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer" },
+                  { url: "http://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer" }
+                ],
+                title: "Terrain Basemap"
+            };*/
 		},
 
 		createMap: function () {

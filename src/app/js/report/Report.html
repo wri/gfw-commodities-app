@@ -29,12 +29,23 @@
 					Subscribe to Alerts
 				</div>
 				<div class="total-area">
-					<span>Total Area (ha):</span>
+                    <span id="total-area-info-icon" class="info-icon"></span>
+                    <span>Total Calculated Area (ha):</span>
 					<span id='total-area' class="total-area-value"><div class="loader-wheel area"></div></span>
 				</div>
 				<div id="print" class="print-button disabled"></div>
 			</section>
 			<section class="report-body" id="report-results-section"></section>
 		</div>
-	</body>
+        <!-- 20141217 CRB - Added info icon to Total Calculated Area in report header -->
+        <div id="total-area-info-popup" class="total-area-info-popup" style="visibility: hidden">
+            <div class="total-area-info-popup-title">
+                <span class="total-area-info-popup-label">
+                    Total Calculated Area
+                </span>
+                <span id="total-area-close-info-icon" class="close-info-icon"></span>
+            </div>
+            <div class="total-area-info-content">Area calculated from data available in GFW Commodities. For individual concession calculated area, see data limitations (link to data page on concessions). For company group calculated area, the total area is calculated from the concessions included within GFW Commodities only, and may not represent the total amount of land owned, permitted for development, or permitted for exploration by this group. A group may own additional land areas not yet publicly disclosed and available for display within GFW Commodities, and these areas are thus not included in the total calculated area.</div>
+        </div>
+    </body>
 </html>

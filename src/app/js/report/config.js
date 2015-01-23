@@ -7,7 +7,8 @@ define([], function() {
         suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         //suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
         firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
-        fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
+        fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia",
+        clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
 
     // Totoal Loss
     var lossBounds = [1, 12],
@@ -16,7 +17,7 @@ define([], function() {
 
     // Tree Cover Density
     var treeCoverLabels = ["31 - 50%", "51 - 74%", "75 - 100%"],
-        treeCoverBounds = [0, 2],
+        treeCoverBounds = [1, 3],
         treeCoverColors = ["#ccf1a5", "#859a59", "#4b5923"];
 
     // RSPO
@@ -75,11 +76,13 @@ define([], function() {
             // "http://50.18.182.188",
             "http://gis-potico.wri.org",
             "http://175.41.139.43",
-            "http://54.164.126.73"
+            //"http://54.164.126.73",
+            "https://gfw-fires.wri.org"
         ],
 
         alertUrl: {
-            forma: "http://gfw-apis.appspot.com/subscribe",
+            forma: "https://gfw-apis.appspot.com/subscribe",
+            //fires: "https://gfw-fires.wri.org/subscribe_by_polygon"
             fires: "http://54.164.126.73/subscribe_by_polygon"
         },
 
@@ -100,6 +103,7 @@ define([], function() {
 
         geometryServiceUrl: geometryServiceUrl,
         imageServiceUrl: imageServiceUrl,
+        clearanceAnalysisUrl: clearanceAnalysisUrl,
 
         /* Begin Main Layers for Analyses */
         totalLoss: {
@@ -205,6 +209,7 @@ define([], function() {
             rootNode: "primaryForest",
             title: "Primary Forests - Indonesia",
             rasterId: "$519", //11
+            formaId: "$11",
             bounds: primaryForestBounds,
             labels: primaryForestLabels,
             clearanceChart: {
@@ -223,6 +228,8 @@ define([], function() {
             rootNode: "treeCoverDensity",
             title: "Tree Cover Density",
             rasterId: "$520", //13
+            formaId: "$12",
+            includeFormaIdInRemap: true,
             rasterRemap: {
                 "rasterFunction": "Remap",
                 "rasterFunctionArguments": {
