@@ -1610,6 +1610,41 @@ body,
   padding: 20px;
 }
 
+/* line 1057 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/contentPages.styl */
+.emailWRI {
+  border: 1px solid #97bd3d;
+  margin: 10px 0 0;
+  color: #555 !important;
+  background: #fff;
+  border-color: #97bd3d;
+  text-transform: uppercase;
+  padding: 0px 35px;
+  background: #e5e5df;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  padding: 0px 12px;
+  border-radius: 40px;
+  font-size: 14px;
+  text-decoration: none;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  font-weight: 500;
+  white-space: nowrap;
+  -webkit-transition: background 0.15s linear;
+  -moz-transition: background 0.15s linear;
+  -o-transition: background 0.15s linear;
+  transition: background 0.15s linear;
+  background-color: #fff;
+  width: 100px;
+}
+
+/* line 1085 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/contentPages.styl */
+.emailWRI:hover {
+  background: #f2f2f2;
+}
+
 
 /* line 112 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
 
