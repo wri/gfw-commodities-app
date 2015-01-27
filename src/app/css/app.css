@@ -4733,7 +4733,7 @@ padding 5px 3px {
 }
 
 /* line 277 : /Users/albertmarquez/Desktop/projects/gfw-commodities/src/app/css/wizard.styl */
-.gfw .custom-feature-row.selected {
+.gfw .custom-feature-row.active {
   background-color: #888 !important;
   color: #fff;
 }

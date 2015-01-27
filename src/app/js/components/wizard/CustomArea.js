@@ -101,7 +101,7 @@ define([
     _graphicsMapper: function (item) {
       var existsSelection = this.props.analysisArea != undefined;
       var isAreaOfInterestCustom = this.props.selectedArea == 'customAreaOption';
-      var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == this.props.analysisArea.attributes.WRI_ID) ? 'custom-feature-row selected' : 'custom-feature-row';
+      var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == this.props.analysisArea.attributes.WRI_ID) ? 'custom-feature-row active' : 'custom-feature-row';
       return React.DOM.div(
         {
           'className': className,
