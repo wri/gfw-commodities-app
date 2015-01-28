@@ -17,6 +17,7 @@ define([
       getDefaultState = function () {
         return ({
           nestedListData: [],
+          activeListItemValues: [],
           selectedCommodity: config.commodityOptions[0].value
         });
       };
@@ -36,6 +37,7 @@ define([
 
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
+        console.debug('resetting');
         this.replaceState(getDefaultState());
       }
 
@@ -59,9 +61,10 @@ define([
         selectedFeatures = [];
         selectedLabels = [];
 
-        dojoQuery(".gfw .list-container .wizard-list-child-item.active-mill").forEach(function (node) {
-          domClass.remove(node, 'active-mill');
-        });
+        this.setState( { activeListItemValues: [] } );
+        // dojoQuery(".gfw .list-container .wizard-list-child-item.active-mill").forEach(function (node) {
+        //   domClass.remove(node, 'active-mill');
+        // });
 
       }
 
@@ -95,6 +98,7 @@ define([
             'data': this.state.nestedListData,
             'click': this._millPointSelected,
             'placeholder': 'Search mill points...',
+            'activeListItemValues': this.state.activeListItemValues,
             'isResetting': this.props.isResetting
           })
         )
@@ -147,8 +151,14 @@ define([
             parentNode = target.parentNode;
             label = target.innerText || target.innerHTML;
 
-            if (domClass.contains(parentNode, 'active-mill')) {
-              domClass.remove(parentNode, 'active-mill');
+
+            if ( self.state.activeListItemValues.indexOf(target.dataset.value) != -1 ) {
+            // if (domClass.contains(parentNode, 'active-mill')) {
+              var valueIndex = self.state.activeListItemValues.indexOf(target.dataset.value);
+              var newActiveListItemValues = self.state.activeListItemValues.slice(0);
+              newActiveListItemValues.splice(valueIndex, 1);
+              self.setState( { activeListItemValues: newActiveListItemValues } );
+              // domClass.remove(parentNode, 'active-mill');
               // Id to remove
               removeId = feature.attributes.OBJECTID;
               // Remove selected label from labels array
@@ -179,7 +189,9 @@ define([
               graphic = GeoHelper.preparePointAsPolygon(feature);
               wizardGraphicsLayer.add(graphic);
               // Add Active Class, Add to array or features, and add label to array of labels
-              domClass.add(parentNode, 'active-mill');
+              var newActiveListItemValues = self.state.activeListItemValues.concat([target.dataset.value]);
+              self.setState({ activeListItemValues: newActiveListItemValues });
+              // domClass.add(parentNode, 'active-mill');
               selectedFeatures.push(graphic);
               selectedLabels.push(label);
 
