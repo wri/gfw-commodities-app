@@ -10,7 +10,8 @@ define([
       value: React.PropTypes.string.isRequired,
       click: React.PropTypes.func.isRequired,
       filter: React.PropTypes.string.isRequired, // All Lowercase
-      children: React.PropTypes.array //Optional
+      children: React.PropTypes.array, //Optional
+      activeListItemValues: React.PropTypes.array //Optional
     },
 
 		render: function () {
@@ -58,6 +59,12 @@ define([
 			var label = item.label.toLowerCase(), // Filter is lowercase, make the label lowercase for comparison
 					className = 'wizard-list-child-item ' + 
 											(label.search(this.props.filter) > -1 ? '' : 'hidden');
+
+			// Condition for active class, not defining semantic vars to keep iterating quickly, instead documenting below
+			// var isItemActive = this.props.activeListItemValues.indexOf(item.value) != -1
+			if ( this.props.activeListItemValues && this.props.activeListItemValues.indexOf(item.value) != -1 ) {
+				className += 'active';
+			}
 
 			return React.DOM.div({'className': className},
 				//React.DOM.span({'className': 'wizard-list-child-item-icon'}),
@@ -115,6 +122,7 @@ define([
     		'value': item.value,
     		'click': this.props.click,
     		'children': item.children,
+    		'activeListItemValues': this.props.activeListItemValues,
     		'filter': this.state.filter
     	});
     },
