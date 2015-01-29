@@ -2289,1927 +2289,6 @@ address {
   height: 57px;
 }
 
-/* line 511 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-html,
-body {
-  padding: 0;
-  margin: 0;
-  border: 1px;
-}
-
-/* line 516 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 17, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 517 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer div,
-.layout-footer span,
-.layout-footer applet,
-.layout-footer object,
-.layout-footer iframe,
-.layout-footer h1,
-.layout-footer h2,
-.layout-footer h3,
-.layout-footer h4,
-.layout-footer h5,
-.layout-footer h6,
-.layout-footer p,
-.layout-footer blockquote,
-.layout-footer pre,
-.layout-footer a,
-.layout-footer abbr,
-.layout-footer acronym,
-.layout-footer address,
-.layout-footer big,
-.layout-footer cite,
-.layout-footer code,
-.layout-footer del,
-.layout-footer dfn,
-.layout-footer em,
-.layout-footer img,
-.layout-footer ins,
-.layout-footer kbd,
-.layout-footer q,
-.layout-footer s,
-.layout-footer samp,
-.layout-footer small,
-.layout-footer strike,
-.layout-footer strong,
-.layout-footer sub,
-.layout-footer sup,
-.layout-footer tt,
-.layout-footer var,
-.layout-footer b,
-.layout-footer u,
-.layout-footer i,
-.layout-footer center,
-.layout-footer dl,
-.layout-footer dt,
-.layout-footer dd,
-.layout-footer ol,
-.layout-footer ul,
-.layout-footer li,
-.layout-footer fieldset,
-.layout-footer form,
-.layout-footer label,
-.layout-footer legend,
-.layout-footer table,
-.layout-footer caption,
-.layout-footer tbody,
-.layout-footer tfoot,
-.layout-footer thead,
-.layout-footer tr,
-.layout-footer th,
-.layout-footer td,
-.layout-footer article,
-.layout-footer aside,
-.layout-footer canvas,
-.layout-footer details,
-.layout-footer embed,
-.layout-footer figure,
-.layout-footer figcaption,
-.layout-footer footer,
-.layout-footer header,
-.layout-footer hgroup,
-.layout-footer menu,
-.layout-footer nav,
-.layout-footer output,
-.layout-footer ruby,
-.layout-footer section,
-.layout-footer summary,
-.layout-footer time,
-.layout-footer mark,
-.layout-footer audio,
-.layout-footer video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-/* line 537 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 24, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 538 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer ol,
-.layout-footer ul {
-  list-style: none;
-}
-
-/* line 541 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 26, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 542 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* line 546 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 28, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 547 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer caption,
-.layout-footer th,
-.layout-footer td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* line 552 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 30, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 553 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer q,
-.layout-footer blockquote {
-  quotes: none;
-}
-
-/* line 556 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 103, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 557 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer q:before,
-.layout-footer q:after,
-.layout-footer blockquote:before,
-.layout-footer blockquote:after {
-  content: "";
-  content: none;
-}
-
-/* line 561 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 32, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 562 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer a img {
-  border: none;
-}
-
-/* line 565 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 116, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 566 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer article,
-.layout-footer aside,
-.layout-footer details,
-.layout-footer figcaption,
-.layout-footer figure,
-.layout-footer footer,
-.layout-footer header,
-.layout-footer hgroup,
-.layout-footer menu,
-.layout-footer nav,
-.layout-footer section,
-.layout-footer summary {
-  display: block;
-}
-
-/* line 569 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer *,
-.layout-footer *:after,
-.layout-footer *:before {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-/* line 575 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer {
-  font-family: "Fira Sans", Georgia, serif;
-  background: #eee;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* line 580 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer svg {
-  width: 100%;
-  height: 100%;
-  -webkit-transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  -moz-transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  -o-transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-}
-
-/* line 588 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .mobile-hide {
-  display: none;
-}
-
-/* line 591 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 750px) {
-
-/* line 592 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .mobile-hide {
-    display: block;
-  }
-}
-
-/* line 596 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .mobile-show {
-  display: block;
-}
-
-/* line 599 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 750px) {
-
-/* line 600 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .mobile-show {
-    display: none;
-  }
-}
-
-/* line 604 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 234, logos/*.png */
-
-/* line 605 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.logos-sprite,
-.layout-footer .partner-box .row .wri-logo,
-.layout-footer .footer-logos a.wri,
-.layout-footer .footer-logos a.wri:hover,
-.layout-footer .footer-logos a.google,
-.layout-footer .footer-logos a.google:hover,
-.layout-footer .footer-logos a.esri,
-.layout-footer .footer-logos a.esri:hover,
-.layout-footer .footer-logos a.universitymaryland,
-.layout-footer .footer-logos a.universitymaryland:hover,
-.layout-footer .footer-logos a.unep,
-.layout-footer .footer-logos a.unep:hover,
-.layout-footer .footer-logos a.imazon,
-.layout-footer .footer-logos a.imazon:hover,
-.layout-footer .footer-logos a.cfgd,
-.layout-footer .footer-logos a.cfgd:hover,
-.layout-footer .footer-logos a.osfac,
-.layout-footer .footer-logos a.osfac:hover,
-.layout-footer .footer-logos a.gfwca,
-.layout-footer .footer-logos a.gfwca:hover,
-.layout-footer .footer-logos a.scanex,
-.layout-footer .footer-logos a.scanex:hover,
-.layout-footer .footer-logos a.twrus,
-.layout-footer .footer-logos a.twrus:hover,
-.layout-footer .footer-logos a.norwegian,
-.layout-footer .footer-logos a.norwegian:hover,
-.layout-footer .footer-logos a.usaid,
-.layout-footer .footer-logos a.usaid:hover,
-.layout-footer .footer-logos a.gef,
-.layout-footer .footer-logos a.gef:hover,
-.layout-footer .footer-logos a.ukaid,
-.layout-footer .footer-logos a.ukaid:hover,
-.layout-footer .footer-logos a.tilia,
-.layout-footer .footer-logos a.tilia:hover,
-.layout-footer .footer-logos a.goodall,
-.layout-footer .footer-logos a.goodall:hover,
-.layout-footer .footer-logos a.cartodb,
-.layout-footer .footer-logos a.cartodb:hover,
-.layout-footer .footer-logos a.vizzuality,
-.layout-footer .footer-logos a.vizzuality:hover,
-.layout-footer .footer-logos a.blueraster,
-.layout-footer .footer-logos a.blueraster:hover,
-.layout-footer .footer-logos a.sida,
-.layout-footer .footer-logos a.sida:hover,
-.layout-footer .footer-logos a.danida,
-.layout-footer .footer-logos a.danida:hover,
-.layout-footer .footer-logos a.cgiar,
-.layout-footer .footer-logos a.cgiar:hover,
-.layout-footer .footer-logos a.dutchforeign,
-.layout-footer .footer-logos a.dutchforeign:hover,
-.layout-footer .footer-logos a.moore,
-.layout-footer .footer-logos a.moore:hover,
-.layout-footer .footer-logos a.bnpb,
-.layout-footer .footer-logos a.bnpb:hover,
-.layout-footer .footer-logos a.redd,
-.layout-footer .footer-logos a.redd:hover,
-.layout-footer .footer-logos a.digitalglobe,
-.layout-footer .footer-logos a.digitalglobe:hover,
-.layout-footer .footer-logos a.bobolink,
-.layout-footer .footer-logos a.vizzuality-big,
-.layout-footer .footer-logos a.vizzuality-big:hover {
-  background: url("http://gfw-nav.herokuapp.com/assets/logos-s70abc8eb5f-51c3c3c95bb9a3a115eb7d08bd369dde.png") no-repeat;
-}
-
-/* line 608 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 14, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/layouts/_grid1600.scss */
-
-/* line 609 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .inner {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* line 614 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 850px) {
-
-/* line 616 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .inner {
-    width: 95%;
-  }
-}
-
-/* line 620 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 1400px) {
-
-/* line 622 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .inner {
-    width: 75%;
-    max-width: 1200px;
-  }
-}
-
-/* line 627 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 1, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_icons1600.scss */
-
-/* line 628 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .icon {
-  display: block;
-  height: 25px;
-  width: 25px;
-}
-
-/* line 633 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 30, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 634 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer {
-  background: #edede8;
-  clear: both;
-}
-
-/* line 638 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 33, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 639 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer {
-  padding: 20px 0;
-  border-bottom: 1px solid #e5e5df;
-}
-
-/* line 643 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 36, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 644 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-box-align: stretch;
-  -moz-box-align: stretch;
-  -ms-flex-align: stretch;
-  -webkit-align-items: stretch;
-  align-items: stretch;
-}
-
-/* line 661 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 38, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 662 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li {
-  width: 16.666666%;
-}
-
-/* line 665 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 40, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 666 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a {
-  display: block;
-  padding: 20px;
-  text-decoration: none;
-}
-
-/* line 671 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 44, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 672 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a svg {
-  display: block;
-  height: 30px;
-  width: 30px;
-  margin: 0 auto;
-  float: none;
-  fill: #555;
-}
-
-/* line 680 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 52, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 681 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a h3 {
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 12px;
-  padding: 5px 0 0;
-  color: #555;
-  -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -moz-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -o-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-/* line 692 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 62, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 693 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a:hover.fire svg {
-  fill: #ed1846;
-}
-
-/* line 696 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 63, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 697 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a:hover.fire h3 {
-  color: #ed1846;
-}
-
-/* line 700 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 66, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 701 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/*TODO: Confirm these footer and header icon colors and hover colors*/
-
-/* line 702 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a.commodities svg {
-  fill: #e98300;
-}
-
-/* line 705 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 67, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 706 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a.commodities h3 {
-  color: #e98300;
-}
-
-/* line 709 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 66, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 710 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a:hover.commodities svg {
-  color: #97bd3d;
-}
-
-/* line 713 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 67, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 714 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a:hover.commodities h3 {
-  color: #97bd3d;
-}
-
-/* line 717 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 69, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 718 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a:hover svg {
-  fill: #97bd3d;
-}
-
-/* line 721 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 70, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 722 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a:hover h3 {
-  color: #97bd3d;
-}
-
-/* line 725 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 76, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 726 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map {
-  padding: 0 0 40px;
-}
-
-/* line 729 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 78, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 730 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map .row {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-box-align: stretch;
-  -moz-box-align: stretch;
-  -ms-flex-align: stretch;
-  -webkit-align-items: stretch;
-  align-items: stretch;
-  padding: 40px 0;
-  border-bottom: 1px solid #e5e5df;
-}
-
-/* line 749 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 82, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 750 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map .row .col {
-  width: 25%;
-}
-
-/* line 753 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 84, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 754 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map .row .col a {
-  text-decoration: none;
-  color: #555;
-}
-
-/* line 758 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 87, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 759 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map .row .col a:hover {
-  text-decoration: underline;
-}
-
-/* line 762 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 91, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 763 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map .row .col h3 {
-  font-size: 14px;
-  color: #555;
-  text-transform: uppercase;
-  padding: 0 0 15px;
-  font-weight: 500;
-}
-
-/* line 770 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 98, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 771 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map .row .col ul {
-  margin: -10px 0 0;
-}
-
-/* line 774 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 100, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 775 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .site-map .row .col ul li {
-  font-size: 13px;
-  padding: 5px 15px 5px 0;
-}
-
-/* line 779 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 108, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 780 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box {
-  padding: 40px 20px;
-}
-
-/* line 783 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 850px) {
-
-/* line 785 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .partner-box {
-    padding: 0 0 40px;
-  }
-}
-
-/* line 789 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 113, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 790 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box h4 {
-  font-size: 14px;
-  color: #555;
-  padding: 0 0 15px;
-  text-align: center;
-  font-weight: 500;
-}
-
-/* line 797 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 850px) {
-
-/* line 799 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .partner-box h4 {
-    text-align: left;
-    font-weight: 400;
-  }
-}
-
-/* line 804 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 124, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 805 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-box-align: start;
-  -moz-box-align: start;
-  -ms-flex-align: start;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-  -webkit-box-lines: multiple;
-  -moz-box-lines: multiple;
-  -ms-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-/* line 827 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 126, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 828 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row .wri-logo {
-  width: 200px;
-  height: 70px;
-  margin: 0 auto;
-  background-position: 0 -1749px;
-}
-
-/* line 834 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 850px) {
-
-/* line 836 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .partner-box .row .wri-logo {
-    margin: 0;
-  }
-}
-
-/* line 840 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 136, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 841 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row .address {
-  text-align: center;
-  padding: 25px 20px 0;
-  max-width: 300px;
-  margin: 0 auto;
-  font-size: 14px;
-  font-weight: 300;
-  color: #555;
-}
-
-/* line 850 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 850px) {
-
-/* line 852 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .partner-box .row .address {
-    text-align: right;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-/* line 859 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 150, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 860 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row .address > * {
-  margin: 8px 0 0;
-}
-
-/* line 863 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 152, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 864 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row .address > *:first-child {
-  margin: 0;
-}
-
-/* line 867 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 154, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 868 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row .address a {
-  color: #555;
-  font-weight: 400;
-}
-
-/* line 872 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 158, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 873 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row .address strong,
-.layout-footer .partner-box .row .address span {
-  display: block;
-}
-
-/* line 876 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 159, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 877 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .partner-box .row .address strong {
-  font-weight: 400;
-}
-
-/* line 880 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 166, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 881 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos-btn {
-  padding: 20px 0;
-}
-
-/* line 884 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 168, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 885 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos-btn .inner {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-box-align: stretch;
-  -moz-box-align: stretch;
-  -ms-flex-align: stretch;
-  -webkit-align-items: stretch;
-  align-items: stretch;
-}
-
-/* line 902 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 174, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 903 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos-btn a,
-.layout-footer .footer-logos-btn span {
-  color: #555;
-}
-
-/* line 906 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 175, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 907 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos-btn span {
-  font-size: 19px;
-}
-
-/* line 910 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 178, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 911 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos-btn a {
-  text-decoration: none;
-}
-
-/* line 914 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 180, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 915 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos-btn a:hover {
-  text-decoration: underline;
-}
-
-/* line 918 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 186, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 919 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos {
-  display: none;
-}
-
-/* line 922 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@media (min-width: 850px) {
-
-/* line 924 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-  .layout-footer .footer-logos {
-    display: block;
-    padding: 0px 0 40px;
-  }
-}
-
-/* line 929 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 192, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 930 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos .slick-slide {
-  height: 60px;
-}
-
-/* line 933 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 195, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 934 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a {
-  display: block;
-  margin: 0 auto;
-  width: 88px;
-  position: relative;
-  top: 50%;
-  -webkit-transform: translate(0, -50%);
-  -moz-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  -o-transform: translate(0, -50%);
-  transform: translate(0, -50%);
-}
-
-/* line 946 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 239, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 947 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.wri {
-  height: 32px;
-  width: 95px;
-  background-position: 0 -2490px;
-}
-
-/* line 952 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 241, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 953 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.wri:hover {
-  background-position: 0 -1075px;
-}
-
-/* line 956 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 245, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 957 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.google {
-  height: 29px;
-  width: 85px;
-  background-position: 0 -2917px;
-}
-
-/* line 962 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 247, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 963 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.google:hover {
-  background-position: 0 -656px;
-}
-
-/* line 966 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 251, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 967 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.esri {
-  height: 33px;
-  width: 87px;
-  background-position: 0 -2457px;
-}
-
-/* line 972 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 253, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 973 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.esri:hover {
-  background-position: 0 -1042px;
-}
-
-/* line 976 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 257, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 977 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.universitymaryland {
-  height: 51px;
-  width: 56px;
-  background-position: 0 -2110px;
-}
-
-/* line 982 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 259, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 983 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.universitymaryland:hover {
-  background-position: 0 -742px;
-}
-
-/* line 986 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 263, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 987 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.unep {
-  height: 57px;
-  width: 49px;
-  background-position: 0 -1912px;
-}
-
-/* line 992 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 265, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 993 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.unep:hover {
-  background-position: 0 -793px;
-}
-
-/* line 996 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 269, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 997 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.imazon {
-  height: 24px;
-  width: 79px;
-  background-position: 0 -3105px;
-}
-
-/* line 1002 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 271, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1003 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.imazon:hover {
-  background-position: 0 -1484px;
-}
-
-/* line 1006 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 275, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1007 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.cfgd {
-  height: 40px;
-  width: 84px;
-  background-position: 0 -1984px;
-}
-
-/* line 1012 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 277, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1013 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.cfgd:hover {
-  background-position: 0 -850px;
-}
-
-/* line 1016 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 281, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1017 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.osfac {
-  height: 56px;
-  width: 44px;
-  background-position: 0 -2259px;
-}
-
-/* line 1022 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 283, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1023 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.osfac:hover {
-  background-position: 0 -890px;
-}
-
-/* line 1026 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 287, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1027 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.gfwca {
-  height: 44px;
-  width: 42px;
-  background-position: 0 -2782px;
-}
-
-/* line 1032 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 289, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1033 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.gfwca:hover {
-  background-position: 0 -1705px;
-}
-
-/* line 1036 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 293, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1037 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.scanex {
-  height: 20px;
-  width: 110px;
-  background-position: 0 -2826px;
-}
-
-/* line 1042 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 295, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1043 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.scanex:hover {
-  background-position: 0 -1313px;
-}
-
-/* line 1046 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 299, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1047 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.twrus {
-  height: 28px;
-  width: 110px;
-  background-position: 0 -2692px;
-}
-
-/* line 1052 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 301, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1053 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.twrus:hover {
-  background-position: 0 -1285px;
-}
-
-/* line 1056 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 305, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1057 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.norwegian {
-  height: 46px;
-  width: 110px;
-  background-position: 0 -2213px;
-}
-
-/* line 1062 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 307, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1063 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.norwegian:hover {
-  background-position: 0 -1866px;
-}
-
-/* line 1066 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 311, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1067 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.usaid {
-  height: 64px;
-  width: 80px;
-  background-position: 0 -1604px;
-}
-
-/* line 1072 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 313, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1073 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.usaid:hover {
-  background-position: 0 -549px;
-}
-
-/* line 1076 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 317, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1077 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.gef {
-  height: 59px;
-  width: 51px;
-  background-position: 0 -2315px;
-}
-
-/* line 1082 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 319, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1083 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.gef:hover {
-  background-position: 0 -983px;
-}
-
-/* line 1086 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 323, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1087 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.ukaid {
-  height: 47px;
-  width: 43px;
-  background-position: 0 -2846px;
-}
-
-/* line 1092 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 325, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1093 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.ukaid:hover {
-  background-position: 0 -1819px;
-}
-
-/* line 1096 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 329, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1097 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.tilia {
-  height: 25px;
-  width: 67px;
-  background-position: 0 -3341px;
-}
-
-/* line 1102 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 331, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1103 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.tilia:hover {
-  background-position: 0 -3316px;
-}
-
-/* line 1106 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 335, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1107 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.goodall {
-  height: 26px;
-  width: 110px;
-  background-position: 0 -3228px;
-}
-
-/* line 1112 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 337, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1113 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.goodall:hover {
-  background-position: 0 -2522px;
-}
-
-/* line 1116 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 341, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1117 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.cartodb {
-  height: 39px;
-  width: 110px;
-  background-position: 0 -2374px;
-}
-
-/* line 1122 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 343, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1123 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.cartodb:hover {
-  background-position: 0 -1162px;
-}
-
-/* line 1126 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 347, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1127 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.vizzuality {
-  height: 58px;
-  width: 109px;
-  background-position: 0 -1546px;
-}
-
-/* line 1132 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 349, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1133 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.vizzuality:hover {
-  background-position: 0 -491px;
-}
-
-/* line 1136 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 353, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1137 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.blueraster {
-  height: 48px;
-  width: 110px;
-  background-position: 0 -2024px;
-}
-
-/* line 1142 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 355, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1143 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.blueraster:hover {
-  background-position: 0 -1201px;
-}
-
-/* line 1146 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 359, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1147 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.sida {
-  height: 55px;
-  width: 110px;
-  background-position: 0 -1386px;
-}
-
-/* line 1152 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 361, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1153 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.sida:hover {
-  background-position: 0 -1107px;
-}
-
-/* line 1156 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 365, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1157 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.danida {
-  height: 15px;
-  width: 82px;
-  background-position: 0 -3090px;
-}
-
-/* line 1162 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 367, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1163 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.danida:hover {
-  background-position: 0 -1969px;
-}
-
-/* line 1166 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 371, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1167 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.cgiar {
-  height: 43px;
-  width: 124px;
-  background-position: 0 -1441px;
-}
-
-/* line 1172 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 373, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1173 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.cgiar:hover {
-  background-position: 0 -613px;
-}
-
-/* line 1176 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 377, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1177 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.dutchforeign {
-  height: 80px;
-  width: 106px;
-  background-position: 0 -2946px;
-}
-
-/* line 1182 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 379, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1183 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.dutchforeign:hover {
-  background-position: 0 -2612px;
-}
-
-/* line 1186 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 383, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1187 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.moore {
-  height: 37px;
-  width: 96px;
-  background-position: 0 -1668px;
-}
-
-/* line 1192 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 385, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1193 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.moore:hover {
-  background-position: 0 -946px;
-}
-
-/* line 1196 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 390, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1197 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.bnpb {
-  height: 64px;
-  width: 50px;
-  background-position: 0 -3026px;
-}
-
-/* line 1202 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 392, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1203 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.bnpb:hover {
-  background-position: 0 -2548px;
-}
-
-/* line 1206 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 396, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1207 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.redd {
-  height: 62px;
-  width: 95px;
-  background-position: 0 -3254px;
-}
-
-/* line 1212 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 398, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1213 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.redd:hover {
-  background-position: 0 -2720px;
-}
-
-/* line 1216 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 402, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1217 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.digitalglobe {
-  height: 38px;
-  width: 120px;
-  background-position: 0 -2072px;
-}
-
-/* line 1222 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 404, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1223 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.digitalglobe:hover {
-  background-position: 0 -1508px;
-}
-
-/* line 1226 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 409, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1227 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.bobolink {
-  height: 53px;
-  width: 105px;
-  background-position: 0 -1333px;
-}
-
-/* line 1232 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 412, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1233 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.vizzuality-big {
-  height: 58px;
-  width: 109px;
-  background-position: 0 -1546px;
-}
-
-/* line 1238 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 414, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1239 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .footer-logos a.vizzuality-big:hover {
-  background-position: 0 -491px;
-}
-
-/* line 1241 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 366, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1242 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .terms {
-  text-align: center;
-  padding: 1em 0;
-}
-
-/* line 1246 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 369, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1247 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .terms a {
-  text-decoration: none;
-  color: #555;
-  font-size: 12px;
-}
-
-/* line 1252 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 373, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1253 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .terms a:hover {
-  text-decoration: underline;
-}
-
-/* line 1256 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 380, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1257 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  height: 155px;
-  background: #fff;
-  -ms-flex-pack: distribute;
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  border-top: 1px solid #e5e5df;
-  border-bottom: 1px solid #e5e5df;
-  position: relative;
-}
-
-/* line 1277 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 389, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1278 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-close {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 50px;
-  z-index: 2;
-  color: #555;
-  background: none;
-  padding: 0;
-  border: none;
-  font-size: 25px;
-}
-
-/* line 1292 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 402, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1293 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-close:hover {
-  color: #484848;
-}
-
-/* line 1296 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 407, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1297 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-share {
-  color: #555;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -ms-flex-direction: column;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  text-align: center;
-  height: 60px;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-}
-
-/* line 1322 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 416, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1323 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-share p strong {
-  font-weight: bold;
-}
-
-/* line 1326 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 420, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1327 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-share svg {
-  height: 22px;
-  width: 22px;
-  fill: #464352;
-}
-
-/* line 1332 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 425, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1333 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-share .fb-like {
-  top: -4px;
-}
-
-/* line 1336 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 430, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1337 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-share.keep-updated p:nth-child(2) a:nth-child(2) {
-  margin: 0 30px;
-}
-
-/* line 1340 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 432, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
-
-/* line 1341 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.footer-share-container .footer-share.keep-updated p:nth-child(2) a:nth-child(2) svg {
-  transform: scale(1.1);
-  top: -2px;
-  position: relative;
-}
-
-/* line 1346 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* Slider */
-
-/* line 1347 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 40, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1348 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-slider {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -ms-touch-action: pan-y;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* line 1363 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 55, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1364 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-list {
-  position: relative;
-  overflow: hidden;
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
-/* line 1371 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 62, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1372 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-list:focus {
-  outline: none;
-}
-
-/* line 1375 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 66, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1376 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-
-/* line 1379 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 70, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1380 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-list.dragging {
-  cursor: pointer;
-  cursor: hand;
-}
-
-/* line 1384 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 75, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1385 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-slider .slick-track {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-
-/* line 1392 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 83, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1393 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-track {
-  position: relative;
-  left: 0;
-  top: 0;
-  display: block;
-}
-
-/* line 1399 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 90, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1400 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-track:before,
-.slick-track:after {
-  content: "";
-  display: table;
-}
-
-/* line 1404 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 95, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1405 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-track:after {
-  clear: both;
-}
-
-/* line 1408 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 99, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1409 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-loading .slick-track {
-  visibility: hidden;
-}
-
-/* line 1412 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 103, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1413 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-slide {
-  float: left;
-  height: 100%;
-  min-height: 1px;
-  display: none;
-}
-
-/* line 1419 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 107, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1420 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-[dir="rtl"] .slick-slide {
-  float: right;
-}
-
-/* line 1423 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 110, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1424 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-slide img {
-  display: block;
-}
-
-/* line 1427 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 113, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1428 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-slide.slick-loading img {
-  display: none;
-}
-
-/* line 1431 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 119, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1432 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-slide.dragging img {
-  pointer-events: none;
-}
-
-/* line 1435 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 123, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1436 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-initialized .slick-slide {
-  display: block;
-}
-
-/* line 1439 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 127, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1440 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-loading .slick-slide {
-  visibility: hidden;
-}
-
-/* line 1443 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 131, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1444 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-vertical .slick-slide {
-  display: block;
-  height: auto;
-  border: 1px solid transparent;
-}
-
-/* line 1449 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* Icons */
-
-/* line 1450 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-@font-face {
-  font-family: "slick";
-  src: url("/fonts/slick.eot");
-  src: url("/fonts/slick.eot?#iefix") format("embedded-opentype"), url("/fonts/slick.woff") format("woff"), url("/fonts/slick.ttf") format("truetype"), url("/fonts/slick.svg#slick") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* line 1457 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* Arrows */
-
-/* line 1458 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 155, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1459 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-prev,
-.layout-footer .slick-next {
-  position: absolute;
-  display: block;
-  height: 50px;
-  width: 50px;
-  line-height: 0;
-  font-size: 0;
-  cursor: pointer;
-  background: #e0e0d9;
-  color: transparent;
-  top: 50%;
-  margin-top: -25px;
-  padding: 0;
-  border: none;
-  outline: none;
-  border-radius: 50%;
-}
-
-/* line 1477 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 171, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1478 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-prev:hover,
-.layout-footer .slick-prev:focus,
-.layout-footer .slick-next:hover,
-.layout-footer .slick-next:focus {
-  outline: none;
-  background: #97bd3d;
-  color: transparent;
-}
-
-/* line 1485 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 175, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1486 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-prev:hover:before,
-.layout-footer .slick-prev:focus:before,
-.layout-footer .slick-next:hover:before,
-.layout-footer .slick-next:focus:before {
-  opacity: 1;
-}
-
-/* line 1491 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 179, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1492 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-prev.slick-disabled:before,
-.layout-footer .slick-next.slick-disabled:before {
-  opacity: 0.25;
-}
-
-/* line 1496 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 183, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1497 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-prev:before,
-.layout-footer .slick-next:before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* line 1505 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 191, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1506 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-prev {
-  left: -50px;
-}
-
-/* line 1509 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 193, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1510 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-prev:before {
-  background: url("http://gfw-nav.herokuapp.com/assets/svg-icons/arrow-left.svg") center no-repeat;
-}
-
-/* line 1513 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 197, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1514 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-next {
-  right: -50px;
-}
-
-/* line 1517 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 199, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1518 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-next:before {
-  background: url("http://gfw-nav.herokuapp.com/assets/svg-icons/arrow-right.svg") center no-repeat;
-}
-
-/* line 1521 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* Dots */
-
-/* line 1522 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 206, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1523 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-slider {
-  margin-bottom: 0px;
-}
-
-/* line 1526 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 209, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1527 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-dots {
-  position: absolute;
-  bottom: -45px;
-  list-style: none;
-  display: block;
-  text-align: center;
-  padding: 0;
-  width: 100%;
-}
-
-/* line 1536 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 218, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1537 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-dots li {
-  position: relative;
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  margin: 0 5px;
-  padding: 0;
-  cursor: pointer;
-}
-
-/* line 1546 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 227, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1547 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-dots li button {
-  border: 0;
-  background: transparent;
-  display: block;
-  height: 20px;
-  width: 20px;
-  outline: none;
-  line-height: 0;
-  font-size: 0;
-  color: transparent;
-  padding: 5px;
-  cursor: pointer;
-}
-
-/* line 1560 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 239, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1561 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-dots li button:hover,
-.layout-footer .slick-dots li button:focus {
-  outline: none;
-}
-
-/* line 1564 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 241, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1565 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-dots li button:hover:before,
-.layout-footer .slick-dots li button:focus:before {
-  opacity: 1;
-}
-
-/* line 1568 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 246, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1569 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-dots li button:before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "\2022";
-  width: 20px;
-  height: 20px;
-  font-family: "slick";
-  font-size: 6px;
-  line-height: 20px;
-  text-align: center;
-  color: #000;
-  opacity: 0.25;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* line 1585 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-/* line 265, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_slick1600.scss */
-
-/* line 1586 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .slick-dots li.slick-active button:before {
-  color: #000;
-  opacity: 0.75;
-}
-
 
 /* line 112 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 
@@ -4222,6 +2301,11 @@ body {
 /* Layer Filter Colors */
 
 /* line 27 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+.header-title.reset.inner {
+  text-align: center;
+}
+
+/* line 30 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header {
   background: url("images/header_tree_background.jpg") repeat-x scroll center top transparent;
   border-bottom: 1px solid #717d80;
@@ -4230,24 +2314,24 @@ body {
   height: 210px;
 }
 
-/* line 34 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 37 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .header {
   height: 100%;
   width: 100%;
 }
 
-/* line 38 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 41 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .header .inner {
   margin: 0 auto;
   width: 75%;
 }
 
-/* line 42 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 45 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .header .outer {
   margin: 0 30px;
 }
 
-/* line 45 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 48 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .nav-topper {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-bottom: 1px solid #9b9b9b;
@@ -4257,52 +2341,52 @@ body {
   width: 100%;
 }
 
-/* line 53 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 56 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView {
   height: 135px;
 }
 
-/* line 57 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 60 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.generalView {
   height: 105px;
 }
 
-/* line 60 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 63 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .map-layer-controls {
   display: none;
 }
 
-/* line 64 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 67 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .header-title,
 .gfw .app-header.generalView .header-title {
   display: none;
 }
 
-/* line 68 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 71 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .nav-separator {
-  top: 95px;
+  top: 61px;
 }
 
-/* line 72 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 75 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.generalView .nav-separator {
   display: none;
 }
 
-/* line 76 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 79 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .map-layer-controls {
   position: absolute;
   display: block;
   right: 40px;
-  top: 80px;
+  top: 46px;
 }
 
-/* line 83 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 86 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .map-layer-controls ul {
   display: inline-block;
   list-style-type: none;
 }
 
-/* line 87 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 90 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .layer-list-header,
 .gfw .app-header .filter-list-title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -4313,17 +2397,17 @@ body {
   margin: 0 3px;
 }
 
-/* line 97 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 100 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .layer-list-header {
   opacity: 0;
 }
 
-/* line 100 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 103 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .layer-list-header a {
   padding: 0 5px;
 }
 
-/* line 103 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 106 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .layer-line {
   margin-top: 13px;
   width: 100%;
@@ -4331,12 +2415,12 @@ body {
   padding: 0;
 }
 
-/* line 109 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 112 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .layer-list-header .layer-line {
   padding: 0 4px;
 }
 
-/* line 112 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 115 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header #master-layer-list {
   box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.15);
   background-color: #fff;
@@ -4347,17 +2431,17 @@ body {
   width: 193px;
   z-index: 500;
   opacity: 0;
-  top: 80px;
+  top: 55px;
 }
 
-/* line 122 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 125 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .filter-list-title {
   text-align: center;
   margin: 15px auto;
   display: block;
 }
 
-/* line 127 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 130 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .filter-list {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   list-style-type: none;
@@ -4366,44 +2450,44 @@ body {
   margin: 0;
 }
 
-/* line 134 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 137 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-sub-title {
   margin: 3px 3px 3px 15px;
   font-size: 10px;
 }
 
-/* line 138 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 141 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-title,
 .gfw .app-header .filter-list .layer-sub-title {
   color: #888;
 }
 
-/* line 142 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 145 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .filter-list .layer-title {
   margin-left: 5px;
 }
 
-/* line 145 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 148 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .layer-list-item {
   border-bottom: 1px solid #e6e6e6;
   cursor: pointer;
   padding: 5px;
 }
 
-/* line 150 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 153 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .layer-list-item.hidden {
   display: none;
 }
 
-/* line 153 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 156 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .layer-list-item input[type='radio'] {
   margin: 3px 0;
 }
 
-/* line 156 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 159 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 158 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 161 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .filter-list ul {
   list-style-type: none;
   margin-left: 20px;
@@ -4411,12 +2495,12 @@ body {
   padding: 0;
 }
 
-/* line 164 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 167 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .filter-list ul > li {
   border: none;
 }
 
-/* line 167 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 170 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .layer-info-icon {
   float: right;
   background-image: url("images/info-icon.png");
@@ -4428,7 +2512,7 @@ body {
   color: #888 !important;
 }
 
-/* line 177 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 180 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item .layer-title,
 .gfw .forest-change.active .layer-list-item .layer-sub-title,
 .gfw .forest-cover.active .layer-list-item .layer-title,
@@ -4436,106 +2520,106 @@ body {
   color: #888;
 }
 
-/* line 183 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 186 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .sliderContainer.hidden {
   display: none;
 }
 
-/* line 186 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 189 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Styling in Nested Lists in the Master Layer List */
 
-/* line 188 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 191 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 189 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 192 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .layer-title {
   color: #5952de;
 }
 
-/* line 192 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 195 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active[data-layer="gain"] .custom-check {
   background-color: #5952de;
 }
 
-/* line 194 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 197 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Special Case Colors for Specific Layers in List */
 
-/* line 196 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 199 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 197 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 200 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change,
 .gfw .forest-change.active .layer-title,
 .gfw .forest-change.active .layer-list-item.active .layer-title {
   color: #e72698;
 }
 
-/* line 202 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 205 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover,
 .gfw .forest-cover.active .layer-title,
 .gfw .forest-cover.active .layer-list-item.active .layer-title {
   color: #b2d26e;
 }
 
-/* line 207 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 210 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use,
 .gfw .app-header.mapView .forest-use.active .layer-title,
 .gfw .forest-use.active .layer-list-item.active .layer-title {
   color: #c98e6c;
 }
 
-/* line 212 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 215 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation,
 .gfw .app-header.mapView .conservation.active .layer-title,
 .gfw .conservation.active .layer-list-item.active .layer-title {
   color: #3182bd;
 }
 
-/* line 217 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 220 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability,
 .gfw .app-header.mapView .agro-suitability.active .layer-title,
 .gfw .agro-suitability.active .layer-list-item.active .layer-title {
   color: #fdb22c;
 }
 
-/* line 222 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 225 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages,
 .gfw .app-header.mapView .company-pages.active .layer-title,
 .gfw .company-pages.active .layer-list-item.active .layer-title {
   color: #5e138a;
 }
 
-/* line 227 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 230 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-change .layer-line {
   background: #e72698;
 }
 
-/* line 230 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 233 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-cover .layer-line {
   background: #b2d26e;
 }
 
-/* line 233 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 236 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .forest-use .layer-line {
   background: #c98e6c;
 }
 
-/* line 236 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 239 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .conservation .layer-line {
   background: #3182bd;
 }
 
-/* line 239 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 242 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .agro-suitability .layer-line {
   background: #fdb22c;
 }
 
-/* line 242 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 245 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .company-pages .layer-line {
   background: #5e138a;
 }
 
-/* line 245 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 248 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .dijitSliderImageHandleH {
   border-radius: 35px;
   -moz-border-radius: 35px;
@@ -4543,59 +2627,59 @@ body {
   top: -7px;
 }
 
-/* line 249 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 252 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .forest-change .dijitSliderImageHandleH,
 .gfw .filter-list .forest-change .dijitSliderLeftBumper,
 .gfw .filter-list .forest-change .dijitSliderProgressBarH {
   background: #e72698 !important;
 }
 
-/* line 254 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 257 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .layer-list-item.active[data-layer="gain"] .dijitSliderImageHandleH,
 .gfw .layer-list-item.active[data-layer="gain"] .dijitSliderLeftBumper,
 .gfw .layer-list-item.active[data-layer="gain"] .dijitSliderProgressBarH {
   background: #5952de !important;
 }
 
-/* line 259 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 262 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .forest-cover .dijitSliderImageHandleH,
 .gfw .filter-list .forest-cover .dijitSliderLeftBumper,
 .gfw .filter-list .forest-cover .dijitSliderProgressBarH {
   background: #b2d26e !important;
 }
 
-/* line 264 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 267 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .forest-use .dijitSliderImageHandleH,
 .gfw .filter-list .forest-use .dijitSliderLeftBumper,
 .gfw .filter-list .forest-use .dijitSliderProgressBarH {
   background: #c98e6c !important;
 }
 
-/* line 269 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 272 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .conservation .dijitSliderImageHandleH,
 .gfw .filter-list .conservation .dijitSliderLeftBumper,
 .gfw .filter-list .conservation .dijitSliderProgressBarH {
   background: #3182bd !important;
 }
 
-/* line 274 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 277 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .agro-suitability .dijitSliderImageHandleH,
 .gfw .filter-list .agro-suitability .dijitSliderLeftBumper,
 .gfw .filter-list .agro-suitability .dijitSliderProgressBarH {
   background: #fdb22c !important;
 }
 
-/* line 279 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 282 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .company-pages .dijitSliderImageHandleH,
 .gfw .filter-list .company-pages .dijitSliderLeftBumper,
 .gfw .filter-list .company-pages .dijitSliderProgressBarH {
   background: #5e138a !important;
 }
 
-/* line 285 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 288 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 286 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 289 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check span,
 .gfw .forest-use.active .custom-check span,
 .gfw .conservation.active .custom-check span,
@@ -4605,54 +2689,54 @@ body {
   left: 9px;
 }
 
-/* line 294 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 297 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-change.active .layer-list-item.active .custom-check,
 .gfw .forest-change.active .radio-icon span {
   background-color: #e72698;
 }
 
-/* line 298 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 301 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-cover.active .custom-check,
 .gfw .forest-cover.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 302 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 305 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-cover.active .layer-list-item .custom-check,
 .gfw .forest-cover.active .layer-list-item .radio-icon span {
   background: none;
 }
 
-/* line 306 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 309 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-cover.active .layer-list-item.active .radio-icon span {
   background-color: #b2d26e;
 }
 
-/* line 309 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 312 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-use.active .custom-check,
 .gfw .forest-use.active .radio-icon span {
   background-color: #c98e6c;
 }
 
-/* line 313 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 316 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .conservation.active .custom-check,
 .gfw .conservation.active .radio-icon span {
   background-color: #3182bd;
 }
 
-/* line 317 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 320 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .agro-suitability.active .custom-check,
 .gfw .agro-suitability.active .radio-icon span {
   background-color: #fdb22c;
 }
 
-/* line 321 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 324 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .company-pages.active .custom-check,
 .gfw .company-pages.active .radio-icon span {
   background-color: #5e138a;
 }
 
-/* line 325 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 328 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .layer-list-item .radio-icon {
   display: inline-block;
   border-radius: 35px;
@@ -4663,12 +2747,12 @@ body {
   width: 8px;
 }
 
-/* line 332 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 335 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon {
   top: 3px;
 }
 
-/* line 335 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 338 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .layer-list-item.active .radio-icon span {
   display: inline-block;
   border-radius: 35px;
@@ -4681,53 +2765,53 @@ body {
   top: -6px;
 }
 
-/* line 344 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 347 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-change .radio-icon {
   border: 1px solid #e72698;
 }
 
-/* line 347 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 350 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-cover .radio-icon {
   border: 1px solid #b2d26e;
 }
 
-/* line 350 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 353 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .forest-use .radio-icon {
   border: 1px solid #c98e6c;
 }
 
-/* line 353 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 356 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .conservation .radio-icon {
   border: 1px solid #3182bd;
 }
 
-/* line 356 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 359 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .agro-suitability .radio-icon {
   border: 1px solid #fdb22c;
 }
 
-/* line 359 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 362 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .company-pages .radio-icon {
   border: 1px solid #5e138a;
 }
 
-/* line 362 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 365 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Checkbox and Radio Styles for these layers */
 
-/* line 363 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 366 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 /* Layer Controls Colors */
 
-/* line 367 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 370 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .nav-separator {
   border-bottom: 1px solid #cfcfcf;
   display: inline-block;
   position: absolute;
   width: 100%;
-  top: 106px;
+  top: 72px;
   left: 0;
 }
 
-/* line 375 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 378 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .header-logo {
   background: url("images/gfwc_logo.jpg") no-repeat center;
   background-position: 0 0;
@@ -4739,7 +2823,7 @@ body {
   z-index: 200;
 }
 
-/* line 385 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 388 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .beta-logo {
   font-family: Arial, sans-serif;
   border-radius: 5px;
@@ -4753,7 +2837,7 @@ body {
   top: 20px;
 }
 
-/* line 395 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 398 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .nav-link-list {
   margin: 20px 145px 0 0;
   display: inline-block;
@@ -4762,20 +2846,20 @@ body {
   padding: 0;
 }
 
-/* line 402 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 405 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header .google_translate_element {
   position: absolute;
   right: 120px;
   top: 10px;
 }
 
-/* line 407 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 410 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .app-header.mapView .google_translate_element {
   right: 10px;
   top: 20px;
 }
 
-/* line 411 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 414 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -4789,1239 +2873,33 @@ body {
   margin: 0 2px;
 }
 
-/* line 421 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 424 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:not(.selected) {
   cursor: pointer;
 }
 
-/* line 424 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 427 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link:hover {
   background-color: rgba(233,131,0,0.45);
 }
 
-/* line 427 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 430 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .nav-link-list .nav-link.selected {
   background-color: #e98300;
   cursor: default;
   color: #fff;
 }
 
-/* line 432 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 435 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .header-title {
   font-family: Georgia, serif;
   font-size: 26px;
 }
 
-/* line 436 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
+/* line 439 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
 .gfw .filter-list .sliderContainer {
   margin: 10px 5px;
   padding-top: 5px;
-}
-
-/* line 440 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-html,
-body {
-  padding: 0;
-  margin: 0;
-  border: 1px;
-}
-
-/* line 445 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 17, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 446 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header div,
-.layout-header span,
-.layout-header applet,
-.layout-header object,
-.layout-header iframe,
-.layout-header h1,
-.layout-header h2,
-.layout-header h3,
-.layout-header h4,
-.layout-header h5,
-.layout-header h6,
-.layout-header p,
-.layout-header blockquote,
-.layout-header pre,
-.layout-header a,
-.layout-header abbr,
-.layout-header acronym,
-.layout-header address,
-.layout-header big,
-.layout-header cite,
-.layout-header code,
-.layout-header del,
-.layout-header dfn,
-.layout-header em,
-.layout-header img,
-.layout-header ins,
-.layout-header kbd,
-.layout-header q,
-.layout-header s,
-.layout-header samp,
-.layout-header small,
-.layout-header strike,
-.layout-header strong,
-.layout-header sub,
-.layout-header sup,
-.layout-header tt,
-.layout-header var,
-.layout-header b,
-.layout-header u,
-.layout-header i,
-.layout-header center,
-.layout-header dl,
-.layout-header dt,
-.layout-header dd,
-.layout-header ol,
-.layout-header ul,
-.layout-header li,
-.layout-header fieldset,
-.layout-header form,
-.layout-header label,
-.layout-header legend,
-.layout-header table,
-.layout-header caption,
-.layout-header tbody,
-.layout-header tfoot,
-.layout-header thead,
-.layout-header tr,
-.layout-header th,
-.layout-header td,
-.layout-header article,
-.layout-header aside,
-.layout-header canvas,
-.layout-header details,
-.layout-header embed,
-.layout-header figure,
-.layout-header figcaption,
-.layout-header footer,
-.layout-header header,
-.layout-header hgroup,
-.layout-header menu,
-.layout-header nav,
-.layout-header output,
-.layout-header ruby,
-.layout-header section,
-.layout-header summary,
-.layout-header time,
-.layout-header mark,
-.layout-header audio,
-.layout-header video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-/* line 466 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 24, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 467 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header ol,
-.layout-header ul {
-  list-style: none;
-}
-
-/* line 470 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 26, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 471 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* line 475 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 28, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 476 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header caption,
-.layout-header th,
-.layout-header td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* line 481 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 30, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 482 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header q,
-.layout-header blockquote {
-  quotes: none;
-}
-
-/* line 485 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 103, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 486 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header q:before,
-.layout-header q:after,
-.layout-header blockquote:before,
-.layout-header blockquote:after {
-  content: "";
-  content: none;
-}
-
-/* line 490 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 32, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 491 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header a img {
-  border: none;
-}
-
-/* line 494 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 116, /Users/miguelbarrenechea/.rvm/gems/ruby-2.1.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-
-/* line 495 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header article,
-.layout-header aside,
-.layout-header details,
-.layout-header figcaption,
-.layout-header figure,
-.layout-header footer,
-.layout-header header,
-.layout-header hgroup,
-.layout-header menu,
-.layout-header nav,
-.layout-header section,
-.layout-header summary {
-  display: block;
-}
-
-/* line 498 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header *,
-.layout-header *:after,
-.layout-header *:before {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-/* line 504 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header {
-  font-family: "Fira Sans", Georgia, serif;
-  background: #eee;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* line 509 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header svg {
-  width: 100%;
-  height: 100%;
-  -webkit-transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  -moz-transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  -o-transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  transition: all 0.15s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-}
-
-/* line 517 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .mobile-hide {
-  display: none;
-}
-
-/* line 520 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 750px) {
-
-/* line 521 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .mobile-hide {
-    display: block;
-  }
-}
-
-/* line 525 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .mobile-show {
-  display: block;
-}
-
-/* line 528 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 750px) {
-
-/* line 529 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .mobile-show {
-    display: none;
-  }
-}
-
-/* line 533 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 2, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 534 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-}
-
-/* line 542 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 9, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 543 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header.active {
-  height: 100%;
-  overflow: auto;
-}
-
-/* line 547 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 12, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 548 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header.active .layout-header-bottom {
-  height: 100%;
-}
-
-/* line 551 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 14, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 552 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header.active .layout-header-bottom .inner {
-  height: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* line 557 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 559 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header {
-    position: relative;
-    overflow: visible;
-    height: auto;
-  }
-
-/* line 565 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header.active {
-    height: auto;
-    overflow: visible;
-  }
-
-/* line 570 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header.active .layout-header-bottom {
-    height: auto;
-  }
-
-/* line 574 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header.active .layout-header-bottom .inner {
-    height: auto;
-    overflow: visible;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* line 580 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 48, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 581 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top {
-  background: #f7f7f7;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  z-index: 11;
-  border-top: 1px solid #e5e5df;
-}
-
-/* line 590 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 592 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top {
-    position: relative;
-    padding: 4px 10px;
-    border-top: none;
-    border-bottom: 1px solid #e5e5df;
-  }
-}
-
-/* line 599 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 16, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_mixins1600.scss */
-
-/* line 600 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top:before,
-.layout-header .layout-header-top:after {
-  content: " ";
-  display: table;
-  visibility: hidden;
-  font-size: 0;
-  height: 0;
-}
-
-/* line 607 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 23, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_mixins1600.scss */
-
-/* line 608 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top:after {
-  clear: both;
-}
-
-/* line 611 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 64, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 612 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div {
-  width: 100%;
-  overflow-y: hidden;
-  overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* line 618 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 620 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div {
-    width: auto;
-    overflow: visible;
-  }
-}
-
-/* line 625 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 73, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 626 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul {
-  width: 580px;
-  padding: 0 5px;
-  height: 55px;
-}
-
-/* line 631 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 633 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul {
-    width: auto;
-    margin: 0;
-    height: auto;
-  }
-}
-
-/* line 639 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 82, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 640 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li {
-  float: left;
-  height: 55px;
-}
-
-/* line 644 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 646 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li {
-    height: 25px;
-    width: 25px;
-    margin: 0 0 0 20px;
-  }
-
-/* line 652 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li:first-child {
-    margin: 0;
-  }
-}
-
-/* line 656 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 93, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 657 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a,
-.layout-header .layout-header-top nav > div > ul > li .link {
-  cursor: pointer;
-  display: inline-block;
-  line-height: 55px;
-  padding: 0px 10px 0 35px;
-  position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-  -webkit-transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -moz-transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -o-transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-/* line 670 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 672 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li > a,
-  .layout-header .layout-header-top nav > div > ul > li .link {
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    line-height: normal;
-  }
-}
-
-/* line 679 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 109, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 680 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a > span,
-.layout-header .layout-header-top nav > div > ul > li .link > span {
-  font-size: 12px;
-  color: #000;
-  line-height: 28px;
-  margin: 0 0 0 5px;
-}
-
-/* line 686 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 688 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li > a > span,
-  .layout-header .layout-header-top nav > div > ul > li .link > span {
-    display: block;
-  }
-
-/* line 692 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li > a > span em,
-  .layout-header .layout-header-top nav > div > ul > li .link > span em {
-    display: inline-block;
-  }
-}
-
-/* line 696 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 123, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 697 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a .tooltip1,
-.layout-header .layout-header-top nav > div > ul > li .link .tooltip1 {
-  margin: 0;
-  color: #555;
-  line-height: normal;
-}
-
-/* line 702 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (max-width: 849px) {
-
-/* line 704 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li > a .tooltip1,
-  .layout-header .layout-header-top nav > div > ul > li .link .tooltip1 {
-    position: relative;
-    background: none;
-    box-shadow: none;
-    z-index: 1;
-    visibility: visible;
-    opacity: 1;
-    top: auto;
-    left: auto;
-    text-align: left;
-    padding: 0;
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }
-
-/* line 722 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li > a .tooltip1:after,
-  .layout-header .layout-header-top nav > div > ul > li .link .tooltip1:after {
-    display: none;
-  }
-}
-
-/* line 726 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 146, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 727 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a form > input,
-.layout-header .layout-header-top nav > div > ul > li .link form > input {
-  border: none;
-  border-bottom: 2px solid #b6b6ba;
-  background: none;
-  box-shadow: none;
-  height: 25px;
-  outline: none;
-  width: auto;
-  font-family: inherit;
-  margin: 0;
-  padding: 0 5px;
-}
-
-/* line 739 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 159, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 740 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a svg,
-.layout-header .layout-header-top nav > div > ul > li .link svg {
-  fill: #b6b6ba;
-  position: absolute;
-  top: 48%;
-  left: 5px;
-  -webkit-transform: translate(0, -50%);
-  -moz-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  -o-transform: translate(0, -50%);
-  transform: translate(0, -50%);
-}
-
-/* line 751 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 753 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li > a svg,
-  .layout-header .layout-header-top nav > div > ul > li .link svg {
-    position: relative;
-    top: auto;
-    left: auto;
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }
-}
-
-/* line 764 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 174, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 765 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a.shape-world svg,
-.layout-header .layout-header-top nav > div > ul > li .link.shape-world svg {
-  -webkit-transform: translate(0, -50%) scale(0.9);
-  -moz-transform: translate(0, -50%) scale(0.9);
-  -ms-transform: translate(0, -50%) scale(0.9);
-  -o-transform: translate(0, -50%) scale(0.9);
-  transform: translate(0, -50%) scale(0.9);
-}
-
-/* line 772 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 774 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav > div > ul > li > a.shape-world svg,
-  .layout-header .layout-header-top nav > div > ul > li .link.shape-world svg {
-    position: relative;
-    top: auto;
-    left: auto;
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    -o-transform: scale(0.9);
-    transform: scale(0.9);
-  }
-}
-
-/* line 785 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 186, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 786 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a:hover.shape-house svg,
-.layout-header .layout-header-top nav > div > ul > li > a.current.shape-house svg,
-.layout-header .layout-header-top nav > div > ul > li .link:hover.shape-house svg,
-.layout-header .layout-header-top nav > div > ul > li .link.current.shape-house svg {
-  fill: #97bd3d;
-}
-
-/* line 789 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 187, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 790 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a:hover.shape-world svg,
-.layout-header .layout-header-top nav > div > ul > li > a.current.shape-world svg,
-.layout-header .layout-header-top nav > div > ul > li .link:hover.shape-world svg,
-.layout-header .layout-header-top nav > div > ul > li .link.current.shape-world svg {
-  fill: #97bd3d;
-}
-
-/* line 793 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 188, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 794 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a:hover.shape-country svg,
-.layout-header .layout-header-top nav > div > ul > li > a.current.shape-country svg,
-.layout-header .layout-header-top nav > div > ul > li .link:hover.shape-country svg,
-.layout-header .layout-header-top nav > div > ul > li .link.current.shape-country svg {
-  fill: #97bd3d;
-}
-
-/* line 797 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 189, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 798 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a:hover.shape-fire svg,
-.layout-header .layout-header-top nav > div > ul > li > a.current.shape-fire svg,
-.layout-header .layout-header-top nav > div > ul > li .link:hover.shape-fire svg,
-.layout-header .layout-header-top nav > div > ul > li .link.current.shape-fire svg {
-  fill: #ed1846;
-}
-
-/* line 801 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 190, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 802 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/*TODO: Confirm these footer and header icon colors and hover colors (commented out block and the next two rules)*/
-
-/* line 806 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a.shape-commodities svg {
-  fill: #e98300;
-}
-
-/* line 810 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a.current.shape-commodities svg,
-.layout-header .layout-header-top nav > div > ul > li .link:hover.shape-commodities svg,
-.layout-header .layout-header-top nav > div > ul > li .link.current.shape-commodities svg {
-  fill: #e98300;
-}
-
-/* line 813 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 191, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 814 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a:hover.shape-blog svg,
-.layout-header .layout-header-top nav > div > ul > li > a.current.shape-blog svg,
-.layout-header .layout-header-top nav > div > ul > li .link:hover.shape-blog svg,
-.layout-header .layout-header-top nav > div > ul > li .link.current.shape-blog svg {
-  fill: #97bd3d;
-}
-
-/* line 817 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 192, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 818 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav > div > ul > li > a:hover svg,
-.layout-header .layout-header-top nav > div > ul > li > a.current svg,
-.layout-header .layout-header-top nav > div > ul > li .link:hover svg,
-.layout-header .layout-header-top nav > div > ul > li .link.current svg {
-  fill: #97bd3d;
-}
-
-/* line 821 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 201, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 822 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu {
-  width: 55px;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  display: block;
-  z-index: 5;
-  box-shadow: none;
-  background-color: #dedede;
-  border: none;
-  outline: none;
-  -webkit-transform: translate(0, -50%);
-  -moz-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  -o-transform: translate(0, -50%);
-  transform: translate(0, -50%);
-}
-
-/* line 840 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 215, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 841 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu:after {
-  content: "";
-  display: none;
-  width: 20px;
-  height: 100%;
-  right: 100%;
-  position: absolute;
-  top: 0;
-  z-index: 2;
-}
-
-/* line 851 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 853 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav .btn-menu {
-    display: none;
-  }
-}
-
-/* line 857 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 229, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 858 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu .icon {
-  margin: 0 auto;
-  fill: #555;
-}
-
-/* line 862 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 232, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 863 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu .icon.hamburguer {
-  display: block;
-}
-
-/* line 866 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 235, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 867 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu .icon.close {
-  display: none;
-}
-
-/* line 870 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 239, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 871 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu.active {
-  background: #fff;
-  border-left: 1px solid #e5e5df;
-  box-shadow: 1px -2px 0 #fff;
-}
-
-/* line 876 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 243, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 877 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu.active .icon {
-  margin: 0 auto;
-}
-
-/* line 880 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 245, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 881 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu.active .icon.hamburguer {
-  display: none;
-}
-
-/* line 884 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 248, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 885 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu.active .icon.close {
-  display: block;
-}
-
-/* line 888 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 252, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 889 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav .btn-menu.active:after {
-  border-right: 1px solid #e5e5df;
-}
-
-/* line 892 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 258, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 893 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.first-nav {
-  float: left;
-  position: relative;
-  width: 100%;
-}
-
-/* line 898 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 900 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav.first-nav {
-    padding: 0;
-    width: auto;
-  }
-}
-
-/* line 905 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 271, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 906 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.first-nav > div > ul > li > a:hover .tooltip1,
-.layout-header .layout-header-top nav.first-nav > div > ul > li .link:hover .tooltip1 {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* line 910 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 282, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 911 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav {
-  float: right;
-}
-
-/* line 914 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 286, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 915 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li {
-  height: 25px;
-  width: auto;
-  position: relative;
-}
-
-/* line 920 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 291, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 921 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li > a,
-.layout-header .layout-header-top nav.second-nav > div > ul > li .link {
-  text-indent: 0;
-  width: auto;
-}
-
-/* line 926 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 294, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 927 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li > a > span,
-.layout-header .layout-header-top nav.second-nav > div > ul > li .link > span {
-  display: none;
-}
-
-/* line 931 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 1050px) {
-
-/* line 933 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .layout-header-top nav.second-nav > div > ul > li > a > span,
-  .layout-header .layout-header-top nav.second-nav > div > ul > li .link > span {
-    display: inline-block;
-  }
-}
-
-/* line 938 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 300, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 939 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li > a svg,
-.layout-header .layout-header-top nav.second-nav > div > ul > li .link svg {
-  height: 25px;
-  float: left;
-  display: inline-block;
-}
-
-/* line 945 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 306, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 946 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li .home_data {
-  font-size: 12px;
-  border: 0;
-  text-decoration: none;
-}
-
-/* line 951 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 310, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 952 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li .home_data span {
-  line-height: 28px;
-}
-
-/* line 955 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 313, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 956 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li .home_data:visited {
-  color: #000;
-}
-
-/* line 959 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 318, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_header1600.scss */
-
-/* line 960 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .layout-header-top nav.second-nav > div > ul > li:hover .submenu-tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* line 964 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-#google_translate_element_box2 {
-  padding: 0 15px 10px;
-}
-
-/* line 967 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 750px) {
-
-/* line 968 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  #google_translate_element_box2 {
-    display: none;
-  }
-}
-
-/* line 972 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-#google_translate_element .goog-te-gadget {
-  font-family: inherit;
-}
-
-/* line 975 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-#google_translate_element .goog-te-gadget .goog-te-gadget-simple {
-  border: none;
-  background: none;
-}
-
-/* line 979 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-#google_translate_element .goog-te-gadget .goog-te-gadget-simple .goog-te-menu-value {
-  color: #000;
-  text-transform: uppercase;
-  font-size: 12px;
-  line-height: 28px;
-  position: relative;
-  padding-right: 16px;
-}
-
-/* line 987 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-#google_translate_element .goog-te-gadget .goog-te-gadget-simple .goog-te-menu-value span:last-child {
-  visibility: hidden;
-  display: block;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  height: 16px;
-  width: 16px;
-  -webkit-transform: translate(0, -55%);
-  -moz-transform: translate(0, -55%);
-  -ms-transform: translate(0, -55%);
-  -o-transform: translate(0, -55%);
-  transform: translate(0, -55%);
-}
-
-/* line 1001 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-#google_translate_element .goog-te-gadget .goog-te-gadget-simple .goog-te-menu-value span:last-child:before {
-  content: "";
-  visibility: visible;
-  display: block;
-  height: 100%;
-  width: 100%;
-  background: url("http://www.globalforestwatch.org/assets/svg-icons/arrow-down.svg") no-repeat center;
-  background-size: contain;
-}
-
-/* line 1010 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 14, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/layouts/_grid1600.scss */
-
-/* line 1011 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .inner {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* line 1016 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 850px) {
-
-/* line 1018 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .inner {
-    width: 95%;
-  }
-}
-
-/* line 1022 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-@media (min-width: 1400px) {
-
-/* line 1024 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-  .layout-header .inner {
-    width: 75%;
-    max-width: 1200px;
-  }
-}
-
-/* line 1029 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 22, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1030 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .tooltip1 {
-  position: absolute;
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
-  z-index: 1;
-  margin: 0;
-  visibility: hidden;
-  opacity: 0;
-  text-transform: uppercase;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  text-align: center;
-  padding: 10px;
-  white-space: nowrap;
-  -webkit-transform: translate(-50%, 10px);
-  -moz-transform: translate(-50%, 10px);
-  -ms-transform: translate(-50%, 10px);
-  -o-transform: translate(-50%, 10px);
-  transform: translate(-50%, 10px);
-}
-
-/* line 1051 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 38, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1052 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .tooltip1:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  background: #fff;
-  z-index: 2;
-  top: 0;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%) rotate(45deg);
-  -moz-transform: translate(-50%, -50%) rotate(45deg);
-  -ms-transform: translate(-50%, -50%) rotate(45deg);
-  -o-transform: translate(-50%, -50%) rotate(45deg);
-  transform: translate(-50%, -50%) rotate(45deg);
-  border-top: 1px solid #f0f0ed;
-  border-left: 1px solid #f0f0ed;
-}
-
-/* line 1070 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 53, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1071 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip {
-  position: absolute;
-  min-width: 150px;
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
-  z-index: 1;
-  visibility: hidden;
-  opacity: 0;
-  text-transform: none;
-  -webkit-backface-visibility: hidden;
-  -webkit-transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -moz-transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -o-transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-/* line 1086 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 63, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1087 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip.top {
-  top: 100%;
-  left: 50%;
-  -webkit-transform: translate(-50%, 10px);
-  -moz-transform: translate(-50%, 10px);
-  -ms-transform: translate(-50%, 10px);
-  -o-transform: translate(-50%, 10px);
-  transform: translate(-50%, 10px);
-}
-
-/* line 1096 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 67, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1097 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip.top:after {
-  top: 0;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%) rotate(45deg);
-  -moz-transform: translate(-50%, -50%) rotate(45deg);
-  -ms-transform: translate(-50%, -50%) rotate(45deg);
-  -o-transform: translate(-50%, -50%) rotate(45deg);
-  transform: translate(-50%, -50%) rotate(45deg);
-  border-top: 1px solid #e5e5df;
-  border-left: 1px solid #e5e5df;
-}
-
-/* line 1108 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 75, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1109 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip.bottom {
-  bottom: 100%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -10px);
-  -moz-transform: translate(-50%, -10px);
-  -ms-transform: translate(-50%, -10px);
-  -o-transform: translate(-50%, -10px);
-  transform: translate(-50%, -10px);
-}
-
-/* line 1118 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 79, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1119 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip.bottom:after {
-  bottom: 0;
-  left: 50%;
-  -webkit-transform: translate(-50%, 50%) rotate(45deg);
-  -moz-transform: translate(-50%, 50%) rotate(45deg);
-  -ms-transform: translate(-50%, 50%) rotate(45deg);
-  -o-transform: translate(-50%, 50%) rotate(45deg);
-  transform: translate(-50%, 50%) rotate(45deg);
-  border-bottom: 1px solid #e5e5df;
-  border-right: 1px solid #e5e5df;
-}
-
-/* line 1130 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 89, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1131 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  background: #fff;
-  z-index: 2;
-}
-
-/* line 1140 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 98, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1141 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip li {
-  border-top: 1px solid #eaecef;
-  font-size: 15px;
-  white-space: nowrap;
-  position: relative;
-  z-index: 3;
-}
-
-/* line 1148 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 104, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1149 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip li:first-child {
-  border-top: none;
-}
-
-/* line 1152 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 105, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1153 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip li a,
-.submenu-tooltip li .link {
-  color: #444;
-  font-weight: 300;
-  padding: 14px 20px;
-  text-decoration: none;
-  text-align: center;
-  display: block;
-}
-
-/* line 1161 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 112, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_shared1600.scss */
-
-/* line 1162 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .submenu-tooltip li a:hover,
-.submenu-tooltip li .link:hover {
-  background: #fafafa;
-}
-
-/* line 1165 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-/* line 1, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/modules/_icons1600.scss */
-
-/* line 1166 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/header.styl */
-.layout-header .icon {
-  display: block;
-  height: 25px;
-  width: 25px;
 }
 
 
