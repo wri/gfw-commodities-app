@@ -127,8 +127,8 @@ define([
     },
 
     _millPointSelected: function (target) {
-      var featureType = target.dataset ? target.dataset.type : target.getAttribute('type'),
-          entityId = target.dataset ? target.dataset.value : target.getAttribute('value'),
+      var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
+          entityId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
           wizardGraphicsLayer,
           self = this,
           parentNode,
@@ -152,9 +152,9 @@ define([
             label = target.innerText || target.innerHTML;
 
 
-            if ( self.state.activeListItemValues.indexOf(target.dataset.value) != -1 ) {
+            if ( self.state.activeListItemValues.indexOf(entityId) != -1 ) {
             // if (domClass.contains(parentNode, 'active-mill')) {
-              var valueIndex = self.state.activeListItemValues.indexOf(target.dataset.value);
+              var valueIndex = self.state.activeListItemValues.indexOf(entityId);
               var newActiveListItemValues = self.state.activeListItemValues.slice(0);
               newActiveListItemValues.splice(valueIndex, 1);
               self.setState( { activeListItemValues: newActiveListItemValues } );
@@ -189,7 +189,7 @@ define([
               graphic = GeoHelper.preparePointAsPolygon(feature);
               wizardGraphicsLayer.add(graphic);
               // Add Active Class, Add to array or features, and add label to array of labels
-              var newActiveListItemValues = self.state.activeListItemValues.concat([target.dataset.value]);
+              var newActiveListItemValues = self.state.activeListItemValues.concat([entityId]);
               self.setState({ activeListItemValues: newActiveListItemValues });
               // domClass.add(parentNode, 'active-mill');
               selectedFeatures.push(graphic);

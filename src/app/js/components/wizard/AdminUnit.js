@@ -123,7 +123,7 @@ define([
 
         var newActiveListeItemValues = []; 
         query('.wizard-list-child-item span', target.parentNode).forEach(function(element){
-          newActiveListeItemValues.push(parseInt(element.dataset.value));
+          newActiveListeItemValues.push(parseInt(element.dataset ? element.dataset.value : element.getAttribute('data-value')));
         });
       
         self.setState({ activeListItemValues: newActiveListeItemValues });
@@ -147,7 +147,7 @@ define([
         });
       } else if (objectId) {
         
-        self.setState({ activeListItemValues: [parseInt(target.dataset.value)] });
+        self.setState({ activeListItemValues: [parseInt(objectId)] });
 
         AnalyzerQuery.getFeatureById(config.lowLevelUnitsQuery.url, objectId).then(function (feature) {
 
