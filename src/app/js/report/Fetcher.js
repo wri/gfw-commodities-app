@@ -436,6 +436,7 @@ define([
         },
 
         _getMillPointAnalysis: function() {
+
             this._debug('Fetcher >>> _getMillPointAnalysis');
             var deferred = new Deferred(),
                 config = ReportConfig.millPoints,
@@ -448,30 +449,35 @@ define([
             // Get Results from API
             req = new XMLHttpRequest();
 
+            console.debug(config.url);
+            window.shortcutConfig = config;
+            // req.open('POST', config.url, true);
             req.open('POST', config.url, true);
             req.onreadystatechange = function (res) {
-              if (req.readyState === 4) {
-                if (req.status === 200) {
-                  response = JSON.parse(req.response);
-                  if (response.mills) {
-                    ReportRenderer.renderMillAssessment(response.mills, config);
-                    deferred.resolve(true);
-                  } else {
-                    deferred.resolve(false);
-                  }
-                } else {
-                  deferred.resolve(false);
+                if (req.readyState === 4) {
+                    if (req.status === 200) {
+                        response = JSON.parse(req.response);
+                        if (response.mills) {
+                            ReportRenderer.renderMillAssessment(response.mills, config);
+                            deferred.resolve(true);
+                        } else {
+                            deferred.resolve(false);
+                        }
+                    } else {
+                      deferred.resolve(false);
+                    }
                 }
-              }
             };
 
             req.addEventListener('error', function () {
               deferred.resolve(false);
             }, false);
+            
+            var formData = new FormData();
+            formData.append("mills",report.mills.map(function(mill){return mill.id}).join(','));
 
             // Construct the POST Content in HERE for each Mill
-
-            req.send();
+            req.send( formData );
 
             return deferred.promise;
         },

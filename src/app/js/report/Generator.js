@@ -123,6 +123,7 @@ define([
             } else if (report.geometry.radius) {
                 // If report.geometry is a circle, we need to make it a new valid polygon
                 // Then reproject it in Web Mercator
+                report.mills = report.geometry;
                 poly = new Polygon();
                 poly.addRing(report.geometry.rings[1]);
                 geometryService.project([poly], sr, projectionCallback, failure);

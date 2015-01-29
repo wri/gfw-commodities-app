@@ -997,6 +997,9 @@ define([
 					// Else use the window.payload.title as the title, thats the title of an individual mill
 					title = window.payload.title;
 				}
+
+				debugger;
+
 				content = "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
 									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>" + 
 									"Total Mill Risk Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";

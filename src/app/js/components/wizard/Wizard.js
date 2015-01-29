@@ -297,7 +297,15 @@ define([
           var outGeo;
           if (Object.prototype.toString.call(features) === '[object Array]') {
             if (features.length === 1) {
-              outGeo = features[0].geometry;
+                if (!features[0].geometry.radius) {
+                  outGeo = features[0].geometry;
+                } else {
+                outGeo = [{
+                    label: features[0].attributes.WRI_label,
+                    id: features[0].attributes.Entity_ID,
+                    geometry: features[0].geometry
+                  }];
+                }
             } else {
               if (!features[0].geometry.radius) {
                 outGeo = lang.clone(features[0].geometry);

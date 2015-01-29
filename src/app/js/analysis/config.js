@@ -317,7 +317,8 @@ define([], function() {
                 value: 'Oil palm concession'
             }],
             url: millPointMapService + '/0',
-            api: 'http://risk-api.appspot.com/',
+            // api: 'http://risk-api.appspot.com/',
+            api: 'http://wip.risk-api.appspot.com/',
             outFields: ['Parent_Com', 'Mill_name', 'Entity_ID'],
             orderBy: ['Parent_Com', 'Mill_name'],
             labelField: 'Mill_name', // Children
