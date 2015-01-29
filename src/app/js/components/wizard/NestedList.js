@@ -10,11 +10,11 @@ define([
       value: React.PropTypes.string.isRequired,
       click: React.PropTypes.func.isRequired,
       filter: React.PropTypes.string.isRequired, // All Lowercase
-      children: React.PropTypes.array //Optional
+      children: React.PropTypes.array, //Optional
+      activeListItemValues: React.PropTypes.array //Optional
     },
 
 		render: function () {
-
 			if (this.props.filter === '') {
 				// No Filter applied, render like usual
 				return React.DOM.div({'className': 'wizard-list-item'},
@@ -34,7 +34,7 @@ define([
 					// Filter applied, none of the children match, if the root matches, show it, else hide it
 					var label = this.props.label.toLowerCase(),
 							className = 'wizard-list-item ' + 
-													(label.search(this.props.filter) > -1 ? '' : 'hidden');
+													(label.search(this.props.filter) > -1 ? '' : 'hidden ');
 
 					return React.DOM.div({'className': className},
 						//React.DOM.span({'className': 'wizard-list-item-icon'}),
@@ -57,7 +57,13 @@ define([
 		_childrenMapper: function (item) {
 			var label = item.label.toLowerCase(), // Filter is lowercase, make the label lowercase for comparison
 					className = 'wizard-list-child-item ' + 
-											(label.search(this.props.filter) > -1 ? '' : 'hidden');
+											(label.search(this.props.filter) > -1 ? '' : 'hidden ');
+
+			// Condition for active class, not defining semantic vars to keep iterating quickly, instead documenting below
+			// var isItemActive = this.props.activeListItemValues.indexOf(item.value) != -1
+			if ( this.props.activeListItemValues && this.props.activeListItemValues.indexOf(item.value) != -1 ) {
+				className += 'active';
+			}
 
 			return React.DOM.div({'className': className},
 				//React.DOM.span({'className': 'wizard-list-child-item-icon'}),
@@ -115,6 +121,7 @@ define([
     		'value': item.value,
     		'click': this.props.click,
     		'children': item.children,
+    		'activeListItemValues': this.props.activeListItemValues,
     		'filter': this.state.filter
     	});
     },

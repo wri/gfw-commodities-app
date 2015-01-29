@@ -8,12 +8,13 @@ define([
   "components/wizard/NestedList",
   // Other Helpful Modules
   "dojo/topic",
+  "dojo/query",
   "esri/Color",
   "esri/graphic",
   "esri/graphicsUtils",
   "esri/symbols/SimpleFillSymbol",
   "esri/symbols/SimpleLineSymbol"
-], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, NestedList, topic, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
+], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
 
   var config = AnalyzerConfig.certifiedArea,
       adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
@@ -23,6 +24,7 @@ define([
   function getDefaultState() {
     return {
       nestedListData: [],
+      activeListItemValues: [],
       isLoading: false,
       selectedCommodity: config.commodityOptions[0].value,
       selectedScheme: config.certificationOptions[1].value
@@ -90,6 +92,7 @@ define([
             'data': this.state.nestedListData,
             'click': this._schemeClicked,
             'placeholder': 'Search certified areas...',
+            'activeListItemValues': this.state.activeListItemValues,
             'isResetting': this.props.isResetting
           })
         )
@@ -150,6 +153,14 @@ define([
           graphic;
 
       if (featureType === "group") {
+
+        var newActiveListeItemValues = []; 
+        query('.wizard-list-child-item span', target.parentNode).forEach(function(element){
+          newActiveListeItemValues.push(parseInt(element.dataset.value));
+        });
+      
+        self.setState({ activeListItemValues: newActiveListeItemValues });
+
         // Takes URL and group name, group name will always be the targets innerHTML
         AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
@@ -168,6 +179,9 @@ define([
           }
         });
       } else if (objectId) {
+
+        self.setState({ activeListItemValues: [parseInt(target.dataset.value)] });
+
         AnalyzerQuery.getFeatureById(config.schemeQuery.url, objectId).then(function (feature) {
 
           // Add it to the map and make it the current selection, give it a label

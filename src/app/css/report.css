@@ -1,34 +1,34 @@
 
-/* line 112 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 112 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 
-/* line 1 : /Users/Robert/Projects/github_work/GFW-C/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+/* line 1 : /Users/albertmarquez/Desktop/projects/commodities/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 17 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 17 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 @font-face {
   font-family: "Arial MT Condensed Bold";
   src: url("fonts/ArialMTStd-BoldCond.otf") format("opentype");
 }
 
-/* line 21 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 21 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 @font-face {
   font-family: "Arial MT Condensed Light";
   src: url("fonts/ArialMTStd-LightCond.otf") format("opentype");
 }
 
-/* line 25 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 25 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #fff;
 }
 
-/* line 30 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 30 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw #report {
   margin: 20px auto;
   width: 960px;
 }
 
-/* line 34 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 34 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .report-header {
   background: url("images/header_tree_background.jpg") repeat-x scroll center top transparent;
   border: 1px solid #000;
@@ -36,12 +36,12 @@ body {
   min-height: 100px;
 }
 
-/* line 40 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 40 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .report-body {
   border: 1px solid #000;
 }
 
-/* line 43 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 43 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw #title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding-top: 10px;
@@ -51,24 +51,24 @@ body {
   font-size: 36px;
 }
 
-/* line 52 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 52 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw #title.multiples {
   font-size: 24px;
 }
 
-/* line 55 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 55 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .total-area {
   padding: 5px 0 15px;
   margin-left: 10px;
 }
 
-/* line 59 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 59 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .total-area-value {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
 
-/* line 64 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 64 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .subscribe-alerts {
   background-color: #e98300;
   padding: 5px 8px 3px;
@@ -82,7 +82,7 @@ body {
   top: 10px;
 }
 
-/* line 74 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 74 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .print-button {
   background: url("images/print-icon.png") no-repeat -1px -35px;
   position: absolute;
@@ -93,13 +93,13 @@ body {
   top: 50px;
 }
 
-/* line 83 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 83 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .print-button.disabled {
   background: url("images/print-icon.png") no-repeat -1px 0px;
   cursor: wait;
 }
 
-/* line 87 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 87 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .loading-wheel {
   background: url("images/loader.gif");
   background-size: 24px;
@@ -108,33 +108,33 @@ body {
   width: 24px;
 }
 
-/* line 94 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 94 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .loading-wheel.hidden {
   display: none;
 }
 
-/* line 99 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 99 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .result-container {
   margin: 20px;
 }
 
-/* line 102 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 102 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 @media print {
 
-/* line 103 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 103 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
   .gfw .result-container {
     page-break-after: always;
   }
 }
 
-/* line 106 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 106 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .report-body .title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 24px;
 }
 
-/* line 112 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 112 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .report-body .left-panel,
 .gfw .report-body .right-panel {
   display: inline-block;
@@ -142,17 +142,17 @@ body {
   width: 430px;
 }
 
-/* line 118 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 118 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .report-body .loss-chart {
   height: 400px;
 }
 
-/* line 127 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 127 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .report-body .right-panel {
   float: right;
 }
 
-/* line 130 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 130 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .rspo-results-table,
 .gfw .mill-table-container table {
   border-collapse: collapse;
@@ -162,32 +162,32 @@ body {
   width: 80%;
 }
 
-/* line 138 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 138 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container table {
   margin-top: 0px;
 }
 
-/* line 141 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 141 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table tr td:first-child {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
 
-/* line 147 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 147 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .rspo-results-table th,
 .gfw .rspo-results-table td {
   border: 1px solid #adadad;
   padding: 5px 0 2px;
 }
 
-/* line 152 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 152 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .rspo-results-table .change-area-unit {
   margin-right: 10%;
   float: right;
 }
 
-/* line 156 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 156 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .active-fires-badge {
   border: 2px solid #000;
   box-sizing: border-box;
@@ -196,12 +196,12 @@ body {
   width: 300px;
 }
 
-/* line 163 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 163 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .active-fires-badge div {
   margin: 10px 0;
 }
 
-/* line 166 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 166 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .active-fires-label {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
@@ -209,36 +209,36 @@ body {
   font-size: 28px;
 }
 
-/* line 173 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 173 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .active-fires-badge.special .active-fires-label span {
   font-size: 15px;
 }
 
-/* line 176 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 176 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .active-fires-label div {
   line-height: 42px;
   font-size: 42px;
   margin: 0;
 }
 
-/* line 181 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 181 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .total-active-fires-label {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 16px;
 }
 
-/* line 187 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 187 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .suitability-container .child-row {
   padding-left: 15px;
 }
 
-/* line 190 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 190 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .suitability-container .left-panel {
   min-height: 400px;
 }
 
-/* line 193 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 193 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .loader-wheel {
   background: url("images/loader.gif") no-repeat left;
   background-color: #e6e6e6;
@@ -253,7 +253,7 @@ body {
   height: 22px;
 }
 
-/* line 204 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 204 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .loader-wheel.area {
   position: relative;
   width: 22px;
@@ -261,17 +261,17 @@ body {
   top: 7px;
 }
 
-/* line 210 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 210 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .checkbox-container {
   padding: 5px;
 }
 
-/* line 213 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 213 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .checkbox-container input {
   margin-right: 5px;
 }
 
-/* line 216 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 216 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .email-container,
 .gfw .submit-container,
 .gfw .message-container {
@@ -279,7 +279,7 @@ body {
   margin: 10px 0;
 }
 
-/* line 220 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 220 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .email-container input {
   border: 1px solid #e6e6e6;
   border-radius: 5px;
@@ -293,7 +293,7 @@ body {
   outline: 0;
 }
 
-/* line 230 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 230 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .submit-container button {
   border: 1px solid #e6e6e6;
   background: #e6e6e6;
@@ -306,82 +306,82 @@ body {
   outline: 0;
 }
 
-/* line 239 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 239 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .submit-container button:hover,
 .gfw .submit-container button:active {
   border: 1px solid #e98300;
   background: #e98300;
 }
 
-/* line 243 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 243 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container table {
   text-align: center;
   width: 100%;
 }
 
-/* line 247 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 247 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container th {
   text-transform: uppercase;
   width: 33%;
 }
 
-/* line 251 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 251 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container th,
 .gfw .mill-table-container td {
   border: 1px solid #e6e6e6;
   padding: 5px;
 }
 
-/* line 256 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 256 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container tr.data-row td:nth-child(3),
 .gfw .mill-table-container tr.data-row td:nth-child(5) {
   border-left: none;
 }
 
-/* line 260 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 260 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container tr.data-row td:nth-child(2),
 .gfw .mill-table-container tr.data-row td:nth-child(4) {
   border-right: none;
 }
 
-/* line 264 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 264 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .column-labels,
 .gfw .mill-table-container .name {
   font-weight: bold;
 }
 
-/* line 268 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 268 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .row-name {
   text-align: left;
 }
 
-/* line 271 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 271 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .row-name span:last-child {
   margin-left: 15px;
 }
 
-/* line 274 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 274 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .data-row.parent .row-name span:last-child {
   margin-left: 7px;
 }
 
-/* line 277 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 277 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .data-row.child .row-name span:last-child {
   margin-left: 25px;
 }
 
-/* line 280 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 280 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .data-row {
   font-weight: bold;
 }
 
-/* line 283 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 283 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .data-row.child {
   font-weight: normal;
   font-size: 12px;
 }
 
-/* line 287 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 287 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-header {
   background-color: #e6e6e6;
   border: 1px solid #e6e6e6;
@@ -389,14 +389,14 @@ body {
   height: 50px;
 }
 
-/* line 293 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 293 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-title {
   line-height: 50px;
   margin-left: 10px;
   font-weight: bold;
 }
 
-/* line 298 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 298 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-risk-level {
   margin-right: 10px;
   line-height: 50px;
@@ -405,17 +405,17 @@ body {
   float: right;
 }
 
-/* line 305 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 305 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .overall-risk {
   text-transform: uppercase;
 }
 
-/* line 308 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 308 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .risk-label {
   text-transform: capitalize;
 }
 
-/* line 311 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 311 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .large-swatch,
 .gfw .small-swatch {
   display: inline-block;
@@ -427,52 +427,52 @@ body {
   top: 1px;
 }
 
-/* line 319 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 319 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .large-swatch {
   height: 14px;
   width: 14px;
 }
 
-/* line 323 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 323 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .small-swatch {
   height: 10px;
   width: 10px;
 }
 
-/* line 327 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 327 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .low .overall-risk {
   color: #78c1dc;
 }
 
-/* line 330 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 330 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .medium .overall-risk {
   color: #f4820d;
 }
 
-/* line 333 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 333 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .high .overall-risk {
   color: #e4132c;
 }
 
-/* line 336 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 336 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .low .large-swatch,
 .gfw .low .small-swatch {
   background-color: #78c1dc;
 }
 
-/* line 340 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 340 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .medium .large-swatch,
 .gfw .medium .small-swatch {
   background-color: #f4820d;
 }
 
-/* line 344 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 344 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .high .large-swatch,
 .gfw .high .small-swatch {
   background-color: #e4132c;
 }
 
-/* line 348 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 348 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .value-toggle {
   position: absolute;
   height: 25px;
@@ -480,7 +480,7 @@ body {
   top: 5px;
 }
 
-/* line 354 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 354 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .toggle-button-container {
   background-color: #e6e6e6;
   display: inline-block;
@@ -493,17 +493,17 @@ body {
   width: 40px;
 }
 
-/* line 363 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 363 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .toggle-button-container.active {
   background-color: #5fa41a;
 }
 
-/* line 366 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 366 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .toggle-button-container.active .toggle-knob {
   left: 18px;
 }
 
-/* line 369 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 369 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .toggle-knob {
   background-color: #fff;
   display: inline-block;
@@ -517,7 +517,7 @@ body {
   top: 2px;
 }
 
-/* line 379 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 379 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .toggle-label {
   display: inline-block;
   padding-right: 6px;
@@ -526,12 +526,12 @@ body {
   font-size: 12px;
 }
 
-/* line 386 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 386 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .parent td:first-child {
   cursor: pointer;
 }
 
-/* line 389 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 389 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .parent.open .toggle-icon {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
@@ -542,7 +542,7 @@ body {
   top: 3px;
 }
 
-/* line 398 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 398 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .parent .toggle-icon {
   border-bottom: 4px solid transparent;
   border-top: 4px solid transparent;
@@ -555,7 +555,7 @@ body {
   width: 0;
 }
 
-/* line 409 : /Users/Robert/Projects/github_work/GFW-C/src/app/css/report.styl */
+/* line 409 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
 .gfw .mill-table-container .info-icon {
   background: url("images/info-icon.png") no-repeat center;
   background-size: 20px;
@@ -563,4 +563,67 @@ body {
   cursor: pointer;
   height: 21px;
   width: 20px;
+}
+
+/* line 418 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
+/* 20141217 CRB - Added info icon to Total Calculated Area in report header */
+
+/* line 419 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
+.gfw .report-header .total-area .info-icon {
+  background: url("images/info-icon.png") no-repeat center;
+  background-size: 20px;
+  display: inline-block;
+  cursor: pointer;
+  height: 21px;
+  width: 20px;
+}
+
+/* line 426 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
+.gfw .total-area-info-popup {
+  visibility: hidden;
+  width: 450px;
+  box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.25);
+  background-color: #fff;
+  border: 1px solid #b2b2b2;
+  font-size: 12px;
+  position: absolute;
+  padding: 0px;
+  margin: 0px;
+  top: 75px;
+  left: calc(50% - 460px);
+}
+
+/* line 438 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
+.gfw .total-area-info-popup .total-area-info-popup-title {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 441 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
+.gfw .total-area-info-popup .total-area-info-popup-title .total-area-info-popup-label {
+  margin-top: 8px;
+  margin-left: 10px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* line 447 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
+.gfw .total-area-info-popup .close-info-icon {
+  background: url("images/close_symbol.png") no-repeat 5px center;
+  border-left: 1px solid #b2b2b2;
+  background-size: 14px 14px;
+  cursor: pointer;
+  float: right;
+  height: 30px;
+  width: 25px;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 457 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/report.styl */
+.gfw .total-area-info-popup .total-area-info-content {
+  clear: both;
+  padding: 10px;
+  border-top: 1px solid #b2b2b2;
 }
