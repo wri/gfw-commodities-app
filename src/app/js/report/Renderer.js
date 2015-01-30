@@ -998,7 +998,6 @@ define([
 					title = window.payload.title;
 				}
 
-				debugger;
 
 				content = "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
 									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>" + 
@@ -1007,17 +1006,17 @@ define([
 				content += "<table><tr><th></th><th colspan='2'>Concession<span class='info-icon' data-type='concession'></span>" + 
 									 "</th><th colspan='2'>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
 				// Generate Rows for Each section of data
-				content += generateRow('RSPO certification', mill.rspo);
-				content += generateRow('Deforestation', mill.deforestation, 'deforest-' + mill.id);
+				// content += generateRow('RSPO certification', mill.rspo);
+				// content += generateRow('Deforestation', mill.deforestation, 'deforest-' + mill.id);
 				/* Child Rows */
-				content += generateRow('Total tree cover loss', mill.deforestation['umd-loss'], null, 'deforest-' + mill.id);
-				content += generateRow('Tree cover loss on primary forest', mill.deforestation['umd-loss-primary'], null, 'deforest-' + mill.id);
+				content += generateRow('Total tree cover loss', mill.deforestation['umd_loss'], null, 'deforest-' + mill.id);
+				content += generateRow('Tree cover loss on primary forest', mill.deforestation['umd_loss_primary'], null, 'deforest-' + mill.id);
 				content += generateRow('Total clearance alerts', mill.deforestation.forma, null, 'deforest-' + mill.id);
-				content += generateRow('Clearance alerts on primary forest', mill.deforestation['forma-primary'], null, 'deforest-' + mill.id);
+				content += generateRow('Clearance alerts on primary forest', mill.deforestation['forma_primary'], null, 'deforest-' + mill.id);
 				content += generateRow('Tree cover loss on carbon stock', mill.deforestation.carbon, null, 'deforest-' + mill.id);
 				/* Child Rows */
 				content += generateRow('Legality', mill.legal);
-				content += generateRow('Peat', mill.peat, 'peat-' + mill.id);
+				// content += generateRow('Peat', mill.peat, 'peat-' + mill.id);
 				/* Child Rows */
 				content += generateRow('Presence of peat', mill.peat.presence, null, 'peat-' + mill.id);
 				content += generateRow('Clearance on peat', mill.peat.clearance, null, 'peat-' + mill.id);
