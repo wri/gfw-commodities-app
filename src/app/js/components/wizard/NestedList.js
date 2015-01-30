@@ -19,7 +19,6 @@ define([
 			var isGroupActive = this.props.activeListGroupValue != null && this.props.activeListGroupValue == this.props.value
 			if (this.props.filter === '') {
 				var className = isGroupActive ? 'active' : ''; 
-				if (this.props.activeListGroupValue != null && this.props.activeListGroupValue == this.props.value) console.debug(this.props.value);
 				// No Filter applied, render like usual
 				return React.DOM.div({'className': 'wizard-list-item'},
 					//React.DOM.span({'className': 'wizard-list-item-icon'}),
