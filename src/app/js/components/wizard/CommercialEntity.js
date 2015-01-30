@@ -25,6 +25,7 @@ define([
     return {
       nestedListData: [],
       activeListItemValues: [],
+      activeListGroupValue: null,
       isLoading: false,
       selectedCommodity: config.commodityOptions[0].value
     };
@@ -72,6 +73,7 @@ define([
             'click': this._commodityClicked,
             'placeholder': 'Search commercial entities...',
             'activeListItemValues': this.state.activeListItemValues,
+            'activeListGroupValue': this.state.activeListGroupValue,
             'isResetting': this.props.isResetting
           })
         )
@@ -129,7 +131,10 @@ define([
           newActiveListeItemValues.push(parseInt(element.dataset ? element.dataset.value : element.getAttribute('data-value')));
         });
       
-        self.setState({ activeListItemValues: newActiveListeItemValues });
+        self.setState({
+          activeListItemValues: newActiveListeItemValues,
+          activeListGroupValue: parseInt(objectId)
+        });
 
         // Takes URL and group name, group name will always be the targets innerHTML
         AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
@@ -151,7 +156,10 @@ define([
         });
       } else if (objectId) {
 
-        self.setState({ activeListItemValues: [parseInt(objectId)] });
+        self.setState({
+          activeListItemValues: [parseInt(objectId)],
+          activeListGroupValue: null
+        });
 
         AnalyzerQuery.getFeatureById(config.commodityQuery.url, objectId).then(function (feature) {
 

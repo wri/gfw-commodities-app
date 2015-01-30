@@ -25,6 +25,7 @@ define([
     return {
       nestedListData: [],
       activeListItemValues: [],
+      activeListGroupValue: null,
       isLoading: false
     };
   }
@@ -78,6 +79,7 @@ define([
             'click': this._lowLevelAdminUnitClick,
             'placeholder': 'Search administrative units...',
             'activeListItemValues': this.state.activeListItemValues,
+            'activeListGroupValue': this.state.activeListGroupValue,
             'isResetting': this.props.isResetting
           })
         )
@@ -121,12 +123,15 @@ define([
 
       if (featureType === "group") {
 
-        var newActiveListeItemValues = []; 
+        var newActiveListItemVales = []; 
         query('.wizard-list-child-item span', target.parentNode).forEach(function(element){
-          newActiveListeItemValues.push(parseInt(element.dataset ? element.dataset.value : element.getAttribute('data-value')));
+          newActiveListItemVales.push(parseInt(element.dataset ? element.dataset.value : element.getAttribute('data-value')));
         });
       
-        self.setState({ activeListItemValues: newActiveListeItemValues });
+        self.setState({
+          activeListItemValues: newActiveListItemVales,
+          activeListGroupValue: parseInt(objectId)
+        });
 
         // Takes URL and group name, group name will always be the targets innerHTML
         AnalyzerQuery.getFeaturesByGroupName(config.countryBoundaries, target.innerHTML).then(function (features) {
@@ -147,7 +152,10 @@ define([
         });
       } else if (objectId) {
         
-        self.setState({ activeListItemValues: [parseInt(objectId)] });
+        self.setState({
+          activeListItemValues: [parseInt(objectId)],
+          activeListGroupValue: null
+        });
 
         AnalyzerQuery.getFeatureById(config.lowLevelUnitsQuery.url, objectId).then(function (feature) {
 

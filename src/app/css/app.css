@@ -4834,6 +4834,11 @@ padding 5px 3px {
 }
 
 /* line 344 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+.gfw .list-container .wizard-list-item.active {
+  color: #e98300;
+}
+
+/* line 347 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-item span {
   border-bottom: 1px solid #ececed;
   cursor: pointer;
@@ -4841,57 +4846,62 @@ padding 5px 3px {
   padding: 2px 0;
 }
 
-/* line 350 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 353 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-item > span {
   background-color: #ececed;
   padding-left: 20px;
 }
 
-/* line 354 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 357 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+.gfw .list-container .wizard-list-item > span.active {
+  color: #e98300;
+}
+
+/* line 360 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-child-item {
   font-weight: normal;
 }
 
-/* line 357 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 363 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-child-item > span {
   padding-left: 35px;
 }
 
-/* line 360 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 366 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .list-container .wizard-list-child-item.active-mill,
 .gfw .list-container .wizard-list-child-item.active {
   background-color: #888;
   color: #fff;
 }
 
-/* line 365 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 371 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .admin-unit .list-container {
   top: 170px;
 }
 
-/* line 368 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 374 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .mill-point .list-container {
   top: 150px;
 }
 
-/* line 371 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 377 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .commercial-entity .list-container {
   top: 165px;
 }
 
-/* line 374 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 380 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .certified-area .list-container {
   top: 220px;
 }
 
-/* line 377 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 383 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .wizard-body .country-select,
 .gfw .wizard-body .commodity-type-select,
 .gfw .wizard-body .certification-scheme-select {
   vertical-align: top;
 }
 
-/* line 382 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 388 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .wizard-body .loading-wheel {
   background: url("images/loader.gif");
   background-size: 18px;
@@ -4903,52 +4913,52 @@ padding 5px 3px {
   top: 1px;
 }
 
-/* line 392 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 398 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .select-analysis .layer-description {
   margin: 0 5px 0 20px;
   font-size: 12px;
 }
 
-/* line 396 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 402 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .select-analysis .step-sub-header {
   margin: 10px 0 5px 20px;
   font-weight: bold;
 }
 
-/* line 400 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 406 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .select-analysis .sub-title {
   margin: 5px 0;
 }
 
-/* line 403 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 409 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .wizard-checkbox-container {
   font-size: 18px;
   margin: 5px 0;
 }
 
-/* line 407 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 413 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .select-analysis .checkbox-list {
   margin-left: 15px;
 }
 
-/* line 410 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 416 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .checkbox-list .wizard-checkbox-container {
   display: inline-block;
   width: 220px;
 }
 
-/* line 414 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 420 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .checkbox-list .wizard-checkbox-container:nth-child(odd) {
   width: 200px;
 }
 
-/* line 417 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 423 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .wizard .wizard-checkbox {
   display: inline-block;
   cursor: pointer;
 }
 
-/* line 421 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 427 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .nested-list .searchBox input {
   border: 1px solid #b2b2b2;
   border-radius: 5px;
@@ -4959,7 +4969,7 @@ padding 5px 3px {
   height: 30px;
 }
 
-/* line 428 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 434 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .nested-list .nested-list-search-icon {
   background: url("images/simpleGeocoder.png") no-repeat 0px 0px;
   position: absolute;
@@ -4969,7 +4979,7 @@ padding 5px 3px {
   top: 7px;
 }
 
-/* line 436 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
+/* line 442 : /Users/albertmarquez/Desktop/projects/commodities/src/app/css/wizard.styl */
 .gfw .select-analysis .coming-soon {
   background: #dcdcdc;
   background: rgba(220,220,220,0.9);
