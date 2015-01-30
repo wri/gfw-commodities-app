@@ -8,13 +8,14 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
       <link rel="icon" type="image/png" href="http://staging.blueraster.com/wri/potico/v43/favicon.ico">
-      <link rel="stylesheet" type="text/css" href="app/libs/ionrangeslider/css/normalize.min.css">
+      <!-- <link rel="stylesheet" type="text/css" href="app/libs/ionrangeslider/css/normalize.min.css"> -->
       <link rel="stylesheet" type="text/css" href="app/libs/ionrangeslider/css/ion.rangeSlider.css">
       <link rel="stylesheet" type="text/css" href="app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css">
+      <!-- <link href='http://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,400italic' rel='stylesheet' type='text/css'> -->
       <script src="app/libs/ionrangeslider/js/ion.rangeSlider.min.js"></script>
       <script src="app/libs/FileSaver.js"></script>
 
-      <meta name="google-translate-customization" content="7c3525fe24f9031c-a8fc5e781072c0fe-g601838a822eefc5b-21" />
+      <!-- <meta name="google-translate-customization" content="7c3525fe24f9031c-a8fc5e781072c0fe-g601838a822eefc5b-21" /> -->
       <script async src="app/bootloader.js?v=2.0.1"></script>
       <style>
             html,body,#map{height: 100%;width: 100%;padding: 0;margin: 0;}
@@ -43,13 +44,14 @@
             }
           }; //end addThis_share
         </script>
+        <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.3.15/slick.min.js"></script>
       <!-- Add This Sharing Widget -->
       <!-- Google Translate -->
-      <script type="text/javascript">
+      <!--<script type="text/javascript">
         function googleTranslateElementInit() {
           new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'de,en,es,fr,id,it,mr,pt,ru,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
         }
-      </script>
+      </script>-->
       <!-- Google Translate -->
       <!-- Google Analytics -->
       <script>
@@ -70,7 +72,7 @@
     </head>
     <body class="gfw tundra">
         <div id="app-header" class="app-header">
-
+          <div id="headerGfw"></div>
         </div>
         <div id="app-body" class="">
             <div id="stackContainer" class="mainStack" data-dojo-type="dijit/layout/StackContainer" data-dojo-props="id:'stackContainer',parseOnLoad:false">
@@ -83,7 +85,10 @@
             </div>
         </div>
         <div id="app-footer" class="app-footer">
-
+          <div id="footerGfw"></div>
+          <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.3.15/slick.min.js"></script>
+          <!--<script id="loader-gfw" type="text/javascript" src="https://cdn.rawgit.com/simbiotica/gfw_assets/master/src/header-loader.js" data-current=".shape-commodities"></script>-->
+          <!--<script id="loader-gfw" type="text/javascript" src="app/libs/header-loader.js" data-current=".shape-commodities"></script>-->
         </div>
     </body>
 </html>

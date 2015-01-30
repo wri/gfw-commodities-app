@@ -210,7 +210,7 @@ define([
                 var baseYear = 13;
                 var currentYear, currentMonth;
 
-                for (var i = 1; i < (to + 2); i++) {
+                for (var i = 1; i < (to + 1); i++) {
                     currentMonth = (i % 12);
                     if (currentMonth == 0) {
                         currentMonth = 12;
@@ -1083,16 +1083,16 @@ define([
                     saveAs(blob, "settings.csv");
 
                     //dom.byId("export-error-message").innerHTML = "";
-                    domStyle.set(dom.byId("export-buttons-container"), 'visibility','hidden');
-                    domStyle.set(dom.byId("export-loading-now"), 'visibility','visible');
-                    domStyle.set(dom.byId("export-loading-now"), 'display','block');
+                    domStyle.set(dom.byId("export-buttons-container"), 'visibility', 'hidden');
+                    domStyle.set(dom.byId("export-loading-now"), 'visibility', 'visible');
+                    domStyle.set(dom.byId("export-loading-now"), 'display', 'block');
 
                     //Export GeoTIFF
-                    _self._saveTIFF(function (errorMsg) {
+                    _self._saveTIFF(function(errorMsg) {
                         console.log("**callback** (error = " + errorMsg + ")");
                         //domStyle.set(dom.byId("export-buttons-container"), 'visibility','visible');
-                        domStyle.set(dom.byId("export-loading-now"), 'visibility','hidden');
-                        domStyle.set(dom.byId("export-loading-now"), 'display','none');
+                        domStyle.set(dom.byId("export-loading-now"), 'visibility', 'hidden');
+                        domStyle.set(dom.byId("export-loading-now"), 'display', 'none');
                         if (errorMsg == "") {
                             //Close pop-up
                             dialog.destroy();
@@ -1105,7 +1105,7 @@ define([
             });
         },
 
-        _saveTIFF: function (callback) {
+        _saveTIFF: function(callback) {
             var _self = this;
             var ext = app.map.extent;
             var width = 1460;
@@ -1123,7 +1123,7 @@ define([
             };
             //console.log("params", params);
 
-            var exporter = function (url, content) {
+            var exporter = function(url, content) {
                 console.log("exporter() :: url = ", url);
                 window.open(url, "geoTiffWin");
                 callback("");
@@ -1242,10 +1242,10 @@ define([
 
         _getSettingsCSV: function() {
             // get slider values & labels (and direction)
-            var sliders = ["peat-depth-slider","conservation-area-slider","water-resource-slider","slope-slider","elevation-slider","rainfall-slider","soil-drainage-slider","soil-depth-slider","soil-acid-slider"];
+            var sliders = ["peat-depth-slider", "conservation-area-slider", "water-resource-slider", "slope-slider", "elevation-slider", "rainfall-slider", "soil-drainage-slider", "soil-depth-slider", "soil-acid-slider"];
             var sliderSelections = "";
             var lbl, vals, bounds, rev, cfg, temp;
-            arrayUtils.forEach(sliders, function (sliderName) {
+            arrayUtils.forEach(sliders, function(sliderName) {
                 lbl = dom.byId(sliderName + "-label");
                 vals = jq171('#' + sliderName).rangeSlider('values');
                 bounds = jq171('#' + sliderName).rangeSlider('bounds');
@@ -1270,9 +1270,9 @@ define([
                         sliderSelections += bounds.min + "-" + vals.min;
                     } else {
                         var tempList = "";
-                        for (var i=bounds.min; i<=vals.min; ++i) {
+                        for (var i = bounds.min; i <= vals.min; ++i) {
                             if (tempList != "") tempList += "; ";
-                            tempList += cfg[i].replace(",","/");
+                            tempList += cfg[i].replace(",", "/");
                         }
                         sliderSelections += tempList;
                     }
@@ -1281,9 +1281,9 @@ define([
                         sliderSelections += vals.min + "-" + vals.max;
                     } else {
                         var tempList = "";
-                        for (var i=vals.min; i<=vals.max; ++i) {
+                        for (var i = vals.min; i <= vals.max; ++i) {
                             if (tempList != "") tempList += "; ";
-                            tempList += cfg[i].replace(",","/");
+                            tempList += cfg[i].replace(",", "/");
                         }
                         sliderSelections += tempList;
                     }

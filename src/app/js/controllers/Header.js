@@ -21,15 +21,19 @@ define([
                 return;
             }
             this.addSubscriptionDialog();
-            dom.byId("app-header").innerHTML = template;
+
+            //dom.byId("app-header").innerHTML = template + dom.byId("app-header").innerHTML;
+            dom.byId("app-header").innerHTML = dom.byId("app-header").innerHTML + template;
+
+            //dom.byId(viewId).innerHTML = html + dom.byId(viewId).innerHTML;
             this.bindEvents();
             initialized = true;
             // Load in Google Analystics
-            var s = document.createElement('script'),
-                h = document.getElementsByTagName('head')[0];
-            s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-            s.async = true;
-            h.appendChild(s);
+            // var s = document.createElement('script'),
+            //     h = document.getElementsByTagName('head')[0];
+            // s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            // s.async = true;
+            // h.appendChild(s);
 
         },
 
@@ -134,6 +138,7 @@ define([
         },
 
         setForHome: function() {
+            //debugger;
             domClass.add("nav-content", "inner");
             domClass.remove("nav-content", "outer");
             domClass.remove("app-header", "mapView");

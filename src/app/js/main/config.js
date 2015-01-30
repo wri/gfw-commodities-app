@@ -47,9 +47,8 @@ define({
     }],
 
     "homeDialog": {
-        "html":
-            "<p>GFW Commodities is constantly undergoing site enhancements including interface redesigns based on user feedback and the incorporation of new datasets and new tools you asked for.</p>" +
-            "<p>If you'd like to be kept informed of these kinds of updates, please <a href='http://www.wri.org/stay-informed-about-global-forest-watch-commodities' target='_blank'>join our mailing list</a>.</p>" +
+        "html": "<p>GFW Commodities is constantly undergoing site enhancements including interface redesigns based on user feedback and the incorporation of new datasets and new tools you asked for.</p>" +
+            "<p>If you'd like to be kept informed of these kinds of updates, please <a href='http://www.wri.org/global-forest-watch-updates-and-newsletter' target='_blank'>join our mailing list</a>.</p>" +
             "<p>We will <strong>NEVER</strong> sell your email address to anyone, ever. We will only use your email address to send you useful newsletters about updates to the site or request your user feedback. You can unsubscribe at any time.</p>"
     }
 
