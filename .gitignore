@@ -6,3 +6,5 @@ node_modules
 .idea
 *.sublime-workspace
 *.sublime-project
+src/app/css/app.css
+src/app/css/repot.css
