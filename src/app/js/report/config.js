@@ -90,8 +90,8 @@ define([], function() {
 
         alertUrl: {
             forma: "https://gfw-apis.appspot.com/subscribe",
-            //fires: "https://gfw-fires.wri.org/subscribe_by_polygon"
-            fires: "http://54.164.126.73/subscribe_by_polygon"
+            fires: "https://gfw-fires.wri.org/subscribe_by_polygon"
+            //fires: "http://54.164.126.73/subscribe_by_polygon"
         },
 
         millPointInfo: {
