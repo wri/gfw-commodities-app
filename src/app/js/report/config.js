@@ -17,7 +17,7 @@ define([], function() {
         fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
         //clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
 
-    // Totoal Loss
+    // Total Loss
     var lossBounds = [1, 12],
         lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012];
 

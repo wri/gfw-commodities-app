@@ -119,10 +119,10 @@ define([], function() {
             }, {
                 label: 'Peat Lands',
                 value: 'peat'
-            }/*, {
+            }, {
                 label: 'Tree Cover Loss',
                 value: 'treeCoverLoss'
-            }*/],
+            }],
             suit: {
                 label: 'Oil Palm Suitability',
                 value: 'suit',

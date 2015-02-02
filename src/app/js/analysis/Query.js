@@ -116,7 +116,7 @@ define([
 		},
 
 		/*
-			Simple Query to retrieve a feature by its Group Name
+			Simple Query to retrieve a feature by its Group Name and Country Name
 		*/
 		getFeaturesByGroupNameAndCountry: function (config, groupName, countryName) {
 			var deferred = new Deferred(),
