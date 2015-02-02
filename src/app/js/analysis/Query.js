@@ -116,6 +116,35 @@ define([
 		},
 
 		/*
+			Simple Query to retrieve a feature by its Group Name
+		*/
+		getFeaturesByGroupNameAndCountry: function (config, groupName, countryName) {
+			var deferred = new Deferred(),
+					query = new Query(),
+					self = this;	
+
+			// Config is analysis/config using items like adminUnit.lowLevelUnitsQuery or commercialEntity.commodityQuery
+			query.where = config.requiredField + " = '" + groupName + "'" + " AND NAME_0 = '" + countryName + "'";
+			query.geometryPrecision = 0;
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+
+			this._query(config.url, query, function (res) {
+				if (res.features.length > 0) {
+					deferred.resolve(res.features);
+				} else {
+					deferred.resolve([]);
+				}
+			}, function (err) {
+				deferred.resolve([]);
+				self._queryErrorHandler(err);
+			});
+
+			return deferred.promise;
+
+		},
+
+		/*
 			Simple Query to retrieve mills by their entity id
 		*/
 		getMillByEntityId: function (entityID) {

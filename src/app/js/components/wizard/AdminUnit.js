@@ -134,7 +134,8 @@ define([
         });
 
         // Takes URL and group name, group name will always be the targets innerHTML
-        AnalyzerQuery.getFeaturesByGroupName(config.countryBoundaries, target.innerHTML).then(function (features) {
+  
+        AnalyzerQuery.getFeaturesByGroupNameAndCountry(config.countryBoundaries, target.innerHTML, document.getElementById('country-select').value).then(function (features) {
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
           if (features && wizardGraphicsLayer) {
             wizardGraphicsLayer.clear();
@@ -150,6 +151,7 @@ define([
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });
+
       } else if (objectId) {
         
         self.setState({
