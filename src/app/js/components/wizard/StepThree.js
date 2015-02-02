@@ -127,11 +127,11 @@ define([
                             )
                         ),
                         React.DOM.div({
-                                'className': 'next-button-container ' + (this.state.completed ? '' : 'disabled')
+                                'className': 'next-button-container ' + (this.state.completed ? '' : 'disabled'),
+                                'onClick': this._proceed
                             },
                             React.DOM.span({
-                                'className': 'next-button',
-                                'onClick': this._proceed
+                                'className': 'next-button'
                             }, "Perform Analysis")
                         )
                     )
