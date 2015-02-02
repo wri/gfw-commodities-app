@@ -154,63 +154,14 @@ define([
 
         buildFormaSlider: function() {
 
-            var layerArray = Hasher.getLayers(),
-                active = layerArray.indexOf("forma") > -1;
-            if (active) {
-                setTimeout(function() { //TODO : Fix this 
-                    ionCallback.call();
-                }, 300);
-            }
-            $(".extra-controls2 #newSlider2").click(function() {
-                play();
-            });
-            var $range2 = $(".gfw .toolbox .slider-container"),
-                $from = $(".js-from"),
-                $to = $(".js-to"),
-                min = "1-13",
-                max,
-                from = "0",
-                to;
-
-            var incrementer = 0,
-                baseYear = 13,
-                labels3 = [],
-                month;
-            this.fetchFORMAAlertsLabels().then(function(res) {
-                if (res) {
-                    to = res.maxValues[0] - res.minValues[0];
-                    max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 13);
-
-                    for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
-                        month = i % 12 === 0 ? 12 : i % 12;
-                        if (i % 12 === 0) {
-                            ++incrementer;
-                        }
-                    }
-
-                } else {
-                    console.log("fetching Forma labels failed!!");
-                }
-            });
-
-            $("#master-layer-list > div > ul > li:nth-child(2)").click(function() {
-                $("#playLine3").hide();
-                $("#sliderProgressLine2").hide();
-                var $this = $(this);
-                setTimeout(function() { //TODO : Fix this 
-                    ionCallback.call();
-                }, 300);
-                $("#irs-2 > span.irs > span.irs-to").css("left", "759px");
-                $("#irs-2 > span.irs > span.irs-to").html(max);
-            });
-
             var ionCallback = function() {
+
                 var valuesToUse = [];
 
                 var baseYear = 13;
                 var currentYear, currentMonth;
 
-                for (var i = 1; i < (to + 1); i++) {
+                for (var i = 1; i < (to + 2); i++) {
                     currentMonth = (i % 12);
                     if (currentMonth == 0) {
                         currentMonth = 12;
@@ -220,7 +171,7 @@ define([
                     var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
                     domConstruct.place(yearDot, "yearDotContainer");
                     domStyle.get(yearDot);
-                    var leftPx = (i * 37.5) + 42.5;
+                    var leftPx = (i * 34.5) + 42.5;
                     leftPx += "px";
                     domStyle.set(yearDot, {
                         "position": "absolute",
@@ -326,7 +277,61 @@ define([
                 $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
 
 
-            };
+
+            }
+
+            var layerArray = Hasher.getLayers(),
+                active = layerArray.indexOf("forma") > -1;
+
+            $(".extra-controls2 #newSlider2").click(function() {
+                play();
+            });
+            var $range2 = $(".gfw .toolbox .slider-container"),
+                $from = $(".js-from"),
+                $to = $(".js-to"),
+                min = "1-13",
+                max,
+                from = "0",
+                to;
+
+            var incrementer = 0,
+                baseYear = 13,
+                labels3 = [],
+                month;
+            this.fetchFORMAAlertsLabels().then(function(res) {
+                if (res) {
+                    to = res.maxValues[0] - res.minValues[0];
+                    max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 13);
+
+                    for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
+                        month = i % 12 === 0 ? 12 : i % 12;
+                        if (i % 12 === 0) {
+                            ++incrementer;
+                        }
+                    }
+                    var layerArray = Hasher.getLayers(),
+                        active = layerArray.indexOf("forma") > -1;
+                    if (active) {
+                        ionCallback.call();
+                    }
+
+                } else {
+                    console.log("fetching Forma labels failed!!");
+                }
+            });
+
+            $("#master-layer-list > div > ul > li:nth-child(2)").click(function() {
+                $("#playLine3").hide();
+                $("#sliderProgressLine2").hide();
+                var $this = $(this);
+                setTimeout(function() { //TODO : Fix this 
+                    ionCallback.call();
+                }, 300);
+                $("#irs-2 > span.irs > span.irs-to").css("left", "759px");
+                $("#irs-2 > span.irs > span.irs-to").html(max);
+            });
+
+
 
             $from.on("change", function() {
                 from = $(this).prop("value");
@@ -432,8 +437,8 @@ define([
                     currentMonth = (monthNum + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=37.5px");
-                    $('#sliderProgressLine2').css("left", "+=37.5px");
+                    $('#playLine3').css("left", "+=34.5px");
+                    $('#sliderProgressLine2').css("left", "+=34.5px");
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];

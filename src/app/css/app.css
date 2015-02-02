@@ -2738,7 +2738,7 @@ body {
 /*TODO: Confirm these footer and header icon colors and hover colors*/
 
 /* line 702 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a.commodities svg {
+.layout-footer .apps-footer ul li a:hover.commodities svg {
   fill: #e98300;
 }
 
@@ -2746,7 +2746,7 @@ body {
 /* line 67, /Users/miguelbarrenechea/Proyects/gfw/app/assets/stylesheets/_footer1600.scss */
 
 /* line 706 : /Users/lucascotner/Documents/Projects/2278-wri-oil-palm/src/app/css/footer.styl */
-.layout-footer .apps-footer ul li a.commodities h3 {
+.layout-footer .apps-footer ul li a:hover.commodities h3 {
   color: #e98300;
 }
 
