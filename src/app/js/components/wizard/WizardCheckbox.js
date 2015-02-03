@@ -111,7 +111,7 @@ define([
                     this.props.infoDivClass = "forest-and-land-cover-land-cover-south-east-asia";
                     break;
                 case "treeCoverLoss":
-                    this.props.infoDivClass = "forest-change-tree-cover-loss";
+                    this.props.infoDivClass = "forest-change-tree-cover-change";
                     break;
 
             }
