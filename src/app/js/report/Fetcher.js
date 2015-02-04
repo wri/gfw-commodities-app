@@ -124,7 +124,6 @@ define([
             ReportRenderer.renderTotalLossContainer(config);
 
             function success(response) {
-                window.temp = {response:response, content:content};
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
                 } else {

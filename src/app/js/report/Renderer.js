@@ -253,12 +253,12 @@ define([
 					sliceIndex,
 					data,
 					i, j;
-					
+
 			series.push({
 				'name': yLabels[0],
 				'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
 			});
-			colors.push(config.colors[0]);
+			colors.push(config.color);
 
 			// Format the data based on some config value, removeBelowYear
 			// get index of removeBelowYear and use that to splice the data arrays and the xlabels

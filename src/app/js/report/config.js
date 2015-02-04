@@ -275,8 +275,8 @@ define([], function() {
                 title: "Annual Tree Cover Loss (in hectares)"
             },
             bounds: treeCoverBounds,
-            labels: [],
-            colors: ["#DB6598"]
+            color: "#DB6598",
+            labels: []
         },
 
         legalClass: {
