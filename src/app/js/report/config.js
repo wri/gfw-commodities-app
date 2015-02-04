@@ -276,7 +276,7 @@ define([], function() {
             },
             bounds: treeCoverBounds,
             labels: [],
-            colors: treeCoverColors
+            colors: ["#DB6598"]
         },
 
         legalClass: {
