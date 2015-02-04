@@ -238,12 +238,8 @@ define([
 			@param {array} histogramData
 			@param {number} pixelSize
 			@param {object} config
-			@param {function} encoder
-			@param {boolean} useSimpleEncoderRule
 		*/
 		renderTreeCoverLossData: function (histogramData, pixelSize, config) {
-
-			////////////////////////////////////////////////////////////////////////////////
 
 			var lossConfig = ReportConfig.totalLoss,
 					yLabels = config.labels,
@@ -257,8 +253,7 @@ define([
 					sliceIndex,
 					data,
 					i, j;
-
-
+					
 			series.push({
 				'name': yLabels[0],
 				'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
@@ -293,7 +288,7 @@ define([
 					text: config.lossChart.title
 				},
 				xAxis: {
-					// categories: xLabels,
+					categories: xLabels,
 					maxPadding: 0.35,
 					title: {
 						text: null
@@ -322,10 +317,7 @@ define([
 				}
 			});
 
-			////////////////////////////////////////////////////////////////////////////////
-
 		},
-
 
 
 		/*
