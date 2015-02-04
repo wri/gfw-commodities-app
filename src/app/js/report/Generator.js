@@ -71,6 +71,8 @@ define([
             // Parse the geometry from the global payload object
             report.geometry = JSON.parse(window.payload.geometry);
 
+            window.temp = report.geometry;
+
             // Set the title and unhide the report
             this.setTitleAndShowReport(window.payload.title);
 
@@ -337,6 +339,9 @@ define([
                         break;
                     case "treeDensity":
                         deferreds.push(Fetcher.getTreeCoverResults());
+                        break;
+                    case "treeCoverLoss":
+                        deferreds.push(Fetcher.getTreeCoverLossResults());
                         break;
                     default:
                         break;

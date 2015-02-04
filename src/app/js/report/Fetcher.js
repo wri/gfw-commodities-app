@@ -104,6 +104,108 @@ define([
             return deferred.promise;
         },
 
+        getTreeCoverLossResults: function() {
+            this._debug('Fetcher >>> getTreeCoverResults');
+            var deferred = new Deferred(),
+                config = ReportConfig.treeCoverLoss,
+                url = ReportConfig.imageServiceUrl,
+                rasterId = config.rasterId,
+                content = {
+                    geometryType: 'esriGeometryPolygon',
+                    geometry: JSON.stringify(report.geometry),
+                    mosaicRule: JSON.stringify(config.mosaicRule),
+                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    f: 'json'
+                },
+                self = this;
+
+
+            // Create the container for all the results
+            // Add this config to Fires so the Fires request knows to add data here
+            ReportRenderer.renderTotalLossContainer(config);
+            // _fireQueriesToRender.push(config);
+
+            function success(response) {
+                window.temp = {response:response, content:content};
+                if (response.histograms.length > 0) {
+                    ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+                } else {
+                    ReportRenderer.renderAsUnavailable('loss', config);
+                }
+                deferred.resolve(true);
+            }
+
+            function failure(error) {
+                if (error.details) {
+                    if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+                        content.pixelSize = 500;
+                        self._computeHistogram(url, content, success, failure);
+                    } else {
+                        deferred.resolve(false);
+                    }
+                } else {
+                    deferred.resolve(false);
+                }
+            }
+
+            this._computeHistogram(url, content, success, failure);
+
+            return deferred.promise;
+
+            //////////////////////////////////////////////////////////////////////////////// 
+            
+            // this._debug('Fetcher >>> _getTotalLossAnalysis');
+            // var deferred = new Deferred(),
+            //     lossConfig = ReportConfig.totalLoss,
+            //     url = ReportConfig.imageServiceUrl,
+            //     encoder = this._getEncodingFunction(lossConfig.bounds, config.bounds),
+            //     rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId,
+            //     renderingRule = useSimpleEncoderRule ?
+            //         encoder.getSimpleRule(lossConfig.rasterId, rasterId) :
+            //         encoder.render(lossConfig.rasterId, rasterId),
+            //     content = {
+            //         geometryType: 'esriGeometryPolygon',
+            //         geometry: JSON.stringify(report.geometry),
+            //         renderingRule: renderingRule,
+            //         pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+            //         f: 'json'
+            //     },
+            //     self = this;
+
+            // function success(response) {
+            //     if (response.histograms.length > 0) {
+            //         ReportRenderer.renderLossData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
+            //     } else {
+            //         ReportRenderer.renderAsUnavailable('loss', config);
+            //     }
+            //     deferred.resolve(true);
+            // }
+
+            // function failure(error) {
+            //     if (error.details) {
+            //         if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+            //             content.pixelSize = 500;
+            //             self._computeHistogram(url, content, success, failure);
+            //         } else {
+            //             deferred.resolve(false);
+            //         }
+            //     } else {
+            //         deferred.resolve(false);
+            //     }
+            // }
+
+            // // If the report analyzeTreeCoverLoss is false, just resolve here
+            // //if (report.analyzeTreeCoverLoss) {
+            // this._computeHistogram(url, content, success, failure);
+            // //} else {
+            // //  deferred.resolve(true);
+            // //}
+
+            // return deferred.promise;
+
+            //////////////////////////////////////////////////////////////////////////////// 
+        },
+
         getLegalClassResults: function() {
             this._debug('Fetcher >>> getLegalClassResults');
             var deferred = new Deferred(),

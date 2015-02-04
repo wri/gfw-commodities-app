@@ -83,9 +83,9 @@ define([
                             }, config.rspo.description),
                             React.DOM.div({
                                 'className': (this.props.selectedArea === 'millPointOption' ? '' : 'hidden'),
-                                'style': {'position': 'relative'} // Temporary While Below is Coming Soon, Remove when Coming Soon is removed
+                                // 'style': {'position': 'relative'} // Temporary While Below is Coming Soon, Remove when Coming Soon is removed
                             },
-                                React.DOM.div({'className': 'coming-soon'}, "Mill Point Risk Assessment Coming Soon!"),
+                                // React.DOM.div({'className': 'coming-soon'}, "Mill Point Risk Assessment Coming Soon!"),
                                 new WizardCheckbox({
                                     'label': config.mill.label,
                                     'value': config.mill.value,

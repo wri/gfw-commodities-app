@@ -261,6 +261,24 @@ define([], function() {
             fireKey: 'treeCover' // Key to the Fires Config for items related to this
         },
 
+        treeCoverLoss: {
+            rootNode: "treeCoverLoss",
+            title: "Tree Cover Loss",
+            rasterId: "$517",
+            mosaicRule: {
+                'mosaicMethod': 'esriMosaicLockRaster',
+                'lockRasterIds': [517],
+                'ascending': true,
+                'mosaicOperation': 'MT_FIRST'
+            },
+            lossChart: {
+                title: "Annual Tree Cover Loss (in hectares)"
+            },
+            bounds: treeCoverBounds,
+            labels: [],
+            colors: treeCoverColors
+        },
+
         legalClass: {
             rootNode: "legalClasses",
             title: "Legal Classifications",
