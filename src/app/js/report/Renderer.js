@@ -311,6 +311,12 @@ define([
 						stacking: 'normal'
 					}
 				},
+				tooltip:{
+					formatter: function(){
+						return '<strong>' + this.key + '</strong><br/>' +
+										number.format(this.y) + '<br/>';
+					}
+				},
 				series: series,
 				credits: {
 					enabled: false
