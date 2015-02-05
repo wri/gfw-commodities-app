@@ -1030,7 +1030,16 @@ define([], function () {
         suitabilityExportDialog: {
             title: "Export Suitability Settings and GeoTiff",
             instruction: "The resolution downloaded for the Suitability Map is based on your current zoom extent. For a higher resolution download, zoom in closer to your area of interest."
+        },
+
+    legendContentPane: {
+      url: mapOverlaysUrl + '/legend?f=json',
+      layers: [
+        {
+          index: 10
         }
+      ]
+    }
 
 
 	};
