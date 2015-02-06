@@ -106,6 +106,7 @@ define([
 			if (wizardWidth === 0) {
 				this.cleanupWizard();
 			} else {
+				wizard.forceUpdate();
 				this.showWizardRelatedLayers();
 			}
 
@@ -127,6 +128,7 @@ define([
 			// Hide Wizard Related Layers
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).hide();
+			app.map._customWidgets.legendContentPane.hide();
 		},
 
 		showWizardRelatedLayers: function () {

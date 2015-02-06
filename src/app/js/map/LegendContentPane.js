@@ -9,39 +9,38 @@ function () {
    * @param {boolean} options.hideEsriLegend
    * @param {string} legendId dom id to append the pane beside
    */
-  LegendContentPane = function(legendId, config, options ) {
+  LegendContentPane = function(id, config, options ) {
 
     options = options || {};
-    options.hideEsriLegend = options.hideEsriLegend == undefined ? true : options.hideEsriLegend;
 
-    this.options = options;
-    this.legendId = legendId;
+    var self = this;
+
+    self.options = options;
+    self.id = id;
+    self.items = [];
 
     var response,
         content = '',
         legendRequest = new XMLHttpRequest(),
-        id = legendId + '-legend-content-pane';
-        
+        itemId;
 
     legendRequest.onreadystatechange = function (res) {
         if (legendRequest.readyState === 4) {
             if (legendRequest.status === 200) {
                 response = JSON.parse(legendRequest.response);
 
-                content += '<div id="' + id + '" style="padding:10px;">';
-
                 config.layers.forEach(function(layerConfig){
-                  response.layers[layerConfig.index].legend.forEach(function(legendItem){
-                    content += '<div>' +
+                  response.layers[layerConfig.index].legend.forEach(function(legendItem,i){
+                    itemId = self.id + '-item-' + i;
+                    self.items.push(itemId);
+                    content += '<div id="' + itemId + '">' +
                                 '<img style="vertical-align:middle;" src="data:image/png;base64,' + legendItem.imageData + '" height="' + legendItem.height + 'px" width="' + legendItem.width + 'px">' + 
                                 '<span style="vertical-align:middle;padding-left:10px;">' + legendItem.label + '</span style="vertical-align:middle;padding-left:10px;">' + 
                                 '</div>';
                   });
                 });
 
-                content += '</div>';
-
-                document.getElementById(legendId).parentNode.innerHTML += content;
+                document.getElementById(id).innerHTML += content;
 
             } else {
                 console.debug('legend request failed');
@@ -60,16 +59,23 @@ function () {
   }
 
   LegendContentPane.prototype.show = function () {
-    if (this.options.hideEsriLegend) {
-      document.getElementById(this.legendId).style.display = 'none';
-    }
+    document.getElementById(this.id).parentNode.style.display = 'block';
     return this;
   };
 
   LegendContentPane.prototype.hide = function () {
-    if (this.options.hideEsriLegend) {
-      document.getElementById(this.legendId).style.display = 'block';
-    }
+    document.getElementById(this.id).parentNode.style.display = 'none';
+    return this;
+  };
+
+  LegendContentPane.prototype.filterItem = function (index) {
+    this.items.forEach(function(elementId, elementIndex) {
+      if (elementIndex === index) {
+        document.getElementById(elementId).style.display = 'block'    
+      } else {
+        document.getElementById(elementId).style.display = 'none';
+      }
+    });
     return this;
   };
 

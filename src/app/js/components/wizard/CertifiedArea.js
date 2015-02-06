@@ -69,6 +69,24 @@ define([
     },
 
     render: function () {
+
+      // Hide legend content pane
+      if (this.props.currentStep === 2 && this.props.selectedArea === 'certifiedAreaOption') {
+
+        switch (this.state.selectedCommodity) {
+          case 'Oil palm concession':
+            topic.publish('filterLegendContentPaneItems',2);
+            break;
+        }
+
+        if (this.state.selectedCommodity === 'NONE') {
+          topic.publish('hideLegendContentPane');
+        } else {
+          topic.publish('showLegendContentPane');
+        }
+
+      }
+
       return (
         React.DOM.div({'className': 'certified-area'},
           React.DOM.p({'className': 'instructions'}, config.instructions),

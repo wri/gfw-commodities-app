@@ -148,6 +148,17 @@ define([
                 MapController.centerChange(x, y, zoom);
             });
 
+            topic.subscribe('showLegendContentPane', function() {
+                app.map._customWidgets.legendContentPane.show();
+            });
+
+            topic.subscribe('hideLegendContentPane', function() {
+                app.map._customWidgets.legendContentPane.hide();
+            });
+
+            topic.subscribe('filterLegendContentPaneItems', function(index) {
+                app.map._customWidgets.legendContentPane.filterItem(index);
+            })
 
         }
 

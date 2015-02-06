@@ -77,6 +77,7 @@ define([
 			// Clear out default Esri Graphic at 0,0, dont know why its even there
       this.map.graphics.clear();
 			this.addWidgets();
+			this.addCustomWidgets();
 			this.addLayers();
 		},
 
@@ -126,8 +127,13 @@ define([
       }, "legend");
       legend.startup();
 
-      legendContentPane = new LegendContentPane('legend', MapConfig.legendContentPane);
+		},
 
+		addCustomWidgets: function() {
+			var customWidgets = {};
+			
+      customWidgets.legendContentPane = new LegendContentPane('legend-content-pane', MapConfig.legendContentPane);
+      this.map._customWidgets = customWidgets;
 		},
 
 		addLayers: function () {

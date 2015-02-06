@@ -90,6 +90,11 @@ define([
                 performAnalysis: this._performAnalysis
             };
 
+            // Hide legend content pane if appropriates
+            if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.props.selectedArea) === -1 || this.props.currentStep === 1) {
+                topic.publish('hideLegendContentPane');
+            }
+            
             return (
                 React.DOM.div({
                         'className': 'relative wizard-root'

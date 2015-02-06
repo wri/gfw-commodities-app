@@ -56,6 +56,33 @@ define([
     },
 
     render: function () {
+
+      // Filter legend content pane or hide
+      if (this.props.currentStep === 2 && this.props.selectedArea === 'commercialEntityOption') {
+
+        switch (this.state.selectedCommodity) {
+          case 'Logging concession':
+            topic.publish('filterLegendContentPaneItems',0);
+            break;
+          case 'Mining concession':
+            topic.publish('filterLegendContentPaneItems',1);
+            break;
+          case 'Oil palm concession':
+            topic.publish('filterLegendContentPaneItems',2);
+            break;
+          case 'Wood fiber plantation':
+            topic.publish('filterLegendContentPaneItems',3);
+            break;
+        }
+
+        if (this.state.selectedCommodity === 'NONE') {
+          topic.publish('hideLegendContentPane');
+        } else {
+          topic.publish('showLegendContentPane');
+        }
+
+      }
+
       return (
         React.DOM.div({'className': 'commercial-entity'},
           React.DOM.p({'className': 'instructions'}, config.instructions),
