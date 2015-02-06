@@ -915,7 +915,7 @@ define([
 					plotBorderWidth: null
 				},
 				title: {
-					text: null
+					text: chartConfig.title
 				},
 				tooltip: {
 					valueSuffix: ''
