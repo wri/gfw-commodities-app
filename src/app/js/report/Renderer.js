@@ -31,6 +31,7 @@ define([
 			node.className = "result-container";
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='result-block total-loss'>" +
+						// "<div class='' id='" + config.rootNode + "_composition'><div class='loader-wheel'>Composition Analaysis</div></div>" +
 						"<div class='left-panel'>" +
 							"<div class='loss-chart' id='" + config.rootNode + "_loss'><div class='loader-wheel'>total loss</div></div>" +
 						"</div>" +

@@ -76,7 +76,8 @@ define([
 
             all([
                 this._getTotalLossAnalysis(config),
-                this._getClearanceAlertAnalysis(config)
+                this._getClearanceAlertAnalysis(config),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
@@ -399,7 +400,7 @@ define([
             //if (report.analyzeTreeCoverLoss) {
             this._computeHistogram(url, content, success, failure);
             //} else {
-            //	deferred.resolve(true);
+            // deferred.resolve(true);
             //}
 
             return deferred.promise;
@@ -458,8 +459,102 @@ define([
             };
             this._computeHistogram(url, content, success, failure);
             //} else {
-            //	deferred.resolve(true);
+            //  deferred.resolve(true);
             //}
+
+            return deferred.promise;
+        },
+
+        _getCompositionAnalysis: function(config) {
+            var deferred = new Deferred(),
+                url = 'http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer',
+                content = {
+                    geometryType: 'esriGeometryPolygon',
+                    geometry: JSON.stringify(report.geometry),
+                    mosaicRule: JSON.stringify({
+                        'mosaicMethod': 'esriMosaicLockRaster',
+                        'lockRasterIds': [3],
+                        'ascending': true,
+                        'mosaicOperation': 'MT_FIRST'
+                    }),
+                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    f: 'json'
+                },
+                self = this
+                ;
+
+            function success(response) {
+                if (response.histograms.length > 0) {
+                    console.debug(report.geometry);
+                    console.debug(response.histograms[0].counts[6]);
+                    // ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+                } else {
+                    console.debug('Render composition analysis unavailable');
+                    // ReportRenderer.renderAsUnavailable('loss', config);
+                }
+                deferred.resolve(true);
+            }
+
+            function failure(error) {
+                if (error.details) {
+                    if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+                        content.pixelSize = 500;
+                        self._computeHistogram(url, content, success, failure);
+                    } else {
+                        deferred.resolve(false);
+                    }
+                } else {
+                    deferred.resolve(false);
+                }
+            }
+
+            // this._computeHistogram(url, content, success, failure);
+            
+            ////////////////////////////////////////////////////////////////////////
+            // var deferred = new Deferred(),
+            //     config = ReportConfig.treeCoverLoss,
+            //     url = ReportConfig.imageServiceUrl,
+            //     rasterId = config.rasterId,
+            //     content = {
+            //         geometryType: 'esriGeometryPolygon',
+            //         geometry: JSON.stringify(report.geometry),
+            //         mosaicRule: JSON.stringify(config.mosaicRule),
+            //         pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+            //         f: 'json'
+            //     },
+            //     self = this;
+
+
+            // // Create the container for all the result
+            // ReportRenderer.renderTotalLossContainer(config);
+
+            // function success(response) {
+            //     if (response.histograms.length > 0) {
+            //         ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+            //     } else {
+            //         ReportRenderer.renderAsUnavailable('loss', config);
+            //     }
+            //     deferred.resolve(true);
+            // }
+
+            // function failure(error) {
+            //     if (error.details) {
+            //         if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+            //             content.pixelSize = 500;
+            //             self._computeHistogram(url, content, success, failure);
+            //         } else {
+            //             deferred.resolve(false);
+            //         }
+            //     } else {
+            //         deferred.resolve(false);
+            //     }
+            // }
+
+            // this._computeHistogram(url, content, success, failure);
+
+            // return deferred.promise;
+            ////////////////////////////////////////////////////////////////////////
+
 
             return deferred.promise;
         },
