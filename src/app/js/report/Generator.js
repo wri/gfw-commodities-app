@@ -196,7 +196,7 @@ define([
             }
 
             // Get area 
-            Fetcher.getAreaFromGeometry(report.geometry);
+            report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
 
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on
             all([

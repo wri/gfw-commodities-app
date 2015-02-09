@@ -31,7 +31,7 @@ define([
 			node.className = "result-container";
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='result-block total-loss'>" +
-						// "<div class='' id='" + config.rootNode + "_composition'><div class='loader-wheel'>Composition Analaysis</div></div>" +
+						"<div class='result-block' id='" + config.rootNode + "_composition'><div class='loader-wheel'>Composition Analaysis</div></div>" +
 						"<div class='left-panel'>" +
 							"<div class='loss-chart' id='" + config.rootNode + "_loss'><div class='loader-wheel'>total loss</div></div>" +
 						"</div>" +
@@ -130,6 +130,33 @@ define([
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
 			document.getElementById('report-results-section').appendChild(fragment);
+		},
+
+		renderCompositionAnalysis: function (histogramData, pixelSize, config) {
+			var fragment = document.createDocumentFragment(),
+					node = document.createElement('div'),
+					dest = document.getElementById(config.rootNode + '_composition'),
+					title = config.compositionAnalysis.title || config.title,
+					area = (histogramData[config.compositionAnalysis.histogramIndex]*pixelSize*pixelSize)/10000,
+					areaLabel = number.format(area),
+					percentage;
+
+			report.areaPromise.then(function(){
+
+				percentage = number.format((area/report.area)*100, {
+					places: 0
+				});
+
+				node.className = "composition-analysis-container";
+				node.innerHTML = 	"<div>Total " + title + " in selected area: " + areaLabel + " ha</div>" +
+													"<div>Percent of total area comprised of " + title + ": " + percentage + "%</div>";
+
+				// Append root to fragment and then fragment to document
+				fragment.appendChild(node);
+				dest.innerHTML = "";
+				dest.appendChild(fragment);
+				
+			});
 		},
 
 		/*

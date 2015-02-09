@@ -229,6 +229,10 @@ define([], function() {
                 title: "Annual Tree Cover Loss (in hectares) in Primary Forests",
                 removeBelowYear: 2005
             },
+            compositionAnalysis: {
+                title: "Primary Forest",
+                histogramIndex: 7
+            },
             colors: primaryForestColors,
             fireKey: 'primaryForest' // Key to the Fires Config for items related to this
         },

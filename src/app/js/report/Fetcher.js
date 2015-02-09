@@ -24,7 +24,8 @@ define([
 
         getAreaFromGeometry: function(geometry) {
             this._debug('Fetcher >>> getAreaFromGeometry');
-            var geometryService = new GeometryService(ReportConfig.geometryServiceUrl),
+            var deferred = new Deferred(),
+                geometryService = new GeometryService(ReportConfig.geometryServiceUrl),
                 parameters = new AreasAndLengthsParameters(),
                 sr = new SpatialReference(54012),
                 polygon = new Polygon(geometry),
@@ -36,14 +37,18 @@ define([
                     area = dojoNumber.format(result.areas[0], {
                         places: 0
                     });
+                    report.area = result.areas[0];
+                    deferred.resolve(true);
                 } else {
                     area = errorString;
+                    deferred.resolve(false);
                 }
                 document.getElementById("total-area").innerHTML = area;
             }
 
             function failure(err) {
                 document.getElementById("total-area").innerHTML = errorString;
+                deferred.resolve(false);
             }
 
             // Project Geometry in Eckert Spatial Reference
@@ -62,6 +67,7 @@ define([
                 }, failure);
             }, failure);
 
+            return deferred.promise;
         },
 
         getPrimaryForestResults: function() {
@@ -485,12 +491,11 @@ define([
 
             function success(response) {
                 if (response.histograms.length > 0) {
-                    console.debug(report.geometry);
-                    console.debug(response.histograms[0].counts[6]);
-                    // ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+                    console.debug(response.histograms[0].counts);
+                    ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
                 } else {
                     console.debug('Render composition analysis unavailable');
-                    // ReportRenderer.renderAsUnavailable('loss', config);
+                    ReportRenderer.renderAsUnavailable('composition', config);
                 }
                 deferred.resolve(true);
             }
@@ -508,54 +513,8 @@ define([
                 }
             }
 
-            // this._computeHistogram(url, content, success, failure);
-            
-            ////////////////////////////////////////////////////////////////////////
-            // var deferred = new Deferred(),
-            //     config = ReportConfig.treeCoverLoss,
-            //     url = ReportConfig.imageServiceUrl,
-            //     rasterId = config.rasterId,
-            //     content = {
-            //         geometryType: 'esriGeometryPolygon',
-            //         geometry: JSON.stringify(report.geometry),
-            //         mosaicRule: JSON.stringify(config.mosaicRule),
-            //         pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
-            //         f: 'json'
-            //     },
-            //     self = this;
-
-
-            // // Create the container for all the result
-            // ReportRenderer.renderTotalLossContainer(config);
-
-            // function success(response) {
-            //     if (response.histograms.length > 0) {
-            //         ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
-            //     } else {
-            //         ReportRenderer.renderAsUnavailable('loss', config);
-            //     }
-            //     deferred.resolve(true);
-            // }
-
-            // function failure(error) {
-            //     if (error.details) {
-            //         if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
-            //             content.pixelSize = 500;
-            //             self._computeHistogram(url, content, success, failure);
-            //         } else {
-            //             deferred.resolve(false);
-            //         }
-            //     } else {
-            //         deferred.resolve(false);
-            //     }
-            // }
-
-            // this._computeHistogram(url, content, success, failure);
-
-            // return deferred.promise;
-            ////////////////////////////////////////////////////////////////////////
-
-
+            this._computeHistogram(url, content, success, failure);
+        
             return deferred.promise;
         },
 
@@ -590,7 +549,6 @@ define([
             // Get Results from API
             req = new XMLHttpRequest();
 
-            console.debug(config.url);
             window.shortcutConfig = config;
             // req.open('POST', config.url, true);
             req.open('POST', config.url, true);
