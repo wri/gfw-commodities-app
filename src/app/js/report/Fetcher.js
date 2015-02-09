@@ -491,10 +491,8 @@ define([
 
             function success(response) {
                 if (response.histograms.length > 0) {
-                    console.debug(response.histograms[0].counts);
                     ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
                 } else {
-                    console.debug('Render composition analysis unavailable');
                     ReportRenderer.renderAsUnavailable('composition', config);
                 }
                 deferred.resolve(true);
