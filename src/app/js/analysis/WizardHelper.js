@@ -106,7 +106,9 @@ define([
 			if (wizardWidth === 0) {
 				this.cleanupWizard();
 			} else {
-				wizard.forceUpdate();
+				if (wizard) {
+					wizard.forceUpdate();
+				}
 				this.showWizardRelatedLayers();
 			}
 
