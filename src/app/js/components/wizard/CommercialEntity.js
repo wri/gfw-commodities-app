@@ -191,7 +191,7 @@ define([
         AnalyzerQuery.getFeatureById(config.commodityQuery.url, objectId).then(function (feature) {
 
           // Add it to the map and make it the current selection, give it a label
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
+          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerHTML || target.innerText;
           graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
           if (wizardGraphicsLayer) {
