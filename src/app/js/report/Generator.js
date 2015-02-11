@@ -70,9 +70,7 @@ define([
 
             // Parse the geometry from the global payload object
             report.geometry = JSON.parse(window.payload.geometry);
-
-            window.temp = report.geometry;
-
+            
             // Set the title and unhide the report
             this.setTitleAndShowReport(window.payload.title);
 
