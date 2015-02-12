@@ -199,10 +199,15 @@ define([
                 layer,
                 key;
 
+            for (var key in app.map._simpleLegends) {
+                app.map._simpleLegends[key].hide();
+            }
+
             // Layer Ids are in the config, the key to the config file is under the data-layer attribute of the elements
             dojoQuery(".gfw .overlays-container .overlays-checkbox.selected").forEach(function(node) {
                 key = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
                 visibleLayers.push(MapConfig[key].layerId);
+                if (app.map._simpleLegends[key]) app.map._simpleLegends[key].show();
             });
 
             layer = app.map.getLayer(MapConfig.overlays.id);

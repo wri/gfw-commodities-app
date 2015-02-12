@@ -88,9 +88,9 @@ define([
           geoCoder,
           basemapGallery,
           simpleLegends = {},
-          roads,
-          settlements,
-          politicalBounds,
+          road,
+          settle,
+          poBounds,
           concessions;
 
       domConstruct.create("div", {
@@ -134,14 +134,14 @@ define([
       // Simple Legends
       
       // Overlays
-      settlements = new SimpleLegend(MapConfig.simpleLegends.settlements);
-      settlements.init(settlements.hide);
+      settle = new SimpleLegend(MapConfig.simpleLegends.settle);
+      settle.init(settle.hide);
 
-      roads = new SimpleLegend(MapConfig.simpleLegends.roads);
-      roads.init(roads.hide);
+      road = new SimpleLegend(MapConfig.simpleLegends.road);
+      road.init(road.hide);
 
-      politicalBounds = new SimpleLegend(MapConfig.simpleLegends.politicalBounds);
-      politicalBounds.init(politicalBounds.hide);
+      poBounds = new SimpleLegend(MapConfig.simpleLegends.poBounds);
+      poBounds.init(poBounds.hide);
 
       // Concessions
       concessions = new SimpleLegend(MapConfig.simpleLegends.concessions);
@@ -155,9 +155,9 @@ define([
         document.getElementById("legend").style.display = 'block';
       }
 
-      simpleLegends.roads = roads;
-      simpleLegends.settlements = settlements;
-      simpleLegends.politicalBounds = politicalBounds;
+      simpleLegends.road = road;
+      simpleLegends.settle = settle;
+      simpleLegends.poBounds = poBounds;
       simpleLegends.concessions = concessions;
 
       this.map._simpleLegends = simpleLegends;

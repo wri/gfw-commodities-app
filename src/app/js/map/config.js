@@ -1046,7 +1046,7 @@ define([], function () {
       },
 
       // Overlays
-      roads: {
+      road: {
         url: mapOverlaysUrl + '/legend?f=json',
         parentId: 'legend-content',
         id: 'roads-legend',
@@ -1057,10 +1057,10 @@ define([], function () {
         ]
       },
 
-      settlements: {
+      settle: {
         url: mapOverlaysUrl + '/legend?f=json',
         parentId: 'legend-content',
-        id: 'settlements-legend',
+        id: 'settle-legend',
         title: 'Settlements',
         layers: [
           { id: 2 },
@@ -1068,11 +1068,11 @@ define([], function () {
         ]
       },
 
-      politicalBounds: {
+      poBounds: {
         url: mapOverlaysUrl + '/legend?f=json',
         parentId: 'legend-content',
-        id: 'settlements-legend',
-        title: 'Settlements',
+        id: 'po-bounds-legend',
+        title: 'Political Boundaries',
         layers: [
           { id: 6, labels: [ 'Admin Level 1' ] },
           { id: 7, labels: [ 'Admin Level 2' ] }
