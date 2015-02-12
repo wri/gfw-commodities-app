@@ -11,7 +11,7 @@ define([
 	"map/config",
 	"analysis/WizardHelper",
   "map/SuitabilityImageServiceLayer",
-	"map/LegendContentPane",
+	"map/SimpleLegend",
 	// Esri Modules
 	"esri/map",
 	"esri/config",
@@ -29,7 +29,7 @@ define([
 	"esri/dijit/HomeButton",
 	"esri/dijit/LocateButton",
 	"esri/dijit/BasemapGallery"
-], function (Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, LegendContentPane, Map, esriConfig, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function (Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, Map, esriConfig, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
 	'use strict';
 
 	var _map = declare([Evented], {
@@ -132,7 +132,7 @@ define([
 		addCustomWidgets: function() {
 			var customWidgets = {};
 			
-      customWidgets.legendContentPane = new LegendContentPane('legend-content-pane', MapConfig.legendContentPane);
+      customWidgets.concessionsSimpleLegend = new SimpleLegend('legend-content-pane', MapConfig.concessionsSimpleLegend);
       this.map._customWidgets = customWidgets;
 		},
 

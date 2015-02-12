@@ -130,7 +130,7 @@ define([
 			// Hide Wizard Related Layers
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).hide();
-			app.map._customWidgets.legendContentPane.hide();
+			app.map._customWidgets.concessionsSimpleLegend.hide();
 		},
 
 		showWizardRelatedLayers: function () {

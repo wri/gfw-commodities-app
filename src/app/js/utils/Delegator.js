@@ -149,15 +149,15 @@ define([
             });
 
             topic.subscribe('showLegendContentPane', function() {
-                app.map._customWidgets.legendContentPane.show();
+                app.map._customWidgets.concessionsSimpleLegend.show();
             });
 
             topic.subscribe('hideLegendContentPane', function() {
-                app.map._customWidgets.legendContentPane.hide();
+                app.map._customWidgets.concessionsSimpleLegend.hide();
             });
 
             topic.subscribe('filterLegendContentPaneItems', function(index) {
-                app.map._customWidgets.legendContentPane.filterItem(index);
+                app.map._customWidgets.concessionsSimpleLegend.filterItem(index);
             })
 
         }
