@@ -86,7 +86,12 @@ define([
           legend,
           locator,
           geoCoder,
-          basemapGallery;
+          basemapGallery,
+          simpleLegends = {},
+          roads,
+          settlements,
+          politicalBounds,
+          concessions;
 
       domConstruct.create("div", {
         'id': 'home-button',
@@ -126,34 +131,36 @@ define([
       }, "legend");
       legend.startup();
 
-      // Custom Widgets
-      var customWidgets = {};
-
+      // Simple Legends
+      
       // Overlays
-      customWidgets.settlementsSimpleLegend = new SimpleLegend(MapConfig.settlementsSimpleLegend);
-      customWidgets.settlementsSimpleLegend.init();
+      settlements = new SimpleLegend(MapConfig.simpleLegends.settlements);
+      settlements.init(settlements.hide);
 
-      customWidgets.roadsSimpleLegend = new SimpleLegend(MapConfig.roadsSimpleLegend);
-      customWidgets.roadsSimpleLegend.init();
+      roads = new SimpleLegend(MapConfig.simpleLegends.roads);
+      roads.init(roads.hide);
 
-      customWidgets.politicalBoundsSimpleLegend = new SimpleLegend(MapConfig.politicalBoundsSimpleLegend);
-      customWidgets.politicalBoundsSimpleLegend.init();
+      politicalBounds = new SimpleLegend(MapConfig.simpleLegends.politicalBounds);
+      politicalBounds.init(politicalBounds.hide);
 
       // Concessions
-      customWidgets.concessionsSimpleLegend = new SimpleLegend(MapConfig.concessionsSimpleLegend);
-      customWidgets.concessionsSimpleLegend.init().then(function(concessionsSimpleLegend){
-        concessionsSimpleLegend.hide();
-      });
+      concessions = new SimpleLegend(MapConfig.simpleLegends.concessions);
+      concessions.init(concessions.hide);
 
-      customWidgets.concessionsSimpleLegend.onShow = function() {
+      concessions.onShow = function() {
         document.getElementById("legend").style.display = 'none';
       }
 
-      customWidgets.concessionsSimpleLegend.onHide = function() {
+      concessions.onHide = function() {
         document.getElementById("legend").style.display = 'block';
       }
 
-      this.map._customWidgets = customWidgets;
+      simpleLegends.roads = roads;
+      simpleLegends.settlements = settlements;
+      simpleLegends.politicalBounds = politicalBounds;
+      simpleLegends.concessions = concessions;
+
+      this.map._simpleLegends = simpleLegends;
 
     },
 

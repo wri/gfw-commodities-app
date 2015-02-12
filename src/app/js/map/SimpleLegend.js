@@ -1,35 +1,26 @@
 define([
-  "dojo/Deferred"
 ],
-function (Deferred) {
+function () {
 
-  /**
-   * Pane to display arcgis server legend contents
-   * @param {object} config 
-   * @param {string} config.url
-   * @param {boolean} options.hideEsriLegend
-   * @param {string} legendId dom id to append the pane beside
-   */
   SimpleLegend = function(config) {
     this.config = config;
     this.CLASS_NAME = 'simple-legend';
     this.onHide = function(){};
     this.onShow = function(){};
+    this.items = [];
     
     return this;
   };
 
-  SimpleLegend.prototype.init = function () {
-    this.items = [];
+  SimpleLegend.prototype.init = function (callback) {
 
-    var deferred = new Deferred(),
-        legendRequest = new XMLHttpRequest(),
+    var legendRequest = new XMLHttpRequest(),
         layerIndex = 0,
         content = '',
         configLayerIds,
         response,
         responseLayers,
-        config = this.config;
+        config = this.config,
         self = this;
 
     legendRequest.onreadystatechange = function (res) {
@@ -42,7 +33,7 @@ function (Deferred) {
                 content += '<div id="' + config.id + '" class="' + self.CLASS_NAME + '">';
 
                 if (config.title) {
-                  content += '<div>' + config.title + '</dvi>';
+                  content += '<div id="' + config.id + '-title" class="simple-legend-title">' + config.title + '</div>';
                 }
 
                 // Legend items
@@ -72,9 +63,9 @@ function (Deferred) {
                       itemLabel = config.layers[layerIndex].labels[i];
                     }
 
-                    content += '<div id="' + itemId + '">' +
-                                '<img style="vertical-align:middle;" src="data:image/png;base64,' + legendItem.imageData + '" height="' + legendItem.height + 'px" width="' + legendItem.width + 'px">' + 
-                                '<span style="vertical-align:middle;padding-left:10px;">' + itemLabel + '</span style="vertical-align:middle;padding-left:10px;">' + 
+                    content += '<div id="' + itemId + '" class="simple-legend-layer">' +
+                                '<img class="simple-legend-image" src="data:image/png;base64,' + legendItem.imageData + '" height="' + legendItem.height + 'px" width="' + legendItem.width + 'px">' + 
+                                '<span class="simple-legend-label">' + itemLabel + '</span>' + 
                                 '</div>';
                   });
 
@@ -91,23 +82,21 @@ function (Deferred) {
 
                 document.getElementById(config.parentId).insertAdjacentHTML('afterbegin',content);
 
-                deferred.resolve(self);
+                if (callback) callback.bind(self)();
 
             } else {
-              deferred.resolve(null, true);
+              console.log('Error');
             }
         }
     };
 
     legendRequest.addEventListener('error', function (error) {
       if (error) console.log(error);
-      deferred.resolve(null, true);
     }, false);
 
     legendRequest.open('GET', config.url, true);
     legendRequest.send();
 
-    return deferred.promise;
   }  
 
   SimpleLegend.prototype.show = function () {

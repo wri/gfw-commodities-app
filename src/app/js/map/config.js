@@ -1033,47 +1033,50 @@ define([], function () {
         },
 
     // Simple Legend config for concessions
-    concessionsSimpleLegend: {
-      url: mapOverlaysUrl + '/legend?f=json',
-      parentId: 'legend-content',
-      id: 'concessions-legend',
-      layers: [
-        { id: 13, }
-      ]
-    },
+    simpleLegends: {
+      concessions: {
+        url: mapOverlaysUrl + '/legend?f=json',
+        parentId: 'legend-content',
+        id: 'concessions-legend',
+        layers: [
+          { id: 13, }
+        ]
+      },
 
-    // Simple Legend config for overlays
-    roadsSimpleLegend: {
-      url: mapOverlaysUrl + '/legend?f=json',
-      parentId: 'legend-content',
-      id: 'roads-legend',
-      title: 'Roads',
-      layers: [
-        { id: 9, labels: [ 'Primary' ] },
-        { id: 10, labels: [ 'Secondary' ] }
-      ]
-    },
+      // Simple Legend config for overlays
+      roads: {
+        url: mapOverlaysUrl + '/legend?f=json',
+        parentId: 'legend-content',
+        id: 'roads-legend',
+        title: 'Roads',
+        layers: [
+          { id: 9, labels: [ 'Primary' ] },
+          { id: 10, labels: [ 'Secondary' ] }
+        ]
+      },
 
-    settlementsSimpleLegend: {
-      url: mapOverlaysUrl + '/legend?f=json',
-      parentId: 'legend-content',
-      id: 'settlements-legend',
-      title: 'Settlements',
-      layers: [
-        { id: 2 },
-        { id: 3, labels: [ 'Cities and Towns' ] }
-      ]
-    },
+      settlements: {
+        url: mapOverlaysUrl + '/legend?f=json',
+        parentId: 'legend-content',
+        id: 'settlements-legend',
+        title: 'Settlements',
+        layers: [
+          { id: 2 },
+          { id: 3, labels: [ 'Cities and Towns' ] }
+        ]
+      },
 
-    politicalBoundsSimpleLegend: {
-      url: mapOverlaysUrl + '/legend?f=json',
-      parentId: 'legend-content',
-      id: 'settlements-legend',
-      title: 'Settlements',
-      layers: [
-        { id: 6, labels: [ 'Admin Level 1' ] },
-        { id: 7, labels: [ 'Admin Level 2' ] }
-      ]
+      politicalBounds: {
+        url: mapOverlaysUrl + '/legend?f=json',
+        parentId: 'legend-content',
+        id: 'settlements-legend',
+        title: 'Settlements',
+        layers: [
+          { id: 6, labels: [ 'Admin Level 1' ] },
+          { id: 7, labels: [ 'Admin Level 2' ] }
+        ]
+      }
+      
     }
 
   };

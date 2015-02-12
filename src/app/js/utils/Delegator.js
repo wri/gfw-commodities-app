@@ -149,16 +149,16 @@ define([
             });
 
             topic.subscribe('showLegendContentPane', function() {
-                app.map._customWidgets.concessionsSimpleLegend.show();
-                app.map._customWidgets.concessionsSimpleLegend.show();
+                app.map._simpleLegends.concessions.show();
+                app.map._simpleLegends.concessions.show();
             });
 
             topic.subscribe('hideLegendContentPane', function() {
-                app.map._customWidgets.concessionsSimpleLegend.hide();
+                app.map._simpleLegends.concessions.hide();
             });
 
             topic.subscribe('filterLegendContentPaneItems', function(index) {
-                app.map._customWidgets.concessionsSimpleLegend.filterItem(index);
+                app.map._simpleLegends.concessions.filterItem(index);
             })
 
         }
