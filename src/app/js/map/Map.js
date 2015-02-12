@@ -130,11 +130,14 @@ define([
       var customWidgets = {};
 
       // Overlays
-      // customWidgets.settlementsSimpleLegend = new SimpleLegend(MapConfig.settlementsSimpleLegend);
-      // customWidgets.settlementsSimpleLegend.init();
+      customWidgets.settlementsSimpleLegend = new SimpleLegend(MapConfig.settlementsSimpleLegend);
+      customWidgets.settlementsSimpleLegend.init();
 
-      // customWidgets.roadsSimpleLegend = new SimpleLegend(MapConfig.roadsSimpleLegend);
-      // customWidgets.roadsSimpleLegend.init();
+      customWidgets.roadsSimpleLegend = new SimpleLegend(MapConfig.roadsSimpleLegend);
+      customWidgets.roadsSimpleLegend.init();
+
+      customWidgets.politicalBoundsSimpleLegend = new SimpleLegend(MapConfig.politicalBoundsSimpleLegend);
+      customWidgets.politicalBoundsSimpleLegend.init();
 
       // Concessions
       customWidgets.concessionsSimpleLegend = new SimpleLegend(MapConfig.concessionsSimpleLegend);

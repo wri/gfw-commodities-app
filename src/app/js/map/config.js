@@ -1032,35 +1032,47 @@ define([], function () {
             instruction: "The resolution downloaded for the Suitability Map is based on your current zoom extent. For a higher resolution download, zoom in closer to your area of interest."
         },
 
+    // Simple Legend config for concessions
     concessionsSimpleLegend: {
       url: mapOverlaysUrl + '/legend?f=json',
       parentId: 'legend-content',
       id: 'concessions-legend',
       layers: [
-        { id: 13 }
+        { id: 13, }
+      ]
+    },
+
+    // Simple Legend config for overlays
+    roadsSimpleLegend: {
+      url: mapOverlaysUrl + '/legend?f=json',
+      parentId: 'legend-content',
+      id: 'roads-legend',
+      title: 'Roads',
+      layers: [
+        { id: 9, labels: [ 'Primary' ] },
+        { id: 10, labels: [ 'Secondary' ] }
       ]
     },
 
     settlementsSimpleLegend: {
       url: mapOverlaysUrl + '/legend?f=json',
       parentId: 'legend-content',
-      id: 'test-legend',
+      id: 'settlements-legend',
       title: 'Settlements',
       layers: [
-        { index: 1 },
-        { index: 2 },
-        { index: 3 }
+        { id: 2 },
+        { id: 3, labels: [ 'Cities and Towns' ] }
       ]
     },
 
-    roadsSimpleLegend: {
+    politicalBoundsSimpleLegend: {
       url: mapOverlaysUrl + '/legend?f=json',
       parentId: 'legend-content',
-      id: 'test-legend',
-      title: 'Roads',
+      id: 'settlements-legend',
+      title: 'Settlements',
       layers: [
-        { index: 6 },
-        { index: 7 }
+        { id: 6, labels: [ 'Admin Level 1' ] },
+        { id: 7, labels: [ 'Admin Level 2' ] }
       ]
     }
 

@@ -24,11 +24,11 @@ function (Deferred) {
 
     var deferred = new Deferred(),
         legendRequest = new XMLHttpRequest(),
+        layerIndex = 0,
         content = '',
         configLayerIds,
         response,
         responseLayers,
-        itemId,
         config = this.config;
         self = this;
 
@@ -62,14 +62,23 @@ function (Deferred) {
                   }, this)[0];
 
                   responseLayer.legend.forEach(function(legendItem, i){
-                    itemId = config.id + '-item-' + i;
+                    var itemId = config.id + '-layer-' + layerIndex + '-' + i,
+                        itemLabel = legendItem.label;
+
                     self.items.push(itemId);
+
+                    // Label overrides
+                    if (config.layers[layerIndex].labels !== undefined && config.layers[layerIndex].labels[i]) {
+                      itemLabel = config.layers[layerIndex].labels[i];
+                    }
+
                     content += '<div id="' + itemId + '">' +
                                 '<img style="vertical-align:middle;" src="data:image/png;base64,' + legendItem.imageData + '" height="' + legendItem.height + 'px" width="' + legendItem.width + 'px">' + 
-                                '<span style="vertical-align:middle;padding-left:10px;">' + legendItem.label + '</span style="vertical-align:middle;padding-left:10px;">' + 
+                                '<span style="vertical-align:middle;padding-left:10px;">' + itemLabel + '</span style="vertical-align:middle;padding-left:10px;">' + 
                                 '</div>';
-
                   });
+
+                  layerIndex += 1;
 
                 });
 
@@ -77,6 +86,7 @@ function (Deferred) {
                 if (config.title) {
                   content += '</div>';
                 }
+
                 content += '</div>';
 
                 document.getElementById(config.parentId).insertAdjacentHTML('afterbegin',content);
