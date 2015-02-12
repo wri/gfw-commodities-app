@@ -70,14 +70,13 @@ function (Deferred) {
                                 '</div>';
 
                   });
-                  
+
                 });
 
                 // Root div cleanup
                 if (config.title) {
                   content += '</div>';
                 }
-
                 content += '</div>';
 
                 document.getElementById(config.parentId).insertAdjacentHTML('afterbegin',content);
