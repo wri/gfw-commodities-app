@@ -75,14 +75,14 @@ define([
 
         switch (this.state.selectedCommodity) {
           case 'Oil palm concession':
-            topic.publish('filterLegendContentPaneItems',2);
+            topic.publish('filterConcessionsLegendItems',2);
             break;
         }
 
         if (this.state.selectedCommodity === 'NONE') {
-          topic.publish('hideLegendContentPane');
+          topic.publish('hideConcessionsLegend');
         } else {
-          topic.publish('showLegendContentPane');
+          topic.publish('showConcessionsLegend');
         }
 
       }

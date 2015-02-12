@@ -1032,8 +1032,10 @@ define([], function () {
             instruction: "The resolution downloaded for the Suitability Map is based on your current zoom extent. For a higher resolution download, zoom in closer to your area of interest."
         },
 
-    // Simple Legend config for concessions
+    // Simple Legend configs
     simpleLegends: {
+      
+      // Concessions
       concessions: {
         url: mapOverlaysUrl + '/legend?f=json',
         parentId: 'legend-content',
@@ -1043,7 +1045,7 @@ define([], function () {
         ]
       },
 
-      // Simple Legend config for overlays
+      // Overlays
       roads: {
         url: mapOverlaysUrl + '/legend?f=json',
         parentId: 'legend-content',
@@ -1076,7 +1078,7 @@ define([], function () {
           { id: 7, labels: [ 'Admin Level 2' ] }
         ]
       }
-      
+
     }
 
   };

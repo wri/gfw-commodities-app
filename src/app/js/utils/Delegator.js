@@ -148,16 +148,15 @@ define([
                 MapController.centerChange(x, y, zoom);
             });
 
-            topic.subscribe('showLegendContentPane', function() {
-                app.map._simpleLegends.concessions.show();
+            topic.subscribe('showConcessionsLegend', function() {
                 app.map._simpleLegends.concessions.show();
             });
 
-            topic.subscribe('hideLegendContentPane', function() {
+            topic.subscribe('hideConcessionsLegend', function() {
                 app.map._simpleLegends.concessions.hide();
             });
 
-            topic.subscribe('filterLegendContentPaneItems', function(index) {
+            topic.subscribe('filterConcessionsLegendItems', function(index) {
                 app.map._simpleLegends.concessions.filterItem(index);
             })
 

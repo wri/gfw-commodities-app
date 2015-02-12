@@ -62,23 +62,23 @@ define([
 
         switch (this.state.selectedCommodity) {
           case 'Logging concession':
-            topic.publish('filterLegendContentPaneItems',0);
+            topic.publish('filterConcessionsLegendItems',0);
             break;
           case 'Mining concession':
-            topic.publish('filterLegendContentPaneItems',1);
+            topic.publish('filterConcessionsLegendItems',1);
             break;
           case 'Oil palm concession':
-            topic.publish('filterLegendContentPaneItems',2);
+            topic.publish('filterConcessionsLegendItems',2);
             break;
           case 'Wood fiber plantation':
-            topic.publish('filterLegendContentPaneItems',3);
+            topic.publish('filterConcessionsLegendItems',3);
             break;
         }
 
         if (this.state.selectedCommodity === 'NONE') {
-          topic.publish('hideLegendContentPane');
+          topic.publish('hideConcessionsLegend');
         } else {
-          topic.publish('showLegendContentPane');
+          topic.publish('showConcessionsLegend');
         }
 
       }

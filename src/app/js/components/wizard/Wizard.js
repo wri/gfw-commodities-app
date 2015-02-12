@@ -92,7 +92,7 @@ define([
 
             // Hide legend content pane if appropriates
             if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.props.selectedArea) === -1 || this.props.currentStep === 1) {
-                topic.publish('hideLegendContentPane');
+                topic.publish('hideConcessionsLegend');
             }
             
             return (
