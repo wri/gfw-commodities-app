@@ -481,9 +481,9 @@ define([
                 $from = $(".js-from"),
                 $to = $(".js-to"),
                 min = 2001,
-                max = 2012,
+                max = 2013,
                 from = 2001,
-                to = 2012;
+                to = 2013;
 
             $(".layer-list-item.forest-change").click(function() {
                 var $this = $(this);
@@ -491,7 +491,7 @@ define([
                 var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
                 var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
                 newLeft2 *= 1;
-                if (to == 2012) {
+                if (to == 2013) {
                     $(".irs-slider.to").css("left", "730px");
                 } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") === undefined) {
                     $("#irs-1 > span.irs > span.irs-slider.to").css("left", ((newLeft2 + 8) + 'px'));
@@ -504,7 +504,7 @@ define([
                 var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
                 newLeft2 *= 1;
 
-                if (to == 2012) {
+                if (to == 2013) {
                     $(".irs-slider.to").css("left", "730px");
                 } else if ($("#irs-1 > span.irs > span.irs-slider.to.last").css("left") === undefined) {
                     $("#irs-1 > span.irs > span.irs-slider.to").css("left", ((newLeft2 + 8) + 'px'));
@@ -522,7 +522,7 @@ define([
                     to: to,
                     playing: false,
                     prettify: false,
-                    //values: ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"],
+                    //values: ["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013"],
                     onChange: function(data) {
                         from = data.fromNumber;
                         to = data.toNumber;
@@ -535,7 +535,7 @@ define([
                             $("#sliderProgressLine").hide();
                             $("#playLine2").hide();
                             var values3 = [from - 2001, to - 2001];
-                            for (var i = 1; i < 12; i++) {
+                            for (var i = 1; i < 13; i++) {
                                 var item1 = $(".playLineFiller > div:nth-child(" + i + ")");
                                 var item2 = $(".container2 > div:nth-child(" + i + ")");
 
@@ -554,10 +554,13 @@ define([
                             if (item3 === "none") {
                                 $(".playLineFiller > div").css("background-color", "#a1ba42");
                             } // TODO: Find a better way to make the bars green on 1st thumb drag when the map is loaded w/ the Forma url & then this slider is turned on
-                            if (to != 2012) {
-                                $(".container2 > div:nth-child(12)").css("color", "grey");
+                            if (to != 2013) {
+                                $(".container2 > div:nth-child(13)").css("color", "grey");
                             } else {
-                                $(".container2 > div:nth-child(12)").css("color", "#a1ba42");
+                                $(".container2 > div:nth-child(13)").css("color", "#a1ba42");
+                            }
+                            if (to === from) {
+                                $(".playLineFiller > div").css("background-color", "transparent");
                             }
 
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
@@ -686,9 +689,8 @@ define([
                         return;
                     }
 
-                    $('#playLine2').css("left", "+=66.5px");
-                    $('#sliderProgressLine').css("left", "+=66.5px");
-
+                    $('#playLine2').css("left", "+=61px");
+                    $('#sliderProgressLine').css("left", "+=61px");
                     var newDates = $range[0].value.split(';');
                     var newThumbTwo = newDates[1];
 
