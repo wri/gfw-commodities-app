@@ -561,6 +561,7 @@ define([
                             }
                             if (to === from) {
                                 $(".playLineFiller > div").css("background-color", "transparent");
+                                $(".container2 > div").css("color", "grey");
                             }
 
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
