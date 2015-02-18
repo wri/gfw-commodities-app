@@ -119,6 +119,50 @@ define([
             // Initialize Add This
             addthis.init();
 
+            on(app.map.infoWindow, 'hide', function() {
+                Hasher.removeKey('f');
+            });
+
+            // Infowindow feature hash updating
+            on(app.map.infoWindow, 'selection-change', function() {
+              if (this.features) {
+                Hasher.setHash('f', this.getSelectedFeature().layer + '-' + this.getSelectedFeature().attributes.OBJECTID);
+              } else {
+                Hasher.removeKey('f');
+              }
+            });
+
+            // Priority reordering for mill points
+            var previousFeatures;
+            var changeHandle = on.pausable(app.map.infoWindow, 'selection-change', function() {
+              if (this.features && JSON.stringify(this.features) != JSON.stringify(previousFeatures)) {
+                var reorderedFeatures = [],
+                    existsMillPoint,
+                    isMillPoint,
+                    self = this;
+
+                self.features.forEach(function(feature) {
+                  isMillPoint = feature.attributes.Mill_name != undefined;
+                  if (isMillPoint) {
+                    existsMillPoint = true;
+                    reorderedFeatures.unshift(feature);
+                  } else {
+                    reorderedFeatures.push(feature);
+                  }
+                });
+
+                if (existsMillPoint) {
+                  changeHandle.pause();
+                  self.hide();
+                  self.clearFeatures();
+                  self.setFeatures(reorderedFeatures);
+                  previousFeatures = reorderedFeatures;
+                  self.show(self.location, {closestFirst:false});
+                  changeHandle.resume();
+                }
+              }
+            });
+
         },
 
         bindUIEvents: function() {

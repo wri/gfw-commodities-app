@@ -8,10 +8,10 @@ define([
     'use strict';
 
     var currentView,
+        currentFeature,
         currentX,
         currentY,
         currentL;
-
 
     return {
         // Grab initial hash or set initial hash to home and return current view
@@ -33,6 +33,8 @@ define([
             currentX = state.x;
             currentY = state.y;
             currentL = state.l;
+            currentFeature = state.f;
+
             topic.subscribe("/dojo/hashchange", function(changedHash) {
                 var oldState = state;
 

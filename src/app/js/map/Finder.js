@@ -149,6 +149,13 @@ define([
 
             all(deferreds).then(function(featureSets) {
                 arrayUtils.forEach(featureSets, function(item) {
+
+                    if (item) {
+                        item.features.forEach(function(feature) {
+                            feature.feature.layer = item.layer;
+                        });                        
+                    }
+
                     switch (item.layer) {
                         case "Fires":
                             features = features.concat(self.setFireTemplates(item.features));
