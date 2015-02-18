@@ -445,7 +445,7 @@ define([
         // Priority reordering
         var previousFeatures;
         var changeHandle = on.pausable(app.map.infoWindow, 'selection-change', function() {
-          if (app.map.infoWindow.features) {
+          if (app.map.infoWindow.features && JSON.stringify(reorderedFeatures) != JSON.stringify(previousFeatures)) {
             var reorderedFeatures = [],
                 existsMillPoint,
                 isMillPoint,
@@ -461,7 +461,7 @@ define([
               }
             });
 
-            if (existsMillPoint && JSON.stringify(reorderedFeatures) != JSON.stringify(previousFeatures)) {
+            if (existsMillPoint) {
               changeHandle.pause();
               self.hide();
               self.clearFeatures();
