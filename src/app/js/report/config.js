@@ -230,8 +230,8 @@ define([], function() {
                 removeBelowYear: 2005
             },
             compositionAnalysis: {
-                title: "Primary Forest",
-                histogramIndex: 7
+                rasterId: 519,
+                histogramSlice: 1
             },
             colors: primaryForestColors,
             fireKey: 'primaryForest' // Key to the Fires Config for items related to this
@@ -261,6 +261,11 @@ define([], function() {
             lossChart: {
                 title: "Annual Tree Cover Loss (in hectares) on Tree Cover Density"
             },
+            compositionAnalysis: {
+                title: 'Tree Cover Density (30%-100%)',
+                rasterId: 520,
+                histogramSlice: 31
+            },
             colors: treeCoverColors,
             fireKey: 'treeCover' // Key to the Fires Config for items related to this
         },
@@ -277,6 +282,10 @@ define([], function() {
             },
             lossChart: {
                 title: "Annual Tree Cover Loss (in hectares)"
+            },
+            compositionAnalysis: {
+                rasterId: 517,
+                histogramSlice: 1
             },
             bounds: treeCoverBounds,
             color: "#DB6598",
@@ -313,6 +322,10 @@ define([], function() {
             },
             lossChart: {
                 title: "Annual Tree Cover Loss (in hectares) on Protected Areas"
+            },
+            compositionAnalysis: {
+                rasterId: 10,
+                histogramSlice: 1
             },
             colors: protectedAreaColors,
             fireKey: 'protectedArea' // Key to the Fires Config for items related to this
@@ -366,6 +379,10 @@ define([], function() {
             lossChart: {
                 title: "Annual Tree Cover Loss (in hectares) on Peat Lands",
                 removeBelowYear: 2002
+            },
+            compositionAnalysis: {
+                rasterId: 8,
+                histogramSlice: 1
             },
             colors: peatLandsColors,
             fireKey: 'peatLands' // Key to the Fires Config for items related to this

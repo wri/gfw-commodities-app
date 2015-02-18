@@ -31,7 +31,7 @@ define([
 			node.className = "result-container";
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='result-block total-loss'>" +
-						"<div class='result-block' id='" + config.rootNode + "_composition'><div class='loader-wheel'>Composition Analaysis</div></div>" +
+						"<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
 						"<div class='left-panel'>" +
 							"<div class='loss-chart' id='" + config.rootNode + "_loss'><div class='loader-wheel'>total loss</div></div>" +
 						"</div>" +
@@ -62,6 +62,7 @@ define([
 			node.className = "result-container";
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='result-block total-loss'>" +
+						"<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
 						"<div class='left-panel'>" +
 							"<div class='loss-chart' id='" + config.rootNode + "_loss'><div class='loader-wheel'>total loss</div></div>" +
 						"</div>" +
@@ -132,20 +133,30 @@ define([
 			document.getElementById('report-results-section').appendChild(fragment);
 		},
 
+		renderCompositionAnalysisLoader: function(config) {
+			document.getElementById(config.rootNode + '_composition').innerHTML = '<div class="loader-wheel">composition analysis</div>';
+		},
+
 		renderCompositionAnalysis: function (histogramData, pixelSize, config) {
 			var fragment = document.createDocumentFragment(),
 					node = document.createElement('div'),
 					dest = document.getElementById(config.rootNode + '_composition'),
-					title = config.compositionAnalysis.title || config.title,
-					area = (histogramData[config.compositionAnalysis.histogramIndex]*pixelSize*pixelSize)/10000,
-					areaLabel = number.format(area),
-					percentage;
+					compositionConfig = config.compositionAnalysis,
+					title = compositionConfig.title || config.title,
+					areaLabel,
+					percentage,
+					area;
+					
+			if (compositionConfig.histogramSlice) {
+				area = histogramData.slice(compositionConfig.histogramSlice);
+			}
+
+			area = (area.reduce(function(a,b){return a + b;}) * pixelSize * pixelSize)/10000;
+			areaLabel = number.format(area);
 
 			report.areaPromise.then(function(){
 
-				percentage = number.format((area/report.area)*100, {
-					places: 0
-				});
+				percentage = number.format((area/report.area)*100, {places: 0});
 
 				node.className = "composition-analysis-container";
 				node.innerHTML = 	"<div>Total " + title + " in selected area: " + areaLabel + " ha</div>" +
@@ -1260,6 +1271,8 @@ define([
 				msg = "No Tree Cover Loss Data Available for this site.";
 			} else if (type === 'clearance') {
 				msg = "No Clearance Alert Data Available for this site.";
+			} else if (type === 'composition') {
+				msg = "No Composition Analysis Data Available for this site.";
 			} else {
 				msg = "No Mill Point Data Available for this site.";
 			}

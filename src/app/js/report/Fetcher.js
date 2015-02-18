@@ -103,7 +103,8 @@ define([
 
             all([
                 this._getTotalLossAnalysis(config),
-                this._getClearanceAlertAnalysis(config)
+                this._getClearanceAlertAnalysis(config),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
@@ -129,10 +130,12 @@ define([
 
             // Create the container for all the result
             ReportRenderer.renderTotalLossContainer(config);
+            ReportRenderer.renderCompositionAnalysisLoader(config);
 
             function success(response) {
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+                    ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
                 } else {
                     ReportRenderer.renderAsUnavailable('loss', config);
                 }
@@ -190,7 +193,8 @@ define([
             // true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
             all([
                 this._getTotalLossAnalysis(config, true),
-                this._getClearanceAlertAnalysis(config, true)
+                this._getClearanceAlertAnalysis(config, true),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
@@ -312,7 +316,8 @@ define([
             // true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
             all([
                 this._getTotalLossAnalysis(config, true),
-                this._getClearanceAlertAnalysis(config, true)
+                this._getClearanceAlertAnalysis(config, true),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
@@ -472,24 +477,28 @@ define([
         },
 
         _getCompositionAnalysis: function(config) {
+
+            ReportRenderer.renderCompositionAnalysisLoader(config);
+
             var deferred = new Deferred(),
-                url = 'http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer',
+                url = ReportConfig.imageServiceUrl,
+                compositionConfig = config.compositionAnalysis,
                 content = {
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
                     mosaicRule: JSON.stringify({
                         'mosaicMethod': 'esriMosaicLockRaster',
-                        'lockRasterIds': [3],
+                        'lockRasterIds': [compositionConfig.rasterId],
                         'ascending': true,
                         'mosaicOperation': 'MT_FIRST'
                     }),
                     pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
                     f: 'json'
                 },
-                self = this
-                ;
+                self = this;
 
             function success(response) {
+
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
                 } else {

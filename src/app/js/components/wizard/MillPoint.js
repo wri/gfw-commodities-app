@@ -37,7 +37,6 @@ define([
 
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
-        console.debug('resetting');
         this.replaceState(getDefaultState());
       }
 
