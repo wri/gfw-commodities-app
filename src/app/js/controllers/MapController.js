@@ -72,6 +72,29 @@ define([
             // Set the map object to the global app variable for easy use throughout the project
             app.map = map.map;
 
+            map.on('layers-loaded', function() {
+                // Feature focus
+                var feature = Hasher.getHash('f'),
+                    layer,
+                    objectId;
+
+                if (feature !== undefined) {
+                    layer = feature.split('-')[0];
+                    objectId = feature.split('-')[1];
+                    switch (layer) {
+                        case 'WDPA':
+                            LayerController.setSelectedFeature('WDPA', MapConfig.pal.url + '/0', objectId, '${NAME}', MapConfig.pal.infoTemplate.content);
+                            break;
+                        case 'Concessions':
+                            console.debug('concessions feature focus:', objectId);
+                            break;
+                        case 'MillPoints':
+                            console.debug('mill points feature focus:', objectId);
+                            break;
+                    }
+                }
+            });
+
             map.on("map-ready", function() {
                 // Bind the Model to the Map Panel, and then again to the list in the header
                 var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
@@ -124,43 +147,54 @@ define([
             });
 
             // Infowindow feature hash updating
-            on(app.map.infoWindow, 'selection-change', function() {
-              if (this.features) {
-                Hasher.setHash('f', this.getSelectedFeature().layer + '-' + this.getSelectedFeature().attributes.OBJECTID);
-              } else {
-                Hasher.removeKey('f');
-              }
-            });
+            // on(app.map.infoWindow, 'selection-change', function() {
+            //   // if (this.features) {
+            //   //   Hasher.setHash('f', this.getSelectedFeature().layer + '-' + this.getSelectedFeature().attributes.OBJECTID);
+            //   // } else {
+            //   //   Hasher.removeKey('f');
+            //   // }
 
-            // Priority reordering for mill points
+            //   if (!this.features) d.removeKey('f');
+
+            // });
+
+            // Priority reordering for mill points & feature url updating
             var previousFeatures;
             var changeHandle = on.pausable(app.map.infoWindow, 'selection-change', function() {
-              if (this.features && JSON.stringify(this.features) != JSON.stringify(previousFeatures)) {
-                var reorderedFeatures = [],
-                    existsMillPoint,
-                    isMillPoint,
-                    self = this;
+                if (this.features) {
+                    if (JSON.stringify(this.features) != JSON.stringify(previousFeatures)) {
+                        var reorderedFeatures = [],
+                            existsMillPoint,
+                            isMillPoint,
+                            self = this;
 
-                self.features.forEach(function(feature) {
-                  isMillPoint = feature.attributes.Mill_name != undefined;
-                  if (isMillPoint) {
-                    existsMillPoint = true;
-                    reorderedFeatures.unshift(feature);
-                  } else {
-                    reorderedFeatures.push(feature);
-                  }
-                });
+                        self.features.forEach(function(feature) {
+                          isMillPoint = feature.attributes.Mill_name != undefined;
+                          if (isMillPoint) {
+                            existsMillPoint = true;
+                            reorderedFeatures.unshift(feature);
+                          } else {
+                            reorderedFeatures.push(feature);
+                          }
+                        });
 
-                if (existsMillPoint) {
-                  changeHandle.pause();
-                  self.hide();
-                  self.clearFeatures();
-                  self.setFeatures(reorderedFeatures);
-                  previousFeatures = reorderedFeatures;
-                  self.show(self.location, {closestFirst:false});
-                  changeHandle.resume();
+                        if (existsMillPoint) {
+                          changeHandle.pause();
+                          self.hide();
+                          self.clearFeatures();
+                          self.setFeatures(reorderedFeatures);
+                          previousFeatures = reorderedFeatures;
+                          self.show(self.location, {closestFirst:false});
+                          changeHandle.resume();
+                        }
+
+                    }
+
+                    Hasher.setHash('f', this.getSelectedFeature().layer + '-' + this.getSelectedFeature().attributes.OBJECTID);
+                  
+                } else {
+                    Hasher.removeKey('f');
                 }
-              }
             });
 
         },

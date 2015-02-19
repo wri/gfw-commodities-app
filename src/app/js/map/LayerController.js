@@ -11,11 +11,14 @@ define([
     "dijit/registry",
     "dojo/_base/array",
     "utils/Hasher",
+    "esri/InfoTemplate",
+    "esri/graphic",
+    "esri/graphicsUtils",
     "esri/tasks/query",
     "esri/tasks/QueryTask",
     "esri/layers/RasterFunction",
     "esri/layers/LayerDrawingOptions"
-], function(MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
+], function(MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, InfoTemplate, Graphic, graphicsUtils, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
     return {
 
@@ -504,6 +507,28 @@ define([
 
             layer.setLayerDrawingOptions(layerOptions);
 
+        },
+
+        setSelectedFeature: function(layer, url, objectId, infoTemplateTitle, infoTemplateContent) {
+            var query = new esriQuery(),
+                queryTask = new QueryTask(url),
+                graphic,
+                location;
+            
+            query.objectIds = [objectId];
+            query.outFields = ['*'];
+            query.returnGeometry = true;
+
+            queryTask.execute(query).then(function(response) {
+                if (response.features && response.features[0]) {
+                    graphic = new Graphic(response.features[0].geometry, null, response.features[0].attributes, new InfoTemplate(infoTemplateTitle, infoTemplateContent));
+                    graphic.layer = layer;
+                    location = graphicsUtils.graphicsExtent([graphic]).getCenter();
+
+                    app.map.infoWindow.setFeatures([graphic]);
+                    app.map.infoWindow.show(location);
+                }
+            });
         },
 
         _prepareSuitabilityJSON: function(start, end, extraValues) {

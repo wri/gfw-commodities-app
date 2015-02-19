@@ -49,6 +49,7 @@ define([
                 if (state.v === currentView) {
                     return;
                 }
+
                 currentView = state.v;
                 self.changeView(currentView);
 
@@ -105,6 +106,10 @@ define([
 
             if (currentHash.wiz) {
                 state.wiz = currentHash.wiz;
+            }
+
+            if (currentHash.f && state.v === 'map') {
+                state.f = currentHash.f;
             }
 
             hash(ioQuery.objectToQuery(state));
