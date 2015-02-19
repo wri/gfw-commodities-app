@@ -97,10 +97,19 @@ html, body
 
 // Report container contents begin here
 .gfw .result-container
-	margin 20px	
+	margin 20px
+	
+.print-map-container
+	text-align center
+	margin 20px 0
+
+.print-map-container img
+	border 1px solid #000
+	height 850px
 
 @media print
 	.gfw .result-container
+	.print-map-container
 		page-break-after always
 
 .gfw .report-body .title

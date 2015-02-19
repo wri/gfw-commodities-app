@@ -3,10 +3,14 @@
 define([
 	"react",
   "analysis/config",
+  "esri/units",
   "esri/Color",
   "esri/graphic",
   "esri/request",
   "esri/toolbars/draw",
+  "esri/geometry/Point",
+  "esri/geometry/Extent",
+  "esri/geometry/Circle",
   "esri/geometry/Polygon",
   "esri/geometry/scaleUtils",
   "esri/symbols/SimpleFillSymbol",
@@ -20,8 +24,9 @@ define([
   "dojo/dom-construct",
   "dijit/form/ComboBox",
   "map/config",
-  "map/MapModel"
-], function (React, AnalyzerConfig, Color, Graphic, esriRequest, Draw, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, sniff, registry, domClass, Memory, domConstruct, ComboBox, MapConfig, MapModel) {
+  "map/MapModel",
+  "utils/GeoHelper"
+], function (React, AnalyzerConfig, Units, Color, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, sniff, registry, domClass, Memory, domConstruct, ComboBox, MapConfig, MapModel, GeoHelper) {
 
   var customFeatureSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                             new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
@@ -82,7 +87,7 @@ define([
             React.DOM.ul({'className': 'upload-instructions'},
               AnalyzerConfig.customArea.uploadInstructions.map(this._instructionsMapper)
             ),
-            React.DOM.form({'enctype': 'multipart/form-data', 'method': 'post', 'id': 'uploadForm', 'onChange': this._uploadShapefile},
+            React.DOM.form({'enctype': 'multipart/form-data', 'name':'uploadForm','method': 'post', 'id': 'uploadForm', 'onChange': this._uploadShapefile},
               React.DOM.label(null,
                 React.DOM.input({'type': 'file', 'name': 'file', 'id': 'shapefileUploader'})
               )
@@ -99,7 +104,7 @@ define([
     },
 
     _graphicsMapper: function (item) {
-      var existsSelection = this.props.analysisArea != undefined;
+      var existsSelection = this.props.analysisArea !== undefined;
       var isAreaOfInterestCustom = this.props.selectedArea == 'customAreaOption';
       var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == this.props.analysisArea.attributes.WRI_ID) ? 'custom-feature-row active' : 'custom-feature-row';
       return React.DOM.div(
@@ -255,7 +260,9 @@ define([
       var locationNode = dom.byId("upload-select-boxes"),
           featureCollection = res.featureCollection,
           uploadedFeatureStore = [],
+          containsPointData,
           self = this,
+          chosenName,
           store;
 
       // Create a store of Data
@@ -266,29 +273,30 @@ define([
         });
       });
 
+      containsPointData = featureCollection.layers[0].featureSet.geometryType === "esriGeometryPoint";
+
       // function that will assist in the cleanup once a selection is made
       function resetView() {
-        // if (registry.byId("uploadComboWidget")) {
-        //   registry.byId("uploadComboWidget").destroy();
-        // }
-        // if (dom.byId("dropdownContainer")) {
-        //   domConstruct.destroy("dropdownContainer");
-        // }
+        if (registry.byId("uploadComboRadiusWidget")) {
+          registry.byId("uploadComboRadiusWidget").destroy();
+        }
+        if (dom.byId("dropdownContainerRadius")) {
+          domConstruct.destroy("dropdownContainerRadius");
+        }
         if (registry.byId("uploadComboNameWidget")) {
           registry.byId("uploadComboNameWidget").destroy();
         }
         if (dom.byId("dropdownContainerName")) {
           domConstruct.destroy("dropdownContainerName");
         }
-
         self._disableUploadTools();
       }
 
       // Create Containers for DropDowns
-      // domConstruct.create("div", {
-      //   'id': 'dropdownContainer',
-      //   'innerHTML': '<div id="uploadComboWidget"></div>'
-      // }, locationNode, "after");
+      domConstruct.create("div", {
+        'id': 'dropdownContainerRadius',
+        'innerHTML': '<div id="uploadComboRadiusWidget"></div>'
+      }, locationNode, "after");
 
       domConstruct.create("div", {
         'id': 'dropdownContainerName',
@@ -307,42 +315,88 @@ define([
         store: store,
         searchAttr: "name",
         onChange: function (name) {
-          if (name) {
+          if (name && !containsPointData) {
             self._addFeaturesToMapFromShapefile(featureCollection.layers[0].featureSet, name);
+            resetView();
+          } else if (containsPointData && name) {
+            chosenName = name;
+            addRadiusDropdown();
+          } else {
+            resetView();
           }
-          resetView();
         }
       }, "uploadComboNameWidget");
 
-      // new ComboBox({
-      //   id: "uploadComboWidget",
-      //   value: "-- Choose Unique ID field --",
-      //   store: store,
-      //   searchAttr: "name",
-      //   onChange: function (name) {
-      //     self._addFeaturesToMapFromShapefile(featureCollection.layers[0].featureSet, name);
-      //   }
-      // }, "uploadComboWidget");
+      function addRadiusDropdown() {
+
+        var dataStore = [
+          { name: '10 kilometers', id: '10km',},
+          { name: '20 kilometers', id: '20km'},
+          { name: '30 kilometers', id: '30km'},
+          { name: '40 kilometers', id: '40km'},
+          { name: '50 kilometers', id: '50km'}
+        ];
+
+        store = new Memory({
+          data: dataStore
+        });
+
+        new ComboBox({
+          id: "uploadComboRadiusWidget",
+          value: "-- Choose a Radius --",
+          store: store,
+          searchAttr: "name",
+          onChange: function (radius) {
+            if (radius) {
+              self._addFeaturesToMapFromShapefile(featureCollection.layers[0].featureSet, chosenName, radius);
+            }
+            resetView();
+          }
+        }, "uploadComboRadiusWidget");
+
+      }
       
     },
 
-    _addFeaturesToMapFromShapefile: function (featureSet, labelName) {
+    _addFeaturesToMapFromShapefile: function (featureSet, labelName, radius) {
 
       var counter = this._nextAvailWRI_ID(),
+          defaultRadius = 50,
+          tempExtent,
+          geometry,
           graphic,
-          polygon,
-          extent;
+          extent,
+          temp,
+          lat,
+          lon;
+
+      // If radius is provided, parseInt to get the raw value
+      if (radius) {
+        radius = parseInt(radius);
+        if (isNaN(radius)) {
+          radius = defaultRadius;
+        }
+      }
 
       // Add the appropriate attribtue that is used for labeling, and WRI_ID
       // Then add the graphic to the map and to the customFeatures list
       featureSet.features.forEach(function (feature, index) {
         feature.attributes[AnalyzerConfig.stepTwo.labelField] = "ID - " + (counter + index) + ": " + feature.attributes[labelName];
         feature.attributes.WRI_ID = (counter + index);
-        polygon = new Polygon(feature.geometry);
-        graphic = new Graphic(polygon, customFeatureSymbol, feature.attributes);
-        extent = extent ? extent.union(polygon.getExtent()) : polygon.getExtent();
+        // If its a point, create a point, else create a polygon, test if it has an x coordinate
+        if (feature.geometry.x) {
+          temp = new Point(feature.geometry);
+          geometry = new Circle(temp, { radius: radius, radiusUnit: Units.KILOMETERS });
+          tempExtent = new Extent(temp.x, temp.y, temp.x, temp.y, temp.spatialReference);
+          extent = extent ? extent.union(tempExtent) : tempExtent;
+        } else {
+          geometry = new Polygon(feature.geometry);
+          extent = extent ? extent.union(geometry.getExtent()) : geometry.getExtent();
+        }
+        graphic = new Graphic(geometry, customFeatureSymbol, feature.attributes);
         customFeatures.push(graphic);
         graphicsLayer.add(graphic);
+
       });
 
       app.map.setExtent(extent, true);
@@ -406,7 +460,7 @@ define([
           self = this;
       graphicsLayer.graphics.forEach(function (g) {
         if (g.attributes.WRI_ID === parseInt(id)) {
-          app.map.setExtent(g.geometry.getExtent(), true);
+          GeoHelper.zoomToFeature(g);
           // Pass the Feature to Component StepTwo.js, he will update his state to completed is true, and he will 
           // have a feature to display in the Current feature for analysis section
           self.props.callback.updateAnalysisArea(g);

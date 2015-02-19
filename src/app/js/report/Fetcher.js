@@ -64,6 +64,56 @@ define([
 
         },
 
+        makePrintRequest: function () {
+
+            if (!payload.webMapJson) {
+                return;
+            } else {
+                // Add in Export Options to the webMapJson
+                payload.webMapJson.exportOptions = {
+                    "outputSize": [850, 850],
+                    "dpi": 96
+                };
+            }
+
+            var printParams = {
+                "f": "json",
+                "format": "PNG32",
+                "Layout_Template": "MAP_ONLY",
+                "Web_Map_as_JSON": JSON.stringify(payload.webMapJson)
+            },
+            url = ReportConfig.printUrl,
+            node = document.getElementById('print-map');
+
+            var req = esriRequest({
+                url: url,
+                content: printParams,
+                handleAs: 'json',
+                callbackParamName: 'callback',
+                timeout: 60000
+            }, {
+                usePost: true
+            });
+
+            req.then(function (res) {
+                if (res.results.length > 0) {
+                    var url = res.results[0].value.url;
+                    if (url) {
+                        node.innerHTML = "<img title='map' src='" + url + "' />";
+                    } else {
+                        error();
+                    }
+                } else {
+                    error();
+                }
+            }, error);
+
+            function error () {
+                node.innerHTML = '<div>Sorry, we were unable to generate a map printout at this time.</div>';
+            }
+
+        },
+
         getPrimaryForestResults: function() {
             this._debug('Fetcher >>> getPrimaryForestResults');
             var deferred = new Deferred(),

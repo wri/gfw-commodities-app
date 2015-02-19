@@ -88,6 +88,8 @@ define([], function() {
             "https://gfw-fires.wri.org"
         ],
 
+        printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
+
         alertUrl: {
             forma: "https://gfw-apis.appspot.com/subscribe",
             fires: "https://gfw-fires.wri.org/subscribe_by_polygon"

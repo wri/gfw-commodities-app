@@ -10,8 +10,9 @@ define([
     "dojo/topic",
     "dojo/_base/array",
     "map/config",
-    "dojo/_base/lang"
-], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang) {
+    "dojo/_base/lang",
+    "esri/tasks/PrintTask"
+], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
@@ -279,6 +280,7 @@ define([
                 labelField = AnalyzerConfig.stepTwo.labelField;
                 suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
                 datasets = self.state.analysisSets;
+                printTask = new PrintTask();
                 win.payload = {
                     geometry: geometry,
                     datasets: self.state.analysisSets,
@@ -286,7 +288,8 @@ define([
                     title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
                     suitability: {
                         renderRule: suitableRule
-                    }
+                    },
+                    webMapJson: printTask._getPrintDefinition(app.map)
                 };
                 // Some browsers load really fast and are ready before the payload has been set
                 // create a custom event that the new page can listen to
@@ -299,45 +302,81 @@ define([
         },
 
         _prepareGeometry: function(features) {
-          var outGeo;
+          var isCircle,
+              outGeo; 
+
           if (Object.prototype.toString.call(features) === '[object Array]') {
-            if (features.length === 1) {
-                if (!features[0].geometry.radius) {
-                  outGeo = features[0].geometry;
-                } else {
-                outGeo = [{
-                    label: features[0].attributes.WRI_label,
-                    id: features[0].attributes.Entity_ID,
-                    geometry: features[0].geometry
-                  }];
-                }
+            isCircle = (features[0].geometry.radius !== undefined);
+            outGeo = [];
+            if (isCircle) {
+              features.forEach(function (feature) {
+                outGeo.push({
+                  label: feature.attributes.WRI_label,
+                  id: feature.attributes.Entity_ID,
+                  geometry: feature.geometry,
+                  type: 'circle'
+                });
+              });
             } else {
-              if (!features[0].geometry.radius) {
-                outGeo = lang.clone(features[0].geometry);
-                arrayUtils.forEach(features, function(feature, index) {
-                  // Skip the first one, geometry alerady grabbed above
-                  if (index > 0) {
-                    arrayUtils.forEach(feature.geometry.rings, function(ring, index) {
-                      outGeo.addRing(ring);
-                    });
-                  }
+              // May be deprecated, left in here as will need to test to be able to tell 
+              // if this is being used by exhaustively testing all paths to this
+              // function and seeing if it's executed
+              features.forEach(function (feature) {
+                outGeo.push({
+                  label: feature.attributes.WRI_label,
+                  geometry: feature.geometry,
+                  type: 'polygon'
                 });
-              } else {
-                // I have an array of circles and need labels, geometry, and ids
-                outGeo = [];
-                arrayUtils.forEach(features, function (feature) {
-                  outGeo.push({
-                    label: feature.attributes.WRI_label,
-                    id: feature.attributes.Entity_ID,
-                    geometry: feature.geometry
-                  });
-                });
-              }
+              });
             }
           } else {
-              outGeo = features.geometry;
+            outGeo = features.geometry;
           }
+
           return JSON.stringify(outGeo);
+
+          // Original Version
+
+          // var outGeo;
+          // if (Object.prototype.toString.call(features) === '[object Array]') {
+          //   if (features.length === 1) {
+          //       if (!features[0].geometry.radius) {
+          //         outGeo = features[0].geometry;
+          //       } else {
+          //         outGeo = [{
+          //           label: features[0].attributes.WRI_label,
+          //           id: features[0].attributes.Entity_ID,
+          //           geometry: features[0].geometry
+          //         }];
+          //       }
+          //   } else {
+          //     if (!features[0].geometry.radius) {
+          //       console.log("here");
+          //       outGeo = lang.clone(features[0].geometry);
+          //       arrayUtils.forEach(features, function(feature, index) {
+          //         // Skip the first one, geometry alerady grabbed above
+          //         if (index > 0) {
+          //           arrayUtils.forEach(feature.geometry.rings, function(ring, index) {
+          //             outGeo.addRing(ring);
+          //           });
+          //         }
+          //       });
+          //     } else {
+          //       // I have an array of circles and need labels, geometry, and ids
+          //       outGeo = [];
+          //       arrayUtils.forEach(features, function (feature) {
+          //         outGeo.push({
+          //           label: feature.attributes.WRI_label,
+          //           id: feature.attributes.Entity_ID,
+          //           geometry: feature.geometry
+          //         });
+          //       });
+          //     }
+          //   }
+          // } else {
+          //   outGeo = features.geometry;
+          // }
+          // return JSON.stringify(outGeo);
         },
 
         // External Function to Help determine what state the wizard is in, could be useful 

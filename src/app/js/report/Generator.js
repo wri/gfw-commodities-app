@@ -19,7 +19,7 @@ define([
     // Local Modules from report folder
     "report/config",
     "report/Fetcher"
-], function(on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
+], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
     'use strict';
 
     window.report = {};
@@ -65,6 +65,7 @@ define([
                 geometryService = new GeometryService(Config.geometryServiceUrl),
                 sr = new SpatialReference(102100),
                 projectionCallback,
+                polygons,
                 failure,
                 poly;
 
@@ -83,75 +84,99 @@ define([
             report.datasets = window.payload.datasets;
 
             // Failure Callback for Mills
-            failure = function() {
-                // Handle This Issue Here
-                // Discuss with Adrienne How to Handle
-            };
+            // failure = function() {
+            //     // Handle This Issue Here
+            //     // Discuss with Adrienne How to Handle
+            // };
 
             // Callback for projected Geometries
-            projectionCallback = function (projectedGeometry) {
-                if (projectedGeometry.length > 0) {
-                    poly.rings = projectedGeometry[0].rings;
-                    poly.setSpatialReference(sr);
+            // projectionCallback = function (projectedGeometry) {
+            //     if (projectedGeometry.length > 0) {
+            //         poly.rings = projectedGeometry[0].rings;
+            //         poly.setSpatialReference(sr);
+            //         report.geometry = poly;
+            //         self.beginAnalysis();
+            //     } else {
+            //         failure();
+            //     }
+            // };
+
+
+            // If I have an array of circles handle that here, I should not be getting other arrays
+            // but if that happens, the object in report.geometry contains a type of either circle or polygon
+            if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
+
+                // First I will need to convert circles to polygons since unioning circles has some unexpected outcomes
+                // Also keep a reference of the mills
+                report.mills = report.geometry;
+                polygons = [];
+
+                arrayUtils.forEach(report.geometry, function (feature) {
+                    poly = new Polygon(sr);
+                    poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
+                    polygons.push(poly);
+                });
+
+                // Now Union the Geometries, then reproject them into the correct spatial reference
+                geometryService.union(polygons, function (unionedGeometry) {
+                    poly = new Polygon(unionedGeometry);
                     report.geometry = poly;
                     self.beginAnalysis();
-                } else {
-                    failure();
-                }
-            };
+                });
+
+            // If I have a single circle object, handle here, esri gives it a geometry type of polygon
+            // so checking if it has a radius seems to be the best way to handle that here
+            // This could be mills with an Entity Id or could be a uploaded point with no entity id
+            } else if (report.geometry.radius) {
+                // report.mills = report.geometry;
+                poly = new Polygon(sr);
+                poly.addRing(report.geometry.rings[report.geometry.rings.length - 1]);
+                report.geometry = poly;
+                this.beginAnalysis();
+            } else {
+                this.beginAnalysis();
+            }
+
+            return;
 
             // If the geometry is an array, it will be an array of Mill Point Objects with geometry, id, and labels
             // Arrays of polygons are joined before being sent over so the only array will be of mills
-            if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
-                report.mills = report.geometry;
-                var polygons = [];
-                // First prepare an array of new polygons with only rings from index 1, rings at index 0
-                // represent the center point and are not necessary to be included
-                arrayUtils.forEach(report.geometry, function (feature) {
-                    poly = new Polygon();
-                    poly.addRing(feature.geometry.rings[1]);
-                    polygons.push(poly);
-                });
-                // Then Union the geometries to get one polygon to represent them all,
-                // Then reproject the results into the correct projection, 102100 (sr below)
-                geometryService.union(polygons, function (unionedGeometry) {
-                    poly = new Polygon(unionedGeometry);
-                    geometryService.project([poly], sr, projectionCallback, failure);
-                }, failure);
-                // Add css class to title to size down the font for multiple mills
-                domClass.add('title','multiples');
-            } else if (report.geometry.radius) {
-                // If report.geometry is a circle, we need to make it a new valid polygon
-                // Then reproject it in Web Mercator
-                report.mills = report.geometry;
-                poly = new Polygon();
-                poly.addRing(report.geometry.rings[1]);
-                geometryService.project([poly], sr, projectionCallback, failure);
-            } else {
-                // Next, set some properties that we can use to filter what kinds of queries we will be performing
-                // Logic for the Wizard was changed, below may not be needed but it left here for reference incase
-                // the logic changes again.
-                // report.analyzeClearanceAlerts = window.payload.types.forma;
-                // report.analyzeTreeCoverLoss = window.payload.types.loss;
-                // report.analyzeSuitability = window.payload.types.suit;
-                // report.analyzeMillPoints = window.payload.types.risk;
-                // var params = new BufferParameters();
-                // var polygon = new Polygon(report.geometry);
-                // params.geometries = [polygon];
-                // params.distances = [1];
-                // params.unit = GeometryService.UNIT_FOOT;
-                // params.bufferSpatialReference = new SpatialReference(3857);
-                // params.outSpatialReference = sr;
-                // params.unionResults = true;
-
-                // geometryService.buffer(params, function (bufferedGeometries) {
-                //     var newPolygon = new Polygon(bufferedGeometries[0]);
-                //     report.geometry = newPolygon;
-                //     self.beginAnalysis();
-                // });
-
-                this.beginAnalysis();
-            }
+            // if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
+            //     report.mills = report.geometry;
+            //     var polygons = [];
+            //     // First prepare an array of new polygons with only rings from index 1, rings at index 0
+            //     // represent the center point and are not necessary to be included
+            //     arrayUtils.forEach(report.geometry, function (feature) {
+            //         poly = new Polygon();
+            //         poly.addRing(feature.geometry.rings[1]);
+            //         polygons.push(poly);
+            //     });
+            //     // Then Union the geometries to get one polygon to represent them all,
+            //     // Then reproject the results into the correct projection, 102100 (sr below)
+            //     geometryService.union(polygons, function (unionedGeometry) {
+            //         poly = new Polygon(unionedGeometry);
+            //         geometryService.project([poly], sr, projectionCallback, failure);
+            //     }, failure);
+            //     // Add css class to title to size down the font for multiple mills
+            //     domClass.add('title','multiples');
+            // } else if (report.geometry.radius) {
+            //     // If report.geometry is a circle, we need to make it a new valid polygon
+            //     // Then reproject it in Web Mercator
+            //     report.mills = report.geometry;
+            //     poly = new Polygon();
+            //     var ring = report.geometry.rings[report.geometry.rings.length - 1];
+            //     poly.addRing(ring);
+            //     geometryService.project([poly], sr, projectionCallback, failure);
+            // } else {
+            //     // Next, set some properties that we can use to filter what kinds of queries we will be performing
+            //     // Logic for the Wizard was changed, below may not be needed but it left here for reference incase
+            //     // the logic changes again.
+            //     // report.analyzeClearanceAlerts = window.payload.types.forma;
+            //     // report.analyzeTreeCoverLoss = window.payload.types.loss;
+            //     // report.analyzeSuitability = window.payload.types.suit;
+            //     // report.analyzeMillPoints = window.payload.types.risk;
+            //     this.beginAnalysis();
+            // }
 
         },
 
@@ -195,6 +220,9 @@ define([
 
             // Get area 
             Fetcher.getAreaFromGeometry(report.geometry);
+
+            // Generate Print Request to get URL
+            Fetcher.makePrintRequest();
 
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on
             all([
@@ -243,7 +271,7 @@ define([
                 // Ignore the Area Query, It's not part of all the deferreds and may not be done by now
                 // so lets not prematurely show an error message, Fetcher.getAreaFromGeometry will show an
                 // error message if it fails
-                if (node.parentNode.id !== 'total-area') {
+                if (node.parentNode.id !== 'total-area' && node.parentNode.id !== 'print-map') {
                     node.parentNode.innerHTML = "There was an error getting these results at this time.";
                 }
             });
@@ -290,7 +318,7 @@ define([
 		*/
 
         /*
-			@param  {array} item
+			@param  {array} items
 			@return {array} of deferred functions
 		*/
         _getDeferredsForItems: function(items) {
