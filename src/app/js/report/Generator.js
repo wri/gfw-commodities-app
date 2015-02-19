@@ -106,8 +106,8 @@ define([
             // but if that happens, the object in report.geometry contains a type of either circle or polygon
             if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
 
-                // First I will need to convert circles to polygons since unioning circles has some unexpected outcomes
-                // Also keep a reference of the mills
+                // First I will need to convert circles to polygons since unioning circles/computing histograms
+                //  has some unexpected outcomes, Also keep a reference of the mills
                 report.mills = report.geometry;
                 polygons = [];
 
@@ -127,17 +127,17 @@ define([
             // If I have a single circle object, handle here, esri gives it a geometry type of polygon
             // so checking if it has a radius seems to be the best way to handle that here
             // This could be mills with an Entity Id or could be a uploaded point with no entity id
+            // Do the same conversion as above so all histogram calls work properly
             } else if (report.geometry.radius) {
                 // report.mills = report.geometry;
                 poly = new Polygon(sr);
                 poly.addRing(report.geometry.rings[report.geometry.rings.length - 1]);
                 report.geometry = poly;
                 this.beginAnalysis();
+            // If its a single polygon, just go ahead and run the analysis
             } else {
                 this.beginAnalysis();
             }
-
-            return;
 
             // If the geometry is an array, it will be an array of Mill Point Objects with geometry, id, and labels
             // Arrays of polygons are joined before being sent over so the only array will be of mills

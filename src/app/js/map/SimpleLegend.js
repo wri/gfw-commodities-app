@@ -38,7 +38,7 @@ function () {
 
                 // Legend items
                 configLayerIds = config.layers.map(function(layer) {
-                  return layer.id
+                  return layer.id;
                 });
 
 
@@ -97,16 +97,22 @@ function () {
     legendRequest.open('GET', config.url, true);
     legendRequest.send();
 
-  }  
+  };
 
   SimpleLegend.prototype.show = function () {
-    document.getElementById(this.config.id).style.display = 'block';
+    var node = document.getElementById(this.config.id);
+    if (node) {
+      node.style.display = 'block';
+    }
     this.onShow();
     return this;
   };
 
   SimpleLegend.prototype.hide = function () {
-    document.getElementById(this.config.id).style.display = 'none';
+    var node = document.getElementById(this.config.id);
+    if (node) {
+      node.style.display = 'none';
+    }
     this.onHide();
     return this;
   };
