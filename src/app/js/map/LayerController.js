@@ -509,22 +509,42 @@ define([
 
         },
 
-        setSelectedFeature: function(layer, url, objectId, infoTemplateTitle, infoTemplateContent) {
+        /**
+         * Focus infowindow & highlight on intiial shared feature
+         * @param {object} options
+         */
+        setSelectedFeature: function(options) {
             var query = new esriQuery(),
-                queryTask = new QueryTask(url),
+                queryTask = new QueryTask(options.url),
                 graphic,
-                location;
+                location,
+                item;
             
-            query.objectIds = [objectId];
+            // Build query
+            query.objectIds = [options.objectId];
             query.outFields = ['*'];
             query.returnGeometry = true;
 
+            // Execute query
             queryTask.execute(query).then(function(response) {
+                // If exists response then open infowindow & highlight
                 if (response.features && response.features[0]) {
-                    graphic = new Graphic(response.features[0].geometry, null, response.features[0].attributes, new InfoTemplate(infoTemplateTitle, infoTemplateContent));
-                    graphic.layer = layer;
-                    location = graphicsUtils.graphicsExtent([graphic]).getCenter();
+                    // Create graphic for location & infowindow content
+                    graphic = new Graphic(response.features[0].geometry, null, response.features[0].attributes, null);
+                    graphic.layer = options.layer;
 
+                    location = graphicsUtils.graphicsExtent([graphic]).getCenter();
+                    
+                    // Format an input for Finder template function
+                    item = {
+                        feature: graphic,
+                        value: graphic.attributes[response.displayFieldName]
+                    }
+
+                    // Get template using Finder function
+                    graphic = options.templateFunction([item])[0];
+
+                    // Update infowindow
                     app.map.infoWindow.setFeatures([graphic]);
                     app.map.infoWindow.show(location);
                 }

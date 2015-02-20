@@ -72,24 +72,48 @@ define([
             // Set the map object to the global app variable for easy use throughout the project
             app.map = map.map;
 
+            // On layers-loaded attempt to focus on selected feature from share url
             map.on('layers-loaded', function() {
                 // Feature focus
                 var feature = Hasher.getHash('f'),
+                    featureArgs,
                     layer,
-                    objectId;
+                    objectId,
+                    selectedFeatureOptions;
 
                 if (feature !== undefined) {
-                    layer = feature.split('-')[0];
-                    objectId = feature.split('-')[1];
+                    featureArgs = feature.split('-');
+
+                    layer = featureArgs[0];
+
+                    // Configure options to query for the feature & show it's correct infowindow
                     switch (layer) {
                         case 'WDPA':
-                            LayerController.setSelectedFeature('WDPA', MapConfig.pal.url + '/0', objectId, '${NAME}', MapConfig.pal.infoTemplate.content);
-                            break;
-                        case 'Concessions':
-                            console.debug('concessions feature focus:', objectId);
+                            selectedFeatureOptions = {
+                                layer: layer,
+                                url: MapConfig.pal.url + '/0',
+                                objectId: featureArgs[1],
+                                templateFunction: Finder.setWDPATemplates
+                            }
+                            LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                         case 'MillPoints':
-                            console.debug('mill points feature focus:', objectId);
+                            selectedFeatureOptions = {
+                                layer: layer,
+                                url: MapConfig.mill.url + '/0',
+                                objectId: featureArgs[1],
+                                templateFunction: Finder.setMillPointTemplates
+                            }
+                            LayerController.setSelectedFeature(selectedFeatureOptions);
+                            break;
+                        case 'Concessions':
+                            selectedFeatureOptions = {
+                                layer: layer + '-' + featureArgs[1],
+                                url: MapConfig.concession.url + '/' + featureArgs[1],
+                                objectId: featureArgs[2],
+                                templateFunction: Finder.setConcessionTemplates
+                            }
+                            LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                     }
                 }
