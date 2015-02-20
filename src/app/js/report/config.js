@@ -3,23 +3,16 @@ define([], function() {
     var geometryServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
         clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
         //imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-        
-        //imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-        // TEST URLS
-        // UNCOMMENT imageServiceUrl & clearanceAnalysisUrl above and below
-        imageServiceUrl = 'http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer',
-        clearanceAnalysisUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer",
-        // TEST URLS
-
+        imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
         suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         //suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
         firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
-        fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia";
-        //clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
+        fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia",
+        clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
 
-    // Total Loss
-    var lossBounds = [1, 12],
-        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012];
+    // Totoal Loss
+    var lossBounds = [1, 13],
+        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013];
 
 
     // Tree Cover Density
@@ -83,15 +76,12 @@ define([], function() {
             // "http://50.18.182.188",
             "http://gis-potico.wri.org",
             "http://175.41.139.43",
-            //"http://54.164.126.73",
-            "http://46.137.239.227",
-            "https://gfw-fires.wri.org"
+            "http://54.164.126.73"
         ],
 
         alertUrl: {
-            forma: "https://gfw-apis.appspot.com/subscribe",
-            fires: "https://gfw-fires.wri.org/subscribe_by_polygon"
-            //fires: "http://54.164.126.73/subscribe_by_polygon"
+            forma: "http://gfw-apis.appspot.com/subscribe",
+            fires: "http://54.164.126.73/subscribe_by_polygon"
         },
 
         millPointInfo: {
@@ -115,7 +105,7 @@ define([], function() {
 
         /* Begin Main Layers for Analyses */
         totalLoss: {
-            rasterId: "$517", //12
+            rasterId: "$521", //12
             bounds: lossBounds,
             labels: lossLabels
         },
@@ -125,8 +115,7 @@ define([], function() {
         },
 
         millPoints: {
-            // url: 'http://risk-api.appspot.com/',
-            url: 'http://wip.risk-api.appspot.com/',
+            url: 'http://risk-api.appspot.com/',
             title: 'Palm Oil Mill Risk Assessment',
             rootNode: 'millPoints'
         },
@@ -179,7 +168,6 @@ define([], function() {
                 fieldAssessmentLabel: "Learn about field assessments.",
             },
             chart: {
-                title: 'Suitability by Legal Classification',
                 suitable: {
                     color: '#461D7C',
                     name: 'Suitable',
