@@ -441,38 +441,7 @@ define([
         });
  
         registry.byId("legend").refresh(layerInfos);
-
-        // Priority reordering
-        var previousFeatures;
-        var changeHandle = on.pausable(app.map.infoWindow, 'selection-change', function() {
-          if (app.map.infoWindow.features && JSON.stringify(reorderedFeatures) != JSON.stringify(previousFeatures)) {
-            var reorderedFeatures = [],
-                existsMillPoint,
-                isMillPoint,
-                self = app.map.infoWindow;
-
-            self.features.forEach(function(feature) {
-              isMillPoint = feature.attributes.Mill_name != undefined;
-              if (isMillPoint) {
-                existsMillPoint = true;
-                reorderedFeatures.unshift(feature);
-              } else {
-                reorderedFeatures.push(feature);
-              }
-            });
-
-            if (existsMillPoint) {
-              changeHandle.pause();
-              self.hide();
-              self.clearFeatures();
-              self.setFeatures(reorderedFeatures);
-              previousFeatures = reorderedFeatures;
-              self.show(self.location, {closestFirst:false});
-              changeHandle.resume();
-            }
-          }
-        });
-
+        
       });
 
       firesLayer.on('error', this.addLayerError);

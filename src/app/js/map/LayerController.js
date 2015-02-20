@@ -11,11 +11,14 @@ define([
     "dijit/registry",
     "dojo/_base/array",
     "utils/Hasher",
+    "esri/InfoTemplate",
+    "esri/graphic",
+    "esri/graphicsUtils",
     "esri/tasks/query",
     "esri/tasks/QueryTask",
     "esri/layers/RasterFunction",
     "esri/layers/LayerDrawingOptions"
-], function(MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
+], function(MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, InfoTemplate, Graphic, graphicsUtils, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
     return {
 
@@ -504,6 +507,48 @@ define([
 
             layer.setLayerDrawingOptions(layerOptions);
 
+        },
+
+        /**
+         * Focus infowindow & highlight on intiial shared feature
+         * @param {object} options
+         */
+        setSelectedFeature: function(options) {
+            var query = new esriQuery(),
+                queryTask = new QueryTask(options.url),
+                graphic,
+                location,
+                item;
+            
+            // Build query
+            query.objectIds = [options.objectId];
+            query.outFields = ['*'];
+            query.returnGeometry = true;
+
+            // Execute query
+            queryTask.execute(query).then(function(response) {
+                // If exists response then open infowindow & highlight
+                if (response.features && response.features[0]) {
+                    // Create graphic for location & infowindow content
+                    graphic = new Graphic(response.features[0].geometry, null, response.features[0].attributes, null);
+                    graphic.layer = options.layer;
+
+                    location = graphicsUtils.graphicsExtent([graphic]).getCenter();
+                    
+                    // Format an input for Finder template function
+                    item = {
+                        feature: graphic,
+                        value: graphic.attributes[response.displayFieldName]
+                    }
+
+                    // Get template using Finder function
+                    graphic = options.templateFunction([item])[0];
+
+                    // Update infowindow
+                    app.map.infoWindow.setFeatures([graphic]);
+                    app.map.infoWindow.show(location);
+                }
+            });
         },
 
         _prepareSuitabilityJSON: function(start, end, extraValues) {

@@ -149,6 +149,13 @@ define([
 
             all(deferreds).then(function(featureSets) {
                 arrayUtils.forEach(featureSets, function(item) {
+
+                    // if (item) {
+                    //     item.features.forEach(function(feature) {
+                    //         feature.feature.layer = item.layer;
+                    //     });                        
+                    // }
+
                     switch (item.layer) {
                         case "Fires":
                             features = features.concat(self.setFireTemplates(item.features));
@@ -246,6 +253,10 @@ define([
             params.layerIds = [25];
 
             identifyTask.execute(params, function(features) {
+                features.forEach(function(feature) {
+                    feature.feature.layer = 'WDPA';
+                });
+
                 if (features.length > 0) {
                     deferred.resolve({
                         layer: "WDPA",
@@ -293,6 +304,10 @@ define([
 
             identifyTask.execute(params, function(features) {
                 if (features.length > 0) {
+                    features.forEach(function(feature) {
+                        feature.feature.layer = "Concessions-" + feature.layerId;
+                    });
+
                     deferred.resolve({
                         layer: "Concessions",
                         features: features
@@ -420,7 +435,7 @@ define([
             layerDefs[0] = "1 = 1";
 
             params.tolerance = 3;
-            params.returnGeometry = false;
+            params.returnGeometry = true;
             params.width = app.map.width;
             params.height = app.map.height;
             params.geometry = mapPoint;
@@ -430,6 +445,10 @@ define([
             params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
 
             identifyTask.execute(params, function(features) {
+                features.forEach(function(feature) {
+                    feature.feature.layer = 'MillPoints';
+                });
+
                 if (features.length > 0) {
                     deferred.resolve({
                         layer: "MillPoints",
