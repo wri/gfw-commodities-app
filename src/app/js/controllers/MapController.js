@@ -72,6 +72,53 @@ define([
             // Set the map object to the global app variable for easy use throughout the project
             app.map = map.map;
 
+            // On layers-loaded attempt to focus on selected feature from share url
+            map.on('layers-loaded', function() {
+                // Feature focus
+                var feature = Hasher.getHash('f'),
+                    featureArgs,
+                    layer,
+                    objectId,
+                    selectedFeatureOptions;
+
+                if (feature !== undefined) {
+                    featureArgs = feature.split('-');
+
+                    layer = featureArgs[0];
+
+                    // Configure options to query for the feature & show it's correct infowindow
+                    switch (layer) {
+                        case 'WDPA':
+                            selectedFeatureOptions = {
+                                layer: layer,
+                                url: MapConfig.pal.url + '/0',
+                                objectId: featureArgs[1],
+                                templateFunction: Finder.setWDPATemplates
+                            }
+                            LayerController.setSelectedFeature(selectedFeatureOptions);
+                            break;
+                        case 'MillPoints':
+                            selectedFeatureOptions = {
+                                layer: layer,
+                                url: MapConfig.mill.url + '/0',
+                                objectId: featureArgs[1],
+                                templateFunction: Finder.setMillPointTemplates
+                            }
+                            LayerController.setSelectedFeature(selectedFeatureOptions);
+                            break;
+                        case 'Concessions':
+                            selectedFeatureOptions = {
+                                layer: layer + '-' + featureArgs[1],
+                                url: MapConfig.concession.url + '/' + featureArgs[1],
+                                objectId: featureArgs[2],
+                                templateFunction: Finder.setConcessionTemplates
+                            }
+                            LayerController.setSelectedFeature(selectedFeatureOptions);
+                            break;
+                    }
+                }
+            });
+
             map.on("map-ready", function() {
                 // Bind the Model to the Map Panel, and then again to the list in the header
                 var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
@@ -118,6 +165,61 @@ define([
 
             // Initialize Add This
             addthis.init();
+
+            on(app.map.infoWindow, 'hide', function() {
+                Hasher.removeKey('f');
+            });
+
+            // Infowindow feature hash updating
+            // on(app.map.infoWindow, 'selection-change', function() {
+            //   // if (this.features) {
+            //   //   Hasher.setHash('f', this.getSelectedFeature().layer + '-' + this.getSelectedFeature().attributes.OBJECTID);
+            //   // } else {
+            //   //   Hasher.removeKey('f');
+            //   // }
+
+            //   if (!this.features) d.removeKey('f');
+
+            // });
+
+            // Priority reordering for mill points & feature url updating
+            var previousFeatures;
+            var changeHandle = on.pausable(app.map.infoWindow, 'selection-change', function() {
+                if (this.features) {
+                    if (JSON.stringify(this.features) != JSON.stringify(previousFeatures)) {
+                        var reorderedFeatures = [],
+                            existsMillPoint,
+                            isMillPoint,
+                            self = this;
+
+                        self.features.forEach(function(feature) {
+                          isMillPoint = feature.attributes.Mill_name != undefined;
+                          if (isMillPoint) {
+                            existsMillPoint = true;
+                            reorderedFeatures.unshift(feature);
+                          } else {
+                            reorderedFeatures.push(feature);
+                          }
+                        });
+
+                        if (existsMillPoint) {
+                          changeHandle.pause();
+                          self.hide();
+                          self.clearFeatures();
+                          self.setFeatures(reorderedFeatures);
+                          previousFeatures = reorderedFeatures;
+                          self.show(self.location, {closestFirst:false});
+                          changeHandle.resume();
+                        }
+
+                    }
+
+                    Hasher.setHash('f', this.getSelectedFeature().layer + '-' + this.getSelectedFeature().attributes.OBJECTID);
+                  
+                } else {
+                    Hasher.removeKey('f');
+                }
+            });
 
         },
 

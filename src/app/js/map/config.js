@@ -294,6 +294,12 @@ define([], function () {
       url: dynamicMapServiceUrl,
       layerId: 25
     },
+
+    // Definition for shareable feature init
+    concession: {
+      url: dynamicMapServiceUrl
+    },
+
     /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
     opsd: { // Oil Palm Suitability Default
       id: "AgriculturalSuitability",
