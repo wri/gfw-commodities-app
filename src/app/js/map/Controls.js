@@ -171,12 +171,24 @@ define([
                     var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
                     domConstruct.place(yearDot, "yearDotContainer");
                     domStyle.get(yearDot);
-                    var leftPx = (i * 34.5) + 42.5;
+                    var leftPx = (i * 33) + 45;
                     leftPx += "px";
-                    domStyle.set(yearDot, {
-                        "position": "absolute",
-                        "left": leftPx,
-                    });
+
+                    if (currentMonth === 1) {
+                        domStyle.set(yearDot, {
+                            "position": "absolute",
+                            "left": leftPx,
+                            "top": "19px",
+                            "font-size": "150%",
+                            "color": "black"
+                        });
+                    } else {
+                        domStyle.set(yearDot, {
+                            "position": "absolute",
+                            "left": leftPx
+                        });
+                    }
+
                 }
 
                 $range2.ionRangeSlider({
@@ -211,6 +223,7 @@ define([
                         }
 
                         $("#yearDotContainer > div:nth-child(13)").css("color", "black");
+
                         $("#range2").ionRangeSlider("update");
                         if ($range2.playing != true) {
                             $("#sliderProgressLine2").hide();
@@ -233,6 +246,7 @@ define([
                                     $("#yearDotContainer > div:nth-child(1)").css("color", "black");
                                 }
                             }
+                            $("#yearDotContainer > div:nth-child(25)").css("color", "black");
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
                     },
@@ -271,10 +285,14 @@ define([
                 $(".irs-diapason").css("background-color", "#a1ba42");
                 $("#yearDotContainer > div").css("color", "#a1ba42");
                 var nextYearLeft = $("#yearDotContainer > div:nth-child(13)").css("left");
-                // nextYearLeft = nextYearLeft.split("p");
-                // nextYearLeft = (nextYearLeft[0] - 50) + "px";
+
                 // console.log(nextYearLeft);
+                var nextYearLeft2 = $("#yearDotContainer > div:nth-child(25)").css("left");
+                nextYearLeft2 = nextYearLeft2.split("p");
+                nextYearLeft2 = (nextYearLeft2[0] - 20) + "px";
+
                 $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
+                $(".playLineFiller2 > div:nth-child(3)").css("left", nextYearLeft2);
 
 
 
@@ -301,6 +319,7 @@ define([
             this.fetchFORMAAlertsLabels().then(function(res) {
                 if (res) {
                     to = res.maxValues[0] - res.minValues[0];
+
                     max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 13);
 
                     for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
@@ -341,6 +360,7 @@ define([
                 if (from > to) {
                     from = to;
                 }
+
                 updateValues();
                 updateRange();
             });
@@ -437,8 +457,8 @@ define([
                     currentMonth = (monthNum + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=34.5px");
-                    $('#sliderProgressLine2').css("left", "+=34.5px");
+                    $('#playLine3').css("left", "+=33px");
+                    $('#sliderProgressLine2').css("left", "+=33px");
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];
