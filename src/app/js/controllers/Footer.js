@@ -20,14 +20,17 @@ define([
             dom.byId("app-footer").innerHTML = template + dom.byId("app-footer").innerHTML;
             //dom.byId(viewId).innerHTML = html + dom.byId(viewId).innerHTML;
 
-            var s = document.createElement('script'),
-                h = document.getElementsByTagName('body')[0];
-            s.setAttribute('src', "https://cdn.rawgit.com/simbiotica/gfw_assets/master/src/header-loader.js");
-            s.setAttribute('id', "loader-gfw");
-            s.setAttribute('data-current', ".shape-commodities");
-            //s.setAttribute('async', 'true');
+            setTimeout(function () {
 
-            h.appendChild(s);
+                var s = document.createElement('script'),
+                h = document.getElementsByTagName('body')[0];
+                s.setAttribute('src', "https://cdn.rawgit.com/simbiotica/gfw_assets/master/src/header-loader.js");
+                s.setAttribute('id', "loader-gfw");
+                s.setAttribute('data-current', ".shape-commodities");
+                //s.setAttribute('async', 'true');
+                h.appendChild(s);
+
+            }, 0);
 
 
             // $('#footer-logos').slick({

@@ -602,7 +602,6 @@ define([
                 report.clearanceLabels = [];
                 for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
                     month = i % 12 === 0 ? 12 : i % 12;
-                    console.log(month);
                     report.clearanceLabels.push(month + "-" + (config.baseYearLabel + incrementer));
                     if (i % 12 === 0) {
                         ++incrementer;
