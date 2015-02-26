@@ -177,7 +177,8 @@ define([
             });
 
             // There should only be one feature returning from this call, if more then one come back
-            // something went wrong
+            // something went wrong, this code should be refactored to be more clear that only one feature
+            // is coming back
             self.props.callback.updateAnalysisArea(features[0]);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
