@@ -71,7 +71,7 @@ define([
 
             // Parse the geometry from the global payload object
             report.geometry = JSON.parse(window.payload.geometry);
-
+            
             // Set the title and unhide the report
             this.setTitleAndShowReport(window.payload.title);
 
@@ -219,7 +219,7 @@ define([
             }
 
             // Get area 
-            Fetcher.getAreaFromGeometry(report.geometry);
+            report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
 
             // Generate Print Request to get URL
             Fetcher.makePrintRequest();
@@ -365,6 +365,9 @@ define([
                         break;
                     case "treeDensity":
                         deferreds.push(Fetcher.getTreeCoverResults());
+                        break;
+                    case "treeCoverLoss":
+                        deferreds.push(Fetcher.getTreeCoverLossResults());
                         break;
                     default:
                         break;

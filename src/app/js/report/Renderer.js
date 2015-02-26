@@ -31,6 +31,7 @@ define([
 			node.className = "result-container";
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='result-block total-loss'>" +
+						"<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
 						"<div class='left-panel'>" +
 							"<div class='loss-chart' id='" + config.rootNode + "_loss'><div class='loader-wheel'>total loss</div></div>" +
 						"</div>" +
@@ -43,6 +44,28 @@ define([
 					"</div>" +
 					"<div class='result-block mill-points'>" +
 						"<div class='mill-table' id='" + config.rootNode + "_mill'></div>" +
+					"</div>";
+
+			// Append root to fragment and then fragment to document
+			fragment.appendChild(node);
+			document.getElementById('report-results-section').appendChild(fragment);
+		},
+
+		/*
+			@param {object} config
+		*/
+		renderTotalLossContainer: function (config) {
+			var fragment = document.createDocumentFragment(),
+					node = document.createElement('div');
+
+			node.id = config.rootNode;
+			node.className = "result-container";
+			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+					"<div class='result-block total-loss'>" +
+						"<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
+						"<div class='left-panel'>" +
+							"<div class='loss-chart' id='" + config.rootNode + "_loss'><div class='loader-wheel'>total loss</div></div>" +
+						"</div>" +
 					"</div>";
 
 			// Append root to fragment and then fragment to document
@@ -108,6 +131,43 @@ define([
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
 			document.getElementById('report-results-section').appendChild(fragment);
+		},
+
+		renderCompositionAnalysisLoader: function(config) {
+			document.getElementById(config.rootNode + '_composition').innerHTML = '<div class="loader-wheel">composition analysis</div>';
+		},
+
+		renderCompositionAnalysis: function (histogramData, pixelSize, config) {
+			var fragment = document.createDocumentFragment(),
+					node = document.createElement('div'),
+					dest = document.getElementById(config.rootNode + '_composition'),
+					compositionConfig = config.compositionAnalysis,
+					title = compositionConfig.title || config.title,
+					areaLabel,
+					percentage,
+					area;
+					
+			if (compositionConfig.histogramSlice) {
+				area = histogramData.slice(compositionConfig.histogramSlice);
+			}
+
+			area = (area.reduce(function(a,b){return a + b;}) * pixelSize * pixelSize)/10000;
+			areaLabel = number.format(area);
+
+			report.areaPromise.then(function(){
+
+				percentage = number.format((area/report.area)*100, {places: 0});
+
+				node.className = "composition-analysis-container";
+				node.innerHTML = 	"<div>Total " + title + " in selected area: " + areaLabel + " ha</div>" +
+													"<div>Percent of total area comprised of " + title + ": " + percentage + "%</div>";
+
+				// Append root to fragment and then fragment to document
+				fragment.appendChild(node);
+				dest.innerHTML = "";
+				dest.appendChild(fragment);
+				
+			});
 		},
 
 		/*
@@ -211,6 +271,93 @@ define([
 			});
 
 		},
+
+
+		/*
+			@param {array} histogramData
+			@param {number} pixelSize
+			@param {object} config
+		*/
+		renderTreeCoverLossData: function (histogramData, pixelSize, config) {
+
+			var lossConfig = ReportConfig.totalLoss,
+					yLabels = config.labels,
+					xLabels = lossConfig.labels,
+					yMapValues = config.bounds.fromBounds(),
+					xMapValues = lossConfig.bounds.fromBounds(),
+					mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
+					series = [],
+					colors = [],
+					location,
+					sliceIndex,
+					data,
+					i, j;
+
+			series.push({
+				'name': yLabels[0],
+				'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+			});
+			colors.push(config.color);
+
+			// Format the data based on some config value, removeBelowYear
+			// get index of removeBelowYear and use that to splice the data arrays and the xlabels
+			if (config.lossChart.removeBelowYear) {
+				sliceIndex = xLabels.indexOf(config.lossChart.removeBelowYear);
+				xLabels = xLabels.slice(sliceIndex);
+				arrayUtils.forEach(series, function (serie) {
+					serie.data = serie.data.slice(sliceIndex);
+				});
+			}
+
+			$("#" + config.rootNode + '_loss').highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: null,
+					type: 'bar',
+					events: {
+						load: function () {
+							// $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
+							// this.setSize(300, 400);
+						}
+					}
+				},
+				colors: colors,
+				title: {
+					text: config.lossChart.title
+				},
+				xAxis: {
+					categories: xLabels,
+					maxPadding: 0.35,
+					title: {
+						text: null
+					}
+				},
+				yAxis: {
+					stackLabels: {
+						enabled: true
+					},
+					title: {
+						text: null
+					}
+				},
+				legend: {
+					enabled: false,
+					verticalAlign: 'bottom'
+				},
+				plotOptions: {
+					series: {
+						stacking: 'normal'
+					}
+				},
+				series: series,
+				credits: {
+					enabled: false
+				}
+			});
+
+		},
+
 
 		/*
 			@param {array} histogramData
@@ -1124,6 +1271,8 @@ define([
 				msg = "No Tree Cover Loss Data Available for this site.";
 			} else if (type === 'clearance') {
 				msg = "No Clearance Alert Data Available for this site.";
+			} else if (type === 'composition') {
+				msg = "No Composition Analysis Data Available for this site.";
 			} else {
 				msg = "No Mill Point Data Available for this site.";
 			}

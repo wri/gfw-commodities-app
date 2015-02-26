@@ -24,7 +24,8 @@ define([
 
         getAreaFromGeometry: function(geometry) {
             this._debug('Fetcher >>> getAreaFromGeometry');
-            var geometryService = new GeometryService(ReportConfig.geometryServiceUrl),
+            var deferred = new Deferred(),
+                geometryService = new GeometryService(ReportConfig.geometryServiceUrl),
                 parameters = new AreasAndLengthsParameters(),
                 sr = new SpatialReference(54012),
                 polygon = new Polygon(geometry),
@@ -36,14 +37,18 @@ define([
                     area = dojoNumber.format(result.areas[0], {
                         places: 0
                     });
+                    report.area = result.areas[0];
+                    deferred.resolve(true);
                 } else {
                     area = errorString;
+                    deferred.resolve(false);
                 }
                 document.getElementById("total-area").innerHTML = area;
             }
 
             function failure(err) {
                 document.getElementById("total-area").innerHTML = errorString;
+                deferred.resolve(false);
             }
 
             // Project Geometry in Eckert Spatial Reference
@@ -62,6 +67,7 @@ define([
                 }, failure);
             }, failure);
 
+            return deferred.promise;
         },
 
         makePrintRequest: function () {
@@ -126,7 +132,8 @@ define([
 
             all([
                 this._getTotalLossAnalysis(config),
-                this._getClearanceAlertAnalysis(config)
+                this._getClearanceAlertAnalysis(config),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
@@ -146,10 +153,59 @@ define([
 
             all([
                 this._getTotalLossAnalysis(config),
-                this._getClearanceAlertAnalysis(config)
+                this._getClearanceAlertAnalysis(config),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
+
+            return deferred.promise;
+        },
+
+        getTreeCoverLossResults: function() {
+            this._debug('Fetcher >>> getTreeCoverLossResults');
+            var deferred = new Deferred(),
+                config = ReportConfig.treeCoverLoss,
+                url = ReportConfig.imageServiceUrl,
+                rasterId = config.rasterId,
+                content = {
+                    geometryType: 'esriGeometryPolygon',
+                    geometry: JSON.stringify(report.geometry),
+                    mosaicRule: JSON.stringify(config.mosaicRule),
+                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    f: 'json'
+                },
+                self = this;
+
+
+            // Create the container for all the result
+            ReportRenderer.renderTotalLossContainer(config);
+            ReportRenderer.renderCompositionAnalysisLoader(config);
+
+            function success(response) {
+                if (response.histograms.length > 0) {
+                    ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+                    ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+                } else {
+                    ReportRenderer.renderAsUnavailable('loss', config);
+                }
+                deferred.resolve(true);
+            }
+
+            function failure(error) {
+                if (error.details) {
+                    if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+                        content.pixelSize = 500;
+                        self._computeHistogram(url, content, success, failure);
+                    } else {
+                        deferred.resolve(false);
+                    }
+                } else {
+                    deferred.resolve(false);
+                }
+            }
+
+            this._computeHistogram(url, content, success, failure);
 
             return deferred.promise;
         },
@@ -187,7 +243,8 @@ define([
             // true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
             all([
                 this._getTotalLossAnalysis(config, true),
-                this._getClearanceAlertAnalysis(config, true)
+                this._getClearanceAlertAnalysis(config, true),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
@@ -309,7 +366,8 @@ define([
             // true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
             all([
                 this._getTotalLossAnalysis(config, true),
-                this._getClearanceAlertAnalysis(config, true)
+                this._getClearanceAlertAnalysis(config, true),
+                this._getCompositionAnalysis(config)
             ]).then(function() {
                 deferred.resolve(true);
             });
@@ -403,7 +461,7 @@ define([
             //if (report.analyzeTreeCoverLoss) {
             this._computeHistogram(url, content, success, failure);
             //} else {
-            //	deferred.resolve(true);
+            // deferred.resolve(true);
             //}
 
             return deferred.promise;
@@ -462,9 +520,58 @@ define([
             };
             this._computeHistogram(url, content, success, failure);
             //} else {
-            //	deferred.resolve(true);
+            //  deferred.resolve(true);
             //}
 
+            return deferred.promise;
+        },
+
+        _getCompositionAnalysis: function(config) {
+
+            ReportRenderer.renderCompositionAnalysisLoader(config);
+
+            var deferred = new Deferred(),
+                url = ReportConfig.imageServiceUrl,
+                compositionConfig = config.compositionAnalysis,
+                content = {
+                    geometryType: 'esriGeometryPolygon',
+                    geometry: JSON.stringify(report.geometry),
+                    mosaicRule: JSON.stringify({
+                        'mosaicMethod': 'esriMosaicLockRaster',
+                        'lockRasterIds': [compositionConfig.rasterId],
+                        'ascending': true,
+                        'mosaicOperation': 'MT_FIRST'
+                    }),
+                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    f: 'json'
+                },
+                self = this;
+
+            function success(response) {
+
+                if (response.histograms.length > 0) {
+                    ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+                } else {
+                    ReportRenderer.renderAsUnavailable('composition', config);
+                }
+                deferred.resolve(true);
+            }
+
+            function failure(error) {
+                if (error.details) {
+                    if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+                        content.pixelSize = 500;
+                        self._computeHistogram(url, content, success, failure);
+                    } else {
+                        deferred.resolve(false);
+                    }
+                } else {
+                    deferred.resolve(false);
+                }
+            }
+
+            this._computeHistogram(url, content, success, failure);
+        
             return deferred.promise;
         },
 
@@ -499,7 +606,6 @@ define([
             // Get Results from API
             req = new XMLHttpRequest();
 
-            console.debug(config.url);
             window.shortcutConfig = config;
             // req.open('POST', config.url, true);
             req.open('POST', config.url, true);
