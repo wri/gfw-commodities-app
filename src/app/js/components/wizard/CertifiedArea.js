@@ -195,8 +195,9 @@ define([
               graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
               wizardGraphicsLayer.add(graphic);
             });
-            // Mark this as your current selection and pass in an optional label since analysis area
-            // is an array of graphics instead of a single graphic
+            
+            // There should only be one feature returning from this call, if more then one come back
+            // something went wrong
             self.props.callback.updateAnalysisArea(features[0]);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
