@@ -8,7 +8,8 @@ define([], function() {
         treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         //treeCoverGainUrl = "http://54.241.14.14:6080/arcgis/rest/services/Forest_Gain_2000_2012_map/MapServer",
         //treeCoverGainImageUrl = "http://54.241.14.14:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer",
-        treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
+        //treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
+        treeCoverLossUrl = "http://ec2-54-176-223-60.us-west-1.compute.amazonaws.com:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
         // formaAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
         formaAlertsUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
@@ -111,7 +112,7 @@ define([], function() {
         // NOTE: If a item is specified in the layersUI below it needs to have a key defined here
         // If they are on the same layer, give them the same id and url and only add that layer to the map once
         // the toolsNode is for layers that have custom tools to work with them, it is the root dom node of the toolbox
-        // If the layer is an image service layer that needs to pull a legend from a dynamic layer, look at 
+        // If the layer is an image service layer that needs to pull a legend from a dynamic layer, look at
         // LayerController.refreshLegendWidget, it will need to add the config for the layer to the confItems array
         // This way it will know that when that layer is shown or hidden, refresh with the appropriate legendLayerId
         tcc: {
@@ -353,8 +354,8 @@ define([], function() {
         },
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
 
-        /*** 
-      This does not map to any UI elements, it is a hidden layer whose 
+        /***
+      This does not map to any UI elements, it is a hidden layer whose
       sole purpose is showing legends for ImageService layers
     ***/
         legendLayer: {
