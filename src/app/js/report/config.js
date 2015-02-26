@@ -175,6 +175,7 @@ define([], function() {
                 fieldAssessmentLabel: "Learn about field assessments.",
             },
             chart: {
+                title: 'Suitability by Legal Classification',
                 suitable: {
                     color: '#461D7C',
                     name: 'Suitable',
