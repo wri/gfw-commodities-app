@@ -92,7 +92,7 @@ define([
 		getFeaturesByGroupName: function (config, groupName) {
 			var deferred = new Deferred(),
 					query = new Query(),
-					self = this;	
+					self = this;
 
 			// Config is analysis/config using items like adminUnit.lowLevelUnitsQuery or commercialEntity.commodityQuery
 			query.where = config.requiredField + " = '" + groupName + "'";

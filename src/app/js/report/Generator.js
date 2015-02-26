@@ -105,7 +105,6 @@ define([
             // If I have an array of circles handle that here, I should not be getting other arrays
             // but if that happens, the object in report.geometry contains a type of either circle or polygon
             if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
-
                 // First I will need to convert circles to polygons since unioning circles/computing histograms
                 //  has some unexpected outcomes, Also keep a reference of the mills
                 report.mills = report.geometry;

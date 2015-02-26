@@ -197,7 +197,7 @@ define([
             });
             // Mark this as your current selection and pass in an optional label since analysis area
             // is an array of graphics instead of a single graphic
-            self.props.callback.updateAnalysisArea(features, target.innerHTML);
+            self.props.callback.updateAnalysisArea(features[0]);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });

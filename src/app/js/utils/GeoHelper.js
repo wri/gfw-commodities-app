@@ -15,7 +15,6 @@ define([
 	return {
 
 		preparePointAsPolygon: function (pointFeature) {
-      console.dir(pointFeature);
 			var longitude = pointFeature.attributes.Longitude,
           latitude = pointFeature.attributes.Latitude,
           circle = new Circle(new Point(pointFeature.geometry), {
