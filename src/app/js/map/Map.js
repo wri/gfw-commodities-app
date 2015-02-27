@@ -143,17 +143,9 @@ define([
       poBounds = new SimpleLegend(MapConfig.simpleLegends.poBounds);
       poBounds.init(poBounds.hide);
 
-      // Concessions
+      // Concessions - NOTE replaces default wizard dynamic layer
       concessions = new SimpleLegend(MapConfig.simpleLegends.concessions);
       concessions.init(concessions.hide);
-
-      concessions.onShow = function() {
-        document.getElementById("legend").style.display = 'none';
-      }
-
-      concessions.onHide = function() {
-        document.getElementById("legend").style.display = 'block';
-      }
 
       simpleLegends.road = road;
       simpleLegends.settle = settle;
@@ -194,7 +186,7 @@ define([
           adminBoundariesParams,
           adminBoundariesLayer,
           wizardDynamicParams,
-          wizardDynamicLayer,
+          // wizardDynamicLayer,
           millParams,
           millLayer,
           millPointsWizardParams,
@@ -381,11 +373,11 @@ define([
       wizardDynamicParams.layerIds = [];
       wizardDynamicParams.format = "png32";
 
-      wizardDynamicLayer = new ArcGISDynamicLayer(MapConfig.adminUnitsLayer.url, {
-        imageParameters: wizardDynamicParams,
-        id: MapConfig.adminUnitsLayer.id,
-        visible: false
-      });
+      // wizardDynamicLayer = new ArcGISDynamicLayer(MapConfig.adminUnitsLayer.url, {
+      //   imageParameters: wizardDynamicParams,
+      //   id: MapConfig.adminUnitsLayer.id,
+      //   visible: false
+      // });
 
       wizardGraphicsLayer = new GraphicsLayer({
         id: MapConfig.wizardGraphicsLayer.id
@@ -418,7 +410,7 @@ define([
         // Points Layers
         firesLayer,
         // Overlays
-        wizardDynamicLayer,
+        // wizardDynamicLayer,
         millLayer,
         mapOverlaysLayer,
         // Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
@@ -457,7 +449,7 @@ define([
       protectAreasLayer.on('error', this.addLayerError);
       protectAreasHelper.on('error', this.addLayerError);
       agroSuitabilityLayer.on('error', this.addLayerError);
-      wizardDynamicLayer.on('error', this.addLayerError);
+      // wizardDynamicLayer.on('error', this.addLayerError);
       mapOverlaysLayer.on('error', this.addLayerError);
       customGraphicsLayer.on('error', this.addLayerError);
       millLayer.on('error', this.addLayerError);
