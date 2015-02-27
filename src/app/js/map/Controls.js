@@ -1389,6 +1389,50 @@ define([
             jq171("#soil-depth-slider").rangeSlider('option', 'valueLabels', 'change');
             jq171("#soil-acid-slider").rangeSlider('option', 'valueLabels', 'change');
 
+        },
+
+        serializeSuitabilitySettings: function () {
+            return {
+                'Peat Depth': jq171("#peat-depth-slider").rangeSlider('values').min,
+                'Conservation Area': jq171("#conservation-area-slider").rangeSlider('values').min,
+                'Water Resource': jq171("#water-resource-slider").rangeSlider('values').min,
+                'Slope': jq171("#slope-slider").rangeSlider('values').min,
+                'Elevation': jq171("#elevation-slider").rangeSlider('values').min,
+                'Rainfall': jq171("#rainfall-slider").rangeSlider('values'),
+                'Soil Drainage': jq171("#soil-drainage-slider").rangeSlider('values'),
+                'Soil Depth': jq171("#soil-depth-slider").rangeSlider('values').min,
+                'Soil Acidity': jq171("#soil-acid-slider").rangeSlider('values'),
+                'Shrub': registry.byId('shrub-check').checked,
+                'Bareland': registry.byId('bareland-check').checked,
+                'Secondary Forest': registry.byId('secondary-forest-check').checked,
+                'Dryland Agriculture mixed with shrub': registry.byId('dryland-agro-check').checked,
+                'Water Body': registry.byId('water-check').checked,
+                'Mining': registry.byId('mining-check').checked,
+                'Plantation Forest': registry.byId('plantation-forest-check').checked,
+                'Estate Crop Plantation': registry.byId('estate-crop-check').checked,
+                'Swamp shrub': registry.byId('swamp-shrub-check').checked,
+                'Primary swamp Forest': registry.byId('primary-swamp-check').checked,
+                'Secondary swamp Forest': registry.byId('secondary-swamp-check').checked,
+                'Settlement': registry.byId('settlement-check').checked,
+                'Grassland': registry.byId('grassland-check').checked,
+                'Secondary mangrove forest': registry.byId('secondary-mangrove-check').checked,
+                'Dryland agriculture': registry.byId('dryland-check').checked,
+                'Rice field': registry.byId('rice-check').checked,
+                'Fish pond': registry.byId('fish-check').checked,
+                'Transmigration area': registry.byId('transmigration-check').checked,
+                'Swamp': registry.byId('swamp-check').checked,
+                'Primary mangrove swamp': registry.byId('primary-mangrove-check').checked,
+                'Airport': registry.byId('airport-check').checked,
+                'Inceptisol': registry.byId('inceptisol-check').checked,
+                'Oxisol': registry.byId('oxisol-check').checked,
+                'Alfisol': registry.byId('alfisol-check').checked,
+                'Ultisol': registry.byId('ultisol-check').checked,
+                'Spodosol': registry.byId('spodosol-check').checked,
+                'Entisol': registry.byId('entisol-check').checked,
+                'Histosol': registry.byId('histosol-check').checked,
+                'Mollisol': registry.byId('mollisol-check').checked,
+                'Rock': registry.byId('rock-check').checked
+            };
         }
 
     };

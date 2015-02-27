@@ -164,7 +164,11 @@ define([
             });
 
             // Initialize Add This
-            addthis.init();
+            try {
+                addthis.init();
+            } catch (e) {
+                dom.byId('sharing-modal').innerHTML = "Sorry.  AddThis is temporarily down.";
+            }
 
             on(app.map.infoWindow, 'hide', function() {
                 Hasher.removeKey('f');

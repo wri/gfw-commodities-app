@@ -81,7 +81,7 @@ gainLayer = #5952de
 	display block
 	right 40px
 	// top 65px
-	top 40px
+	top 45px
 
 .gfw .app-header .map-layer-controls ul
 	display inline-block
@@ -102,7 +102,7 @@ gainLayer = #5952de
 	padding 0 5px
 
 .gfw .app-header.mapView .layer-line
-	margin-top 13px
+	margin-top 5px
 	width 100%
 	height 4px
 	padding 0
@@ -118,7 +118,28 @@ gainLayer = #5952de
 	width 193px
 	z-index 500
 	opacity 0
-	top 43px
+	top 40px
+	
+// Browser/Platform Specific Placement due to font being interpreted differently in different environments
+.dj_gecko .gfw .app-header.mapView .map-layer-controls
+	top 49px
+	
+.dj_gecko .gfw .app-header #master-layer-list
+	top 44px
+	
+.dj_webkit .windows_7 .app-header.mapView .map-layer-controls
+.dj_webkit .windows_8 .app-header.mapView .map-layer-controls
+	top 50px
+	
+.dj_ie .windows_7 .app-header.mapView .map-layer-controls
+.dj_ie .windows_8 .app-header.mapView .map-layer-controls
+	top 53px
+
+.dj_webkit .windows_7 .app-header #master-layer-list
+.dj_webkit .windows_8 .app-header #master-layer-list
+.dj_ie .windows_7 .app-header #master-layer-list
+.dj_ie .windows_8 .app-header #master-layer-list	
+	top 45px
 
 .gfw .app-header .filter-list-title
 	text-align center
@@ -344,8 +365,15 @@ gainLayer = #5952de
 .dj_gecko .gfw .layer-list-item.active .radio-icon span
 	top -6px
 	
-.dj_ie .gfw .layer-list-item.active .radio-icon span
-	top -4px
+.dj_gecko .windows_7 .layer-list-item.active .radio-icon span
+.dj_gecko .windows_8 .layer-list-item.active .radio-icon span
+	top -7px
+	
+.dj_webkit .windows_7 .layer-list-item.active .radio-icon span
+.dj_webkit .windows_8 .layer-list-item.active .radio-icon span
+.dj_ie .windows_7 .layer-list-item.active .radio-icon span
+.dj_ie .windows_8 .layer-list-item.active .radio-icon span
+	top -5px
 
 .gfw .forest-change .radio-icon
 	border 1px solid forestChange

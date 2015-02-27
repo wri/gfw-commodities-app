@@ -18,6 +18,14 @@ define([
 
 		init: function () {
 
+			// Add Platform Specific Classes to the body tag
+			var userAgent = navigator.userAgent;
+			if (userAgent.search('NT 6.1') > -1) {
+				document.body.className += ' windows_7';
+			} else if (userAgent.search('NT 6.2') > -1) {
+				document.body.className += ' windows_8';
+			}
+
 			// Parse the initial Layout
 			parser.parse();
 

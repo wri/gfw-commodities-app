@@ -11,8 +11,9 @@ define([
     "dojo/_base/array",
     "map/config",
     "dojo/_base/lang",
-    "esri/tasks/PrintTask"
-], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask) {
+    "esri/tasks/PrintTask",
+    "map/Controls"
+], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
 
@@ -282,17 +283,15 @@ define([
                 datasets = self.state.analysisSets;
                 printTask = new PrintTask();
                 var printJson = printTask._getPrintDefinition(app.map);
-                printJson.exportOptions = {
-                    "outputSize": [850, 850],
-                    "dpi": 96
-                };
+                printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
                 win.payload = {
                     geometry: geometry,
                     datasets: self.state.analysisSets,
                     //types: self.state.analysisTypes,
                     title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
                     suitability: {
-                        renderRule: suitableRule
+                        renderRule: suitableRule,
+                        settings: MapControls.serializeSuitabilitySettings()
                     },
                     webMapJson: JSON.stringify(printJson)
                 };
