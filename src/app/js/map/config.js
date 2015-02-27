@@ -984,6 +984,7 @@ define([], function() {
             concessions: {
                 url: mapOverlaysUrl + '/legend?f=json',
                 parentId: 'legend-content',
+                title: 'Concessions',
                 id: 'concessions-legend',
                 layers: [{
                     id: 13,
