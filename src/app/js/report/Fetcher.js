@@ -76,17 +76,17 @@ define([
                 return;
             } else {
                 // Add in Export Options to the webMapJson
-                payload.webMapJson.exportOptions = {
-                    "outputSize": [850, 850],
-                    "dpi": 96
-                };
+                // payload.webMapJson.exportOptions = {
+                //     "outputSize": [850, 850],
+                //     "dpi": 96
+                // };
             }
 
             var printParams = {
                 "f": "json",
                 "format": "PNG32",
                 "Layout_Template": "MAP_ONLY",
-                "Web_Map_as_JSON": JSON.stringify(payload.webMapJson)
+                "Web_Map_as_JSON": payload.webMapJson
             },
             url = ReportConfig.printUrl,
             node = document.getElementById('print-map');

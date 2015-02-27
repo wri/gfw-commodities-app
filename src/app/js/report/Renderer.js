@@ -445,6 +445,11 @@ define([
 					});
 				}
 
+				if (series.length === 0) {
+					this.renderAsUnavailable('clearance', config);
+					return;
+				}
+
 				$("#" + config.rootNode + '_clearance').highcharts({
 					chart: {
 						plotBackgroundColor: null,
@@ -486,6 +491,11 @@ define([
 						}
 						series.push(value);
 					}
+				}
+
+				if (series.length === 0) {
+					this.renderAsUnavailable('clearance', config);
+					return;
 				}
 
 				$("#" + config.rootNode + '_clearance').highcharts({

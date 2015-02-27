@@ -281,6 +281,11 @@ define([
                 suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
                 datasets = self.state.analysisSets;
                 printTask = new PrintTask();
+                var printJson = printTask._getPrintDefinition(app.map);
+                printJson.exportOptions = {
+                    "outputSize": [850, 850],
+                    "dpi": 96
+                };
                 win.payload = {
                     geometry: geometry,
                     datasets: self.state.analysisSets,
@@ -289,7 +294,7 @@ define([
                     suitability: {
                         renderRule: suitableRule
                     },
-                    webMapJson: printTask._getPrintDefinition(app.map)
+                    webMapJson: JSON.stringify(printJson)
                 };
                 // Some browsers load really fast and are ready before the payload has been set
                 // create a custom event that the new page can listen to
