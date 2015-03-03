@@ -131,7 +131,7 @@ define([], function() {
             id: "Loss",
             url: treeCoverLossUrl,
             legendLayerId: 11,
-            defaultRange: [1, 13],
+            defaultRange: [1, 14],
             colormap: [
                 [1, 219, 101, 152]
             ],
