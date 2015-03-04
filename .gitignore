@@ -1,10 +1,9 @@
-node_modules
-/build
-/suitability
+www/node_modules
+www/suitability
 .ftpauth
 .DS_Store
 .idea
 *.sublime-workspace
 *.sublime-project
-src/app/css/app.css
-src/app/css/report.css
+www/src/app/css/app.css
+www/src/app/css/report.css
