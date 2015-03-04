@@ -25,7 +25,8 @@ define([
 		*/
 		renderContainers: function (config) {
 			var fragment = document.createDocumentFragment(),
-					node = document.createElement('div');
+					node = document.createElement('div'),
+					map = document.getElementById('print-map');
 
 			node.id = config.rootNode;
 			node.className = "result-container";
@@ -48,7 +49,7 @@ define([
 
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
-			document.getElementById('report-results-section').appendChild(fragment);
+			document.getElementById('report-results-section').insertBefore(fragment, map);
 		},
 
 		/*
@@ -56,7 +57,8 @@ define([
 		*/
 		renderTotalLossContainer: function (config) {
 			var fragment = document.createDocumentFragment(),
-					node = document.createElement('div');
+					node = document.createElement('div'),
+					map = document.getElementById('print-map');
 
 			node.id = config.rootNode;
 			node.className = "result-container";
@@ -70,7 +72,7 @@ define([
 
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
-			document.getElementById('report-results-section').appendChild(fragment);
+			document.getElementById('report-results-section').insertBefore(fragment, map);
 		},
 
 		/*
@@ -78,7 +80,8 @@ define([
 		*/
 		renderRSPOContainer: function (config) {
 			var fragment = document.createDocumentFragment(),
-					node = document.createElement('div');
+					node = document.createElement('div'),
+					map = document.getElementById('print-map');
 
 			node.id = config.rootNode;
 			node.className = "result-container";
@@ -88,7 +91,7 @@ define([
 
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
-			document.getElementById('report-results-section').appendChild(fragment);
+			document.getElementById('report-results-section').insertBefore(fragment, map);
 
 		},
 
@@ -97,7 +100,8 @@ define([
 		*/
 		renderSuitabilityContainer: function (config) {
 			var fragment = document.createDocumentFragment(),
-					node = document.createElement('div');
+					node = document.createElement('div'),
+					map = document.getElementById('print-map');
 
 			node.id = config.rootNode;
 			node.className = "result-container";
@@ -113,7 +117,7 @@ define([
 
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
-			document.getElementById('report-results-section').appendChild(fragment);
+			document.getElementById('report-results-section').insertBefore(fragment, map);
 		},
 
 		/*
@@ -121,7 +125,8 @@ define([
 		*/
 		renderMillContainer: function (config) {
 			var fragment = document.createDocumentFragment(),
-					node = document.createElement('div');
+					node = document.createElement('div'),
+					map = document.getElementById('print-map');
 
 			node.id = config.rootNode;
 			node.className = "result-container relative";
@@ -130,7 +135,7 @@ define([
 
 			// Append root to fragment and then fragment to document
 			fragment.appendChild(node);
-			document.getElementById('report-results-section').appendChild(fragment);
+			document.getElementById('report-results-section').insertBefore(fragment, map);
 		},
 
 		renderCompositionAnalysisLoader: function(config) {
