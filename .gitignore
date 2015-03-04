@@ -1,6 +1,6 @@
 www/node_modules
 suitability
-src/.ftpauth
+www/.ftpauth
 .DS_Store
 .idea
 *.sublime-workspace
