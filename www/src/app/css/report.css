@@ -1,0 +1,660 @@
+
+/* line 112 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+
+/* line 1 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\node_modules\grunt-contrib-stylus\node_modules\stylus\lib\functions\index.styl */
+
+/* line 17 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+@font-face {
+  font-family: "Arial MT Condensed Bold";
+  src: url("fonts/ArialMTStd-BoldCond.otf") format("opentype");
+}
+
+/* line 21 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+@font-face {
+  font-family: "Arial MT Condensed Light";
+  src: url("fonts/ArialMTStd-LightCond.otf") format("opentype");
+}
+
+/* line 25 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+html,
+body {
+  font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+  background: #fff;
+}
+
+/* line 31 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw #report {
+  margin: 20px auto;
+  width: 960px;
+}
+
+/* line 35 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-header {
+  background: url("images/header_tree_background.jpg") repeat-x scroll center top transparent;
+  border: 1px solid #000;
+  border-bottom: 0px;
+  min-height: 100px;
+}
+
+/* line 41 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-body {
+  border: 1px solid #000;
+}
+
+/* line 44 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw #title {
+  font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+  padding-top: 10px;
+  margin-left: 10px;
+  max-width: 750px;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+/* line 54 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw #title.multiples {
+  font-size: 24px;
+}
+
+/* line 57 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-area {
+  padding: 5px 0 15px;
+  margin-left: 10px;
+}
+
+/* line 61 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-area-value {
+  font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+  font-weight: bold;
+}
+
+/* line 67 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .subscribe-alerts {
+  background-color: #e98300;
+  padding: 5px 8px 3px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  position: absolute;
+  cursor: pointer;
+  color: #fff;
+  right: 10px;
+  top: 10px;
+}
+
+/* line 77 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .print-button {
+  background: url("images/print-icon.png") no-repeat -1px -35px;
+  position: absolute;
+  cursor: pointer;
+  height: 28px;
+  width: 32px;
+  right: 10px;
+  top: 50px;
+}
+
+/* line 86 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .print-button.disabled {
+  background: url("images/print-icon.png") no-repeat -1px 0px;
+  cursor: wait;
+}
+
+/* line 90 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .loading-wheel {
+  background: url("images/loader.gif");
+  background-size: 24px;
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+}
+
+/* line 97 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .loading-wheel.hidden {
+  display: none;
+}
+
+/* line 102 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .result-container {
+  margin: 20px;
+}
+
+/* line 105 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.print-map-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* line 109 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.print-map-container img {
+  border: 1px solid #000;
+  height: 850px;
+}
+
+/* line 113 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw #treeCoverLoss text tspan:nth-child(3) {
+  display: none;
+}
+
+/* line 116 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw #treeCoverLoss text tspan:nth-child(4) {
+  min-width: 20px;
+}
+
+/* line 119 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+@media print {
+
+/* line 120 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+  .gfw .result-container,
+  .print-map-container {
+    page-break-after: always;
+  }
+}
+
+/* line 124 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-body .title {
+  font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* line 131 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-body .top-panel {
+  margin: 10px;
+}
+
+/* line 134 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-body .left-panel,
+.gfw .report-body .right-panel {
+  display: inline-block;
+  margin: 0 10px;
+  width: 430px;
+}
+
+/* line 140 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-body .loss-chart {
+  height: 400px;
+}
+
+/* line 149 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-body .right-panel {
+  float: right;
+}
+
+/* line 152 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .rspo-results-table,
+.gfw .mill-table-container table {
+  border-collapse: collapse;
+  text-align: center;
+  border-spacing: 0;
+  margin: 20px auto;
+  width: 80%;
+}
+
+/* line 160 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container table {
+  margin-top: 0px;
+}
+
+/* line 163 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .rspo-results-table th,
+.gfw .rspo-results-table tr td:first-child {
+  font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+  font-weight: bold;
+}
+
+/* line 170 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .rspo-results-table th,
+.gfw .rspo-results-table td {
+  border: 1px solid #adadad;
+  padding: 5px 0 2px;
+}
+
+/* line 175 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .rspo-results-table .change-area-unit {
+  margin-right: 10%;
+  float: right;
+}
+
+/* line 179 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .composition-analysis-container {
+  margin: 10px 0px;
+}
+
+/* line 182 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .active-fires-badge {
+  border: 2px solid #000;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 10px auto;
+  width: 300px;
+}
+
+/* line 189 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .active-fires-badge div {
+  margin: 10px 0;
+}
+
+/* line 192 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .active-fires-label {
+  font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+  font-weight: bold;
+  color: #f44;
+  font-size: 28px;
+}
+
+/* line 200 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .active-fires-badge.special .active-fires-label span {
+  font-size: 15px;
+}
+
+/* line 203 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .active-fires-label div {
+  line-height: 42px;
+  font-size: 42px;
+  margin: 0;
+}
+
+/* line 208 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-active-fires-label {
+  font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* line 215 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .suitability-container .child-row {
+  padding-left: 15px;
+}
+
+/* line 218 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .suitability-container .left-panel {
+  min-height: 400px;
+}
+
+/* line 221 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .loader-wheel {
+  background: url("images/loader.gif") no-repeat left;
+  background-color: #e6e6e6;
+  background-color: rgba(230,230,230,0.75);
+  padding: 6px 5px 0 25px;
+  border: 1px solid #000;
+  background-size: 22px;
+  display: inline-block;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  height: 22px;
+}
+
+/* line 232 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .loader-wheel.area {
+  position: relative;
+  width: 22px;
+  padding: 0;
+  top: 7px;
+}
+
+/* line 238 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .checkbox-container {
+  padding: 5px;
+}
+
+/* line 241 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .checkbox-container input {
+  margin-right: 5px;
+}
+
+/* line 244 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .email-container,
+.gfw .submit-container,
+.gfw .message-container {
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* line 248 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .email-container input {
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  line-height: 26px;
+  padding-left: 5px;
+  font-size: 14px;
+  height: 26px;
+  width: 240px;
+  outline: 0;
+}
+
+/* line 258 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .submit-container button {
+  border: 1px solid #e6e6e6;
+  background: #e6e6e6;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  padding: 5px 3px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: 0;
+}
+
+/* line 267 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .submit-container button:hover,
+.gfw .submit-container button:active {
+  border: 1px solid #e98300;
+  background: #e98300;
+}
+
+/* line 271 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container table {
+  text-align: center;
+  width: 100%;
+}
+
+/* line 275 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container th {
+  text-transform: uppercase;
+  width: 33%;
+}
+
+/* line 279 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container th,
+.gfw .mill-table-container td {
+  border: 1px solid #e6e6e6;
+  padding: 5px;
+}
+
+/* line 284 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container tr.data-row td:nth-child(3),
+.gfw .mill-table-container tr.data-row td:nth-child(5) {
+  border-left: none;
+}
+
+/* line 288 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container tr.data-row td:nth-child(2),
+.gfw .mill-table-container tr.data-row td:nth-child(4) {
+  border-right: none;
+}
+
+/* line 292 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .column-labels,
+.gfw .mill-table-container .name {
+  font-weight: bold;
+}
+
+/* line 296 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .row-name {
+  text-align: left;
+}
+
+/* line 299 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .row-name span:last-child {
+  margin-left: 15px;
+}
+
+/* line 302 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .data-row.parent .row-name span:last-child {
+  margin-left: 7px;
+}
+
+/* line 305 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .data-row.child .row-name span:last-child {
+  margin-left: 25px;
+}
+
+/* line 308 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .data-row {
+  font-weight: bold;
+}
+
+/* line 311 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .data-row.child {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+/* line 315 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-header {
+  background-color: #e6e6e6;
+  border: 1px solid #e6e6e6;
+  margin-top: 10px;
+  height: 50px;
+}
+
+/* line 321 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-title {
+  line-height: 50px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+/* line 326 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-risk-level {
+  margin-right: 10px;
+  line-height: 50px;
+  font-weight: bold;
+  font-size: 18px;
+  float: right;
+}
+
+/* line 333 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .overall-risk {
+  text-transform: uppercase;
+}
+
+/* line 336 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .risk-label {
+  text-transform: capitalize;
+}
+
+/* line 339 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .large-swatch,
+.gfw .small-swatch {
+  display: inline-block;
+  border-radius: 35px;
+  -moz-border-radius: 35px;
+  -webkit-border-radius: 35px;
+  position: relative;
+  margin: 0 5px;
+  top: 1px;
+}
+
+/* line 347 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .large-swatch {
+  height: 14px;
+  width: 14px;
+}
+
+/* line 351 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .small-swatch {
+  height: 10px;
+  width: 10px;
+}
+
+/* line 355 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .low .overall-risk {
+  color: #78c1dc;
+}
+
+/* line 358 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .medium .overall-risk {
+  color: #f4820d;
+}
+
+/* line 361 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .high .overall-risk {
+  color: #e4132c;
+}
+
+/* line 364 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .low .large-swatch,
+.gfw .low .small-swatch {
+  background-color: #78c1dc;
+}
+
+/* line 368 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .medium .large-swatch,
+.gfw .medium .small-swatch {
+  background-color: #f4820d;
+}
+
+/* line 372 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .high .large-swatch,
+.gfw .high .small-swatch {
+  background-color: #e4132c;
+}
+
+/* line 376 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .value-toggle {
+  position: absolute;
+  height: 25px;
+  right: 0;
+  top: 5px;
+}
+
+/* line 382 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .toggle-button-container {
+  background-color: #e6e6e6;
+  display: inline-block;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  height: 100%;
+  width: 40px;
+}
+
+/* line 391 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .toggle-button-container.active {
+  background-color: #5fa41a;
+}
+
+/* line 394 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .toggle-button-container.active .toggle-knob {
+  left: 18px;
+}
+
+/* line 397 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .toggle-knob {
+  background-color: #fff;
+  display: inline-block;
+  border-radius: 35px;
+  -moz-border-radius: 35px;
+  -webkit-border-radius: 35px;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  top: 2px;
+}
+
+/* line 407 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .toggle-label {
+  display: inline-block;
+  padding-right: 6px;
+  vertical-align: top;
+  padding-top: 6px;
+  font-size: 12px;
+}
+
+/* line 414 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .parent td:first-child {
+  cursor: pointer;
+}
+
+/* line 417 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .parent.open .toggle-icon {
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 8px solid #888;
+  display: inline-block;
+  height: 0;
+  width: 0;
+  top: 3px;
+}
+
+/* line 426 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .parent .toggle-icon {
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  border-left: 8px solid #888;
+  display: inline-block;
+  position: relative;
+  height: 0;
+  left: 3px;
+  top: -3px;
+  width: 0;
+}
+
+/* line 437 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .mill-table-container .info-icon {
+  background: url("images/info-icon-gray.png") no-repeat center;
+  display: inline-block;
+  cursor: pointer;
+  height: 21px;
+  width: 20px;
+}
+
+/* line 445 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+/* 20141217 CRB - Added info icon to Total Calculated Area in report header */
+
+/* line 446 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .report-header .total-area .info-icon {
+  background: url("images/info-icon-gray.png") no-repeat center;
+  display: inline-block;
+  cursor: pointer;
+  height: 21px;
+  width: 20px;
+}
+
+/* line 452 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-area-info-popup {
+  visibility: hidden;
+  width: 450px;
+  box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.25);
+  background-color: #fff;
+  border: 1px solid #b2b2b2;
+  font-size: 12px;
+  position: absolute;
+  padding: 0px;
+  margin: 0px;
+  top: 75px;
+  left: calc(50% - 460px);
+}
+
+/* line 464 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-area-info-popup .total-area-info-popup-title {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 467 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-area-info-popup .total-area-info-popup-title .total-area-info-popup-label {
+  margin-top: 8px;
+  margin-left: 10px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* line 473 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-area-info-popup .close-info-icon {
+  background: url("images/close_symbol.png") no-repeat 5px center;
+  border-left: 1px solid #b2b2b2;
+  background-size: 14px 14px;
+  cursor: pointer;
+  float: right;
+  height: 30px;
+  width: 25px;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 483 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\report.styl */
+.gfw .total-area-info-popup .total-area-info-content {
+  clear: both;
+  padding: 10px;
+  border-top: 1px solid #b2b2b2;
+}
