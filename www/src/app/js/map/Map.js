@@ -431,7 +431,7 @@ define([
                 });
 
                 layerInfos = arrayUtils.filter(layerInfos, function(item) {
-                    return !item.layer.url ? false : (item.layer.url.search('ImageServer') < 0 && item.layer.id.search('Gain') < 0);
+                    return (!item.layer.url ? false : (item.layer.url.search('ImageServer') < 0 && item.layer.id.search('Gain') < 0) && item.layer.id !== MapConfig.adminUnitsLayer.id);
                 });
 
                 registry.byId("legend").refresh(layerInfos);
@@ -451,7 +451,7 @@ define([
             protectAreasLayer.on('error', this.addLayerError);
             protectAreasHelper.on('error', this.addLayerError);
             agroSuitabilityLayer.on('error', this.addLayerError);
-            // wizardDynamicLayer.on('error', this.addLayerError);
+            wizardDynamicLayer.on('error', this.addLayerError);
             mapOverlaysLayer.on('error', this.addLayerError);
             customGraphicsLayer.on('error', this.addLayerError);
             millLayer.on('error', this.addLayerError);
