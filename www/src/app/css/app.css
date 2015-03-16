@@ -1595,22 +1595,200 @@ body,
   background-position: 0 -7830px;
 }
 
-/* line 1044 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+/* line 1046 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .yayasanPuter,
+.logo_list .yayasanPuter:hover {
+  background: url("images/static-logos2.png") no-repeat;
+}
+
+/* line 1049 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .yayasanPuter {
+  background-position: 0 -7923px;
+}
+
+/* line 1052 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .yayasanPuter:hover {
+  background-position: 0 -7830px;
+}
+
+/* line 1057 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .rainForestUK,
+.logo_list .rainForestUK:hover,
+.logo_list .rspo,
+.logo_list .rspo:hover,
+.logo_list .climateLandUse,
+.logo_list .climateLandUse:hover,
+.logo_list .muyissi,
+.logo_list .muyissi:hover,
+.logo_list .mongabay,
+.logo_list .mongabay:hover,
+.logo_list .unepWC,
+.logo_list .unepWC:hover,
+.logo_list .woodsHole,
+.logo_list .woodsHole:hover,
+.logo_list .earthJournalismNetwork,
+.logo_list .earthJournalismNetwork:hover,
+.logo_list .unilever,
+.logo_list .unilever:hover,
+.logo_list .lodersCroklaan,
+.logo_list .lodersCroklaan:hover,
+.logo_list .osinfor,
+.logo_list .osinfor:hover,
+.logo_list .reforestMexico,
+.logo_list .reforestMexico:hover,
+.logo_list .resolveCo,
+.logo_list .resolveCo:hover,
+.logo_list .zsl,
+.logo_list .zsl:hover {
+  background: url("images/static-logos3.png") no-repeat;
+}
+
+/* line 1089 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .rainForestUK {
+  background-position: 0 -7519px;
+}
+
+/* line 1092 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .rainForestUK:hover {
+  background-position: 0 -7519px;
+}
+
+/* line 1095 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .rspo {
+  background-position: 0 -7645px;
+}
+
+/* line 1098 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .rspo:hover {
+  background-position: 0 -7583px;
+}
+
+/* line 1101 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .climateLandUse {
+  background-position: 0 -6007px;
+}
+
+/* line 1104 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .climateLandUse:hover {
+  background-position: 0 -5948px;
+}
+
+/* line 1107 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .muyissi {
+  background-position: 0 -6212px;
+}
+
+/* line 1110 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .muyissi:hover {
+  background-position: 1px -6094px;
+}
+
+/* line 1113 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .mongabay {
+  background-position: 0 -7332px;
+}
+
+/* line 1116 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .mongabay:hover {
+  background-position: 0 -7214px;
+}
+
+/* line 1119 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .unepWC {
+  background-position: 0 -7800px;
+}
+
+/* line 1122 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .unepWC:hover {
+  background-position: 0 -7718px;
+}
+
+/* line 1125 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .woodsHole {
+  background-position: 0 -7995px;
+}
+
+/* line 1128 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .woodsHole:hover {
+  background-position: 0 -7899px;
+}
+
+/* line 1131 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .earthJournalismNetwork {
+  background-position: 0 -6425px;
+}
+
+/* line 1134 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .earthJournalismNetwork:hover {
+  background-position: 0 -6324px;
+}
+
+/* line 1137 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .unilever {
+  background-position: 0 -6617px;
+}
+
+/* line 1140 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .unilever:hover {
+  background-position: 0 -6519px;
+}
+
+/* line 1143 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .lodersCroklaan {
+  background-position: 0 -6738.5px;
+}
+
+/* line 1146 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .lodersCroklaan:hover {
+  background-position: 0 -6692px;
+}
+
+/* line 1149 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .osinfor {
+  background-position: 0 -6928px;
+}
+
+/* line 1152 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .osinfor:hover {
+  background-position: 0 -6816px;
+}
+
+/* line 1155 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .reforestMexico {
+  background-position: 0 -7110px;
+}
+
+/* line 1158 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .reforestMexico:hover {
+  background-position: 0 -7026.5px;
+}
+
+/* line 1161 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .resolveCo {
+  background-position: 0 -7466px;
+}
+
+/* line 1164 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+.logo_list .resolveCo:hover {
+  background-position: 0 -7414px;
+}
+
+/* line 1167 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
 .logo_list .zsl {
   background-position: 0 -8075px;
 }
 
-/* line 1047 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+/* line 1170 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
 .logo_list .zsl:hover {
-  background-position: 0 -8010px;
+  background-position: 0 -8075px;
 }
 
-/* line 1052 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+/* line 1175 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
 .coming-soon {
   padding: 20px;
 }
 
-/* line 1056 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+/* line 1179 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
 .emailWRI {
   border: 1px solid #97bd3d;
   margin: 10px 0 0;
@@ -1640,7 +1818,7 @@ body,
   width: 100px;
 }
 
-/* line 1084 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
+/* line 1207 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\contentPages.styl */
 .emailWRI:hover {
   background: #f2f2f2;
 }
@@ -4295,7 +4473,7 @@ body {
   position: absolute;
   display: block;
   right: 40px;
-  top: 45px;
+  top: 50px;
 }
 
 /* line 86 : c:\Aamir\Projects_GIT_JS\2278-wri-oil-palm\www\src\app\css\header.styl */
