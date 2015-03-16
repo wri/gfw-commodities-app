@@ -1,5 +1,6 @@
 www/node_modules
-.ftpauth
+suitability
+www/.ftpauth
 .DS_Store
 .idea
 *.sublime-workspace

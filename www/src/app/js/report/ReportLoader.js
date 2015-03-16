@@ -4,7 +4,7 @@
   'use strict';
 
   var src = [
-    'http://js.arcgis.com/3.11/',
+    'http://js.arcgis.com/3.12/',
     'http://code.jquery.com/jquery-1.11.0.min.js',
     'http://code.highcharts.com/highcharts.js'
   ],
