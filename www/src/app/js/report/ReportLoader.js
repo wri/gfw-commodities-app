@@ -4,9 +4,7 @@
   'use strict';
 
   var src = [
-    'http://js.arcgis.com/3.12/',
-    'http://code.jquery.com/jquery-1.11.0.min.js',
-    'http://code.highcharts.com/highcharts.js'
+    'http://js.arcgis.com/3.12/'
   ],
   css = [
     'http://js.arcgis.com/3.11/esri/css/esri.css',
@@ -38,22 +36,31 @@
       'dojo/domReady!'
     ],
     callback: function(Generator) {
-      loadScript('http://code.highcharts.com/modules/exporting.js');
-      if (win.payload) {
-        Generator.init(); 
-      } else {
-        var payloadReceived = false;
-        document.addEventListener('PayloadReady', function () {
-          payloadReceived = true;
-          Generator.init();
+
+      loadScriptAsync('http://code.jquery.com/jquery-1.11.0.min.js', function() {
+        loadScriptAsync('http://code.highcharts.com/highcharts.js', function() {
+          loadScriptAsync('http://code.highcharts.com/modules/exporting.js', function() {
+
+            if (win.payload) {
+              Generator.init(); 
+            } else {
+              var payloadReceived = false;
+              document.addEventListener('PayloadReady', function () {
+                payloadReceived = true;
+                Generator.init();
+              });
+              // Add a timeout condition so we can alert the user if something went wrong
+              setTimeout(function () {
+                if (!payloadReceived) {
+                  alert("There was an error generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
+                }
+              }, 5000);
+            }            
+
+          });
         });
-        // Add a timeout condition so we can alert the user if something went wrong
-        setTimeout(function () {
-          if (!payloadReceived) {
-            alert("There was an error generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
-          }
-        }, 5000);
-      }
+      });
+
     }
   }; // End dojoConfig
 
@@ -76,6 +83,26 @@
     doc.getElementsByTagName('head')[0].appendChild(l);
   };
 
+  function loadScriptAsync(src, callback) {
+    var s,
+        r,
+        t;
+    r = false;
+    s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = src;
+    s.onload = s.onreadystatechange = function() {
+      //console.log( this.readyState ); //uncomment this line to see which ready states are called.
+      if ( !r && (!this.readyState || this.readyState == 'complete') )
+      {
+        r = true;
+        callback();
+      }
+    };
+    t = document.getElementsByTagName('script')[0];
+    t.parentNode.insertBefore(s, t);
+  }
+
   function loadDependencies() {
     // Load Esri Dependencies
     win.dojoConfig = dojoConfig;
@@ -86,7 +113,6 @@
       loadScript(src[j]);
     }
   }
-
 
   /* Polyfills and/or prototype additions */
   /*

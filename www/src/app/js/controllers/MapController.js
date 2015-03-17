@@ -188,9 +188,10 @@ define([
 
             // Priority reordering for mill points & feature url updating
             var previousFeatures;
+            var replacer = ['attributes','geometry','infoTemplate','symbol'];
             var changeHandle = on.pausable(app.map.infoWindow, 'selection-change', function() {
                 if (this.features) {
-                    if (JSON.stringify(this.features) != JSON.stringify(previousFeatures)) {
+                    if (JSON.stringify(this.features, replacer) != JSON.stringify(previousFeatures, replacer)) {
                         var reorderedFeatures = [],
                             existsMillPoint,
                             isMillPoint,
