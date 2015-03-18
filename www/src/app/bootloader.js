@@ -1,5 +1,5 @@
 /* global window, document, location */
-// heroku test comment
+console.log(new Date());
 (function(win, doc) {
     'use strict';
     var version = "2.2.3",
