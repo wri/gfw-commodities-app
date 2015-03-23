@@ -81,14 +81,16 @@ define([], function() {
             "http://gis-potico.wri.org",
             "http://175.41.139.43",
             "http://54.164.126.73",
-            "http://46.137.239.227"
+            "http://46.137.239.227",
+            "https://gfw-fires.wri.org"
         ],
 
         printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
 
         alertUrl: {
             forma: "http://gfw-apis.appspot.com/subscribe",
-            fires: "http://54.164.126.73/subscribe_by_polygon"
+            // fires: "http://54.164.126.73/subscribe_by_polygon"
+            fires: "https://gfw-fires.wri.org/subscribe_by_polygon"
         },
 
         millPointInfo: {
