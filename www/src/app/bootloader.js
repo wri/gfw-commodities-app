@@ -46,7 +46,7 @@ console.log(new Date());
 
             ],
             deps: [
-                // "main/Main",
+                //"main/Main",
                 "dojo/domReady!"
             ],
             callback: function(Main) {
