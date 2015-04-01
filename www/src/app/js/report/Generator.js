@@ -39,8 +39,18 @@ define([
         },
 
         applyConfigurations: function() {
+
             arrayUtils.forEach(Config.corsEnabledServers, function(server) {
                 esriConfig.defaults.io.corsEnabledServers.push(server);
+            });
+
+            // Set defaults for Highcharts
+            Highcharts.setOptions({
+                chart: {
+                    style: {
+                        fontFamily: 'Arial'
+                    }
+                }
             });
         },
 

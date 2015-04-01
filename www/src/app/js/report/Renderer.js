@@ -543,7 +543,8 @@ define([
 		*/
 		renderFireData: function (configObjects, results) {
 			// Combine the Results
-			var features = results[0].features.concat(results[1].features),
+			// var features = results[0].features.concat(results[1].features),
+			var features = results[0].features,
 					datasetTotal,
 					chartData,
 					rootNode,

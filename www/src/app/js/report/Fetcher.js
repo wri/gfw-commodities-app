@@ -645,30 +645,31 @@ define([
                 errorCount = 0,
                 self = this,
                 defs = [],
-                params2,
+                // params2,
                 params1,
-                task2,
+                // task2,
                 task1;
 
             params1 = new Query();
-            params2 = new Query();
+            // params2 = new Query();
 
-            task1 = new QueryTask(ReportConfig.fires.url + "/0");
-            task2 = new QueryTask(ReportConfig.fires.url + "/2");
+            task1 = new QueryTask(ReportConfig.fires.url + "/4");
+            // task2 = new QueryTask(ReportConfig.fires.url + "/2");
 
             params1.geometry = polygon;
-            params2.geometry = polygon;
+            // params2.geometry = polygon;
             params1.returnGeometry = false;
-            params2.returnGeometry = false;
+            // params2.returnGeometry = false;
             params1.outFields = ["*"];
-            params2.outFields = ["*"];
+            // params2.outFields = ["*"];
             params1.where = "1 = 1";
-            params2.where = "1 = 1";
+            // params2.where = "1 = 1";
 
             all([
-                task1.execute(params1),
-                task2.execute(params2)
+                task1.execute(params1)
+                // task2.execute(params2)
             ]).then(function(results) {
+                console.dir(results);
                 ReportRenderer.renderFireData(_fireQueriesToRender, results);
                 deferred.resolve(true);
             });
@@ -678,9 +679,9 @@ define([
                 deferred.resolve(false);
             });
 
-            task2.on('error', function() {
-                deferred.resolve(false);
-            });
+            // task2.on('error', function() {
+            //     deferred.resolve(false);
+            // });
 
             return deferred.promise;
         },

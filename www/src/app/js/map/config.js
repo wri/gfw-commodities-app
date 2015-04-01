@@ -499,7 +499,7 @@ define([], function() {
         }, {
             key: "ldcoverIndo",
             title: "Land Cover Indonesia",
-            subtitle: "(mid 2000s, indonesia)",
+            subtitle: "(mid 2000s, Indonesia)",
             filter: "forest-cover",
             type: "radio",
             layerType: "dynamic",
@@ -507,7 +507,7 @@ define([], function() {
         }, {
             key: "ldcoverAsia",
             title: "Land Cover Southeast Asia",
-            subtitle: "(mid 2000s, southeast asia)",
+            subtitle: "(mid 2000s, Southeast Asia)",
             filter: "forest-cover",
             type: "radio",
             layerType: "dynamic",
@@ -537,7 +537,7 @@ define([], function() {
             infoDivClass: "land-use-oil-palm"
         }, {
             key: "rspoPerm",
-            title: "RSPO oil palm",
+            title: "RSPO Oil palm",
             subtitle: "(varies, select countries)",
             filter: "forest-use",
             type: "check",
@@ -561,7 +561,7 @@ define([], function() {
             infoDivClass: "land-use-mining"
         }, {
             key: "woodPerm",
-            title: "Wood fiber plantations",
+            title: "Wood Fiber Plantations",
             subtitle: "(varies, select countries)",
             filter: "forest-use",
             type: "check",
@@ -577,7 +577,7 @@ define([], function() {
             infoDivClass: "land-use-mill-points"
         }, {
             key: "pal",
-            title: "Protected areas",
+            title: "Protected Areas",
             subtitle: "(varies, global)",
             filter: "conservation",
             type: "check",

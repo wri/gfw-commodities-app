@@ -26,10 +26,11 @@ define([
     // Esri Dijjits
     "esri/dijit/Legend",
     "esri/dijit/Geocoder",
+    "esri/dijit/Scalebar",
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapGallery"
-], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, Map, esriConfig, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, HomeButton, Locator, BasemapGallery) {
+], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, Map, esriConfig, InfoTemplate, GraphicsLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
     'use strict';
 
     var _map = declare([Evented], {
@@ -88,6 +89,7 @@ define([
                 geoCoder,
                 basemapGallery,
                 simpleLegends = {},
+                scalebar,
                 road,
                 settle,
                 poBounds,
@@ -130,6 +132,14 @@ define([
                 autoUpdate: true
             }, "legend");
             legend.startup();
+
+            scalebar = new Scalebar({
+                map: this.map,
+                scalebarUnit: 'metric'
+            });
+            // This seems to break the app, very weird, dont uncomment unless new api fixes this
+            // or needs to be started up
+            //scalebar.startup();
 
             // Simple Legends
 

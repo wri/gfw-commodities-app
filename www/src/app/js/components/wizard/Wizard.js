@@ -271,7 +271,7 @@ define([
                 suitableRule,
                 readyEvent,
                 datasets,
-                win = window.open('./app/js/report/Report.html', '_blank');
+                win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes');
 
             //setTimeout(function () {
             if (win === null || typeof(win) === undefined || win === undefined) {

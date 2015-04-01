@@ -46,11 +46,11 @@ console.log(new Date());
 
             ],
             deps: [
-                // "main/Main",
+                //"main/Main",
                 "dojo/domReady!"
             ],
             callback: function(Main) {
-                // Main.init();
+                //Main.init();
                 // Before Running grunt build or minify, remove main/Main from Require above and main parameter
                 // from callback, then uncomment below
                 // Release Version
