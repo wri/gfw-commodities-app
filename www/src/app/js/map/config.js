@@ -537,7 +537,7 @@ define([], function() {
             infoDivClass: "land-use-oil-palm"
         }, {
             key: "rspoPerm",
-            title: "RSPO Oil palm",
+            title: "RSPO Oil Palm",
             subtitle: "(varies, select countries)",
             filter: "forest-use",
             type: "check",
