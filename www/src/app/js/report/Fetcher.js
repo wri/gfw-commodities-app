@@ -669,7 +669,6 @@ define([
                 task1.execute(params1)
                 // task2.execute(params2)
             ]).then(function(results) {
-                console.dir(results);
                 ReportRenderer.renderFireData(_fireQueriesToRender, results);
                 deferred.resolve(true);
             });
