@@ -334,7 +334,17 @@ define([
               });
             }
           } else {
-            outGeo = features.geometry;
+            isCircle = (features.geometry.radius !== undefined);
+            if (isCircle) {
+                outGeo = [{
+                  label: features.attributes.WRI_label,
+                  id: features.attributes.Entity_ID,
+                  geometry: features.geometry,
+                  type: 'circle'
+                }];
+            } else {
+                outGeo = features.geometry;
+            }
           }
 
           return JSON.stringify(outGeo);

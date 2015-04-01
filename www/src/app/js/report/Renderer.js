@@ -1137,12 +1137,12 @@ define([
 		renderMillAssessment: function (mills, config) {
 
 			var millTables = [],
-					headerContent = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span>" + 
-										"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>",
+					// headerContent = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span>" + 
+					// 					"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>",
 					content = "",
 					title;
 
-			arrayUtils.forEach(mills, function (mill) {
+			arrayUtils.forEach(mills, function (mill, index) {
 				// Create Header
 				// If there were multiple mills, there attributes are in report.mills
 				if (report.mills) {
@@ -1161,76 +1161,113 @@ define([
 				}
 
 
-				content = "<div class='mill-header'><span class='mill-title'>" + window.payload.title + "</span>" + 
-									"<span class='mill-risk-level " + mill.risk + "'><span class='large-swatch'></span>" + 
-									"Total Mill Risk Level: <span class='overall-risk'>" + mill.risk + "</span></span></div>";
+				// Create Header for the table
+				content = "<div class='mill-header'><span class='mill-title'>" + title + "</span>" + 
+									"<span class='mill-risk-level " + mill.total_mill_priority_level + "'><span class='large-swatch'></span>" + 
+									"Total Mill Priority Level: <span class='overall-risk'>" + mill.total_mill_priority_level + "</span></span>" +
+									"<span class='mill-rspo-certification'>RSPO Certification: <span>" + (mill.rspo.risk ? 'Yes' : 'No') + "</span></span></div>";
 				// Create Table
-				content += "<table><tr><th></th><th colspan='2'>Concession<span class='info-icon' data-type='concession'></span>" + 
-									 "</th><th colspan='2'>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
+				content += "<table><tr><th></th><th>Concession<span class='info-icon' data-type='concession'></span>" + 
+									 "</th><th>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
 				// Generate Rows for Each section of data
-				// content += generateRow('RSPO certification', mill.rspo);
-				// content += generateRow('Deforestation', mill.deforestation, 'deforest-' + mill.id);
+
+				content += generateBasicRow('Priority Level', mill, 'priority_level');
+				content += generateParentRow('Deforestation', mill.deforestation, 'deforest-' + mill.id, 'deforestation');
 				/* Child Rows */
-				content += generateRow('Total tree cover loss', mill.deforestation['umd_loss'], null, 'deforest-' + mill.id);
-				content += generateRow('Tree cover loss on primary forest', mill.deforestation['umd_loss_primary'], null, 'deforest-' + mill.id);
-				content += generateRow('Total clearance alerts', mill.deforestation.forma, null, 'deforest-' + mill.id);
-				content += generateRow('Clearance alerts on primary forest', mill.deforestation['forma_primary'], null, 'deforest-' + mill.id);
-				content += generateRow('Tree cover loss on carbon stock', mill.deforestation.carbon, null, 'deforest-' + mill.id);
+				content += generateChildRow('Total tree cover loss', mill.deforestation.umd_loss, 'deforest-' + mill.id);
+				content += generateChildRow('Tree cover loss on primary forest', mill.deforestation.umd_loss_primary, 'deforest-' + mill.id);
+				content += generateChildRow('Total clearance alerts', mill.deforestation.forma, 'deforest-' + mill.id);
+				content += generateChildRow('Clearance alerts on primary forest', mill.deforestation.forma_primary, 'deforest-' + mill.id);
+				content += generateChildRow('Tree cover loss on carbon stock', mill.deforestation.carbon, 'deforest-' + mill.id);
 				/* Child Rows */
-				content += generateRow('Legality', mill.legal);
-				// content += generateRow('Peat', mill.peat, 'peat-' + mill.id);
+				content += generateBasicRow('Legality', mill.legal);
+				content += generateParentRow('Peat', mill.peat, 'peat-' + mill.id, 'peat');
 				/* Child Rows */
-				content += generateRow('Presence of peat', mill.peat.presence, null, 'peat-' + mill.id);
-				content += generateRow('Clearance on peat', mill.peat.clearance, null, 'peat-' + mill.id);
+				content += generateChildRow('Presence of peat', mill.peat.presence, 'peat-' + mill.id);
+				content += generateChildRow('Clearance on peat', mill.peat.clearance, 'peat-' + mill.id);
 				/* Child Rows */
-				content += generateRow('Fires', mill.fire);
+				content += generateBasicRow('Fires', mill.fire);
 				content += "</table>";
 				millTables.push(content);
 			});
 
-			// Takes a piece of the results and returns a html row
-			/*
+			/**
 				@param {string} name - Represents Name in table row
 				@param {object} data - Represents segment of response
 				@param {string} parentClass - (OPTIONAL) - class of parent and child
 				@param {string} childClass - (OPTIONAL) - class of child, same as parent
 				@return String - HTML Fragment which is a <tr>
 			*/
-			function generateRow(name, data, parentClass, childClass) {
+			function generateChildRow(name, data, childClass) {
 				// If child is to be open by default, add open class below if parentClass is defined, 
 				// so data-row parent open are all in if parentClass is defined
-				var rowClass = parentClass ? 'data-row parent' : 'data-row';
-				rowClass += childClass ? ' child ' + childClass : '';
-				
-				// If this is a parent, will need a special data-class attribute and an extra span for showing the toggle
-				var frag = "<tr class='" + rowClass + "' " + (parentClass? "data-class='" + parentClass + "'" : "") + ">" + 
-									 "<td class='row-name'>" + (parentClass? "<span class='toggle-icon'></span>" : "") + "<span>" + name + "</span></td>";
+				var rowClass = 'data-row' + (childClass ? ' child ' + childClass : '');
+				var frag = "<tr class='" + rowClass + "'><td class='row-name'><span>" + name + "</span></td>";
 				frag += "<td class='" + data.concession.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.concession.risk + "</span></td>";
-				frag += "<td>" + data.concession.raw + "</td>";
+				// frag += "<td>" + data.concession.raw + "</td>";
 				frag += "<td class='" + data.radius.risk + "'><span class='large-swatch'></span><span class='risk-label'>" + data.radius.risk + "</span></td>";
-				frag += "<td>" + data.radius.raw + "</td>";
+				// frag += "<td>" + data.radius.raw + "</td>";
 				frag += "</tr>";
 				return frag;
 			}
 
-			// Add the Content
-			document.getElementById(config.rootNode + "_table").innerHTML = headerContent + millTables.join('<br />');
+			/**
+				@param {string} name - Represents Name in table row
+				@param {object} data - Represents segment of response
+				@param {string} parentClass - class of parent and child
+				@param {string} fieldPrefix - prefix for field name in the json to extract data from
+				@return String - HTML Fragment which is a <tr>
+			*/
+			function generateParentRow(name, data, className, fieldPrefix) {
+				var rowClass = 'data-row parent';
+				var frag = "<tr class='" + rowClass + "' data-class='" + className + "'><td class='row-name'>" + 
+									 "<span class='toggle-icon'></span><span>" + name + "</span></td>";
+
+				frag += "<td class='" + (data[fieldPrefix + '_concession'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_concession'] || 'N/A') + "</span></td>";
+				frag += "<td class='" + (data[fieldPrefix + '_radius'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_radius'] || 'N/A') + "</span></td>";
+				frag += "</tr>";
+
+				return frag;
+			}
+
+			/**
+				@param {string} name - Represents Name in table row
+				@param {object} data - Represents segment of response
+				@param {string} fieldPrefix - field prefix in the json to extract data from
+					- some json values are nested in objects, if no fieldName is provided, this function assumes thats the case
+				@return String - HTML Fragment which is a <tr>
+			*/
+			function generateBasicRow(name, data, fieldPrefix) {
+				var frag = "<tr class='data-row'><td class='row-name'><span>" + name + "</span></td>";
+				var concession = (fieldPrefix ? data[fieldPrefix + '_concession'] : data.concession.risk);
+				var radius = (fieldPrefix ? data[fieldPrefix + '_radius'] : data.radius.risk);
+
+				frag += "<td class='" + concession + "'><span class='large-swatch'></span><span class='risk-label'>" + concession + "</span></td>";
+				frag += "<td class='" + radius + "'><span class='large-swatch'></span><span class='risk-label'>" + radius + "</span></td>";
+				frag += "</tr>";
+
+				return frag;
+			}
+
+			// Add the Content, can add headerContent before millTables if we want toggle switch for raw values
+			// currently the API removed raw values so we don't support it
+			document.getElementById(config.rootNode + "_table").innerHTML = millTables.join('<br />');
 
 			// Toggle Functions
 			/*
 				Toggle Values Columns and and set colspan to correct values for all rows
 			*/
-			function toggleValues() {
-				var node = $(".toggle-button-container"),
-						colspan = node.hasClass('active') ? 2 : 1;
-				// Toggle the active class
-				node.toggleClass('active');
-				// Update the look of the table
-				$('.mill-table-container tr.data-row td:nth-child(3)').toggle();
-				$('.mill-table-container tr.data-row td:nth-child(5)').toggle();
-				$('.mill-table-container tr.data-row td:nth-child(2)').attr('colspan', colspan);
-				$('.mill-table-container tr.data-row td:nth-child(4)').attr('colspan', colspan);
-			}
+			// function toggleValues() {
+			// 	var node = $(".toggle-button-container"),
+			// 			colspan = node.hasClass('active') ? 2 : 1;
+			// 	// Toggle the active class
+			// 	node.toggleClass('active');
+			// 	// Update the look of the table
+			// 	$('.mill-table-container tr.data-row td:nth-child(3)').toggle();
+			// 	$('.mill-table-container tr.data-row td:nth-child(5)').toggle();
+			// 	$('.mill-table-container tr.data-row td:nth-child(2)').attr('colspan', colspan);
+			// 	$('.mill-table-container tr.data-row td:nth-child(4)').attr('colspan', colspan);
+			// }
 
 			/*
 				Toggle children rows display related to the current targets data-class attribute
@@ -1245,7 +1282,7 @@ define([
 			}
 
 			// Set up Click Listeners to give table custom toggling functionality and show information on info classes
-			$("#value-toggle").click(toggleValues);
+			// $("#value-toggle").click(toggleValues);
 			$(".mill-table-container tr.parent").click(toggleChildren);
 			$(".mill-table-container .info-icon").click(this.showMillPointInfo);
 
