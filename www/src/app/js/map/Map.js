@@ -197,6 +197,8 @@ define([
                 adminBoundariesLayer,
                 wizardDynamicParams,
                 wizardDynamicLayer,
+                bioDiversityParams,
+                bioDiversityLayer,
                 millParams,
                 millLayer,
                 millPointsWizardParams,
@@ -352,6 +354,17 @@ define([
                 visible: false
             });
 
+            bioDiversityParams = new ImageParameters();
+            bioDiversityParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            bioDiversityParams.layerIds = [MapConfig.biodiversity.layerId];
+            bioDiversityParams.format = "png32";
+
+            bioDiversityLayer = new ArcGISDynamicLayer(MapConfig.biodiversity.url, {
+                imageParameters: bioDiversityParams,
+                id: MapConfig.biodiversity.id,
+                visible: false
+            });
+
             // Uses opsd config, which is the same as cons, elev, slope, rain, soilDr, soilDe, soilAc, soilTy.  
             // They are all part of the same dynamic layer so any config item could be used
             agroSuitabilityParams = new ImageParameters();
@@ -412,6 +425,7 @@ define([
                 // Conservation Layers
                 protectAreasLayer,
                 protectAreasHelper,
+                bioDiversityLayer,
                 // Forest Change Layers
                 formaAlertsLayer,
                 lossLayer,
@@ -465,6 +479,7 @@ define([
             mapOverlaysLayer.on('error', this.addLayerError);
             customGraphicsLayer.on('error', this.addLayerError);
             millLayer.on('error', this.addLayerError);
+            bioDiversityLayer.on('error', this.addLayerError);
 
             // Add Layer Specific events here
             customSuitabilityLayer.on('image-ready', function() {

@@ -18,6 +18,8 @@ define([
 	// config.rootNode + '_content'
 	// config.rootNode + '_chart'
 
+	var exportButtonImagePath = 'url(../../css/images/analysis-icon.png)';
+
 	return {
 
 		/*
@@ -197,12 +199,16 @@ define([
 					i, j;
 
 			if (useSimpleEncoderRule) {
+				// Remove first value as that is all the 0 values we dont want
+				data = histogramData.slice(1).map(mapFunction);
+
 				series.push({
 					'name': yLabels[0],
-					'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+					'data': data
 				});
 				colors.push(config.colors[0]);
 			} else {
+
 				for (i = 0; i < yMapValues.length; i++) {
 					data = [];
 					for (j = 0; j < xMapValues.length; j++) {
@@ -244,6 +250,15 @@ define([
 				colors: colors,
 				title: {
 					text: config.lossChart.title
+				},
+				exporting: {
+					buttons: {
+						contextButton: { enabled: false },
+						exportButton: {
+							menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+							symbol: exportButtonImagePath
+						}
+					}
 				},
 				xAxis: {
 					categories: xLabels,
@@ -324,6 +339,15 @@ define([
 						load: function () {
 							// $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
 							// this.setSize(300, 400);
+						}
+					}
+				},
+				exporting: {
+					buttons: {
+						contextButton: { enabled: false },
+						exportButton: {
+							menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+							symbol: exportButtonImagePath
 						}
 					}
 				},
@@ -461,6 +485,15 @@ define([
 						plotBorderWidth: null,
 						plotShadow: false
 					},
+					exporting: {
+						buttons: {
+							contextButton: { enabled: false },
+							exportButton: {
+								menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+								symbol: exportButtonImagePath
+							}
+						}
+					},
 					colors: config.colors,
 					title: {
 						text: config.clearanceChart.title
@@ -508,6 +541,15 @@ define([
 						plotBackgroundColor: null,
 						plotBorderWidth: null,
 						plotShadow: false
+					},
+					exporting: {
+						buttons: {
+							contextButton: { enabled: false },
+							exportButton: {
+								menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+								symbol: exportButtonImagePath
+							}
+						}
 					},
 					colors: ['#fb00b3'],
 					title: {
@@ -657,6 +699,15 @@ define([
 						colors: chartColors,
 						title: {
 							text: "Active Fires"
+						},
+						exporting: {
+							buttons: {
+								contextButton: { enabled: false },
+								exportButton: {
+									menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+									symbol: exportButtonImagePath
+								}
+							}
 						},
 						plotOptions: {
 							pie: {
@@ -828,6 +879,15 @@ define([
 				chart: {
 					backgroundColor: '#FFF',
 					type: 'column'
+				},
+				exporting: {
+					buttons: {
+						contextButton: { enabled: false },
+						exportButton: {
+							menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+							symbol: exportButtonImagePath
+						}
+					}
 				},
 				colors: config.colors,
 				title: {
@@ -1083,6 +1143,15 @@ define([
 				tooltip: {
 					valueSuffix: ''
 				},
+				exporting: {
+					buttons: {
+						contextButton: { enabled: false },
+						exportButton: {
+							menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+							symbol: exportButtonImagePath
+						}
+					}
+				},
 				plotOptions: {
 					series: {
 						point: {
@@ -1321,9 +1390,9 @@ define([
 					msg = "";
 
 			if (type === 'loss') {
-				msg = "No Tree Cover Loss Data Available for this site.";
+				msg = "No tree cover loss detected.";
 			} else if (type === 'clearance') {
-				msg = "No Clearance Alert Data Available for this site.";
+				msg = "No clearance alerts occured on this site.";
 			} else if (type === 'composition') {
 				msg = "No Composition Analysis Data Available for this site.";
 			} else {

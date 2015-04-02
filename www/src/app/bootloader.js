@@ -50,11 +50,11 @@ console.log(new Date());
                 "dojo/domReady!"
             ],
             callback: function(Main) {
-                //Main.init();
+                // Main.init();
                 // Before Running grunt build or minify, remove main/Main from Require above and main parameter
                 // from callback, then uncomment below
                 // Release Version
-                loadScript('app/js/app.min.js');
+                loadScript('app/js/app.min.js?v=' + version);
             }
         }, // End dojoConfig
         src = [

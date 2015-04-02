@@ -301,6 +301,7 @@ define([
             params.mapExtent = app.map.extent;
             params.layerIds = app.map.getLayer(MapConfig.oilPerm.id).visibleLayers;
             params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
+            params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
 
             identifyTask.execute(params, function(features) {
                 if (features.length > 0) {
@@ -342,6 +343,8 @@ define([
                     );
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
+                } else if (item.layerId === 16) {
+                    console.log("Finder >>> setConcessionTemplates");
                 } else {
                     template = new InfoTemplate(item.value,
                         MapConfig.oilPerm.infoTemplate.content +

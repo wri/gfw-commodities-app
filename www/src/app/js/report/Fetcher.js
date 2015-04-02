@@ -439,7 +439,10 @@ define([
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderLossData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
                 } else {
-                    ReportRenderer.renderAsUnavailable('loss', config);
+                    // Add some dummy 0's
+                    var zerosArray = Array.apply(null, new Array(10)).map(Number.prototype.valueOf, 0);
+                    ReportRenderer.renderLossData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
+                    //ReportRenderer.renderAsUnavailable('loss', config);
                 }
                 deferred.resolve(true);
             }

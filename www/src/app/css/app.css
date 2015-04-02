@@ -4473,7 +4473,7 @@ body {
   position: absolute;
   display: block;
   right: 40px;
-  top: 50px;
+  top: 45px;
 }
 
 /* line 86 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/header.styl */
@@ -7850,7 +7850,7 @@ padding 5px 3px {
 
 /* line 1 : /Users/Robert/Projects/github_work/GFW-C/www/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 949 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/rangeSlider.styl */
+/* line 953 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar
@@ -8481,7 +8481,7 @@ padding 5px 3px {
 .gfw .custom-graphics-list-container {
   position: absolute;
   overflow-y: auto;
-  top: 330px;
+  top: 380px;
   bottom: 0;
   right: 0;
   left: 0;
@@ -8489,7 +8489,7 @@ padding 5px 3px {
 
 /* line 299 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/wizard.styl */
 .gfw .upload-toolbox.hidden + .custom-graphics-list-container {
-  top: 150px;
+  top: 170px;
 }
 
 /* line 302 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/wizard.styl */

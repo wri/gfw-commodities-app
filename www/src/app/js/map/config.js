@@ -18,7 +18,8 @@ define([], function() {
         mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
         primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
-        millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer';
+        millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
+        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFWConservation/GFW_conservation/MapServer';
     //customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
 
     return {
@@ -272,6 +273,11 @@ define([], function() {
             url: dynamicMapServiceUrl,
             layerId: 28
         },
+        moratorium: {
+            id: "ForestUse",
+            url: dynamicMapServiceUrl,
+            layerId: 16
+        },
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
         // This layer is also under forest use but has its own service
         mill: {
@@ -293,6 +299,12 @@ define([], function() {
                     "<tr><td>WDPA ID:</td><td>${WDPAID}</td></tr>" +
                     "<tr><td>Source:</td><td>${Source:checkAvailable}</td></tr></table>"
             }
+        },
+
+        biodiversity: {
+            id: "Biodiversity",
+            url: biodiversityUrl,
+            layerId: 1
         },
 
         palHelper: {
@@ -576,6 +588,13 @@ define([], function() {
             layerType: "dynamic",
             infoDivClass: "land-use-mill-points"
         }, {
+            key: 'moratorium',
+            title: 'Indonesia Moratorium',
+            subtitle: '(IMM V7/V6, 2014, Indonesia)',
+            filter: 'forest-use',
+            type: 'check',
+            layerType: 'dynamic'
+        }, {
             key: "pal",
             title: "Protected Areas",
             subtitle: "(varies, global)",
@@ -583,6 +602,14 @@ define([], function() {
             type: "check",
             layerType: "tiled",
             infoDivClass: "conservation-protected-areas"
+        }, {
+            key: 'biodiversity',
+            title: 'Biodiversity Hotspots',
+            subtitle: '',
+            filter: 'conservation',
+            type: 'check',
+            layerType: 'dynamic',
+            infoDivClass: 'conservation-biodiversity-hotspots'
         }, {
             key: "suit",
             title: "Custom Suitability Map",
