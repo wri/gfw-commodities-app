@@ -18,7 +18,7 @@ define([
 	// config.rootNode + '_content'
 	// config.rootNode + '_chart'
 
-	var exportButtonImagePath = 'url(../../css/images/analysis-icon.png)';
+	var exportButtonImagePath = 'url(../../css/images/download-icon.svg)';
 
 	return {
 
@@ -201,6 +201,12 @@ define([
 			if (useSimpleEncoderRule) {
 				// Remove first value as that is all the 0 values we dont want
 				data = histogramData.slice(1).map(mapFunction);
+				// Pad the array with 0's for all remaining years if data is missing
+				if (data.length !== xLabels.length) {
+					for (var index = 0; index < xLabels.length; index++) {
+						if (data[index] === undefined) data[index] = 0;
+					}
+				}
 
 				series.push({
 					'name': yLabels[0],
@@ -474,10 +480,10 @@ define([
 					});
 				}
 
-				if (series.length === 0) {
-					this.renderAsUnavailable('clearance', config);
-					return;
-				}
+				// if (series.length === 0) {
+				// 	this.renderAsUnavailable('clearance', config);
+				// 	return;
+				// }
 
 				$("#" + config.rootNode + '_clearance').highcharts({
 					chart: {
@@ -531,10 +537,10 @@ define([
 					}
 				}
 
-				if (series.length === 0) {
-					this.renderAsUnavailable('clearance', config);
-					return;
-				}
+				// if (series.length === 0) {
+				// 	this.renderAsUnavailable('clearance', config);
+				// 	return;
+				// }
 
 				$("#" + config.rootNode + '_clearance').highcharts({
 					chart: {

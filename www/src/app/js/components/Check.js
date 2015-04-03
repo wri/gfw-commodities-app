@@ -97,7 +97,8 @@ define([
                         ),
                         React.DOM.a({
                             'className': 'layer-title'
-                        }, this.props.title), (this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" ?
+                        }, this.props.title), 
+                        (this.props.title !== "Loss" && this.props.title !== "Gain" && this.props.infoDivClass !== undefined ?
                             React.DOM.span({
                                 'className': 'layer-info-icon',
                                 'onClick': this.showInfo

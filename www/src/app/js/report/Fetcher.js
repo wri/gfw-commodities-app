@@ -440,7 +440,7 @@ define([
                     ReportRenderer.renderLossData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
                 } else {
                     // Add some dummy 0's
-                    var zerosArray = Array.apply(null, new Array(10)).map(Number.prototype.valueOf, 0);
+                    var zerosArray = Array.apply(null, new Array(lossConfig.labels.length)).map(Number.prototype.valueOf, 0);
                     ReportRenderer.renderLossData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
                     //ReportRenderer.renderAsUnavailable('loss', config);
                 }
@@ -485,7 +485,10 @@ define([
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderClearanceData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
                 } else {
-                    ReportRenderer.renderAsUnavailable('clearance', config);
+                    // Add some dummy 0's
+                    var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
+                    ReportRenderer.renderClearanceData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
+                    //ReportRenderer.renderAsUnavailable('clearance', config);
                 }
                 deferred.resolve(true);
             }
