@@ -4,6 +4,7 @@ define([
 	"esri/config",
 	"esri/urlUtils",
 	"dojo/_base/array",
+	"dojo/has",
 	// Load in Custom Modules to Aid in initializing the Application
 	"utils/Hasher",
 	"utils/Helper",
@@ -12,7 +13,7 @@ define([
 	// Load Necessary Layout Widgets and Parser Here
   "dijit/layout/ContentPane",
   "dijit/layout/StackContainer"
-], function (parser, AppConfig, esriConfig, urlUtils, arrayUtils, Hasher, Helper, Delegator, ViewController) {
+], function (parser, AppConfig, esriConfig, urlUtils, arrayUtils, has, Hasher, Helper, Delegator, ViewController) {
 	'use strict';
 	return {
 
@@ -24,6 +25,11 @@ define([
 				document.body.className += ' windows_7';
 			} else if (userAgent.search('NT 6.2') > -1) {
 				document.body.className += ' windows_8';
+			}
+
+			// IE11 Detection Because dojo no longer wants to add ie class names to html since 1.9.2, thanks dojo
+			if (has('trident')) {
+				document.documentElement.className += ' dj_ie';
 			}
 
 			// Parse the initial Layout

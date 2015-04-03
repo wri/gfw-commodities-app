@@ -811,7 +811,7 @@ define([
 			Wrapper function for logging messages
 		*/
         _debug: function(msg) {
-            //console.log(msg);
+            console.log(msg);
         }
 
 

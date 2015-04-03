@@ -158,6 +158,11 @@ define([
 				area = histogramData.slice(compositionConfig.histogramSlice);
 			}
 
+			if (area.length === 0) {
+				this.renderAsUnavailable('composition', config);
+				return;
+			}
+
 			area = (area.reduce(function(a,b){return a + b;}) * pixelSize * pixelSize)/10000;
 			areaLabel = number.format(area);
 
@@ -334,6 +339,14 @@ define([
 					serie.data = serie.data.slice(sliceIndex);
 				});
 			}
+
+			// Show All 0's if no data is present
+			if (series[0].data.length !== xLabels.length) {
+				for (var index = 0; index < xLabels.length; index++) {
+					if (series[0].data[index] === undefined) series[0].data[index] = 0;
+				}
+			}
+
 
 			$("#" + config.rootNode + '_loss').highcharts({
 				chart: {
