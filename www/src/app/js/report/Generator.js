@@ -230,9 +230,6 @@ define([
             // Get area 
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
 
-            // Generate Print Request to get URL
-            Fetcher.makePrintRequest();
-
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on
             all([
                 Fetcher._getClearanceBounds()
@@ -265,6 +262,9 @@ define([
 			Analysis is complete, handle that here
 		*/
         analysisComplete: function() {
+
+            // Generate Print Request to get URL
+            Fetcher.setupMap();
 
             // Show Print Option as Enabled
             domClass.remove("print", "disabled");

@@ -8,14 +8,19 @@ define([
     "report/Renderer",
     "report/Suitability",
     // esri modules
+    "esri/map",
     "esri/request",
     "esri/tasks/query",
+    "esri/dijit/Scalebar",
     "esri/tasks/QueryTask",
     "esri/SpatialReference",
     "esri/geometry/Polygon",
     "esri/tasks/GeometryService",
-    "esri/tasks/AreasAndLengthsParameters"
-], function(dojoNumber, Deferred, all, ReportConfig, ReportRenderer, Suitability, esriRequest, Query, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters) {
+    "esri/tasks/AreasAndLengthsParameters",
+    "esri/Color",
+    "esri/graphic",
+    "esri/symbols/SimpleFillSymbol"
+], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, Suitability, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters, Color, Graphic, SimpleFillSymbol) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -70,53 +75,79 @@ define([
             return deferred.promise;
         },
 
-        makePrintRequest: function () {
+        setupMap: function () {
 
-            if (!payload.webMapJson) {
-                return;
-            } else {
-                // Add in Export Options to the webMapJson
-                // payload.webMapJson.exportOptions = {
-                //     "outputSize": [850, 850],
-                //     "dpi": 96
-                // };
-            }
+            var scalebar, graphic, symbol, poly, map;
 
-            var printParams = {
-                "f": "json",
-                "format": "PNG32",
-                "Layout_Template": "MAP_ONLY",
-                "Web_Map_as_JSON": payload.webMapJson
-            },
-            url = ReportConfig.printUrl,
-            node = document.getElementById('print-map');
 
-            var req = esriRequest({
-                url: url,
-                content: printParams,
-                handleAs: 'json',
-                callbackParamName: 'callback',
-                timeout: 60000
-            }, {
-                usePost: true
+            map = new Map('print-map', {
+                basemap: 'topo',
+                sliderPosition: "top-right"
             });
 
-            req.then(function (res) {
-                if (res.results.length > 0) {
-                    var url = res.results[0].value.url;
-                    if (url) {
-                        node.innerHTML = "<img title='map' src='" + url + "' />";
-                    } else {
-                        error();
-                    }
-                } else {
-                    error();
-                }
-            }, error);
+            function mapLoaded () {
+                map.graphics.clear();
+                map.resize();
+                
+                scalebar = new Scalebar({
+                    map: map,
+                    scalebarUnit: 'metric'
+                });
 
-            function error () {
-                node.innerHTML = '<div>Sorry, we were unable to generate a map printout at this time.</div>';
+                symbol = new SimpleFillSymbol();
+                poly = new Polygon(report.geometry);
+                graphic = new Graphic(poly, symbol);
+                map.graphics.add(graphic);
+                map.setExtent(graphic.geometry.getExtent().expand(3), true);
             }
+
+            map.on('load', mapLoaded);
+
+            // if (!payload.webMapJson) {
+            //     return;
+            // } else {
+            //     // Add in Export Options to the webMapJson
+            //     // payload.webMapJson.exportOptions = {
+            //     //     "outputSize": [850, 850],
+            //     //     "dpi": 96
+            //     // };
+            // }
+
+            // var printParams = {
+            //     "f": "json",
+            //     "format": "PNG32",
+            //     "Layout_Template": "MAP_ONLY",
+            //     "Web_Map_as_JSON": payload.webMapJson
+            // },
+            // url = ReportConfig.printUrl,
+            // node = document.getElementById('print-map');
+
+            // var req = esriRequest({
+            //     url: url,
+            //     content: printParams,
+            //     handleAs: 'json',
+            //     callbackParamName: 'callback',
+            //     timeout: 60000
+            // }, {
+            //     usePost: true
+            // });
+
+            // req.then(function (res) {
+            //     if (res.results.length > 0) {
+            //         var url = res.results[0].value.url;
+            //         if (url) {
+            //             node.innerHTML = "<img title='map' src='" + url + "' />";
+            //         } else {
+            //             error();
+            //         }
+            //     } else {
+            //         error();
+            //     }
+            // }, error);
+
+            // function error () {
+            //     node.innerHTML = '<div>Sorry, we were unable to generate a map printout at this time.</div>';
+            // }
 
         },
 
