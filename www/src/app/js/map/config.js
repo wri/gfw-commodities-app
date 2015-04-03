@@ -605,7 +605,7 @@ define([], function() {
         }, {
             key: 'biodiversity',
             title: 'Biodiversity Hotspots',
-            subtitle: '',
+            subtitle: '(year 2011, global)',
             filter: 'conservation',
             type: 'check',
             layerType: 'dynamic',
