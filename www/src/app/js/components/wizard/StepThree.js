@@ -145,7 +145,8 @@ define([
                 'value': item.value,
                 'change': this._selectionMade,
                 'isResetting': this.props.isResetting, // Pass Down so Components receive the reset command
-                'defaultChecked': item.checked || false
+                'defaultChecked': item.checked || false,
+                'noInfoIcon': item.noInfoIcon || false
             });
             // React.DOM.span({
             //     'className': 'layer-info-icon',

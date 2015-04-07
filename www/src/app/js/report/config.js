@@ -2,12 +2,15 @@ define([], function() {
 
     var geometryServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
         
-        clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
+        // clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
         // OLD //clearanceAlertsUrl = 'http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer',
-        
+        clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/forma_alerts/ImageServer',
+
         //imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-        
-        imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
+        //imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
+
+        imageServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer",
+
         // imageServiceUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
         suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         // suitabilityUrl = "http://46.137.239.227/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
@@ -15,8 +18,9 @@ define([], function() {
         firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia",
         
-        clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
+        // clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
         // clearanceAnalysisUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
+        clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis_wm/ImageServer';
 
     // Totoal Loss
     var lossBounds = [1, 13],
@@ -41,6 +45,10 @@ define([], function() {
     var legalClassLabels = ["Convertible Production Forest", "Limited Production Forest", "Non-forest", "Production Forest", "Protected Area"],
         legalClassBounds = [1, 5],
         legalClassColors = ["rgb(230, 152, 0)", "rgb(116, 196, 118)", "rgb(255, 255, 190)", "rgb(199, 233, 192)", "rgb(35, 139, 69)"];
+
+    var moratoriumLabels = ['Moratorium area'],
+        moratoriumBounds = [0, 1],
+        moratoriumColors = ['#5fc29a'];
 
     // Protected Areas
     var protectedAreaLabels = ["Protected Area"],
@@ -86,7 +94,8 @@ define([], function() {
             "http://175.41.139.43",
             "http://54.164.126.73",
             "http://46.137.239.227",
-            "https://gfw-fires.wri.org"
+            "https://gfw-fires.wri.org",
+            "http://gis-gfw.wri.org"
         ],
 
         printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
@@ -201,7 +210,7 @@ define([], function() {
         // and must be used before any queries for clearanceAlerts will work
         clearanceBounds: {
             url: clearanceAlertsUrl,
-            baseYearLabel: 13
+            baseYearLabel: 14
         },
 
         /* End Main Layers for Analyses */
@@ -311,6 +320,28 @@ define([], function() {
             },
             colors: legalClassColors,
             fireKey: 'legalClass' // Key to the Fires Config for items related to this
+        },
+
+        indonesiaMoratorium: {
+            rootNode: "indoMoratorium",
+            title: "Indonesia Moratorium",
+            rasterId: "$522",
+            formaId: "$14",
+            bounds: moratoriumBounds,
+            labels: moratoriumLabels,
+            clearanceChart: {
+                title: "Clearance alerts on Moratorium Areas since Jan 2013",
+                type: "bar"
+            },
+            lossChart: {
+                title: "Annual Tree Cover Loss (in hectares) on Indonesia Moratorium"
+            },
+            colors: moratoriumColors,
+            fireKey: 'indonesiaMoratorium',
+            compositionAnalysis: {
+                rasterId: 522,
+                histogramSlice: 1
+            }
         },
 
         protectedArea: {
@@ -525,6 +556,11 @@ define([], function() {
                 colors: lcIndoColors,
                 title: 'Active Fires by Land Cover - Indonesia over the past 7 days',
                 badgeDesc: 'on land cover indonesia out of'
+            },
+            indonesiaMoratorium: {
+                type: 'badge',
+                field: 'moratorium',
+                badgeDesc: 'on indonesia moratorium out of'
             }
         }
 

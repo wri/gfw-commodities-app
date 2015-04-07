@@ -261,6 +261,28 @@ define([
             return deferred.promise;
         },
 
+        getIndonesiaMoratoriumResults: function () {
+            this._debug('Fetcher >>> getProtectedAreaResults');
+            var deferred = new Deferred(),
+                config = ReportConfig.indonesiaMoratorium;
+
+            // Create the container for all the results
+            // Add this config to Fires so the Fires request knows to add data here
+            ReportRenderer.renderContainers(config);
+            _fireQueriesToRender.push(config);
+
+            // true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
+            all([
+                this._getTotalLossAnalysis(config, true),
+                this._getClearanceAlertAnalysis(config, true),
+                this._getCompositionAnalysis(config)
+            ]).then(function() {
+                deferred.resolve(true);
+            });
+
+            return deferred.promise;
+        },
+
         getProtectedAreaResults: function() {
             this._debug('Fetcher >>> getProtectedAreaResults');
             var deferred = new Deferred(),
@@ -555,6 +577,7 @@ define([
                 pixelSize: 500, // FORMA data has a pixel size of 500 so this must be 500 otherwise results will be off
                 f: 'json'
             };
+
             this._computeHistogram(url, content, success, failure);
             //} else {
             //  deferred.resolve(true);
@@ -679,32 +702,39 @@ define([
             this._debug('Fetcher >>> _getFireAlertAnalysis');
             var deferred = new Deferred(),
                 polygon = new Polygon(report.geometry),
+                time = new Date(),
+                dateString = "",
                 errorCount = 0,
                 self = this,
                 defs = [],
-                // params2,
+                params2,
                 params1,
-                // task2,
+                task2,
                 task1;
 
             params1 = new Query();
-            // params2 = new Query();
-
             task1 = new QueryTask(ReportConfig.fires.url + "/4");
-            // task2 = new QueryTask(ReportConfig.fires.url + "/2");
-
             params1.geometry = polygon;
-            // params2.geometry = polygon;
             params1.returnGeometry = false;
-            // params2.returnGeometry = false;
             params1.outFields = ["*"];
-            // params2.outFields = ["*"];
             params1.where = "1 = 1";
-            // params2.where = "1 = 1";
+
+
+            // This query is only temporary until moratorium data is added to the main layer above
+            // This needs to be addressed so this code can be removed
+            task2 = new QueryTask("http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0");
+            params2 = new Query();
+            params2.geometry = polygon;
+            params2.returnGeometry = false;
+            params2.outFields = ["moratorium"];
+            time.setDate(time.getDate() - 8);
+            dateString = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" +
+                time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
+            params2.where = "ACQ_DATE > date '" + dateString + "'";
 
             all([
-                task1.execute(params1)
-                // task2.execute(params2)
+                task1.execute(params1),
+                task2.execute(params2)
             ]).then(function(results) {
                 ReportRenderer.renderFireData(_fireQueriesToRender, results);
                 deferred.resolve(true);
@@ -750,6 +780,12 @@ define([
                         ++incrementer;
                     }
                 }
+
+                // For the meantime, we need to slice the first 12 values out to remove 2013 years from this
+                // When the new service gets min and max values set so that I can get the bounds from there
+                // report.clearanceBounds[0] = 13;
+                // report.clearanceLabels = report.clearanceLabels.slice(12); 
+
                 deferred.resolve(true);
             }, function(err) {
                 deferred.resolve(false, err);

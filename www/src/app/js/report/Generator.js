@@ -378,6 +378,9 @@ define([
                     case "treeCoverLoss":
                         deferreds.push(Fetcher.getTreeCoverLossResults());
                         break;
+                    case "indonesiaMoratorium":
+                        deferreds.push(Fetcher.getIndonesiaMoratoriumResults());
+                        break;
                     default:
                         break;
                 }

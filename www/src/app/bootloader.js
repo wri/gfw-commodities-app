@@ -2,7 +2,7 @@
 console.log(new Date());
 (function(win, doc) {
     'use strict';
-    var version = "2.2.8",
+    var version = "2.2.9",
         URL = location.pathname.replace(/\/[^/]+$/, "") + 'app',
         dojoConfig = {
             parseOnLoad: false,

@@ -122,6 +122,10 @@ define([], function() {
             }, {
                 label: 'Tree Cover Loss',
                 value: 'treeCoverLoss'
+            }, {
+                label: 'Indonesia Moratorium',
+                value: 'indonesiaMoratorium',
+                noInfoIcon: true
             }],
             suit: {
                 label: 'Oil Palm Suitability',

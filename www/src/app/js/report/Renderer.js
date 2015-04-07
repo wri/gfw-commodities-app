@@ -539,6 +539,14 @@ define([
 				if (useSimpleEncoderRule) {
 					// Remove first value as that is all the 0 values we dont want
 					series = histogramData.slice(1);
+
+					// Pad the array with 0's for all remaining years if data is missing
+					if (series.length !== xMapValues.length) {
+						for (var index = 0; index < xMapValues.length; index++) {
+							if (series[index] === undefined) series[index] = 0;
+						}
+					}
+
 				} else {
 					for (i = 0; i < xMapValues.length; i++) {
 						value = 0;
@@ -762,6 +770,16 @@ define([
 
 				rootNode = item.rootNode;
 				config = ReportConfig.fires[item.fireKey];
+
+				// First IF is Temporary until fires layers are merged and we dont need to query two layers
+				if (results.length > 1 && item.fireKey === 'indonesiaMoratorium') {
+					var total = 0;
+					arrayUtils.forEach(results[1].features, function (result) {
+						total += +result.attributes[config.field];
+					});
+					createBadge(rootNode, total, features.length, config.badgeDesc);
+					return;
+				}
 				
 				if (features.length === 0) {
 					createBadge(rootNode, 0, 0, config.badgeDesc);
