@@ -21,6 +21,11 @@ module.exports = function(grunt) {
                         src: ['**'],
                         dest: 'build/app/css/fonts'
                     }, {
+                        src: 'src/app/css/images/download-icon.svg',
+                        dest: 'build/app/css/images/download-icon.svg',
+                        filter: 'isFile'
+                    },
+                    {
                         src: ['src/app/libs/es5-sham.min.js'],
                         dest: 'build/app/libs/es5-sham.min.js',
                         filter: 'isFile'

@@ -158,7 +158,7 @@ define([
 
                 var valuesToUse = [];
 
-                var baseYear = 13;
+                var baseYear = 14;
                 var currentYear, currentMonth;
 
                 for (var i = 1; i < (to + 2); i++) {
@@ -171,14 +171,14 @@ define([
                     var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
                     domConstruct.place(yearDot, "yearDotContainer");
                     domStyle.get(yearDot);
-                    var leftPx = (i * 33) + 45;
+                    var leftPx = (i * 61) + 19;
                     leftPx += "px";
 
                     if (currentMonth === 1) {
                         domStyle.set(yearDot, {
                             "position": "absolute",
                             "left": leftPx,
-                            "top": "19px",
+                            "top": "17px",
                             "font-size": "150%",
                             "color": "black"
                         });
@@ -287,16 +287,17 @@ define([
                 var nextYearLeft = $("#yearDotContainer > div:nth-child(13)").css("left");
 
                 // console.log(nextYearLeft);
-                var nextYearLeft2 = $("#yearDotContainer > div:nth-child(25)").css("left");
+                var nextYearLeft2 = $("#yearDotContainer > div:nth-child(13)").css("left");
                 nextYearLeft2 = nextYearLeft2.split("p");
                 nextYearLeft2 = (nextYearLeft2[0] - 20) + "px";
 
-                $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
-                $(".playLineFiller2 > div:nth-child(3)").css("left", nextYearLeft2);
+                // $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
+                // $(".playLineFiller2 > div:nth-child(3)").css("left", nextYearLeft2);
+                $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft2);
 
 
 
-            }
+            };
 
             var layerArray = Hasher.getLayers(),
                 active = layerArray.indexOf("forma") > -1;
@@ -307,20 +308,20 @@ define([
             var $range2 = $(".gfw .toolbox .slider-container"),
                 $from = $(".js-from"),
                 $to = $(".js-to"),
-                min = "1-13",
+                min = "1-14",
                 max,
                 from = "0",
                 to;
 
             var incrementer = 0,
-                baseYear = 13,
+                baseYear = 14,
                 labels3 = [],
                 month;
             this.fetchFORMAAlertsLabels().then(function(res) {
                 if (res) {
                     to = res.maxValues[0] - res.minValues[0];
 
-                    max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 13);
+                    max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 14);
 
                     for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
                         month = i % 12 === 0 ? 12 : i % 12;
@@ -457,8 +458,8 @@ define([
                     currentMonth = (monthNum + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=33px");
-                    $('#sliderProgressLine2').css("left", "+=33px");
+                    $('#playLine3').css("left", "+=61px");
+                    $('#sliderProgressLine2').css("left", "+=61px");
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];

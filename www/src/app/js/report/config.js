@@ -4,7 +4,7 @@ define([], function() {
         
         // clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
         // OLD //clearanceAlertsUrl = 'http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer',
-        clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/forma_alerts/ImageServer',
+        clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
 
         //imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
         //imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
@@ -334,7 +334,8 @@ define([], function() {
                 type: "bar"
             },
             lossChart: {
-                title: "Annual Tree Cover Loss (in hectares) on Indonesia Moratorium"
+                title: "Annual Tree Cover Loss (in hectares) on Indonesia Moratorium",
+                removeBelowYear: 2011
             },
             colors: moratoriumColors,
             fireKey: 'indonesiaMoratorium',
