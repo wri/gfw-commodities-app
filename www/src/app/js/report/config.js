@@ -279,7 +279,10 @@ define([], function() {
                 histogramSlice: 31
             },
             colors: treeCoverColors,
-            fireKey: 'treeCover' // Key to the Fires Config for items related to this
+            fireKey: 'treeCover', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'No Tree Cover Density greater than 30% detected in this area.'
+            }
         },
 
         treeCoverLoss: {
@@ -363,7 +366,10 @@ define([], function() {
                 histogramSlice: 1
             },
             colors: protectedAreaColors,
-            fireKey: 'protectedArea' // Key to the Fires Config for items related to this
+            fireKey: 'protectedArea', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'No protected areas detected in this area.'
+            }
         },
 
         carbonStock: {
@@ -398,7 +404,10 @@ define([], function() {
                 title: "Annual Tree Cover Loss (in hectares) on Intact Forest Landscapes"
             },
             colors: intactForestColors,
-            fireKey: 'intactForest' // Key to the Fires Config for items related to this
+            fireKey: 'intactForest', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'No intact forest landscapes data available in this area.'
+            }
         },
 
         peatLands: {
@@ -420,7 +429,10 @@ define([], function() {
                 histogramSlice: 1
             },
             colors: peatLandsColors,
-            fireKey: 'peatLands' // Key to the Fires Config for items related to this
+            fireKey: 'peatLands', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'Np peat land detected in this area according to indonesia peat data.'
+            }
         },
 
         landCoverGlobal: {

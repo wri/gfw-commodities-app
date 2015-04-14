@@ -1429,9 +1429,9 @@ define([
 			if (type === 'loss') {
 				msg = "No tree cover loss detected.";
 			} else if (type === 'clearance') {
-				msg = "No clearance alerts occured on this site.";
+				msg = "No clearance alerts occured in this area.";
 			} else if (type === 'composition') {
-				msg = "No Composition Analysis Data Available for this site.";
+				msg = config.errors && config.errors.composition || "No Composition Analysis Data Available for this site.";
 			} else {
 				msg = "No Mill Point Data Available for this site.";
 			}
