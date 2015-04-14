@@ -1279,7 +1279,6 @@ define([
                 vals = jq171('#' + sliderName).rangeSlider('values');
                 bounds = jq171('#' + sliderName).rangeSlider('bounds');
                 rev = domClass.contains(sliderName, "reverseSlider");
-                //console.log(" :: " + lbl.innerHTML + " (reversed? " + rev + "): ", vals, " :: bounds: ", bounds);
 
                 // get tooltips to use for value-labels, if available
                 temp = sliderName.split("-");
@@ -1290,7 +1289,6 @@ define([
                         cfg = MapConfig.suitabilitySliderTooltips[temp[1]];
                     }
                 }
-                //console.log(" :: " + lbl.innerHTML + " :: slider value-labels : ", cfg);
 
                 if (sliderSelections != "") sliderSelections += "\n";
                 sliderSelections += lbl.innerHTML + ",";
@@ -1337,9 +1335,7 @@ define([
                         soilTypeSelection += lbl.innerHTML;
                     }
                 }
-            });
-            //console.log(" :: LANDCOVER: ", landCoverSelection);
-            //console.log(" :: SOIL TYPE: ", soilTypeSelection);
+            });            
 
             //composite CSV
             var fields = ['Suitability Parameter', 'Suitability Values'];
@@ -1347,9 +1343,6 @@ define([
             csvStr += sliderSelections + "\n";
             csvStr += "Land Cover," + landCoverSelection + "\n";
             csvStr += "Soil Type," + soilTypeSelection + "\n";
-            //console.log("----------------------------------------------");
-            //console.log(csvStr);
-            //console.log("----------------------------------------------");
 
             return csvStr;
         },

@@ -291,7 +291,8 @@ define([
                     title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
                     suitability: {
                         renderRule: suitableRule,
-                        settings: MapControls.serializeSuitabilitySettings()
+                        settings: MapControls.serializeSuitabilitySettings(),
+                        csv: MapControls._getSettingsCSV()
                     },
                     webMapJson: JSON.stringify(printJson)
                 };

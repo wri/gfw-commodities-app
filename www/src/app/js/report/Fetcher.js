@@ -773,7 +773,6 @@ define([
             req.then(function(res) {
                 report.clearanceBounds = [res.minValues[0], res.maxValues[0]];
                 report.clearanceLabels = [];
-                console.log(res);
                 for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
                     month = i % 12 === 0 ? 12 : i % 12;
                     report.clearanceLabels.push(month + "-" + (config.baseYearLabel + incrementer));

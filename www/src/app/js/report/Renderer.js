@@ -1075,7 +1075,33 @@ define([
 
 			document.getElementById(config.rootNode + '_content').innerHTML = content;
 			this.renderSuitabilityChart(config, payloads[4]);
+			this.renderSuitabilitySettingsTable();
 			
+		},
+
+		/**
+		* Takes global variable payload.suitability.csv and parses that out to render it to a table
+		*/
+		renderSuitabilitySettingsTable: function () {
+			var settings = payload && payload.suitability && payload.suitability.csv,
+					settingsArray,
+					label,
+					value,
+					data;
+
+			if (settings) {
+
+				// Split the string by newline settings, remove the csv header row
+				settingsArray = settings.split('\n').splice(1);
+				arrayUtils.forEach(settingsArray, function (setting) {
+					data = setting.split(',');
+					label = data[0];
+					value = data[1];
+					console.log(label + ": " + value);
+				});
+
+			}
+
 		},
 
 		/*
