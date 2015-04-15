@@ -115,6 +115,13 @@ define([
 						"<div class='right-panel'>" +
 							"<div id='" + config.rootNode + "_chart' class='suitability-chart'><div class='loader-wheel'>suitability</div></div>" +
 						"</div>" +
+						"<div class='clearFix'></div>" +
+						"<div class='left-panel'>" +
+							"<div id='suitability-settings-table'></div>" +
+						"</div>" +
+						"<div class='right-panel'>" +
+							"<span>Suitability Composition Analysis Coming Soon</span>" +
+						"</div>" +
 					"</div>";
 
 			// Append root to fragment and then fragment to document
@@ -1084,21 +1091,34 @@ define([
 		*/
 		renderSuitabilitySettingsTable: function () {
 			var settings = payload && payload.suitability && payload.suitability.csv,
+					content = "<table><thead><tr>",
 					settingsArray,
+					headerRow,
+					table,
 					label,
 					value,
 					data;
 
 			if (settings) {
+				// Split the string by newline settings, splice the csv content and leave the header separate
+				table = settings.split('\n');
+				settingsArray = table.splice(1);
+				headerRow = table[0].split(',');
 
-				// Split the string by newline settings, remove the csv header row
-				settingsArray = settings.split('\n').splice(1);
+				content += '<th>' + headerRow[0] + '</th><th>' + headerRow[1] + '</th></tr></thead><tbody>';
+
 				arrayUtils.forEach(settingsArray, function (setting) {
 					data = setting.split(',');
 					label = data[0];
 					value = data[1];
-					console.log(label + ": " + value);
+					if (label !== undefined && label !== '') {
+						content += '<tr><td>' + label + '</td><td>' + value.replace(/\;/g,',') + '</td></tr>';
+					}
 				});
+
+				content += '</tbody></table>';
+
+				$('#suitability-settings-table').html(content);
 
 			}
 

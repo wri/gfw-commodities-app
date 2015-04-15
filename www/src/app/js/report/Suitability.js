@@ -34,7 +34,7 @@ define([
 
 		getSuitableAreas: function (pixelSize) {
 			var deferred = new Deferred(),
-					renderRule = report.suitable.renderRule,
+					renderRule = lang.clone(report.suitable.renderRule),
 					url = ReportConfig.suitability.url,
 					self = this,
 					params = {
@@ -180,7 +180,7 @@ define([
 
 		computeLegalHistogram: function () {
 			var deferred = new Deferred(),
-					suitRenderRule = report.suitable.renderRule,
+					suitRenderRule = lang.clone(report.suitable.renderRule),
 					config = ReportConfig.suitability.lcHistogram,
 					targetRule = config.renderRuleSuitable,
 					url = ReportConfig.suitability.url,
@@ -235,6 +235,25 @@ define([
 			
 			req.then(callback, errback);
 
+		},
+
+		getCompositionAnalysis: function () {
+
+		},
+
+		getRenderingRule: function (rasterId) {
+			var renderingRule = {},
+					suitabilityRule = lang.clone(report.suitable.renderRule);
+
+			// Wrap the suitability rule in an arithmetic rendering rule and apply the correct rasterId
+			renderingRule.rasterFunction = 'Arithmetic';
+			renderingRule.rasterFunctionArguments = {
+				"Raster": suitabilityRule,
+				"Raster2": rasterId,
+				"AllowUnmatched": false,
+				"Operation": 3
+			};
+			return renderingRule;
 		}
 
 	};

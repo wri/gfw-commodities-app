@@ -49,7 +49,7 @@ console.log(new Date());
                 // "main/Main",
                 "dojo/domReady!"
             ],
-            callback: function() {
+            callback: function(Main) {
                 // Main.init();
                 // Before Running grunt build or minify, remove main/Main from Require above and main parameter
                 // from callback, then uncomment below
