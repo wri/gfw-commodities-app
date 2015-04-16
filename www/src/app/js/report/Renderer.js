@@ -120,7 +120,7 @@ define([
 							"<div id='suitability-settings-table'></div>" +
 						"</div>" +
 						"<div class='right-panel'>" +
-							"<span>Suitability Composition Analysis Coming Soon</span>" +
+							"<div id='suitability-composition-analysis'>Suitability Composition Analysis Coming Soon</div>" +
 						"</div>" +
 					"</div>";
 
