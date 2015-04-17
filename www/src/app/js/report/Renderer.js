@@ -120,7 +120,7 @@ define([
 							"<div id='suitability-settings-table'></div>" +
 						"</div>" +
 						"<div class='right-panel'>" +
-							"<div id='suitability-composition-analysis'>Suitability Composition Analysis Coming Soon</div>" +
+							"<div id='suitability-composition-analysis'></div>" +
 						"</div>" +
 					"</div>";
 
@@ -1121,6 +1121,94 @@ define([
 				$('#suitability-settings-table').html(content);
 
 			}
+
+		},
+
+		/**
+		*	@param {object} results - array of result objects containing suitable & unsuitable pixel counts and a label
+		*/
+		renderSuitabilityCompositionChart: function (results) {
+			var unsuitableValues = [],
+					suitableValues = [],
+					labels = [],
+					tempTotal;
+
+			// Format the results into two arrays, one of labels and one of percentages
+			// First calcualte the percentages, sort the array, then create the two arrays
+			arrayUtils.forEach(results, function (result) {
+				tempTotal = result.suitable + result.unsuitable;
+				result.suitable = (result.suitable / tempTotal) * 100;
+				// These values need to be negative so multiply by negative 1 to invert the values
+				result.unsuitable = ((result.unsuitable / tempTotal) * 100) * -1;
+			});
+
+			// Sort them based on the highest percentage of suitability, strangely highcharts is reversing them
+			// for this particular chart, below puts least suitable on top so when highcharts reverses it, it 
+			// renders the most suitable on top
+			results.sort(function (a, b) {
+				if (a.suitable > b.suitable) return 1;
+				if (b.suitable > a.suitable) return -1;
+				return 0;
+			});
+
+			arrayUtils.forEach(results, function (result) {
+				unsuitableValues.push(result.unsuitable);
+				suitableValues.push(result.suitable);
+				labels.push(result.label);
+			});
+
+			// Now Create the Chart, the dom node to insert it into is suitability-composition-analysis
+			$('#suitability-composition-analysis').highcharts({
+				chart: { type: 'bar' },
+				title: { text: 'Suitability Composition Analysis' },
+				colors: ['#FDD023','#461D7C'],
+				credits: { enabled: false },
+				xAxis: [{
+					categories: labels,
+					reversed: false
+				}, {
+					labels: {
+						enabled: false
+					},
+					opposite: true,
+					reversed: false,
+					linkedTo: 0,  // Link to the first axis so it takes the same min and max
+					//minorTickLength: 0
+   				tickLength: 0
+				}],
+				yAxis: {
+					title: {
+						text: null
+					},
+					min: -100,
+					max: 100,
+					labels: {
+						formatter: function () {
+							return Math.abs(this.value) + (this.value !== 0 ? '%' : '');
+						}
+					}
+				},
+				tooltip: {
+					formatter: function () {
+						return (
+							'<b>' + this.point.category + '</b><br/>' +
+							'<b>' + this.series.name + ':</b>\t' + Highcharts.numberFormat(Math.abs(this.point.y), 2) + '%'
+						);
+					}
+				},
+				plotOptions: {
+					series: {
+						stacking: 'normal'
+					}
+				},
+				series: [{
+					name: 'Unsuitable',
+					data: unsuitableValues
+				}, {
+					name: 'Suitable',
+					data: suitableValues
+				}]
+			});
 
 		},
 

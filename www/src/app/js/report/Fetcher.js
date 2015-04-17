@@ -646,7 +646,10 @@ define([
             // Offload the work to Suitability as it is several small requests
             Suitability.getSuitabilityData().then(function(payload) {
                 ReportRenderer.renderSuitabilityData(config, payload);
-                deferred.resolve(true);
+                Suitability.getCompositionAnalysis().then(function (results) {
+                    ReportRenderer.renderSuitabilityCompositionChart(results);
+                    deferred.resolve(true);
+                });
             });
 
             return deferred.promise;

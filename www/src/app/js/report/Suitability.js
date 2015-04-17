@@ -21,8 +21,6 @@ define([
 
 			function complete(data) {
 				deferred.resolve(data);
-				// This function contains 11 calls so stub them out in stages in that function
-				self.getCompositionAnalysis();
 			}
 
 			all([
@@ -230,7 +228,8 @@ define([
 
 		getCompositionAnalysis: function () {
 
-			var cumulativeResults = [],
+			var deferred = new Deferred(),
+					cumulativeResults = [],
 					self = this;
 
 			all([
@@ -253,15 +252,14 @@ define([
 						self.getLandCoverComposition()
 					]).then(function (thirdResults) {
 						// Concatenate the results into a single array of objects
-						console.dir(firstResults);
-						console.dir(secondResults);
-						console.dir(thirdResults);
-
+						deferred.resolve(firstResults.concat(secondResults.concat(thirdResults)));
 					});
 
 				});
 
 			});
+
+			return deferred.promise;
 
 		},
 
