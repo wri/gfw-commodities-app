@@ -236,8 +236,8 @@ define([
             if (layer) {
                 // Values in slider are from a 0 based index, the range starts at 1
                 // so we need to shift the values by 1 to have correct range
-                // Also the rule is [inclusive, exclusive], so if values are 3,3 use 3,3
-                // if they are 3,4 then use 3,5
+                // Also the rule is [inclusive, exclusive], so if values are 3,3 use 4,4
+                // if they are 3,4 then use 4,6
                 range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
                 rasterFunction = this.getSpecificRasterFunction(layerConfig.colormap, range);
                 layer.setRenderingRule(rasterFunction);

@@ -48,7 +48,7 @@ define([
             Highcharts.setOptions({
                 chart: {
                     style: {
-                        fontFamily: 'Arial'
+                        fontFamily: "'Fira Sans', 'fira_sans_otregular', Georgia, serif"
                     }
                 }
             });

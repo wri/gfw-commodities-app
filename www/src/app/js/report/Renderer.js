@@ -117,6 +117,7 @@ define([
 						"</div>" +
 						"<div class='clearFix'></div>" +
 						"<div class='left-panel'>" +
+							"<div class='suitability-settings-table-header'>Suitability Settings</div>" +
 							"<div id='suitability-settings-table'></div>" +
 						"</div>" +
 						"<div class='right-panel'>" +
@@ -1105,7 +1106,7 @@ define([
 				settingsArray = table.splice(1);
 				headerRow = table[0].split(',');
 
-				content += '<th>' + headerRow[0] + '</th><th>' + headerRow[1] + '</th></tr></thead><tbody>';
+				content += '<th>Parameter</th><th>Setting</th></tr></thead><tbody>';
 
 				arrayUtils.forEach(settingsArray, function (setting) {
 					data = setting.split(',');
@@ -1207,7 +1208,16 @@ define([
 				}, {
 					name: 'Suitable',
 					data: suitableValues
-				}]
+				}],
+				exporting: {
+					buttons: {
+						contextButton: { enabled: false },
+						exportButton: {
+							menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+							symbol: exportButtonImagePath
+						}
+					}
+				}
 			});
 
 		},

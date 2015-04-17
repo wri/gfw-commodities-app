@@ -563,8 +563,6 @@ define([
                 }
             }
             
-            // If the report analyzeClearanceAlerts is false, just resolve here
-            //if (report.analyzeClearanceAlerts) {
             encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
             rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId;
             renderingRule = useSimpleEncoderRule ?
@@ -579,9 +577,6 @@ define([
             };
 
             this._computeHistogram(url, content, success, failure);
-            //} else {
-            //  deferred.resolve(true);
-            //}
 
             return deferred.promise;
         },

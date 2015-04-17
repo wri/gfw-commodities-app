@@ -271,10 +271,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$1', 'ElevInpR', 'ElevOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Elevation");
+				data = self.formatCompositionResults(results, "Elevation");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -288,10 +287,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$2', 'SlopeInpR', 'SlopeOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Slope");
+				data = self.formatCompositionResults(results, "Slope");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -305,10 +303,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$3', 'WaterInpR', 'WaterOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Water Resource Buffers");
+				data = self.formatCompositionResults(results, "Water Resource Buffers");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -322,10 +319,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$4', 'ConsInpR', 'ConsOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Conservation Area Buffers");
+				data = self.formatCompositionResults(results, "Conservation Area Buffers");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -339,10 +335,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$5', 'STypeInpR', 'STypeOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Soil Type");
+				data = self.formatCompositionResults(results, "Soil Type");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -356,10 +351,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$6', 'SDepthInpR', 'SDepthOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Soil Depth");
+				data = self.formatCompositionResults(results, "Soil Depth");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -373,10 +367,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$7', 'PeatInpR', 'PeatOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Peat Depth");
+				data = self.formatCompositionResults(results, "Peat Depth");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -390,10 +383,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$8', 'SAcidInpR', 'SAcidOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Soil Acidity");
+				data = self.formatCompositionResults(results, "Soil Acidity");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -407,10 +399,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$9', 'SDrainInpR', 'SDrainOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Soil Drainage");
+				data = self.formatCompositionResults(results, "Soil Drainage");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -424,10 +415,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$10', 'RainfallInpR', 'RainfallOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Rainfall");
+				data = self.formatCompositionResults(results, "Rainfall");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -441,10 +431,9 @@ define([
 				data;
 
 			renderRule = this.getCompositionRemapRule('$11', 'LCInpR', 'LCOutV');
-			suitableIndex = arrayUtils.indexOf(renderRule.rasterFunctionArguments.OutputValues, 1);
 
 			this.queryComposition(renderRule, function (results) {
-				data = self.formatCompositionResults(results, suitableIndex, "Land Cover");
+				data = self.formatCompositionResults(results, "Land Cover");
 				deferred.resolve(data);
 			});
 			return deferred.promise;
@@ -550,22 +539,15 @@ define([
 
 		/**
 		* @param {array} data - histogram counts
-		* @param {number} suitableIndex - index of suitable data, either 0 or 1 based on the indicators Out Values
 		# @param {string} labelForChart - Label for Chart
 		*/
-		formatCompositionResults: function (data, suitableIndex, labelForChart) {
-			var result = {};
-			if (suitableIndex === 1) {
-				result.suitable = data[1];
-				result.unsuitable = data[0];
-			} else {
-				result.suitable = data[0];
-				result.unsuitable = data[1];
-			}
-			// Give it a label for the chart
-			result.label = labelForChart;
-
-			return result;
+		formatCompositionResults: function (data, labelForChart) {
+			console.log(labelForChart, data);
+			return {
+				unsuitable: data[0] || 0,
+				suitable: data[1] || 0,
+				label: labelForChart
+			};
 		},
 
 		getHistogram: function (url, content, callback, errback) {

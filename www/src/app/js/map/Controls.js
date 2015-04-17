@@ -171,7 +171,7 @@ define([
                     var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
                     domConstruct.place(yearDot, "yearDotContainer");
                     domStyle.get(yearDot);
-                    var leftPx = (i * 61) + 19;
+                    var leftPx = (i * 56) + 25;
                     leftPx += "px";
 
                     if (currentMonth === 1) {
