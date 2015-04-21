@@ -575,56 +575,7 @@ define([], function() {
                 field: 'moratorium',
                 badgeDesc: 'on indonesia moratorium out of'
             }
-        },
-
-        // Rendering Rule for Suitability Composition Analysis, This is the default and these values will 
-        // need to be overridden by the suitability settings the user has applied
-        // suitabilityComposition: {
-        //     "rasterFunction": "Arithmetic",
-        //     "rasterFunctionArguments": {
-        //         "Raster": {
-        //             "rasterFunction": "PalmOilSuitabilityNew",
-        //             "rasterFunctionArguments": {
-        //                 "ElevRaster": "$1",
-        //                 "SlopeRaster": "$2",
-        //                 "WaterRaster": "$3",
-        //                 "ConsRaster": "$4",
-        //                 "STypeRaster": "$5",
-        //                 "SDepthRaster": "$6",
-        //                 "PeatRaster": "$7",
-        //                 "SAcidRaster": "$8",
-        //                 "SDrainRaster": "$9",
-        //                 "RainfallRaster": "$10",
-        //                 "LCRaster": "$11",
-        //                 "ElevInpR": [0, 100, 100, 1000000],
-        //                 "ElevOutV": [1, 0],
-        //                 "SlopeInpR": [0, 30, 30, 1000000],
-        //                 "SlopeOutV": [1, 0],
-        //                 "WaterInpR": [0, 10, 10, 1000000],
-        //                 "WaterOutV": [0, 1],
-        //                 "ConsInpR": [0, 10, 10, 1000000],
-        //                 "ConsOutV": [0, 1],
-        //                 "RainfallInpR": [0, 150, 150, 600, 600, 1000000],
-        //                 "RainfallOutV": [1, 1, 0],
-        //                 "SDepthInpR": [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 99, 99],
-        //                 "SDepthOutV": [1, 0, 0, 1, 1, 1, 1, 1, 1],
-        //                 "PeatInpR": [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
-        //                 "PeatOutV": [1, 1, 1, 0, 0, 0, 0],
-        //                 "SAcidInpR": [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 99, 99],
-        //                 "SAcidOutV": [1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-        //                 "SDrainInpR": [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 99, 99],
-        //                 "SDrainOutV": [1, 0, 1, 1, 1, 1],
-        //                 "LCInpR": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23],
-        //                 "LCOutV": [0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0],
-        //                 "STypeInpR": [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10],
-        //                 "STypeOutV": [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0]
-        //             }
-        //         },
-        //         "Raster2": "$4",
-        //         "AllowUnmatched": false,
-        //         "Operation": 3
-        //     }
-        // }
+        }
 
     };
 

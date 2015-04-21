@@ -247,6 +247,13 @@ define([
                                 }
                             }
                             $("#yearDotContainer > div:nth-child(25)").css("color", "black");
+
+                            // The values need to be incremented by 1 since forma values 
+                            // are 1 - ## and not 0 - ##, This is temporary until the real issue is resolved
+                            // This forces it to send in, for example, values from 2 - 17 when the service
+                            // should be using values 1 - 16 inclusive - exclusive
+                            values3[0]++;
+                            values3[1]++;
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.forma);
                         }
                     },
