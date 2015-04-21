@@ -1069,551 +1069,46 @@ body,
 }
 
 /* line 682 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .wri {
-  background-position: 0 -960px;
-}
-
-/* line 685 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .wri:hover {
-  background-position: 0 -640px;
-}
-
-/* line 689 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .google {
-  background-position: 0 -1600px;
-}
-
-/* line 692 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .google:hover {
-  background-position: 0 -800px;
-}
-
-/* line 696 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .esri {
-  background-position: 0 -1040px;
-}
-
-/* line 699 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .esri:hover {
-  background-position: 0 -400px;
-}
-
-/* line 703 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .universitymaryland {
-  background-position: 0 -240px;
-}
-
-/* line 706 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .universitymaryland:hover {
-  background-position: 0 0px;
-}
-
-/* line 710 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .unep {
-  background-position: 0 -1120px;
-}
-
-/* line 713 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .unep:hover {
-  background-position: 0 -480px;
-}
-
-/* line 717 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .imazon {
-  background-position: 0 -2400px;
-}
-
-/* line 720 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .imazon:hover {
-  background-position: 0 -1760px;
-}
-
-/* line 724 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .vizzuality {
-  background-position: 0 -2720px;
-}
-
-/* line 727 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .vizzuality:hover {
-  background-position: 0 -2480px;
-}
-
-/* line 731 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .centerglobaldevelopment {
-  background-position: 0 -720px;
-}
-
-/* line 734 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .centerglobaldevelopment:hover {
-  background-position: 0 -160px;
-}
-
-/* line 738 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .osfac {
-  background-position: 0 -1200px;
-}
-
-/* line 741 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .osfac:hover {
-  background-position: 0 -320px;
-}
-
-/* line 745 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .gfwca {
-  background-position: 0 -1440px;
-}
-
-/* line 748 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .gfwca:hover {
-  background-position: 0 -1360px;
-}
-
-/* line 752 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .scanex {
-  background-position: 0 -2080px;
-}
-
-/* line 755 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .scanex:hover {
-  background-position: 0 -1520px;
-}
-
-/* line 758 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .canada {
-  background-position: 0 -1440px;
-}
-
-/* line 761 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .canada:hover {
-  background-position: 0 -1360px;
-}
-
-/* line 765 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .twrus {
-  background-position: 0 -1680px;
-}
-
-/* line 768 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .twrus:hover {
-  background-position: 0 -1280px;
-}
-
-/* line 772 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .goodall {
-  background-position: 0 -3120px;
-}
-
-/* line 775 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .goodall:hover {
-  background-position: 0 -3040px;
-}
-
-/* line 779 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .norwegian {
-  background-position: 0 -2000px;
-}
-
-/* line 782 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .norwegian:hover {
-  background-position: 0 -2160px;
-}
-
-/* line 786 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .usaid {
-  background-position: 0 -560px;
-}
-
-/* line 789 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .usaid:hover {
-  background-position: 0 -80px;
-}
-
-/* line 793 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .gef {
-  background-position: 0 -1840px;
-}
-
-/* line 796 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .gef:hover {
-  background-position: 0 -880px;
-}
-
-/* line 800 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .ukaid {
-  background-position: 0 -2320px;
-}
-
-/* line 803 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .ukaid:hover {
-  background-position: 0 -1920px;
-}
-
-/* line 807 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .tilafund {
-  background-position: 0 -3280px;
-}
-
-/* line 810 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .tilafund:hover {
-  background-position: 0 -3360px;
-}
-
-/* line 814 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .cgiar {
-  background-position: 0 -3540px;
-}
-
-/* line 817 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .cgiar:hover {
-  background-position: 0 -3447px;
-}
-
-/* line 821 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .bakerAndMackenzie {
-  background-position: 0 -3905px;
-}
-
-/* line 824 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .bakerAndMackenzie:hover {
-  background-position: 0 -3824px;
-}
-
-/* line 827 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .moore {
-  background-position: 0 -3733px;
-}
-
-/* line 830 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .moore:hover {
-  background-position: 0 -3635px;
-}
-
-/* line 834 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .climateLandUse {
-  background-position: 0 -4063px;
-}
-
-/* line 837 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .climateLandUse:hover {
-  background-position: 0 -3982px;
-}
-
-/* line 841 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .conservationInternational {
-  background-position: 0 -4225px;
-}
-
-/* line 844 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .conservationInternational:hover {
-  background-position: 0 -4144px;
-}
-
-/* line 848 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .earthJournalismNetwork {
-  background-position: 0 -4385px;
-}
-
-/* line 851 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .earthJournalismNetwork:hover {
-  background-position: 0 -4304px;
-}
-
-/* line 855 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .foodAgricultureOrg {
-  background-position: 0 -4610px;
-}
-
-/* line 858 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .foodAgricultureOrg:hover {
-  background-position: 0 -4487px;
-}
-
-/* line 862 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .CIAT {
-  background-position: 0 -4775px;
-}
-
-/* line 865 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .CIAT:hover {
-  background-position: 0 -4708px;
-}
-
-/* line 871 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .mongabay {
-  background-position: 0 -5204px;
-}
-
-/* line 874 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .mongabay:hover {
-  background-position: 0 -5137px;
-}
-
-/* line 878 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .IUCN {
-  background-position: 0 -4909px;
-}
-
-/* line 881 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .IUCN:hover {
-  background-position: 0 -4842px;
-}
-
-/* line 885 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .lodersCroklaan {
-  background-position: 0 -5063px;
-}
-
-/* line 888 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .lodersCroklaan:hover {
-  background-position: 0 -4982px;
-}
-
-/* line 896 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .muyissi {
-  background-position: 0 -5335px;
-}
-
-/* line 899 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .muyissi:hover {
-  background-position: 0 -5268px;
-}
-
-/* line 902 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .osinfor {
-  background-position: 0 -5470px;
-}
-
-/* line 905 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .osinfor:hover {
-  background-position: 0 -5403px;
-}
-
-/* line 909 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .planetLabs {
-  background-position: 0 -5603px;
-}
-
-/* line 912 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .planetLabs:hover {
-  background-position: 0 -5536px;
-}
-
-/* line 916 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .rainForestUK {
-  background-position: 0 -5774px;
-}
-
-/* line 919 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .rainForestUK:hover {
-  background-position: 0 -5679px;
-}
-
-/* line 923 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .reforestMexico {
-  background-position: 0 -5946px;
-}
-
-/* line 926 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .reforestMexico:hover {
-  background-position: 0 -5865px;
-}
-
-/* line 930 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .resolveCo {
-  background-position: 0 -6089px;
-}
-
-/* line 933 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .resolveCo:hover {
-  background-position: 0 -6022px;
-}
-
-/* line 937 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .rspo {
-  background-position: 0 -6225px;
-}
-
-/* line 940 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .rspo:hover {
-  background-position: 0 -6158px;
-}
-
-/* line 944 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .sarvision {
-  background-position: 0 -6359px;
-}
-
-/* line 947 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .sarvision:hover {
-  background-position: 0 -6292px;
-}
-
-/* line 950 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .cartoDB {
-  background-position: 0 -6538px;
-}
-
-/* line 953 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .cartoDB:hover {
-  background-position: 0 -6443px;
-}
-
-/* line 956 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .reddIndo {
-  background-position: 0 -7424px;
-}
-
-/* line 959 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .reddIndo:hover {
-  background-position: 0 -7311px;
-}
-
-/* line 965 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .dutchforeign {
-  background-position: 0 -2560px;
-}
-
-/* line 968 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .dutchforeign:hover {
-  background-position: 0 -2640px;
-}
-
-/* line 973 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .sida {
-  background-position: 0 -2960px;
-}
-
-/* line 976 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .sida:hover {
-  background-position: 0 -2880px;
-}
-
-/* line 980 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .bobolink {
-  background-position: 0 -3200px;
-}
-
-/* line 984 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .danida {
-  background-position: 0 -2800px;
-}
-
-/* line 987 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .danida:hover {
-  background-position: 0 -2240px;
-}
-
-/* line 991 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .digital-globe {
   background: url("images/dg_logo_grey.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 994 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 685 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .digital-globe:hover {
   background: url("images/dg_logo_clr.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 997 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 688 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .bpredd {
   background: url("images/bp_redd_grey.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 1000 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 691 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .bpredd:hover {
   background: url("images/bp_redd_clr.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 1003 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 694 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .bnbp {
   background: url("images/BNPBlogo-greyscale.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 1006 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 697 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .bnbp:hover {
   background: url("images/BNPBlogo.png") no-repeat scroll 0% 0% transparent;
 }
 
-/* line 1009 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 700 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .blueraster {
   background: url("images/br_grey.png") no-repeat;
 }
 
-/* line 1012 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 703 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .blueraster:hover {
   background: url("images/br_color.png") no-repeat;
 }
 
-/* line 1017 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .unilever,
-.logo_list .unilever:hover,
-.logo_list .unepWC,
-.logo_list .unepWC:hover,
-.logo_list .woodsHole,
-.logo_list .woodsHole:hover,
-.logo_list .yayasanPuter,
-.logo_list .yayasanPuter:hover,
-.logo_list .zsl,
-.logo_list .zsl:hover {
-  background: url("images/static-logosNew.png") no-repeat;
-}
-
-/* line 1020 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .unilever {
-  background-position: 0 -7438px;
-}
-
-/* line 1023 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .unilever:hover {
-  background-position: 0 -7372px;
-}
-
-/* line 1026 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .unepWC {
-  background-position: 0 -7571px;
-}
-
-/* line 1029 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .unepWC:hover {
-  background-position: 0 -7505px;
-}
-
-/* line 1032 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .woodsHole {
-  background-position: 0 -7738px;
-}
-
-/* line 1035 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .woodsHole:hover {
-  background-position: 0 -7645px;
-}
-
-/* line 1038 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .yayasanPuter {
-  background-position: 0 -7923px;
-}
-
-/* line 1041 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .yayasanPuter:hover {
-  background-position: 0 -7830px;
-}
-
-/* line 1046 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .yayasanPuter,
-.logo_list .yayasanPuter:hover {
-  background: url("images/static-logos2.png") no-repeat;
-}
-
-/* line 1049 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .yayasanPuter {
-  background-position: 0 -7923px;
-}
-
-/* line 1052 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
-.logo_list .yayasanPuter:hover {
-  background-position: 0 -7830px;
-}
-
-/* line 1057 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 707 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .rainForestUK,
 .logo_list .rainForestUK:hover,
 .logo_list .rspo,
@@ -1645,152 +1140,505 @@ body,
   background: url("images/static-logos3.png") no-repeat;
 }
 
-/* line 1089 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 815 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .CIAT,
+.logo_list .CIAT:hover {
+  background: url("images/partners-sprite.png");
+}
+
+/* line 822 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .CIAT {
+  background-position: 0 -2578px;
+  margin: 25px 0;
+  height: 50px;
+}
+
+/* line 827 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .CIAT:hover {
+  background-position: 0 -956px;
+}
+
+/* line 835 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .foodAgricultureOrg {
+  background-position: 0 -4610px;
+}
+
+/* line 838 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .foodAgricultureOrg:hover {
+  background-position: 0 -4487px;
+}
+
+/* line 849 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .rainForestUK {
   background-position: 0 -7519px;
 }
 
-/* line 1092 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 852 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .rainForestUK:hover {
   background-position: 0 -7519px;
 }
 
-/* line 1095 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 855 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .rspo {
   background-position: 0 -7645px;
 }
 
-/* line 1098 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 858 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .rspo:hover {
   background-position: 0 -7583px;
 }
 
-/* line 1101 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 861 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .climateLandUse {
   background-position: 0 -6007px;
 }
 
-/* line 1104 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 864 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .climateLandUse:hover {
   background-position: 0 -5948px;
 }
 
-/* line 1107 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 867 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .muyissi {
   background-position: 0 -6212px;
 }
 
-/* line 1110 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 870 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .muyissi:hover {
   background-position: 1px -6094px;
 }
 
-/* line 1113 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 873 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .mongabay {
   background-position: 0 -7332px;
 }
 
-/* line 1116 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 876 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .mongabay:hover {
   background-position: 0 -7214px;
 }
 
-/* line 1119 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 879 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .unepWC {
   background-position: 0 -7800px;
 }
 
-/* line 1122 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 882 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .unepWC:hover {
   background-position: 0 -7718px;
 }
 
-/* line 1125 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 885 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .woodsHole {
   background-position: 0 -7995px;
 }
 
-/* line 1128 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 888 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .woodsHole:hover {
   background-position: 0 -7899px;
 }
 
-/* line 1131 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 891 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .earthJournalismNetwork {
   background-position: 0 -6425px;
 }
 
-/* line 1134 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 894 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .earthJournalismNetwork:hover {
   background-position: 0 -6324px;
 }
 
-/* line 1137 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 897 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .unilever {
   background-position: 0 -6617px;
 }
 
-/* line 1140 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 900 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .unilever:hover {
   background-position: 0 -6519px;
 }
 
-/* line 1143 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 903 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .lodersCroklaan {
   background-position: 0 -6738.5px;
 }
 
-/* line 1146 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 906 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .lodersCroklaan:hover {
   background-position: 0 -6692px;
 }
 
-/* line 1149 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 909 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .osinfor {
   background-position: 0 -6928px;
 }
 
-/* line 1152 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 912 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .osinfor:hover {
   background-position: 0 -6816px;
 }
 
-/* line 1155 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 915 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .reforestMexico {
   background-position: 0 -7110px;
 }
 
-/* line 1158 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 918 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .reforestMexico:hover {
   background-position: 0 -7026.5px;
 }
 
-/* line 1161 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 921 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .resolveCo {
   background-position: 0 -7466px;
 }
 
-/* line 1164 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 924 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .resolveCo:hover {
   background-position: 0 -7414px;
 }
 
-/* line 1167 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 927 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .zsl {
   background-position: 0 -8075px;
 }
 
-/* line 1170 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 930 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .logo_list .zsl:hover {
   background-position: 0 -8075px;
 }
 
-/* line 1175 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 933 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .yayasanPuter {
+  background-position: 0 -7923px;
+}
+
+/* line 936 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .yayasanPuter:hover {
+  background-position: 0 -7830px;
+}
+
+/* line 939 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .wri {
+  background-position: 0 -960px;
+}
+
+/* line 942 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .wri:hover {
+  background-position: 0 -640px;
+}
+
+/* line 945 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .google {
+  background-position: 0 -1600px;
+}
+
+/* line 948 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .google:hover {
+  background-position: 0 -800px;
+}
+
+/* line 951 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .esri {
+  background-position: 0 -1040px;
+}
+
+/* line 954 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .esri:hover {
+  background-position: 0 -400px;
+}
+
+/* line 957 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .universitymaryland {
+  background-position: 0 -240px;
+}
+
+/* line 960 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .universitymaryland:hover {
+  background-position: 0 0px;
+}
+
+/* line 963 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .unep {
+  background-position: 0 -1120px;
+}
+
+/* line 966 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .unep:hover {
+  background-position: 0 -480px;
+}
+
+/* line 969 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .imazon {
+  background-position: 0 -2400px;
+}
+
+/* line 972 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .imazon:hover {
+  background-position: 0 -1760px;
+}
+
+/* line 975 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .vizzuality {
+  background-position: 0 -2720px;
+}
+
+/* line 978 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .vizzuality:hover {
+  background-position: 0 -2480px;
+}
+
+/* line 981 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .centerglobaldevelopment {
+  background-position: 0 -720px;
+}
+
+/* line 984 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .centerglobaldevelopment:hover {
+  background-position: 0 -160px;
+}
+
+/* line 987 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .osfac {
+  background-position: 0 -1200px;
+}
+
+/* line 990 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .osfac:hover {
+  background-position: 0 -320px;
+}
+
+/* line 993 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .gfwca {
+  background-position: 0 -1440px;
+}
+
+/* line 996 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .gfwca:hover {
+  background-position: 0 -1360px;
+}
+
+/* line 999 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .scanex {
+  background-position: 0 -2080px;
+}
+
+/* line 1002 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .scanex:hover {
+  background-position: 0 -1520px;
+}
+
+/* line 1005 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .canada {
+  background-position: 0 -1440px;
+}
+
+/* line 1008 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .canada:hover {
+  background-position: 0 -1360px;
+}
+
+/* line 1011 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .twrus {
+  background-position: 0 -1680px;
+}
+
+/* line 1014 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .twrus:hover {
+  background-position: 0 -1280px;
+}
+
+/* line 1017 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .goodall {
+  background-position: 0 -3120px;
+}
+
+/* line 1020 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .goodall:hover {
+  background-position: 0 -3040px;
+}
+
+/* line 1023 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .norwegian {
+  background-position: 0 -2000px;
+}
+
+/* line 1026 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .norwegian:hover {
+  background-position: 0 -2160px;
+}
+
+/* line 1029 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .usaid {
+  background-position: 0 -560px;
+}
+
+/* line 1032 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .usaid:hover {
+  background-position: 0 -80px;
+}
+
+/* line 1035 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .gef {
+  background-position: 0 -1840px;
+}
+
+/* line 1038 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .gef:hover {
+  background-position: 0 -880px;
+}
+
+/* line 1041 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .ukaid {
+  background-position: 0 -2320px;
+}
+
+/* line 1044 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .ukaid:hover {
+  background-position: 0 -1920px;
+}
+
+/* line 1047 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .tilafund {
+  background-position: 0 -3280px;
+}
+
+/* line 1050 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .tilafund:hover {
+  background-position: 0 -3360px;
+}
+
+/* line 1053 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .cgiar {
+  background-position: 0 -3540px;
+}
+
+/* line 1056 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .cgiar:hover {
+  background-position: 0 -3447px;
+}
+
+/* line 1059 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .bakerAndMackenzie {
+  background-position: 0 -3905px;
+}
+
+/* line 1062 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .bakerAndMackenzie:hover {
+  background-position: 0 -3824px;
+}
+
+/* line 1065 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .moore {
+  background-position: 0 -3733px;
+}
+
+/* line 1068 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .moore:hover {
+  background-position: 0 -3635px;
+}
+
+/* line 1071 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .conservationInternational {
+  background-position: 0 -4225px;
+}
+
+/* line 1074 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .conservationInternational:hover {
+  background-position: 0 -4144px;
+}
+
+/* line 1077 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .IUCN {
+  background-position: 0 -4909px;
+}
+
+/* line 1080 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .IUCN:hover {
+  background-position: 0 -4842px;
+}
+
+/* line 1083 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .planetLabs {
+  background-position: 0 -5603px;
+}
+
+/* line 1086 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .planetLabs:hover {
+  background-position: 0 -5536px;
+}
+
+/* line 1089 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .sarvision {
+  background-position: 0 -6359px;
+}
+
+/* line 1092 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .sarvision:hover {
+  background-position: 0 -6292px;
+}
+
+/* line 1095 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .cartoDB {
+  background-position: 0 -6538px;
+}
+
+/* line 1098 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .cartoDB:hover {
+  background-position: 0 -6443px;
+}
+
+/* line 1101 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .reddIndo {
+  background-position: 0 -7424px;
+}
+
+/* line 1104 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .reddIndo:hover {
+  background-position: 0 -7311px;
+}
+
+/* line 1107 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .dutchforeign {
+  background-position: 0 -2560px;
+}
+
+/* line 1110 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .dutchforeign:hover {
+  background-position: 0 -2640px;
+}
+
+/* line 1113 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .sida {
+  background-position: 0 -2960px;
+}
+
+/* line 1116 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .sida:hover {
+  background-position: 0 -2880px;
+}
+
+/* line 1119 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .bobolink {
+  background-position: 0 -3200px;
+}
+
+/* line 1122 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .danida {
+  background-position: 0 -2800px;
+}
+
+/* line 1125 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+.logo_list .danida:hover {
+  background-position: 0 -2240px;
+}
+
+/* line 1130 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .coming-soon {
   padding: 20px;
 }
 
-/* line 1179 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 1134 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .emailWRI {
   border: 1px solid #97bd3d;
   margin: 10px 0 0;
@@ -1820,7 +1668,7 @@ body,
   width: 100px;
 }
 
-/* line 1207 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
+/* line 1162 : /Users/Robert/Projects/github_work/GFW-C/www/src/app/css/contentPages.styl */
 .emailWRI:hover {
   background: #f2f2f2;
 }
