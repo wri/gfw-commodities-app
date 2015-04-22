@@ -230,16 +230,26 @@ define([
         updateImageServiceRasterFunction: function(values, layerConfig) {
 
             var layer = app.map.getLayer(layerConfig.id),
+                outRange = [1],
                 rasterFunction,
                 range;
 
             if (layer) {
+
+                // For Forma updates, if its a single range, we need to remap 1 to 0
                 // Values in slider are from a 0 based index, the range starts at 1
                 // so we need to shift the values by 1 to have correct range
                 // Also the rule is [inclusive, exclusive], so if values are 3,3 use 4,4
                 // if they are 3,4 then use 4,6
-                range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
-                rasterFunction = this.getSpecificRasterFunction(layerConfig.colormap, range);
+                if (layerConfig.id === 'FormaAlerts') {
+                    var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
+                    range = [1,1,values[0] + 1,finalValue];
+                    outRange = [0,1];
+                } else {
+                    range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
+                }
+
+                rasterFunction = this.getSpecificRasterFunction(layerConfig.colormap, range, outRange);
                 layer.setRenderingRule(rasterFunction);
 
             }
@@ -247,7 +257,7 @@ define([
 
         },
 
-        getSpecificRasterFunction: function(colormap, range) {
+        getSpecificRasterFunction: function(colormap, range, outRange) {
             return new RasterFunction({
                 "rasterFunction": "Colormap",
                 "rasterFunctionArguments": {
@@ -256,7 +266,7 @@ define([
                         "rasterFunction": "Remap",
                         "rasterFunctionArguments": {
                             "InputRanges": range,
-                            "OutputValues": [1],
+                            "OutputValues": outRange,
                             "AllowUnmatched": false
                         }
                     }

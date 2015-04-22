@@ -271,7 +271,7 @@ define([
                 suitableRule,
                 readyEvent,
                 datasets,
-                win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes');
+                win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
 
             //setTimeout(function () {
             if (win === null || typeof(win) === undefined || win === undefined) {
@@ -291,16 +291,18 @@ define([
                     title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
                     suitability: {
                         renderRule: suitableRule,
-                        //settings: MapControls.serializeSuitabilitySettings(),
                         csv: MapControls._getSettingsCSV()
+                        //settings: MapControls.serializeSuitabilitySettings()
                     },
                     webMapJson: JSON.stringify(printJson)
                 };
                 // Some browsers load really fast and are ready before the payload has been set
                 // create a custom event that the new page can listen to
-                readyEvent = win.document.createEvent('Event');
-                readyEvent.initEvent('PayloadReady', true, true);
-                win.document.dispatchEvent(readyEvent);
+                if (win.document.createEvent) {
+                    readyEvent = win.document.createEvent('Event');
+                    readyEvent.initEvent('PayloadReady', true, true);
+                    win.document.dispatchEvent(readyEvent);
+                }                
             }
             //}, 0);
 
