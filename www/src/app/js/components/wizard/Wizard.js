@@ -271,39 +271,84 @@ define([
                 suitableRule,
                 readyEvent,
                 datasets,
-                win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
+                payload,
+                win;
 
-            //setTimeout(function () {
+                // = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
+
+            labelField = AnalyzerConfig.stepTwo.labelField;
+            suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
+            datasets = self.state.analysisSets;
+            printTask = new PrintTask();
+            var printJson = printTask._getPrintDefinition(app.map);
+            printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
+            payload = {
+                geometry: geometry,
+                datasets: self.state.analysisSets,
+                //types: self.state.analysisTypes,
+                title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
+                suitability: {
+                    renderRule: suitableRule,
+                    csv: MapControls._getSettingsCSV()
+                    //settings: MapControls.serializeSuitabilitySettings()
+                },
+                webMapJson: JSON.stringify(printJson)
+            };
+
+            win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
+
+            if (localStorage) {
+                localStorage.setItem('payload', JSON.stringify(payload));
+            } else {
+                win.payload = payload;
+            }
+
             if (win === null || typeof(win) === undefined || win === undefined) {
-                alert("Popup blocker needs to be off");
+                alert("You need to disable your popup blocker for this feature to work.");
             } else {
                 win.focus();
-                labelField = AnalyzerConfig.stepTwo.labelField;
-                suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
-                datasets = self.state.analysisSets;
-                printTask = new PrintTask();
-                var printJson = printTask._getPrintDefinition(app.map);
-                printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
-                win.payload = {
-                    geometry: geometry,
-                    datasets: self.state.analysisSets,
-                    //types: self.state.analysisTypes,
-                    title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
-                    suitability: {
-                        renderRule: suitableRule,
-                        csv: MapControls._getSettingsCSV()
-                        //settings: MapControls.serializeSuitabilitySettings()
-                    },
-                    webMapJson: JSON.stringify(printJson)
-                };
                 // Some browsers load really fast and are ready before the payload has been set
                 // create a custom event that the new page can listen to
                 if (win.document.createEvent) {
                     readyEvent = win.document.createEvent('Event');
                     readyEvent.initEvent('PayloadReady', true, true);
                     win.document.dispatchEvent(readyEvent);
-                }                
+                }
             }
+
+
+            //setTimeout(function () {
+            // if (win === null || typeof(win) === undefined || win === undefined) {
+            //     alert("Popup blocker needs to be off");
+            // } else {
+            //     win.focus();
+            //     labelField = AnalyzerConfig.stepTwo.labelField;
+            //     suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
+            //     datasets = self.state.analysisSets;
+            //     printTask = new PrintTask();
+            //     var printJson = printTask._getPrintDefinition(app.map);
+            //     printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
+            //     payload = {
+            //         geometry: geometry,
+            //         datasets: self.state.analysisSets,
+            //         //types: self.state.analysisTypes,
+            //         title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
+            //         suitability: {
+            //             renderRule: suitableRule,
+            //             csv: MapControls._getSettingsCSV()
+            //             //settings: MapControls.serializeSuitabilitySettings()
+            //         },
+            //         webMapJson: JSON.stringify(printJson)
+            //     };
+
+            //     // Some browsers load really fast and are ready before the payload has been set
+            //     // create a custom event that the new page can listen to
+            //     if (win.document.createEvent) {
+            //         readyEvent = win.document.createEvent('Event');
+            //         readyEvent.initEvent('PayloadReady', true, true);
+            //         win.document.dispatchEvent(readyEvent);
+            //     }              
+            // }
             //}, 0);
 
         },

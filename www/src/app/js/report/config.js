@@ -291,7 +291,7 @@ define([], function() {
             rasterId: "$517",
             mosaicRule: {
                 'mosaicMethod': 'esriMosaicLockRaster',
-                'lockRasterIds': [517],
+                'lockRasterIds': [521],
                 'ascending': true,
                 'mosaicOperation': 'MT_FIRST'
             },
@@ -299,7 +299,7 @@ define([], function() {
                 title: "Annual Tree Cover Loss (in hectares)"
             },
             compositionAnalysis: {
-                rasterId: 517,
+                rasterId: 521,
                 histogramSlice: 1
             },
             bounds: treeCoverBounds,

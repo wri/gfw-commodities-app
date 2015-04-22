@@ -37,26 +37,38 @@
     ],
     callback: function(Generator) {
 
+      var payloadReceived = false;
+
       loadScriptAsync('http://code.jquery.com/jquery-1.11.0.min.js', function() {
         loadScriptAsync('http://code.highcharts.com/highcharts.js', function() {
           loadScriptAsync('http://code.highcharts.com/modules/exporting.js', function() {
 
-            if (win.payload) {
-              Generator.init(); 
+            // localStorage is the preferred mechanism, if not supported, get it from window
+            if (localStorage) {
+              win.payload = JSON.parse(localStorage.getItem('payload'));
+              if (win.payload) { payloadReceived = true; }
+            } else if (win.payload) {
+              payloadReceived = true;
+            }
+
+            // If we have data, lets begin
+            if (payloadReceived) {
+              Generator.init();
             } else {
+              // Emit a special event from the other window telling me the payload is ready
               document.addEventListener('PayloadReady', function () {
-                Generator.init();
+                payloadReceived = true;
               });
-              // Add a timeout condition so we can alert the user if something went wrong
+              // Give it 5 seconds and check again, if no data by now, something went wrong
+              // This should take no more then 2 seconds
               setTimeout(function () {
-                if (win.payload) {
+                if (payloadReceived && win.payload) {
                   Generator.init();
                 } else {
                   alert("There was an error generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
                 }
               }, 5000);
-            }            
-
+            }
           });
         });
       });
