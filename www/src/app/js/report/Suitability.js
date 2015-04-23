@@ -542,7 +542,6 @@ define([
 		# @param {string} labelForChart - Label for Chart
 		*/
 		formatCompositionResults: function (data, labelForChart) {
-			console.log(labelForChart, data);
 			return {
 				unsuitable: data[0] || 0,
 				suitable: data[1] || 0,

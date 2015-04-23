@@ -221,7 +221,7 @@ define([], function() {
             title: "RSPO Land Use Change Analysis",
             rasterId: "$5",
             bounds: rspoBounds,
-            lossBounds: [5, 12],
+            lossBounds: [5, 13],
             colors: rspoColors,
 
         },

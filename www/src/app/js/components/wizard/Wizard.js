@@ -279,9 +279,9 @@ define([
             labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
             datasets = self.state.analysisSets;
-            printTask = new PrintTask();
-            var printJson = printTask._getPrintDefinition(app.map);
-            printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
+            // printTask = new PrintTask();
+            // var printJson = printTask._getPrintDefinition(app.map);
+            // printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
             payload = {
                 geometry: geometry,
                 datasets: self.state.analysisSets,
@@ -291,8 +291,8 @@ define([
                     renderRule: suitableRule,
                     csv: MapControls._getSettingsCSV()
                     //settings: MapControls.serializeSuitabilitySettings()
-                },
-                webMapJson: JSON.stringify(printJson)
+                }//,
+                //webMapJson: JSON.stringify(printJson)
             };
 
             win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
@@ -315,41 +315,6 @@ define([
                     win.document.dispatchEvent(readyEvent);
                 }
             }
-
-
-            //setTimeout(function () {
-            // if (win === null || typeof(win) === undefined || win === undefined) {
-            //     alert("Popup blocker needs to be off");
-            // } else {
-            //     win.focus();
-            //     labelField = AnalyzerConfig.stepTwo.labelField;
-            //     suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
-            //     datasets = self.state.analysisSets;
-            //     printTask = new PrintTask();
-            //     var printJson = printTask._getPrintDefinition(app.map);
-            //     printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
-            //     payload = {
-            //         geometry: geometry,
-            //         datasets: self.state.analysisSets,
-            //         //types: self.state.analysisTypes,
-            //         title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
-            //         suitability: {
-            //             renderRule: suitableRule,
-            //             csv: MapControls._getSettingsCSV()
-            //             //settings: MapControls.serializeSuitabilitySettings()
-            //         },
-            //         webMapJson: JSON.stringify(printJson)
-            //     };
-
-            //     // Some browsers load really fast and are ready before the payload has been set
-            //     // create a custom event that the new page can listen to
-            //     if (win.document.createEvent) {
-            //         readyEvent = win.document.createEvent('Event');
-            //         readyEvent.initEvent('PayloadReady', true, true);
-            //         win.document.dispatchEvent(readyEvent);
-            //     }              
-            // }
-            //}, 0);
 
         },
 
@@ -397,48 +362,6 @@ define([
 
           return JSON.stringify(outGeo);
 
-          // Original Version
-
-          // var outGeo;
-          // if (Object.prototype.toString.call(features) === '[object Array]') {
-          //   if (features.length === 1) {
-          //       if (!features[0].geometry.radius) {
-          //         outGeo = features[0].geometry;
-          //       } else {
-          //         outGeo = [{
-          //           label: features[0].attributes.WRI_label,
-          //           id: features[0].attributes.Entity_ID,
-          //           geometry: features[0].geometry
-          //         }];
-          //       }
-          //   } else {
-          //     if (!features[0].geometry.radius) {
-          //       console.log("here");
-          //       outGeo = lang.clone(features[0].geometry);
-          //       arrayUtils.forEach(features, function(feature, index) {
-          //         // Skip the first one, geometry alerady grabbed above
-          //         if (index > 0) {
-          //           arrayUtils.forEach(feature.geometry.rings, function(ring, index) {
-          //             outGeo.addRing(ring);
-          //           });
-          //         }
-          //       });
-          //     } else {
-          //       // I have an array of circles and need labels, geometry, and ids
-          //       outGeo = [];
-          //       arrayUtils.forEach(features, function (feature) {
-          //         outGeo.push({
-          //           label: feature.attributes.WRI_label,
-          //           id: feature.attributes.Entity_ID,
-          //           geometry: feature.geometry
-          //         });
-          //       });
-          //     }
-          //   }
-          // } else {
-          //   outGeo = features.geometry;
-          // }
-          // return JSON.stringify(outGeo);
         },
 
         // External Function to Help determine what state the wizard is in, could be useful 

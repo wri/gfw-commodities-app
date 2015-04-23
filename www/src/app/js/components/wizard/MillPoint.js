@@ -177,12 +177,12 @@ define([
                 return false;
               });
             } else {
-              // Do Not add if they have already selected too many features.
+              // Limit the selection to 5 Features
               // Return as well as we dont want to update any state or UI items.
-              if (selectedFeatures.length > 4) {
-                alert('You have already selected the maximum number of mills, please deselect some if you want to add more.');
-                return;
-              }
+              // if (selectedFeatures.length > 4) {
+              //   alert('You have already selected the maximum number of mills, please deselect some if you want to add more.');
+              //   return;
+              // }
               // Add it to the map and make it the current selection, give it a label
               feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
               graphic = GeoHelper.preparePointAsPolygon(feature);
