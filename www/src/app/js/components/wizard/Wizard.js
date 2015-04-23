@@ -334,7 +334,7 @@ define([
                   type: 'circle'
                 });
               });
-            } else {
+            } else if (features.length > 1) {
               // May be deprecated, left in here as will need to test to be able to tell 
               // if this is being used by exhaustively testing all paths to this
               // function and seeing if it's executed
@@ -345,6 +345,8 @@ define([
                   type: 'polygon'
                 });
               });
+            } else {
+                outGeo = features[0].geometry;
             }
           } else {
             isCircle = (features.geometry.radius !== undefined);
