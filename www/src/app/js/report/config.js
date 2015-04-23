@@ -1,6 +1,6 @@
 define([], function() {
 
-    var geometryServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+    var geometryServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
         
         // clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
         // OLD //clearanceAlertsUrl = 'http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer',
