@@ -1,0 +1,461 @@
+<!--[if IE]>
+<style>
+    .playLineFiller > div {
+      margin-top: -12px;
+    }
+</style>
+<![endif]-->
+
+<div id='map-container' class="map-container">
+  <!-- Begin Map Object -->
+	<div id='map' class='map'>
+		<div id="locator-widget-button" title="Locate" class="locator-widget-button"></div>
+    <div id="basemap-gallery-button" title="Basemaps/Overlays" class="basemap-gallery-button"></div>
+    <div id="share-button" title="Share" class="share-button"></div>
+    <div id="simple-geocoder" class="simple-geocoder"></div>
+    <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link" style="display: none;"></div>
+    <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link" style="display: none;"></div>
+    <div id='sharing-linker' data-bind="visible: showSharingOptions()" class="sharing-linker modal-link" style="display: none;"></div>
+    <!-- Begin Basemap/Overlays Modal -->
+    <div id="basemap-modal" data-bind="visible: showBasemapGallery()" class="maptools-modal" style="display: none;">
+    	<div class="container-header">Overlays</div>
+    	<div class="overlays-container">
+        <div class="overlays-checkbox" data-layer='road'>
+          <span class="custom-check">
+            <span></span>
+          </span>
+          <span class="custom-check-label">Roads</span>
+        </div>
+        <div class="overlays-checkbox" data-layer='river'>
+          <span class="custom-check">
+            <span></span>
+          </span>
+          <span class="custom-check-label">Rivers</span>
+        </div>
+        <div class="overlays-checkbox" data-layer='settle'>
+          <span class="custom-check">
+            <span></span>
+          </span>
+          <span class="custom-check-label">Settlements</span>
+        </div>
+        <div class="overlays-checkbox" data-layer='poBounds'>
+          <span class="custom-check">
+            <span></span>
+          </span>
+          <span class="custom-check-label">Political Boundaries</span>
+        </div>
+    	</div>
+			<div class="container-header">Basemaps</div>
+			<div id="basemap-gallery"></div>
+    </div>
+    <!-- End Basemap/Overlays Modal -->
+    <!-- Begin Locator Modal -->
+    <div id="locator-modal" data-bind="visible: showLocatorOptions()" class="maptools-modal" style="display: none;">
+    	<div class="container-header">Locator</div>
+      <div id="location-widget" class="location-widget"></div>
+      <div class="line-splitter"></div>
+      <div class="goto-area-search">Or, go to an area</div>
+      <span id="clear-search-pins" data-bind="visible: showClearPinsOption()" class="clear-search-pins">Clear Pins</span>
+      <div id="area-search-options-1" class="area-search-radio-container">
+        <input id="dms-search" type="radio" name="search-option" checked="true"/>
+        <label for="dms-search" class="search-option-label">Degrees/Minutes/Seconds</label>
+      </div>
+      <div id="area-search-options-2" class="area-search-radio-container">
+        <input id="lat-long-search" type="radio" name="search-option"/>
+        <label for="lat-long-search" class="search-option-label">Latitude/Longitude</label>
+      </div>
+      <div id="area-search-inputs" class="area-search-inputs">
+        <div id="dms-inputs" data-bind="visible: showDMSInputs()" class="dms-inputs-container">
+          <table>
+            <tr>
+              <td></td>
+              <td>Degrees</td>
+              <td>Minutes</td>
+              <td>Seconds</td>
+            </tr>
+            <tr>
+              <td>Latitude</td>
+              <td>
+                <input id="degreesLatInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="minutesLatInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="secondsLatInput" type="text" class="dms-inputs"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Longitude</td>
+              <td>
+                <input id="degreesLonInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="minutesLonInput" type="text" class="dms-inputs"/>
+              </td>
+              <td>
+                <input id="secondsLonInput" type="text" class="dms-inputs"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div id="lat-long-inputs" data-bind="visible: showLatLongInputs()" class="lat-long-inputs-container">
+          <table>
+            <tr>
+              <td>Latitude</td>
+              <td>
+                <input id="latitudeInput" type="text" class="lat-long-inputs"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Longitude</td>
+              <td>
+                <input id="longitudeInput" type="text" class="lat-long-inputs"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="search-option-button-container">
+          <div id="search-option-go-button" class="search-option-go-button">GO</div>
+        </div>
+			</div>
+    </div>
+    <!-- End Locator Modal -->
+    <!-- Begin Sharing Modal -->
+    <div id='sharing-modal' data-bind='visible: showSharingOptions()' class="sharing-modal" style="display: none;">
+      <div class="sharing_toolbox">
+        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+          <a class="addthis_button_facebook"></a>
+          <a class="addthis_button_twitter"></a>
+          <a class="addthis_button_linkedin"></a>
+          <a class="addthis_button_google_plusone_share"></a>
+          <a class="addthis_button_compact"></a>
+        </div>
+      </div>
+    </div>
+    <!-- End Sharing Modal -->
+    <!-- Begin Layer Controls Container -->
+    <div id='layer-controls' class="layer-controls-container">
+
+      <div id="treecover_change_toolbox" class="toolbox treecover_change_toolbox" style="display: none">
+        <div class="toolbox_legend">
+          <p>Tree cover change</p>
+        </div>
+      <!-- Begin Custom Slider Container -->
+        <div class="range-slider">
+            <input type="text" class="js-range-slider" value="" />
+            <div class="container2">
+              <div>2001</div><div>2002</div><div>2003</div>
+              <div>2004</div><div>2005</div><div>2006</div>
+              <div>2007</div><div>2008</div><div>2009</div>
+              <div>2010</div><div>2011</div><div>2012</div>
+              <div>2013</div><div>2014</div>
+            </div>
+            <div class="playLineFiller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+        </div>
+        <div class="extra-controls">
+            <div id="newSlider">&#9658;</div>
+        </div>
+      </div>
+
+      
+      <div id="forma_toolbox" class="toolbox forma_toolbox" style="display: none">
+        <div class="toolbox_legend">
+          <p>FORMA alerts</p>
+        </div>
+        <div class="toolbox-inner">
+          <div class="slider-container">
+            <div id="formaAlertSlider"></div>
+            
+              <div id = "yearDotContainer">
+                <!-- <g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
+                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g> -->
+              </div>
+            
+            
+            <div class="playLineFiller2">
+              <div>
+                <g class="tick" transform="translate(0,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy=".71em" class="" style="text-anchor: middle;">2014</text></g>
+              </div>
+              <div>2015</div>
+<!--               <div>2015</div> -->
+            </div>
+
+            <div class="extra-controls2">
+                <div id="newSlider2">&#9658;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div id="fires_toolbox" class="toolbox fires_toolbox" style="display: none">
+        <div class="toolbox_legend">
+          <p>NASA active fire alerts</p>
+        </div>
+        <div class="toolbox-inner">
+          <ul class="toolbox-list">
+            <li data-filter='7' class="selected">Past Week</li>
+            <li data-filter='4' >Past 72 hours</li>
+            <li data-filter='3' >Past 48 hours</li>
+            <li data-filter='2' >Past 24 hours</li>
+          </ul>
+          <div class="high-confidence-fires">
+            <input type="checkbox" id='high-confidence'>
+            <label for="high-confidence">Only show high confidence fires</label>
+          </div>
+        </div>
+      </div>
+      <div id='suitability_toolbox' class="suitability_toolbox" style="display: none">
+        <div id='suitability_loader' class="loading-wheel-container hidden">
+          <div class="loading-wheel"></div>
+        </div>
+        <div class="toolbox_legend_suitability">
+          <div class="suitability_toolbox_label">Suitability Criteria</div>
+          <div id="close-suitability" class="close-suitability"></div>
+          <div id="export-suitability" class="export-suitability">Export</div>
+          <div id="reset-suitability" class="reset-suitability">Reset</div>
+        </div>
+        <div id="suitability-accordion" class="suitability-accordion">
+          <div id="environmental-criteria" class="accordion-container">
+            <p class="suitability-accordion-description">
+              Map potentially suitable areas for oil palm expansion. Use WRI’s Suitability Standard for Oil Palm (recommended) or make a custom suitability map by adjusting the suitability criteria below.
+            </p>
+            <div class="slider-name"><span id="peat-depth-slider-label">Peat Depth (cm)</span><span class="layer-info-icon" data-class='forest-and-land-cover-peat-lands'></span></div>
+            <div class="slider-container">
+              <div class="slider" id='peat-depth-slider'></div>
+              <div class="slider-labels zero">0 cm</div>
+              <div class="slider-labels hundred">200 cm</div>
+            </div>
+            <div class="slider-name"><span id="conservation-area-slider-label">Conservation area buffers (m)</span><span class="layer-info-icon" data-class='suitability-conservation-areas'></span></div>
+            <div class="slider-container">
+              <div class="slider" id='conservation-area-slider'></div>
+              <div class="slider-labels zero">500 m</div>
+              <div class="slider-labels hundred">5,000+ m</div>
+            </div>
+            <div class="slider-name"><span id="water-resource-slider-label">Water resource buffers (m)</span><span class="layer-info-icon" data-class='suitability-water-resources'></span></div>
+            <div class="slider-container">
+              <div class="slider" id='water-resource-slider'></div>
+              <div class="slider-labels zero">50 m</div>
+              <div class="slider-labels hundred">1,000+ m</div>
+            </div>
+            <div class="slider-name"><span id="slope-slider-label">Slope (%)</span><span class="layer-info-icon" data-class='suitability-slope'></span></div>
+            <div class="slider-container">
+              <div class="slider" id='slope-slider'></div>
+              <div class="slider-labels zero">0%</div>
+              <div class="slider-labels hundred">80%</div>
+            </div>
+            <div class="slider-name"><span id="elevation-slider-label">Elevation (m)</span><span class="layer-info-icon" data-class='suitability-elevation'></span></div>
+            <div class="slider-container">
+              <div class="slider" id="elevation-slider"></div>
+              <div class="slider-labels zero">0 m</div>
+              <div class="slider-labels hundred">5,000 m</div>
+            </div>
+            <div class="slider-name"><span id="rainfall-slider-label">Rainfall (mm)</span><span class="layer-info-icon" data-class='suitability-rainfall'></span></div>
+            <div class="slider-container">
+              <div class="slider" id="rainfall-slider"></div>
+              <div class="slider-labels zero">1,500 mm/yr</div>
+              <div class="slider-labels hundred">6,000 mm/yr</div>
+            </div>
+            <div class="slider-name"><span id="soil-drainage-slider-label">Soil drainage</span><span class="layer-info-icon" data-class='suitability-soil-drainage'></span></div>
+            <div class="slider-container">
+              <div class="slider" id="soil-drainage-slider"></div>
+              <div class="slider-labels zero">Stagnant</div>
+              <div class="slider-labels hundred">Very Excessive</div>
+            </div>
+            <div class="slider-name"><span id="soil-depth-slider-label">Soil depth (cm)</span><span class="layer-info-icon" data-class='suitability-soil-depth'></span></div>
+            <div class="slider-container">
+              <div class="slider" id="soil-depth-slider"></div>
+              <div class="slider-labels zero">Very Shallow</div>
+              <div class="slider-labels hundred">Extremely Deep</div>
+            </div>
+            <div class="slider-name"><span id="soil-acid-slider-label">Soil acidity (pH)</span><span class="layer-info-icon" data-class='suitability-soil-acidity'></span></div>
+            <div class="slider-container">
+              <div class="slider" id="soil-acid-slider"></div>
+              <div class="slider-labels zero">Excessively Acid</div>
+              <div class="slider-labels hundred">Slightly Alkaline</div>
+            </div>
+            <div class="criteria-separator">Land Cover<span class="layer-info-icon" data-class='forest-and-land-cover-land-cover-indonesia'></span></div>
+            <div class="suitable-checkbox">
+              <input id="shrub-check" />
+              <label for="shrub-check" class="checkbox-label">Shrub</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="bareland-check" />
+              <label for="bareland-check" class="checkbox-label">Bareland</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="secondary-forest-check" />
+              <label for="secondary-forest-check" class="checkbox-label">Secondary Forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="dryland-agro-check" />
+              <label for="dryland-agro-check" class="checkbox-label">Dryland Agriculture mixed with shrub</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="water-check" />
+              <label for="water-check" class="checkbox-label">Water Body</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="mining-check" />
+              <label for="mining-check" class="checkbox-label">Mining</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="plantation-forest-check" />
+              <label for="plantation-forest-check" class="checkbox-label">Plantation Forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="estate-crop-check" />
+              <label for="estate-crop-check" class="checkbox-label">Estate Crop Plantation</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="swamp-shrub-check" />
+              <label for="swamp-shrub-check" class="checkbox-label">Swamp shrub</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="primary-swamp-check" />
+              <label for="primary-swamp-check" class="checkbox-label">Primary swamp forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="secondary-swamp-check" />
+              <label for="secondary-swamp-check" class="checkbox-label">Secondary swamp forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="settlement-check" />
+              <label for="settlement-check" class="checkbox-label">Settlement</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="grassland-check" />
+              <label for="grassland-check" class="checkbox-label">Grassland</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="secondary-mangrove-check" />
+              <label for="secondary-mangrove-check" class="checkbox-label">Secondary mangrove forest</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="dryland-check" />
+              <label for="dryland-check" class="checkbox-label">Dryland agriculture</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="rice-check" />
+              <label for="rice-check" class="checkbox-label">Rice field</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="fish-check" />
+              <label for="fish-check" class="checkbox-label">Fish pond</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="transmigration-check" />
+              <label for="transmigration-check" class="checkbox-label">Transmigration area</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="swamp-check" />
+              <label for="swamp-check" class="checkbox-label">Swamp</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="primary-mangrove-check" />
+              <label for="primary-mangrove-check" class="checkbox-label">Primary mangrove swamp</label>
+            </div>
+            <div class="suitable-checkbox">
+              <input id="airport-check" />
+              <label for="airport-check" class="checkbox-label">Airport</label>
+            </div>
+            <div class="criteria-separator">Soil Type<span class="layer-info-icon" data-class='suitability-soil-type'></span></div>
+            <div class="suitable-checkbox-soil">
+              <input id="inceptisol-check" />
+              <label for="inceptisol-check" class="checkbox-label">Inceptisol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="oxisol-check" />
+              <label for="oxisol-check" class="checkbox-label">Oxisol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="alfisol-check" />
+              <label for="alfisol-check" class="checkbox-label">Alfisol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="ultisol-check" />
+              <label for="ultisol-check" class="checkbox-label">Ultisol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="spodosol-check" />
+              <label for="spodosol-check" class="checkbox-label">Spodosol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="entisol-check" />
+              <label for="entisol-check" class="checkbox-label">Entisol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="histosol-check" />
+              <label for="histosol-check" class="checkbox-label">Histosol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="mollisol-check" />
+              <label for="mollisol-check" class="checkbox-label">Mollisol</label>
+            </div>
+            <div class="suitable-checkbox-soil">
+              <input id="rock-check" />
+              <label for="rock-check" class="checkbox-label">Rock</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Layer Controls Container -->
+    <!-- Begin Legend -->
+    <div id="legend-container" class="legend-container">
+      <div id="legend-title" class="legend-title">
+        <span>Legend</span>
+      </div>
+      <div id="legend-content" class="legend-content">
+        <div id="legend"></div>
+      </div>
+    </div>
+    <!-- End Legend -->
+    <!-- Wizard Tab -->
+    <div id="wizard-tab" class="wizard-tab">Analysis</div>
+    <!-- Wizard Tab -->
+	</div>
+  <!-- End Map Object -->  
+</div>
+<!-- Begin Analysis Wizard -->
+<div id="wizard-container" class="wizard-container">
+  <div id="wizard" class="wizard"></div>
+</div>
+<!-- End Analysis Wizard -->
+
+
