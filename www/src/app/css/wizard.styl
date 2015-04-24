@@ -1,0 +1,456 @@
+// Useful Functions
+border-radius()
+	border-radius arguments
+	-moz-border-radius arguments
+	-webkit-border-radius arguments
+
+top-border-radius()
+	-webkit-border-top-right-radius arguments
+	-webkit-border-top-left-radius arguments
+	-moz-border-radius topright arguments
+	-moz-border-radius topleft arguments
+	border-top-right-radius arguments
+	border-top-left-radius arguments
+
+lightGray = #ececed
+mediumGray = #888
+goldFont = #f0ab00
+greyBorder = #b2b2b2
+hoverBackground = #CDCDCD
+orangeSelected = rgb(233, 131, 0)
+orangeHover = rgba(233, 131, 0, 0.45)
+wizardBlue = #00688B
+
+.gfw .wizard-container
+	background-color #fff
+	position absolute
+	z-index 5
+	bottom 0
+	left 0
+	top 0
+
+.gfw .wizard-tab
+	background url('images/analysis_symbol_white.png') no-repeat 7px center
+	font-family Arial, sans-serif
+	background-color orangeSelected
+	padding 8px 7px 5px 25px
+	background-size 13px
+	border-radius(5px)
+	position absolute
+	font-size 16px
+	cursor pointer
+	color #fff
+	left 20px
+	top 20px
+	z-index 50
+
+.gfw .wizard, .gfw .wizard .wizard-root
+	height 100%
+	width 100%
+
+.gfw .wizard-header
+	position absolute
+	height 95px
+	right 0
+	left 0
+	top 0
+
+.gfw .wizard-body
+	position absolute
+	top 95px
+	bottom 0
+	right 0
+	left 0
+
+.gfw .wizard-body .step
+	position absolute
+	bottom 0
+	right 0
+	left 0
+	top 0
+
+.gfw .step .step-body
+	padding-left 10px
+	position absolute
+	overflow-y auto
+	bottom 50px
+	right 0
+	left 0
+	top 0
+	
+.gfw .step .step-footer
+	border-top 1px solid greyBorder
+	position absolute
+	height 50px
+	bottom 0
+	right 0
+	left 0
+
+.gfw .wizard-body select,
+.gfw .admin-unit input[type='text'],
+.gfw .certified-area input[type='text'],
+.gfw .commercial-entity input[type='text'],
+.gfw .mill-point input[type='text']
+	box-sizing border-box
+	margin-left 1px
+	font-size 16px
+	width 300px
+
+.gfw .wizard-body > div
+	overflow-y auto
+	height 100%
+
+.gfw .wizard-header .title-section
+	border-bottom 1px solid greyBorder
+	line-height 50px
+	height 50px
+
+.gfw .wizard-header .title
+	background url('images/analysis_symbol_black.png') no-repeat left center
+	padding-left 30px
+	margin-left 10px
+	font-size 26px
+
+.gfw .wizard-header .button
+	border-left 1px solid greyBorder
+	position absolute
+	cursor pointer
+
+.gfw .wizard-header .button.close
+	background url('images/close_symbol.png') no-repeat center
+	height 50px
+	width 40px
+	right 0
+	
+.gfw .wizard-header .button.reset
+	background url('images/reset_symbol.png') no-repeat 10px center
+	padding-left 35px
+	color greyBorder
+	width 60px
+	right 40px
+
+.gfw .wizard-header .breadcrumbs
+	padding 10px
+	clear both
+
+.gfw .wizard-header .breadcrumbs .active
+	color #000
+
+.gfw .wizard-header .breadcrumbs .enabled
+	cursor pointer
+	color goldFont
+
+.gfw .wizard-header .breadcrumbs .carat
+	color #000
+
+.gfw .wizard-header .breadcrumbs,
+.gfw .wizard-header .breadcrumbs span:not(.enabled) .carat
+	color lightGray
+	font-size 20px
+
+.gfw .wizard-body .hidden,
+.gfw .wizard-body .loading-wheel.hidden
+	display none
+
+.gfw .wizard-body .step-title
+	font-size 24px
+
+.gfw .wizard-body .step-description
+	margin 15px 5px
+
+.gfw .wizard-body .s1-radio-container
+	font-size 18px
+	margin 10px
+
+.gfw .s1-radio-container label
+	padding-left 10px
+
+.gfw .step .step-one-main-description
+	font-size 14px
+	margin 2px 0
+
+.gfw .step .step-one-option-description
+	margin 2px 25px
+	font-size 13px
+	
+.gfw .step .step-one-main-description ul
+	padding 0 0 0 25px
+	
+.gfw .step .step-one-main-description li
+	list-style disc
+
+.gfw .wizard-body .next-button-container
+	background-color orangeSelected
+	position absolute
+	text-align center
+	cursor pointer
+	font-size 20px
+	height 50px
+	width 120px
+	right 0
+
+.gfw .select-analysis .next-button-container
+	width 160px
+
+.gfw .wizard-body .next-button-container.disabled
+	background-color mediumGray
+	cursor default
+
+.gfw .wizard-body .next-button
+	line-height 50px
+	color #fff
+
+.gfw .wizard-body .next-button-container.disabled .next-button
+	color #444
+
+.gfw .step .clear-custom-features
+	text-decoration underline
+	display inline-block
+	margin 10px 10px 0 0
+	cursor pointer
+	float right
+	color blue
+
+.gfw .step .drawing-instructions
+	font-size 12px
+	margin 10px 0
+
+.gfw .step .upload-instructions
+	margin-bottom 5px
+	font-size 12px
+
+.gfw .step .instructions
+	margin 12px 0 2px
+	font-size 13px
+
+.gfw .step .selected-analysis-area
+	position absolute
+	right 120px
+	left 0
+
+.gfw .select-analysis .selected-analysis-area
+	right 160px
+
+.gfw .step .current-selection-label
+	position absolute
+	line-height 50px
+	font-size 18px
+	width 150px
+	left 5px
+
+.gfw .step .current-selection
+	text-overflow ellipsis
+	white-space nowrap
+	position absolute
+	line-height 50px
+	font-weight bold
+	overflow hidden
+	color goldFont
+	font-size 16px
+	left 160px
+	right 5px
+
+.gfw .step .current-selection.big-name
+	line-height 25px
+
+.gfw .step .drawing-tools
+	text-align center
+	font-size 18px
+	margin 10px 0
+
+.gfw .step .drawing-tool-button
+	background-color lightGray
+	display inline-block
+	padding 8px 10px 4px
+	border-radius(5px)
+	cursor pointer
+	margin 0 5px
+
+.gfw .step .drawing-tool-button:hover
+	background-color orangeHover	
+
+.gfw .step .drawing-tool-button.active
+	background-color orangeSelected
+
+.gfw .custom-feature-row
+	cursor pointer
+	padding 5px 0
+
+	&.active
+		background-color mediumGray !important
+		color #FFF
+
+.gfw .upload-toolbox form
+	text-align center
+
+.gfw .upload-toolbox #dropdownContainerName
+.gfw .upload-toolbox #dropdownContainerRadius
+	text-align center
+	margin 10px 0
+
+.gfw .custom-graphics-list-container
+	position absolute
+	overflow-y auto
+	top 380px
+	bottom 0
+	right 0
+	left 0
+
+.gfw .upload-toolbox.hidden + .custom-graphics-list-container
+	top 170px
+
+.gfw .custom-graphics-list-container .drawing-instructions,
+.gfw .custom-graphics-list-container .custom-feature-row
+	padding-left 10px
+	
+.gfw .custom-graphics-list-container .custom-feature-row:nth-child(odd)
+	background-color lightGray
+
+.gfw .dijitComboBoxMenuPopup
+	max-height 300px
+
+.gfw .wizard .dijitInputField
+	padding 3px 10px 0
+
+.gfw .wizard .child-checkboxes
+	margin-left 15px
+
+.gfw .wizard .wizard-checkbox-label
+	margin-left 5px
+	font-size 14px
+	color #000
+	
+.gfw .step-three-top .wizard-checkbox-label
+	font-weight bold
+	font-size 16px
+
+.gfw .wizard-checkbox.active .custom-check
+	background-color orangeSelected
+
+.gfw .wizard-checkbox.active .custom-check span
+	left 9px
+
+.gfw .wizard-checkbox.active .wizard-checkbox-label
+	color orangeSelected
+	
+.gfw .step .list-container
+	position absolute
+	overflow-y auto
+	left -10px
+	bottom 5px
+	right 0
+
+.gfw .list-container .wizard-list-item
+	font-size 15px
+	
+	&.active
+		color orangeSelected	
+
+.gfw .list-container .wizard-list-item span
+	border-bottom 1px solid lightGray
+	cursor pointer
+	display block
+	padding 2px 0
+
+.gfw .list-container .wizard-list-item > span
+	background-color lightGray
+	padding-left 20px
+
+	&.active
+		color orangeSelected
+
+.gfw .list-container .wizard-list-child-item
+	font-weight normal
+
+.gfw .list-container .wizard-list-child-item > span
+	padding-left 35px
+	
+.gfw .list-container .wizard-list-child-item.active-mill
+.gfw .list-container .wizard-list-child-item.active
+	background-color mediumGray
+	color #FFF
+
+.gfw .admin-unit .list-container
+	top 170px
+	
+.gfw .mill-point .list-container
+	top 160px
+
+.gfw .commercial-entity .list-container
+	top 165px
+	
+.gfw .certified-area .list-container
+	top 220px
+
+.gfw .wizard-body .country-select,
+.gfw .wizard-body .commodity-type-select,
+.gfw .wizard-body .certification-scheme-select
+	vertical-align top
+
+.gfw .wizard-body .loading-wheel
+	background url('images/loader.gif')
+	background-size 18px
+	display inline-block
+	position relative
+	height 18px
+	width 18px
+	left 5px
+	top 1px
+
+.gfw .select-analysis .layer-description
+	margin 0 5px 0 20px
+	font-size 12px
+
+.gfw .select-analysis .step-sub-header
+	margin 10px 0 5px 20px
+	font-weight bold
+	
+.gfw .select-analysis .sub-title
+	margin 5px 0
+
+.gfw .wizard-checkbox-container
+	font-size 18px
+	margin 5px 0
+	
+.gfw .select-analysis .checkbox-list
+	margin-left 15px
+
+.gfw .checkbox-list .wizard-checkbox-container
+	display inline-block
+	width 220px
+
+.gfw .checkbox-list .wizard-checkbox-container:nth-child(odd)
+	width 200px
+
+.gfw .wizard .wizard-checkbox
+	display inline-block
+	cursor pointer
+
+.gfw .nested-list .searchBox input
+	border 1px solid greyBorder
+	border-radius(5px)
+	padding-left 25px
+	width 440px
+	height 30px
+
+.gfw .nested-list .nested-list-search-icon
+	background url('images/simpleGeocoder.png') no-repeat 0px 0px
+	position absolute
+	height 15px
+	width 15px
+	left 5px
+	top 7px
+	
+.gfw .select-analysis .coming-soon
+	background rgb(220,220,220) // Incase Browser does not support rgba
+	background rgba(220,220,220, 0.9)
+	position absolute
+	text-align center
+	padding 13px
+	z-index 500
+	right 10px
+	left 0
+	top 0
+
+	
+	

@@ -1,0 +1,114 @@
+// Useful Functions
+border-radius()
+	border-radius arguments
+	-moz-border-radius arguments
+	-webkit-border-radius arguments
+
+baseGray = #e6e6e6
+lightGrayFont = #747474
+mediumGray = #888
+
+// Font Family for the Application
+@font-face {
+  font-family 'fira_sans_otregular'
+  src url(fonts/firasansot-regular-webfont.eot)
+  src url(fonts/firasansot-regular-webfont.eot?#iefix) format("embedded-opentype"),url(fonts/firasansot-regular-webfont.woff) format("woff"),url(fonts/firasansot-regular-webfont.ttf) format("truetype"),url(fonts/firasansot-regular-webfont.svg#fira_sans_otregular) format("svg")
+  font-weight normal
+  font-style normal
+}
+
+@font-face {
+  font-family 'fira_sans_otmedium'
+  src url(fonts/firasansot-medium-webfont.eot)
+  src url(fonts/firasansot-medium-webfont.eot?#iefix) format("embedded-opentype"),url(fonts/firasansot-medium-webfont.woff) format("woff"),url(fonts/firasansot-medium-webfont.ttf) format("truetype"),url(fonts/firasansot-medium-webfont.svg#fira_sans_otmedium) format("svg")
+  font-weight normal
+  font-style normal
+}
+
+@font-face {
+  font-family 'fira_sans_otlight'
+  src url(fonts/firasansot-light-webfont.eot)
+  src url(fonts/firasansot-light-webfont.eot?#iefix) format("embedded-opentype"),url(fonts/firasansot-light-webfont.woff) format("woff"),url(fonts/firasansot-light-webfont.ttf) format("truetype"),url(fonts/firasansot-light-webfont.svg#fira_sans_otmedium) format("svg")
+  font-weight normal
+  font-style normal
+}
+
+html, body, .gfw {
+  background-color #FFF
+  height 100%
+  width 100%
+  margin 0
+  font-family 'Fira Sans', 'fira_sans_otregular', Georgia, serif
+}
+
+// Generic Font Classes
+.gfw .light-gray-font
+	color lightGrayFont
+
+.gfw #app-body:not(.mapView) #stackContainer
+	min-height 300px
+	//max-height 700px
+
+.gfw #app-body.mapView #stackContainer
+	position absolute
+	top 135px
+	bottom 0
+	right 0
+	left 0
+
+// .gfw #app-body.mapView,
+// .gfw #app-body.mapView .dijitStackContainerChildWrapper.dijitVisible
+// 	height 100% !important
+
+.gfw .app-footer
+	//height 470px
+	width 100%
+
+.gfw .dijitLayoutContainer
+	overflow hidden
+
+.gfw .custom-check
+	transition all 0.1s ease-in-out
+	background-color mediumGray
+	display inline-block
+	border-radius(5px)
+	position relative
+	height 10px
+	width 17px
+	
+.gfw .custom-check span
+	transition all 0.1s ease-in-out
+	background-color #fff
+	border-radius(4px)
+	position absolute
+	height 6px
+	width 6px
+	left 2px
+	top 2px
+
+.gfw .dijitDialogTitleBar
+	background none !important
+	padding 10px 6px 3px 7px !important
+	color #aaa
+
+.gfw .dijitDialogPaneContent
+	border-top none !important
+
+.gfw .dijitDialogCloseIcon
+	right 15px !important
+	top 15px !important
+
+.gfw a:link
+	color #97bd3d
+
+.gfw .step .step-one-main-description {
+  font-size: 14px;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: gray;
+  line-height: 20px;
+}
+
+.gfw .step .step-one-main-description a {
+  color: orange;
+}
