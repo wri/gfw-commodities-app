@@ -37,7 +37,9 @@ The bootload.js file loads the classes differently when running locally vs on a 
 
 ### Build
 <p>Their will be two grunt tasks, <code>grunt build</code> and <code>grunt minify</code>.  The build task and minify task are the same except that the build task will automatically deploy the code after its built to staging whereas the minify will do nothing after building, which can be good for testing before deploying.</p>
+##### NOTE: grunt build is no longer used, use grunt minify, grunt build can be used if reconfigured but auth file and destination are not currently set.
 <p>The task <code>grunt build</code> needs a <strong>.ftpauth</strong> file located in the same directory as the Gruntfile.js which contains credentials for the task to log into ftp.  You can skip creating that file and specify them manually but <strong>DO NOT COMMIT YOUR CREDENTIALS TO ANY REPO</strong>.  If you really want to, you can get instructions on how to do that at my github page <a href='https://github.com/Robert-W/grunt-ftp-push' target='_blank'>https://github.com/Robert-W/grunt-ftp-push</a>.  The Recommended way is as follows: (NOTE: .ftpauth is added to .gitignore already so it wont be committed to the repo)</p>
+
 #### Create a file called .ftpauth with the following contents
 <pre><code>{
 	"staging": {
@@ -47,4 +49,3 @@ The bootload.js file loads the classes differently when running locally vs on a 
 }
 </code></pre>
 <p>The "staging" keyword is the key the plugin is configured to use, if you change tht you will need to modify the task in the Gruntfile, just leave it as is.</p>
-
