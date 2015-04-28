@@ -21,7 +21,6 @@ define([
             //dom.byId(viewId).innerHTML = html + dom.byId(viewId).innerHTML;
 
             setTimeout(function () {
-                alert('rewr');
                 var s = document.createElement('script'),
                 h = document.getElementsByTagName('body')[0];
                 s.setAttribute('src', "https://cdn.rawgit.com/simbiotica/gfw_assets/a1c6c10126d915e4198a7adf707adb266443f3e4/src/header-loader.js");
