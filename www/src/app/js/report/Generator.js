@@ -57,6 +57,7 @@ define([
             // Work in progress, was pulled into another project half way through implementation
             // RSPO Column Chart and Suitabiltiy Pie Chart are done and working
             //this.addCSVOptionToHighcharts();
+
         },
 
         // 20141217 CRB - Added info icon to Total Calculated Area in report header
