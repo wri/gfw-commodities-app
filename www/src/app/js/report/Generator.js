@@ -18,8 +18,9 @@ define([
     "esri/geometry/webMercatorUtils",
     // Local Modules from report folder
     "report/config",
-    "report/Fetcher"
-], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
+    "report/Fetcher",
+    "report/Exporter"
+], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher, Exporter) {
     'use strict';
 
     window.report = {};
@@ -52,6 +53,10 @@ define([
                     }
                 }
             });
+
+            // Work in progress, was pulled into another project half way through implementation
+            // RSPO Column Chart and Suitabiltiy Pie Chart are done and working
+            //this.addCSVOptionToHighcharts();
         },
 
         // 20141217 CRB - Added info icon to Total Calculated Area in report header
@@ -67,6 +72,146 @@ define([
                 //console.log("i button clicked -- setting popup visibility");
                 domStyle.set("total-area-info-popup", "visibility", "hidden");
             });
+        },
+
+        addCSVOptionToHighcharts: function () {
+            
+            var self = this;
+
+            function generateCSV () {
+                // This refers to chart context, not Generator context
+                // changing this or binding context to generateCSV will cause problems
+                // as we need the context to be related to the chart
+                var featureTitle = document.getElementById('title').innerHTML,
+                    type = this.options.chart.type,
+                    series = this.series,
+                    lineEnding = '\r\n',
+                    content = [],
+                    values = [],
+                    categories,
+                    output,
+                    serie,
+                    temp;
+
+                console.dir(this);
+
+                if (type === 'bar') {
+                    // Could be the loss charts or the suitable chart, check the length of xAxis.
+                    // The suitability composition breakdown has two x axes while all others have one
+                    // Use that as the determining factor but if more charts are added in the future, 
+                    // this check may need to be updated
+                    content.push(this.title.textStr);
+                    content.push(featureTitle);
+                    // If this.xAxis.length is > 1, its Suitability Composition Analysis
+                    if (this.xAxis.length > 1) {
+
+
+                    } else {
+
+
+                    }
+
+                } else if (type === 'column') {
+                    // RSPO Land Use Change Analysis
+                    content.push('RSPO Land Use Change Analysis');
+                    content.push(featureTitle);
+                    categories = this.xAxis[0].categories;
+                    // Push in the header categories
+                    arrayUtils.forEach(categories, function (category) {
+                        values.push(category);
+                    });
+                    // Add Name Catgory for First value, join the headers, add line ending
+                    content.push('Name,' + values.join(','));
+                    // Start creating a row for each series
+                    arrayUtils.forEach(series, function (serie) {
+                        values = [];
+                        values.push(serie.name);
+                        arrayUtils.forEach(serie.data, function (dataObject) {
+                            values.push(dataObject.y);
+                        });
+                        content.push(values.join(','));
+                    });
+
+                } else if (type === 'pie') {
+                    // Suitability by Legal Classification
+                    content.push(this.title.textStr);
+                    content.push(featureTitle);
+                    // Push in the categories first
+                    content.push('Status,Total,HP/HPT,HPK,APL');
+                    // Push in data into the correct buckets
+                    var suitable = ['Suitable'], unsuitable = ['Unsuitable'],
+                        hptUnsuit = 0,
+                        hpkUnsuit = 0,
+                        aplUnsuit = 0,
+                        hptSuit = 0,
+                        hpkSuit = 0,
+                        aplSuit = 0;
+
+                    // Handle Totals first
+                    serie = series[0];
+                    // There should only be two values here, if the ordering changes, function
+                    // will need to be updated to account for the serie being the the legal area data instead
+                    arrayUtils.forEach(serie.data, function (dataObject) {
+                        if (dataObject.name === 'Suitable') {
+                            suitable.push(dataObject.y);
+                        } else {
+                            unsuitable.push(dataObject.y);
+                        }
+                    });
+                    // Now Push in the Legal Areas
+                    serie = series[1];
+                    arrayUtils.forEach(serie.data, function (dataObject) {
+                        switch (dataObject.name) {
+                            case "HP/HPT":
+                                if (dataObject.parentId === "donut-Suitable") {
+                                    hptSuit = dataObject.y || 0;
+                                } else {
+                                    hptUnsuit = dataObject.y || 0;
+                                }
+                            break;
+                            case "APL":
+                                if (dataObject.parentId === "donut-Suitable") {
+                                    aplSuit = dataObject.y || 0;
+                                } else {
+                                    aplUnsuit = dataObject.y || 0;
+                                }
+                            break;
+                            case "HPK":
+                                if (dataObject.parentId === "donut-Suitable") {
+                                    hpkSuit = dataObject.y || 0;
+                                } else {
+                                    hpkUnsuit = dataObject.y || 0;
+                                }
+                            break;
+                        }
+                    });
+                    // Push these values into the appropriate array in the correct order
+                    suitable = suitable.concat([hptSuit, hpkSuit, aplSuit]);
+                    unsuitable = unsuitable.concat([hptUnsuit, hpkUnsuit, aplUnsuit]);
+                    // Push these arrays into the content array
+                    content.push(suitable.join(','));
+                    content.push(unsuitable.join(','));
+
+                } else if (type === undefined) {
+                    // Probably a clearance alerts analysis, its the only one without a type
+                    content.push(featureTitle);
+                }
+
+                if (content.length > 0) {
+                    output = content.join(lineEnding);
+                    console.log(output);
+                }
+
+                if (output) {
+                    //Exporter.exportCSV(output);
+                }
+            }
+
+            Highcharts.getOptions().exporting.buttons.contextButton.menuItems.push({
+                text: 'Download CSV',
+                onclick: generateCSV
+            });
+
         },
 
         prepareForAnalysis: function() {
@@ -188,8 +333,8 @@ define([
         },
 
         /*
-			@param  {string} title
-		*/
+            @param  {string} title
+        */
         setTitleAndShowReport: function(title) {
             // The report markup is hidden by default so they user does not see a flash of unstyled content
             // Remove the hidden class at this point and set the title
@@ -198,14 +343,14 @@ define([
         },
 
         /*
-			Get a lookup list of deferred functions to execute via _getArrayOfRequests
-			Fire off a query to get the area of the analysis and clearance alert bounds if necessary
-			split the lookup list based on the size to managable chunks using this._chunk
-			execute each chunk synchronously so we dont overwhelm the server using processRequests
-			  -- These deferred functions will request data, visualize it, and insert it into dom (all in Fetcher)
-			uses _getDeferredsForItems to return actual deferreds based on items in lookup list,
-			Once the major requests are completed, then fire off the fires query
-		*/
+            Get a lookup list of deferred functions to execute via _getArrayOfRequests
+            Fire off a query to get the area of the analysis and clearance alert bounds if necessary
+            split the lookup list based on the size to managable chunks using this._chunk
+            execute each chunk synchronously so we dont overwhelm the server using processRequests
+              -- These deferred functions will request data, visualize it, and insert it into dom (all in Fetcher)
+            uses _getDeferredsForItems to return actual deferreds based on items in lookup list,
+            Once the major requests are completed, then fire off the fires query
+        */
         beginAnalysis: function() {
 
             var requests = this._getArrayOfRequests(),
@@ -252,13 +397,13 @@ define([
             //if (report.analyzeTreeCoverLoss) {
             all([Fetcher._getFireAlertAnalysis()]).then(self.analysisComplete);
             //} else {
-            //	self.analysisComplete();
+            //  self.analysisComplete();
             //}
         },
 
         /*
-			Analysis is complete, handle that here
-		*/
+            Analysis is complete, handle that here
+        */
         analysisComplete: function() {
 
             // Generate Print Request to get URL
@@ -288,10 +433,10 @@ define([
         /* Helper Functions */
 
         /*
-			Returns array of strings representing which requests need to be made
-			@return  {array}
-			Deferred Mapping is in comments below this function
-		*/
+            Returns array of strings representing which requests need to be made
+            @return  {array}
+            Deferred Mapping is in comments below this function
+        */
         _getArrayOfRequests: function() {
             var requests = [];
 
@@ -307,27 +452,27 @@ define([
         },
 
         /*
-			
-			Deferred's Mapping
+            
+            Deferred's Mapping
 
-			suit - Fetcher._getSuitabilityAnalysis()
-			fires - Fetcher._getFireAlertAnalysis()
-			mill - Fetcher._getMillPointAnalysis()
-			primForest - Fetcher.getPrimaryForestResults()
-			protected - Fetcher.getProtectedAreaResults()
-			treeDensity - Fetcher.getTreeCoverResults()
-			carbon - Fetcher.getCarbonStocksResults()
-			intact - Fetcher.getIntactForestResults()
-			landCover - Fetcher.getLandCoverResults()
-			legal - Fetcher.getLegalClassResults()
-			peat - Fetcher.getPeatLandsResults()
-			rspo - Fetcher.getRSPOResults()
-		*/
+            suit - Fetcher._getSuitabilityAnalysis()
+            fires - Fetcher._getFireAlertAnalysis()
+            mill - Fetcher._getMillPointAnalysis()
+            primForest - Fetcher.getPrimaryForestResults()
+            protected - Fetcher.getProtectedAreaResults()
+            treeDensity - Fetcher.getTreeCoverResults()
+            carbon - Fetcher.getCarbonStocksResults()
+            intact - Fetcher.getIntactForestResults()
+            landCover - Fetcher.getLandCoverResults()
+            legal - Fetcher.getLegalClassResults()
+            peat - Fetcher.getPeatLandsResults()
+            rspo - Fetcher.getRSPOResults()
+        */
 
         /*
-			@param  {array} items
-			@return {array} of deferred functions
-		*/
+            @param  {array} items
+            @return {array} of deferred functions
+        */
         _getDeferredsForItems: function(items) {
             var deferreds = [];
 
