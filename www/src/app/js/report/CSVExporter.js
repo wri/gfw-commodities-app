@@ -1,8 +1,11 @@
 define([
-
-], function () {
+	'dojo/_base/array'
+], function (arrayUtils) {
 	'use strict';
 
+	/**
+	* Take some data and encode it into base64 format, see comments in function
+	*/
 	function encodeToBase64 (data) {
 		//  discuss at: http://phpjs.org/functions/base64_encode/
 	  //  original by: Tyler Akins (http://rumkin.com)
@@ -53,6 +56,10 @@ define([
 
 	}
 
+	/**
+	* Take some base64 data and encode it into blob friendly format, this is needed to export the csv in the proper
+	* format so Excel can read it correctly
+	*/
 	function base64ToBlob (base64Data, contentType) {
 		// Taken From: http://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
 		contentType = contentType || '';
@@ -80,6 +87,34 @@ define([
 
 		return new Blob(byteArrays, { type: contentType });
 
+	}
+
+	/**
+	* @param {object} chart - Takes a HighChart chart object
+	* @param {array} series - An Array of the chart series from the chart object
+	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
+	*/
+	function exportCompositionAnalysis (chart) {
+		var series = chart.series,
+				resultingData = [],
+				values = [];
+		// Create the headers first
+    arrayUtils.forEach(series[0].data, function (dataObject) {
+        values.push(dataObject.category);
+    });
+    // Push in those values with Suitability as the first Value
+    resultingData.push('Suitability,' + values.join(','));
+    // Now push the data from the individual series in
+    arrayUtils.forEach(series, function (serie) {
+        values = [];
+        values.push(serie.name);
+        arrayUtils.forEach(serie.data, function (dataObject) {
+            values.push(Math.abs(dataObject.y.toFixed(2)));
+        });
+        resultingData.push(values.join(','));
+    });
+
+    return resultingData;
 	}
 
 
@@ -112,7 +147,10 @@ define([
 
 			}
 
-		}
+		},
+
+		// Export Helper Functions
+		exportCompositionAnalysis: exportCompositionAnalysis
 
 	};
 

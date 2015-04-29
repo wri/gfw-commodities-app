@@ -19,8 +19,8 @@ define([
     // Local Modules from report folder
     "report/config",
     "report/Fetcher",
-    "report/Exporter"
-], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher, Exporter) {
+    "report/CSVExporter"
+], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher, CSVExporter) {
     'use strict';
 
     window.report = {};
@@ -54,9 +54,8 @@ define([
                 }
             });
 
-            // Work in progress, was pulled into another project half way through implementation
             // RSPO Column Chart and Suitabiltiy Pie Chart are done and working
-            //this.addCSVOptionToHighcharts();
+            this.addCSVOptionToHighcharts();
 
         },
 
@@ -105,8 +104,9 @@ define([
                     content.push(featureTitle);
                     // If this.xAxis.length is > 1, its Suitability Composition Analysis
                     if (this.xAxis.length > 1) {
-
-
+                        // Pass in the reference to the chart
+                        var data = CSVExporter.exportCompositionAnalysis(this);
+                        content = content.concat(data);
                     } else {
 
 
@@ -204,7 +204,7 @@ define([
                 }
 
                 if (output) {
-                    //Exporter.exportCSV(output);
+                    //CSVExporter.exportCSV(output);
                 }
             }
 
