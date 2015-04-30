@@ -153,14 +153,14 @@ define([
           });
 
           this._toggleChildren(component, 'remove');
-          Hasher.toggleLayers(component.props.key);
+          Hasher.removeLayers(component.props.key);
           topic.publish('hideLayer', component.props.key);
 
         }
       } else {
       	// Add New if None is not selected and isNew
 	      if (component.props.key.search("none_") === -1) {
-	      	Hasher.removeLayers(component.props.key);
+	      	Hasher.toggleLayers(component.props.key);
 					topic.publish('showLayer', component.props.key);
 	      }
       }
