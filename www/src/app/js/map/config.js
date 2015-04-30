@@ -419,14 +419,16 @@ define([], function() {
             type: "radio",
             layerType: "dynamic",
             infoDivClass: "forest-change-nasa-active-fires"
-        }, {
-            key: "none_fc",
-            title: "None",
-            subtitle: "",
-            filter: "forest-change",
-            type: "radio",
-            layerType: "none"
-        }, {
+        }, 
+        // {
+        //     key: "none_fc",
+        //     title: "None",
+        //     subtitle: "",
+        //     filter: "forest-change",
+        //     type: "radio",
+        //     layerType: "none"
+        // }, 
+        {
             key: "tcd",
             title: "Tree Cover Density",
             subtitle: "(year 2000, 30m global)",
@@ -532,14 +534,16 @@ define([], function() {
             type: "radio",
             layerType: "dynamic",
             infoDivClass: "forest-and-land-cover-legal-classifications"
-        }, {
-            key: "none_fco",
-            title: "None",
-            subtitle: "",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "none"
-        }, {
+        }, 
+        // {
+        //     key: "none_fco",
+        //     title: "None",
+        //     subtitle: "",
+        //     filter: "forest-cover",
+        //     type: "radio",
+        //     layerType: "none"
+        // }, 
+        {
             key: "oilPerm",
             title: "Oil Palm",
             subtitle: "(varies, select countries)",
@@ -690,14 +694,16 @@ define([], function() {
             type: "radio",
             layerType: "dynamic",
             infoDivClass: "suitability-soil-type"
-        }, {
-            key: "none_agro",
-            title: "None",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "none"
-        }],
+        }
+        // , {
+        //     key: "none_agro",
+        //     title: "None",
+        //     subtitle: "",
+        //     filter: "agro-suitability",
+        //     type: "radio",
+        //     layerType: "none"
+        // }
+        ],
 
         // Miscellaneous Settings
         treeCoverLossSlider: {

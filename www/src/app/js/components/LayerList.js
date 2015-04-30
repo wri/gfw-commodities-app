@@ -42,11 +42,11 @@ define([
     			}
     		});
     		// If none are active, select the none radio button
-    		if (!foundActive) {
-    			noneComponent.setState({
-    				active: true
-    			});
-    		}
+    		// if (!foundActive) {
+    		// 	noneComponent.setState({
+    		// 		active: true
+    		// 	});
+    		// }
     	});
 
     },
@@ -109,7 +109,7 @@ define([
       }   
     },
 
-    _radio: function (component) {
+    _radio: function (component) {      
 
       var previous,
       		isNewSelection;
@@ -146,20 +146,32 @@ define([
 						topic.publish('showLayer', component.props.key);
 		      }
 
+        } else {
+          // The Same button was clicked twice, just disable it
+          component.setState({
+            active: false
+          });
+
+          this._toggleChildren(component, 'remove');
+          Hasher.toggleLayers(component.props.key);
+          topic.publish('hideLayer', component.props.key);
+
         }
       } else {
       	// Add New if None is not selected and isNew
 	      if (component.props.key.search("none_") === -1) {
-	      	Hasher.toggleLayers(component.props.key);
+	      	Hasher.removeLayers(component.props.key);
 					topic.publish('showLayer', component.props.key);
 	      }
       }
 
-      component.setState({
-        active: true
-      });
+      if (isNewSelection !== false) {
+        component.setState({
+          active: true
+        });
 
-      this._toggleChildren(component, 'add');
+        this._toggleChildren(component, 'add');
+      }
 
     },
 

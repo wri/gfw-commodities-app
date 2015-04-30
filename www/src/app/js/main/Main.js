@@ -21,11 +21,26 @@ define([
 
 			// Add Platform Specific Classes to the body tag
 			var userAgent = navigator.userAgent;
-			if (userAgent.search('NT 6.1') > -1) {
-				document.body.className += ' windows_7';
-			} else if (userAgent.search('NT 6.2') > -1) {
-				document.body.className += ' windows_8';
+			// Regex for pulling the version number out
+			var regex = /\(.*?(\d+\.\d+).*?\)/;
+			var versionNumber, match;
+
+			if (userAgent.search('Windows NT') > -1) {
+				match = regex.exec(userAgent);
+				versionNumber = (match ? parseFloat(match[1]) : undefined);
+				if (versionNumber >= 6.2) {
+					document.body.className += ' windows_8';
+				} else {
+					document.body.className += ' windows_7';
+				}
 			}
+
+			// This works but is not automatically scalable, where as above is, if it matches correctly
+			// if (userAgent.search('NT 6.1') > -1) {
+			// 	document.body.className += ' windows_7';
+			// } else if ((userAgent.search('NT 6.2') > -1) || (userAgent.search('NT 6.3') > -1)) {
+			// 	document.body.className += ' windows_8';
+			// }
 
 			// IE11 Detection Because dojo no longer wants to add ie class names to html since 1.9.2, thanks dojo
 			if (has('trident')) {

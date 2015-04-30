@@ -134,7 +134,7 @@ define([
         values.push(category);
     });
     // Add Name Catgory for First value and then join the headers
-    csvData.push('Name,' + values.join(','));
+    csvData.push('Type,' + values.join(','));
     // Start creating a row for each series
     arrayUtils.forEach(series, function (serie) {
         values = [];
@@ -167,7 +167,7 @@ define([
 				serie;
 
 		// Push in the categories first
-    csvData.push('Status,Total,HP/HPT,HPK,APL');
+    csvData.push('Suitability,Total,HP/HPT,HPK,APL');
     // Handle Totals first
     serie = series[0];
     // There should only be two values here, if the ordering changes, function
