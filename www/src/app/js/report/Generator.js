@@ -81,130 +81,47 @@ define([
             function generateCSV () {
                 // This refers to chart context, not Generator context
                 // changing this or binding context to generateCSV will cause problems
-                // as we need the context to be related to the chart
+                // as we need the context to be the chart
                 var featureTitle = document.getElementById('title').innerHTML,
                     type = this.options.chart.type,
-                    series = this.series,
                     lineEnding = '\r\n',
                     content = [],
-                    values = [],
-                    categories,
-                    output,
-                    serie,
-                    temp;
+                    csvData,
+                    output;
 
-                console.dir(this);
+                // All Charts have a title except RSPO Land Use Change Analysis
+                // If the type is column, it's the RSPO Chart so return that for a title
+                content.push(type === 'column' ? 'RSPO Land Use Change Analysis' : this.title.textStr);
+                content.push(featureTitle);
 
-                if (type === 'bar') {
-                    // Could be the loss charts or the suitable chart, check the length of xAxis.
-                    // The suitability composition breakdown has two x axes while all others have one
-                    // Use that as the determining factor but if more charts are added in the future, 
-                    // this check may need to be updated
-                    content.push(this.title.textStr);
-                    content.push(featureTitle);
-                    // If this.xAxis.length is > 1, its Suitability Composition Analysis
-                    if (this.xAxis.length > 1) {
-                        // Pass in the reference to the chart
-                        var data = CSVExporter.exportCompositionAnalysis(this);
-                        content = content.concat(data);
-                    } else {
-
-
-                    }
-
-                } else if (type === 'column') {
-                    // RSPO Land Use Change Analysis
-                    content.push('RSPO Land Use Change Analysis');
-                    content.push(featureTitle);
-                    categories = this.xAxis[0].categories;
-                    // Push in the header categories
-                    arrayUtils.forEach(categories, function (category) {
-                        values.push(category);
-                    });
-                    // Add Name Catgory for First value, join the headers, add line ending
-                    content.push('Name,' + values.join(','));
-                    // Start creating a row for each series
-                    arrayUtils.forEach(series, function (serie) {
-                        values = [];
-                        values.push(serie.name);
-                        arrayUtils.forEach(serie.data, function (dataObject) {
-                            values.push(dataObject.y);
-                        });
-                        content.push(values.join(','));
-                    });
-
+                // If type is bar it could be the loss charts or the suitable chart, check the number of xAxes.
+                // The suitability composition breakdown has two x axes while all others have one
+                // Use that as the determining factor but if more charts are added in the future, 
+                // this check may need to be updated
+                if (type === 'bar' && this.xAxis.length > 1) {
+                    // Pass in the reference to the chart
+                    csvData = CSVExporter.exportCompositionAnalysis(this);
+                    content = content.concat(csvData);
                 } else if (type === 'pie') {
-                    // Suitability by Legal Classification
-                    content.push(this.title.textStr);
-                    content.push(featureTitle);
-                    // Push in the categories first
-                    content.push('Status,Total,HP/HPT,HPK,APL');
-                    // Push in data into the correct buckets
-                    var suitable = ['Suitable'], unsuitable = ['Unsuitable'],
-                        hptUnsuit = 0,
-                        hpkUnsuit = 0,
-                        aplUnsuit = 0,
-                        hptSuit = 0,
-                        hpkSuit = 0,
-                        aplSuit = 0;
-
-                    // Handle Totals first
-                    serie = series[0];
-                    // There should only be two values here, if the ordering changes, function
-                    // will need to be updated to account for the serie being the the legal area data instead
-                    arrayUtils.forEach(serie.data, function (dataObject) {
-                        if (dataObject.name === 'Suitable') {
-                            suitable.push(dataObject.y);
-                        } else {
-                            unsuitable.push(dataObject.y);
-                        }
-                    });
-                    // Now Push in the Legal Areas
-                    serie = series[1];
-                    arrayUtils.forEach(serie.data, function (dataObject) {
-                        switch (dataObject.name) {
-                            case "HP/HPT":
-                                if (dataObject.parentId === "donut-Suitable") {
-                                    hptSuit = dataObject.y || 0;
-                                } else {
-                                    hptUnsuit = dataObject.y || 0;
-                                }
-                            break;
-                            case "APL":
-                                if (dataObject.parentId === "donut-Suitable") {
-                                    aplSuit = dataObject.y || 0;
-                                } else {
-                                    aplUnsuit = dataObject.y || 0;
-                                }
-                            break;
-                            case "HPK":
-                                if (dataObject.parentId === "donut-Suitable") {
-                                    hpkSuit = dataObject.y || 0;
-                                } else {
-                                    hpkUnsuit = dataObject.y || 0;
-                                }
-                            break;
-                        }
-                    });
-                    // Push these values into the appropriate array in the correct order
-                    suitable = suitable.concat([hptSuit, hpkSuit, aplSuit]);
-                    unsuitable = unsuitable.concat([hptUnsuit, hpkUnsuit, aplUnsuit]);
-                    // Push these arrays into the content array
-                    content.push(suitable.join(','));
-                    content.push(unsuitable.join(','));
-
-                } else if (type === undefined) {
-                    // Probably a clearance alerts analysis, its the only one without a type
-                    content.push(featureTitle);
+                    // Suitability by Legal Classification 
+                    // Pass in the reference to the chart
+                    csvData = CSVExporter.exportSuitabilityByLegalClass(this);
+                    content = content.concat(csvData);                    
+                } else {
+                    // Its either a bar chart with one axis, line chart, or column chart
+                    // Pass in the reference to the chart
+                    csvData = CSVExporter.exportSimpleChartAnalysis(this);
+                    content = content.concat(csvData);
                 }
 
-                if (content.length > 0) {
+                // If only the chart title and feature title are in, then no data was exported so
+                // don't continue
+                if (content.length > 1) {
                     output = content.join(lineEnding);
-                    console.log(output);
                 }
 
                 if (output) {
-                    //CSVExporter.exportCSV(output);
+                    CSVExporter.exportCSV(output);
                 }
             }
 

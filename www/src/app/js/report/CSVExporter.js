@@ -91,19 +91,18 @@ define([
 
 	/**
 	* @param {object} chart - Takes a HighChart chart object
-	* @param {array} series - An Array of the chart series from the chart object
 	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
 	*/
 	function exportCompositionAnalysis (chart) {
 		var series = chart.series,
-				resultingData = [],
+				csvData = [],
 				values = [];
 		// Create the headers first
     arrayUtils.forEach(series[0].data, function (dataObject) {
         values.push(dataObject.category);
     });
     // Push in those values with Suitability as the first Value
-    resultingData.push('Suitability,' + values.join(','));
+    csvData.push('Suitability,' + values.join(','));
     // Now push the data from the individual series in
     arrayUtils.forEach(series, function (serie) {
         values = [];
@@ -111,10 +110,125 @@ define([
         arrayUtils.forEach(serie.data, function (dataObject) {
             values.push(Math.abs(dataObject.y.toFixed(2)));
         });
-        resultingData.push(values.join(','));
+        csvData.push(values.join(','));
     });
 
-    return resultingData;
+    return csvData;
+	}
+
+	/**
+	* This works for bar charts, line charts, and column charts whose categories are on the xAxis
+	* NOTE: Highcharts sometimes rotates charts so it may look like the yAxis but look where the data starts
+	* @param {object} chart - Takes a HighChart chart object
+	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
+	*/
+	function exportSimpleChartAnalysis (chart) {
+		var series = chart.series,
+				csvData = [],
+				values = [],
+				categories;
+
+		categories = chart.xAxis[0].categories;
+    // Push in the header categories
+    arrayUtils.forEach(categories, function (category) {
+        values.push(category);
+    });
+    // Add Name Catgory for First value and then join the headers
+    csvData.push('Name,' + values.join(','));
+    // Start creating a row for each series
+    arrayUtils.forEach(series, function (serie) {
+        values = [];
+        values.push(serie.name);
+        arrayUtils.forEach(serie.data, function (dataObject) {
+            values.push(dataObject.y);
+        });
+        csvData.push(values.join(','));
+    });
+
+    return csvData;
+	}
+
+	/**
+	* @param {object} chart - Takes a HighChart chart object
+	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
+	*/
+	function exportSuitabilityByLegalClass (chart) {
+		var unsuitable = ['Unsuitable'],
+				suitable = ['Suitable'],
+				series = chart.series,
+				hptUnsuit = 0,
+        hpkUnsuit = 0,
+        aplUnsuit = 0,
+        hptSuit = 0,
+        hpkSuit = 0,
+        aplSuit = 0,
+				csvData = [],
+				values = [],
+				serie;
+
+		// Push in the categories first
+    csvData.push('Status,Total,HP/HPT,HPK,APL');
+    // Handle Totals first
+    serie = series[0];
+    // There should only be two values here, if the ordering changes, function
+    // will need to be updated to account for the serie being the the legal area data instead
+    arrayUtils.forEach(serie.data, function (dataObject) {
+        if (dataObject.name === 'Suitable') {
+            suitable.push(dataObject.y);
+        } else {
+            unsuitable.push(dataObject.y);
+        }
+    });
+    // Now Push in the Legal Areas
+    serie = series[1];
+    arrayUtils.forEach(serie.data, function (dataObject) {
+        switch (dataObject.name) {
+            case "HP/HPT":
+                if (dataObject.parentId === "donut-Suitable") {
+                    hptSuit = dataObject.y || 0;
+                } else {
+                    hptUnsuit = dataObject.y || 0;
+                }
+            break;
+            case "APL":
+                if (dataObject.parentId === "donut-Suitable") {
+                    aplSuit = dataObject.y || 0;
+                } else {
+                    aplUnsuit = dataObject.y || 0;
+                }
+            break;
+            case "HPK":
+                if (dataObject.parentId === "donut-Suitable") {
+                    hpkSuit = dataObject.y || 0;
+                } else {
+                    hpkUnsuit = dataObject.y || 0;
+                }
+            break;
+        }
+    });
+    // Push these values into the appropriate array in the correct order
+    suitable = suitable.concat([hptSuit, hpkSuit, aplSuit]);
+    unsuitable = unsuitable.concat([hptUnsuit, hpkUnsuit, aplUnsuit]);
+    // Push these arrays into the content array
+    csvData.push(suitable.join(','));
+    csvData.push(unsuitable.join(','));
+
+    return csvData;
+	}
+
+	/**
+	* @param {object} chart - Takes a HighChart chart object
+	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
+	*/
+	function exportClearanceAnalysis (chart) {
+		var series = chart.series,
+				csvData = [],
+				values = [],
+				categories;
+
+		console.log(chart);
+
+		return csvData;
 	}
 
 
@@ -150,7 +264,9 @@ define([
 		},
 
 		// Export Helper Functions
-		exportCompositionAnalysis: exportCompositionAnalysis
+		exportSuitabilityByLegalClass: exportSuitabilityByLegalClass,
+		exportCompositionAnalysis: exportCompositionAnalysis,
+		exportSimpleChartAnalysis: exportSimpleChartAnalysis
 
 	};
 

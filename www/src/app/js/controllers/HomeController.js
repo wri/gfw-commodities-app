@@ -147,8 +147,10 @@ define([
             HomeModel.initialize("homeView");
             o.startModeAnim();
 
+            // GFW Requested to remove this feature
+            // Commenting out for now in case it needs to be added back in
             // Show the Splash Info Window
-            this.showSplashScreen();
+            // this.showSplashScreen();
 
         },
 
