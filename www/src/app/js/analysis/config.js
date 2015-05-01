@@ -318,7 +318,7 @@ define([], function() {
 
         millPoints: {
             instructions: 'Select a commodity type:',
-            instructionsPartTwo: "Select up to 5 mills from the list below and click \"Next\" to proceed.",
+            instructionsPartTwo: "Select mill(s) from the list below and click \"Next\" to proceed.",
             commodityOptions: [{
                 label: 'Oil palm',
                 value: 'Oil palm concession'
@@ -331,6 +331,10 @@ define([], function() {
             labelField: 'Mill_name', // Children
             valueField: 'Entity_ID',
             requiredField: 'Parent_Com' // Bucket a.k.a. parent
+        },
+
+        STORE_KEYS: {
+            
         }
 
     };
