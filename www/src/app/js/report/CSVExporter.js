@@ -216,22 +216,6 @@ define([
     return csvData;
 	}
 
-	/**
-	* @param {object} chart - Takes a HighChart chart object
-	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
-	*/
-	function exportClearanceAnalysis (chart) {
-		var series = chart.series,
-				csvData = [],
-				values = [],
-				categories;
-
-		console.log(chart);
-
-		return csvData;
-	}
-
-
 	var Exporter = {
 
 		exportCSV: function (exportData) {

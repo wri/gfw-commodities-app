@@ -130,6 +130,7 @@ html, body
 .gfw .report-body .left-panel,
 .gfw .report-body .right-panel
 	display inline-block
+	position relative
 	margin 0 10px
 	width 430px
 
@@ -500,3 +501,21 @@ html, body
 	clear both
 	padding 10px
 	border-top 1px solid #b2b2b2
+	
+.csv-download
+	background url("images/download-icon.svg") no-repeat center
+	box-sizing border-box
+	background-size 16px
+	position absolute
+	height 24px
+	width 24px
+	right 0px
+	top 12px
+	
+#suitability-table-csv
+	top 0
+
+.csv-download:hover
+	background-color rgba(102,136,170, 0.25)
+	border 1px solid #68A
+	border-radius(5px)

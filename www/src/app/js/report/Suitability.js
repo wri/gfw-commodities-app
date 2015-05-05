@@ -10,8 +10,9 @@ define([
 	"dojo/Deferred",
 	"dojo/_base/lang",
 	"dojo/_base/array",
-	"dojo/promise/all"
-], function (esriRequest, Query, QueryTask, Polygon, ReportConfig, Deferred, lang, arrayUtils, all) {	
+	"dojo/promise/all",
+	"report/CSVExporter"
+], function (esriRequest, Query, QueryTask, Polygon, ReportConfig, Deferred, lang, arrayUtils, all, CSVExporter) {	
 
 	return {
 
@@ -21,6 +22,8 @@ define([
 
 			function complete(data) {
 				deferred.resolve(data);
+				// Attach Events for Downloading certain data as CSV data
+				self.attachEvents();
 			}
 
 			all([
@@ -32,6 +35,19 @@ define([
 			]).then(complete);
 
 			return deferred.promise;
+		},
+
+		attachEvents: function () {
+			$("#suitability-table-csv").click(this.downloadSuitabilityTable);
+			$("#suitability-settings-csv").click(this.downloadSuitabiltiySettings);
+		},
+
+		downloadSuitabilityTable: function () {
+			
+		},
+
+		downloadSuitabiltiySettings: function () {
+			CSVExporter.exportCSV(payload.suitability.csv);
 		},
 
 		getSuitableAreas: function (pixelSize) {
