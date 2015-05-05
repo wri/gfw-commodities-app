@@ -3,6 +3,7 @@
 define([
 	"react",
   "analysis/config",
+  "analysis/WizardStore",
   "esri/units",
   "esri/Color",
   "esri/graphic",
@@ -26,7 +27,7 @@ define([
   "map/config",
   "map/MapModel",
   "utils/GeoHelper"
-], function (React, AnalyzerConfig, Units, Color, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, sniff, registry, domClass, Memory, domConstruct, ComboBox, MapConfig, MapModel, GeoHelper) {
+], function (React, AnalyzerConfig, WizardStore, Units, Color, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, sniff, registry, domClass, Memory, domConstruct, ComboBox, MapConfig, MapModel, GeoHelper) {
 
   var customFeatureSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                             new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
@@ -35,6 +36,8 @@ define([
       graphicsLayer,
       drawToolbar,
       activeTool;
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   function getDefaultState() {
     return {
@@ -105,7 +108,8 @@ define([
 
     _graphicsMapper: function (item) {
       var existsSelection = this.props.analysisArea !== undefined;
-      var isAreaOfInterestCustom = this.props.selectedArea == 'customAreaOption';
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var isAreaOfInterestCustom = selectedAreaOfInterest === 'customAreaOption';
       var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == this.props.analysisArea.attributes.WRI_ID) ? 'custom-feature-row active' : 'custom-feature-row';
       return React.DOM.div(
         {
@@ -124,7 +128,8 @@ define([
       customFeatures = [];
       graphicsLayer.clear();
       this.setState(getDefaultState());
-      this.props.callback.updateAnalysisArea();
+      // Reset this key to undefined
+      WizardStore.set(KEYS.analysisArea);
       // Deactivate all the tools if active
       this._deactivateToolbar();
       this._removeActiveClass();
@@ -136,9 +141,7 @@ define([
       this._removeActiveClass();
 
       // Hide the Upload tools if visible
-      this.setState({
-        showUploadTools: false
-      });
+      this.setState({ showUploadTools: false });
 
       // If they clicked the same button twice, deactivate the toolbar
       if (activeTool === evt.target.id) {
@@ -172,9 +175,7 @@ define([
         this._disableUploadTools();
       } else {
         domClass.add(evt.target, 'active');
-        this.setState({
-          showUploadTools: true
-        });
+        this.setState({ showUploadTools: true });
       }
 
       // If one of the other tools is active, deactivate it and remove active classes from other tools
@@ -461,9 +462,7 @@ define([
       graphicsLayer.graphics.forEach(function (g) {
         if (g.attributes.WRI_ID === parseInt(id)) {
           GeoHelper.zoomToFeature(g);
-          // Pass the Feature to Component StepTwo.js, he will update his state to completed is true, and he will 
-          // have a feature to display in the Current feature for analysis section
-          self.props.callback.updateAnalysisArea(g);
+          WizardStore.set(KEYS.analysisArea, g);
         }
       });
     },

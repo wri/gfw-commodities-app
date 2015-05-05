@@ -334,7 +334,11 @@ define([], function() {
         },
 
         STORE_KEYS: {
-            
+            analyisArea: 'analyisArea',
+            userStep: 'userStep',
+            areaOfInterest: 'areaOfInterest',
+            analysisSets: 'analysisSets',
+            optionalAnalysisLabel: 'optionalLabel'
         }
 
     };

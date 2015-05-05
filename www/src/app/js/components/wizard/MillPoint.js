@@ -8,8 +8,9 @@ define([
   "analysis/Query",
   "analysis/config",
   "utils/GeoHelper",
+  "analysis/WizardStore",
   "components/wizard/NestedList"
-], function (React, MapConfig, topic, dojoQuery, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, NestedList) {
+], function (React, MapConfig, topic, dojoQuery, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, NestedList) {
 
   var config = AnalyzerConfig.millPoints,
       selectedFeatures = [],
@@ -22,6 +23,8 @@ define([
         });
       };
 
+  var KEYS = AnalyzerConfig.STORE_KEYS;
+
 	return React.createClass({
 
     getInitialState: function () {
@@ -31,10 +34,6 @@ define([
       });
     },
 
-    componentDidMount: function () {
-
-    },
-
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
@@ -42,8 +41,11 @@ define([
 
       // If the area is this one, we have a selected commodity, the current step is this one
       // and the previous step is 0, then we should update the layer defs to match this UI
-      if (newProps.selectedArea === 'millPointOption' && 
-                     this.props.currentStep === 1 &&
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
+
+      if (selectedAreaOfInterest === 'millPointOption' && 
+                     currentStep === 1 &&
                      newProps.currentStep === 2) {
 
         // If Mill Points is not visible show it and select it in the UI, otherwise do nothing
@@ -60,14 +62,11 @@ define([
         selectedFeatures = [];
         selectedLabels = [];
 
-        this.setState( { activeListItemValues: [] } );
-        // dojoQuery(".gfw .list-container .wizard-list-child-item.active-mill").forEach(function (node) {
-        //   domClass.remove(node, 'active-mill');
-        // });
+        this.setState({ activeListItemValues: [] });
 
       }
 
-      if (newProps.selectedArea === 'millPointOption' && newProps.currentStep === 2) {
+      if (selectedAreaOfInterest === 'millPointOption' && newProps.currentStep === 2) {
         if (this.state.nestedListData.length === 0) {
           // Get Data
           this._loadMillPoints();
@@ -200,10 +199,11 @@ define([
 
             // Mark this as your current selection and provide label
             if (selectedFeatures.length > 0) {
-              self.props.callback.updateAnalysisArea(selectedFeatures, selectedLabels.join(', '));
+              WizardStore.set(KEYS.analysisArea, selectedFeatures);
+              WizardStore.set(KEYS.optionalAnalysisLabel, selectedLabels.join(', '));
             } else {
               // This resets the current selection to none
-              self.props.callback.updateAnalysisArea(undefined);
+              WizardStore.set(KEYS.analysisArea);
             }
 
           });

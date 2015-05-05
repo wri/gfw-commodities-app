@@ -21,6 +21,7 @@ define([
 		*/
 		set: function (key, value) {
 			Store[key] = value;
+			this.updateSubscribers(key);
 		},
 
 		/**
@@ -33,6 +34,18 @@ define([
 			} else {
 				Callbacks[key] = [];
 				Callbacks[key].push(callback);
+			}
+		},
+
+		/**
+		* @param {string} key - key of Callbacks to invoke
+		*/
+		updateSubscribers: function (key) {
+			var callbacks = Callbacks[key];
+			if (callbacks) {
+				callbacks.forEach(function (func) {
+					func();
+				});
 			}
 		}
 

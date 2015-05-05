@@ -1,6 +1,7 @@
 define([
     "react",
     "analysis/config",
+    "analysis/WizardStore",
     "components/wizard/StepOne",
     "components/wizard/StepTwo",
     "components/wizard/StepThree",
@@ -13,16 +14,17 @@ define([
     "dojo/_base/lang",
     "esri/tasks/PrintTask",
     "map/Controls"
-], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls) {
+], function(React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
+    var KEYS = AnalyzerConfig.STORE_KEYS;
 
     function getDefaultState() {
         return {
-            currentStep: 0,
-            analysisArea: undefined,
-            analysisSets: undefined,
-            analysisTypes: undefined
+            currentStep: WizardStore.get(KEYS.userStep) || 0,
+            analysisArea: WizardStore.get(KEYS.analysisArea),
+            usersAreaOfInterest: WizardStore.get(KEYS.areaOfInterest),
+            analysisSets: WizardStore.get(KEYS.analysisSets)
         };
     }
 
@@ -36,32 +38,57 @@ define([
         },
 
         componentDidMount: function() {
+            // Register Callbacks for analysis area updates
+            // Anytime the data in the store at these keys is updated, these callbacks trigger
+            WizardStore.registerCallback(KEYS.analysisArea, this.analysisAreaUpdated);
+            WizardStore.registerCallback(KEYS.userStep, this.currentUserStepUpdated);
+            WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
+            WizardStore.registerCallback(KEYS.analysisSets, this.analysisSetsUpdated);
+
+            // if we need to skip the intro, update the current step
+            // else, store the current step in the store since this key needs a default value in the store
             if (this.props.skipIntro) {
-                this.setState({
-                    currentStep: 3
-                });
+                WizardStore.set(KEYS.userStep, 3);
+            } else {
+                WizardStore.set(KEYS.userStep, this.state.currentStep);
             }
         },
+
+        /* Methods for reacting to store updates */
+        analysisAreaUpdated: function () {
+            var updatedArea = WizardStore.get(KEYS.analysisArea);
+            this.setState({ analysisArea: updatedArea });
+        },
+
+        currentUserStepUpdated: function () {
+            var newStep = WizardStore.get(KEYS.userStep);
+            this.setState({ currentStep: newStep });
+        },
+
+        areaOfInterestUpdated: function () {
+            var newAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+            this.setState({ usersAreaOfInterest: newAreaOfInterest });
+        },
+
+        analysisSetsUpdated: function () {
+            var newAnalysisSets = WizardStore.get(KEYS.analysisSets);
+            this.setState({ analysisSets: newAnalysisSets });
+        },
+        /* Methods for reacting to store updates above */
 
         componentDidUpdate: function(prevProps, prevState) {
             if (this.props.isResetting) {
                 // Reset the isResetting property so any future changes dont accidentally trigger a reset
-                this.setProps({
-                    isResetting: false
-                });
+                this.setProps({ isResetting: false });
             }
 
             // User returned to Step 1 so we need to reset some things.
             if (prevState.currentStep > 1 && this.state.currentStep === 1) {
               // Reset the analysis area
-              this.setState({
-                analysisArea: undefined
-              });
+              WizardStore.set(KEYS.analysisArea, undefined);
               // Clear Graphics from Wizard Layer, it just shows the selection they made
               var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-              if (wizLayer) {
-                wizLayer.clear();
-              }
+              if (wizLayer) { wizLayer.clear(); }
             }
         },
 
@@ -71,7 +98,11 @@ define([
             // Mixin any state/props that need to be mixed in here
             props.analysisArea = this.state.analysisArea;
             props.currentStep = this.state.currentStep;
-            if (props.currentStep === 0) {
+            props.callback = {
+                performAnalysis: this._performAnalysis
+            };
+
+            if (this.state.currentStep === 0) {
                 $(".breadcrumbs").hide();
                 $(".gfw .wizard-header").css("height", "-=45px");
                 $(".gfw .wizard-body").css("top", "55px");
@@ -83,17 +114,9 @@ define([
                 $(".gfw .wizard-header .button.reset").show();
                 $(".gfw .wizard-header .button.reset").css("top", "0px");
             }
-            props.callback = {
-                nextStep: this._nextStep,
-                update: this._updateSelectedArea,
-                updateAnalysisArea: this._updateAnalysisArea,
-                updateAnalysisType: this._updateAnalysisType,
-                updateAnalysisDatasets: this._updateAnalysisDatasets,
-                performAnalysis: this._performAnalysis
-            };
 
-            // Hide legend content pane if appropriates
-            if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.props.selectedArea) === -1 || this.props.currentStep === 1) {
+            // Hide legend content pane if appropriate
+            if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
                 topic.publish('hideConcessionsLegend');
             }
             
@@ -148,9 +171,6 @@ define([
                             },
                             new StepThree(props)
                         )
-                        // React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
-                        //   new StepFour(props)
-                        // )
                     )
                 )
             );
@@ -181,16 +201,9 @@ define([
             targetIndex *= 1;
 
             if (targetIndex < (this.state.currentStep + 1)) {
-                this.setState({
-                    currentStep: (1 * targetIndex) + 1 // Convert to Int, add 1 because adding intro added a new step
-                });
+                // Convert to Int, add 1 because adding intro added a new step
+                WizardStore.set(KEYS.userStep, (1 * targetIndex) + 1);
             }
-        },
-
-        _nextStep: function() {
-            this.setState({
-                currentStep: this.state.currentStep + 1
-            });
         },
 
         _reset: function() {
@@ -216,44 +229,10 @@ define([
             topic.publish("toggleWizard");
         },
 
-        _updateSelectedArea: function(value) {
-            this.setProps({
-                selectedArea: value
-            });
-        },
-
-        _updateAnalysisArea: function(feature, optionalLabel) {
-            // If optional label exists, pass it down as props, it will exist when feature is not
-            // a graphic but instead an array of graphics
-            if (optionalLabel) {
-                this.setProps({
-                    optionalLabel: optionalLabel
-                });
-            }
-
-            this.setState({
-                analysisArea: feature
-            });
-        },
-
-        _updateAnalysisType: function(typesOfAnalysis) {
-            this.setState({
-                analysisTypes: typesOfAnalysis
-            });
-        },
-
-        _updateAnalysisDatasets: function(datasets) {
-            this.setState({
-                analysisSets: datasets
-            });
-        },
-
         // Function that can be used in the Analyzer.js file to programmatically set which step it is on
         _externalSetStep: function(step) {
             if (step >= 0 || step <= 3) {
-                this.setState({
-                    currentStep: step
-                });
+                WizardStore.set(KEYS.userStep, step);
             }
         },
 
@@ -267,6 +246,7 @@ define([
             // is asynchronous and not counted as part of the click handler
             var self = this,
                 geometry = self._prepareGeometry(self.state.analysisArea),
+                optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel),
                 labelField,
                 suitableRule,
                 readyEvent,
@@ -274,25 +254,20 @@ define([
                 payload,
                 win;
 
-                // = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
-
             labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
             datasets = self.state.analysisSets;
-            // printTask = new PrintTask();
-            // var printJson = printTask._getPrintDefinition(app.map);
-            // printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
+
             payload = {
                 geometry: geometry,
                 datasets: self.state.analysisSets,
                 //types: self.state.analysisTypes,
-                title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
+                title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : optionalLabel),
                 suitability: {
                     renderRule: suitableRule,
                     csv: MapControls._getSettingsCSV()
                     //settings: MapControls.serializeSuitabilitySettings()
-                }//,
-                //webMapJson: JSON.stringify(printJson)
+                }
             };
 
             win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
@@ -372,7 +347,7 @@ define([
         _getStepAndActiveArea: function() {
             return {
                 currentStep: this.state.currentStep,
-                selectedArea: this.props.selectedArea || 'none'
+                selectedArea: this.state.usersAreaOfInterest || 'none'
             };
         }
 

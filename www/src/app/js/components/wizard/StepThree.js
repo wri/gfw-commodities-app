@@ -1,16 +1,17 @@
 define([
     "react",
     "analysis/config",
+    "analysis/WizardStore",
     "components/wizard/WizardCheckbox"
-], function(React, AnalyzerConfig, WizardCheckbox) {
+], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
 
     var config = AnalyzerConfig.stepThree,
         labelField = AnalyzerConfig.stepTwo.labelField;
 
+    var KEYS = AnalyzerConfig.STORE_KEYS;
+
     function getDefaultState() {
-        return {
-            completed: false
-        };
+        return { completed: false };
     }
 
     return React.createClass({
@@ -19,14 +20,13 @@ define([
             return getDefaultState();
         },
 
-        componentDidMount: function() {
-
-        },
-
         componentDidUpdate: function (prevProps) {
-            if (this.props.selectedArea !== 'millPointOption' && 
+            var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+            var currentStep = WizardStore.get(KEYS.userStep);
+
+            if (selectedAreaOfInterest !== 'millPointOption' && 
                      prevProps.currentStep === 2 &&
-                     this.props.currentStep === 3) {
+                     currentStep === 3) {
                 // Recheck requirements and update state if necessary
                 this._selectionMade();
             }
@@ -40,8 +40,11 @@ define([
 
         render: function() {
 
+            var optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel);
+            var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+            
             var currentSelection = (this.props.analysisArea ?
-                (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel) : "none");            
+                (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : optionalLabel) : "none");
 
             return (
 
@@ -57,7 +60,7 @@ define([
                             React.DOM.div({
                                 'className': 'step-title'
                             }, config.title),
-                            (   this.props.selectedArea === 'millPointOption' ?
+                            (   selectedAreaOfInterest === 'millPointOption' ?
                                 React.DOM.p({'className': 'sub-title'}, "(Analysis based on 50km buffer)") :
                                 null
                             ),
@@ -82,7 +85,7 @@ define([
                                 'className': 'layer-description'
                             }, config.rspo.description),
                             React.DOM.div({
-                                'className': (this.props.selectedArea === 'millPointOption' ? '' : 'hidden'),
+                                'className': (selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden'),
                                 'style': {'position': 'relative'} // Temporary While Below is Coming Soon, Remove when Coming Soon is removed
                             },
                                 React.DOM.div({'className': 'coming-soon'}, "Mill Point Risk Assessment Coming Soon!"),
@@ -160,18 +163,17 @@ define([
 
             if (completed) {
                 var payload = this._getPayload();
-                this.props.callback.updateAnalysisDatasets(payload);
+                WizardStore.set(KEYS.analysisSets, payload);
             }
 
-            this.setState({
-                completed: completed
-            });
+            this.setState({ completed: completed });
 
         },
 
         _checkRequirements: function() {
             var result = false,
                 nodes = document.querySelectorAll(".select-analysis .wizard-checkbox.active"),
+                selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
                 value;
 
             // Conditions
@@ -183,7 +185,7 @@ define([
                 } else {
                     // nodes === 1
                     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
-                    if (this.props.selectedArea !== 'millPointOption' && value === 'mill') {
+                    if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
                         // This Fails, result is already false so do nothing
                     } else {
                         result = true;

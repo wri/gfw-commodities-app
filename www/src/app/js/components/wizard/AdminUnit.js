@@ -5,6 +5,7 @@ define([
   "map/MapModel",
   "analysis/Query",
   "analysis/config",
+  "analysis/WizardStore",
   "components/wizard/NestedList",
   // Other Helpful Modules
   "dojo/topic",
@@ -14,12 +15,14 @@ define([
   "esri/graphicsUtils",
   "esri/symbols/SimpleFillSymbol",
   "esri/symbols/SimpleLineSymbol"
-], function (React, MapConfig, MapModel, AnalyzerQuery, AnalyzerConfig, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
+], function (React, MapConfig, MapModel, AnalyzerQuery, AnalyzerConfig, WizardStore, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
 
   var config = AnalyzerConfig.adminUnit,
       adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                     new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
                     new Color([255, 200, 103, 0.0]));
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   function getDefaultState() {
     return {
@@ -48,9 +51,11 @@ define([
 
       // If the area is this one, the current step is this one
       // and the previous step is 0, then we should update the layer defs to match this UI
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
 
-      if (newProps.selectedArea === 'adminUnitOption' && 
-                    this.props.currentStep === 1 &&
+      if (selectedAreaOfInterest === 'adminUnitOption' && 
+                    currentStep === 1 &&
                     newProps.currentStep === 2) {
         
         var value = document.getElementById("country-select").value;
@@ -147,7 +152,8 @@ define([
             });
             // Mark this as your current selection and pass in an optional label since analysis area
             // is an array of graphics instead of a single graphic
-            self.props.callback.updateAnalysisArea(features, target.innerHTML);
+            WizardStore.set(KEYS.analysisArea, features);
+            WizardStore.set(KEYS.optionalAnalysisLabel, target.innerHTML);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });
@@ -170,7 +176,7 @@ define([
             wizardGraphicsLayer.clear();
             wizardGraphicsLayer.add(graphic);
             // Mark this as your current selection
-            self.props.callback.updateAnalysisArea(graphic);
+            WizardStore.set(KEYS.analysisArea, graphic);
             // Zoom to extent of new feature
             if (graphic._extent) {
               app.map.setExtent(graphic._extent, true);

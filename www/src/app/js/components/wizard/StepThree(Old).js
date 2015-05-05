@@ -1,10 +1,12 @@
 define([
 	"react",
   "analysis/config",
+  "analysis/WizardStore",
   "components/wizard/WizardCheckbox"
-], function (React, AnalyzerConfig, WizardCheckbox) {
+], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
 
   var config = AnalyzerConfig.stepThree;
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   function getDefaultState() {
     return {
@@ -17,10 +19,6 @@ define([
 
     getInitialState: function () {
       return getDefaultState();
-    },
-
-    componentDidMount: function () {
-
     },
 
     componentWillReceiveProps: function (newProps) {
@@ -149,7 +147,7 @@ define([
     _proceed: function () {
       if (this.state.completed) {
         var payload = this._getPayload();
-        this.props.callback.updateAnalysisType(payload);
+        WizardStore.set(KEYS.analysisSets, payload);
         this.props.callback.nextStep();
       }
     }

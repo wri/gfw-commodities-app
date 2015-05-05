@@ -1,7 +1,8 @@
 define([
 	"react",
-  "analysis/config"
-], function (React, AnalyzerConfig) {
+  "analysis/config",
+  "analysis/WizardStore"
+], function (React, AnalyzerConfig, WizardStore) {
 
   // Variables
   var config = AnalyzerConfig.stepOne, 
@@ -12,12 +13,14 @@ define([
       option3 = config.option3,
       option4 = config.option4,
       option5 = config.option5;
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
   
   // Helper Functions
   function getDefaultState() {
     return {
       completed: true,
-      selectedOption: option3.id
+      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option3.id
     };
   }
 
@@ -28,18 +31,19 @@ define([
     },
 
     componentDidMount: function () {
-      this.props.callback.update(getDefaultState().selectedOption);
+      WizardStore.set(KEYS.areaOfInterest, getDefaultState().selectedOption);
     },
 
     componentWillReceiveProps: function (newProps) {
+
+      var selectedOption = WizardStore.get(KEYS.areaOfInterest);
+
       if (newProps.isResetting) {
         var defaults = getDefaultState();
         this.replaceState(defaults);
-        this.props.callback.update(defaults.selectedOption);
-      } else if (newProps.selectedArea) {
-        this.setState({
-          selectedOption: newProps.selectedArea
-        });
+        WizardStore.set(KEYS.areaOfInterest, defaults.selectedOption);
+      } else if (selectedOption) {
+        this.setState({ selectedOption: selectedOption });
       }
     },
 
@@ -85,14 +89,11 @@ define([
     },
 
     _changeSelection: function (e) {
-      // this.setState({
-      //   selectedOption: e.target.id
-      // });
-      this.props.callback.update(e.target.id);
+      WizardStore.set(KEYS.areaOfInterest, e.target.id);
     },
 
     _moveOn: function () {
-      this.props.callback.nextStep();
+      WizardStore.set(KEYS.userStep, WizardStore.get(KEYS.userStep) + 1);
     }
 
   });

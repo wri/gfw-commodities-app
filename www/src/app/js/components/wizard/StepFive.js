@@ -1,10 +1,12 @@
 define([
     "react",
-    "analysis/config"
-], function(React, AnalyzerConfig) {
+    "analysis/config",
+    "analysis/WizardStore"
+], function(React, AnalyzerConfig, WizardStore) {
 
     // Variables
     var config = AnalyzerConfig.stepFive;
+    var KEYS = AnalyzerConfig.STORE_KEYS;
 
     // Helper Functions
     function getDefaultState() {
@@ -17,22 +19,6 @@ define([
 
         getInitialState: function() {
             return getDefaultState();
-        },
-
-        componentDidMount: function() {
-            this.props.callback.update(getDefaultState().selectedOption);
-        },
-
-        componentWillReceiveProps: function(newProps) {
-            if (newProps.isResetting) {
-                var defaults = getDefaultState();
-                this.replaceState(defaults);
-                this.props.callback.update(defaults.selectedOption);
-            } else if (newProps.selectedArea) {
-                this.setState({
-                    selectedOption: newProps.selectedArea
-                });
-            }
         },
 
         render: function() {
@@ -68,15 +54,9 @@ define([
             return React.DOM.p({}, item);
         },
 
-        _changeSelection: function(e) {
-            // this.setState({
-            //   selectedOption: e.target.id
-            // });
-            this.props.callback.update(e.target.id);
-        },
-
         _moveOn: function() {
-            this.props.callback.nextStep();
+            var currentStep = WizardStore.get(KEYS.userStep) + 1;
+            WizardStore.set(KEYS.userStep, WizardStore.get(KEYS.userStep) + 1);
         }
 
     });

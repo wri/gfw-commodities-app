@@ -5,6 +5,7 @@ define([
   "map/config",
   "analysis/Query",
   "analysis/config",
+  "analysis/WizardStore",
   "components/wizard/NestedList",
   // Other Helpful Modules
   "dojo/topic",
@@ -14,12 +15,14 @@ define([
   "esri/graphicsUtils",
   "esri/symbols/SimpleFillSymbol",
   "esri/symbols/SimpleLineSymbol"
-], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
+], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, WizardStore, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
 
   var config = AnalyzerConfig.certifiedArea,
       adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                     new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
                     new Color([255, 200, 103, 0.0]));
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   function getDefaultState() {
     return {
@@ -45,10 +48,12 @@ define([
 
       // If the area is this one, we have a selected scheme, the current step is this one
       // and the previous step is 0, then we should update the layer defs to match this UI
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
 
-      if (newProps.selectedArea === 'certifiedAreaOption' && 
+      if (selectedAreaOfInterest === 'certifiedAreaOption' && 
                      this.state.selectedScheme !== 'NONE' &&
-                     this.props.currentStep === 1 &&
+                     currentStep === 1 &&
                      newProps.currentStep === 2) {
         
         topic.publish('setCertificationSchemeDefinition', this.state.selectedScheme);
@@ -71,7 +76,10 @@ define([
     render: function () {
 
       // Hide legend content pane
-      if (this.props.currentStep === 2 && this.props.selectedArea === 'certifiedAreaOption') {
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
+
+      if (currentStep === 2 && selectedAreaOfInterest === 'certifiedAreaOption') {
 
         switch (this.state.selectedCommodity) {
           case 'Oil palm concession':
@@ -124,9 +132,7 @@ define([
     },
 
     _updateCommodity: function (evt) {
-      this.setState({
-        selectedCommodity: evt.target.value
-      });
+      this.setState({ selectedCommodity: evt.target.value });
     },
 
     _updateScheme: function (value) {
@@ -199,7 +205,7 @@ define([
             // There should only be one feature returning from this call, if more then one come back
             // something went wrong, this code should be refactored to be more clear that only one feature
             // is coming back
-            self.props.callback.updateAnalysisArea(features[0]);
+            WizardStore.set(KEYS.analysisArea, features[0]);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });
@@ -221,7 +227,7 @@ define([
             wizardGraphicsLayer.clear();
             wizardGraphicsLayer.add(graphic);
             // Mark this as your current selection
-            self.props.callback.updateAnalysisArea(graphic);
+            WizardStore.set(KEYS.analysisArea, graphic);
             // Zoom to extent of new feature
             if (graphic._extent) {
               app.map.setExtent(graphic._extent, true);

@@ -5,6 +5,7 @@ define([
   "map/config",
   "analysis/Query",
   "analysis/config",
+  "analysis/WizardStore",
   "components/wizard/NestedList",
   // Other Useful Modules
   "dojo/topic",
@@ -14,12 +15,14 @@ define([
   "esri/graphicsUtils",
   "esri/symbols/SimpleFillSymbol",
   "esri/symbols/SimpleLineSymbol"
-], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
+], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, WizardStore, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
 
   var config = AnalyzerConfig.commercialEntity,
       adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                     new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
                     new Color([255, 200, 103, 0.0]));
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   function getDefaultState() {
     return {
@@ -44,10 +47,12 @@ define([
 
       // If the area is this one, we have a selected commodity, the current step is this one
       // and the previous step is 0, then we should update the layer defs to match this UI
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
 
-      if (newProps.selectedArea === 'commercialEntityOption' && 
+      if (selectedAreaOfInterest === 'commercialEntityOption' && 
                      this.state.selectedCommodity !== 'NONE' &&
-                     this.props.currentStep === 1 &&
+                     currentStep === 1 &&
                      newProps.currentStep === 2) {
         
         topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
@@ -57,8 +62,11 @@ define([
 
     render: function () {
 
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
+
       // Filter legend content pane or hide
-      if (this.props.currentStep === 2 && this.props.selectedArea === 'commercialEntityOption') {
+      if (currentStep === 2 && selectedAreaOfInterest === 'commercialEntityOption') {
 
         switch (this.state.selectedCommodity) {
           case 'Logging concession':
@@ -179,7 +187,7 @@ define([
             // There should only be one feature returning from this call, if more then one come back
             // something went wrong, this code should be refactored to be more clear that only one feature
             // is coming back
-            self.props.callback.updateAnalysisArea(features[0]);
+            WizardStore.set(KEYS.analysisArea, features[0]);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });
@@ -201,7 +209,7 @@ define([
             wizardGraphicsLayer.clear();
             wizardGraphicsLayer.add(graphic);
             // Mark this as your current selection
-            self.props.callback.updateAnalysisArea(graphic);
+            WizardStore.set(KEYS.analysisArea, graphic);
             // Zoom to extent of new feature
             if (graphic._extent) {
               app.map.setExtent(graphic._extent, true);
