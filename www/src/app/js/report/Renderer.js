@@ -110,6 +110,7 @@ define([
 			node.innerHTML = "<div class='title'>" + config.title + "</div>" +
 					"<div class='suitability-container'>" +
 						"<div class='left-panel'>" +
+							"<div id='suitability-table-csv' class='csv-download' title='Download CSV'></div>" +
 							"<div id='" + config.rootNode + "_content' class='suitability-content'><div class='loader-wheel'>suitability</div></div>" +
 						"</div>" +
 						"<div class='right-panel'>" +
@@ -118,6 +119,7 @@ define([
 						"<div class='clearFix'></div>" +
 						"<div class='left-panel'>" +
 							"<div class='suitability-settings-table-header'>Suitability Settings</div>" +
+							"<div id='suitability-settings-csv' class='csv-download' title='Download CSV'></div>" +
 							"<div id='suitability-settings-table'></div>" +
 						"</div>" +
 						"<div class='right-panel'>" +
