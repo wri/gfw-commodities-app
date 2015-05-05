@@ -160,9 +160,9 @@ define([
 		*/
 		analyzeAreaFromPopup: function (evt) {
 			var target = evt.target ? evt.target : evt.srcElement,
-					label = target.dataset ? target.dataset.label : target.getAttribute('data-label'),
-					type = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
-					id = target.dataset ? target.dataset.id : target.getAttribute('data-id'),
+					label = target.getAttribute('data-label'),
+					type = target.getAttribute('data-type'),
+					id = target.getAttribute('data-id'),
 					selectedArea = AnalyzerConfig.stepOne.option3.id,
 					url = MapConfig.oilPerm.url,
 					self = this,
@@ -200,6 +200,10 @@ define([
 				case "MillPoint":
 				selectedArea = AnalyzerConfig.stepOne.option5.id;
 				break;
+				case "WDPA":
+				url = MapConfig.palHelper.url;
+				layer = MapConfig.palHelper.layerId;
+				break;
 			}
 
 			if (type === "CustomGraphic") {
@@ -234,6 +238,7 @@ define([
 					}
 				});
 			} else {
+				// This should catch any generic dynamic layers
 				AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
 					feature.attributes.WRI_label = label;
 					if (!self.isOpen()) {

@@ -14,12 +14,12 @@ define([], function() {
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
-        protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
+        protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
         mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
         primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
-        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFWConservation/GFW_conservation/MapServer';
+        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/conservation/MapServer';
     //customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
 
     return {
@@ -279,6 +279,7 @@ define([], function() {
             layerId: 16
         },
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
+        
         // This layer is also under forest use but has its own service
         mill: {
             id: 'MillPoints',

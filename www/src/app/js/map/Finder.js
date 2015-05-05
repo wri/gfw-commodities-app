@@ -279,9 +279,16 @@ define([
     */
         setWDPATemplates: function(featureObjects) {
             var template,
-                features = [];
+                features = [],
+                content;
+
             arrayUtils.forEach(featureObjects, function(item) {
-                template = new InfoTemplate(item.value, MapConfig.pal.infoTemplate.content);
+                content = MapConfig.pal.infoTemplate.content + 
+                        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                        item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
+                        "Analyze this area</button></div>";
+
+                template = new InfoTemplate(item.value, content);
                 item.feature.setInfoTemplate(template);
                 features.push(item.feature);
             });

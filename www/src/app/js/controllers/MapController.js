@@ -94,7 +94,7 @@ define([
                                 url: MapConfig.pal.url + '/0',
                                 objectId: featureArgs[1],
                                 templateFunction: Finder.setWDPATemplates
-                            }
+                            };
                             LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                         case 'MillPoints':
@@ -103,7 +103,7 @@ define([
                                 url: MapConfig.mill.url + '/0',
                                 objectId: featureArgs[1],
                                 templateFunction: Finder.setMillPointTemplates
-                            }
+                            };
                             LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                         case 'Concessions':
@@ -112,7 +112,7 @@ define([
                                 url: MapConfig.concession.url + '/' + featureArgs[1],
                                 objectId: featureArgs[2],
                                 templateFunction: Finder.setConcessionTemplates
-                            }
+                            };
                             LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                     }

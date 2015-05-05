@@ -3,8 +3,18 @@ define([
 ], function () {
 	'use strict';
 
-	var Store = {};
 	var Callbacks = {};
+	var Store = {};
+	/**
+	* Expected items so far in the store
+	* If you add new keys to the store, place them in the list below to help developers know what data will be available
+	* 
+	* @property {object|array} analysisArea 		- Is a Feature or Array of Features
+	* @property {number} userStep								- User's current step in the Wizard, a number 0 -3( or 4)
+	* @property {string} areaOfInterest 				- Option chosen in step one of Wizard, will be an ID for a radio button of selected option 
+	* @property {object} analysisSets						- Object containing keywords of types of analysis to perform and boolean indicating if it is included in analysis
+	* @property {string} optionalAnalysisLabel  - Label to be used when multiple features are selected
+	*/
 
 	var Interface = {
 

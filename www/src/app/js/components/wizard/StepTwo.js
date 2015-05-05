@@ -7,8 +7,7 @@ define([
   "components/wizard/CustomArea",
   "components/wizard/CertifiedArea",
   "components/wizard/CommercialEntity"
-], function (React, AnalyzerConfig, WizardStore, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {
-
+], function (React, AnalyzerConfig, WizardStore, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {  
   // Variables
   var title = AnalyzerConfig.stepTwo.title,
       // Selection Area Variables
@@ -58,8 +57,6 @@ define([
 
     analysisAreaUpdated: function () {
       var analysisArea = WizardStore.get(KEYS.analysisArea);
-
-      console.log(getCurrentSelectionLabel());
       
       if (analysisArea) {
         this.setState({ 
