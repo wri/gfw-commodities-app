@@ -1,0 +1,53 @@
+// Definitions
+size(height, width = height)
+	height height
+	width width
+
+absolute(top = intiial, right = intiial, bottom = intiial, left = intiial)
+	position absolute
+	top top
+	right right
+	bottom bottom
+	left left
+
+$width = 525px
+$bodyPadding = 50px
+
+// Utility Styles
+.float-right
+	float right
+
+// Core Styles
+.alerts-form-container
+	z-index 5
+	absolute(0, initial, 0, 0)
+	overflow hidden
+	background-color #fff
+
+.alerts-form
+
+	size(100%, $width)
+	absolute(0, 0, 0)
+
+	.hidden
+		display none
+
+	&-root
+		position relative
+		height 100%
+		width 100%
+
+	&-header
+		absolute(0, 0, initial, 0)
+		height $bodyPadding
+		border-bottom 1px solid grey
+
+	&-body
+		box-sizing border-box
+		padding $bodyPadding 0px
+		size(100%)
+
+	&-footer
+		absolute(initial, 0, 0, 0)
+		height $bodyPadding
+		border-top 1px solid grey

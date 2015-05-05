@@ -21,8 +21,9 @@ define([
     "map/LayerController",
     "analysis/WizardHelper",
     "components/LayerList",
+    "components/alertsForm/AlertsFormHelper",
     "utils/Loader"
-], function(on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, Loader) {
+], function(on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, AlertsFormHelper, Loader) {
     'use strict';
 
     var initialized = false,
@@ -274,6 +275,10 @@ define([
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
+            });
+
+            on(dom.byId("alert-button"), "click", function() {
+                AlertsFormHelper.toggleAlertsForm();
             });
 
             on(dom.byId("dms-search"), "change", function(evt) {
