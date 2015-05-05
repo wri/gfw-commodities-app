@@ -107,10 +107,12 @@ define([
     },
 
     _graphicsMapper: function (item) {
-      var existsSelection = this.props.analysisArea !== undefined;
+      var analysisArea = WizardStore.get(KEYS.analysisArea);
+      var existsSelection = analysisArea !== undefined;
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var isAreaOfInterestCustom = selectedAreaOfInterest === 'customAreaOption';
-      var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == this.props.analysisArea.attributes.WRI_ID) ? 'custom-feature-row active' : 'custom-feature-row';
+      var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == analysisArea.attributes.WRI_ID) ? 'custom-feature-row active' : 'custom-feature-row';
+      
       return React.DOM.div(
         {
           'className': className,

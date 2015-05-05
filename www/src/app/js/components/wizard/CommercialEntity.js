@@ -23,6 +23,7 @@ define([
                     new Color([255, 200, 103, 0.0]));
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
+  var previousStep;
 
   function getDefaultState() {
     return {
@@ -40,23 +41,29 @@ define([
       return getDefaultState();
     },
 
+    componentDidMount: function () {
+      // Register callbacks
+      WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
+
+    userChangedSteps: function () {
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
+      // If the user is arriving at this step and has selected a commoditity type
+      if (selectedAreaOfInterest === 'commercialEntityOption' && 
+          this.state.selectedCommodity !== 'NONE' &&
+          previousStep === 1 && currentStep === 2) {
+
+        topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
+      }
+
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
+
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
-      }
-
-      // If the area is this one, we have a selected commodity, the current step is this one
-      // and the previous step is 0, then we should update the layer defs to match this UI
-      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-      var currentStep = WizardStore.get(KEYS.userStep);
-
-      if (selectedAreaOfInterest === 'commercialEntityOption' && 
-                     this.state.selectedCommodity !== 'NONE' &&
-                     currentStep === 1 &&
-                     newProps.currentStep === 2) {
-        
-        topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
-
       }
     },
 

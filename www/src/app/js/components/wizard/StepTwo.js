@@ -31,8 +31,19 @@ define([
   // Helper Functions
   function getDefaultState() {
     return {
-      completed: false
+      completed: false,
+      currentSelectionLabel: getCurrentSelectionLabel()
     };
+  }
+
+  function getCurrentSelectionLabel () {
+    var analysisArea = WizardStore.get(KEYS.analysisArea);
+    var optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel);
+
+    return (analysisArea ? 
+      (analysisArea.attributes ? analysisArea.attributes[labelField] : optionalLabel)
+      : "none"
+    );
   }
 
 	return React.createClass({
@@ -41,27 +52,32 @@ define([
       return getDefaultState();
     },
 
-    componentWillReceiveProps: function (newProps) {
-      if (newProps.isResetting) {
-        this.replaceState(getDefaultState());
-        return;
-      }
+    componentDidMount: function () {
+      WizardStore.registerCallback(KEYS.analysisArea, this.analysisAreaUpdated);
+    },
 
-      if (newProps.analysisArea) {
-        this.setState({
-          completed: true
+    analysisAreaUpdated: function () {
+      var analysisArea = WizardStore.get(KEYS.analysisArea);
+
+      console.log(getCurrentSelectionLabel());
+      
+      if (analysisArea) {
+        this.setState({ 
+          completed: true,
+          currentSelectionLabel: getCurrentSelectionLabel()
         });
       } else {
         this.replaceState(getDefaultState());
       }
     },
 
-    render: function () {
+    componentWillReceiveProps: function (newProps) {
+      if (newProps.isResetting) {
+        this.replaceState(getDefaultState());
+      }
+    },
 
-      var optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel);
-      var currentSelection = (this.props.analysisArea ? 
-          (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : optionalLabel)
-          : "none");
+    render: function () {
 
       var selectedArea = WizardStore.get(KEYS.areaOfInterest);
 
@@ -88,8 +104,8 @@ define([
           React.DOM.div({'className': 'step-footer'},
             React.DOM.div({'className': 'selected-analysis-area'},
               React.DOM.div({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
-              React.DOM.div({'className': 'current-selection','title': currentSelection}, 
-                currentSelection
+              React.DOM.div({'className': 'current-selection','title': this.state.currentSelectionLabel }, 
+                this.state.currentSelectionLabel
               )
             ),
             React.DOM.div({'className':'next-button-container ' + (this.state.completed ? '' : 'disabled'), 

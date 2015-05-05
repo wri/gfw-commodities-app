@@ -31,19 +31,22 @@ define([
     },
 
     componentDidMount: function () {
+      // Set the default value in the store
       WizardStore.set(KEYS.areaOfInterest, getDefaultState().selectedOption);
+      // Register a callback to the item of interest
+      WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
+    },
+
+    areaOfInterestUpdated: function () {
+      var selectedOption = WizardStore.get(KEYS.areaOfInterest);
+      this.setState({ selectedOption: selectedOption });
     },
 
     componentWillReceiveProps: function (newProps) {
-
-      var selectedOption = WizardStore.get(KEYS.areaOfInterest);
-
       if (newProps.isResetting) {
         var defaults = getDefaultState();
         this.replaceState(defaults);
         WizardStore.set(KEYS.areaOfInterest, defaults.selectedOption);
-      } else if (selectedOption) {
-        this.setState({ selectedOption: selectedOption });
       }
     },
 

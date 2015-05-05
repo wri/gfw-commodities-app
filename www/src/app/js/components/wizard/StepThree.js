@@ -10,14 +10,37 @@ define([
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
 
+    /* Helper Functions */
     function getDefaultState() {
-        return { completed: false };
+        return { 
+            completed: false,
+            currentSelectionLabel: getCurrentSelectionLabel()
+        };
+    }
+
+    function getCurrentSelectionLabel () {
+        var analysisArea = WizardStore.get(KEYS.analysisArea);
+        var optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel);
+
+        return (analysisArea ? 
+            (analysisArea.attributes ? analysisArea.attributes[labelField] : optionalLabel)
+            : "none"
+        );
     }
 
     return React.createClass({
 
         getInitialState: function() {
             return getDefaultState();
+        },
+
+        componentDidMount: function () {
+            WizardStore.registerCallback(KEYS.analysisArea, this.analysisAreaUpdated);
+        },
+
+        analysisAreaUpdated: function () {
+            var analysisArea = WizardStore.get(KEYS.analysisArea);
+            this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
         },
 
         componentDidUpdate: function (prevProps) {
@@ -40,11 +63,7 @@ define([
 
         render: function() {
 
-            var optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel);
             var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-            
-            var currentSelection = (this.props.analysisArea ?
-                (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : optionalLabel) : "none");
 
             return (
 
@@ -124,9 +143,9 @@ define([
                             }, AnalyzerConfig.stepTwo.currentFeatureText),
                             React.DOM.div({
                                     'className': 'current-selection',
-                                    'title': currentSelection
+                                    'title': this.state.currentSelectionLabel
                                 },
-                                currentSelection
+                                this.state.currentSelectionLabel
                             )
                         ),
                         React.DOM.div({
@@ -151,10 +170,6 @@ define([
                 'defaultChecked': item.checked || false,
                 'noInfoIcon': item.noInfoIcon || false
             });
-            // React.DOM.span({
-            //     'className': 'layer-info-icon',
-            //     'onClick': Check.showInfo
-            // });
         },
 
         _selectionMade: function(checked) {

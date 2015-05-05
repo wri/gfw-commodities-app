@@ -23,6 +23,7 @@ define([
                     new Color([255, 200, 103, 0.0]));
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
+  var previousStep;
 
   function getDefaultState() {
     return {
@@ -41,27 +42,31 @@ define([
 
     componentDidMount: function () {
       MapModel.applyTo('admin-unit');
+      // Register callbacks
+      WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
+
+    userChangedSteps: function () {
+      // If the user is arriving at this step, set up some layer defs to support this component
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
+
+      if (selectedAreaOfInterest === 'adminUnitOption' && currentStep === 2) {
+        var value = document.getElementById("country-select").value;
+        if (value !== "NONE" && previousStep === 1) {
+          topic.publish("setAdminBoundariesDefinition", value);
+        }
+      }
+
+      previousStep = WizardStore.get(KEYS.userStep);
+
     },
 
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
         document.getElementById('country-select').value = "NONE";
-      }
-
-      // If the area is this one, the current step is this one
-      // and the previous step is 0, then we should update the layer defs to match this UI
-      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-      var currentStep = WizardStore.get(KEYS.userStep);
-
-      if (selectedAreaOfInterest === 'adminUnitOption' && 
-                    currentStep === 1 &&
-                    newProps.currentStep === 2) {
-        
-        var value = document.getElementById("country-select").value;
-        if (value !== "NONE") {
-          topic.publish("setAdminBoundariesDefinition", value);
-        }
       }
     },
 
@@ -152,8 +157,8 @@ define([
             });
             // Mark this as your current selection and pass in an optional label since analysis area
             // is an array of graphics instead of a single graphic
-            WizardStore.set(KEYS.analysisArea, features);
             WizardStore.set(KEYS.optionalAnalysisLabel, target.innerHTML);
+            WizardStore.set(KEYS.analysisArea, features);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });

@@ -14,40 +14,44 @@ define([
 
   var config = AnalyzerConfig.millPoints,
       selectedFeatures = [],
-      selectedLabels = [],
-      getDefaultState = function () {
-        return ({
-          nestedListData: [],
-          activeListItemValues: [],
-          selectedCommodity: config.commodityOptions[0].value
-        });
-      };
+      selectedLabels = [];
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
+  var previousStep;
+
+  var getDefaultState = function () {
+    return ({
+      nestedListData: [],
+      activeListItemValues: [],
+      selectedCommodity: config.commodityOptions[0].value
+    });
+  };
 
 	return React.createClass({
 
     getInitialState: function () {
-      return ({
-        nestedListData: [],
-        selectedCommodity: config.commodityOptions[0].value
-      });
+      return getDefaultState();
     },
 
-    componentWillReceiveProps: function (newProps) {
-      if (newProps.isResetting) {
-        this.replaceState(getDefaultState());
-      }
+    componentDidMount: function () {
+      previousStep = WizardStore.get(KEYS.userStep);
+      // Register callbacks
+      WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);      
+    },
 
-      // If the area is this one, we have a selected commodity, the current step is this one
-      // and the previous step is 0, then we should update the layer defs to match this UI
+    userChangedSteps: function () {
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var currentStep = WizardStore.get(KEYS.userStep);
+      
+      // If they are arriving at this step
+      if (selectedAreaOfInterest === 'millPointOption' && currentStep === 2) {
+        // Get Data if there is none present
+        if (this.state.nestedListData.length === 0) {
+          this._loadMillPoints();
+        }
+      }
 
-      if (selectedAreaOfInterest === 'millPointOption' && 
-                     currentStep === 1 &&
-                     newProps.currentStep === 2) {
-
+      if (selectedAreaOfInterest === 'millPointOption' && previousStep === 1 && currentStep === 2) {
         // If Mill Points is not visible show it and select it in the UI, otherwise do nothing
         var layer = app.map.getLayer(MapConfig.mill.id);
         if (layer) {
@@ -63,16 +67,15 @@ define([
         selectedLabels = [];
 
         this.setState({ activeListItemValues: [] });
-
       }
 
-      if (selectedAreaOfInterest === 'millPointOption' && newProps.currentStep === 2) {
-        if (this.state.nestedListData.length === 0) {
-          // Get Data
-          this._loadMillPoints();
-        }
-      }
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
 
+    componentWillReceiveProps: function (newProps) {
+      if (newProps.isResetting) {
+        this.replaceState(getDefaultState());
+      }
     },
 
     _selectMapper: function (item) {
@@ -176,12 +179,6 @@ define([
                 return false;
               });
             } else {
-              // Limit the selection to 5 Features
-              // Return as well as we dont want to update any state or UI items.
-              // if (selectedFeatures.length > 4) {
-              //   alert('You have already selected the maximum number of mills, please deselect some if you want to add more.');
-              //   return;
-              // }
               // Add it to the map and make it the current selection, give it a label
               feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
               graphic = GeoHelper.preparePointAsPolygon(feature);
@@ -199,8 +196,8 @@ define([
 
             // Mark this as your current selection and provide label
             if (selectedFeatures.length > 0) {
-              WizardStore.set(KEYS.analysisArea, selectedFeatures);
               WizardStore.set(KEYS.optionalAnalysisLabel, selectedLabels.join(', '));
+              WizardStore.set(KEYS.analysisArea, selectedFeatures);
             } else {
               // This resets the current selection to none
               WizardStore.set(KEYS.analysisArea);

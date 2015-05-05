@@ -47,6 +47,13 @@ define([
 					func();
 				});
 			}
+		},
+
+		/**
+		* log the store to the console so I can inspect it in the app
+		*/
+		debug: function () {
+			console.dir(Store);
 		}
 
 	};

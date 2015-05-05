@@ -5,7 +5,6 @@ define([
     "components/wizard/StepOne",
     "components/wizard/StepTwo",
     "components/wizard/StepThree",
-    "components/wizard/StepFour",
     "components/wizard/StepFive",
     // Other Helpful Modules
     "dojo/topic",
@@ -14,7 +13,7 @@ define([
     "dojo/_base/lang",
     "esri/tasks/PrintTask",
     "map/Controls"
-], function(React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls) {
+], function(React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
     var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -94,10 +93,7 @@ define([
 
         render: function() {
             var props = this.props;
-
-            // Mixin any state/props that need to be mixed in here
-            props.analysisArea = this.state.analysisArea;
-            props.currentStep = this.state.currentStep;
+            // Mixin a callback to trigger the analysis when the user has completed the Wizard
             props.callback = {
                 performAnalysis: this._performAnalysis
             };

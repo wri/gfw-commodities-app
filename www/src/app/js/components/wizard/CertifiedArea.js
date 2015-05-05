@@ -23,6 +23,7 @@ define([
                     new Color([255, 200, 103, 0.0]));
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
+  var previousStep;
 
   function getDefaultState() {
     return {
@@ -41,20 +42,20 @@ define([
       return getDefaultState();
     },
 
-    componentWillReceiveProps: function (newProps) {
-      if (newProps.isResetting) {
-        this.replaceState(getDefaultState());
-      }
+    componentDidMount: function () {
+      // Register callbacks
+      WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
 
-      // If the area is this one, we have a selected scheme, the current step is this one
-      // and the previous step is 0, then we should update the layer defs to match this UI
+    userChangedSteps: function () {
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var currentStep = WizardStore.get(KEYS.userStep);
 
+      // If the user is arriving at this step and has chosen a type and scheme
       if (selectedAreaOfInterest === 'certifiedAreaOption' && 
-                     this.state.selectedScheme !== 'NONE' &&
-                     currentStep === 1 &&
-                     newProps.currentStep === 2) {
+          this.state.selectedScheme !== 'NONE' && 
+          currentStep === 2 && previousStep === 1) {
         
         topic.publish('setCertificationSchemeDefinition', this.state.selectedScheme);
 
@@ -71,6 +72,13 @@ define([
 
       }
 
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
+
+    componentWillReceiveProps: function (newProps) {
+      if (newProps.isResetting) {
+        this.replaceState(getDefaultState());
+      }
     },
 
     render: function () {

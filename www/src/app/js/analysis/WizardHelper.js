@@ -13,11 +13,13 @@ define([
 	"utils/GeoHelper",
 	"analysis/Query",
 	"analysis/config",
+	"analysis/WizardStore",
 	"components/wizard/Wizard",
-], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, Hasher, GeoHelper, AnalyzerQuery, AnalyzerConfig, Wizard) {
+], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, Hasher, GeoHelper, AnalyzerQuery, AnalyzerConfig, WizardStore, Wizard) {
 	'use strict';
 
 	var wizard;
+	var KEYS = AnalyzerConfig.STORE_KEYS;
 
 	return {
 
@@ -255,14 +257,11 @@ define([
 				// for Certified Areas, it is option 4
 				// for Mill Points, it is option 5
 				// selectedArea set in switch statement above
-				// console.log(selectedArea);
-				wizard._updateSelectedArea(selectedArea);
+				WizardStore.set(KEYS.areaOfInterest, selectedArea);
+				WizardStore.set(KEYS.analysisArea, feature);
 				// Set to Step 3, the parameter is index based like 0,1,2,3, 3 is the third step
 				// because we inserted a introduction step that is now step 0
 				wizard._externalSetStep(3);
-				// In this case, set the RefinedArea to the evt.graphic
-				// Graphics will need a WRI_label field that will be used as a label in the UI
-				wizard._updateAnalysisArea(feature);
 			}
 
 			// Hide the info window
