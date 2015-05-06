@@ -22,8 +22,9 @@ define([
     "analysis/WizardHelper",
     "components/LayerList",
     "utils/Loader",
-    "map/Uploader"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, Loader, Uploader) {
+    "map/Uploader",
+    "components/alertsForm/AlertsFormHelper"
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, Loader, Uploader, AlertsFormHelper) {
     'use strict';
 
     var initialized = false,
@@ -275,6 +276,10 @@ define([
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
+            });
+
+            on(dom.byId("alert-button"), "click", function() {
+                AlertsFormHelper.toggleAlertsForm();
             });
 
             on(dom.byId("dms-search"), "change", function(evt) {

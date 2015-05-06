@@ -6,3 +6,4 @@ www/.ftpauth
 *.sublime-workspace
 *.sublime-project
 npm-debug.log
+www/src/app/css/*.css

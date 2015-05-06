@@ -1,0 +1,48 @@
+cardinal-generator(rule, size)
+	&, &__top, &__long
+		{rule}-top size
+	&, &__bottom, &__long
+		{rule}-bottom size
+	&, &__left, &__wide
+		{rule}-left size
+	&, &__right, &__wide
+		{rule}-right size
+
+.gfw
+
+	.absolute
+		position absolute
+
+	.no-top
+	.no-long
+		top 0px
+
+	.no-bottom
+	.no-long
+		bottom 0px
+
+	.no-left
+	.no-wide
+		left 0px
+
+	.no-right
+	.no-wide
+		right 0px
+
+	.text-left
+		text-align left
+
+	.text-right
+		text-align right
+
+	.text-center
+		text-align center
+
+	.border-box
+		box-sizing border-box
+
+	.margin
+		cardinal-generator('margin', 10px)
+
+	.padding
+		cardinal-generator('padding', 10px)
