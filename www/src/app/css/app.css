@@ -7708,33 +7708,94 @@ padding 5px 3px {
 }
 
 /* line 929 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.upload-modal {
+  transition: all 0.75s ease-in-out;
+  border: 1px solid #b2b2b2;
+  background-color: #fff;
+  position: absolute;
+  z-index: 100;
+  height: auto;
+  margin-left: -225px;
+  width: 450px;
+  top: -500px;
+  left: 50%;
+}
+
+/* line 941 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.upload-modal.active {
+  top: 125px;
+}
+
+/* line 944 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.upload-modal .close-icon {
+  background: url("images/close_symbol.png") no-repeat center;
+  position: absolute;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  right: 5px;
+  top: 5px;
+}
+
+/* line 953 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.upload-modal .modal-content {
+  margin: 5px;
+}
+
+/* line 956 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.upload-modal .modal-header {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* line 961 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.upload-modal .modal-subheader {
+  margin: 5px 0 3px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* line 966 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.shapefile-upload-instructions,
+.csv-upload-instructions {
+  font-size: 11px;
+}
+
+/* line 970 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+.upload-modal-form {
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* line 974 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 /* Mozilla */
 
-/* line 930 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 975 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 @-moz-document url-prefix() {
 
-/* line 931 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 976 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
   .playLineFiller > div {
     margin-top: 3px;
   }
 }
 
-/* line 936 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 981 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 /* For Safari */
 
-/* line 937 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 982 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 
-/* line 941 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 986 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 /* Browser-Specific for Chrome (last to overwrite potential changes from others) */
 
-/* line 942 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 987 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 
-/* line 946 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 991 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 .dj_ie9.playLineFiller > div {
   margin-top: 45px;
 }
 
-/* line 950 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
+/* line 995 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/map.styl */
 .dj_ie8.playLineFiller > div {
   margin-top: 45px;
 }
@@ -7744,7 +7805,7 @@ padding 5px 3px {
 
 /* line 1 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
 
-/* line 953 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/rangeSlider.styl */
+/* line 957 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/rangeSlider.styl */
 /**
  * Theme for jQRangeSlider
  * Inspired by http://cssdeck.com/item/381/itunes-10-storage-bar

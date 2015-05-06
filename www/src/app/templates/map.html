@@ -134,6 +134,24 @@
       </div>
     </div>
     <!-- End Sharing Modal -->
+    <!-- Begin Upload Modal -->
+    <div id='upload-modal' class='upload-modal'>
+      <div class="close-icon"></div>
+      <div class="modal-content">
+        <div class="modal-header" data-bind='text: uploadModalHeader'></div>
+        <div class="modal-subheader" data-bind='text: shapefileUploadInstructionHeader'></div>
+        <ul class="shapefile-upload-instructions" data-bind='foreach: shapefileInstructions'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class="modal-subheader" data-bind='text: csvUploadInstructionHeader'></div>
+        <div class="csv-upload-instructions" data-bind='text: csvInstructions'></div>
+        <form class='upload-modal-form' enctype='multipart/form-data' name='uploadForm' method='post' id='uploadForm'>
+          <label><input type="file" name="file" id="shapefileUploader"></label>
+        </form>
+        <div id="postUploadOptions" class="post-upload-options"></div>
+      </div>
+    </div>
+    <!-- End Upload Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
 

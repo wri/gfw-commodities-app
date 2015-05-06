@@ -21,8 +21,9 @@ define([
     "map/LayerController",
     "analysis/WizardHelper",
     "components/LayerList",
-    "utils/Loader"
-], function(on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, Loader) {
+    "utils/Loader",
+    "map/Uploader"
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, Loader, Uploader) {
     'use strict';
 
     var initialized = false,
@@ -361,6 +362,8 @@ define([
                     self.showInfoPanel(dataClass);
                 });
             });
+
+            on(dom.byId('uploadForm'), 'change', Uploader.beginUpload);
 
 
         },
