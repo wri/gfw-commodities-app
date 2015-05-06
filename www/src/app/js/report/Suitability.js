@@ -43,7 +43,13 @@ define([
 		},
 
 		downloadSuitabilityTable: function () {
-			
+			var lineEnding = '\r\n',
+					csvStringData,
+					csvData;
+
+			csvData = CSVExporter.exportSuitabilityStatistics();
+			csvStringData = csvData.join(lineEnding);
+			CSVExporter.exportCSV(csvStringData);
 		},
 
 		downloadSuitabiltiySettings: function () {

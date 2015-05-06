@@ -3,10 +3,11 @@ define([
 	"dojo/number",
 	"dijit/Dialog",
 	"dojo/_base/array",
-    "dojo/on",
-    "dojo/dom",
-    "dojo/dom-style"
-], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle) {
+  "dojo/on",
+  "dojo/dom",
+  "dojo/dom-style",
+  "report/CSVExporter"
+], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle, CSVExporter) {
 	'use strict';
 
 	// Container IDS for charts and tables are as Follows
@@ -568,11 +569,6 @@ define([
 					}
 				}
 
-				// if (series.length === 0) {
-				// 	this.renderAsUnavailable('clearance', config);
-				// 	return;
-				// }
-
 				$("#" + config.rootNode + '_clearance').highcharts({
 					chart: {
 						plotBackgroundColor: null,
@@ -844,7 +840,7 @@ define([
 						i, j, n;
 
 				// Start building the table and build the headers
-				resultContent = "<table class='rspo-results-table'><tr><th>Forest Type</th>";
+				resultContent = "<div id='rspo-table-csv' class='csv-download' title='Download CSV'></div><table class='rspo-results-table'><tr><th>Forest Type</th>";
 				for (i = 0; i <= MAXCOUNT; i++) {
 					years.push(BASEYEAR + i);
 					resultContent += "<th>" + (BASEYEAR + i) + "</th>";
@@ -891,6 +887,53 @@ define([
 
 				document.getElementById(config.rootNode + '_table').innerHTML = resultContent;
 				this.renderRSPOChart(config, pri, sec, agro, non, years);
+
+				// Add Click Handler for downloading CSV Data
+				// Everything is handled in this callback because Im not sure we need this feature
+				// The chart that renders below this table has an export already and it is the exact same thing
+				$('#rspo-table-csv').click(function () {
+					var lineEnding = '\r\n';
+					var csvData = [];
+					var values = [];
+					var output = '';
+
+					csvData.push('RSPO Land Use Change Analysis');
+					csvData.push(document.getElementById('title').innerHTML);
+
+					arrayUtils.forEach(years, function (year) {
+						values.push(year);
+					});
+					csvData.push('Forest Type,' + values.join(','));
+
+					values = [];
+					arrayUtils.forEach(pri, function (year) {
+						values.push(year);
+					});
+					csvData.push('Primary,' + values.join(','));
+
+					values = [];
+					arrayUtils.forEach(sec, function (year) {
+						values.push(year);
+					});
+					csvData.push('Secondary,' + values.join(','));
+
+					values = [];
+					arrayUtils.forEach(agro, function (year) {
+						values.push(year);
+					});
+					csvData.push('Agroforestry,' + values.join(','));
+
+					values = [];
+					arrayUtils.forEach(non, function (year) {
+						values.push(year);
+					});
+					csvData.push('Non-Forest,' + values.join(','));
+
+					output = csvData.join(lineEnding);
+
+					CSVExporter.exportCSV(output);
+
+				});
 
 			} else {
 				document.getElementById(config.rootNode + '_table').innerHTML = "<div class='data-not-available'>No RSPO Data Available for this Site.</div>";

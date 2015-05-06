@@ -711,6 +711,17 @@ body {
 }
 
 /* line 518 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/report.styl */
+.rspo-table-container {
+  position: relative;
+}
+
+/* line 521 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/report.styl */
+#rspo-table-csv {
+  right: 10px;
+  top: 0;
+}
+
+/* line 525 : /Users/Robert/Projects/github_work/gfw-commodities-app/www/src/app/css/report.styl */
 .csv-download:hover {
   background-color: rgba(102,136,170,0.25);
   border: 1px solid #68a;

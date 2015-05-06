@@ -216,6 +216,30 @@ define([
     return csvData;
 	}
 
+	/**
+	* Very Specific for parsing data from a table
+	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
+	*/
+	function exportSuitabilityStatistics () {
+		var featureTitle = document.getElementById('title').innerHTML,
+				rows = $("#suitabilityAnalysis_content tr"),
+				csvData = [],
+				temp;
+
+		// Push in Type of Output, Feature Title, and Headers
+		csvData.push('Suitability Statistics');
+		csvData.push(featureTitle);
+		csvData.push('Parameter, Value');
+
+		arrayUtils.forEach(rows, function (row) {
+			temp = row.cells[1].innerHTML.replace(',','');
+			csvData.push(row.cells[0].innerHTML + ',' + temp);
+		});
+
+		return csvData;
+
+	}
+
 	var Exporter = {
 
 		exportCSV: function (exportData) {
@@ -249,6 +273,7 @@ define([
 
 		// Export Helper Functions
 		exportSuitabilityByLegalClass: exportSuitabilityByLegalClass,
+		exportSuitabilityStatistics: exportSuitabilityStatistics,
 		exportCompositionAnalysis: exportCompositionAnalysis,
 		exportSimpleChartAnalysis: exportSimpleChartAnalysis
 
