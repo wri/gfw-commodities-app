@@ -33,7 +33,7 @@ define([
 		* @param {string} vaule - Item to save in store
 		*/
 		set: function (key, value) {
-			Store[key].set(value);
+			Store[key] = value;
 			this.updateSubscribers(key);
 		},
 
