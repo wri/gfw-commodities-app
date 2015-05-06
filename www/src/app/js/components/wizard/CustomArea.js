@@ -119,7 +119,30 @@ define([
           'onClick': this._chooseGraphic,
           'data-feature-id': item.attributes.WRI_ID
         },
-        item.attributes[AnalyzerConfig.stepTwo.labelField]);
+        React.DOM.input({
+          'className':'custom-feature-label',
+          'type': 'text',
+          'placeholder': 'Feature name',
+          'size': item.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
+          'value': item.attributes[AnalyzerConfig.stepTwo.labelField],
+          'data-feature-id': item.attributes.WRI_ID,
+          'onChange': this._renameGraphic
+        })
+        )
+    },
+
+    _renameGraphic: function(evt) {
+      var graphic = customFeatures[evt.target.parentNode.dataset.featureId - 1],
+          name;
+
+      if (graphic) {
+        graphic.attributes[AnalyzerConfig.stepTwo.labelField] = evt.target.value;
+        this.setState(getDefaultState());
+        if (evt.target.parentNode.className.split(' ').indexOf('active') > -1) {
+          WizardStore.set(KEYS.analysisArea, graphic);
+        }
+      }
+
     },
 
     _instructionsMapper: function (item) {
