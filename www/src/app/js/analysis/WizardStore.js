@@ -4,7 +4,9 @@ define([
 	'use strict';
 
 	var Callbacks = {};
-	var Store = {};
+	var Store = {
+		customFeatures: []
+	};
 	/**
 	* Expected items so far in the store
 	* If you add new keys to the store, place them in the list below to help developers know what data will be available
@@ -14,6 +16,7 @@ define([
 	* @property {string} areaOfInterest 				- Option chosen in step one of Wizard, will be an ID for a radio button of selected option 
 	* @property {object} analysisSets						- Object containing keywords of types of analysis to perform and boolean indicating if it is included in analysis
 	* @property {string} optionalAnalysisLabel  - Label to be used when multiple features are selected
+	* @property {array} customFeatures					- Array of Graphic objects (points & polygons)
 	*/
 
 	var Interface = {
@@ -30,8 +33,19 @@ define([
 		* @param {string} vaule - Item to save in store
 		*/
 		set: function (key, value) {
-			Store[key] = value;
+			Store[key].set(value);
 			this.updateSubscribers(key);
+		},
+
+		appendArray: function (key, items) {
+			// if store[key] is not array
+			// 	throw new Error('Key is not mapped to an Array')
+
+			// if type of items is array {
+			// 	store.item.concat
+			// } else {
+			// 	store.item.push()
+			// }
 		},
 
 		/**
