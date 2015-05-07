@@ -11,8 +11,9 @@ define([
   "map/MapModel",
   "map/Uploader",
   "map/Symbols",
-  "utils/GeoHelper"
-], function (React, AnalyzerConfig, WizardStore, Graphic, Draw, dom, dojoQuery, domClass, MapConfig, MapModel, Uploader, Symbols, GeoHelper) {
+  "utils/GeoHelper",
+  "components/featureList/FeatureList"
+], function (React, AnalyzerConfig, WizardStore, Graphic, Draw, dom, dojoQuery, domClass, MapConfig, MapModel, Uploader, Symbols, GeoHelper, FeatureList) {
 
   var drawToolbar,
       activeTool;
@@ -61,39 +62,40 @@ define([
             React.DOM.div({'className': 'drawing-tool-button', 'onClick': this._activateToolbar, 'id': 'draw-polygon' }, AnalyzerConfig.customArea.polyLabel),
             React.DOM.div({'className': 'drawing-tool-button', 'onClick': Uploader.toggle.bind(Uploader), 'id': 'draw-upload' }, AnalyzerConfig.customArea.uploadLabel)
           ),
-          React.DOM.div({'className': 'custom-graphics-list-container ' + (this.state.graphics.length > 0 ? '' : 'hidden')},
-            React.DOM.div({'className': 'clear-custom-features', 'onClick': this._clearFeatures}, "clear all"),
+          React.DOM.div({'className': 'custom-graphics-list-container'},
+            // React.DOM.div({'className': 'clear-custom-features', 'onClick': this._clearFeatures}, "clear all"),
             React.DOM.div({'className': 'drawing-instructions'}, AnalyzerConfig.customArea.instructionsPartTwo),
-            this.state.graphics.map(this._graphicsMapper, this)
+            new FeatureList({ 'features': this.state.graphics })
+            // this.state.graphics.map(this._graphicsMapper, this)
           )
         )
       );
     },
 
-    _graphicsMapper: function (item) {
-      var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-      var existsSelection = analysisArea !== undefined;
-      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-      var isAreaOfInterestCustom = selectedAreaOfInterest === 'customAreaOption';
-      var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == analysisArea.attributes.WRI_ID) ? 'custom-feature-row active' : 'custom-feature-row';
+    // _graphicsMapper: function (item) {
+    //   var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+    //   var existsSelection = analysisArea !== undefined;
+    //   var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+    //   var isAreaOfInterestCustom = selectedAreaOfInterest === 'customAreaOption';
+    //   var className = isAreaOfInterestCustom && existsSelection && (item.attributes.WRI_ID == analysisArea.attributes.WRI_ID) ? 'custom-feature-row active' : 'custom-feature-row';
 
-      return React.DOM.div(
-        {
-          'className': className,
-          'onClick': this._chooseGraphic,
-          'data-feature-id': item.attributes.WRI_ID
-        },
-        React.DOM.input({
-          'className':'custom-feature-label',
-          'type': 'text',
-          'placeholder': 'Feature name',
-          'size': item.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
-          'value': item.attributes[AnalyzerConfig.stepTwo.labelField],
-          'data-feature-id': item.attributes.WRI_ID,
-          'onChange': this._renameGraphic
-        })
-      );
-    },
+    //   return React.DOM.div(
+    //     {
+    //       'className': className,
+    //       'onClick': this._chooseGraphic,
+    //       'data-feature-id': item.attributes.WRI_ID
+    //     },
+    //     React.DOM.input({
+    //       'className':'custom-feature-label',
+    //       'type': 'text',
+    //       'placeholder': 'Feature name',
+    //       'size': item.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
+    //       'value': item.attributes[AnalyzerConfig.stepTwo.labelField],
+    //       'data-feature-id': item.attributes.WRI_ID,
+    //       'onChange': this._renameGraphic
+    //     })
+    //   );
+    // },
 
     _renameGraphic: function(evt) {
       var graphic = customFeatures[evt.target.parentNode.dataset.featureId - 1],
