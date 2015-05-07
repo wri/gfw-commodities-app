@@ -1,6 +1,6 @@
 define([
-
-], function () {
+	'lodash'
+], function (_) {
 	'use strict';
 
 	var Callbacks = {};
@@ -24,7 +24,7 @@ define([
 		* @param {string} key - key of item in store
 		*/
 		get: function (key) {
-			return Store[key];
+			return _.clone(Store[key]);
 		},
 
 		/**
