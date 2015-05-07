@@ -107,7 +107,7 @@ define([
     },
 
     _graphicsMapper: function (item) {
-      var analysisArea = WizardStore.get(KEYS.analysisArea);
+      var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
       var existsSelection = analysisArea !== undefined;
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var isAreaOfInterestCustom = selectedAreaOfInterest === 'customAreaOption';
@@ -139,7 +139,7 @@ define([
         graphic.attributes[AnalyzerConfig.stepTwo.labelField] = evt.target.value;
         this.setState(getDefaultState());
         if (evt.target.parentNode.className.split(' ').indexOf('active') > -1) {
-          WizardStore.set(KEYS.analysisArea, graphic);
+          WizardStore.set(KEYS.selectedCustomFeatures, graphic);
         }
       }
 
@@ -154,7 +154,7 @@ define([
       graphicsLayer.clear();
       this.setState(getDefaultState());
       // Reset this key to undefined
-      WizardStore.set(KEYS.analysisArea);
+      WizardStore.set(KEYS.selectedCustomFeatures);
       // Deactivate all the tools if active
       this._deactivateToolbar();
       this._removeActiveClass();
@@ -487,7 +487,7 @@ define([
       graphicsLayer.graphics.forEach(function (g) {
         if (g.attributes.WRI_ID === parseInt(id)) {
           GeoHelper.zoomToFeature(g);
-          WizardStore.set(KEYS.analysisArea, g);
+          WizardStore.set(KEYS.selectedCustomFeatures, g);
         }
       });
     },

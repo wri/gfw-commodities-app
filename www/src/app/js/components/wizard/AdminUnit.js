@@ -157,8 +157,8 @@ define([
             });
             // Mark this as your current selection and pass in an optional label since analysis area
             // is an array of graphics instead of a single graphic
-            WizardStore.set(KEYS.optionalAnalysisLabel, target.innerHTML);
-            WizardStore.set(KEYS.analysisArea, features);
+            WizardStore.set(KEYS.selectedCustomFeatureAlias, target.innerHTML);
+            WizardStore.set(KEYS.selectedCustomFeatures, features);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });
@@ -181,7 +181,7 @@ define([
             wizardGraphicsLayer.clear();
             wizardGraphicsLayer.add(graphic);
             // Mark this as your current selection
-            WizardStore.set(KEYS.analysisArea, graphic);
+            WizardStore.set(KEYS.selectedCustomFeatures, graphic);
             // Zoom to extent of new feature
             if (graphic._extent) {
               app.map.setExtent(graphic._extent, true);

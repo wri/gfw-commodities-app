@@ -36,8 +36,8 @@ define([
   }
 
   function getCurrentSelectionLabel () {
-    var analysisArea = WizardStore.get(KEYS.analysisArea);
-    var optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel);
+    var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+    var optionalLabel = WizardStore.get(KEYS.selectedCustomFeatureAlias);
 
     return (analysisArea ? 
       (analysisArea.attributes ? analysisArea.attributes[labelField] : optionalLabel)
@@ -52,11 +52,11 @@ define([
     },
 
     componentDidMount: function () {
-      WizardStore.registerCallback(KEYS.analysisArea, this.analysisAreaUpdated);
+      WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
     },
 
     analysisAreaUpdated: function () {
-      var analysisArea = WizardStore.get(KEYS.analysisArea);
+      var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
       
       if (analysisArea) {
         this.setState({ 

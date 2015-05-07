@@ -213,7 +213,7 @@ define([
             // There should only be one feature returning from this call, if more then one come back
             // something went wrong, this code should be refactored to be more clear that only one feature
             // is coming back
-            WizardStore.set(KEYS.analysisArea, features[0]);
+            WizardStore.set(KEYS.selectedCustomFeatures, features[0]);
             app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });
@@ -235,7 +235,7 @@ define([
             wizardGraphicsLayer.clear();
             wizardGraphicsLayer.add(graphic);
             // Mark this as your current selection
-            WizardStore.set(KEYS.analysisArea, graphic);
+            WizardStore.set(KEYS.selectedCustomFeatures, graphic);
             // Zoom to extent of new feature
             if (graphic._extent) {
               app.map.setExtent(graphic._extent, true);

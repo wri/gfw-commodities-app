@@ -21,7 +21,7 @@ define([
     function getDefaultState() {
         return {
             currentStep: WizardStore.get(KEYS.userStep) || 0,
-            analysisArea: WizardStore.get(KEYS.analysisArea),
+            analysisArea: WizardStore.get(KEYS.selectedCustomFeatures),
             usersAreaOfInterest: WizardStore.get(KEYS.areaOfInterest),
             analysisSets: WizardStore.get(KEYS.analysisSets)
         };
@@ -39,7 +39,7 @@ define([
         componentDidMount: function() {
             // Register Callbacks for analysis area updates
             // Anytime the data in the store at these keys is updated, these callbacks trigger
-            WizardStore.registerCallback(KEYS.analysisArea, this.analysisAreaUpdated);
+            WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
             WizardStore.registerCallback(KEYS.userStep, this.currentUserStepUpdated);
             WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
             WizardStore.registerCallback(KEYS.analysisSets, this.analysisSetsUpdated);
@@ -55,7 +55,7 @@ define([
 
         /* Methods for reacting to store updates */
         analysisAreaUpdated: function () {
-            var updatedArea = WizardStore.get(KEYS.analysisArea);
+            var updatedArea = WizardStore.get(KEYS.selectedCustomFeatures);
             this.setState({ analysisArea: updatedArea });
         },
 
@@ -84,7 +84,7 @@ define([
             // User returned to Step 1 so we need to reset some things.
             if (prevState.currentStep > 1 && this.state.currentStep === 1) {
               // Reset the analysis area
-              WizardStore.set(KEYS.analysisArea, undefined);
+              WizardStore.set(KEYS.selectedCustomFeatures, undefined);
               // Clear Graphics from Wizard Layer, it just shows the selection they made
               var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
               if (wizLayer) { wizLayer.clear(); }
@@ -242,7 +242,7 @@ define([
             // is asynchronous and not counted as part of the click handler
             var self = this,
                 geometry = self._prepareGeometry(self.state.analysisArea),
-                optionalLabel = WizardStore.get(KEYS.optionalAnalysisLabel),
+                optionalLabel = WizardStore.get(KEYS.selectedCustomFeatureAlias),
                 labelField,
                 suitableRule,
                 readyEvent,

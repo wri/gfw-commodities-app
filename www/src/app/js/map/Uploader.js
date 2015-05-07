@@ -1,9 +1,10 @@
 define([
+	// My Modules
 	'map/config',
 	'map/Symbols',
 	'analysis/config',
   'analysis/WizardStore',
-
+  // Dojo Modules
 	'dojo/on',
 	'dojo/sniff',
 	'dojo/dom-class',
@@ -11,14 +12,16 @@ define([
 	'dojo/store/Memory',
 	'dojo/dom-construct',
 	'dijit/form/ComboBox',
-
+	'dojox/data/CsvStore',
+	// Esri Modules
 	'esri/request',
 	'esri/graphic',
 	'esri/geometry/Point',
   'esri/geometry/Extent',
   'esri/geometry/Polygon',
-	'esri/geometry/scaleUtils'
-], function (MapConfig, Symbols, AnalysisConfig, WizardStore, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils) {
+	'esri/geometry/scaleUtils',
+	'esri/geometry/webMercatorUtils'
+], function (MapConfig, Symbols, AnalysisConfig, WizardStore, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, CsvStore, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils, webMercatorUtils) {
 	'use strict';
 
 	var closeHandle;
@@ -60,7 +63,7 @@ define([
 			}
 
 			if (filename.indexOf('.zip') < 0) {
-				this.uploadCSV(filename, evt);
+				this.uploadCSV(evt);
 			} else {
 				this.uploadShapefile(filename, evt);
 			}
@@ -72,8 +75,50 @@ define([
 		* @param {stirng} filename - name of file to upload
 		* @param {object} evt - Event emitted by the form onChange(may not be needed but passed just incase)
 		*/
-		uploadCSV: function (filename, evt) {
+		uploadCSV: function (evt) {
+			var file = evt.target.files[0],
+					reader = new FileReader(),
+					attributeStore = [],
+					self = this,
+					fileLoaded,
+					attributes,
+					store;
 
+			fileLoaded = function () {
+				// Create a CSV Store and fetch all items from it afterwards
+				store = new CsvStore({
+					data: reader.result,
+					separator: ','
+				});
+
+				store.fetch({
+					onComplete: function (items) {
+						
+						if (items.length < 1) {
+							throw new Error('No items found in CSV file.');
+						}
+
+						attributes = store.getAttributes(items[0]);
+
+						attributes.forEach(function (attr) {
+			        attributeStore.push({ name: attr, id: attr });
+			      });
+
+			      self.generateDropdown(attributeStore, function (name) {
+			      	if (name) {
+		            self.formatCSVDataForStore(store, items, name);
+		          }
+			      });
+
+					},
+					onError: self.uploadError
+				});
+
+			};
+
+			// Read the CSV File
+			reader.onload = fileLoaded;
+			reader.readAsText(file);
 		},
 
 		/**
@@ -128,7 +173,7 @@ define([
 		* @param {object} err - Error object emitted from portal upload
 		*/
 		uploadError: function (err) {
-			alert("Error: " + err.message);
+			console.error("Error uplaoding data: ", err);
 		},
 
 		/**
@@ -137,12 +182,9 @@ define([
 		*/
 		uploadSuccess: function (res, params) {
 			
-			var locationNode = document.getElementById('postUploadOptions'),
-					featureCollection = res.featureCollection,
+			var featureCollection = res.featureCollection,
 					uploadedFeatureStore = [],
-          self = this,
-          chosenName,
-          store;
+          self = this;
 
       // Create a store of data
       // Currently this upload only takes the first layer of a shapefile
@@ -154,28 +196,56 @@ define([
         });
       });
 
-      // Create containers for Dropdowns
-      domConstruct.create('div', {
-      	'id': 'uploadNameField',
-      	'innerHTML': '<div id="uploadNameFieldWidget"></div>'
-      }, locationNode, 'after');
-
-      store = new Memory({
-      	data: uploadedFeatureStore
+      self.generateDropdown(uploadedFeatureStore, function (name) {
+      	if (name) {
+          self.formatFeaturesToStore(featureCollection.layers[0].featureSet, name);
+        }
       });
 
-      new ComboBox({
-        id: "uploadNameFieldWidget",
-        value: "-- Choose name field --",
-        store: store,
-        searchAttr: "name",
-        onChange: function (name) {
-          if (name) {
-            self.formatFeaturesToStore(featureCollection.layers[0].featureSet, name);
-          }
-          self.resetForm();
-        }
-      }, "uploadNameFieldWidget");
+		},
+
+		/**
+		* Prepare a csv data store to be pushed to the WizardStore, output format will be esri.Graphic
+		* @param {object} store - dojo's CSV Store
+		* @param {array} items - Array of items resulting from a fetch on the csv store
+		* @param {string} nameField - Field to be used as the name field
+		*/
+		formatCSVDataForStore: function (store, items, nameField) {
+			var counter = this.nextId(),
+					newFeatures = [],
+					attributes,
+					feature,
+					attrs,
+					value,
+					lat,
+					lon;
+
+			// Parse the Attribtues
+			items.forEach(function (item, index) {
+				attributes = {};
+				attrs = store.getAttributes(item);
+				attrs.forEach(function (attr) {
+					value = store.getValue(item, attr);
+					attributes[attr] = isNaN(value) ? value : parseFloat(value);
+				});
+
+				attributes[MapConfig.uploader.labelField] = 'ID - ' + (counter + index) + ': ' + attributes[nameField];
+				attributes.WRI_ID = (counter + index);
+
+				// Try to get the Lat and Long from Latitude and Longitude but not case sensitive
+				lat = attributes.Latitude ? attributes.Latitude : attributes.latitude;
+				lon = attributes.Longitude ? attributes.Longitude : attributes.longitude;
+
+				feature = new Graphic(
+					new Point(lon, lat),
+					Symbols.getPointSymbol(),
+					attributes
+				);
+
+				newFeatures.push(feature);
+			});
+			
+			WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat(newFeatures));
 
 		},
 
@@ -214,7 +284,7 @@ define([
 
 			});
 
-			WizardStore.appendArray(KEYS.customFeatures, newFeatures);
+			WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat(newFeatures));
 
 		},
 
@@ -252,6 +322,41 @@ define([
     	}
 
     	document.getElementById('upload-form').reset();
+		},
+
+		/**
+		* Simple Utility function to create a dropdown to allow the user to choose a name field
+		* The data should be an array of objects like {name: '..', id: '..'}
+		* @param {array} data - Array of data to create the dropdown with
+		* @param {function} callback - Callback to invoke once complete
+		*/
+		generateDropdown: function (data, callback) {
+
+			var locationNode = document.getElementById('postUploadOptions'),
+					self = this,
+					store;
+
+			domConstruct.create('div', {
+      	'id': 'uploadNameField',
+      	'innerHTML': '<div id="uploadNameFieldWidget"></div>'
+      }, locationNode, 'after');
+
+      store = new Memory({
+      	data: data
+      });
+
+      new ComboBox({
+        id: "uploadNameFieldWidget",
+        value: "-- Choose name field --",
+        store: store,
+        searchAttr: "name",
+        onChange: function (name) {
+          self.resetForm();
+          self.toggle();
+          callback(name);
+        }
+      }, "uploadNameFieldWidget");
+
 		}
 
 

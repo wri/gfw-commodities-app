@@ -196,11 +196,11 @@ define([
 
             // Mark this as your current selection and provide label
             if (selectedFeatures.length > 0) {
-              WizardStore.set(KEYS.optionalAnalysisLabel, selectedLabels.join(', '));
-              WizardStore.set(KEYS.analysisArea, selectedFeatures);
+              WizardStore.set(KEYS.selectedCustomFeatureAlias, selectedLabels.join(', '));
+              WizardStore.set(KEYS.selectedCustomFeatures, selectedFeatures);
             } else {
               // This resets the current selection to none
-              WizardStore.set(KEYS.analysisArea);
+              WizardStore.set(KEYS.selectedCustomFeatures);
             }
 
           });
