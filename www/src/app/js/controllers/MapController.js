@@ -405,7 +405,9 @@ define([
                         index++;
                         length--;
                     }
-                    graphicsToRemove.map(layer.remove);
+                    graphicsToRemove.map(function(graphic) {
+                        layer.remove(graphic);
+                    });
                 }
 
                 if (storeGraphics.length > 0 && graphicsLengthDifference < 0) {
