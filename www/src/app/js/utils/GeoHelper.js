@@ -25,7 +25,9 @@ define([
     },
 
     zoomToFeature: function (feature) {
-      if (feature.geometry.center) {
+      if (feature.geometry.x) {
+        app.map.centerAndZoom(feature.geometry, 9);
+      } else if (feature.geometry.center) {
         app.map.centerAndZoom(feature.geometry.center, 9);
       } else {
         app.map.setExtent(feature.geometry.getExtent(), true);
