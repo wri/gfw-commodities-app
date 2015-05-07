@@ -19,11 +19,12 @@ define([
 	'dojo/query',
 	'dojo/dom-class',
 	'map/config',
-	'map/MapModel'
-], function(React, AlertsConfig, AnalyzerConfig, WizardStore, Units, Color, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, domClass, MapConfig, MapModel) {
+	'map/MapModel',
+	'utils/GeoHelper',
+	'lodash'
+], function(React, AlertsConfig, AnalyzerConfig, WizardStore, Units, Color, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, domClass, MapConfig, MapModel, GeoHelper, _) {
 
 	var AlertsForm,
-		graphicsLayer,
 		drawToolbar,
 		activeTool,
 		customFeatureSymbol = new SimpleFillSymbol(AlertsConfig.customFeatureSymbol),
@@ -33,7 +34,7 @@ define([
 
 	getDefaultState = function() {
 		return {
-			graphics: WizardStore.get('customFeatures'),
+			features: WizardStore.get('customFeatures'),
 			showUploadTools: false
 		}
 	}
@@ -46,10 +47,9 @@ define([
 			// Initialize
 			drawToolbar = new Draw(app.map);
 			drawToolbar.on('draw-end', this._drawComplete);
-			graphicsLayer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
 
 			WizardStore.registerCallback('customFeatures', function() {
-				this.setState({graphics: WizardStore.get('customFeatures')});
+				this.setState({features: WizardStore.get('customFeatures')});
 			}.bind(this));
 
 			this.setState(getDefaultState());
@@ -101,8 +101,10 @@ define([
 							React.DOM.button(null, 'Toggle'),
 							React.DOM.button({'className': 'clear-custom-features', 'onClick': this._clearFeatures}, 'Clear')
 						),
+						// TODO: remove temporary border style
+						// TODO: paramaterise inline height & width styles
 						React.DOM.div({'className':'absolute no-wide', 'style': {border:'1px solid #DDDDDD', top: '210px', bottom:'151px'}},
-							this.state.graphics.map(this._graphicsMapper, this)
+							this.state.features.map(this._featuresMapper, this)
 						),
 						// Subscription options
 						React.DOM.div({'className':'absolute no-wide border-box padding__wide', 'style': {height:'80px', bottom:'51px'}},
@@ -130,24 +132,31 @@ define([
 			);
 		},
 
-		_graphicsMapper: function(graphic, index) {
-			// TODO: replace with KEYS reference
+		// TODO: Refactor block into component for re-use /////////////
 
+		_featuresMapper: function(feature, index) {
+			// TODO: replace with KEYS reference
 			return (
-				React.DOM.div(null,
+				React.DOM.div({
+						'onClick': this._chooseFeature,
+						// TODO: replace inline styling with classes
+						'data-feature-index': index,
+						'data-feature-id': feature.attributes.WRI_ID
+					},
 					React.DOM.input({
 						'type': 'checkbox',
-						'onChange': this._removeFeature,
-						'data-index': index
+						'className': 'table-cell',
+						'data-feature-index': index,
+						'data-feature-id': feature.attributes.WRI_ID
 					}),
 					React.DOM.input({
-						'className':'custom-feature-label',
 						'type': 'text',
+						'className': 'custom-feature-label table-cell',
 						'placeholder': 'Feature name',
-						'size': graphic.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
-						'value': graphic.attributes[AnalyzerConfig.stepTwo.labelField],
+						'size': feature.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
+						'value': feature.attributes[AnalyzerConfig.stepTwo.labelField],
 						'data-feature-index': index,
-						'data-feature-id': graphic.attributes.WRI_ID,
+						'data-feature-id': feature.attributes.WRI_ID,
 						'onChange': this._renameFeature
 					})
 				)
@@ -155,25 +164,39 @@ define([
 		},
 
 		_removeFeature: function(evt) {
-			var index = parseInt(evt.target.dataset ? evt.target.dataset.index : evt.target.getAttribute("data-geometry-index")),
+			var index = parseInt(evt.target.dataset ? evt.target.dataset.featureIndex : evt.target.getAttribute("data-feature-index")),
 				spliceArgs = [index, 1]
-				updatedArray = WizardStore.get('customFeatures'),
-				graphic = Array.prototype.splice.apply(updatedArray, spliceArgs)[0];
+				features = WizardStore.get('customFeatures'),
+				featureToRemove = Array.prototype.splice.apply(features, spliceArgs)[0];
 
 			WizardStore.set('customFeaturesSpliceArgs', spliceArgs);
-			WizardStore.set('customFeatures', updatedArray);
-			return graphic;
+			WizardStore.set('customFeatures', features);
+			return featureToRemove;
 		},
 
 
 		_renameFeature: function(evt) {
-			var graphic = this._removeFeature(evt);
+			var feature = this._removeFeature(evt);
 
-			graphic.attributes[AnalyzerConfig.stepTwo.labelField] = evt.target.value;
+			feature.attributes[AnalyzerConfig.stepTwo.labelField] = evt.target.value;
 
-			WizardStore.appendArray('customFeatures', graphic);
+			WizardStore.appendArray('customFeatures', feature);
 			if (evt.target.parentNode.className.split(' ').indexOf('active') > -1) {
-				WizardStore.set('analysisArea', graphic);
+				WizardStore.set('analysisArea', feature);
+			}
+		},
+
+		_chooseFeature: function (evt) {
+			var id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute("data-feature-id")),
+				features = WizardStore.get('customFeatures'),
+				featureToChoose = _.find(features, function(feature) {return feature.attributes.WRI_ID === id;}),
+				self = this;
+
+			if (featureToChoose) {
+				GeoHelper.zoomToFeature(featureToChoose);
+				WizardStore.set('analysisArea', featureToChoose);
+			} else {
+				throw new Error('Undefined Error: Could not find selected feature in WizardStore');
 			}
 		},
 
@@ -184,6 +207,8 @@ define([
 			this._deactivateToolbar();
 			this._removeActiveClass();
 		},
+
+		////////////////////////////////////////////////////
 
 		_instructionsMapper: function (item) {
 			return React.DOM.li(null, item);
@@ -198,9 +223,7 @@ define([
 			this._removeActiveClass();
 
 			// Hide the Upload tools if visible
-			this.setState({
-				showUploadTools: false
-			});
+			this.setState({showUploadTools: false});
 
 			// If they clicked the same button twice, deactivate the toolbar
 			if (activeTool === geometryType) {
@@ -217,29 +240,26 @@ define([
 			MapModel.set('drawToolsEnabled', true);
 		},
 
-	_showUploadTools: function (evt) {
+		_showUploadTools: function (evt) {
 
-	  if(domClass.contains(evt.target, 'active')) {
-		this._disableUploadTools();
-	  } else {
-		domClass.add(evt.target, 'active');
-		this.setState({
-		  showUploadTools: true
-		});
-	  }
+			if(domClass.contains(evt.target, 'active')) {
+				this._disableUploadTools();
+			} else {
+				domClass.add(evt.target, 'active');
+				this.setState({showUploadTools: true});
+			}
 
-	  // If one of the other tools is active, deactivate it and remove active classes from other tools
-	  if (activeTool) {
-		this._deactivateToolbar();
-		// TODO: fix references to function on non-id hook
-		// dojoQuery(".drawing-tool-button").forEach(function (node) {
-		//   if (node.id !== evt.target.id) {
-		//     domClass.remove(node, "active");
-		//   }
-		// });
-	  }
-
-	},
+			// If one of the other tools is active, deactivate it and remove active classes from other tools
+			if (activeTool) {
+				this._deactivateToolbar();
+				// TODO: fix references to function on non-id hook
+				// dojoQuery(".drawing-tool-button").forEach(function (node) {
+				//   if (node.id !== evt.target.id) {
+				//     domClass.remove(node, "active");
+				//   }
+				// });
+			}
+		},
 
 	// _uploadShapefile: function (evt) {
 
@@ -459,81 +479,59 @@ define([
 
 	// },
 
-	_drawComplete: function (evt) {
-		this._removeActiveClass();
-		this._deactivateToolbar();
+		_drawComplete: function (evt) {
+			this._removeActiveClass();
+			this._deactivateToolbar();
 
-		if (!evt.geometry) {
-			return;
-		}
+			if (!evt.geometry) {
+				return;
+			}
 
-		// WRI_ID = Unique ID for Drawn Graphics
-		var id = this._nextAvailWRI_ID(),
-			attrs = { "WRI_ID": id },
-			graphic;
+			var id = this._nextAvailWRI_ID(),
+				attrs = { "WRI_ID": id },
+				feature;
 
-		// Add a Label
-		attrs[AnalyzerConfig.stepTwo.labelField] = "ID - " + id + ": Custom drawn feature";
-		graphic = new Graphic(evt.geometry, customFeatureSymbol, attrs);
+			attrs[AnalyzerConfig.stepTwo.labelField] = "ID - " + id + ": Custom drawn feature";
+			feature = new Graphic(evt.geometry, customFeatureSymbol, attrs);
 
-		WizardStore.appendArray('customFeatures', graphic);
-	},
+			WizardStore.appendArray('customFeatures', feature);
+		},
 
-	_deactivateToolbar: function () {
-		drawToolbar.deactivate();
-		activeTool = undefined;
-		MapModel.set('drawToolsEnabled', false);
-	},
+		_deactivateToolbar: function () {
+			drawToolbar.deactivate();
+			activeTool = undefined;
+			MapModel.set('drawToolsEnabled', false);
+		},
 
-	_disableUploadTools: function () {
-		// fix id reference
+		_disableUploadTools: function () {
+			dom.byId("alertsShapefileUploader").value = "";
+			domClass.remove("alerts-draw-upload", "active");
+			this.setState({showUploadTools: false});
+		},
 
-		dom.byId("alertsShapefileUploader").value = "";
-		domClass.remove("alerts-draw-upload", "active");
-		this.setState({
-			showUploadTools: false
-		});
-	},
+		_removeActiveClass: function () {
+			dojoQuery(".drawing-tools .drawing-tool-button").forEach(function (node) {
+				domClass.remove(node, "active");
+			});
+		},
 
-	_removeActiveClass: function () {
-		dojoQuery(".drawing-tools .drawing-tool-button").forEach(function (node) {
-			domClass.remove(node, "active");
-		});
-	},
+		_nextAvailWRI_ID: function() {
+			var i = 0,
+				x = 0,
+				features = WizardStore.get('customFeatures'),
+				length = features.length,
+				temp;
 
-	// _chooseGraphic: function (evt) {
-	//   var id = evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute("data-feature-id"),
-	//       self = this;
-	//   graphicsLayer.graphics.forEach(function (g) {
-	//     if (g.attributes.WRI_ID === parseInt(id)) {
-	//       GeoHelper.zoomToFeature(g);
-	//       // Pass the Feature to Component StepTwo.js, he will update his state to completed is true, and he will 
-	//       // have a feature to display in the Current feature for analysis section
-	//       self.props.callback.updateAnalysisArea(g);
-	//     }
-	//   });
-	// },
-
-	_nextAvailWRI_ID: function() {
-		var i = 0,
-			x = 0,
-			graphics = WizardStore.get('customFeatures'),
-			length = graphics.length,
-			temp;
-
-		for (i; i < length; i++) {
-			if (graphics[i].geometry.type !== "point") {
-				temp = parseInt(graphics[i].attributes.WRI_ID);
-				if (!isNaN(temp)) {
-					x = (x > temp) ? x : temp;
+			for (i; i < length; i++) {
+				if (features[i].geometry.type !== "point") {
+					temp = parseInt(features[i].attributes.WRI_ID);
+					if (!isNaN(temp)) {
+						x = (x > temp) ? x : temp;
+					}
 				}
 			}
+			return (x + 1);
 		}
-		return (x + 1);
-	}
-
-// ///////////////////////////////
-
 	});
 
 	return function(props, el) {
