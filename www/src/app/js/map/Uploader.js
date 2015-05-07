@@ -1,6 +1,8 @@
 define([
 	'map/config',
 	'map/Symbols',
+	'analysis/config',
+  'analysis/WizardStore',
 
 	'dojo/on',
 	'dojo/sniff',
@@ -16,10 +18,12 @@ define([
   'esri/geometry/Extent',
   'esri/geometry/Polygon',
 	'esri/geometry/scaleUtils'
-], function (MapConfig, Symbols, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils) {
+], function (MapConfig, Symbols, AnalysisConfig, WizardStore, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils) {
 	'use strict';
 
 	var closeHandle;
+
+	var KEYS = AnalysisConfig.STORE_KEYS;
 
 	var Uploader = {
 
@@ -210,7 +214,7 @@ define([
 
 			});
 
-			console.dir(newFeatures);
+			WizardStore.appendArray(KEYS.customFeatures, newFeatures);
 
 		},
 
