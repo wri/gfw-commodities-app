@@ -263,7 +263,7 @@ define([
 				// for Mill Points, it is option 5
 				// selectedArea set in switch statement above
 				WizardStore.set(KEYS.areaOfInterest, selectedArea);
-				WizardStore.set(KEYS.analysisArea, feature);
+				WizardStore.set(KEYS.selectedCustomFeatures, feature);
 				// Set to Step 3, the parameter is index based like 0,1,2,3, 3 is the third step
 				// because we inserted a introduction step that is now step 0
 				wizard._externalSetStep(3);

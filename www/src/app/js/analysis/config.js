@@ -334,11 +334,11 @@ define([], function() {
         },
 
         STORE_KEYS: {
-            analysisArea: 'analysisArea',
+            selectedCustomFeatures: 'selectedCustomFeatures',
+            selectedCustomFeatureAlias: 'selectedCustomFeatureAlias',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
-            optionalAnalysisLabel: 'optionalAnalysisLabel',
             customFeatures: 'customFeatures'
         }
 
