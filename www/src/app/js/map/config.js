@@ -46,6 +46,7 @@ define([], function() {
 
         uploader: {
             portalUrl: 'http://www.arcgis.com/sharing/rest/content/features/generate',
+            labelField: "WRI_label",
             errors: {
                 
             }

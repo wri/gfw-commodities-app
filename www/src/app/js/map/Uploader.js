@@ -1,5 +1,6 @@
 define([
 	'map/config',
+	'map/Symbols',
 
 	'dojo/on',
 	'dojo/sniff',
@@ -10,8 +11,12 @@ define([
 	'dijit/form/ComboBox',
 
 	'esri/request',
+	'esri/graphic',
+	'esri/geometry/Point',
+  'esri/geometry/Extent',
+  'esri/geometry/Polygon',
 	'esri/geometry/scaleUtils'
-], function (MapConfig, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, esriRequest, scaleUtils) {
+], function (MapConfig, Symbols, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils) {
 	'use strict';
 
 	var closeHandle;
@@ -131,7 +136,6 @@ define([
 			var locationNode = document.getElementById('postUploadOptions'),
 					featureCollection = res.featureCollection,
 					uploadedFeatureStore = [],
-          containsPointData,
           self = this,
           chosenName,
           store;
@@ -145,8 +149,6 @@ define([
           id: field.alias
         });
       });
-
-      containsPointData = featureCollection.layers[0].featureSet.geometryType === "esriGeometryPoint";
 
       // Create containers for Dropdowns
       domConstruct.create('div', {
@@ -179,7 +181,57 @@ define([
 		* @param {string} nameField - Field to be used as the name field
 		*/
 		formatFeaturesToStore: function (featureSet, nameField) {
-			console.dir(featureSet);
+
+			var counter = this.nextId(),
+					newFeatures = [],
+					geometry,
+					graphic,
+					extent,
+					symbol,
+					temp;
+
+			featureSet.features.forEach(function (feature, index) {
+				feature.attributes[MapConfig.uploader.labelField] = 'ID - ' + (counter + index) + ': ' + feature.attributes[nameField];
+				feature.attributes.WRI_ID = (counter + index);
+				// If its a point, create a point, else, create a polygon
+				if (feature.geometry.x) {
+					symbol = Symbols.getPointSymbol();
+					geometry = new Point(feature.geometry);
+					temp = new Extent(geometry.x, geometry.y, geometry.x, geometry.y, geometry.spatialReference);
+					extent = extent ? extent.union(temp) : temp;
+				} else {
+					symbol = Symbols.getPolygonSymbol();
+					geometry = new Polygon(feature.geometry);
+					extent = extent ? extent.union(geometry.getExtent()) : geometry.getExtent();
+				}
+
+				graphic = new Graphic(geometry, symbol, feature.attributes);
+				newFeatures.push(graphic);
+
+			});
+
+			console.dir(newFeatures);
+
+		},
+
+		/**
+		* Return the next highest unique id, using WRI_ID as the unique id field
+		*/
+		nextId: function () {
+			var graphicsLayer = app.map.getLayer(MapConfig.customGraphicsLayer.id),
+					graphics = graphicsLayer.graphics,
+					length = graphics.length,
+					next = 0,
+					index,
+					temp;
+
+			for (index = 0; index < length; index++) {
+				temp = parseInt(graphics[index].attributes.WRI_ID);
+				if (!isNaN(temp)) {
+					next = Math.max(next, temp);
+				}
+			}
+			return (next + 1);
 		},
 
 		/**
