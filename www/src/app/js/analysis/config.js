@@ -203,7 +203,7 @@ define([], function() {
         },
 
         customArea: {
-            instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
+            instructions: "Select the \"Freehand\" or \"Polygon\" options below to draw an area of interest on the map, or choose \"Upload\" to upload a zipped shapefile of polygons or points or a list of point coordinates to analyze.",
             instructionsPartTwo: "Select an area from the list below and click \"Next\" to proceed.",
             freehandLabel: 'Freehand',
             uploadLabel: 'Upload',
@@ -317,8 +317,9 @@ define([], function() {
         },
 
         millPoints: {
-            instructions: 'Select a commodity type:',
-            instructionsPartTwo: "Select mill(s) from the list below and click \"Next\" to proceed.",
+            instructions: 'Select a method for choosing or creating mill points to analyze.',
+            selectInstructions: 'Select a commodity type:',
+            listInstructions: "Select mill(s) from the list below and click \"Next\" to proceed.",
             commodityOptions: [{
                 label: 'Oil palm',
                 value: 'Oil palm concession'

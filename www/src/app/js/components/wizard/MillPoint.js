@@ -51,6 +51,7 @@ define([
         }
       }
 
+      // If they are moving forward through the wizard and end up here
       if (selectedAreaOfInterest === 'millPointOption' && previousStep === 1 && currentStep === 2) {
         // If Mill Points is not visible show it and select it in the UI, otherwise do nothing
         var layer = app.map.getLayer(MapConfig.mill.id);
@@ -86,6 +87,9 @@ define([
       return (
         React.DOM.div({'className': 'mill-point', 'id': 'mill-point'},
           React.DOM.p({'className': 'instructions'}, config.instructions),
+
+
+          React.DOM.p({'className': 'instructions'}, config.selectInstructions),
           React.DOM.div({'className': 'select-container'},
             React.DOM.select({
               'id': 'mill-select',
@@ -94,7 +98,7 @@ define([
               'onChange': this._loadMillPoints,
             }, config.commodityOptions.map(this._selectMapper, this))
           ),
-          React.DOM.p({'className': 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartTwo),
+          React.DOM.p({'className': 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.listInstructions),
           new NestedList({
             'data': this.state.nestedListData,
             'click': this._millPointSelected,
