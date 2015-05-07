@@ -339,7 +339,8 @@ define([], function() {
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
-            customFeatures: 'customFeatures'
+            customFeatures: 'customFeatures',
+            customFeaturesSpliceArgs: 'customFeaturesSpliceArgs'
         }
 
     };

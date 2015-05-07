@@ -36,21 +36,6 @@ define([
 			this.updateSubscribers(key);
 		},
 
-		appendArray: function (key, items) {
-			if (!Object.prototype.toString.call( Store[key] ) === "[object Array]") {
-				throw new Error('Type Error: Key is not mapped to an Array');
-			}
-
-			if (Object.prototype.toString.call( items ) === "[object Array]") {
-				Store[key] = Store[key].concat(items);
-				this.updateSubscribers(key);
-			} else {
-				Store[key].push(items);
-				this.updateSubscribers(key);
-			}
-
-		},
-
 		/**
 		* @param {string} key - key of item in Callbacks
 		* @param {function} callback - callback to trigger on update of store
