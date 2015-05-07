@@ -4,9 +4,8 @@ define([
 	'use strict';
 
 	var Callbacks = {};
-	var Store = {
-		customFeatures: []
-	};
+	var Store = {};
+
 	/**
 	* Expected items so far in the store
 	* If you add new keys to the store, place them in the list below to help developers know what data will be available
@@ -33,19 +32,22 @@ define([
 		* @param {string} vaule - Item to save in store
 		*/
 		set: function (key, value) {
-			Store[key].set(value);
+			Store[key] = value;
 			this.updateSubscribers(key);
 		},
 
 		appendArray: function (key, items) {
-			// if store[key] is not array
-			// 	throw new Error('Key is not mapped to an Array')
+			if (!Object.prototype.toString.call( Store[key] ) === "[object Array]") {
+				throw new Error('Type Error: Key is not mapped to an Array');
+			}
 
-			// if type of items is array {
-			// 	store.item.concat
-			// } else {
-			// 	store.item.push()
-			// }
+			if (Object.prototype.toString.call( items ) === "[object Array]") {
+				Store[key].concat(items);
+				this.updateSubscribers(key);
+			} else {
+				Store[key].push(items);
+				this.updateSubscribers(key);
+			}
 		},
 
 		/**

@@ -64,8 +64,6 @@ define([
 
 	return {
 		toggleAlertsForm: function() {
-			console.debug('toggling alerts form');
-
 			alertsForm = alertsForm || new AlertsForm({}, 'alerts-form');
 
 			// open/close toggle, handling open wizard if necessary
