@@ -3,6 +3,7 @@ define([
 	'components/alertsForm/config',
 	'analysis/config',
 	'analysis/WizardStore',
+	'components/featureList/FeatureList',
 	'esri/units',
 	'esri/Color',
 	'esri/graphic',
@@ -22,19 +23,19 @@ define([
 	'map/MapModel',
 	'utils/GeoHelper',
 	'lodash'
-], function(React, AlertsConfig, AnalyzerConfig, WizardStore, Units, Color, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, domClass, MapConfig, MapModel, GeoHelper, _) {
+], function(React, AlertsConfig, AnalyzerConfig, WizardStore, FeatureList, Units, Color, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, SimpleFillSymbol, SimpleLineSymbol, dom, dojoQuery, domClass, MapConfig, MapModel, GeoHelper, _) {
 
 	var AlertsForm,
 		drawToolbar,
 		activeTool,
 		customFeatureSymbol = new SimpleFillSymbol(AlertsConfig.customFeatureSymbol),
-		KEYS = AlertsConfig.STORE_KEYS,
+		KEYS = AnalyzerConfig.STORE_KEYS,
 		getDefaultState,
 		self = this;
 
 	getDefaultState = function() {
 		return {
-			features: WizardStore.get('customFeatures'),
+			features: WizardStore.get(KEYS.customFeatures),
 			showUploadTools: false
 		}
 	}
@@ -48,8 +49,8 @@ define([
 			drawToolbar = new Draw(app.map);
 			drawToolbar.on('draw-end', this._drawComplete);
 
-			WizardStore.registerCallback('customFeatures', function() {
-				this.setState({features: WizardStore.get('customFeatures')});
+			WizardStore.registerCallback(KEYS.customFeatures, function() {
+				this.setState({features: WizardStore.get(KEYS.customFeatures)});
 			}.bind(this));
 
 			this.setState(getDefaultState());
@@ -103,9 +104,10 @@ define([
 						),
 						// TODO: remove temporary border style
 						// TODO: paramaterise inline height & width styles
-						React.DOM.div({'className':'absolute no-wide', 'style': {border:'1px solid #DDDDDD', top: '210px', bottom:'151px'}},
-							this.state.features.map(this._featuresMapper, this)
-						),
+						// React.DOM.div({'className':'absolute no-wide', 'style': {border:'1px solid #DDDDDD', top: '210px', bottom:'151px'}},
+						// 	this.state.features.map(this._featuresMapper, this)
+						// ),
+						new FeatureList({'features': this.state.features}),
 						// Subscription options
 						React.DOM.div({'className':'absolute no-wide border-box padding__wide', 'style': {height:'80px', bottom:'51px'}},
 							React.DOM.div(null,
@@ -132,83 +134,13 @@ define([
 			);
 		},
 
-		// TODO: Refactor block into component for re-use /////////////
-
-		_featuresMapper: function(feature, index) {
-			// TODO: replace with KEYS reference
-			return (
-				React.DOM.div({
-						'onClick': this._chooseFeature,
-						// TODO: replace inline styling with classes
-						'data-feature-index': index,
-						'data-feature-id': feature.attributes.WRI_ID
-					},
-					React.DOM.input({
-						'type': 'checkbox',
-						'className': 'table-cell',
-						'data-feature-index': index,
-						'data-feature-id': feature.attributes.WRI_ID
-					}),
-					React.DOM.input({
-						'type': 'text',
-						'className': 'custom-feature-label table-cell',
-						'placeholder': 'Feature name',
-						'size': feature.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
-						'value': feature.attributes[AnalyzerConfig.stepTwo.labelField],
-						'data-feature-index': index,
-						'data-feature-id': feature.attributes.WRI_ID,
-						'onChange': this._renameFeature
-					})
-				)
-			)
-		},
-
-		_removeFeature: function(evt) {
-			var index = parseInt(evt.target.dataset ? evt.target.dataset.featureIndex : evt.target.getAttribute("data-feature-index")),
-				spliceArgs = [index, 1]
-				features = WizardStore.get('customFeatures'),
-				featureToRemove = Array.prototype.splice.apply(features, spliceArgs)[0];
-
-			WizardStore.set('customFeaturesSpliceArgs', spliceArgs);
-			WizardStore.set('customFeatures', features);
-			return featureToRemove;
-		},
-
-
-		_renameFeature: function(evt) {
-			var feature = this._removeFeature(evt);
-
-			feature.attributes[AnalyzerConfig.stepTwo.labelField] = evt.target.value;
-
-			WizardStore.appendArray('customFeatures', feature);
-			if (evt.target.parentNode.className.split(' ').indexOf('active') > -1) {
-				WizardStore.set('analysisArea', feature);
-			}
-		},
-
-		_chooseFeature: function (evt) {
-			var id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute("data-feature-id")),
-				features = WizardStore.get('customFeatures'),
-				featureToChoose = _.find(features, function(feature) {return feature.attributes.WRI_ID === id;}),
-				self = this;
-
-			if (featureToChoose) {
-				GeoHelper.zoomToFeature(featureToChoose);
-				WizardStore.set('analysisArea', featureToChoose);
-			} else {
-				throw new Error('Undefined Error: Could not find selected feature in WizardStore');
-			}
-		},
-
 		_clearFeatures: function () {
 			customFeatures = [];
-			WizardStore.set('customFeatures', []);
+			WizardStore.set(KEYS.customFeatures, []);
 			// Deactivate all the tools if active
 			this._deactivateToolbar();
 			this._removeActiveClass();
 		},
-
-		////////////////////////////////////////////////////
 
 		_instructionsMapper: function (item) {
 			return React.DOM.li(null, item);
@@ -489,12 +421,10 @@ define([
 
 			var id = this._nextAvailWRI_ID(),
 				attrs = { "WRI_ID": id },
-				feature;
+				feature = new Graphic(evt.geometry, customFeatureSymbol, attrs);
 
 			attrs[AnalyzerConfig.stepTwo.labelField] = "ID - " + id + ": Custom drawn feature";
-			feature = new Graphic(evt.geometry, customFeatureSymbol, attrs);
-
-			WizardStore.appendArray('customFeatures', feature);
+			WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat([feature]));
 		},
 
 		_deactivateToolbar: function () {
@@ -518,7 +448,7 @@ define([
 		_nextAvailWRI_ID: function() {
 			var i = 0,
 				x = 0,
-				features = WizardStore.get('customFeatures'),
+				features = WizardStore.get(KEYS.customFeatures),
 				length = features.length,
 				temp;
 
