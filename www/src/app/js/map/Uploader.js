@@ -2,6 +2,7 @@ define([
 	// My Modules
 	'map/config',
 	'map/Symbols',
+	'utils/GeoHelper',
 	'analysis/config',
   'analysis/WizardStore',
   // Dojo Modules
@@ -21,7 +22,7 @@ define([
   'esri/geometry/Polygon',
 	'esri/geometry/scaleUtils',
 	'esri/geometry/webMercatorUtils'
-], function (MapConfig, Symbols, AnalysisConfig, WizardStore, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, CsvStore, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils, webMercatorUtils) {
+], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, CsvStore, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils, webMercatorUtils) {
 	'use strict';
 
 	var closeHandle;
@@ -211,7 +212,7 @@ define([
 		* @param {string} nameField - Field to be used as the name field
 		*/
 		formatCSVDataForStore: function (store, items, nameField) {
-			var counter = this.nextId(),
+			var counter = GeoHelper.nextCustomFeatureId(),
 					newFeatures = [],
 					attributes,
 					feature,
@@ -256,7 +257,7 @@ define([
 		*/
 		formatFeaturesToStore: function (featureSet, nameField) {
 
-			var counter = this.nextId(),
+			var counter = GeoHelper.nextCustomFeatureId(),
 					newFeatures = [],
 					geometry,
 					graphic,
@@ -286,26 +287,6 @@ define([
 
 			WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat(newFeatures));
 
-		},
-
-		/**
-		* Return the next highest unique id, using WRI_ID as the unique id field
-		*/
-		nextId: function () {
-			var graphicsLayer = app.map.getLayer(MapConfig.customGraphicsLayer.id),
-					graphics = graphicsLayer.graphics,
-					length = graphics.length,
-					next = 0,
-					index,
-					temp;
-
-			for (index = 0; index < length; index++) {
-				temp = parseInt(graphics[index].attributes.WRI_ID);
-				if (!isNaN(temp)) {
-					next = Math.max(next, temp);
-				}
-			}
-			return (next + 1);
 		},
 
 		/**

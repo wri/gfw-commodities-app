@@ -1,16 +1,11 @@
 define([
-	"esri/Color",
+  "map/config",
+  "map/Symbols",
 	"esri/units",
   "esri/graphic",
   "esri/geometry/Point",
-  "esri/geometry/Circle",
-  "esri/symbols/SimpleLineSymbol",
-  "esri/symbols/SimpleFillSymbol"
-], function (Color, Units, Graphic, Point, Circle, SimpleLineSymbol, SimpleFillSymbol) {
-
-  var polySymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                   new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
-                   new Color([255, 200, 103, 0.0]));
+  "esri/geometry/Circle"
+], function (MapConfig, Symbols, Units, Graphic, Point, Circle) {
 
 	return {
 
@@ -22,11 +17,11 @@ define([
             "radiusUnit": Units.KILOMETERS
           });
 
-      return new Graphic(circle, polySymbol, pointFeature.attributes);
+      return new Graphic(circle, Symbols.getPolygonSymbol(), pointFeature.attributes);
 		},
 
     applySelectionSymbolToFeature: function (feature) {
-      return new Graphic(feature.geometry, polySymbol, feature.attributes);
+      return new Graphic(feature.geometry, Symbols.getPolygonSymbol(), feature.attributes);
     },
 
     zoomToFeature: function (feature) {
@@ -35,7 +30,27 @@ define([
       } else {
         app.map.setExtent(feature.geometry.getExtent(), true);
       }
-    }
+    },
+
+    /**
+    * Return the next highest unique id, using WRI_ID as the unique id field
+    */
+    nextCustomFeatureId: function () {
+      var graphicsLayer = app.map.getLayer(MapConfig.customGraphicsLayer.id),
+          graphics = graphicsLayer.graphics,
+          length = graphics.length,
+          next = 0,
+          index,
+          temp;
+
+      for (index = 0; index < length; index++) {
+        temp = parseInt(graphics[index].attributes.WRI_ID);
+        if (!isNaN(temp)) {
+          next = Math.max(next, temp);
+        }
+      }
+      return (next + 1);
+    },
 
 	};
 
