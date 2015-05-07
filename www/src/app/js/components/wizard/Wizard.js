@@ -106,7 +106,7 @@ define([
             } else {
                 $(".breadcrumbs").show();
                 $(".gfw .wizard-header").css("height", "+=45px");
-                $(".gfw .wizard-body").css("top", "95px");
+                $(".gfw .wizard-body").css("top", "");
                 $(".gfw .wizard-header .button.reset").show();
                 $(".gfw .wizard-header .button.reset").css("top", "0px");
             }

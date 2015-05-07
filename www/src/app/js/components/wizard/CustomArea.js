@@ -2,29 +2,17 @@ define([
 	"react",
   "analysis/config",
   "analysis/WizardStore",
-  "esri/units",
   "esri/graphic",
-  "esri/request",
   "esri/toolbars/draw",
-  "esri/geometry/Point",
-  "esri/geometry/Extent",
-  "esri/geometry/Circle",
-  "esri/geometry/Polygon",
-  "esri/geometry/scaleUtils",
   "dojo/dom",
   "dojo/query",
-  "dojo/sniff",
-  "dijit/registry",
   "dojo/dom-class",
-  "dojo/store/Memory",
-  "dojo/dom-construct",
-  "dijit/form/ComboBox",
   "map/config",
   "map/MapModel",
   "map/Uploader",
   "map/Symbols",
   "utils/GeoHelper"
-], function (React, AnalyzerConfig, WizardStore, Units, Graphic, esriRequest, Draw, Point, Extent, Circle, Polygon, scaleUtils, dom, dojoQuery, sniff, registry, domClass, Memory, domConstruct, ComboBox, MapConfig, MapModel, Uploader, Symbols, GeoHelper) {
+], function (React, AnalyzerConfig, WizardStore, Graphic, Draw, dom, dojoQuery, domClass, MapConfig, MapModel, Uploader, Symbols, GeoHelper) {
 
   var drawToolbar,
       activeTool;
@@ -47,10 +35,8 @@ define([
       // Create all the Necessary Drawing Tools Here
       drawToolbar = new Draw(app.map);
       drawToolbar.on('draw-end', this._drawComplete);
-
       // Register Callbacks
       WizardStore.registerCallback(KEYS.customFeatures, this.graphicsListUpdated);
-
     },
 
     graphicsListUpdated: function () {
