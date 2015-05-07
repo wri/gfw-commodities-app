@@ -44,6 +44,14 @@ define([], function() {
             csvInstructions: 'Or, select a CSV from your local file system.  The CSV should contain a header row with columns for Name, Latitude, and Longitude.'
         },
 
+        uploader: {
+            portalUrl: 'http://www.arcgis.com/sharing/rest/content/features/generate',
+            labelField: "WRI_label",
+            errors: {
+                
+            }
+        },
+
         // Layers which are not part of the Master Layer UI List Widget (Colored Categories Stripes across top of the map) go below
 
         overlays: {

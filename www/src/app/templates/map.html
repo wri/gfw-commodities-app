@@ -146,8 +146,13 @@
         </ul>
         <div class="modal-subheader" data-bind='text: csvUploadInstructionHeader'></div>
         <div class="csv-upload-instructions" data-bind='text: csvInstructions'></div>
-        <form class='upload-modal-form' enctype='multipart/form-data' name='uploadForm' method='post' id='uploadForm'>
+        <form class='upload-modal-form' enctype='multipart/form-data' name='upload-form' method='post' id='upload-form'>
           <label><input type="file" name="file" id="shapefileUploader"></label>
+          <!-- These need to be in here since Esri does not add them until after the upload fails -->
+          <input type="hidden" name='f' value='json'/>
+          <input type="hidden" name='filetype' value='shapefile' />
+          <input type="hidden" name='publishParameters' value='{}' />
+          <!-- These need to be in here since Esri does not add them until after the upload fails -->
         </form>
         <div id="postUploadOptions" class="post-upload-options"></div>
       </div>

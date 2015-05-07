@@ -371,7 +371,7 @@ define([
                 });
             });
 
-            on(dom.byId('uploadForm'), 'change', Uploader.beginUpload);
+            on(dom.byId('upload-form'), 'change', Uploader.beginUpload.bind(Uploader));
 
 
         },

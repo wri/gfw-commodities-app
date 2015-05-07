@@ -42,12 +42,13 @@ define([
 			}
 
 			if (Object.prototype.toString.call( items ) === "[object Array]") {
-				Store[key].concat(items);
+				Store[key] = Store[key].concat(items);
 				this.updateSubscribers(key);
 			} else {
 				Store[key].push(items);
 				this.updateSubscribers(key);
 			}
+
 		},
 
 		/**
