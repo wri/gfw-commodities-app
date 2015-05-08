@@ -26,7 +26,7 @@ define([
       activeListItemValues: [],
       selectedCommodity: config.commodityOptions[0].value,
       showCustomFeaturesList: false,
-      customFeatures: []
+      customFeatures: WizardStore.get(KEYS.customFeatures)
     });
   };
 
@@ -42,8 +42,6 @@ define([
       WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);
       WizardStore.registerCallback(KEYS.customFeatures, this.customFeaturesUpdated);
 
-      var customFeatures = WizardStore.get(KEYS.customFeatures);
-      this.setState({ customFeatures: customFeatures });
     },
 
     customFeaturesUpdated: function () {
