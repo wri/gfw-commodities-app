@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "homepage": "http://commodities.globalforestwatch.org/",
   "scripts": {
-    "start": "npm run jsx:watch && grunt develop",
+    "start": "npm run jsx:watch & grunt develop",
     "build": "npm run jsx:build && grunt minify",
     "jsx:watch": "node_modules/react-tools/bin/jsx src/app/js/components src/app/js/components --watch --harmony --extension jsx",
     "jsx:build": "node_modules/react-tools/bin/jsx src/app/js/components src/app/js/components --harmony --extension jsx"

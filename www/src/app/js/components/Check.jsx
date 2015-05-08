@@ -77,24 +77,24 @@ define([
           (this.props.visible ? '' : ' hidden');
 
       return (
-        React.DOM.li({className: className, 'data-layer': this.props.key}, 
-          React.DOM.div({id: this.props.key + '_checkbox', onClick: this.toggle}, 
-            React.DOM.span({className: "custom-check"}, 
-              /* Used as an icon node */
-              React.DOM.span(null)
-            ), 
-            React.DOM.a({className: "layer-title"}, this.props.title), 
-            /* If this condition is met, render a layer info icon, else, render nothing */ 
-            
+        <li className={className} data-layer={this.props.key}>
+          <div id={this.props.key + '_checkbox'} onClick={this.toggle}>
+            <span className='custom-check'>
+              {/* Used as an icon node */}
+              <span />
+            </span>
+            <a className='layer-title'>{this.props.title}</a>
+            { /* If this condition is met, render a layer info icon, else, render nothing */ }
+            {
               this.props.title !== 'Loss' && this.props.title !== 'Gain' && this.props.infoDivClass !== undefined ?
-                React.DOM.span({className: "layer-info-icon", onClick: this.showInfo}) : null, 
-            
-            React.DOM.p({className: "layer-sub-title"}, this.props.subtitle), 
-            React.DOM.div({title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
-              React.DOM.div({id: this.props.key + '_slider'})
-            )
-          )
-        )
+                <span className='layer-info-icon' onClick={this.showInfo} /> : null
+            }
+            <p className='layer-sub-title'>{this.props.subtitle}</p>
+            <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
+              <div id={this.props.key + '_slider'} />
+            </div>
+          </div>
+        </li>
       );
     }
     /* jshint ignore:end */
