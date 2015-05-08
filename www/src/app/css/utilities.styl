@@ -10,8 +10,41 @@ cardinal-generator(rule, size)
 
 .gfw
 
+	// alignment
+
+	.text-left
+		text-align left
+
+	.text-right
+		text-align right
+
+	.text-center
+		text-align center
+
+	.float-left
+		float left
+
+	.float-right
+		float right
+
+	// display
+
 	.absolute
 		position absolute
+
+	.table
+		display table
+
+	.table-row
+		display table-row
+
+	.table-cell
+		display table-cell
+
+	// box model
+
+	.border-box
+		box-sizing border-box
 
 	.no-long, .no-top
 		top 0px
@@ -25,27 +58,6 @@ cardinal-generator(rule, size)
 	.no-wide, .no-right
 		right 0px
 
-	.text-left
-		text-align left
-
-	.text-right
-		text-align right
-
-	.text-center
-		text-align center
-
-	.border-box
-		box-sizing border-box
-
-	.table
-		display table
-
-	.table-row
-		display table-row
-
-	.table-cell
-		display table-cell
-
 	.no-margin
 		cardinal-generator('margin', 0px)
 
@@ -57,3 +69,29 @@ cardinal-generator(rule, size)
 
 	.padding
 		cardinal-generator('padding', 10px)
+
+	// table model
+	
+	.no-border-spacing
+		border-spacing 0
+
+	// sizing
+
+	.fill
+		&, &__long
+			height 100%
+		&, &__wide
+			width 100%
+
+	// color
+
+	orange = #E98300
+
+	.text-white
+		color #FFFFFF
+
+	.back-orange
+		background-color orange
+
+	.back-light-gray
+		background-color lightGray
