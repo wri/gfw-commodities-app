@@ -8,7 +8,7 @@
     "jsx:watch": "node_modules/react-tools/bin/jsx src/app/js/components src/app/js/components --watch --harmony --extension jsx",
     "jsx:build": "node_modules/react-tools/bin/jsx src/app/js/components src/app/js/components --harmony --extension jsx",
     "stylus:watch": "node_modules/stylus/bin/stylus src/app/css/app.styl -l --watch & node_modules/stylus/bin/stylus src/app/css/report.styl -l --watch",
-    "stylus:build": "node_modules/stylus/bin/stylus src/app/css/app.styl -l & node_modules/stylus/bin/stylus src/app/css/report.styl -l"
+    "stylus:build": "mkdir -p build/app/css && node_modules/stylus/bin/stylus src/app/css/app.styl -o build/app/css --compress & node_modules/stylus/bin/stylus src/app/css/report.styl -o build/app/css --compress"
   },
   "author": [
     "BlueRaster",

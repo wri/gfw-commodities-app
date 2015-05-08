@@ -181,10 +181,11 @@ module.exports = function(grunt) {
                         'components': 'app/js/components',
                         // Aliases
                         'knockout': 'app/libs/knockout-3.1.0/index',
-                        'react': 'app/libs/react-0.11.1.min/index'
+                        'react': 'app/libs/react-0.11.1.min/index',
+                        'lodash': 'app/libs/lodash/lodash.min'
                     },
-                    name: 'build/requireConfig',
-                    out: 'build/app/js/app.min.js'
+                    name: 'app/js/bundle',
+                    out: 'build/app/js/bundle.js'
                 }
             }
         },
