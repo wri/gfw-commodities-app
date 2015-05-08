@@ -33,6 +33,12 @@ function (declare, AppConfig, MapConfig, ko) {
       Model.vm.shapefileInstructions = ko.observableArray(MapConfig.uploadForm.shapefileInstructions);
       Model.vm.csvInstructions = ko.observable(MapConfig.uploadForm.csvInstructions);
 
+      // Coordinates Dialog Items
+      Model.vm.coordinatesModalHeader = ko.observable(MapConfig.coordinatesDialog.coordinatesModalHeader);
+      Model.vm.coordinatesEnterButton = ko.observable(MapConfig.coordinatesDialog.coordinatesEnterButton);
+      Model.vm.latitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.latitudePlaceholder);
+      Model.vm.longitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.longitudePlaceholder);
+
       // Storage of specific objects for Wizard
       // Admin Unit
       Model.vm.allCountries = ko.observableArray([]);

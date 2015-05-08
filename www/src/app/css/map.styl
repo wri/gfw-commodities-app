@@ -942,22 +942,28 @@ wizardBlue = #00688B
     width: 32px;
 }
 
-.upload-modal
+.animated-modal
 	transition all 0.75s ease-in-out
 	border 1px solid #b2b2b2
 	background-color #FFF
 	position absolute
 	z-index 100
 	height auto
-	margin-left -225px
-	width 450px
 	top -500px
 	left 50%
 	
-.upload-modal.active
+.upload-modal
+	margin-left -225px
+	width 450px
+	
+.coordinates-modal
+	margin-left -140px
+	width 280px
+	
+.animated-modal.active
 	top 100px
 	
-.upload-modal .close-icon
+.animated-modal .close-icon
 	background url('images/close_symbol.png') no-repeat center
 	position absolute
 	cursor pointer
@@ -966,10 +972,10 @@ wizardBlue = #00688B
 	right 5px
 	top 5px
 
-.upload-modal .modal-content
+.animated-modal .modal-content
 	margin 5px
 	
-.upload-modal .modal-header
+.animated-modal .modal-header
 	margin-bottom 5px
 	font-weight bold
 	font-size 18px
@@ -986,6 +992,15 @@ wizardBlue = #00688B
 .upload-modal-form
 	text-align center
 	margin 10px 0
+	
+.coordinates-modal-enter-button
+	background-color #e98300
+	display inline-block
+	border-radius(5px)
+	padding 5px 15px
+	cursor pointer
+	margin 5px 0
+	color #FFF
 
 /* Mozilla */
 @-moz-document url-prefix() {

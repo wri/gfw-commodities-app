@@ -52,6 +52,17 @@ define([], function() {
             }
         },
 
+        coordinatesDialog: {
+          coordinatesModalHeader: 'Enter Point Coordinates',
+          coordinatesEnterButton: 'Enter',
+          latitudePlaceholder: 'Latitude',
+          longitudePlaceholder: 'Longitude',
+          errors: {
+            invalidLatitude: 'You did not enter a valid value for Latitude.',
+            invalidLongitude: 'You did not enter a valid value for Longitude.'
+          }
+        },
+
         // Layers which are not part of the Master Layer UI List Widget (Colored Categories Stripes across top of the map) go below
 
         overlays: {

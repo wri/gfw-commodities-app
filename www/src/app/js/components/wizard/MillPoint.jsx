@@ -10,10 +10,11 @@ define([
   "analysis/Query",
   "analysis/config",
   "utils/GeoHelper",
+  "map/CoordinatesModal",
   "analysis/WizardStore",
   "components/wizard/NestedList",
   "components/featureList/FeatureList"
-], function (React, MapConfig, topic, dojoQuery, Uploader, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, NestedList, FeatureList) {
+], function (React, MapConfig, topic, dojoQuery, Uploader, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, CoordinatesModal, WizardStore, NestedList, FeatureList) {
 
   var config = AnalyzerConfig.millPoints,
       selectedFeatures = [],
@@ -141,15 +142,21 @@ define([
       var nodeClicked = referenceKey.split('$')[1],
           showCustomFeaturesList;
 
+      // If either Modal is active hide them
       switch (nodeClicked) {
         case "selectFromList":
-          showCustomFeaturesList = false;          
+          showCustomFeaturesList = false;
+          CoordinatesModal.close();
+          Uploader.close();
         break;
         case "enterCoords":
           showCustomFeaturesList = true;
+          Uploader.close();
+          CoordinatesModal.toggle();
         break;
         case "upload":
           showCustomFeaturesList = true;
+          CoordinatesModal.close();
           Uploader.toggle();
         break;
       }

@@ -136,7 +136,7 @@
     </div>
     <!-- End Sharing Modal -->
     <!-- Begin Upload Modal -->
-    <div id='upload-modal' class='upload-modal'>
+    <div id='upload-modal' class='upload-modal animated-modal'>
       <div class="close-icon"></div>
       <div class="modal-content">
         <div class="modal-header" data-bind='text: uploadModalHeader'></div>
@@ -158,6 +158,19 @@
       </div>
     </div>
     <!-- End Upload Modal -->
+    <!-- Begin Coordinates Modal -->
+    <div id="coordinates-modal" class="coordinates-modal animated-modal">
+      <div class="close-icon"></div>
+      <div class="modal-content">
+        <div class="modal-header" data-bind='text: coordinatesModalHeader'></div>
+        <div class="coord-inputs-container">
+          <input id='coordsModalLatitiude' type="text" data-bind='attr:{placeholder: latitudePlaceholder}' />
+          <input id='coordsModalLongitude' type="text" data-bind='attr:{placeholder: longitudePlaceholder}' />
+        </div>
+        <div class="coordinates-modal-enter-button" data-bind='text: coordinatesEnterButton'></div>
+      </div>
+    </div>
+    <!-- End Coordinates Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
 
