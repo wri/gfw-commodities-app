@@ -24,8 +24,15 @@ define([
 		* @param {string} key - key of item in store
 		*/
 		get: function (key) {
-			return _.clone(Store[key]);
+			return Store[key];
 		},
+
+    /**
+    * @param {string} key - key of item in store
+    */
+    clone: function(key) {
+      return _.cloneDeep(Store[key]);
+    },
 
 		/**
 		* @param {string} key - key of item in store

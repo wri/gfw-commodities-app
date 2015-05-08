@@ -37,7 +37,6 @@ define([
     getInitialState: getDefaultState,
 
     componentDidMount: function() {
-      // Initialize
       drawToolbar = new Draw(app.map);
       drawToolbar.on('draw-end', this._drawComplete);
 
@@ -150,6 +149,7 @@ define([
         feature = new Graphic(evt.geometry, Symbols.getPolygonSymbol(), attrs);
 
       attrs[AlertsConfig.stepTwo.labelField] = "ID - " + id + ": Custom drawn feature";
+
       WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat([feature]));
     },
 
