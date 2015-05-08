@@ -100,39 +100,39 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({className: "mill-point", id: "mill-point"}, 
-          React.DOM.p({className: "instructions"}, config.instructions), 
-          React.DOM.div({className: "drawing-tools"}, 
-            React.DOM.div({className: "drawing-tool-button", key: "selectFromList", onClick:  this.methodChosen}, config.selectFromListButton), 
-            React.DOM.div({className: "drawing-tool-button", key: "enterCoords", onClick:  this.methodChosen}, config.enterCoordinatesButton), 
-            React.DOM.div({className: "drawing-tool-button", key: "upload", onClick:  this.methodChosen}, config.uploadButton)
-          ), 
-          /* Render this list when user clicks selectFromList */
-          React.DOM.div({className: this.state.showCustomFeaturesList ? 'hidden' : ''}, 
-            React.DOM.p({className: "instructions"}, config.selectInstructions), 
-            React.DOM.div({className: "select-container"}, 
-              React.DOM.select({id: "mill-select", className: "mill-select", value: this.state.selectedCommodity, onChange: this._loadMillPoints}, 
-                 config.commodityOptions.map(this._selectMapper, this) 
-              )
-            ), 
-            React.DOM.p({className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, " ", config.listInstructions, " "), 
-            NestedList({data: this.state.nestedListData, 
-              click: this._millPointSelected, 
-              placeholder: "Search mill points...", 
-              activeListItemValues: this.state.activeListItemValues, 
-              isResetting: this.props.isResetting}
-            )
-          ), 
-          /* Render this list when user clicks upload or enterCoords */
-          React.DOM.div({className: this.state.showCustomFeaturesList ? '' : 'hidden'}, 
-            FeatureList({features: this.state.customFeatures})
-          )
-        )
+        <div className='mill-point' id='mill-point'>
+          <p className='instructions'>{config.instructions}</p>
+          <div className='drawing-tools'>
+            <div className='drawing-tool-button' key='selectFromList' onClick={ this.methodChosen }>{config.selectFromListButton}</div>
+            <div className='drawing-tool-button' key='enterCoords' onClick={ this.methodChosen }>{config.enterCoordinatesButton}</div>
+            <div className='drawing-tool-button' key='upload' onClick={ this.methodChosen }>{config.uploadButton}</div>
+          </div>
+          {/* Render this list when user clicks selectFromList */}
+          <div className={this.state.showCustomFeaturesList ? 'hidden' : ''}>
+            <p className='instructions'>{config.selectInstructions}</p>
+            <div className='select-container'>
+              <select id='mill-select' className='mill-select' value={this.state.selectedCommodity} onChange={this._loadMillPoints} >
+                { config.commodityOptions.map(this._selectMapper, this) }
+              </select>
+            </div>
+            <p className={'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}> {config.listInstructions} </p>
+            <NestedList data={this.state.nestedListData} 
+              click={this._millPointSelected} 
+              placeholder='Search mill points...'
+              activeListItemValues={this.state.activeListItemValues}
+              isResetting={this.props.isResetting}
+            />
+          </div>
+          {/* Render this list when user clicks upload or enterCoords */}
+          <div className={this.state.showCustomFeaturesList ? '' : 'hidden'}>
+            <FeatureList features={this.state.customFeatures} />
+          </div>
+        </div>
       );
     },
 
     _selectMapper: function (item) {
-      return React.DOM.option({value: item.value}, " ", item.label, " ");
+      return <option value={item.value}> {item.label} </option>;
     },
     /* jshint ignore:end */
 
