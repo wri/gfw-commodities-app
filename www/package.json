@@ -2,6 +2,12 @@
   "name": "Global-Forest-Watch-Commodities",
   "version": "2.0.0",
   "homepage": "http://commodities.globalforestwatch.org/",
+  "scripts": {
+    "start": "npm run jsx:watch && grunt develop",
+    "build": "npm run jsx:build && grunt minify",
+    "jsx:watch": "node_modules/react-tools/bin/jsx src/app/js/components src/app/js/components --watch --harmony --extension jsx",
+    "jsx:build": "node_modules/react-tools/bin/jsx src/app/js/components src/app/js/components --harmony --extension jsx"
+  },
   "author": [
     "BlueRaster",
     "GlobalForestWatch"
@@ -14,10 +20,11 @@
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-htmlmin": "^0.3.0",
     "grunt-contrib-imagemin": "^0.3.0",
-    "grunt-contrib-uglify": "^0.5.0",
     "grunt-contrib-requirejs": "~0.4.4",
     "grunt-contrib-stylus": "^0.18.0",
+    "grunt-contrib-uglify": "^0.5.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-ftp-push": "^0.2.4"
+    "grunt-ftp-push": "^0.2.4",
+    "react-tools": "^0.11.1"
   }
 }

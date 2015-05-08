@@ -3,6 +3,7 @@ define([
   "map/config",
   "dojo/topic",
   "dojo/query",
+  "map/Uploader",
   "dojo/dom-class",
   "dojo/_base/array",
   "analysis/Query",
@@ -10,7 +11,7 @@ define([
   "utils/GeoHelper",
   "analysis/WizardStore",
   "components/wizard/NestedList"
-], function (React, MapConfig, topic, dojoQuery, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, NestedList) {
+], function (React, MapConfig, topic, dojoQuery, Uploader, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, NestedList) {
 
   var config = AnalyzerConfig.millPoints,
       selectedFeatures = [],
@@ -23,7 +24,9 @@ define([
     return ({
       nestedListData: [],
       activeListItemValues: [],
-      selectedCommodity: config.commodityOptions[0].value
+      selectedCommodity: config.commodityOptions[0].value,
+      showCustomFeaturesList: false,
+      customFeatures: WizardStore.get(KEYS.customFeatures)
     });
   };
 
@@ -36,7 +39,14 @@ define([
     componentDidMount: function () {
       previousStep = WizardStore.get(KEYS.userStep);
       // Register callbacks
-      WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);      
+      WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);
+      WizardStore.registerCallback(KEYS.customFeatures, this.customFeaturesUpdated);
+
+    },
+
+    customFeaturesUpdated: function () {
+      var customFeatures = WizardStore.get(KEYS.customFeatures);
+      this.setState({ customFeatures: customFeatures });
     },
 
     userChangedSteps: function () {
@@ -87,8 +97,11 @@ define([
       return (
         React.DOM.div({'className': 'mill-point', 'id': 'mill-point'},
           React.DOM.p({'className': 'instructions'}, config.instructions),
-
-
+          React.DOM.div({'className': 'drawing-tools'},
+            React.DOM.div({'className': 'drawing-tool-button'}, config.selectFromListButton),
+            React.DOM.div({'className': 'drawing-tool-button'}, config.enterCoordinatesButton),
+            React.DOM.div({'className': 'drawing-tool-button', 'onClick': Uploader.toggle.bind(Uploader)}, config.uploadButton)
+          ),
           React.DOM.p({'className': 'instructions'}, config.selectInstructions),
           React.DOM.div({'className': 'select-container'},
             React.DOM.select({
