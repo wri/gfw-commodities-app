@@ -327,7 +327,7 @@ define([
 			domConstruct.create('div', {
       	'id': 'uploadNameField',
       	'innerHTML': '<div id="uploadNameFieldWidget"></div>'
-      }, locationNode, 'after');
+      }, locationNode, 'last');
 
       store = new Memory({
       	data: data
