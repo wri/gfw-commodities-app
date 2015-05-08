@@ -37,7 +37,6 @@ define([
     getInitialState: getDefaultState,
 
     componentDidMount: function() {
-      // Initialize
       drawToolbar = new Draw(app.map);
       drawToolbar.on('draw-end', this._drawComplete);
 
