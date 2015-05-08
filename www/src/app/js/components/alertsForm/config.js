@@ -1,16 +1,16 @@
-define([], function(){
+define([
+  'analysis/config'
+], function(AnalyzerConfig){
   return {
-    // CustomArea.js:31
-    customFeatureSymbol:
-      { "color": [103,200,255,0]
-      , "outline":
-        {"color": [255,0,0,255]
-        , "width": 1.5
-        , "type": "esriSLS"
-        , "style": "esriSLSSolid"
-        }
-      , "type": "esriSFS"
-      , "style": "esriSFSSolid"
-      }
+    stepTwo: {
+      labelField: AnalyzerConfig.stepTwo.labelField
+    },
+    customArea: {
+      instructions: AnalyzerConfig.customArea.instructions,
+      freehandLabel: AnalyzerConfig.customArea.freehandLabel,
+      polyLabel: AnalyzerConfig.customArea.polyLabel,
+      uploadLabel: AnalyzerConfig.customArea.uploadLabel
+    },
+    STORE_KEYS: AnalyzerConfig.STORE_KEYS
   }
-})
+});

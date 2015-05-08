@@ -3,14 +3,14 @@ define([
   'react',
   'lodash',
   // src
-  'analysis/config',
+  'components/featureList/config',
   'analysis/WizardStore',
   'utils/GeoHelper'
-], function (React, _, AnalyzerConfig, WizardStore, GeoHelper) {
+], function (React, _, FeatureListConfig, WizardStore, GeoHelper) {
 
   var FeatureList,
     getDefaultState,
-    KEYS = AnalyzerConfig.STORE_KEYS,
+    KEYS = FeatureListConfig.STORE_KEYS,
     self = this;
 
   getDefaultState = function () {
@@ -79,8 +79,8 @@ define([
               'className': 'custom-feature-label table-cell',
               'type': 'text',
               'placeholder': 'Feature name',
-              'size': feature.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
-              'value': feature.attributes[AnalyzerConfig.stepTwo.labelField],
+              'size': feature.attributes[FeatureListConfig.stepTwo.labelField].length - 3,
+              'value': feature.attributes[FeatureListConfig.stepTwo.labelField],
               'data-feature-index': index,
               'data-feature-id': feature.attributes.WRI_ID,
               'onChange': this._renameFeature
@@ -105,7 +105,7 @@ define([
       var feature = this._removeFeature(evt)
         features = WizardStore.get(KEYS.customFeatures);
 
-      feature.attributes[AnalyzerConfig.stepTwo.labelField] = evt.target.value;
+      feature.attributes[FeatureListConfig.stepTwo.labelField] = evt.target.value;
 
       WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat([feature]));
       if (evt.target.parentNode.className.split(' ').indexOf('active') > -1) {

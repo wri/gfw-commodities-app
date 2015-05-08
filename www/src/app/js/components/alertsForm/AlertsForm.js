@@ -3,7 +3,6 @@ define([
   'react',
   'lodash',
   // src
-  'analysis/config',
   'analysis/WizardStore',
   'components/alertsForm/config',
   'components/featureList/FeatureList',
@@ -18,12 +17,12 @@ define([
   'dojo/dom',
   'dojo/query',
   'dojo/dom-class'
-], function(React, _, AnalyzerConfig, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Draw, dom, dojoQuery, domClass) {
+], function(React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Draw, dom, dojoQuery, domClass) {
 
   var AlertsForm,
     drawToolbar,
     activeTool,
-    KEYS = AnalyzerConfig.STORE_KEYS,
+    KEYS = AlertsConfig.STORE_KEYS,
     getDefaultState,
     self = this;
 
@@ -71,11 +70,11 @@ define([
             // Tools
             React.DOM.div({'className':'padding__wide padding__top'},
               React.DOM.div({'className':'margin__bottom'}, 'Create a custom Area'),
-              React.DOM.div(null, AnalyzerConfig.customArea.instructions),
+              React.DOM.div(null, AlertsConfig.customArea.instructions),
               React.DOM.div({'className':'text-center'},
-                React.DOM.button({'onClick': this._activateToolbar, 'data-geometry-type': Draw.FREEHAND_POLYGON}, AnalyzerConfig.customArea.freehandLabel),
-                React.DOM.button({'onClick': this._activateToolbar, 'data-geometry-type': Draw.POLYGON}, AnalyzerConfig.customArea.polyLabel),
-                React.DOM.button({'onClick': Uploader.toggle.bind(Uploader), 'id':'alerts-draw-upload' }, AnalyzerConfig.customArea.uploadLabel)
+                React.DOM.button({'onClick': this._activateToolbar, 'data-geometry-type': Draw.FREEHAND_POLYGON}, AlertsConfig.customArea.freehandLabel),
+                React.DOM.button({'onClick': this._activateToolbar, 'data-geometry-type': Draw.POLYGON}, AlertsConfig.customArea.polyLabel),
+                React.DOM.button({'onClick': Uploader.toggle.bind(Uploader), 'id':'alerts-draw-upload' }, AlertsConfig.customArea.uploadLabel)
               )
             ),
             // Features
@@ -150,7 +149,7 @@ define([
         attrs = { "WRI_ID": id },
         feature = new Graphic(evt.geometry, Symbols.getPolygonSymbol(), attrs);
 
-      attrs[AnalyzerConfig.stepTwo.labelField] = "ID - " + id + ": Custom drawn feature";
+      attrs[AlertsConfig.stepTwo.labelField] = "ID - " + id + ": Custom drawn feature";
       WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat([feature]));
     },
 
