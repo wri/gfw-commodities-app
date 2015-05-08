@@ -320,6 +320,9 @@ define([], function() {
             instructions: 'Select a method for choosing or creating mill points to analyze.',
             selectInstructions: 'Select a commodity type:',
             listInstructions: "Select mill(s) from the list below and click \"Next\" to proceed.",
+            selectFromListButton: 'Select from List',
+            enterCoordinatesButton: 'Enter Coordinates',
+            uploadButton: 'Upload',
             commodityOptions: [{
                 label: 'Oil palm',
                 value: 'Oil palm concession'
