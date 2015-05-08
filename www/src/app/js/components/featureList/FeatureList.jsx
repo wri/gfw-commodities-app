@@ -33,31 +33,31 @@ define([
 
     render: function () {
       return (
-        React.DOM.div(null, 
-          React.DOM.button({className: "float-right margin__right"}, " Clear "), 
-          React.DOM.div({className: "padding__wide"}, " FeatureList instruction "), 
-          React.DOM.table({className: "no-border-spacing fill__wide"}, 
-            React.DOM.tr({className: "text-white back-orange"}, 
-              React.DOM.td(null, React.DOM.input({type: "checkbox", onClick: this._selectAllListFeatures})), 
-              React.DOM.td(null, " Area Name ")
-            ), 
-            this.props.features.map(this._featuresMapper, this)
-          )
-        )
+        <div>
+          <button className='float-right margin__right' > Clear </button>
+          <div className='padding__wide'> FeatureList instruction </div>
+          <table className='no-border-spacing fill__wide'>
+            <tr className='text-white back-orange'>
+              <td><input type='checkbox' onClick={this._selectAllListFeatures} /></td>
+              <td> Area Name </td>
+            </tr>
+            {this.props.features.map(this._featuresMapper, this)}
+          </table>
+        </div>
       );
     },
 
     _featuresMapper: function (feature, index) {
       var className = index % 2 === 0 ? 'back-light-gray' : ''
       return (
-        React.DOM.tr({className: className, onClick: this._selectFeature}, 
-          React.DOM.td(null, 
-            React.DOM.input({type: "checkbox"})
-          ), 
-          React.DOM.td(null, 
-            React.DOM.input({className: "custom-feature-label", type: "text", onChange: this._renameFeature, value: feature.attributes[FeatureListConfig.stepTwo.labelField], 'data-feature-index': index, 'data-feature-id': feature.attributes.WRI_ID})
-          )
-        )
+        <tr className={className} onClick={this._selectFeature}>
+          <td>
+            <input type='checkbox' />
+          </td>
+          <td>
+            <input className='custom-feature-label' type='text' onChange={this._renameFeature} value={feature.attributes[FeatureListConfig.stepTwo.labelField]} data-feature-index={index} data-feature-id={feature.attributes.WRI_ID} />
+          </td>
+        </tr>
       )
     },
 
