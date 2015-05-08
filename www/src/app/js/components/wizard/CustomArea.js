@@ -22,7 +22,7 @@ define([
 
   function getDefaultState() {
     return {
-      graphics: []
+      graphics: WizardStore.get(KEYS.customFeatures)
     };
   }
 

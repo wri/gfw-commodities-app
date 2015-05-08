@@ -418,6 +418,7 @@ define([
                     layer.clear();
                 }
             });
+            // TODO: rename in place callback
         },
 
         toggleLayerList: function(el) {

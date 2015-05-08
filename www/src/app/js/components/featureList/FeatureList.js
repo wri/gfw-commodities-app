@@ -1,10 +1,12 @@
 define([
+	// libs
 	'react',
+	'lodash',
+	// src
 	'analysis/config',
 	'analysis/WizardStore',
-	'utils/GeoHelper',
-	'lodash'
-], function (React, AnalyzerConfig, WizardStore, GeoHelper, _) {
+	'utils/GeoHelper'
+], function (React, _, AnalyzerConfig, WizardStore, GeoHelper) {
 
 	var FeatureList,
 		getDefaultState,
@@ -21,52 +23,69 @@ define([
 
 		propTypes: {
 			features: React.PropTypes.array.isRequired
-			// optional classes/styles
+			// TODO: optional classes/styles
+			// TODO: handle generic column registration w/ parent callback for events (rspo checkbox)
 		},
 
 		getInitialState: getDefaultState,
 
-		componentDidMount: function () {
-			console.log('FeatureList mount');
-		},
-
-		componentWillReceiveProps: function (newProps) {
-			console.log('FeatureList receiving props');
-		},
-
 		render: function () {
 			return (
 				React.DOM.div(null,
-					'FeatureList Header',
-					this.props.features.map(this._featuresMapper, this)
+					React.DOM.button({'className':'float-right margin__right'}, 'Clear'),
+					React.DOM.div({'className':'padding__wide'}, 'FeatureList instruction'),
+					// TODO: link button style
+					React.DOM.table({'className':'no-border-spacing fill__wide'},
+						React.DOM.tr({'className':'text-white back-orange'},
+							React.DOM.td(null,
+								React.DOM.input({'onClick':this._selectAllListFeatures, 'type':'checkbox'})
+							),
+							React.DOM.td(null,
+								React.DOM.div(null, 'Area Name')
+							)
+						),
+						this.props.features.map(this._featuresMapper, this)
+					)
 				)
 			);
 		},
 
 		_featuresMapper: function (feature, index) {
+			var className = index % 2 === 0 ? 'back-light-gray' : ''
 			return (
-				React.DOM.div({
+				React.DOM.tr({
+						'className': className,
 						'onClick': this._chooseFeature,
-						// TODO: replace inline styling with classes
 						'data-feature-index': index,
 						'data-feature-id': feature.attributes.WRI_ID
 					},
-					React.DOM.input({
-						'type': 'checkbox',
-						'className': 'table-cell',
+					React.DOM.td({
 						'data-feature-index': index,
 						'data-feature-id': feature.attributes.WRI_ID
-					}),
-					React.DOM.input({
-						'type': 'text',
-						'className': 'custom-feature-label table-cell',
-						'placeholder': 'Feature name',
-						'size': feature.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
-						'value': feature.attributes[AnalyzerConfig.stepTwo.labelField],
+					}, 
+						React.DOM.input({
+							'className': 'table-cell',
+							'onClick': this._selectFeature,
+							'type': 'checkbox',
+							'data-feature-index': index,
+							'data-feature-id': feature.attributes.WRI_ID
+						})
+					),
+					React.DOM.td({
 						'data-feature-index': index,
-						'data-feature-id': feature.attributes.WRI_ID,
-						'onChange': this._renameFeature
-					})
+						'data-feature-id': feature.attributes.WRI_ID
+					},
+						React.DOM.input({
+							'className': 'custom-feature-label table-cell',
+							'type': 'text',
+							'placeholder': 'Feature name',
+							'size': feature.attributes[AnalyzerConfig.stepTwo.labelField].length - 3,
+							'value': feature.attributes[AnalyzerConfig.stepTwo.labelField],
+							'data-feature-index': index,
+							'data-feature-id': feature.attributes.WRI_ID,
+							'onChange': this._renameFeature
+						})
+					)
 				)
 			)
 		},
@@ -94,6 +113,12 @@ define([
 			}
 		},
 
+		_selectFeature: function(evt) {
+			console.log('TODO: FeatureList._selectFeature');
+			// TODO: respect multiple feature selection, likely requires new store value to track
+		},
+
+		// TODO: replace chooseFeature with selectFeature respecting multiple feature selection
 		_chooseFeature: function (evt) {
 			var id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute("data-feature-id")),
 				features = this.props.features,
@@ -106,6 +131,10 @@ define([
 			} else {
 				throw new Error('Undefined Error: Could not find selected feature in WizardStore');
 			}
+		},
+
+		_selectAllListFeatures: function () {
+			console.log('TODO: FeatureList._selectAllListFeatures')
 		}
 	})
 })
