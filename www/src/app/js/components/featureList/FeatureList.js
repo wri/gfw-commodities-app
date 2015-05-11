@@ -40,8 +40,8 @@ define([
 
       return (
         React.DOM.div(null, 
-          React.DOM.button({className: "float-right margin__right", onClick: this._removeFeatureSelection}, "Clear"), 
-          React.DOM.div({className: "padding__wide"}, "Select your areas of interest using the left checkboxes."), 
+          React.DOM.button({className: "button-link float-right margin__right no-padding__right", onClick: this._removeFeatureSelection}, "Clear Selection"), 
+          React.DOM.div({className: "padding__wide"}, "Make your area of interest selections using the left checkboxes."), 
           React.DOM.table({className: "no-border-spacing fill__wide border-box border-orange"}, 
             React.DOM.thead(null, 
               React.DOM.tr({className: "text-white text-center back-orange"}, 
@@ -142,9 +142,9 @@ define([
           selectedFeatures = _.filter(WizardStore.get(KEYS.selectedCustomFeatures), idsToRemoveFilter),
           removedFeatures = _.reject(WizardStore.get(KEYS.selectedCustomFeatures), idsToRemoveFilter);
 
+      WizardStore.set(KEYS.removedCustomFeatures, removedFeatures);
       WizardStore.set(KEYS.customFeatures, features);
       WizardStore.set(KEYS.selectedCustomFeatures, selectedFeatures);
-      WizardStore.set(KEYS.removedFeatures, selectedFeatures);
     },
 
     _renameFeature: function (evt) {
