@@ -378,6 +378,7 @@ define([
 
         registerStoreCallbacks: function() {
             WizardStore.set('customFeatures', []);
+            WizardStore.set('selectedCustomFeatures', []);
             WizardStore.registerCallback('customFeatures', function() {
                 var layer = map.map.getLayer(MapConfig.customGraphicsLayer.id),
                     storeGraphics = WizardStore.get('customFeatures'),
@@ -418,7 +419,6 @@ define([
                     layer.clear();
                 }
             });
-            // TODO: rename in place callback
         },
 
         toggleLayerList: function(el) {

@@ -22,7 +22,8 @@ define([
 
   function getDefaultState() {
     return {
-      graphics: WizardStore.get(KEYS.customFeatures)
+      graphics: WizardStore.get(KEYS.customFeatures),
+      selectedGraphics: WizardStore.get(KEYS.selectedCustomFeatures)
     };
   }
 
@@ -38,6 +39,12 @@ define([
       drawToolbar.on('draw-end', this._drawComplete);
       // Register Callbacks
       WizardStore.registerCallback(KEYS.customFeatures, this.graphicsListUpdated);
+
+      WizardStore.registerCallback(KEYS.selectedCustomFeatures, function () {
+        this.setState({selectedGraphics: WizardStore.get(KEYS.selectedCustomFeatures)});
+      }.bind(this));
+
+      this.setState(getDefaultState());
     },
 
     graphicsListUpdated: function () {
@@ -64,7 +71,7 @@ define([
           ),
           React.DOM.div({'className': 'custom-graphics-list-container'},
             React.DOM.div({'className': 'drawing-instructions'}, AnalyzerConfig.customArea.instructionsPartTwo),
-            new FeatureList({ 'features': this.state.graphics })
+            new FeatureList({'features': this.state.graphics, 'selectedFeatures': this.state.selectedGraphics})
           )
         )
       );

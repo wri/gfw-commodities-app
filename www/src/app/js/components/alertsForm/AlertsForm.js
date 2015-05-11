@@ -28,7 +28,8 @@ define([
 
   getDefaultState = function() {
     return {
-      features: WizardStore.get(KEYS.customFeatures)
+      features: WizardStore.get(KEYS.customFeatures),
+      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures)
     }
   }
 
@@ -42,6 +43,10 @@ define([
 
       WizardStore.registerCallback(KEYS.customFeatures, function() {
         this.setState({features: WizardStore.get(KEYS.customFeatures)});
+      }.bind(this));
+
+      WizardStore.registerCallback(KEYS.selectedCustomFeatures, function() {
+        this.setState({selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures)});
       }.bind(this));
 
       this.setState(getDefaultState());
@@ -77,7 +82,7 @@ define([
               )
             ),
             // Features
-            new FeatureList({'features': this.state.features}),
+            new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures}),
             // Subscription options
             // TODO: group registration name, should default to store alias as placeholder
             // TODO: honeypot fields
