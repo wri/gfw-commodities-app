@@ -338,13 +338,13 @@ define([], function() {
         },
 
         STORE_KEYS: {
+            removedCustomFeatures: 'removedCustomFeatures',
             selectedCustomFeatures: 'selectedCustomFeatures',
             selectedCustomFeatureAlias: 'selectedCustomFeatureAlias',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
-            customFeatures: 'customFeatures',
-            customFeaturesSpliceArgs: 'customFeaturesSpliceArgs'
+            customFeatures: 'customFeatures'
         }
 
     };

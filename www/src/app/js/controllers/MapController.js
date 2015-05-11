@@ -17,6 +17,7 @@ define([
     "utils/Animator",
     "esri/geometry/webMercatorUtils",
     "esri/geometry/Point",
+    "esri/graphicsUtils",
     "map/Controls",
     "map/LayerController",
     "analysis/WizardHelper",
@@ -26,7 +27,7 @@ define([
     "map/Uploader",
     "map/CoordinatesModal",
     "components/alertsForm/AlertsFormHelper"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, AlertsFormHelper) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardHelper, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, AlertsFormHelper) {
     'use strict';
 
     var initialized = false,
@@ -168,7 +169,7 @@ define([
             Animator.fadeIn(ids, {
                 duration: 100
             });
-
+ 
             // Initialize Add This
             try {
                 addthis.init();
@@ -379,7 +380,10 @@ define([
         },
 
         registerStoreCallbacks: function() {
+            // TODO: refactor keys to reference config
+            // TODO: refactor below sets to an init phase for the WizardStore
             WizardStore.set('customFeatures', []);
+            WizardStore.set('removedCustomFeatures', []);
             WizardStore.set('selectedCustomFeatures', []);
             WizardStore.registerCallback('customFeatures', function() {
                 var layer = map.map.getLayer(MapConfig.customGraphicsLayer.id),
@@ -390,36 +394,33 @@ define([
                     removeGraphics;
 
                 addGraphics = function() {
-                    graphicsToAdd = storeGraphics.slice(layer.graphics.length - storeGraphics.length);
-                    graphicsToAdd.map(function(graphic) {
+                    storeGraphics.slice(layer.graphics.length - storeGraphics.length).forEach(function(graphic) {
                         layer.add(graphic);
                     });
                 }
 
-                // NOTE: graphics layer depends on splice arguments being stored for reference for what to remove
                 removeGraphics = function() {
-                    var spliceArgs = WizardStore.get('customFeaturesSpliceArgs').slice(0),
-                        index = spliceArgs[0],
-                        length = spliceArgs[1],
-                        graphicsToRemove = [];
-
-                    while (length > 0) {
-                        graphicsToRemove.push(layer.graphics[index]);
-                        index++;
-                        length--;
-                    }
-                    graphicsToRemove.map(function(graphic) {
-                        layer.remove(graphic);
+                    WizardStore.get('removedCustomFeatures').forEach(function (feature) {
+                      layer.remove(feature);
                     });
                 }
 
                 if (storeGraphics.length > 0 && graphicsLengthDifference < 0) {
                     addGraphics();
-                } else if (storeGraphics.length > 0 && graphicsLengthDifference > 0) {
+                } else if (graphicsLengthDifference > 0) {
                     removeGraphics();
                 } else if (storeGraphics.length === 0) {
                     layer.clear();
                 }
+            });
+
+            WizardStore.registerCallback('selectedCustomFeatures', function() {
+              var selectedFeatures = WizardStore.get('selectedCustomFeatures'),
+                  extent;
+
+              if (selectedFeatures.length > 0) {
+                map.map.setExtent(graphicsUtils.graphicsExtent(selectedFeatures), true);
+              }
             });
         },
 

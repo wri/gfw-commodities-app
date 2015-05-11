@@ -4,8 +4,10 @@ define([
 	"esri/units",
   "esri/graphic",
   "esri/geometry/Point",
-  "esri/geometry/Circle"
-], function (MapConfig, Symbols, Units, Graphic, Point, Circle) {
+  "esri/geometry/Circle",
+  "esri/SpatialReference",
+  "esri/geometry/webMercatorUtils"
+], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, webMercatorUtils) {
 
 	return {
 
@@ -53,6 +55,46 @@ define([
       }
       return (next + 1);
     },
+
+    convertGeometryToGeometric: function(geometry) {
+      var sr = new SpatialReference({wkid: 102100}),
+          geometryArray = [],
+          newRings = [],
+          geo,
+          pt;
+
+      // Helper function to determine if the coordinate is already in the array
+      // This signifies the completion of a ring and means I need to reset the newRings
+      // and start adding coordinates to the new newRings array
+      function sameCoords(arr, coords) {
+          var result = false;
+          arrayUtils.forEach(arr, function(item) {
+              if (item[0] === coords[0] && item[1] === coords[1]) {
+                  result = true;
+              }
+          });
+          return result;
+      }
+
+      arrayUtils.forEach(geometry.rings, function(ringers) {
+          arrayUtils.forEach(ringers, function(ring) {
+              pt = new Point(ring, sr);
+              geo = webMercatorUtils.xyToLngLat(pt.x, pt.y);
+              if (sameCoords(newRings, geo)) {
+                  newRings.push(geo);
+                  geometryArray.push(newRings);
+                  newRings = [];
+              } else {
+                  newRings.push(geo);
+              }
+          });
+      });
+
+      return {
+          geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
+          type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
+      };
+    }
 
 	};
 

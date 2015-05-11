@@ -16,20 +16,25 @@ define([
   'esri/toolbars/draw',
   'dojo/dom',
   'dojo/query',
-  'dojo/dom-class'
-], function(React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Draw, dom, dojoQuery, domClass) {
+  'dojo/dom-class',
+  'dojox/validate/web'
+], function(React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Draw, dom, dojoQuery, domClass, validate) {
 
   var AlertsForm,
     drawToolbar,
     activeTool,
     KEYS = AlertsConfig.STORE_KEYS,
     getDefaultState,
+    formaId = _.uniqueId(),
+    firesId = _.uniqueId(),
+    emailId = _.uniqueId()
     self = this;
 
   getDefaultState = function() {
     return {
       features: WizardStore.get(KEYS.customFeatures),
-      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures)
+      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures),
+      selectedFeaturesAlias: WizardStore.get(KEYS.selectedCustomFeatureAlias)
     }
   }
 
@@ -63,17 +68,16 @@ define([
 
     render: function() {
       return (
-        React.DOM.div({className: 'alerts-form-root'},
+        React.DOM.div({className: 'relative fill'},
           // Header
-          React.DOM.div({className: 'alerts-form-header'},
-            React.DOM.div({className: 'padding'}, 'Alerts Registration'),
+          React.DOM.div({className: 'alerts-form__header'},
+            React.DOM.div({className: 'fill__long border-box padding'}, 'Alerts Registration'),
             React.DOM.button({className: 'absolute no-top no-right'}, 'x')
           ),
           // Body
-          React.DOM.div({className: 'alerts-form-body'}, 
+          React.DOM.div({className: 'alerts-form__body'}, 
             // Tools
             React.DOM.div({'className':'padding__wide padding__top'},
-              React.DOM.div({'className':'margin__bottom'}, 'Create a custom Area'),
               React.DOM.div(null, AlertsConfig.customArea.instructions),
               React.DOM.div({'className':'text-center'},
                 React.DOM.button({'onClick': this._activateToolbar, 'data-geometry-type': Draw.FREEHAND_POLYGON}, AlertsConfig.customArea.freehandLabel),
@@ -82,29 +86,33 @@ define([
               )
             ),
             // Features
-            new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures}),
+            new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures, 'rspoChecks':true}),
             // Subscription options
             // TODO: group registration name, should default to store alias as placeholder
             // TODO: honeypot fields
-            React.DOM.div({'className':'absolute no-wide border-box padding__wide', 'style': {height:'80px', bottom:'51px'}},
+            React.DOM.div({'className':'alerts-form__form absolute no-wide border-box', 'style': {bottom:'51px'}},
               React.DOM.div(null,
-                React.DOM.input({type: 'checkbox', name:'forma-alerts'}),
-                React.DOM.label({htmlFor: 'forma-alerts'}, 'Monthly Clearance Alerts')
+                React.DOM.input({className:'vertical-middle', type: 'checkbox', id:formaId}),
+                React.DOM.label({className:'vertical-middle', htmlFor:formaId}, 'Monthly Clearance Alerts')
               ),
               React.DOM.div(null,
-                React.DOM.input({type: 'checkbox', name:'fire-alerts'}),
-                React.DOM.label({htmlFor: 'fire-alerts'}, 'Fire Alerts')
+                React.DOM.input({className:'vertical-middle', type: 'checkbox', id:firesId}),
+                React.DOM.label({className:'vertical-middle', htmlFor:firesId}, 'Fire Alerts')
               ),
-              React.DOM.div(null,
-                React.DOM.input({placeholder:'something@gmail.com'})
+              React.DOM.div({className:'text-center'},
+                React.DOM.input({placeholder:'this.state.selectedFeaturesAlias'})
+              ),
+              React.DOM.div({className:'text-center'},
+                React.DOM.input({id:emailId, placeholder:'something@gmail.com'})
+                // React.DOM.input({placeholder:this.state.selectedFeaturesAlias})
               )
             )
           ),
           // Footer
-          React.DOM.div({className: 'alerts-form-footer'}, 
+          React.DOM.div({className: 'alerts-form__footer'}, 
             'Current Selection:',
             '{selection}',
-            React.DOM.button({className: 'float-right'}, 'Subscribe')
+            React.DOM.button({className: 'float-right', onClick:this._subscribeToAlerts}, 'Subscribe')
           )
         )
       );
@@ -168,7 +176,98 @@ define([
       dojoQuery(".drawing-tools .drawing-tool-button").forEach(function (node) {
         domClass.remove(node, "active");
       });
+    }, 
+
+    // @ Generator.js:subscribeToAlerts
+    _subscribeToAlerts: function () {
+      // NOTE: convertGeometryToGeometry is available in GeoHelper
+      // var geoJson = this.convertGeometryToGeometric(report.geometry),
+      var geoJson,
+          emailAddr = dom.byId(emailId).value,
+          formaCheck = dom.byId(formaId).checked,
+          firesCheck = dom.byId(firesId).checked,
+          errorMessages = [],
+          messages = {},
+          displayMessages;
+
+      console.debug(geoJson);
+
+      // Set up the text for the messages
+      messages.invalidEmail = 'You must provide a valid email in the form.';
+      messages.noAreaSelection = 'You must select at least one area from the list.';
+      messages.noSelection = 'You must select at least one checkbox from the form.';
+      messages.formaSuccess = 'Thank you for subscribing to Forma Alerts.  You should receive a confirmation email soon.';
+      messages.formaFail = 'There was an error with your request to subscribe to Forma alerts.  Please try again later.';
+      messages.fireSuccess = 'Thank you for subscribing to Fires Alerts.  You should receive a confirmation email soon.';
+      messages.fireFail = 'There was an error with your request to subscribe to Fires alerts.  Please try again later.';
+
+      if (this.state.selectedFeatures > 0) {
+        // TODO: create signle subscribe polygon from all selected features
+        emailAddr = this.state.selectedFeatures[0].toJson();
+      } else {
+        errorMessages.push(messages.noAreaSelection)
+      }
+
+      if (!validate.isEmailAddress(emailAddr)) {
+          errorMessages.push(messages.invalidEmail);
+      }
+
+      if (!formaCheck && !firesCheck) {
+          errorMessages.push(messages.noSelection);
+      }
+
+      displayMessages = function () {
+        // generic messages popup, use this instead of putting responses AlertsForm panel
+      }
+
+      if (errorMessages.length > 0) {
+          alert('Please fill in the following:\n' + errorMessages.join('\n'));
+      } else {
+        // If both are checked, request both and show the appropriate responses
+        if (formaCheck && firesCheck) {
+            // var responses = [];
+            // all([
+            //     this.subscribeToForma(geoJson, emailAddr),
+            //     this.subscribeToFires(report.geometry, emailAddr)
+            // ]).then(function(results) {
+            //     // Check the results and inform the user of the results
+            //     if (results[0]) {
+            //         responses.push(messages.formaSuccess);
+            //     } else {
+            //         responses.push(messages.formaFail);
+            //     }
+
+            //     if (results[1]) {
+            //         responses.push(messages.fireSuccess);
+            //     } else {
+            //         responses.push(messages.fireFail);
+            //     }
+
+            //     dom.byId('form-response').innerHTML = responses.join('<br />');
+            // });
+
+            // Else if just forma alerts are checked, subscribe to those and show the correct responses
+        } else if (formaCheck) {
+            // this.subscribeToForma(geoJson, emailAddr).then(function(res) {
+            //     if (res) {
+            //         dom.byId('form-response').innerHTML = messages.formaSuccess;
+            //     } else {
+            //         dom.byId('form-response').innerHTML = messages.formaFail;
+            //     }
+            // });
+            // Else if just fires alerts are checked, subscribe to those and show the correct responses
+        } else if (firesCheck) {
+            // this.subscribeToFires(report.geometry, emailAddr).then(function(res) {
+            //     if (res) {
+            //         dom.byId('form-response').innerHTML = messages.fireSuccess;
+            //     } else {
+            //         dom.byId('form-response').innerHTML = messages.fireFail;
+            //     }
+            // });
+        }
+      }
     }
+
   });
 
   return function(props, el) {

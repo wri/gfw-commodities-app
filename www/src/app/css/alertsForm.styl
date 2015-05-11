@@ -2,10 +2,6 @@
 $alerts_width = 460px
 $alerts_body_padding = 50px
 
-// Utility Styles
-.float-right
-	float right
-
 // Core Styles
 .alerts-form-container
 	z-index 5
@@ -18,23 +14,16 @@ $alerts_body_padding = 50px
 	background-color #fff
 
 .alerts-form
-	height 100%
-	width $alerts_width
-	position absolute
-	top 0
-	right 0
-	bottom 0
-	left initial
-	
-	.hidden
-		display none
-
-	&-root
-		position relative
+	&
 		height 100%
-		width 100%
+		width $alerts_width
+		position absolute
+		top 0
+		right 0
+		bottom 0
+		left initial
 
-	&-header
+	&__header
 		position absolute
 		top 0
 		right 0
@@ -42,14 +31,16 @@ $alerts_body_padding = 50px
 		left 0
 		height $alerts_body_padding
 		border-bottom 1px solid grey
+		font-size 26px
 
-	&-body
+	&__body
 		box-sizing border-box
 		padding $alerts_body_padding 0px
 		height 100%
 		width 100%
+		font-size 12px
 
-	&-footer
+	&__footer
 		position absolute
 		top initial
 		right 0
@@ -57,3 +48,6 @@ $alerts_body_padding = 50px
 		left 0
 		height $alerts_body_padding
 		border-top 1px solid grey
+
+	&__form
+		padding 0px 20px 10px 20px
