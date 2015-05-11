@@ -9,6 +9,9 @@
             async: true,
             cacheBust: "v=" + version,
             packages: [{
+                name: "js",
+                location: URL + "/js"
+            }, {
                 name: "main",
                 location: URL + "/js/main"
             }, {
@@ -45,16 +48,9 @@
                 ['lodash', 'libs/lodash/lodash.min']
             ],
             deps: [
-                // "main/Main",
                 "dojo/domReady!"
             ],
-            callback: function(Main) {
-                // Main.init();
-                // Before Running grunt build or minify, remove main/Main from Require above and main parameter
-                // from callback, then uncomment below
-                // Release Version
-                loadScript('app/js/app.min.js?v=' + version);
-            }
+            callback: function() { require(['js/bundle']); }
         }, // End dojoConfig
         src = [
             'http://js.arcgis.com/3.12/',

@@ -46,6 +46,13 @@ define([
 
 		},
 
+    /**
+    * Force close
+    */
+    close: function () {
+      return domClass.remove('upload-modal', 'active');
+    },
+
 		/**
 		* Receive the Form event and delegate to the appropriate method
 		* @param {object} evt - Event emitted by the form onChange
@@ -320,7 +327,7 @@ define([
 			domConstruct.create('div', {
       	'id': 'uploadNameField',
       	'innerHTML': '<div id="uploadNameFieldWidget"></div>'
-      }, locationNode, 'after');
+      }, locationNode, 'last');
 
       store = new Memory({
       	data: data

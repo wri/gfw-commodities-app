@@ -24,8 +24,9 @@ define([
     "components/LayerList",
     "utils/Loader",
     "map/Uploader",
+    "map/CoordinatesModal",
     "components/alertsForm/AlertsFormHelper"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, WizardStore, LayerList, Loader, Uploader, AlertsFormHelper) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, AlertsFormHelper) {
     'use strict';
 
     var initialized = false,
@@ -372,6 +373,7 @@ define([
             });
 
             on(dom.byId('upload-form'), 'change', Uploader.beginUpload.bind(Uploader));
+            on(document.querySelector('.coordinates-modal-enter-button'), 'click', CoordinatesModal.savePoint.bind(CoordinatesModal));
 
 
         },

@@ -1,233 +1,165 @@
 module.exports = function(grunt) {
     'use strict';
 
-    /*
-        This build file uses requirejs optimizer but cannot optimize into a single file due to the application
-        using an external report feature.  It loads a new bootloader which pulls each file it needs, to handle that
-        the app minifies the whole application into a single file but also keeps the report folder structure intact,
-        it also has two css files, one for the whole app(app.css) which contains all the .styl files code except for 
-        report.styl, report.styl maps to report.css, the js in the report folder is minified after being copied over
-    */
-
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
 
+        // Copy Over Files not Dealt With in Optimizer
         copy: {
-            build: {
-                files: [{
-                        expand: true,
-                        cwd: 'src/app/css/fonts',
-                        src: ['**'],
-                        dest: 'build/app/css/fonts'
-                    }, {
-                        src: 'src/app/css/images/download-icon.svg',
-                        dest: 'build/app/css/images/download-icon.svg',
-                        filter: 'isFile'
-                    },
-                    {
-                        src: ['src/app/libs/es5-sham.min.js'],
-                        dest: 'build/app/libs/es5-sham.min.js',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/app/libs/es5-shim.min.js'],
-                        dest: 'build/app/libs/es5-shim.min.js',
-                        filter: 'isFile'
-                    },
-
-                    {
-                        src: ['src/app/libs/ionrangeslider/css/normalize.min.css'],
-                        dest: 'build/app/libs/ionrangeslider/css/normalize.min.css',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css'],
-                        dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.css'],
-                        dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.css',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/app/css/home.css'],
-                        dest: 'build/app/css/home.css',
-                        filter: 'isFile'
-                    },
-
-                    {
-                        src: ['src/app/libs/FileSaver.js'],
-                        dest: 'build/app/libs/FileSaver.js',
-                        filter: 'isFile'
-                    },
-
-                    {
-                        src: ['src/app/libs/jquery-1.7.1.min.js'],
-                        dest: 'build/app/libs/jquery-1.7.1.min.js',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/app/libs/jquery-2.1.1.min.js'],
-                        dest: 'build/app/libs/jquery-2.1.1.min.js',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/app/libs/jquery-ui-custom.min.js'],
-                        dest: 'build/app/libs/jquery-ui-custom.min.js',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/app/libs/jQAllRangeSliders-min.js'],
-                        dest: 'build/app/libs/jQAllRangeSliders-min.js',
-                        filter: 'isFile'
-                    }, {
-                        src: ['src/.htaccess'],
-                        dest: 'build/.htaccess',
-                        filter: 'isFile'
-                    }
-                ]
-            }
+          build: {
+            files: [{
+              // htaccess file to prevent cachign of index.html allowing our cacheBust to work 
+              src: ['src/.htaccess'],
+              dest: 'build/.htaccess',
+              filter: 'isFile'
+            }, {
+              // All Fonts, THis may be able to be removed
+              expand: true,
+              cwd: 'src/app/css/fonts',
+              src: ['**'],
+              dest: 'build/app/css/fonts'
+            }, {
+              // Support Libraries for IE < 9
+              src: ['src/app/libs/es5-sham.min.js'],
+              dest: 'build/app/libs/es5-sham.min.js',
+              filter: 'isFile'
+            }, {
+              // Support Libraries for IE < 9
+              src: ['src/app/libs/es5-shim.min.js'],
+              dest: 'build/app/libs/es5-shim.min.js',
+              filter: 'isFile'
+            }, {
+              // Image Not Copied With Image Minifier
+              src: 'src/app/css/images/download-icon.svg',
+              dest: 'build/app/css/images/download-icon.svg',
+              filter: 'isFile'
+            }, {
+              // CSS used to Support Ion Range Slider
+              src: ['src/app/libs/ionrangeslider/css/normalize.min.css'],
+              dest: 'build/app/libs/ionrangeslider/css/normalize.min.css',
+              filter: 'isFile'
+            }, {
+              // CSS used to Support Ion Range Slider
+              src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css'],
+              dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css',
+              filter: 'isFile'
+            }, {
+              // CSS used to Support Ion Range Slider
+              src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.css'],
+              dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.css',
+              filter: 'isFile'
+            }, {
+              // Helper Libraries used at various points in the app
+              src: ['src/app/libs/FileSaver.js'],
+              dest: 'build/app/libs/FileSaver.js',
+              filter: 'isFile'
+            }, {
+              // Helper Libraries used at various points in the app
+              src: ['src/app/libs/jquery-1.7.1.min.js'],
+              dest: 'build/app/libs/jquery-1.7.1.min.js',
+              filter: 'isFile'
+            }, {
+              // Helper Libraries used at various points in the app
+              src: ['src/app/libs/jquery-2.1.1.min.js'],
+              dest: 'build/app/libs/jquery-2.1.1.min.js',
+              filter: 'isFile'
+            }, {
+              // Helper Libraries used at various points in the app
+              src: ['src/app/libs/jquery-ui-custom.min.js'],
+              dest: 'build/app/libs/jquery-ui-custom.min.js',
+              filter: 'isFile'
+            }, {
+              // Helper Libraries used at various points in the app
+              src: ['src/app/libs/jQAllRangeSliders-min.js'],
+              dest: 'build/app/libs/jQAllRangeSliders-min.js',
+              filter: 'isFile'
+            }]
+          }
         },
 
+        // Copy over and minify index.html and 
         htmlmin: {
-            build: {
-                options: {
-                    removeComments: true,
-                    collapseWhitespace: true
-                },
-                files: [{
-                    src: ['src/index.html'],
-                    dest: 'build/index.html'
-                }, {
-                    expand: true,
-                    cwd: 'src/app',
-                    src: ['**/*.html'],
-                    dest: 'build/app'
-                }]
-            }
+          build: {
+            options: {
+              removeComments: true,
+              collapseWhitespace: true
+            },
+            files: [{
+              src: ['src/index.html'],
+              dest: 'build/index.html'
+            }, {
+              expand: true,
+              cwd: 'src/app',
+              src: ['**/*.html'],
+              dest: 'build/app'
+            }]
+          }
         },
 
+        // Minify any JS left not copied over already
         uglify: {
-            build: {
-                options: {
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd/") %> */',
-                    preserveComments: false
-                },
-                files: [{
-                    dest: 'build/app/bootloader.js',
-                    src: 'src/app/bootloader.js'
-                }, {
-                    dest: 'build/app/libs/html5shiv.js',
-                    src: 'src/app/libs/html5shiv.js'
-                }, {
-                    dest: 'build/app/libs/ionrangeslider/js/ion.rangeSlider.min.js',
-                    src: 'src/app/libs/ionrangeslider/js/ion.rangeSlider.min.js'
-                }, {
-                    expand: true,
-                    cwd: 'src/app/js/report/',
-                    dest: 'build/app/js/report/',
-                    src: '**/*.js'
-                }]
-            }
+          build: {
+            options: {
+              banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd/") %> */',
+              preserveComments: false
+            },
+            files: [{
+              dest: 'build/app/bootloader.js',
+              src: 'src/app/bootloader.js'
+            }, {
+              dest: 'build/app/libs/html5shiv.js',
+              src: 'src/app/libs/html5shiv.js'
+            }, {
+              dest: 'build/app/libs/ionrangeslider/js/ion.rangeSlider.min.js',
+              src: 'src/app/libs/ionrangeslider/js/ion.rangeSlider.min.js'
+            }, {
+              expand: true,
+              cwd: 'src/app/js/report/',
+              dest: 'build/app/js/report/',
+              src: '**/*.js'
+            }]
+          }
         },
 
         imagemin: {
-            build: {
-                options: {
-                    optimizationLevel: 7,
-                    progressive: true
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'src/app',
-                    src: ['**/*.{png,jpg,gif}'],
-                    dest: 'build/app'
-                }]
-            }
-        },
-
-        stylus: {
-            develop: {
-                options: {
-                    compress: false,
-                    linenos: true
-                },
-                files: {
-                    'src/app/css/app.css': ['src/app/css/**/*.styl', '!src/app/css/report.styl'],
-                    'src/app/css/report.css': ['src/app/css/report.styl']
-                }
+          build: {
+            options: {
+              optimizationLevel: 7,
+              progressive: true
             },
-            build: {
-                files: {
-                    'build/app/css/app.css': ['src/app/css/**/*.styl', '!build/app/css/report.styl'],
-                    'build/app/css/report.css': ['src/app/css/report.styl']
-                }
-            }
-        },
-
-        requirejs: {
-            build: {
-                options: {
-                    baseUrl: 'src',
-                    paths: {
-                        'dojo': 'empty:',
-                        'dijit': 'empty:',
-                        'dojox': 'empty:',
-                        'esri': 'empty:',
-                        'libs': 'app/libs',
-                        'map': 'app/js/map',
-                        'main': 'app/js/main',
-                        'models': 'app/js/models',
-                        'utils': 'app/js/utils',
-                        'report': 'app/js/report',
-                        'analysis': 'app/js/analysis',
-                        'templates': 'app/templates',
-                        'controllers': 'app/js/controllers',
-                        'components': 'app/js/components',
-                        // Aliases
-                        'knockout': 'app/libs/knockout-3.1.0/index',
-                        'react': 'app/libs/react-0.11.1.min/index'
-                    },
-                    name: 'build/requireConfig',
-                    out: 'build/app/js/app.min.js'
-                }
-            }
+            files: [{
+              expand: true,
+              cwd: 'src/app',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'build/app'
+            }]
+          }
         },
 
         ftp_push: {
-            build: {
-                options: {
-                    host: 'staging.blueraster.com',
-                    dest: 'html/wri/gfw-commodities/v21/',
-                    authKey: 'staging'
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'build',
-                    src: ['**']
-                }]
-            }
-        },
-
-        watch: {
-            stylus: {
-                options: {
-                    debounceDelay: 250,
-                    spawn: false
-                },
-                files: ['src/app/css/**/*.styl'],
-                tasks: ['stylus:develop']
-            }
+          build: {
+            options: {
+              host: 'staging.blueraster.com',
+              dest: 'html/wri/gfw-commodities/v42/',
+              authKey: 'staging'
+            },
+            files: [{
+              expand: true,
+              cwd: 'build',
+              src: ['**']
+            }]
+          }
         }
 
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-ftp-push');
 
-    grunt.registerTask('develop', ['watch:stylus']);
-    grunt.registerTask('build', ['copy:build', 'htmlmin:build', 'uglify:build', 'imagemin:build', 'stylus:build', 'requirejs:build', 'ftp_push:build']);
-    grunt.registerTask('minify', ['copy:build', 'htmlmin:build', 'uglify:build', 'imagemin:build', 'stylus:build', 'requirejs:build']);
+    grunt.registerTask('build', ['copy:build', 'htmlmin:build', 'uglify:build', 'imagemin:build']);
 
 };

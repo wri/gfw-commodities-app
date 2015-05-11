@@ -14,7 +14,7 @@ define([], function() {
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
-        protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
+        protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer",
         mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
         primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
@@ -50,6 +50,17 @@ define([], function() {
             errors: {
                 
             }
+        },
+
+        coordinatesDialog: {
+          coordinatesModalHeader: 'Enter Point Coordinates',
+          coordinatesEnterButton: 'Enter',
+          latitudePlaceholder: 'Latitude',
+          longitudePlaceholder: 'Longitude',
+          errors: {
+            invalidLatitude: 'You did not enter a valid value for Latitude.',
+            invalidLongitude: 'You did not enter a valid value for Longitude.'
+          }
         },
 
         // Layers which are not part of the Master Layer UI List Widget (Colored Categories Stripes across top of the map) go below
@@ -325,7 +336,7 @@ define([], function() {
         biodiversity: {
             id: "Biodiversity",
             url: biodiversityUrl,
-            layerId: 1
+            layerId: 0
         },
 
         palHelper: {
