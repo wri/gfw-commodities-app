@@ -67,6 +67,9 @@ define([
     },
 
     render: function() {
+      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
+          currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : 'none';
+
       return (
         React.DOM.div({className: 'relative fill'},
           // Header
@@ -109,10 +112,10 @@ define([
             )
           ),
           // Footer
-          React.DOM.div({className: 'alerts-form__footer'}, 
-            'Current Selection:',
-            '{selection}',
-            React.DOM.button({className: 'float-right', onClick:this._subscribeToAlerts}, 'Subscribe')
+          React.DOM.div({className:'alerts-form__footer'}, 
+            React.DOM.div({className:'inline-block padding__left'}, 'Current Selection:'),
+            React.DOM.div({className:'inline-block '}, currentSelectionLabel),
+            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts}, 'Subscribe')
           )
         )
       );
