@@ -1428,14 +1428,11 @@ define([
 		renderMillAssessment: function (mills, config) {
 
 			var millTables = [],
-					// headerContent = "<div id='value-toggle' class='value-toggle'><span class='toggle-label'>Show Values</span>" + 
-					// 					"<span class='toggle-button-container active'><span class='toggle-knob'></span></span></div>",
 					content = "",
 					title;
 
-      console.log(mills);
-
 			arrayUtils.forEach(mills, function (mill, index) {
+        console.log(mill);
 				// Create Header, if mill_name exits, use that, else, loop over report.mills and find a 
         // matching id and use that
         if (mill.mill_name) {

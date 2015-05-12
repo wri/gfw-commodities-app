@@ -19,8 +19,12 @@ define([
     // Local Modules from report folder
     "report/config",
     "report/Fetcher",
-    "report/CSVExporter"
-], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher, CSVExporter) {
+    "report/CSVExporter",
+
+    // Temp
+    'esri/units',
+    'esri/geometry/Circle'
+], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher, CSVExporter, Units, Circle) {
     'use strict';
 
     window.report = {};
@@ -156,6 +160,14 @@ define([
             // Parse the geometry from the global payload object
             var areasToAnalyze = JSON.parse(window.payload.geometry);
 
+            // Helper, May not be needed
+            var preparePointAsPolygon = function (geometry) {
+              return new Circle(new Point(geometry), {
+                "radius": 50,
+                "radiusUnit": Units.KILOMETERS
+              });
+            };
+
             // If we have a single polygon, grab the geometry and begin
             // If we have a single circle, convert to polygon and then continue
             if (areasToAnalyze.length === 1) {
@@ -170,6 +182,11 @@ define([
                 report.geometry = poly;
               } else if (geometryPayload.geometry.type === 'polygon') {
                 report.geometry = geometryPayload.geometry;
+              } else {
+                // Strictly for Testing, still determining where this function should live
+                // If it lives here, radius will be passed from payload, but it should probably create these
+                // in the app and not in the report to simplify things at this stage
+                report.geometry = preparePointAsPolygon(geometryPayload.geometry);
               }
 
               this.beginAnalysis();
@@ -178,15 +195,24 @@ define([
 
               // Currently this can only be an array of mills, may change later
               // First I will need to convert circles to polygons since unioning circles/computing histograms
-              //  has some unexpected outcomes, Also keep a reference of the mills
+              // has some unexpected outcomes, Also keep a reference of the mills
 
               report.mills = areasToAnalyze;
               polygons = [];
 
               arrayUtils.forEach(areasToAnalyze, function (feature) {
+
+                // Strictly for Testing, still determining where this function should live
+                // If it lives here, radius will be passed from payload, but it should probably create these
+                // in the app and not in the report to simplify things at this stage
+                if (feature.geometry.x) {
+                  poly = preparePointAsPolygon(feature.geometry);
+                } else {
                   poly = new Polygon(sr);
                   poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
-                  polygons.push(poly);
+                }
+
+                polygons.push(poly);
               });
 
               // Now Union the Geometries, then reproject them into the correct spatial reference

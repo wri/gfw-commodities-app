@@ -11,11 +11,11 @@ define([
 
 	return {
 
-		preparePointAsPolygon: function (pointFeature) {
+		preparePointAsPolygon: function (pointFeature, radius) {
 			var longitude = pointFeature.attributes.Longitude,
           latitude = pointFeature.attributes.Latitude,
           circle = new Circle(new Point(pointFeature.geometry), {
-            "radius": 50,
+            "radius": radius || 50,
             "radiusUnit": Units.KILOMETERS
           });
 

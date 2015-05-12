@@ -29,6 +29,7 @@ define([
       activeListItemValues: [],
       selectedCommodity: config.commodityOptions[0].value,
       showCustomFeaturesList: false,
+      selectedCustomFeatures: WizardStore.get(KEYS.selectedCustomFeatures),
       customFeatures: getCustomPointFeatures()
     });
   };
@@ -51,11 +52,17 @@ define([
       // Register callbacks
       WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);
       WizardStore.registerCallback(KEYS.customFeatures, this.customFeaturesUpdated);
+      WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.selectedCustomFeaturesUpdated);
     },
 
     customFeaturesUpdated: function () {
       var customFeatures = getCustomPointFeatures();
       this.setState({ customFeatures: customFeatures });
+    },
+
+    selectedCustomFeaturesUpdated: function () {
+      var selectedCustomFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+      this.setState({ selectedCustomFeatures: selectedCustomFeatures });
     },
 
     userChangedSteps: function () {
@@ -126,7 +133,7 @@ define([
           ), 
           /* Render this list when user clicks upload or enterCoords */
           React.DOM.div({className: this.state.showCustomFeaturesList ? '' : 'hidden'}, 
-            FeatureList({features: this.state.customFeatures, selectedFeatures: selectedFeatures, rspoChecks: true})
+            FeatureList({features: this.state.customFeatures, selectedFeatures: this.state.selectedCustomFeatures, rspoChecks: true})
           )
         )
       );
@@ -182,6 +189,7 @@ define([
     _millPointSelected: function (target) {
       var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
           entityId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
+          newActiveListItemValues,
           wizardGraphicsLayer,
           self = this,
           parentNode,
@@ -208,7 +216,7 @@ define([
             if ( self.state.activeListItemValues.indexOf(entityId) != -1 ) {
             // if (domClass.contains(parentNode, 'active-mill')) {
               var valueIndex = self.state.activeListItemValues.indexOf(entityId);
-              var newActiveListItemValues = self.state.activeListItemValues.slice(0);
+              newActiveListItemValues = self.state.activeListItemValues.slice(0);
               newActiveListItemValues.splice(valueIndex, 1);
               self.setState( { activeListItemValues: newActiveListItemValues } );
               // domClass.remove(parentNode, 'active-mill');
@@ -236,7 +244,7 @@ define([
               graphic = GeoHelper.preparePointAsPolygon(feature);
               wizardGraphicsLayer.add(graphic);
               // Add Active Class, Add to array or features, and add label to array of labels
-              var newActiveListItemValues = self.state.activeListItemValues.concat([entityId]);
+              newActiveListItemValues = self.state.activeListItemValues.concat([entityId]);
               self.setState({ activeListItemValues: newActiveListItemValues });
               // domClass.add(parentNode, 'active-mill');
               selectedFeatures.push(graphic);

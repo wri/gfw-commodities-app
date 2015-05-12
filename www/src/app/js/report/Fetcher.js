@@ -720,7 +720,7 @@ define([
             }
 
             function getCustomMillsResults () {
-
+              customDeferred.resolve(false);
             }
 
             all([customDeferred, knownDeferred]).then(function (results) {
@@ -732,6 +732,7 @@ define([
                 }
               });
               ReportRenderer.renderMillAssessment(mills, config);
+              deferred.resolve(true);
             });
 
             return deferred.promise;
