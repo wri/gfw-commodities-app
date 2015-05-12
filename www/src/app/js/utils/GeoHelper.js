@@ -15,6 +15,14 @@ define([
 
 	return {
 
+    generatePointGraphicFromGeometric: function (longitude, latitude, attributes) {
+      return new Graphic(
+        webMercatorUtils.geographicToWebMercator(new Point(longitude, latitude)),
+        Symbols.getPointSymbol(),
+        attributes
+      );
+    },
+
 		preparePointAsPolygon: function (pointFeature, radius) {
 			var longitude = pointFeature.attributes.Longitude,
           latitude = pointFeature.attributes.Latitude,

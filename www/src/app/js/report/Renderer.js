@@ -1432,7 +1432,6 @@ define([
 					title;
 
 			arrayUtils.forEach(mills, function (mill, index) {
-        console.log(mill);
 				// Create Header, if mill_name exits, use that, else, loop over report.mills and find a 
         // matching id and use that
         if (mill.mill_name) {

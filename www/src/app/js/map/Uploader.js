@@ -249,12 +249,7 @@ define([
 				lat = attributes.Latitude ? attributes.Latitude : attributes.latitude;
 				lon = attributes.Longitude ? attributes.Longitude : attributes.longitude;
 
-				feature = new Graphic(
-					new Point(lon, lat),
-					Symbols.getPointSymbol(),
-					attributes
-				);
-
+				feature = GeoHelper.generatePointGraphicFromGeometric(lon, lat, attributes);
 				newFeatures.push(feature);
 			});
 			
