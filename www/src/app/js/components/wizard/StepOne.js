@@ -20,7 +20,8 @@ define([
   function getDefaultState() {
     return {
       completed: true,
-      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option3.id
+      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option3.id,
+      previousAreaOfInterest: undefined
     };
   }
 
@@ -95,7 +96,19 @@ define([
       WizardStore.set(KEYS.areaOfInterest, e.target.id);
     },
 
+    _resetSelectedFeatures: function() {
+      var previousAreaOfInterest = this.state.previousAreaOfInterest || false,
+          currentAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+
+      if (previousAreaOfInterest && previousAreaOfInterest !== currentAreaOfInterest) {
+        WizardStore.set(KEYS.selectedCustomFeatures, []);
+      } else {
+        this.setState({previousAreaOfInterest: currentAreaOfInterest});
+      }
+    },
+
     _moveOn: function () {
+      this._resetSelectedFeatures();
       WizardStore.set(KEYS.userStep, WizardStore.get(KEYS.userStep) + 1);
     }
 
