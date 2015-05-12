@@ -30,12 +30,18 @@ define([
           featureIds,
           selectedFeatureIds,
           allFeaturesSelected,
-          rspoChecksHeader = this.props.rspoChecks ? <th><label><input type='checkbox' />RSPO</label></th> : '';
+          allFeaturesRSPO,
+          rspoChecksHeader = '';
 
       if (this.props.selectedFeatures) {
         featureIds = this.props.features.map(this._featuresIdMapper);
         selectedFeatureIds = this.props.selectedFeatures.map(function (selectedFeature) {return selectedFeature.attributes.WRI_ID});
         allFeaturesSelected = featureIds.length > 0 && _.difference(featureIds, selectedFeatureIds).length === 0;
+      }
+
+      if (this.props.rspoChecks) {
+        allFeaturesRSPO = this.props.features.length > 0 ? _.every(this.props.features, function (feature) {return feature.attributes.isRSPO === true}) : false;
+        rspoChecksHeader = <th><label><input type='checkbox' onChange={this._toggleAllFeaturesRSPO} checked={allFeaturesRSPO} />RSPO</label></th>;
       }
 
       return (
@@ -64,13 +70,13 @@ define([
       var isSelected = _.find(this.props.selectedFeatures, function (selectedFeature) { return feature.attributes.WRI_ID === selectedFeature.attributes.WRI_ID}) || false,
           className = index % 2 === 0 ? 'back-light-gray' : '',
           className = isSelected ? 'text-white back-medium-gray' : className,
-          rspoChecks = this.props.rspoChecks ? <td className='text-center' onClick={this._toggleAllFeaturesRSPO}><input type='checkbox' /></td> : '',
+          rspoChecks = this.props.rspoChecks ? <td className='text-center'><input type='checkbox' onChange={this._toggleFeatureRSPO} checked={feature.attributes.isRSPO} data-feature-id={feature.attributes.WRI_ID}/></td> : '',
           typeIcon = feature.geometry.type === 'polygon' ? '/' : '.' ;
 
       return (
         <tr className={className}>
           <td className='text-center'>
-            <input type='checkbox' onClick={this._toggleFeatureSelection} checked={isSelected} data-feature-index={index} data-feature-id={feature.attributes.WRI_ID} />
+            <input type='checkbox' onChange={this._toggleFeatureSelection} checked={isSelected} data-feature-index={index} data-feature-id={feature.attributes.WRI_ID} />
           </td>
           <td className='text-center'>
             {typeIcon}
@@ -92,7 +98,7 @@ define([
 
       return (
         <tr>
-          <td className='text-center text-medium-gray padding' colSpan={colSpan}><i>No current areas of interest, draw or upload some.</i></td>
+          <td className='text-center text-medium-gray' colSpan={colSpan}><i>No current areas of interest, draw or upload some.</i></td>
         </tr>
       )
     },
@@ -132,7 +138,36 @@ define([
     },
 
     _toggleAllFeaturesRSPO: function () {
-      console.debug('// TODO: _toggleAllFeaturesRSPO')
+      if (this.props.features.length === 0) {
+        return;
+      } 
+
+      var feature,
+          features = WizardStore.get(KEYS.customFeatures),
+          featureIdsToUpdate = this.props.features.map(this._featuresIdMapper),
+          allFeaturesRSPO = _.every(this.props.features, function (feature) {return feature.attributes.isRSPO === true}),
+          shouldFeaturesRSPO = !allFeaturesRSPO;
+
+      featureIdsToUpdate.forEach(function (id) {
+        feature = _.find(features, function (feature) {return feature.attributes.WRI_ID === id});
+        if (feature) {
+          feature.attributes.isRSPO = shouldFeaturesRSPO;
+        }
+      });
+      WizardStore.set(KEYS.customFeatures, features);
+    },
+
+    _toggleFeatureRSPO: function (evt) {
+      var id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute("data-feature-id")),
+          features = WizardStore.get(KEYS.customFeatures),
+          feature = _.find(features, function (feature) {return feature.attributes.WRI_ID === id});
+
+      if (feature) {
+        feature.attributes.isRSPO = !feature.attributes.isRSPO;
+        WizardStore.set(KEYS.customFeatures, features);
+      } else {
+        throw new Error('Could not find feature to update rspo based on id');
+      }
     },
 
     _removeFeatureSelection: function () {

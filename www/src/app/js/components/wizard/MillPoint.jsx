@@ -126,7 +126,7 @@ define([
           </div>
           {/* Render this list when user clicks upload or enterCoords */}
           <div className={this.state.showCustomFeaturesList ? '' : 'hidden'}>
-            <FeatureList features={this.state.customFeatures} selectedFeatures={selectedFeatures} />
+            <FeatureList features={this.state.customFeatures} selectedFeatures={selectedFeatures} rspoChecks={true} />
           </div>
         </div>
       );

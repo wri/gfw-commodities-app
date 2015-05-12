@@ -89,7 +89,7 @@ define([
               )
             ),
             // Features
-            new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures, 'rspoChecks':true}),
+            new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures}),
             // Subscription options
             // TODO: group registration name, should default to store alias as placeholder
             // TODO: honeypot fields
