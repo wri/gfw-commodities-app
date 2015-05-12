@@ -84,7 +84,7 @@ define([
             // User returned to Step 1 so we need to reset some things.
             if (prevState.currentStep > 1 && this.state.currentStep === 1) {
               // Reset the analysis area
-              WizardStore.set(KEYS.selectedCustomFeatures, undefined);
+              WizardStore.set(KEYS.selectedCustomFeatures, []);
               // Clear Graphics from Wizard Layer, it just shows the selection they made
               var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
               if (wizLayer) { wizLayer.clear(); }
