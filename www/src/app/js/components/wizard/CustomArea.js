@@ -47,6 +47,10 @@ define([
       this.setState(getDefaultState());
     },
 
+    shouldComponentUpdate: function () {
+      return WizardStore.get(KEYS.userStep) === 2 && WizardStore.get(KEYS.areaOfInterest) === AnalyzerConfig.stepOne.option1.id;
+    },
+
     graphicsListUpdated: function () {
       var newGraphicsList = WizardStore.get(KEYS.customFeatures);
       this.setState({ graphics: newGraphicsList });

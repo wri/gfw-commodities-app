@@ -74,7 +74,7 @@ define([
           typeIcon = feature.geometry.type === 'polygon' ? '/' : '.' ;
 
       return (
-        React.DOM.tr({className: className}, 
+        React.DOM.tr({key: index, className: className}, 
           React.DOM.td({className: "text-center"}, 
             React.DOM.input({type: "checkbox", onChange: this._toggleFeatureSelection, checked: isSelected, 'data-feature-index': index, 'data-feature-id': feature.attributes.WRI_ID})
           ), 
