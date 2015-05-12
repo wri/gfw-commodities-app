@@ -20,9 +20,7 @@ define([
     propTypes: {
       features: React.PropTypes.array.isRequired,
       selectedFeatures: React.PropTypes.array.isRequired,
-      // TODO: optional classes/styles
       rspoChecks: React.PropTypes.bool
-      // TODO: handle generic column registration w/ parent callback for events (rspo checkbox)
     },
 
     render: function () {

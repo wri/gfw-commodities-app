@@ -94,7 +94,6 @@ define([
             // Features
             new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures}),
             // Subscription options
-            // TODO: group registration name, should default to store alias as placeholder
             // TODO: honeypot fields
             React.DOM.div({'className':'alerts-form__form absolute no-wide border-box', 'style': {bottom:'51px'}},
               React.DOM.div(null,
