@@ -38,6 +38,10 @@ define([
     * Force close
     */
     close: function () {
+      if (closeHandle) {
+        closeHandle.remove();
+        closeHandle = undefined;
+      }
       return domClass.remove('coordinates-modal', 'active');
     },
 
@@ -72,6 +76,7 @@ define([
       // Use the same label field as in the Uploader dialog instead of creating duplicate entries in the config
       attributes[MapConfig.uploader.labelField] = 'ID - ' + id;
       attributes.WRI_ID = id;
+      attributes.isRSPO = false;
 
       feature = new Graphic(
         new Point(longitude, latitude),

@@ -1,8 +1,8 @@
 define([
-
     "dojo/number",
     "dojo/Deferred",
     "dojo/promise/all",
+    "dojo/_base/array",
     // My Modules
     "report/config",
     "report/Renderer",
@@ -20,7 +20,7 @@ define([
     "esri/Color",
     "esri/graphic",
     "esri/symbols/SimpleFillSymbol"
-], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, Suitability, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters, Color, Graphic, SimpleFillSymbol) {
+], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, Suitability, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters, Color, Graphic, SimpleFillSymbol) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -655,43 +655,77 @@ define([
             this._debug('Fetcher >>> _getMillPointAnalysis');
             var deferred = new Deferred(),
                 config = ReportConfig.millPoints,
-                response,
-                req;
+                customDeferred = new Deferred(),
+                knownDeferred = new Deferred(),
+                customMills = [],
+                knownMills = [];
 
             // Create the container for the results
             ReportRenderer.renderMillContainer(config);
 
-            // Get Results from API
-            req = new XMLHttpRequest();
+            // if the mill points are custom, they will have a WRI_ID and should be handled with our API
+            // Create two separate lists of mills
+            // arrayUtils.forEach(report.mills, function (mill) {
+            //   if (mill.attributes.WRI_ID) {
+            //     customMills.push(mill);
+            //   } else {
+            //     knownMills.push(mill);
+            //   }
+            // });
 
-            window.shortcutConfig = config;
-            // req.open('POST', config.url, true);
-            req.open('POST', config.url, true);
-            req.onreadystatechange = function (res) {
-                if (req.readyState === 4) {
-                    if (req.status === 200) {
-                        response = JSON.parse(req.response);
-                        if (response.mills) {
-                            ReportRenderer.renderMillAssessment(response.mills, config);
-                            deferred.resolve(true);
-                        } else {
-                            deferred.resolve(false);
-                        }
+            if (knownMills.length > 0) {
+
+            } else {
+              knownDeferred.resolve();
+            }
+
+            if (customMills.length > 0) {
+
+            } else {
+              customDeferred.resolve();
+            }
+
+            function getKnownMillsResults () {
+              var request = new XMLHttpRequest(), response;
+
+              request.open('POST', config.url, true);
+              request.onreadystatechange = function (res) {
+                if (request.readyState === 4) {
+                  if (request.status === 200) {
+                    response = JSON.parse(req.response);
+                    if (response.mills) {
+
+                      // ReportRenderer.renderMillAssessment(response.mills, config);
+                      knownDeferred.resolve(true);
                     } else {
-                      deferred.resolve(false);
+                      knownDeferred.resolve(false);
                     }
+                  } else {
+                    knownDeferred.resolve(false);
+                  }
                 }
-            };
+              };
 
-            req.addEventListener('error', function () {
-              deferred.resolve(false);
-            }, false);
-            
-            var formData = new FormData();
-            formData.append("mills",report.mills.map(function(mill){return mill.id}).join(','));
+              request.addEventListener('error', function () {
+                knownDeferred.resolve(false);
+              }, false);
+              
+              var formData = new FormData();
+              formData.append("mills", knownMills.map(function(mill){return mill.id}).join(','));
+              // Construct the POST Content in HERE for each Mill
+              request.send(formData);
 
-            // Construct the POST Content in HERE for each Mill
-            req.send( formData );
+            }
+
+            function getCustomMillsResults () {
+
+            }
+
+            all([customDeferred, knownDeferred]).then(function (results) {
+
+              // Merge the Results, then Render them
+              // ReportRenderer.renderMillAssessment(response.mills, config);
+            });
 
             return deferred.promise;
         },

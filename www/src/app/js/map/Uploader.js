@@ -50,6 +50,10 @@ define([
     * Force close
     */
     close: function () {
+      if (closeHandle) {
+        closeHandle.remove();
+        closeHandle = undefined;
+      }
       return domClass.remove('upload-modal', 'active');
     },
 
@@ -239,6 +243,7 @@ define([
 
 				attributes[MapConfig.uploader.labelField] = 'ID - ' + (counter + index) + ': ' + attributes[nameField];
 				attributes.WRI_ID = (counter + index);
+        attributes.isRSPO = false;
 
 				// Try to get the Lat and Long from Latitude and Longitude but not case sensitive
 				lat = attributes.Latitude ? attributes.Latitude : attributes.latitude;
@@ -276,11 +281,13 @@ define([
 				feature.attributes[MapConfig.uploader.labelField] = 'ID - ' + (counter + index) + ': ' + feature.attributes[nameField];
 				feature.attributes.WRI_ID = (counter + index);
 				// If its a point, create a point, else, create a polygon
+        // If it is a point, add a isRSPO field and set it to false
 				if (feature.geometry.x) {
 					symbol = Symbols.getPointSymbol();
 					geometry = new Point(feature.geometry);
 					temp = new Extent(geometry.x, geometry.y, geometry.x, geometry.y, geometry.spatialReference);
 					extent = extent ? extent.union(temp) : temp;
+          feature.attributes.isRSPO = false;
 				} else {
 					symbol = Symbols.getPolygonSymbol();
 					geometry = new Polygon(feature.geometry);

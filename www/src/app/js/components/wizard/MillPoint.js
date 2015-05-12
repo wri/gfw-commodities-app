@@ -126,7 +126,7 @@ define([
           ), 
           /* Render this list when user clicks upload or enterCoords */
           React.DOM.div({className: this.state.showCustomFeaturesList ? '' : 'hidden'}, 
-            FeatureList({features: this.state.customFeatures})
+            FeatureList({features: this.state.customFeatures, selectedFeatures: selectedFeatures})
           )
         )
       );
