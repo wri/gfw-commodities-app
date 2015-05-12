@@ -96,6 +96,8 @@ define([
       };
     }
 
+    // TODO: Generator union from .prepareForAnalysis
+
 	};
 
 });

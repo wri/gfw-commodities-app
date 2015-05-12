@@ -114,7 +114,7 @@ define([
           // Footer
           React.DOM.div({className:'alerts-form__footer'}, 
             React.DOM.div({className:'inline-block padding__left'}, 'Current Selection:'),
-            React.DOM.div({className:'inline-block '}, currentSelectionLabel),
+            React.DOM.div({className:'inline-block padding__left text-gold'}, currentSelectionLabel),
             React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts}, 'Subscribe')
           )
         )
