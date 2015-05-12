@@ -17,8 +17,7 @@ define([
 ], function (React, MapConfig, topic, dojoQuery, Uploader, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, CoordinatesModal, WizardStore, NestedList, FeatureList) {
 
   var config = AnalyzerConfig.millPoints,
-      selectedFeatures = [],
-      selectedLabels = [];
+      selectedFeatures = [];
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
   var previousStep;
@@ -95,7 +94,6 @@ define([
         // If this component is appearing in the UI, reset some things and load data if its not available
         // Remove al active classes, set selected features and labels back to default
         selectedFeatures = [];
-        selectedLabels = [];
 
         this.setState({ activeListItemValues: [] });
       }
@@ -172,7 +170,11 @@ define([
         break;
       }
 
-      this.setState({ showCustomFeaturesList: showCustomFeaturesList });
+      // if showCustomFeaturesList is a different value from before, update state and clear selection
+      if (this.state.showCustomFeaturesList !== showCustomFeaturesList) {
+        this.setState({ showCustomFeaturesList: showCustomFeaturesList });
+        this._localReset();
+      }
 
     },
 
@@ -191,8 +193,8 @@ define([
     },
 
     _millPointSelected: function (target) {
-      var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
-          entityId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
+      var featureType = target.getAttribute('data-type'),
+          entityId = target.getAttribute('data-value'),
           newActiveListItemValues,
           wizardGraphicsLayer,
           self = this,
@@ -226,9 +228,6 @@ define([
               // domClass.remove(parentNode, 'active-mill');
               // Id to remove
               removeId = feature.attributes.OBJECTID;
-              // Remove selected label from labels array
-              removeIndex = arrayUtils.indexOf(selectedLabels, label);
-              selectedLabels.splice(removeIndex, 1);              
               // Remove selected feature from features array
               arrayUtils.forEach(selectedFeatures, function (graphic, index) {
                 if (removeId === graphic.attributes.OBJECTID) { removeIndex = index; }
@@ -250,9 +249,8 @@ define([
               // Add Active Class, Add to array or features, and add label to array of labels
               newActiveListItemValues = self.state.activeListItemValues.concat([entityId]);
               self.setState({ activeListItemValues: newActiveListItemValues });
-              // domClass.add(parentNode, 'active-mill');
+
               selectedFeatures.push(graphic);
-              selectedLabels.push(label);
 
               // Zoom to extent of new feature
               app.map.centerAndZoom([graphic.attributes.Longitude, graphic.attributes.Latitude], 9);
@@ -270,6 +268,16 @@ define([
         }
       }
       
+    },
+
+    _localReset: function () {
+      // Call this to reset the selection list and graphics layer
+      var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+      WizardStore.set(KEYS.selectedCustomFeatures, []);
+      selectedFeatures = [];
+      wizLayer.clear();
+
+      this.setState({ activeListItemValues: [] });
     }
 
   });
