@@ -6,8 +6,12 @@ define([
   "esri/geometry/Point",
   "esri/geometry/Circle",
   "esri/SpatialReference",
-  "esri/geometry/webMercatorUtils"
-], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, webMercatorUtils) {
+  "esri/tasks/GeometryService",
+  "esri/geometry/webMercatorUtils",
+  "dojo/Deferred"
+], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, GeometryService, webMercatorUtils, Deferred) {
+
+  var geometryService;
 
 	return {
 
@@ -94,9 +98,26 @@ define([
           geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
           type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
       };
-    }
+    },
 
     // TODO: Generator union from .prepareForAnalysis
+    union: function (geometries) {
+      if (Object.prototype.toString.call(geometries) !== '[object Array]') {
+        throw new Error('method expects geometries paramter to be of type Array')
+      }
+
+      var deferred = new Deferred(),
+          geometryService = geometryService || new GeometryService(MapConfig.geometryServiceUrl),
+          spatialReference = new SpatialReference({wkid: 102100});
+
+      if (geometries.length === 1) {
+        deferred.resolve(geometries[0]);
+      } else {
+        debugger;
+      }
+
+      return deferred;
+    }
 
 	};
 

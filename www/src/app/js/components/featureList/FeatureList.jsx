@@ -98,7 +98,7 @@ define([
 
       return (
         <tr>
-          <td className='text-center text-medium-gray' colSpan={colSpan}><i>No current areas of interest, draw or upload some.</i></td>
+          <td className='text-center text-medium-gray' colSpan={colSpan}><i>No current areas of interest, please draw or upload some.</i></td>
         </tr>
       )
     },

@@ -98,7 +98,7 @@ define([
 
       return (
         React.DOM.tr(null, 
-          React.DOM.td({className: "text-center text-medium-gray", colSpan: colSpan}, React.DOM.i(null, "No current areas of interest, draw or upload some."))
+          React.DOM.td({className: "text-center text-medium-gray", colSpan: colSpan}, React.DOM.i(null, "No current areas of interest, please draw or upload some."))
         )
       )
     },

@@ -28,7 +28,8 @@ define([
     getDefaultState,
     formaId = _.uniqueId(),
     firesId = _.uniqueId(),
-    emailId = _.uniqueId()
+    emailId = _.uniqueId(),
+    subscriptionNameId = _.uniqueId(),
     self = this;
 
   getDefaultState = function() {
@@ -105,7 +106,7 @@ define([
                 React.DOM.label({className:'vertical-middle', htmlFor:firesId}, 'Fire Alerts')
               ),
               React.DOM.div({className:'text-center'},
-                React.DOM.input({placeholder:currentSelectionLabel})
+                React.DOM.input({id:subscriptionNameId, placeholder:'Subscription area name'})
               ),
               React.DOM.div({className:'text-center'},
                 React.DOM.input({id:emailId, placeholder:'something@gmail.com'})
@@ -182,51 +183,27 @@ define([
       });
     }, 
 
-    // @ Generator.js:subscribeToAlerts
+    // @Generator.js:subscribeToAlerts
     _subscribeToAlerts: function () {
       // NOTE: convertGeometryToGeometry is available in GeoHelper
       // var geoJson = this.convertGeometryToGeometric(report.geometry),
-      var geoJson,
+      var geometries = this.state.selectedFeatures.slice(0),
+          geoJson,
+          validations = [],
           emailAddr = dom.byId(emailId).value,
+          subscriptionName = dom.byId(subscriptionNameId).value.trim(),
           formaCheck = dom.byId(formaId).checked,
           firesCheck = dom.byId(firesId).checked,
           errorMessages = [],
-          messages = {},
-          displayMessages;
-
-      console.debug(geoJson);
-
-      // Set up the text for the messages
-      messages.invalidEmail = 'You must provide a valid email in the form.';
-      messages.noAreaSelection = 'You must select at least one area from the list.';
-      messages.noSelection = 'You must select at least one checkbox from the form.';
-      messages.formaSuccess = 'Thank you for subscribing to Forma Alerts.  You should receive a confirmation email soon.';
-      messages.formaFail = 'There was an error with your request to subscribe to Forma alerts.  Please try again later.';
-      messages.fireSuccess = 'Thank you for subscribing to Fires Alerts.  You should receive a confirmation email soon.';
-      messages.fireFail = 'There was an error with your request to subscribe to Fires alerts.  Please try again later.';
-
-      if (this.state.selectedFeatures > 0) {
-        // TODO: create signle subscribe polygon from all selected features
-        emailAddr = this.state.selectedFeatures[0].toJson();
-      } else {
-        errorMessages.push(messages.noAreaSelection)
-      }
-
-      if (!validate.isEmailAddress(emailAddr)) {
-          errorMessages.push(messages.invalidEmail);
-      }
-
-      if (!formaCheck && !firesCheck) {
-          errorMessages.push(messages.noSelection);
-      }
+          messagesConfig = AlertsConfig.messages,
+          subscribe;
 
       displayMessages = function () {
-        // generic messages popup, use this instead of putting responses AlertsForm panel
+        console.log('TODO: generic messages popup, use this instead of putting responses AlertsForm panel');
       }
 
-      if (errorMessages.length > 0) {
-          alert('Please fill in the following:\n' + errorMessages.join('\n'));
-      } else {
+      subscribe = function (geometry) {
+        debugger;
         // If both are checked, request both and show the appropriate responses
         if (formaCheck && firesCheck) {
             // var responses = [];
@@ -236,15 +213,15 @@ define([
             // ]).then(function(results) {
             //     // Check the results and inform the user of the results
             //     if (results[0]) {
-            //         responses.push(messages.formaSuccess);
+            //         responses.push(messagesConfig.formaSuccess);
             //     } else {
-            //         responses.push(messages.formaFail);
+            //         responses.push(messagesConfig.formaFail);
             //     }
 
             //     if (results[1]) {
-            //         responses.push(messages.fireSuccess);
+            //         responses.push(messagesConfig.fireSuccess);
             //     } else {
-            //         responses.push(messages.fireFail);
+            //         responses.push(messagesConfig.fireFail);
             //     }
 
             //     dom.byId('form-response').innerHTML = responses.join('<br />');
@@ -270,8 +247,31 @@ define([
             // });
         }
       }
-    }
 
+      validations = [
+        [!validate.isEmailAddress(emailAddr), messagesConfig.invalidEmail],
+        [!formaCheck && !firesCheck, messagesConfig.noSelection],
+        [!formaCheck && !firesCheck, messagesConfig.noSelection],
+        [!subscriptionName || subscriptionName.length === 0, messagesConfig.noSelectionName],
+        [geometries.length === 0, messagesConfig.noAreaSelection]
+      ].forEach(function (validation) {
+        if (validation[0]) {errorMessages.push(validation[1]);};
+      });
+
+      if (errorMessages.length > 0) {
+        alert('Please fill in the following:\n' + errorMessages.join('\n'));
+      } else {
+        emailAddr = this.state.selectedFeatures[0].toJson();
+        geometries = geometries.map(function (geometry) {
+          // TODO: handle circles, convert to polys (@Generator.js:177)
+          // TODO: handle points, convert to buffered circles (@Generator.js:185)
+          return geometry;
+        });
+
+        GeoHelper.union(geometries).then(subscribe);
+      }
+
+    }
   });
 
   return function(props, el) {
