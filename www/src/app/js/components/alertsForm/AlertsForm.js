@@ -5,6 +5,7 @@ define([
   // src
   'analysis/WizardStore',
   'components/alertsForm/config',
+  'components/alertsForm/AlertsFormHelper',
   'components/featureList/FeatureList',
   'map/config',
   'map/MapModel',
@@ -18,7 +19,7 @@ define([
   'dojo/query',
   'dojo/dom-class',
   'dojox/validate/web'
-], function(React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Draw, dom, dojoQuery, domClass, validate) {
+], function(React, _, WizardStore, AlertsConfig, AlertsFormHelper, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Draw, dom, dojoQuery, domClass, validate) {
 
   var AlertsForm,
     drawToolbar,
@@ -33,8 +34,7 @@ define([
   getDefaultState = function() {
     return {
       features: WizardStore.get(KEYS.customFeatures),
-      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures),
-      selectedFeaturesAlias: WizardStore.get(KEYS.selectedCustomFeatureAlias)
+      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures)
     }
   }
 
@@ -68,14 +68,16 @@ define([
 
     render: function() {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
-          currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : 'none';
+          currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : 'none',
+          toggleAlertsForm = function() {console.log('TODO: toggleAlertsForm')};
+
 
       return (
         React.DOM.div({className: 'relative fill'},
           // Header
           React.DOM.div({className: 'alerts-form__header'},
             React.DOM.div({className: 'fill__long border-box padding'}, 'Alerts Registration'),
-            React.DOM.button({className: 'absolute no-top no-right'}, 'x')
+            React.DOM.button({'onClick': toggleAlertsForm, className: 'back-white absolute no-top no-right fill__long pointer'}, 'x')
           ),
           // Body
           React.DOM.div({className: 'alerts-form__body'}, 
@@ -103,11 +105,10 @@ define([
                 React.DOM.label({className:'vertical-middle', htmlFor:firesId}, 'Fire Alerts')
               ),
               React.DOM.div({className:'text-center'},
-                React.DOM.input({placeholder:'this.state.selectedFeaturesAlias'})
+                React.DOM.input({placeholder:currentSelectionLabel})
               ),
               React.DOM.div({className:'text-center'},
                 React.DOM.input({id:emailId, placeholder:'something@gmail.com'})
-                // React.DOM.input({placeholder:this.state.selectedFeaturesAlias})
               )
             )
           ),
