@@ -33,8 +33,7 @@ define([
   getDefaultState = function() {
     return {
       features: WizardStore.get(KEYS.customFeatures),
-      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures),
-      selectedFeaturesAlias: WizardStore.get(KEYS.selectedCustomFeatureAlias)
+      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures)
     }
   }
 
@@ -103,11 +102,10 @@ define([
                 React.DOM.label({className:'vertical-middle', htmlFor:firesId}, 'Fire Alerts')
               ),
               React.DOM.div({className:'text-center'},
-                React.DOM.input({placeholder:'this.state.selectedFeaturesAlias'})
+                React.DOM.input({placeholder:currentSelectionLabel})
               ),
               React.DOM.div({className:'text-center'},
                 React.DOM.input({id:emailId, placeholder:'something@gmail.com'})
-                // React.DOM.input({placeholder:this.state.selectedFeaturesAlias})
               )
             )
           ),
