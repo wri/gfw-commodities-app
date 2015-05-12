@@ -55,6 +55,10 @@ define([
       WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.selectedCustomFeaturesUpdated);
     },
 
+    shouldComponentUpdate: function () {
+      return WizardStore.get(KEYS.userStep) === 2 && WizardStore.get(KEYS.areaOfInterest) === AnalyzerConfig.stepOne.option5.id;
+    },
+
     customFeaturesUpdated: function () {
       var customFeatures = getCustomPointFeatures();
       this.setState({ customFeatures: customFeatures });

@@ -47,6 +47,10 @@ define([
       previousStep = WizardStore.get(KEYS.userStep);
     },
 
+    shouldComponentUpdate: function () {
+      return WizardStore.get(KEYS.userStep) === 2 && WizardStore.get(KEYS.areaOfInterest) === AnalyzerConfig.stepOne.option2.id;
+    },
+
     userChangedSteps: function () {
       // If the user is arriving at this step, set up some layer defs to support this component
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);

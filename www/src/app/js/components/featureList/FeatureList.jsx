@@ -74,7 +74,7 @@ define([
           typeIcon = feature.geometry.type === 'polygon' ? '/' : '.' ;
 
       return (
-        <tr className={className}>
+        <tr key={index} className={className}>
           <td className='text-center'>
             <input type='checkbox' onChange={this._toggleFeatureSelection} checked={isSelected} data-feature-index={index} data-feature-id={feature.attributes.WRI_ID} />
           </td>

@@ -47,6 +47,10 @@ define([
       previousStep = WizardStore.get(KEYS.userStep);
     },
 
+    shouldComponentUpdate: function () {
+      return WizardStore.get(KEYS.userStep) === 2 && WizardStore.get(KEYS.areaOfInterest) === AnalyzerConfig.stepOne.option3.id;
+    },
+
     userChangedSteps: function () {
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var currentStep = WizardStore.get(KEYS.userStep);
