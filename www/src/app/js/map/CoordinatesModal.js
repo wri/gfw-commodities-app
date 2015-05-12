@@ -45,6 +45,11 @@ define([
       return domClass.remove('coordinates-modal', 'active');
     },
 
+    resetForm: function () {
+      document.getElementById('coordsModalLatitiude').value = '';
+      document.getElementById('coordsModalLongitude').value = '';
+    },
+
     /**
     * Save a point with the coordinates entered by the user
     */
@@ -78,13 +83,9 @@ define([
       attributes.WRI_ID = id;
       attributes.isRSPO = false;
 
-      feature = new Graphic(
-        new Point(longitude, latitude),
-        Symbols.getPointSymbol(),
-        attributes
-      );
-
+      feature = GeoHelper.generatePointGraphicFromGeometric(longitude, latitude, attributes);
       WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat([feature]));
+      this.resetForm();
       this.close();
 
     }

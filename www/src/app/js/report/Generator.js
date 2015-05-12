@@ -206,11 +206,11 @@ define([
                 // If it lives here, radius will be passed from payload, but it should probably create these
                 // in the app and not in the report to simplify things at this stage
                 if (feature.geometry.x) {
-                  poly = preparePointAsPolygon(feature.geometry);
-                } else {
-                  poly = new Polygon(sr);
-                  poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
+                  feature.geometry = preparePointAsPolygon(feature.geometry);
                 }
+
+                poly = new Polygon(sr);
+                poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
 
                 polygons.push(poly);
               });
