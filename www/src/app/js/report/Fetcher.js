@@ -663,26 +663,28 @@ define([
             // Create the container for the results
             ReportRenderer.renderMillContainer(config);
 
-            // if the mill points are custom, they will have a WRI_ID and should be handled with our API
             // Create two separate lists of mills
-            // arrayUtils.forEach(report.mills, function (mill) {
-            //   if (mill.attributes.WRI_ID) {
-            //     customMills.push(mill);
-            //   } else {
-            //     knownMills.push(mill);
-            //   }
-            // });
+            arrayUtils.forEach(report.mills, function (mill) {
+              if (mill.isCustom) {
+                customMills.push(mill);
+              } else {
+                knownMills.push(mill);
+              }
+            });
 
+            // if the mill points are from the known mills list, use GFW's API
             if (knownMills.length > 0) {
-
+              getKnownMillsResults();
             } else {
               knownDeferred.resolve();
             }
 
+            // If the mill points are custom, use our API, our API requires a bit more pre processing since
+            // the geometry being analyzed is custom and of various sizes
             if (customMills.length > 0) {
-
+              getCustomMillsResults();
             } else {
-              customDeferred.resolve();
+              customDeferred.resolve(false);
             }
 
             function getKnownMillsResults () {
@@ -692,11 +694,11 @@ define([
               request.onreadystatechange = function (res) {
                 if (request.readyState === 4) {
                   if (request.status === 200) {
-                    response = JSON.parse(req.response);
+                    response = JSON.parse(request.response);
                     if (response.mills) {
 
                       // ReportRenderer.renderMillAssessment(response.mills, config);
-                      knownDeferred.resolve(true);
+                      knownDeferred.resolve(response.mills);
                     } else {
                       knownDeferred.resolve(false);
                     }
@@ -711,7 +713,7 @@ define([
               }, false);
               
               var formData = new FormData();
-              formData.append("mills", knownMills.map(function(mill){return mill.id}).join(','));
+              formData.append("mills", knownMills.map(function (mill) { return mill.millId; }).join(','));
               // Construct the POST Content in HERE for each Mill
               request.send(formData);
 
@@ -722,9 +724,14 @@ define([
             }
 
             all([customDeferred, knownDeferred]).then(function (results) {
-
               // Merge the Results, then Render them
-              // ReportRenderer.renderMillAssessment(response.mills, config);
+              var mills = [];
+              arrayUtils.forEach(results, function (millResult) {
+                if (millResult) {
+                  mills = mills.concat(millResult);
+                }
+              });
+              ReportRenderer.renderMillAssessment(mills, config);
             });
 
             return deferred.promise;

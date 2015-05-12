@@ -248,11 +248,10 @@ define([
 
             // Mark this as your current selection and provide label
             if (selectedFeatures.length > 0) {
-              WizardStore.set(KEYS.selectedCustomFeatureAlias, selectedLabels.join(', '));
               WizardStore.set(KEYS.selectedCustomFeatures, selectedFeatures);
             } else {
               // This resets the current selection to none
-              WizardStore.set(KEYS.selectedCustomFeatures);
+              WizardStore.set(KEYS.selectedCustomFeatures, []);
             }
 
           });

@@ -12,20 +12,15 @@ define([
 
     /* Helper Functions */
     function getDefaultState() {
-        return { 
-            completed: false,
-            currentSelectionLabel: getCurrentSelectionLabel()
-        };
+      return { 
+        completed: false,
+        currentSelectionLabel: getCurrentSelectionLabel()
+      };
     }
 
     function getCurrentSelectionLabel () {
-        var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-        var optionalLabel = WizardStore.get(KEYS.selectedCustomFeatureAlias);
-
-        return (analysisArea ? 
-            (analysisArea.attributes ? analysisArea.attributes[labelField] : optionalLabel)
-            : "none"
-        );
+      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
     }
 
     return React.createClass({
@@ -213,13 +208,14 @@ define([
 
         _getPayload: function() {
             var nodes = document.querySelectorAll(".select-analysis .wizard-checkbox"),
+                selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
                 payload = {},
                 self = this,
                 value;
 
             Array.prototype.forEach.call(nodes, function(node) {
                 value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
-                if (self.props.selectedArea !== 'millPointOption' && value === 'mill') {
+                if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
                     // Dont add mills unless millPointOption is the selectedArea
                 } else {
                     payload[value] = (node.className.search('active') > -1);

@@ -1433,24 +1433,25 @@ define([
 					content = "",
 					title;
 
-			arrayUtils.forEach(mills, function (mill, index) {
-				// Create Header
-				// If there were multiple mills, there attributes are in report.mills
-				if (report.mills) {
-					arrayUtils.some(report.mills, function (millAttrs) {
-						if (mill.id === millAttrs.id) {
-							title = millAttrs.label;
-							return true;
-						}
-					});
-					// If no title is found, use default title, this is probably because we are using the MOCK API
-					// and don't have real results back yet
-					if (title === undefined) { title = window.payload.title; }
-				} else {
-					// Else use the window.payload.title as the title, thats the title of an individual mill
-					title = window.payload.title;
-				}
+      console.log(mills);
 
+			arrayUtils.forEach(mills, function (mill, index) {
+				// Create Header, if mill_name exits, use that, else, loop over report.mills and find a 
+        // matching id and use that
+        if (mill.mill_name) {
+          title = mill.mill_name;
+        } else if (report.mills) {
+          arrayUtils.some(report.mills, function (millAttrs) {
+            if (mill.id === millAttrs.id) {
+              title = millAttrs.label;
+              return true;
+            }
+          });
+        }
+
+        if (title === undefined) { 
+          title = window.payload.title; 
+        }
 
 				// Create Header for the table
 				content = "<div class='mill-header'><span class='mill-title'>" + title + "</span>" + 

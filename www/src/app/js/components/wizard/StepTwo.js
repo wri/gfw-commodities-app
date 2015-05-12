@@ -36,13 +36,8 @@ define([
   }
 
   function getCurrentSelectionLabel () {
-    var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-    var optionalLabel = WizardStore.get(KEYS.selectedCustomFeatureAlias);
-
-    return (analysisArea ? 
-      (analysisArea.attributes ? analysisArea.attributes[labelField] : optionalLabel)
-      : "none"
-    );
+    var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+    return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
   }
 
 	return React.createClass({
@@ -56,9 +51,9 @@ define([
     },
 
     analysisAreaUpdated: function () {
-      var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
       
-      if (analysisArea) {
+      if (currentFeatures.length > 0) {
         this.setState({ 
           completed: true,
           currentSelectionLabel: getCurrentSelectionLabel()
@@ -118,12 +113,8 @@ define([
       if (this.state.completed) {
         WizardStore.set(KEYS.userStep, WizardStore.get(KEYS.userStep) + 1);
       }
-    },
-
-    _setCompletion: function (completionStatus) {
-      this.setState({ completed: completionStatus });
     }
-
+    
   });
 
 });

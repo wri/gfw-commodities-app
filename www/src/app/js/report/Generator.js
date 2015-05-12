@@ -142,9 +142,6 @@ define([
                 failure,
                 poly;
 
-            // Parse the geometry from the global payload object
-            report.geometry = JSON.parse(window.payload.geometry);
-            
             // Set the title and unhide the report
             this.setTitleAndShowReport(window.payload.title);
 
@@ -156,97 +153,50 @@ define([
             // datasets we will perform the above analyses on
             report.datasets = window.payload.datasets;
 
-            // Failure Callback for Mills
-            // failure = function() {
-            //     // Handle This Issue Here
-            //     // Discuss with Adrienne How to Handle
-            // };
+            // Parse the geometry from the global payload object
+            var areasToAnalyze = JSON.parse(window.payload.geometry);
 
-            // Callback for projected Geometries
-            // projectionCallback = function (projectedGeometry) {
-            //     if (projectedGeometry.length > 0) {
-            //         poly.rings = projectedGeometry[0].rings;
-            //         poly.setSpatialReference(sr);
-            //         report.geometry = poly;
-            //         self.beginAnalysis();
-            //     } else {
-            //         failure();
-            //     }
-            // };
-            // If I have an array of circles handle that here, I should not be getting other arrays
-            // but if that happens, the object in report.geometry contains a type of either circle or polygon
-            if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
-                // First I will need to convert circles to polygons since unioning circles/computing histograms
-                //  has some unexpected outcomes, Also keep a reference of the mills
-                report.mills = report.geometry;
-                polygons = [];
+            // If we have a single polygon, grab the geometry and begin
+            // If we have a single circle, convert to polygon and then continue
+            if (areasToAnalyze.length === 1) {
 
-                arrayUtils.forEach(report.geometry, function (feature) {
-                    poly = new Polygon(sr);
-                    poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
-                    polygons.push(poly);
-                });
+              var geometryPayload = areasToAnalyze[0];
 
-                // Now Union the Geometries, then reproject them into the correct spatial reference
-                geometryService.union(polygons, function (unionedGeometry) {
-                    poly = new Polygon(unionedGeometry);
-                    report.geometry = poly;
-                    self.beginAnalysis();
-                });
-
-            // If I have a single circle object, handle here, esri gives it a geometry type of polygon
-            // so checking if it has a radius seems to be the best way to handle that here
-            // This could be mills with an Entity Id or could be a uploaded point with no entity id
-            // Do the same conversion as above so all histogram calls work properly
-            } else if (report.geometry.radius) {
-                // report.mills = report.geometry;
+              if (geometryPayload.geometry.radius) {
+                // Save the areas to the report.mills incase they are doing mill point analysis, we will need these
+                report.mills = areasToAnalyze;
                 poly = new Polygon(sr);
-                poly.addRing(report.geometry.rings[report.geometry.rings.length - 1]);
+                poly.addRing(geometryPayload.geometry.rings[geometryPayload.geometry.rings.length - 1]);
                 report.geometry = poly;
-                this.beginAnalysis();
-            // If its a single polygon, just go ahead and run the analysis
-            } else {
-                this.beginAnalysis();
-            }
+              } else if (geometryPayload.geometry.type === 'polygon') {
+                report.geometry = geometryPayload.geometry;
+              }
 
-            // If the geometry is an array, it will be an array of Mill Point Objects with geometry, id, and labels
-            // Arrays of polygons are joined before being sent over so the only array will be of mills
-            // if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
-            //     report.mills = report.geometry;
-            //     var polygons = [];
-            //     // First prepare an array of new polygons with only rings from index 1, rings at index 0
-            //     // represent the center point and are not necessary to be included
-            //     arrayUtils.forEach(report.geometry, function (feature) {
-            //         poly = new Polygon();
-            //         poly.addRing(feature.geometry.rings[1]);
-            //         polygons.push(poly);
-            //     });
-            //     // Then Union the geometries to get one polygon to represent them all,
-            //     // Then reproject the results into the correct projection, 102100 (sr below)
-            //     geometryService.union(polygons, function (unionedGeometry) {
-            //         poly = new Polygon(unionedGeometry);
-            //         geometryService.project([poly], sr, projectionCallback, failure);
-            //     }, failure);
-            //     // Add css class to title to size down the font for multiple mills
-            //     domClass.add('title','multiples');
-            // } else if (report.geometry.radius) {
-            //     // If report.geometry is a circle, we need to make it a new valid polygon
-            //     // Then reproject it in Web Mercator
-            //     report.mills = report.geometry;
-            //     poly = new Polygon();
-            //     var ring = report.geometry.rings[report.geometry.rings.length - 1];
-            //     poly.addRing(ring);
-            //     geometryService.project([poly], sr, projectionCallback, failure);
-            // } else {
-            //     // Next, set some properties that we can use to filter what kinds of queries we will be performing
-            //     // Logic for the Wizard was changed, below may not be needed but it left here for reference incase
-            //     // the logic changes again.
-            //     // report.analyzeClearanceAlerts = window.payload.types.forma;
-            //     // report.analyzeTreeCoverLoss = window.payload.types.loss;
-            //     // report.analyzeSuitability = window.payload.types.suit;
-            //     // report.analyzeMillPoints = window.payload.types.risk;
-            //     this.beginAnalysis();
-            // }
+              this.beginAnalysis();
+
+            } else {
+
+              // Currently this can only be an array of mills, may change later
+              // First I will need to convert circles to polygons since unioning circles/computing histograms
+              //  has some unexpected outcomes, Also keep a reference of the mills
+
+              report.mills = areasToAnalyze;
+              polygons = [];
+
+              arrayUtils.forEach(areasToAnalyze, function (feature) {
+                  poly = new Polygon(sr);
+                  poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
+                  polygons.push(poly);
+              });
+
+              // Now Union the Geometries, then reproject them into the correct spatial reference
+              geometryService.union(polygons, function (unionedGeometry) {
+                  poly = new Polygon(unionedGeometry);
+                  report.geometry = poly;
+                  self.beginAnalysis();
+              });
+
+            }
 
         },
 
@@ -312,11 +262,7 @@ define([
 
         getFiresAnalysis: function() {
             var self = this;
-            //if (report.analyzeTreeCoverLoss) {
             all([Fetcher._getFireAlertAnalysis()]).then(self.analysisComplete);
-            //} else {
-            //  self.analysisComplete();
-            //}
         },
 
         /*
@@ -358,21 +304,17 @@ define([
         _getArrayOfRequests: function() {
             var requests = [];
 
-            //if (report.analyzeTreeCoverLoss || report.analyzeClearanceAlerts) {
             for (var key in report.datasets) {
                 if (report.datasets[key]) {
                     requests.push(key);
                 }
             }
-            //}
 
             return requests;
         },
 
         /*
-            
             Deferred's Mapping
-
             suit - Fetcher._getSuitabilityAnalysis()
             fires - Fetcher._getFireAlertAnalysis()
             mill - Fetcher._getMillPointAnalysis()

@@ -9,10 +9,7 @@ define([
       label: React.PropTypes.string.isRequired,
       value: React.PropTypes.string.isRequired,
       click: React.PropTypes.func.isRequired,
-      filter: React.PropTypes.string.isRequired, // All Lowercase
-      children: React.PropTypes.array, //Optional
-      activeListItemValues: React.PropTypes.array, //Optional
-      activeListGroupValue: React.PropTypes.string //Optional
+      filter: React.PropTypes.string.isRequired // All Lowercase
     },
 
 		render: function () {
@@ -89,7 +86,7 @@ define([
     };
 	}
 
-	return React.createClass({
+	var NestedList = React.createClass({
 
     getInitialState: function () {
       return (getDefaultState());
@@ -139,5 +136,7 @@ define([
     }
 
   });
+
+return NestedList;
 
 });          
