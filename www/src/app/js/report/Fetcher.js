@@ -6,6 +6,7 @@ define([
     // My Modules
     "report/config",
     "report/Renderer",
+    "report/RiskHelper",
     "report/Suitability",
     // esri modules
     "esri/map",
@@ -20,7 +21,7 @@ define([
     "esri/Color",
     "esri/graphic",
     "esri/symbols/SimpleFillSymbol"
-], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, Suitability, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters, Color, Graphic, SimpleFillSymbol) {
+], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters, Color, Graphic, SimpleFillSymbol) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -43,16 +44,14 @@ define([
                         places: 0
                     });
                     report.area = result.areas[0];
-                    deferred.resolve(true);
+                    deferred.resolve(area);
                 } else {
                     area = errorString;
                     deferred.resolve(false);
                 }
-                document.getElementById("total-area").innerHTML = area;
             }
 
             function failure(err) {
-                document.getElementById("total-area").innerHTML = errorString;
                 deferred.resolve(false);
             }
 
@@ -102,52 +101,6 @@ define([
             }
 
             map.on('load', mapLoaded);
-
-            // if (!payload.webMapJson) {
-            //     return;
-            // } else {
-            //     // Add in Export Options to the webMapJson
-            //     // payload.webMapJson.exportOptions = {
-            //     //     "outputSize": [850, 850],
-            //     //     "dpi": 96
-            //     // };
-            // }
-
-            // var printParams = {
-            //     "f": "json",
-            //     "format": "PNG32",
-            //     "Layout_Template": "MAP_ONLY",
-            //     "Web_Map_as_JSON": payload.webMapJson
-            // },
-            // url = ReportConfig.printUrl,
-            // node = document.getElementById('print-map');
-
-            // var req = esriRequest({
-            //     url: url,
-            //     content: printParams,
-            //     handleAs: 'json',
-            //     callbackParamName: 'callback',
-            //     timeout: 60000
-            // }, {
-            //     usePost: true
-            // });
-
-            // req.then(function (res) {
-            //     if (res.results.length > 0) {
-            //         var url = res.results[0].value.url;
-            //         if (url) {
-            //             node.innerHTML = "<img title='map' src='" + url + "' />";
-            //         } else {
-            //             error();
-            //         }
-            //     } else {
-            //         error();
-            //     }
-            // }, error);
-
-            // function error () {
-            //     node.innerHTML = '<div>Sorry, we were unable to generate a map printout at this time.</div>';
-            // }
 
         },
 
@@ -720,6 +673,9 @@ define([
             }
 
             function getCustomMillsResults () {
+              RiskHelper.prepareFeatures(customMills).then(function (resultingFeatures) {
+                RiskHelper.performAnalysis(resultingFeatures);
+              });
               customDeferred.resolve(false);
             }
 

@@ -20,7 +20,8 @@ define([], function() {
         
         // clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
         // clearanceAnalysisUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
-        clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis_wm/ImageServer';
+        clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis_wm/ImageServer',
+        boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';
 
     // Totoal Loss
     var lossBounds = [1, 13],
@@ -97,6 +98,8 @@ define([], function() {
             "https://gfw-fires.wri.org",
             "http://gis-gfw.wri.org"
         ],
+
+        boundariesUrl: boundariesUrl,
 
         printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
 

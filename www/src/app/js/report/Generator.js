@@ -266,6 +266,9 @@ define([
 
             // Get area 
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
+            report.areaPromise.then(function (area) {
+              document.getElementById("total-area").innerHTML = area ? area : "Not Available";
+            });
 
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on
             all([
