@@ -4,11 +4,14 @@ define([
   'dojo/Deferred',
   'components/alertsForm/AlertsForm',
   'analysis/WizardHelper',
+  'analysis/WizardStore',
+  'analysis/config',
   'map/config'
-], function(coreFx, Fx, Deferred, AlertsForm, WizardHelper, MapConfig) {
+], function(coreFx, Fx, Deferred, AlertsForm, WizardHelper, WizardStore, AnalyzerConfig, MapConfig) {
 
   var alertsForm,
       isOpen = false,
+      KEYS = AnalyzerConfig.STORE_KEYS,
       _animate,
       _open,
       _close;
@@ -76,6 +79,7 @@ define([
       } else {
         _close();
       }
+      WizardStore.set(KEYS.selectedCustomFeatures, []);
     },
 
     isOpen: isOpen
