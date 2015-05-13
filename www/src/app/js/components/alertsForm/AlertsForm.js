@@ -26,15 +26,18 @@ define([
 ], function(React, _, WizardStore, AlertsConfig, AlertsFormHelper, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
 
   var AlertsForm,
-    drawToolbar,
-    activeTool,
-    KEYS = AlertsConfig.STORE_KEYS,
-    getDefaultState,
-    formaId = _.uniqueId(),
-    firesId = _.uniqueId(),
-    emailId = _.uniqueId(),
-    subscriptionNameId = _.uniqueId(),
-    self = this;
+      drawToolbar,
+      activeTool,
+      KEYS = AlertsConfig.STORE_KEYS,
+      getDefaultState,
+      pbVal,
+      pbId1,
+      pbId2,
+      formaId = _.uniqueId(),
+      firesId = _.uniqueId(),
+      emailId = _.uniqueId(),
+      subscriptionNameId = _.uniqueId(),
+      self = this;
 
   getDefaultState = function() {
     return {
@@ -76,6 +79,10 @@ define([
           currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : 'none',
           toggleAlertsForm = function() {console.log('TODO: toggleAlertsForm')};
 
+      pbId1 = 'pb_' + _.random(1,100).toString();
+      pbId2 = 'pb_' + _.random(1,100).toString();
+      // Set default once because React doesn't update defaultValue
+      pbVal = pbVal || pbId1 + pbId2;
 
       return (
         React.DOM.div({className: 'relative fill'},
@@ -108,11 +115,19 @@ define([
                 React.DOM.input({className:'vertical-middle', type: 'checkbox', id:firesId}),
                 React.DOM.label({className:'vertical-middle', htmlFor:firesId}, 'Fire Alerts')
               ),
+              React.DOM.div({className:'pooh-bear text-center'},
+                React.DOM.div({className:'pooh-bear'}, 'Please leave this blank'),
+                React.DOM.input({id:pbId1, className:'pooh-bear', type:'text', name:'name'})
+              ),
               React.DOM.div({className:'text-center'},
                 React.DOM.input({id:subscriptionNameId, placeholder:'Subscription area name'})
               ),
               React.DOM.div({className:'text-center'},
                 React.DOM.input({id:emailId, placeholder:'something@gmail.com'})
+              ),
+              React.DOM.div({className:'pooh-bear text-center'},
+                React.DOM.div({className:'pooh-bear'}, 'Please do not change this field'),
+                React.DOM.input({id:pbId2, className:'pooh-bear', type:'text', name:'address', defaultValue:pbVal})
               )
             )
           ),
@@ -227,6 +242,11 @@ define([
     // Adapted from Generator.js:subscribeToAlerts, some required functionality
     // separated to GeoHelper & subfunctions above
     _subscribeToAlerts: function () {
+      // Honeypot
+      if ((dom.byId(pbId1) == null || dom.byId(pbId2) == null) || (dom.byId(pbId1).value.length > 0 || dom.byId(pbId2).value !== pbVal)) {
+        return;
+      }
+
       var selectedFeatures = this.state.selectedFeatures,
           polygons,
           emailAddr = dom.byId(emailId).value,
