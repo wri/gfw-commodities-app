@@ -6,10 +6,20 @@ define([
   "esri/geometry/Point",
   "esri/geometry/Circle",
   "esri/SpatialReference",
-  "esri/geometry/webMercatorUtils"
-], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, webMercatorUtils) {
+  "esri/tasks/GeometryService",
+  "esri/geometry/webMercatorUtils",
+  "dojo/Deferred",
+  "dojo/_base/array"
+], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, GeometryService, webMercatorUtils, Deferred, arrayUtils) {
+
+  var geometryService,
+      spatialReference;
 
 	return {
+
+    getSpatialReference: function () {
+      return spatialReference = spatialReference || new SpatialReference(102100);
+    },
 
     generatePointGraphicFromGeometric: function (longitude, latitude, attributes) {
       return new Graphic(
@@ -65,11 +75,11 @@ define([
     },
 
     convertGeometryToGeometric: function(geometry) {
-      var sr = new SpatialReference({wkid: 102100}),
-          geometryArray = [],
+      var geometryArray = [],
           newRings = [],
-          geo,
-          pt;
+          lngLat,
+          point,
+          self = this;
 
       // Helper function to determine if the coordinate is already in the array
       // This signifies the completion of a ring and means I need to reset the newRings
@@ -86,14 +96,14 @@ define([
 
       arrayUtils.forEach(geometry.rings, function(ringers) {
           arrayUtils.forEach(ringers, function(ring) {
-              pt = new Point(ring, sr);
-              geo = webMercatorUtils.xyToLngLat(pt.x, pt.y);
-              if (sameCoords(newRings, geo)) {
-                  newRings.push(geo);
+              point = new Point(ring, self.getSpatialReference());
+              lngLat = webMercatorUtils.xyToLngLat(point.x, point.y);
+              if (sameCoords(newRings, lngLat)) {
+                  newRings.push(lngLat);
                   geometryArray.push(newRings);
                   newRings = [];
               } else {
-                  newRings.push(geo);
+                  newRings.push(lngLat);
               }
           });
       });
@@ -102,9 +112,23 @@ define([
           geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
           type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
       };
-    }
+    },
 
-    // TODO: Generator union from .prepareForAnalysis
+    union: function (polygons) {
+      if (Object.prototype.toString.call(polygons) !== '[object Array]') {
+        throw new Error('Method expects polygons paramter to be of type Array')
+      }
+
+      var deferred = new Deferred(),
+          geometryService = geometryService || new GeometryService(MapConfig.geometryServiceUrl);
+
+      if (polygons.length === 1) {
+        deferred.resolve(polygons[0]);
+      } else {
+        geometryService.union(polygons, deferred.resolve, deferred.resolve);
+      }
+      return deferred;
+    }
 
 	};
 

@@ -14,12 +14,16 @@ define([
   'utils/GeoHelper',
   // esri/dojo
   'esri/graphic',
+  'esri/geometry/Polygon',
   'esri/toolbars/draw',
   'dojo/dom',
   'dojo/query',
   'dojo/dom-class',
+  'dojo/Deferred',
+  'dojo/promise/all',
+  'dojo/request/xhr',
   'dojox/validate/web'
-], function(React, _, WizardStore, AlertsConfig, AlertsFormHelper, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Draw, dom, dojoQuery, domClass, validate) {
+], function(React, _, WizardStore, AlertsConfig, AlertsFormHelper, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
 
   var AlertsForm,
     drawToolbar,
@@ -28,7 +32,8 @@ define([
     getDefaultState,
     formaId = _.uniqueId(),
     firesId = _.uniqueId(),
-    emailId = _.uniqueId()
+    emailId = _.uniqueId(),
+    subscriptionNameId = _.uniqueId(),
     self = this;
 
   getDefaultState = function() {
@@ -93,7 +98,6 @@ define([
             // Features
             new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures}),
             // Subscription options
-            // TODO: group registration name, should default to store alias as placeholder
             // TODO: honeypot fields
             React.DOM.div({'className':'alerts-form__form absolute no-wide border-box', 'style': {bottom:'51px'}},
               React.DOM.div(null,
@@ -105,7 +109,7 @@ define([
                 React.DOM.label({className:'vertical-middle', htmlFor:firesId}, 'Fire Alerts')
               ),
               React.DOM.div({className:'text-center'},
-                React.DOM.input({placeholder:currentSelectionLabel})
+                React.DOM.input({id:subscriptionNameId, placeholder:'Subscription area name'})
               ),
               React.DOM.div({className:'text-center'},
                 React.DOM.input({id:emailId, placeholder:'something@gmail.com'})
@@ -120,14 +124,6 @@ define([
           )
         )
       );
-    },
-
-    _clearFeatures: function () {
-      customFeatures = [];
-      WizardStore.set(KEYS.customFeatures, []);
-      // Deactivate all the tools if active
-      this._deactivateToolbar();
-      this._removeActiveClass();
     },
 
     _activateToolbar: function (evt) {
@@ -153,6 +149,12 @@ define([
       MapModel.set('drawToolsEnabled', true);
     },
 
+    _deactivateToolbar: function () {
+      drawToolbar.deactivate();
+      activeTool = undefined;
+      MapModel.set('drawToolsEnabled', false);
+    },
+
     _drawComplete: function (evt) {
       this._removeActiveClass();
       this._deactivateToolbar();
@@ -170,112 +172,110 @@ define([
       WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat([feature]));
     },
 
-    _deactivateToolbar: function () {
-      drawToolbar.deactivate();
-      activeTool = undefined;
-      MapModel.set('drawToolsEnabled', false);
-    },
-
     _removeActiveClass: function () {
       dojoQuery(".drawing-tools .drawing-tool-button").forEach(function (node) {
         domClass.remove(node, "active");
       });
     }, 
 
-    // @ Generator.js:subscribeToAlerts
+    _subscribeToFires: function (unionedPolygons, subscriptionName, email) {
+      var deferred = new Deferred(),
+          messagesConfig = AlertsConfig.messages,
+          firesConfig = AlertsConfig.requests.fires,
+          url = firesConfig.url,
+          options = _.cloneDeep(firesConfig.options);
+
+      options.data.features = JSON.stringify({
+        rings: unionedPolygons.rings,
+        spatialReference: unionedPolygons.spatialReference
+      });
+      options.data.msg_addr = email;
+      options.data.area_name = subscriptionName;
+      xhr(url, options).then(function (response) {
+        deferred.resolve((response.message && response.message === firesConfig.successMessage) ? messagesConfig.fireSuccess : messagesConfig.fireFail);
+      });
+      return deferred.promise;
+    },
+
+    _subscribeToForma: function (geoJson, subscriptionName, email) {
+      var deferred = new Deferred(),
+          messagesConfig = AlertsConfig.messages,
+          url = AlertsConfig.requests.forma.url,
+          options = _.cloneDeep(AlertsConfig.requests.forma.options),
+          data = JSON.stringify({
+            topic: options.data.topic,
+            email: email,
+            geom: '{"type": "' + geoJson.type + '", "coordinates":[' + JSON.stringify(geoJson.geom) + ']}'
+          }),
+          request = new XMLHttpRequest()
+          self = this;
+
+      request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+          deferred.resolve((JSON.parse(request.response).subscribe) ? messagesConfig.formaSuccess : messagesConfig.formaFail);
+        }
+      };
+      request.addEventListener('error', function () {
+        deferred.resolve(false);
+      }, false);
+      request.open(options.method, url, true);
+      request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      request.send(data);
+      return deferred.promise;
+    },
+
+    // Adapted from Generator.js:subscribeToAlerts, some required functionality
+    // separated to GeoHelper & subfunctions above
     _subscribeToAlerts: function () {
-      // NOTE: convertGeometryToGeometry is available in GeoHelper
-      // var geoJson = this.convertGeometryToGeometric(report.geometry),
-      var geoJson,
+      var selectedFeatures = this.state.selectedFeatures,
+          polygons,
           emailAddr = dom.byId(emailId).value,
+          subscriptionName = dom.byId(subscriptionNameId).value.trim(),
           formaCheck = dom.byId(formaId).checked,
           firesCheck = dom.byId(firesId).checked,
-          errorMessages = [],
-          messages = {},
-          displayMessages;
+          messagesConfig = AlertsConfig.messages,
+          validations = [],
+          subscriptions = [],
+          self = this;
 
-      console.debug(geoJson);
+      validations = [
+        [!validate.isEmailAddress(emailAddr), messagesConfig.invalidEmail],
+        [!formaCheck && !firesCheck, messagesConfig.noSelection],
+        [!formaCheck && !firesCheck, messagesConfig.noSelection],
+        [!subscriptionName || subscriptionName.length === 0, messagesConfig.noSelectionName],
+        [selectedFeatures.length === 0, messagesConfig.noAreaSelection]
+      ].filter(function (validation) {
+        return validation[0];
+      }).map(function (validation) {
+        return validation[1];
+      }).join('\n');
 
-      // Set up the text for the messages
-      messages.invalidEmail = 'You must provide a valid email in the form.';
-      messages.noAreaSelection = 'You must select at least one area from the list.';
-      messages.noSelection = 'You must select at least one checkbox from the form.';
-      messages.formaSuccess = 'Thank you for subscribing to Forma Alerts.  You should receive a confirmation email soon.';
-      messages.formaFail = 'There was an error with your request to subscribe to Forma alerts.  Please try again later.';
-      messages.fireSuccess = 'Thank you for subscribing to Fires Alerts.  You should receive a confirmation email soon.';
-      messages.fireFail = 'There was an error with your request to subscribe to Fires alerts.  Please try again later.';
-
-      if (this.state.selectedFeatures > 0) {
-        // TODO: create signle subscribe polygon from all selected features
-        emailAddr = this.state.selectedFeatures[0].toJson();
+      if (validations.length > 0) {
+        alert(AlertsConfig.messagesLabel + validations);
       } else {
-        errorMessages.push(messages.noAreaSelection)
-      }
+        // Map feature geometries to new Polygons for SpatialReference for union
+        polygons = selectedFeatures.map(function (feature) {
+          // TODO: handle circles, convert to polys (@Generator.js:177)
+          // TODO: handle points, convert to buffered circles (@Generator.js:185)
+          return new Polygon(GeoHelper.getSpatialReference()).addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);;
+        });
+        GeoHelper.union(polygons).then(function (unionedPolygon) {
+          if (firesCheck) {
+            subscriptions.push(self._subscribeToFires(unionedPolygon, subscriptionName, emailAddr));
+          }
+          if (formaCheck) {
+            subscriptions.push(self._subscribeToForma(GeoHelper.convertGeometryToGeometric(unionedPolygon), subscriptionName, emailAddr));
+          }
 
-      if (!validate.isEmailAddress(emailAddr)) {
-          errorMessages.push(messages.invalidEmail);
-      }
-
-      if (!formaCheck && !firesCheck) {
-          errorMessages.push(messages.noSelection);
-      }
-
-      displayMessages = function () {
-        // generic messages popup, use this instead of putting responses AlertsForm panel
-      }
-
-      if (errorMessages.length > 0) {
-          alert('Please fill in the following:\n' + errorMessages.join('\n'));
-      } else {
-        // If both are checked, request both and show the appropriate responses
-        if (formaCheck && firesCheck) {
-            // var responses = [];
-            // all([
-            //     this.subscribeToForma(geoJson, emailAddr),
-            //     this.subscribeToFires(report.geometry, emailAddr)
-            // ]).then(function(results) {
-            //     // Check the results and inform the user of the results
-            //     if (results[0]) {
-            //         responses.push(messages.formaSuccess);
-            //     } else {
-            //         responses.push(messages.formaFail);
-            //     }
-
-            //     if (results[1]) {
-            //         responses.push(messages.fireSuccess);
-            //     } else {
-            //         responses.push(messages.fireFail);
-            //     }
-
-            //     dom.byId('form-response').innerHTML = responses.join('<br />');
-            // });
-
-            // Else if just forma alerts are checked, subscribe to those and show the correct responses
-        } else if (formaCheck) {
-            // this.subscribeToForma(geoJson, emailAddr).then(function(res) {
-            //     if (res) {
-            //         dom.byId('form-response').innerHTML = messages.formaSuccess;
-            //     } else {
-            //         dom.byId('form-response').innerHTML = messages.formaFail;
-            //     }
-            // });
-            // Else if just fires alerts are checked, subscribe to those and show the correct responses
-        } else if (firesCheck) {
-            // this.subscribeToFires(report.geometry, emailAddr).then(function(res) {
-            //     if (res) {
-            //         dom.byId('form-response').innerHTML = messages.fireSuccess;
-            //     } else {
-            //         dom.byId('form-response').innerHTML = messages.fireFail;
-            //     }
-            // });
-        }
+          all(subscriptions).then(function (responses) {
+            console.debug('// TODO: handle response messages & pass to a dialog display');
+          });
+        });
       }
     }
-
   });
 
   return function(props, el) {
     return React.renderComponent(new AlertsForm(props), document.getElementById(el));
   };
-
 });

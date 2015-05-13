@@ -20,9 +20,8 @@ define([
     propTypes: {
       features: React.PropTypes.array.isRequired,
       selectedFeatures: React.PropTypes.array.isRequired,
-      // TODO: optional classes/styles
-      rspoChecks: React.PropTypes.bool
-      // TODO: handle generic column registration w/ parent callback for events (rspo checkbox)
+      rspoChecks: React.PropTypes.bool,
+      showClear: React.PropTypes.bool
     },
 
     render: function () {
@@ -31,6 +30,7 @@ define([
           selectedFeatureIds,
           allFeaturesSelected,
           allFeaturesRSPO,
+          clearButton,
           rspoChecksHeader = '';
 
       if (this.props.selectedFeatures) {
@@ -44,9 +44,15 @@ define([
         rspoChecksHeader = <th><label><input type='checkbox' onChange={this._toggleAllFeaturesRSPO} checked={allFeaturesRSPO} />RSPO</label></th>;
       }
 
+      if (this.props.features.length === 0 || (this.props.showClear !== undefined && this.props.showClear === false)) {
+        clearButton = '';
+      } else {
+        clearButton = <button className='button-link float-right margin__right no-padding__right' onClick={this._removeFeatureSelection}>Clear Selection</button>;
+      }
+
       return (
         <div>
-          <button className='button-link float-right margin__right no-padding__right' onClick={this._removeFeatureSelection}>Clear Selection</button>
+          {clearButton}
           <div className='padding__wide'>Make your area of interest selections using the left checkboxes.</div>
           <table className='no-border-spacing fill__wide border-box border-orange'>
             <thead>
@@ -98,7 +104,7 @@ define([
 
       return (
         <tr>
-          <td className='text-center text-medium-gray' colSpan={colSpan}><i>No current areas of interest, draw or upload some.</i></td>
+          <td className='text-center text-medium-gray' colSpan={colSpan}><i>No current areas of interest, please draw or upload some.</i></td>
         </tr>
       )
     },

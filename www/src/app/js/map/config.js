@@ -19,10 +19,12 @@ define([], function() {
         primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
-        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/conservation/MapServer';
+        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/conservation/MapServer',
+        geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
     //customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
 
     return {
+        geometryServiceUrl: geometryServiceUrl,
 
         mapOptions: {
             basemap: 'gray',

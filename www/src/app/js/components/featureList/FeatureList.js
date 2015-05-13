@@ -20,9 +20,8 @@ define([
     propTypes: {
       features: React.PropTypes.array.isRequired,
       selectedFeatures: React.PropTypes.array.isRequired,
-      // TODO: optional classes/styles
-      rspoChecks: React.PropTypes.bool
-      // TODO: handle generic column registration w/ parent callback for events (rspo checkbox)
+      rspoChecks: React.PropTypes.bool,
+      showClear: React.PropTypes.bool
     },
 
     render: function () {
@@ -31,6 +30,7 @@ define([
           selectedFeatureIds,
           allFeaturesSelected,
           allFeaturesRSPO,
+          clearButton,
           rspoChecksHeader = '';
 
       if (this.props.selectedFeatures) {
@@ -44,9 +44,15 @@ define([
         rspoChecksHeader = React.DOM.th(null, React.DOM.label(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesRSPO, checked: allFeaturesRSPO}), "RSPO"));
       }
 
+      if (this.props.features.length === 0 || (this.props.showClear !== undefined && this.props.showClear === false)) {
+        clearButton = '';
+      } else {
+        clearButton = React.DOM.button({className: "button-link float-right margin__right no-padding__right", onClick: this._removeFeatureSelection}, "Clear Selection");
+      }
+
       return (
         React.DOM.div(null, 
-          React.DOM.button({className: "button-link float-right margin__right no-padding__right", onClick: this._removeFeatureSelection}, "Clear Selection"), 
+          clearButton, 
           React.DOM.div({className: "padding__wide"}, "Make your area of interest selections using the left checkboxes."), 
           React.DOM.table({className: "no-border-spacing fill__wide border-box border-orange"}, 
             React.DOM.thead(null, 
@@ -98,7 +104,7 @@ define([
 
       return (
         React.DOM.tr(null, 
-          React.DOM.td({className: "text-center text-medium-gray", colSpan: colSpan}, React.DOM.i(null, "No current areas of interest, draw or upload some."))
+          React.DOM.td({className: "text-center text-medium-gray", colSpan: colSpan}, React.DOM.i(null, "No current areas of interest, please draw or upload some."))
         )
       )
     },
