@@ -3,7 +3,7 @@ define([
   "dojo/promise/all",
   "dojo/_base/lang",
   "report/riskRequests",
-  "report/testconfig"
+  "report/config"
 ], function (Deferred,all,lang,riskRequest,config) {
 
     var featureArea;
@@ -433,8 +433,11 @@ define([
     ];
 
     var calculatePriority = function(results){
-        console.log("Priority Obj",results);
-        priorities.forEach(function(priority){
+        // Need a clone because if this gets called multiple times, multiple keys get embedded
+        var clonedPriorities = lang.clone(priorities);
+
+
+        clonedPriorities.forEach(function(priority){
             var total = 0;
             if (priority.categories.length == 1){
                 var risk = results[priority.categories[0]];
@@ -444,7 +447,7 @@ define([
             // }
             else{
                 var cats = [];
-                priority.categories.forEach(function(cat){
+                priority.categories.forEach(function(cat, index){
                     total += results[cat];
                     cats.push({ 'key':cat, 'risk': results[cat] });
                 });
@@ -454,12 +457,12 @@ define([
             }
                 priority.risk = risk;
         });
-        return priorities;
-        
+        return clonedPriorities;
     };
 
+    // Polygon Geometry, Area of Geometry, Area Type, RSPO Status, Is it in Indonesia
     return function(geometry, area, areaType, rspo, indonesia){
-        // var final_deferred = new Deferred();
+        var final_deferred = new Deferred();
         featureArea = area;
         rspo = rspo;
         indonesia = indonesia;
@@ -498,8 +501,10 @@ define([
                 lang.mixin(data,result);
             });
             var priorities = calculatePriority(data);
-            console.log('PRIORITIES',priorities);
+            final_deferred.resolve(priorities);
         });
+
+        return final_deferred.promise;
     };
     // return final_deferred;
 });
