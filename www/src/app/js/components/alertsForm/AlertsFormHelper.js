@@ -63,27 +63,28 @@ define([
     _animate(0).then(function() {
       isOpen = false;
     });
+  },
+
+  _toggle = function() {
+    // open/close toggle, handling open wizard if necessary
+    if (!isOpen) {
+      if (WizardHelper.isOpen()) {
+        WizardHelper.toggleWizard().then(_open);
+      } else {
+        _open();
+      }
+    } else {
+      _close();
+    }
+    WizardStore.set(KEYS.selectedCustomFeatures, []);
   }
 
   return {
     toggleAlertsForm: function() {
-      alertsForm = alertsForm || new AlertsForm({}, 'alerts-form');
-
-      // open/close toggle, handling open wizard if necessary
-      if (!isOpen) {
-        if (WizardHelper.isOpen()) {
-          WizardHelper.toggleWizard().then(_open);
-        } else {
-          _open();
-        }
-      } else {
-        _close();
-      }
-      WizardStore.set(KEYS.selectedCustomFeatures, []);
+      alertsForm = alertsForm || new AlertsForm({toggle:_toggle}, 'alerts-form');
+      _toggle();
     },
 
     isOpen: isOpen
-
   }
-
 });
