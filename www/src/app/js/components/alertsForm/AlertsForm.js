@@ -5,7 +5,6 @@ define([
   // src
   'analysis/WizardStore',
   'components/alertsForm/config',
-  'components/alertsForm/AlertsFormHelper',
   'components/featureList/FeatureList',
   'map/config',
   'map/MapModel',
@@ -23,7 +22,7 @@ define([
   'dojo/promise/all',
   'dojo/request/xhr',
   'dojox/validate/web'
-], function(React, _, WizardStore, AlertsConfig, AlertsFormHelper, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
+], function(React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
 
   var AlertsForm,
       drawToolbar,
