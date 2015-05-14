@@ -33,9 +33,10 @@ $alerts_body_padding = 50px
 		border-bottom 1px solid greyBorder
 		font-size 26px
 
-		button
+		&__exit
 			border none
 			border-left 1px solid greyBorder
+			width 40px
 
 	&__body
 		box-sizing border-box
@@ -43,6 +44,9 @@ $alerts_body_padding = 50px
 		height 100%
 		width 100%
 		font-size 12px
+
+	&__drawing-tool
+		font-size 18px
 
 	&__footer
 		position absolute
@@ -53,10 +57,20 @@ $alerts_body_padding = 50px
 		height $alerts_body_padding
 		border-top 1px solid greyBorder
 		line-height $alerts_body_padding
+		
+		&__selection
+			width 230px
 
-		// TODO: generate font classes using fonts list var instead
 		button
 			font-size 16px
 
 	&__form
 		padding 0px 20px 10px 20px
+		font-size 16px
+
+		input
+			font-size 14px
+
+		input[type=text]
+			padding 5px 10px
+			width 80%

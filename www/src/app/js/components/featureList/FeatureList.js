@@ -11,9 +11,10 @@ define([
 ], function (React, _, FeatureListConfig, WizardStore, GeoHelper) {
 
   var FeatureList,
-    getDefaultState,
-    KEYS = FeatureListConfig.STORE_KEYS,
-    self = this;
+      getDefaultState,
+      TEXT = FeatureListConfig.TEXT,
+      KEYS = FeatureListConfig.STORE_KEYS,
+      self = this;
 
   return React.createClass({
 
@@ -41,25 +42,25 @@ define([
 
       if (this.props.rspoChecks) {
         allFeaturesRSPO = this.props.features.length > 0 ? _.every(this.props.features, function (feature) {return feature.attributes.isRSPO === true}) : false;
-        rspoChecksHeader = React.DOM.th(null, React.DOM.label(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesRSPO, checked: allFeaturesRSPO}), "RSPO"));
+        rspoChecksHeader = React.DOM.th(null, React.DOM.label(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesRSPO, checked: allFeaturesRSPO, disabled: this.props.features.length === 0}), TEXT.headers[2]));
       }
 
-      if (this.props.features.length === 0 || (this.props.showClear !== undefined && this.props.showClear === false)) {
+      if (this.props.selectedFeatures.length === 0 || (this.props.showClear !== undefined && this.props.showClear === false)) {
         clearButton = '';
       } else {
-        clearButton = React.DOM.button({className: "button-link float-right margin__right no-padding__right", onClick: this._removeFeatureSelection}, "Clear Selection");
+        clearButton = React.DOM.button({className: "button-link float-right margin__right no-padding__right", onClick: this._removeFeatureSelection}, TEXT.clear);
       }
 
       return (
-        React.DOM.div(null, 
+        React.DOM.div({className: TEXT.className}, 
           clearButton, 
-          React.DOM.div({className: "padding__wide"}, "Make your area of interest selections using the left checkboxes."), 
+          React.DOM.div({className: "padding__wide margin__bottom"}, TEXT.instruction), 
           React.DOM.table({className: "no-border-spacing fill__wide border-box border-orange"}, 
             React.DOM.thead(null, 
               React.DOM.tr({className: "text-white text-center back-orange"}, 
-                React.DOM.th(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesSelection, checked: allFeaturesSelected})), 
-                React.DOM.th(null, " Type "), 
-                React.DOM.th(null, " Area Name "), 
+                React.DOM.th(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesSelection, checked: allFeaturesSelected, disabled: this.props.features.length === 0})), 
+                React.DOM.th(null, TEXT.headers[0]), 
+                React.DOM.th(null, TEXT.headers[1]), 
                 rspoChecksHeader
               )
             ), 
@@ -104,7 +105,7 @@ define([
 
       return (
         React.DOM.tr(null, 
-          React.DOM.td({className: "text-center text-medium-gray", colSpan: colSpan}, React.DOM.i(null, "No current areas of interest, please draw or upload some."))
+          React.DOM.td({className: "text-center text-medium-gray", colSpan: colSpan}, React.DOM.i(null, TEXT.noAreas))
         )
       )
     },

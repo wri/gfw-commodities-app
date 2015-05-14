@@ -11,9 +11,10 @@ define([
 ], function (React, _, FeatureListConfig, WizardStore, GeoHelper) {
 
   var FeatureList,
-    getDefaultState,
-    KEYS = FeatureListConfig.STORE_KEYS,
-    self = this;
+      getDefaultState,
+      TEXT = FeatureListConfig.TEXT,
+      KEYS = FeatureListConfig.STORE_KEYS,
+      self = this;
 
   return React.createClass({
 
@@ -41,25 +42,25 @@ define([
 
       if (this.props.rspoChecks) {
         allFeaturesRSPO = this.props.features.length > 0 ? _.every(this.props.features, function (feature) {return feature.attributes.isRSPO === true}) : false;
-        rspoChecksHeader = <th><label><input type='checkbox' onChange={this._toggleAllFeaturesRSPO} checked={allFeaturesRSPO} />RSPO</label></th>;
+        rspoChecksHeader = <th><label><input type='checkbox' onChange={this._toggleAllFeaturesRSPO} checked={allFeaturesRSPO} disabled={this.props.features.length === 0}/>{TEXT.headers[2]}</label></th>;
       }
 
-      if (this.props.features.length === 0 || (this.props.showClear !== undefined && this.props.showClear === false)) {
+      if (this.props.selectedFeatures.length === 0 || (this.props.showClear !== undefined && this.props.showClear === false)) {
         clearButton = '';
       } else {
-        clearButton = <button className='button-link float-right margin__right no-padding__right' onClick={this._removeFeatureSelection}>Clear Selection</button>;
+        clearButton = <button className='button-link float-right margin__right no-padding__right' onClick={this._removeFeatureSelection}>{TEXT.clear}</button>;
       }
 
       return (
-        <div>
+        <div className={TEXT.className}>
           {clearButton}
-          <div className='padding__wide'>Make your area of interest selections using the left checkboxes.</div>
+          <div className='padding__wide margin__bottom'>{TEXT.instruction}</div>
           <table className='no-border-spacing fill__wide border-box border-orange'>
             <thead>
               <tr className='text-white text-center back-orange'>
-                <th><input type='checkbox' onChange={this._toggleAllFeaturesSelection} checked={allFeaturesSelected} /></th>
-                <th> Type </th>
-                <th> Area Name </th>
+                <th><input type='checkbox' onChange={this._toggleAllFeaturesSelection} checked={allFeaturesSelected} disabled={this.props.features.length === 0} /></th>
+                <th>{TEXT.headers[0]}</th>
+                <th>{TEXT.headers[1]}</th>
                 {rspoChecksHeader}
               </tr>
             </thead>
@@ -104,7 +105,7 @@ define([
 
       return (
         <tr>
-          <td className='text-center text-medium-gray' colSpan={colSpan}><i>No current areas of interest, please draw or upload some.</i></td>
+          <td className='text-center text-medium-gray' colSpan={colSpan}><i>{TEXT.noAreas}</i></td>
         </tr>
       )
     },

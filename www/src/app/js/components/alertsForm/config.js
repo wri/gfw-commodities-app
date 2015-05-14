@@ -15,6 +15,16 @@ define([
     STORE_KEYS: AnalyzerConfig.STORE_KEYS,
 
     // Unique configs
+    TEXT: {
+      title: 'Alerts Registration',
+      selection: 'Current selection:',
+      noSelection: 'none',
+      subscribe: 'Subscribe',
+      subscriptionPlaceholder: 'Subscription name',
+      emailPlaceholder: 'youremail@example.com',
+      forma: 'Monthly Clearance Alerts',
+      fires: 'Fire Alerts'
+    },
     messagesLabel: 'Please fill in the following:\n',
     messages: {
       invalidEmail: 'You must provide a valid email in the form.',

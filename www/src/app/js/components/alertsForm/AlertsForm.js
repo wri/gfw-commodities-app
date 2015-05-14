@@ -27,6 +27,7 @@ define([
   var AlertsForm,
       drawToolbar,
       activeTool,
+      TEXT = AlertsConfig.TEXT,
       KEYS = AlertsConfig.STORE_KEYS,
       getDefaultState,
       pbVal,
@@ -75,8 +76,8 @@ define([
 
     render: function() {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
-          currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : 'none',
-          toggleAlertsForm = function() {console.log('TODO: toggleAlertsForm')};
+          currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : TEXT.noSelection,
+          self = this;
 
       pbId1 = 'pb_' + _.random(1,100).toString();
       pbId2 = 'pb_' + _.random(1,100).toString();
@@ -87,18 +88,20 @@ define([
         React.DOM.div({className: 'relative fill'},
           // Header
           React.DOM.div({className: 'alerts-form__header'},
-            React.DOM.div({className: 'fill__long border-box padding'}, 'Alerts Registration'),
-            React.DOM.button({'onClick': toggleAlertsForm, className: 'back-white absolute no-top no-right fill__long pointer'}, 'x')
+            React.DOM.div({className: 'fill__long border-box padding'}, TEXT.title),
+            React.DOM.button({'onClick': self.props.toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
+              React.DOM.img({'className': 'vertical-middle', 'src': 'app/css/images/close_symbol.png'})
+            )
           ),
           // Body
           React.DOM.div({className: 'alerts-form__body'}, 
             // Tools
             React.DOM.div({'className':'padding__wide padding__top'},
-              React.DOM.div(null, AlertsConfig.customArea.instructions),
-              React.DOM.div({'className':'text-center'},
-                React.DOM.button({'onClick': this._activateToolbar, 'data-geometry-type': Draw.FREEHAND_POLYGON}, AlertsConfig.customArea.freehandLabel),
-                React.DOM.button({'onClick': this._activateToolbar, 'data-geometry-type': Draw.POLYGON}, AlertsConfig.customArea.polyLabel),
-                React.DOM.button({'onClick': Uploader.toggle.bind(Uploader), 'id':'alerts-draw-upload' }, AlertsConfig.customArea.uploadLabel)
+              React.DOM.div({'className':'margin__bottom'}, AlertsConfig.customArea.instructions),
+              React.DOM.div({'className':'text-center margin__bottom'},
+                React.DOM.button({'className':'alerts-form__drawing-tool back-light-gray no-border border-radius margin padding pointer', 'onClick': this._activateToolbar, 'data-geometry-type': Draw.FREEHAND_POLYGON}, AlertsConfig.customArea.freehandLabel),
+                React.DOM.button({'className':'alerts-form__drawing-tool back-light-gray no-border border-radius margin padding pointer', 'onClick': this._activateToolbar, 'data-geometry-type': Draw.POLYGON}, AlertsConfig.customArea.polyLabel),
+                React.DOM.button({'className':'alerts-form__drawing-tool back-light-gray no-border border-radius margin padding pointer', 'onClick': Uploader.toggle.bind(Uploader), 'id':'alerts-draw-upload' }, AlertsConfig.customArea.uploadLabel)
               )
             ),
             // Features
@@ -106,23 +109,23 @@ define([
             // Subscription options
             // TODO: honeypot fields
             React.DOM.div({'className':'alerts-form__form absolute no-wide border-box', 'style': {bottom:'51px'}},
-              React.DOM.div(null,
+              React.DOM.div({className:'margin__bottom'},
                 React.DOM.input({className:'vertical-middle', type: 'checkbox', id:formaId}),
-                React.DOM.label({className:'vertical-middle', htmlFor:formaId}, 'Monthly Clearance Alerts')
+                React.DOM.label({className:'vertical-middle', htmlFor:formaId}, TEXT.forma)
               ),
-              React.DOM.div(null,
+              React.DOM.div({className:'margin__bottom'},
                 React.DOM.input({className:'vertical-middle', type: 'checkbox', id:firesId}),
-                React.DOM.label({className:'vertical-middle', htmlFor:firesId}, 'Fire Alerts')
+                React.DOM.label({className:'vertical-middle', htmlFor:firesId}, TEXT.fires)
               ),
               React.DOM.div({className:'pooh-bear text-center'},
                 React.DOM.div({className:'pooh-bear'}, 'Please leave this blank'),
                 React.DOM.input({id:pbId1, className:'pooh-bear', type:'text', name:'name'})
               ),
-              React.DOM.div({className:'text-center'},
-                React.DOM.input({id:subscriptionNameId, placeholder:'Subscription area name'})
+              React.DOM.div({className:'text-center margin__bottom'},
+                React.DOM.input({id:subscriptionNameId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.subscriptionPlaceholder})
               ),
-              React.DOM.div({className:'text-center'},
-                React.DOM.input({id:emailId, placeholder:'something@gmail.com'})
+              React.DOM.div({className:'text-center margin__bottom'},
+                React.DOM.input({id:emailId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.emailPlaceholder})
               ),
               React.DOM.div({className:'pooh-bear text-center'},
                 React.DOM.div({className:'pooh-bear'}, 'Please do not change this field'),
@@ -132,9 +135,9 @@ define([
           ),
           // Footer
           React.DOM.div({className:'alerts-form__footer'}, 
-            React.DOM.div({className:'inline-block padding__left'}, 'Current Selection:'),
-            React.DOM.div({className:'inline-block padding__left text-gold'}, currentSelectionLabel),
-            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts}, 'Subscribe')
+            React.DOM.div({className:'inline-block padding__left'}, TEXT.selection),
+            React.DOM.div({className:'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title:currentSelectionLabel}, currentSelectionLabel),
+            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts}, TEXT.subscribe)
           )
         )
       );
@@ -287,7 +290,7 @@ define([
           }
 
           all(subscriptions).then(function (responses) {
-            console.debug('// TODO: handle response messages & pass to a dialog display');
+            alert(responses.join('\n'))
           });
         });
       }
