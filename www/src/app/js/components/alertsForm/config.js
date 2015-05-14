@@ -15,6 +15,7 @@ define([
     STORE_KEYS: AnalyzerConfig.STORE_KEYS,
 
     // Unique configs
+    MODAL_ID: 'subscription-modal',
     TEXT: {
       title: 'Alerts Registration',
       selection: 'Current selection:',

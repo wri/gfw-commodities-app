@@ -105,33 +105,33 @@ define([
               )
             ),
             // Features
-            new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures}),
-            // Subscription options
-            // TODO: honeypot fields
-            React.DOM.div({'className':'alerts-form__form absolute no-wide border-box', 'style': {bottom:'51px'}},
-              React.DOM.div({className:'margin__bottom'},
-                React.DOM.input({className:'vertical-middle', type: 'checkbox', id:formaId}),
-                React.DOM.label({className:'vertical-middle', htmlFor:formaId}, TEXT.forma)
-              ),
-              React.DOM.div({className:'margin__bottom'},
-                React.DOM.input({className:'vertical-middle', type: 'checkbox', id:firesId}),
-                React.DOM.label({className:'vertical-middle', htmlFor:firesId}, TEXT.fires)
-              ),
-              React.DOM.div({className:'pooh-bear text-center'},
-                React.DOM.div({className:'pooh-bear'}, 'Please leave this blank'),
-                React.DOM.input({id:pbId1, className:'pooh-bear', type:'text', name:'name'})
-              ),
-              React.DOM.div({className:'text-center margin__bottom'},
-                React.DOM.input({id:subscriptionNameId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.subscriptionPlaceholder})
-              ),
-              React.DOM.div({className:'text-center margin__bottom'},
-                React.DOM.input({id:emailId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.emailPlaceholder})
-              ),
-              React.DOM.div({className:'pooh-bear text-center'},
-                React.DOM.div({className:'pooh-bear'}, 'Please do not change this field'),
-                React.DOM.input({id:pbId2, className:'pooh-bear', type:'text', name:'address', defaultValue:pbVal})
-              )
-            )
+            new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures})
+            // // ,
+            // // Subscription options
+            // React.DOM.div({'className':'alerts-form__form absolute no-wide border-box', 'style': {bottom:'51px'}},
+            //   React.DOM.div({className:'margin__bottom'},
+            //     React.DOM.input({className:'vertical-middle', type: 'checkbox', id:formaId}),
+            //     React.DOM.label({className:'vertical-middle', htmlFor:formaId}, TEXT.forma)
+            //   ),
+            //   React.DOM.div({className:'margin__bottom'},
+            //     React.DOM.input({className:'vertical-middle', type: 'checkbox', id:firesId}),
+            //     React.DOM.label({className:'vertical-middle', htmlFor:firesId}, TEXT.fires)
+            //   ),
+            //   React.DOM.div({className:'pooh-bear text-center'},
+            //     React.DOM.div({className:'pooh-bear'}, 'Please leave this blank'),
+            //     React.DOM.input({id:pbId1, className:'pooh-bear', type:'text', name:'name'})
+            //   ),
+            //   React.DOM.div({className:'text-center margin__bottom'},
+            //     React.DOM.input({id:subscriptionNameId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.subscriptionPlaceholder})
+            //   ),
+            //   React.DOM.div({className:'text-center margin__bottom'},
+            //     React.DOM.input({id:emailId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.emailPlaceholder})
+            //   ),
+            //   React.DOM.div({className:'pooh-bear text-center'},
+            //     React.DOM.div({className:'pooh-bear'}, 'Please do not change this field'),
+            //     React.DOM.input({id:pbId2, className:'pooh-bear', type:'text', name:'address', defaultValue:pbVal})
+            //   )
+            // )
           ),
           // Footer
           React.DOM.div({className:'alerts-form__footer'}, 
@@ -245,9 +245,45 @@ define([
     // separated to GeoHelper & subfunctions above
     _subscribeToAlerts: function () {
       // Honeypot
-      if ((dom.byId(pbId1) == null || dom.byId(pbId2) == null) || (dom.byId(pbId1).value.length > 0 || dom.byId(pbId2).value !== pbVal)) {
-        return;
-      }
+      // if ((dom.byId(pbId1) == null || dom.byId(pbId2) == null) || (dom.byId(pbId1).value.length > 0 || dom.byId(pbId2).value !== pbVal)) {
+      //   return;
+      // }
+
+      var modal = dom.byId(AlertsConfig.MODAL_ID),
+          modalHtml = React.renderComponentToStaticMarkup(
+                        React.DOM.div({'className':'alerts-form__form no-wide border-box'},
+                          React.DOM.div({className:'margin__bottom'},
+                            'Subscribe'
+                          ),
+                          React.DOM.div({className:'margin__bottom'},
+                            React.DOM.input({className:'vertical-middle', type: 'checkbox', id:formaId}),
+                            React.DOM.label({className:'vertical-middle', htmlFor:formaId}, TEXT.forma)
+                          ),
+                          React.DOM.div({className:'margin__bottom'},
+                            React.DOM.input({className:'vertical-middle', type: 'checkbox', id:firesId}),
+                            React.DOM.label({className:'vertical-middle', htmlFor:firesId}, TEXT.fires)
+                          ),
+                          React.DOM.div({className:'pooh-bear text-center'},
+                            React.DOM.div({className:'pooh-bear'}, 'Please leave this blank'),
+                            React.DOM.input({id:pbId1, className:'pooh-bear', type:'text', name:'name'})
+                          ),
+                          React.DOM.div({className:'text-center margin__bottom'},
+                            React.DOM.input({id:subscriptionNameId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.subscriptionPlaceholder})
+                          ),
+                          React.DOM.div({className:'text-center margin__bottom'},
+                            React.DOM.input({id:emailId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.emailPlaceholder})
+                          ),
+                          React.DOM.div({className:'pooh-bear text-center'},
+                            React.DOM.div({className:'pooh-bear'}, 'Please do not change this field'),
+                            React.DOM.input({id:pbId2, className:'pooh-bear', type:'text', name:'address', defaultValue:pbVal})
+                          )
+                        )
+                      );
+
+      modal.querySelector('.modal-content').innerHTML = modalHtml;
+      domClass.toggle(modal, 'active');
+
+      return
 
       var selectedFeatures = this.state.selectedFeatures,
           polygons,
