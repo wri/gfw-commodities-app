@@ -625,8 +625,6 @@ define([
               }
             });
 
-            console.log(customMills);
-
             // if the mill points are from the known mills list, use GFW's API
             if (knownMills.length > 0) {
               getKnownMillsResults();

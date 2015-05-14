@@ -123,7 +123,7 @@ define([
         },
         {
             'label': 'Peat',
-            categories: ['loss_peat_area','peat_alerts','peat_area'],
+            categories: ['loss_peat_area','clearance','presence'],
             high: 7,
             low: 4
         },
@@ -361,7 +361,7 @@ define([
             },
 
             { 
-                category: 'peat_alerts',
+                category: 'clearance',
                 service: services.commodities,
                 request: methods.histogram,
                 params:{
@@ -376,7 +376,7 @@ define([
             },
         
             { 
-                category: 'peat_area',
+                category: 'presence',
                 service: services.commodities,
                 request: methods.histogram,
                 params:{

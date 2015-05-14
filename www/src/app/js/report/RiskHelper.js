@@ -252,14 +252,20 @@ define([
             riskObject.fire[type] = { risk: RISK[data.risk] };
           break;
           case 'Carbon':
-            
+            arrayUtils.forEach(data.categories, function (category) {
+              if (category.key === 'loss_carbon') {
+                riskObject.deforestation.carbon[type] = { risk: RISK[category.risk] };
+              }
+            });
           break;
           case 'Peat':
             key = (type === 'concession' ? 'peat_concession' : 'peat_radius');
             riskObject.peat[key] = RISK[data.risk];
-            // arrayUtils.forEach(data.categories, function (category) {
-
-            // });
+            arrayUtils.forEach(data.categories, function (category) {
+              if (riskObject.peat[category.key]) {
+                riskObject.peat[category.key][type] = { risk: RISK[category.risk] };
+              }
+            });
           break;
           case 'Deforestation':
             key = (type === 'concession' ? 'deforestation_concession' : 'deforestation_radius');
