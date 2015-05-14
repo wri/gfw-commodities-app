@@ -12,8 +12,9 @@ define([
     "map/config",
     "dojo/_base/lang",
     "esri/tasks/PrintTask",
-    "map/Controls"
-], function(React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls) {
+    "map/Controls",
+    'utils/GeoHelper'
+], function(React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, GeoHelper) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
     var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -231,13 +232,6 @@ define([
         },
 
         _performAnalysis: function() {
-            // Grab All Necessary Props from State and Pass them on
-            // React updates state in the next available animation frame, wait until this component has 
-            // performed any necessary state changes before beginning analysis
-            // Call window.open here to make sure page opens correctly and can have multiple instances open
-            // Calling window.open in the animationFrame triggers pop-up blocker and/or opens in new window
-            // Something to do with calling window.open in a click handler allows it to work but animation frame
-            // is asynchronous and not counted as part of the click handler
             var self = this,
                 geometry = self._prepareGeometry(self.state.analysisArea),
                 labelField,
@@ -259,7 +253,6 @@ define([
                 suitability: {
                     renderRule: suitableRule,
                     csv: MapControls._getSettingsCSV()
-                    //settings: MapControls.serializeSuitabilitySettings()
                 }
             };
 
@@ -287,16 +280,22 @@ define([
         },
 
         _prepareGeometry: function(features) {
+          // Get the point radius incase we need it, we may not
+          // if it's not set for some reason, default to 50km
+          var pointRadius = WizardStore.get(KEYS.analysisPointRadius) || 50;
           var geometries = []; 
-
 
           if (Object.prototype.toString.call(features) === '[object Array]') {
 
             features.forEach(function (feature) {
+              // If the feature is a point, cast as a circle with radius
+              if (feature.geometry.type === 'point') {
+                feature = GeoHelper.preparePointAsPolygon(feature, pointRadius);
+              }
 
               geometries.push({
                 geometry: feature.geometry,
-                type: (feature.geometry.radius ? 'circle' : feature.geometry.x ? 'point' : 'polygon'),
+                type: (feature.geometry.radius ? 'circle' : 'polygon'),
                 isCustom: feature.attributes.WRI_ID !== undefined,
                 // Mill Point Specific Fields, Include them as undefined if tha values are not present
                 label: feature.attributes.WRI_label || undefined,
@@ -310,7 +309,7 @@ define([
 
             geometries.push({
               geometry: features.geometry,
-              type: (features.geometry.radius ? 'circle' : features.geometry.x ? 'point' : 'polygon'),
+              type: (features.geometry.radius ? 'circle' : 'polygon'),
               isCustom: features.attributes.WRI_ID !== undefined,
               // Mill Point Specific Fields, Include them as undefined if tha values are not present
               label: features.attributes.WRI_label || undefined,

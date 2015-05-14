@@ -146,7 +146,15 @@ define([], function() {
                 label: 'Forest Change Analysis',
                 description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
             },
-            millPoint: millPoint
+            millPoint: millPoint,
+            customArea: customArea,
+            pointRadiusOptions: [
+              {label: '50km', value: 50},
+              {label: '40km', value: 40},
+              {label: '30km', value: 30},
+              {label: '20km', value: 20},
+              {label: '10km', value: 10}
+            ]
         },
 
         stepFour: {
@@ -344,7 +352,8 @@ define([], function() {
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
-            customFeatures: 'customFeatures'
+            customFeatures: 'customFeatures',
+            analysisPointRadius: 'analysisPointRadius'
         }
 
     };

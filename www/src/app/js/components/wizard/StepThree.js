@@ -66,7 +66,7 @@ define([
         render: function() {
             var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
             var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-            var arePoints = selectedFeatures.length > 0 && selectedFeatures.every(function (feature) {
+            var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
               return feature.geometry.type === 'point';
             });
 
@@ -77,8 +77,8 @@ define([
                     React.DOM.div({className: "step-title"}, config.title), 
                     /* Show this Only If Mill Point Analysis is Being Done */
                     
-                      selectedAreaOfInterest === 'millPointOption' ?
-                        (arePoints ? this.createSelect() : React.DOM.p({className: "sub-title"}, "(Analysis based on 50km buffer)")) :
+                      selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ? 
+                        this.createPointContent(hasPoints) : 
                         null, 
                     
                     WizardCheckbox({label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
@@ -119,29 +119,24 @@ define([
             );
         },
 
-        createSelect: function () {
-          return React.DOM.select({className: "mill-radius-select"}, 
-            React.DOM.option(null, "50Km"), 
-            React.DOM.option(null, "40Km"), 
-            React.DOM.option(null, "30Km"), 
-            React.DOM.option(null, "20Km"), 
-            React.DOM.option(null, "10Km")
+        createPointContent: function (hasPoints) {
+
+          var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
+    
+          var options = config.pointRadiusOptions.map(function (option) {
+            return React.DOM.option({value: option.value}, option.label);
+          });     
+
+          return (hasPoints ? 
+            React.DOM.select({ref: "pointRadiusSelect", className: "point-radius-select"}, options) :
+              isCustomArea ? null : React.DOM.p({className: "sub-title"}, "(Analysis based on 50km buffer)")
           );
         },
 
         /* jshint ignore:end */
 
         _selectionMade: function(checked) {
-
-            var completed = this._checkRequirements();
-
-            if (completed) {
-                var payload = this._getPayload();
-                WizardStore.set(KEYS.analysisSets, payload);
-            }
-
-            this.setState({ completed: completed });
-
+            this.setState({ completed: this._checkRequirements });
         },
 
         _checkRequirements: function() {
@@ -191,6 +186,14 @@ define([
 
         _proceed: function() {
             if (this.state.completed) {
+                var payload = this._getPayload();
+                WizardStore.set(KEYS.analysisSets, payload);
+                // Get the Radius and set it to the store if it exists
+                var pointRadiusSelect = this.refs.pointRadiusSelect;
+                if (pointRadiusSelect) {
+                    var radius = pointRadiusSelect.getDOMNode().value;
+                    WizardStore.set(KEYS.analysisPointRadius, radius);
+                }
                 this.props.callback.performAnalysis();
             }
         }
