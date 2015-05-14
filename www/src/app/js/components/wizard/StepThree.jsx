@@ -71,62 +71,62 @@ define([
             });
 
             return (
-              React.DOM.div({className: "step select-analysis"}, 
-                React.DOM.div({className: "step-body"}, 
-                  React.DOM.div({className: "step-three-top"}, 
-                    React.DOM.div({className: "step-title"}, config.title), 
-                    /* Show this Only If Mill Point Analysis is Being Done */
-                    
+              <div className='step select-analysis'>
+                <div className='step-body'>
+                  <div className='step-three-top'>
+                    <div className='step-title'>{config.title}</div>
+                    {/* Show this Only If Mill Point Analysis is Being Done */}
+                    {
                       selectedAreaOfInterest === 'millPointOption' ?
-                        (arePoints ? this.createSelect() : React.DOM.p({className: "sub-title"}, "(Analysis based on 50km buffer)")) :
-                        null, 
-                    
-                    WizardCheckbox({label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.DOM.p({className: "layer-description"}, config.suit.description), 
-                    WizardCheckbox({label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.DOM.p({className: "layer-description"}, config.rspo.description), 
-                    React.DOM.div({className: selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden', 
-                      style: { 'position': 'relative'}
-                    }, 
-                      React.DOM.div({className: "coming-soon"}, "Mill Point Risk Assessment Coming Soon!"), 
-                      WizardCheckbox({label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                      React.DOM.p({className: "layer-description"}, config.mill.description)
-                    ), 
-                    React.DOM.div({className: "step-sub-header"}, config.forestChange.label), 
-                    React.DOM.p({className: "layer-description"}, config.forestChange.description)
-                  ), 
+                        (arePoints ? this.createSelect() : <p className='sub-title'>(Analysis based on 50km buffer)</p>) :
+                        null 
+                    }
+                    <WizardCheckbox label={config.suit.label} value={config.suit.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                    <p className='layer-description'>{config.suit.description}</p>
+                    <WizardCheckbox label={config.rspo.label} value={config.rspo.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                    <p className='layer-description'>{config.rspo.description}</p>
+                    <div className={selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden'}
+                      style={{ 'position': 'relative' }}
+                    >
+                      <div className='coming-soon'>Mill Point Risk Assessment Coming Soon!</div>
+                      <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                      <p className='layer-description'>{config.mill.description}</p>
+                    </div>
+                    <div className='step-sub-header'>{config.forestChange.label}</div>
+                    <p className='layer-description'>{config.forestChange.description}</p>
+                  </div>
 
-                  React.DOM.div({className: "checkbox-list"}, config.checkboxes.map(this._mapper, this))
+                  <div className='checkbox-list'>{config.checkboxes.map(this._mapper, this)}</div>
 
-                ), 
-                React.DOM.div({className: "step-footer"}, 
-                  React.DOM.div({className: "selected-analysis-area"}, 
-                    React.DOM.div({className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
-                    React.DOM.div({className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
-                  ), 
-                  React.DOM.div({onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
-                    React.DOM.span({className: "next-button"}, "Perform Analysis")
-                  )
-                )
-              )
+                </div>
+                <div className='step-footer'>
+                  <div className='selected-analysis-area'>
+                    <div className='current-selection-label'>{AnalyzerConfig.stepTwo.currentFeatureText}</div>
+                    <div className='current-selection' title={this.state.currentSelectionLabel}>{this.state.currentSelectionLabel}</div>
+                  </div>
+                  <div onClick={this._proceed} className={'next-button-container ' + (this.state.completed ? '' : 'disabled')}>
+                    <span className='next-button'>Perform Analysis</span>
+                  </div>
+                </div>
+              </div>
             );
         },
 
         _mapper: function(item) {
-            return WizardCheckbox({label: item.label, value: item.value, change: this._selectionMade, 
-                isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
-                defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
-            );
+            return <WizardCheckbox label={item.label} value={item.value} change={this._selectionMade}
+                isResetting={this.props.isResetting} // Pass Down so Components receive the reset command
+                defaultChecked={item.checked || false} noInfoIcon={item.noInfoIcon || false}
+            />;
         },
 
         createSelect: function () {
-          return React.DOM.select({className: "mill-radius-select"}, 
-            React.DOM.option(null, "50Km"), 
-            React.DOM.option(null, "40Km"), 
-            React.DOM.option(null, "30Km"), 
-            React.DOM.option(null, "20Km"), 
-            React.DOM.option(null, "10Km")
-          );
+          return <select className='mill-radius-select'>
+            <option>50Km</option>
+            <option>40Km</option>
+            <option>30Km</option>
+            <option>20Km</option>
+            <option>10Km</option>
+          </select>;
         },
 
         /* jshint ignore:end */

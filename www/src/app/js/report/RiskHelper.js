@@ -1,18 +1,75 @@
 define([
   'report/config',
   'dojo/Deferred',
+  'dojo/_base/lang',
   'dojo/promise/all',
   'dojo/_base/array',
   'esri/tasks/query',
   'esri/tasks/QueryTask',
   'report/riskController',
   'esri/geometry/geometryEngine',
-], function (ReportConfig, Deferred, all, arrayUtils, Query, QueryTask, RiskController, geometryEngine) {
+], function (ReportConfig, Deferred, lang, all, arrayUtils, Query, QueryTask, RiskController, geometryEngine) {
   'use strict';
 
   /** 
   * To Perform Risk Analysis, for each feature, I need area to know if it is in Indonesia
   */
+
+
+  // Data Specification for the Response Needed by our templating function
+  var JSON_SPEC = {
+    'id': '',
+    'deforestation': {
+      'umd_loss_primary': { 
+        'concession': {}, 
+        'radius': {} 
+      },
+      'forma_primary': { 
+        'concession': {}, 
+        'radius': {} 
+    },
+      'umd_loss': { 
+        'concession': {}, 
+        'radius': {} 
+    },
+      'carbon': { 
+        'concession': {}, 
+        'radius': {} 
+    },
+      'forma': { 
+        'concession': {}, 
+        'radius': {} 
+      },
+      'area_primary': {
+        'concession': {}, 
+        'radius': {}
+      }
+    },
+    'legal': { 
+      'concession': {}, 
+      'radius': {} 
+    },
+    'fire': { 
+      'concession': {}, 
+      'radius': {}
+    },
+    'peat': { 
+      'concession': {}, 
+      'radius': {},
+      'clearance': {
+        'concession': {}, 
+        'radius': {},
+      },
+      'presence': {
+        'concession': {}, 
+        'radius': {},
+      }
+    },
+    'rspo': {},
+    'priority_level_concession': '',
+    'priority_level_radius': '',
+    'total_mill_priority_level': ''
+  };
 
   var Helper = {
 
@@ -44,10 +101,9 @@ define([
 
       all(promises).then(function (results) {
 
-        // Will need to call performAnalysis, get those results, and then pass those back through mainDeferred
-        // First let's get those results working and formatted correctly
-        mainDeferred.resolve(results);
-
+        self.performAnalysis(results).then(function (mills) {
+          mainDeferred.resolve(mills);
+        });
 
       });
 
@@ -115,9 +171,11 @@ define([
 
     /**
     * @param {object} featureObjects - Objects containing a mill point feature object, area, and isIndonesia property
+    * @return {object} promise - Return a promise that will resolve with custom mill analysis objects
     */
     performAnalysis: function (featureObjects) {
-      var self = this,
+      var deferred = new Deferred(),
+          self = this,
           promises = [],
           inIndonesia,
           geometry,
@@ -149,10 +207,11 @@ define([
       });
 
       all(promises).then(function (resultSets) {
-        console.log(self);
         var mills = self.formatData(resultSets);
-        console.log(mills);
+        deferred.resolve(mills);
       });
+
+      return deferred.promise;
 
     },
 
@@ -205,6 +264,9 @@ define([
           case 'Deforestation':
             key = (type === 'concession' ? 'deforestation_concession' : 'deforestation_radius');
             riskObject.deforestation[key] = RISK[data.risk];
+            arrayUtils.forEach(data.categories, function (category) {
+              riskObject.deforestation[category.key][type] = { risk: RISK[category.risk] };
+            });
           break;
         }
 
@@ -214,16 +276,8 @@ define([
         concessionResults = resultObj.results[0];
         radiusResults = resultObj.results[1];
         // All these values need to be filled in
-        riskObject = {
-          deforestation: {},
-          fire: {},
-          legal: {},
-          peat: {},
-          rspo: {},
-          priority_level_concession: '',
-          priority_level_radius: '',
-          total_mill_priority_level: ''
-        };
+        riskObject = lang.clone(JSON_SPEC);
+        riskObject.id = resultObj.feature.millId;
 
         arrayUtils.forEach(concessionResults, function (concessionData) {
           placeResultsInRiskObject(concessionData, 'concession');

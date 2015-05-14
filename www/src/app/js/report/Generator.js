@@ -187,6 +187,8 @@ define([
                 // If it lives here, radius will be passed from payload, but it should probably create these
                 // in the app and not in the report to simplify things at this stage
                 report.geometry = preparePointAsPolygon(geometryPayload.geometry);
+                geometryPayload.geometry = report.geometry;
+                report.mills = [geometryPayload];
               }
 
               this.beginAnalysis();

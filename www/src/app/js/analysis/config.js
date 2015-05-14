@@ -321,6 +321,7 @@ define([], function() {
             selectInstructions: 'Select a commodity type:',
             listInstructions: "Select mill(s) from the list below and click \"Next\" to proceed.",
             selectFromListButton: 'Select from List',
+            selectFromCustomListButton: 'Select from my features',
             enterCoordinatesButton: 'Enter Coordinates',
             uploadButton: 'Upload',
             commodityOptions: [{
