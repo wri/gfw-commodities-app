@@ -1,17 +1,75 @@
 define([
   'report/config',
   'dojo/Deferred',
+  'dojo/_base/lang',
   'dojo/promise/all',
+  'dojo/_base/array',
   'esri/tasks/query',
   'esri/tasks/QueryTask',
   'report/riskController',
   'esri/geometry/geometryEngine',
-], function (ReportConfig, Deferred, all, Query, QueryTask, RiskController, geometryEngine) {
+], function (ReportConfig, Deferred, lang, all, arrayUtils, Query, QueryTask, RiskController, geometryEngine) {
   'use strict';
 
   /** 
   * To Perform Risk Analysis, for each feature, I need area to know if it is in Indonesia
   */
+
+
+  // Data Specification for the Response Needed by our templating function
+  var JSON_SPEC = {
+    'id': '',
+    'deforestation': {
+      'umd_loss_primary': { 
+        'concession': {}, 
+        'radius': {} 
+      },
+      'forma_primary': { 
+        'concession': {}, 
+        'radius': {} 
+    },
+      'umd_loss': { 
+        'concession': {}, 
+        'radius': {} 
+    },
+      'carbon': { 
+        'concession': {}, 
+        'radius': {} 
+    },
+      'forma': { 
+        'concession': {}, 
+        'radius': {} 
+      },
+      'area_primary': {
+        'concession': {}, 
+        'radius': {}
+      }
+    },
+    'legal': { 
+      'concession': {}, 
+      'radius': {} 
+    },
+    'fire': { 
+      'concession': {}, 
+      'radius': {}
+    },
+    'peat': { 
+      'concession': {}, 
+      'radius': {},
+      'clearance': {
+        'concession': {}, 
+        'radius': {},
+      },
+      'presence': {
+        'concession': {}, 
+        'radius': {},
+      }
+    },
+    'rspo': {},
+    'priority_level_concession': '',
+    'priority_level_radius': '',
+    'total_mill_priority_level': ''
+  };
 
   var Helper = {
 
@@ -25,7 +83,7 @@ define([
           promises = [],
           self = this;
 
-      features.forEach(function (feature) {
+      arrayUtils.forEach(features, function (feature) {
         var featureDeferred = new Deferred();
 
         self.getAreaAndIndoIntersect(feature).then(function (data) {
@@ -42,7 +100,11 @@ define([
       });
 
       all(promises).then(function (results) {
-        mainDeferred.resolve(results);
+
+        self.performAnalysis(results).then(function (mills) {
+          mainDeferred.resolve(mills);
+        });
+
       });
 
       return mainDeferred.promise;
@@ -109,15 +171,18 @@ define([
 
     /**
     * @param {object} featureObjects - Objects containing a mill point feature object, area, and isIndonesia property
+    * @return {object} promise - Return a promise that will resolve with custom mill analysis objects
     */
     performAnalysis: function (featureObjects) {
-      var promises = [],
+      var deferred = new Deferred(),
+          self = this,
+          promises = [],
           inIndonesia,
           geometry,
           area,
           rspo;
       
-      featureObjects.forEach(function (featureObj) {
+      arrayUtils.forEach(featureObjects, function (featureObj) {
         var featureDeferred = new Deferred();
 
         rspo = featureObj.feature.isRSPO || false;
@@ -141,13 +206,92 @@ define([
 
       });
 
-      all(promises).then(function (results) {
+      all(promises).then(function (resultSets) {
+        var mills = self.formatData(resultSets);
+        deferred.resolve(mills);
+      });
 
-        console.dir(results);
-        console.log(JSON.stringify(results[0].results));
+      return deferred.promise;
+
+    },
+
+    /**
+    * Take some results and put them in the correct format for our templating function
+    * @param {object} resultSets - Result Sets include a mill feature object and results containing arrays of results
+    * @return {array} mills - array of mills
+    */
+    formatData: function (resultSets) {
+      var mills = [],
+          concessionResults,
+          radiusResults,
+          riskObject;
+
+      // CONSTANT LOOK UP OBJECT
+      var RISK = {
+        1: 'low',
+        2: 'medium',
+        3: 'high'
+      };
+
+      /**
+      * @param {object} data - concessionData object
+      * @param {string} type - concession|radius only 
+      */
+      function placeResultsInRiskObject (data, type) {
+
+        var key;
+
+        switch (data.label) {
+          case 'Legality': 
+            riskObject.legal[type] = { risk: RISK[data.risk] };
+          break;
+          case 'RSPO': 
+            riskObject.rspo.risk = (data.risk !== undefined ? data.risk : false);
+          break;
+          case 'Fires': 
+            riskObject.fire[type] = { risk: RISK[data.risk] };
+          break;
+          case 'Carbon':
+            
+          break;
+          case 'Peat':
+            key = (type === 'concession' ? 'peat_concession' : 'peat_radius');
+            riskObject.peat[key] = RISK[data.risk];
+            // arrayUtils.forEach(data.categories, function (category) {
+
+            // });
+          break;
+          case 'Deforestation':
+            key = (type === 'concession' ? 'deforestation_concession' : 'deforestation_radius');
+            riskObject.deforestation[key] = RISK[data.risk];
+            arrayUtils.forEach(data.categories, function (category) {
+              riskObject.deforestation[category.key][type] = { risk: RISK[category.risk] };
+            });
+          break;
+        }
+
+      }
+
+      arrayUtils.forEach(resultSets, function (resultObj) {
+        concessionResults = resultObj.results[0];
+        radiusResults = resultObj.results[1];
+        // All these values need to be filled in
+        riskObject = lang.clone(JSON_SPEC);
+        riskObject.id = resultObj.feature.millId;
+
+        arrayUtils.forEach(concessionResults, function (concessionData) {
+          placeResultsInRiskObject(concessionData, 'concession');
+        });
+
+        arrayUtils.forEach(radiusResults, function (radiusData) {
+          placeResultsInRiskObject(radiusData, 'radius');
+        });
+
+        mills.push(riskObject);
 
       });
 
+      return mills;
     }
 
   };

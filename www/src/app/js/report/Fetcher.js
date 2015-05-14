@@ -625,6 +625,8 @@ define([
               }
             });
 
+            console.log(customMills);
+
             // if the mill points are from the known mills list, use GFW's API
             if (knownMills.length > 0) {
               getKnownMillsResults();
@@ -673,10 +675,9 @@ define([
             }
 
             function getCustomMillsResults () {
-              RiskHelper.prepareFeatures(customMills).then(function (resultingFeatures) {
-                RiskHelper.performAnalysis(resultingFeatures);
+              RiskHelper.prepareFeatures(customMills).then(function (millObjects) {
+                customDeferred.resolve(millObjects);
               });
-              customDeferred.resolve(false);
             }
 
             all([customDeferred, knownDeferred]).then(function (results) {
@@ -687,6 +688,7 @@ define([
                   mills = mills.concat(millResult);
                 }
               });
+
               ReportRenderer.renderMillAssessment(mills, config);
               deferred.resolve(true);
             });

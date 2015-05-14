@@ -1,9 +1,3 @@
-// Useful Functions
-border-radius()
-	border-radius arguments
-	-moz-border-radius arguments
-	-webkit-border-radius arguments
-
 top-border-radius()
 	-webkit-border-top-right-radius arguments
 	-webkit-border-top-left-radius arguments
@@ -11,15 +5,6 @@ top-border-radius()
 	-moz-border-radius topleft arguments
 	border-top-right-radius arguments
 	border-top-left-radius arguments
-
-lightGray = #ececed
-mediumGray = #888
-goldFont = #f0ab00
-greyBorder = #b2b2b2
-hoverBackground = #CDCDCD
-orangeSelected = rgb(233, 131, 0)
-orangeHover = rgba(233, 131, 0, 0.45)
-wizardBlue = #00688B
 
 .gfw .wizard-container
 	background-color #fff
@@ -383,7 +368,7 @@ wizardBlue = #00688B
 	top 170px
 	
 .gfw .mill-point .list-container
-	top 245px
+	top 200px
 
 .gfw .commercial-entity .list-container
 	top 190px
@@ -461,5 +446,35 @@ wizardBlue = #00688B
 	left 0
 	top 0
 
+// Changing this height, set line-height of .select-mill-list-button to this height plus 3px and
+// height of .mill-list-toggle-swatch to this height minus 4px
+.mill-list-options
+	border-radius(5px)
+	margin-right 10px
+	text-align center
+	height 35px
 	
+.select-mill-list-button
+	transition color 0.5s ease-in-out
+	border-radius(5px)
+	line-height 38px
+	cursor pointer
+	width 50%
 	
+.select-mill-list-button.active
+	color white
+	
+.mill-list-toggle-indicator
+	transition all 0.5s ease-in-out
+	border-radius(5px)
+	background orange
+	position absolute
+	height 31px
+	width 49%
+	top 2px
+	
+.mill-list-toggle-indicator.mill-custom-list
+	left 50.5%
+	
+.mill-list-toggle-indicator.mill-known-list
+	left 0.5%

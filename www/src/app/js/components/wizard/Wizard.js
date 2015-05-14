@@ -300,7 +300,7 @@ define([
                 isCustom: feature.attributes.WRI_ID !== undefined,
                 // Mill Point Specific Fields, Include them as undefined if tha values are not present
                 label: feature.attributes.WRI_label || undefined,
-                millId: feature.attributes.Entity_ID || undefined,
+                millId: feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined,
                 isRSPO: feature.attributes.isRSPO || undefined
               });
 
@@ -314,58 +314,13 @@ define([
               isCustom: features.attributes.WRI_ID !== undefined,
               // Mill Point Specific Fields, Include them as undefined if tha values are not present
               label: features.attributes.WRI_label || undefined,
-              millId: features.attributes.Entity_ID || undefined,
+              millId: features.attributes.Entity_ID || features.attributes.WRI_ID || undefined,
               isRSPO: features.attributes.isRSPO || undefined
             });
 
           }
 
           return JSON.stringify(geometries);
-
-
-          // TODO: MAY NOT BE NEEDED, KEEP FOR REFERENCE UNTIL REPORT IS WORKING FOR ALL POSSIBLE COMBINATIONS OF FEATURES
-
-          // if (Object.prototype.toString.call(features) === '[object Array]') {
-          //   isCircle = (features[0].geometry.radius !== undefined);
-          //   outGeo = [];
-          //   if (isCircle) {
-          //     features.forEach(function (feature) {
-          //       outGeo.push({
-          //         label: feature.attributes.WRI_label,
-          //         id: feature.attributes.Entity_ID,
-          //         geometry: feature.geometry,
-          //         type: 'circle'
-          //       });
-          //     });
-          //   } else if (features.length > 1) {
-          //     // May be deprecated, left in here as will need to test to be able to tell 
-          //     // if this is being used by exhaustively testing all paths to this
-          //     // function and seeing if it's executed
-          //     features.forEach(function (feature) {
-          //       outGeo.push({
-          //         label: feature.attributes.WRI_label,
-          //         geometry: feature.geometry,
-          //         type: 'polygon'
-          //       });
-          //     });
-          //   } else {
-          //       outGeo = features[0].geometry;
-          //   }
-          // } else {
-          //   isCircle = (features.geometry.radius !== undefined);
-          //   if (isCircle) {
-          //       outGeo = [{
-          //         label: features.attributes.WRI_label,
-          //         id: features.attributes.Entity_ID,
-          //         geometry: features.geometry,
-          //         type: 'circle'
-          //       }];
-          //   } else {
-          //       outGeo = features.geometry;
-          //   }
-          // }
-
-          // return JSON.stringify(outGeo);
 
         },
 

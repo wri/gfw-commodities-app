@@ -108,12 +108,12 @@ define([
     var priorities = [
         {
             'label': 'Legality',
-            categories: ['legality'],
+            categories: ['legal'],
         },
         {
             'label': 'Deforestation',
-            categories: ['loss','area_primForest','loss_primForest', 'total_clear', 
-            'clear_primForest', 'loss_carbon','area_carbon','alerts_carbon'],
+            categories: ['umd_loss','area_primary','umd_loss_primary', 'forma', 
+            'forma_primary'/*, 'loss_carbon','area_carbon','alerts_carbon'*/],
             high: 27,
             low: 21
         },
@@ -133,14 +133,14 @@ define([
         },
         {
             'label': 'Fires',
-            categories: ['fires'],
+            categories: ['fire'],
         }
     ];
 
     var categories = [
 
             {
-                category: 'legality',
+                category: 'legal',
                 service: services.commodities,
                 request: methods.histogram,
                 ind_params:{
@@ -164,7 +164,7 @@ define([
             },
             
             { 
-                category: 'loss',
+                category: 'umd_loss',
                 service: services.commodities,
                 request: methods.histogram,
                 params:{
@@ -188,7 +188,7 @@ define([
             },
 
             { 
-                category: 'area_primForest',
+                category: 'area_primary',
                 service: services.commodities,
                 request: methods.histogram,
                 params:{
@@ -202,7 +202,7 @@ define([
             },
 
             { 
-                category: 'loss_primForest',
+                category: 'umd_loss_primary',
                 service: services.commodities,
                 request: methods.histogram,
                 ind_params: {
@@ -228,7 +228,7 @@ define([
             },
 
             { 
-                category: 'total_clear',
+                category: 'forma',
                 service: services.commodities,
                 request: methods.histogram,
                 params:{
@@ -243,7 +243,7 @@ define([
             },
 
             { 
-                category: 'clear_primForest',
+                category: 'forma_primary',
                 service: services.commodities,
                 request: methods.histogram,
                 ind_params: {
@@ -394,7 +394,7 @@ define([
             
 
             {
-                category: 'fires',
+                category: 'fire',
                 service: services.fires,
                 request: methods.query,
                 params:{

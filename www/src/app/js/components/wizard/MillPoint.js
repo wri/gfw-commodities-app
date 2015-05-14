@@ -107,11 +107,19 @@ define([
     render: function () {
       return (
         React.DOM.div({className: "mill-point", id: "mill-point"}, 
-          React.DOM.p({className: "instructions"}, config.instructions), 
-          React.DOM.div({className: "drawing-tools"}, 
-            React.DOM.div({className: "drawing-tool-button", key: "selectFromList", onClick:  this.methodChosen}, config.selectFromListButton), 
-            React.DOM.div({className: "drawing-tool-button", key: "enterCoords", onClick:  this.methodChosen}, config.enterCoordinatesButton), 
-            React.DOM.div({className: "drawing-tool-button", key: "upload", onClick:  this.methodChosen}, config.uploadButton)
+          /* Custom Toggle Switch, mill-list-toggle-indicator has orange background behind active list option */
+          React.DOM.div({className: "mill-list-options back-light-gray relative"}, 
+            React.DOM.div({className: 'mill-list-toggle-indicator mill-' + (this.state.showCustomFeaturesList ? 'custom-list' : 'known-list')}), 
+            React.DOM.div({className: 'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? '' : 'active'), 
+                  id: "selectFromList", 
+                  onClick:  this.toggleList}, 
+              config.selectFromListButton
+            ), 
+            React.DOM.div({className: 'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? 'active' : ''), 
+                  id: "selectFromCustom", 
+                  onClick:  this.toggleList}, 
+              config.selectFromCustomListButton
+            )
           ), 
           /* Render this list when user clicks selectFromList */
           React.DOM.div({className: this.state.showCustomFeaturesList ? 'hidden' : ''}, 
@@ -131,7 +139,12 @@ define([
           ), 
           /* Render this list when user clicks upload or enterCoords */
           React.DOM.div({className: this.state.showCustomFeaturesList ? '' : 'hidden'}, 
-            FeatureList({features: this.state.customFeatures, selectedFeatures: this.state.selectedCustomFeatures, rspoChecks: true, showClear: false})
+            React.DOM.p({className: "instructions"}, config.instructions), 
+            React.DOM.div({className: "drawing-tools"}, 
+              React.DOM.div({className: "drawing-tool-button", id: "enterCoords", onClick:  this.drawToolClicked}, config.enterCoordinatesButton), 
+              React.DOM.div({className: "drawing-tool-button", id: "upload", onClick:  this.drawToolClicked}, config.uploadButton)
+            ), 
+            FeatureList({features: this.state.customFeatures, selectedFeatures: this.state.selectedCustomFeatures, rspoChecks: true, showClear: true})
           )
         )
       );
@@ -142,34 +155,40 @@ define([
     },
     /* jshint ignore:end */
 
-    methodChosen: function (evt, referenceKey){
-      // Split off the key and save it here as it is the key to which node was clicked
-      var nodeClicked = referenceKey.split('$')[1],
+    toggleList: function (evt){
+      var nodeClicked = evt.target.id,
           showCustomFeaturesList;
 
-      // If either Modal is active hide them
-      switch (nodeClicked) {
-        case "selectFromList":
-          showCustomFeaturesList = false;
-          CoordinatesModal.close();
-          Uploader.close();
-        break;
-        case "enterCoords":
-          showCustomFeaturesList = true;
-          Uploader.close();
-          CoordinatesModal.toggle();
-        break;
-        case "upload":
-          showCustomFeaturesList = true;
-          CoordinatesModal.close();
-          Uploader.toggle();
-        break;
+      showCustomFeaturesList = nodeClicked === 'selectFromCustom' ? true : false;
+
+      // If we aren't showing features from the custom list, make sure to hide both dialogs
+      // calling close if the dialog is already closed will do nothing
+      if (!showCustomFeaturesList) {
+        CoordinatesModal.close();
+        Uploader.close();
       }
 
       // if showCustomFeaturesList is a different value from before, update state and clear selection
       if (this.state.showCustomFeaturesList !== showCustomFeaturesList) {
         this.setState({ showCustomFeaturesList: showCustomFeaturesList });
         this._localReset();
+      }
+
+    },
+
+    drawToolClicked: function (evt) {
+      // Split off the key and save it here as it is the key to which node was clicked
+      var id = evt.target.id;
+
+      switch (id) {
+        case "enterCoords":
+          Uploader.close();
+          CoordinatesModal.toggle();
+        break;
+        case "upload":
+          CoordinatesModal.close();
+          Uploader.toggle();
+        break;
       }
 
     },
