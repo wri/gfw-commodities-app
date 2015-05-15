@@ -286,7 +286,7 @@ define([
                 content = MapConfig.pal.infoTemplate.content + 
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
-                        "Analyze this area</button></div>";
+                        "Analyze</button></div>";
 
                 template = new InfoTemplate(item.value, content);
                 item.feature.setInfoTemplate(template);
@@ -346,7 +346,7 @@ define([
                         MapConfig.rspoPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='RSPO Oil palm concession' data-id='${OBJECTID}'>" +
-                        "Analyze this area</button></div>"
+                        "Analyze</button></div>"
                     );
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
@@ -357,7 +357,7 @@ define([
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
-                        "Analyze this area</button></div>"
+                        "Analyze</button></div>"
                     );
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
@@ -419,14 +419,14 @@ define([
                         MapConfig.adminUnitsLayer.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         "${NAME_2}' data-type='AdminBoundary' data-id='${OBJECTID}'>" +
-                        "Analyze this area</button></div>"
+                        "Analyze</button></div>"
                     );
                 } else {
                     template = new InfoTemplate(item.value,
                         MapConfig.certificationSchemeLayer.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='CertScheme' data-id='${OBJECTID}'>" +
-                        "Analyze this area</button></div>"
+                        "Analyze</button></div>"
                     );
                 }
                 item.feature.setInfoTemplate(template);
@@ -484,7 +484,7 @@ define([
                     MapConfig.mill.infoTemplate.content +
                     "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                     "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
-                    "Analyze this area</button></div>"
+                    "Analyze</button></div>"
                 );
                 item.feature.setInfoTemplate(template);
                 features.push(item.feature);
@@ -519,7 +519,7 @@ define([
                 MapConfig.customGraphicsLayer.infoTemplate.content +
                 "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                 label + "' data-type='CustomGraphic' data-id='${WRI_ID}'>" +
-                "Analyze this area</button></div>"
+                "Analyze</button></div>"
             );
             feature.setInfoTemplate(infoTemplate);
             return feature;
