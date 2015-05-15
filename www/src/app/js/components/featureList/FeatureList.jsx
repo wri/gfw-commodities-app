@@ -29,7 +29,6 @@ define([
       var allFeaturesSelected = false,
           featureIds,
           selectedFeatureIds,
-          allFeaturesSelected,
           allFeaturesRSPO,
           clearButton,
           rspoChecksHeader = '';

@@ -13,8 +13,8 @@ define([
 		*/
 		getPolygonSymbol: function () {
 			return new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
-        new Color([103, 200, 255, 0.0]));
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,0,0]), 2),
+        new Color([103,200,255,0.0]));
 		},
 
 		/**
@@ -23,13 +23,26 @@ define([
 		getPointSymbol: function () {
 			return new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10,
     		new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,0,0]), 1),
-    		new Color([0,0,0, 0.25]));
+    		new Color([0,0,0,0.25]));
 		},
 
-		// May Not Be Needed, Will Implement if Needed, Probably will use getPolygonSymbol
-		getCircleSymbol: function () {
+		/**
+    * Cyan Colored Polygon Symbol for Highlighted or Active Features
+    */
+		getHighlightPolygonSymbol: function () {
+      return new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,255,255]), 2),
+        new Color([103,200,255,0.0]));
+		},
 
-		}
+    /**
+    * Cyan Colored Point Symbol for Highlighted or Active Features
+    */
+    getHighlightPointSymbol: function () {
+      return new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10,
+        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([0,255,255]), 1),
+        new Color([0,0,0,0.25]));
+    }
 
 	};
 

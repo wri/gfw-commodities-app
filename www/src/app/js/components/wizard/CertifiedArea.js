@@ -3,6 +3,7 @@
 define([
   "react",
   "map/config",
+  "map/Symbols",
   "analysis/Query",
   "analysis/config",
   "analysis/WizardStore",
@@ -10,18 +11,10 @@ define([
   // Other Helpful Modules
   "dojo/topic",
   "dojo/query",
-  "esri/Color",
-  "esri/graphic",
-  "esri/graphicsUtils",
-  "esri/symbols/SimpleFillSymbol",
-  "esri/symbols/SimpleLineSymbol"
-], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, WizardStore, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
+  "esri/graphic"
+], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, WizardStore, NestedList, topic, query, Graphic) {
 
-  var config = AnalyzerConfig.certifiedArea,
-      adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
-                    new Color([255, 200, 103, 0.0]));
-
+  var config = AnalyzerConfig.certifiedArea;
   var KEYS = AnalyzerConfig.STORE_KEYS;
   var previousStep;
 
@@ -210,7 +203,7 @@ define([
             features.forEach(function (feature) {
               // Add it to the map and make it the current selection, give it a label
               feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
-              graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
+              graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
               wizardGraphicsLayer.add(graphic);
             });
             
@@ -218,7 +211,6 @@ define([
             // something went wrong, this code should be refactored to be more clear that only one feature
             // is coming back
             WizardStore.set(KEYS.selectedCustomFeatures, features);
-            app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
           }
         });
       } else if (objectId) {
@@ -232,7 +224,7 @@ define([
 
           // Add it to the map and make it the current selection, give it a label
           feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
-          graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
+          graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
           if (wizardGraphicsLayer) {
             // Clear out any previous 'preview' features
@@ -240,12 +232,6 @@ define([
             wizardGraphicsLayer.add(graphic);
             // Mark this as your current selection
             WizardStore.set(KEYS.selectedCustomFeatures, [graphic]);
-            // Zoom to extent of new feature
-            if (graphic._extent) {
-              app.map.setExtent(graphic._extent, true);
-            } else {
-              app.map.setExtent(graphic.getExtent(), true);
-            }
           }
 
         });

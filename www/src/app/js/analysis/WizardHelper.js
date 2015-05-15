@@ -141,21 +141,6 @@ define([
 		},
 
 		/*
-			Takes a evt with a graphic inside it as a parameter, sets the UI in the wizard to a specific step and selects the feature
-		*/
-		customFeatureClicked: function (evt) {
-			if (evt.graphic) {
-				// Make the root selection the appropriate one, for Custom Area, it is option 1
-				wizard._updateSelectedArea(AnalyzerConfig.stepOne.option1.id);
-				// Set to Step 3, the parameter is index based so 0,1,2,3, 2 is the third step
-				wizard._externalSetStep(2);
-				// In this case, set the RefinedArea to the evt.graphic
-				// Graphics will need a WRI_label field that will be used as a label in the UI
-				wizard._updateAnalysisArea(evt.graphic);
-			}
-		},
-
-		/*
 			This will launch the wizard with some the first two steps already completed
 		*/
 		analyzeAreaFromPopup: function (evt) {
@@ -280,20 +265,9 @@ define([
 			if (layer) {
 				// Remove any previous features
 				layer.clear();
-				// If we have a symbol, add it, else, apply selection symbol and then add it.
-				// then zoom to feature
-				if (feature.symbol) {
-					layer.add(feature);
-					if (feature.geometry.radius) {
-						app.map.centerAndZoom([feature.attributes.Longitude, feature.attributes.Latitude], 9);
-					} else {
-						app.map.setExtent(feature.geometry.getExtent(), true);
-					}
-				} else {
-					feature = GeoHelper.applySelectionSymbolToFeature(feature);
-					layer.add(feature);
-					app.map.setExtent(feature.geometry.getExtent(), true);
-				}
+				// Apply selection symbol and then add it
+        feature = GeoHelper.applySelectionSymbolToFeature(feature);
+				layer.add(feature);
 			}
 		},
 
