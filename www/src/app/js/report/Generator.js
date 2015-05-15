@@ -160,14 +160,6 @@ define([
             // Parse the geometry from the global payload object
             var areasToAnalyze = JSON.parse(window.payload.geometry);
 
-            // Helper, May not be needed
-            // var preparePointAsPolygon = function (geometry) {
-            //   return new Circle(new Point(geometry), {
-            //     "radius": 50,
-            //     "radiusUnit": Units.KILOMETERS
-            //   });
-            // };
-
             // If we have a single polygon, grab the geometry and begin
             // If we have a single circle, convert to polygon and then continue
             if (areasToAnalyze.length === 1) {
@@ -183,15 +175,7 @@ define([
                 report.mills = [area];
               } else if (area.geometry.type === 'polygon') {
                 report.geometry = area.geometry;
-              } 
-              // else {
-              //   // Strictly for Testing, still determining where this function should live
-              //   // If it lives here, radius will be passed from payload, but it should probably create these
-              //   // in the app and not in the report to simplify things at this stage
-              //   report.geometry = preparePointAsPolygon(area.geometry);
-              //   area.geometry = report.geometry;
-              //   report.mills = [area];
-              // }
+              }
 
               this.beginAnalysis();
 

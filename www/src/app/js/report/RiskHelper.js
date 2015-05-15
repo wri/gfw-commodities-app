@@ -120,12 +120,12 @@ define([
 
       var area = this.getArea(feature.geometry);
 
-      this.getIntersectionStatus(feature).then(function (results) {
+      this.getIntersectionStatus(feature).then(function (intersectionStatus) {
 
         mainDeferred.resolve({
           feature: feature,
           area: area,
-          inIndonesia: results
+          inIndonesia: intersectionStatus
         });
 
       });
@@ -246,7 +246,8 @@ define([
             riskObject.legal[type] = { risk: RISK[data.risk] };
           break;
           case 'RSPO': 
-            riskObject.rspo.risk = (data.risk !== undefined ? data.risk : false);
+            // Do Nothing for Now
+            // riskObject.rspo.risk = (data.risk !== undefined ? data.risk : false);
           break;
           case 'Fires': 
             riskObject.fire[type] = { risk: RISK[data.risk] };
@@ -284,6 +285,7 @@ define([
         // All these values need to be filled in
         riskObject = lang.clone(JSON_SPEC);
         riskObject.id = resultObj.feature.millId;
+        riskObject.rspo.risk = resultObj.feature.isRSPO;
 
         arrayUtils.forEach(concessionResults, function (concessionData) {
           placeResultsInRiskObject(concessionData, 'concession');

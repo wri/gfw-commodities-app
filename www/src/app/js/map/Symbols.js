@@ -23,7 +23,7 @@ define([
 		getPointSymbol: function () {
 			return new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10,
     		new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,0,0]), 1),
-    		new Color([0,0,0, 0.5]));
+    		new Color([0,0,0, 0.25]));
 		},
 
 		// May Not Be Needed, Will Implement if Needed, Probably will use getPolygonSymbol
