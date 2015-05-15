@@ -161,35 +161,37 @@ define([
             var areasToAnalyze = JSON.parse(window.payload.geometry);
 
             // Helper, May not be needed
-            var preparePointAsPolygon = function (geometry) {
-              return new Circle(new Point(geometry), {
-                "radius": 50,
-                "radiusUnit": Units.KILOMETERS
-              });
-            };
+            // var preparePointAsPolygon = function (geometry) {
+            //   return new Circle(new Point(geometry), {
+            //     "radius": 50,
+            //     "radiusUnit": Units.KILOMETERS
+            //   });
+            // };
 
             // If we have a single polygon, grab the geometry and begin
             // If we have a single circle, convert to polygon and then continue
             if (areasToAnalyze.length === 1) {
 
-              var geometryPayload = areasToAnalyze[0];
+              var area = areasToAnalyze[0];
 
-              if (geometryPayload.geometry.radius) {
-                // Save the areas to the report.mills incase they are doing mill point analysis, we will need these
-                report.mills = areasToAnalyze;
+              if (area.geometry.radius) {
                 poly = new Polygon(sr);
-                poly.addRing(geometryPayload.geometry.rings[geometryPayload.geometry.rings.length - 1]);
+                poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
-              } else if (geometryPayload.geometry.type === 'polygon') {
-                report.geometry = geometryPayload.geometry;
-              } else {
-                // Strictly for Testing, still determining where this function should live
-                // If it lives here, radius will be passed from payload, but it should probably create these
-                // in the app and not in the report to simplify things at this stage
-                report.geometry = preparePointAsPolygon(geometryPayload.geometry);
-                geometryPayload.geometry = report.geometry;
-                report.mills = [geometryPayload];
-              }
+                // Save the areas to the report.mills incase they are doing mill point analysis, we will need these
+                area.geometry = report.geometry;
+                report.mills = [area];
+              } else if (area.geometry.type === 'polygon') {
+                report.geometry = area.geometry;
+              } 
+              // else {
+              //   // Strictly for Testing, still determining where this function should live
+              //   // If it lives here, radius will be passed from payload, but it should probably create these
+              //   // in the app and not in the report to simplify things at this stage
+              //   report.geometry = preparePointAsPolygon(area.geometry);
+              //   area.geometry = report.geometry;
+              //   report.mills = [area];
+              // }
 
               this.beginAnalysis();
 
@@ -197,25 +199,22 @@ define([
 
               // Currently this can only be an array of mills, may change later
               // First I will need to convert circles to polygons since unioning circles/computing histograms
-              // has some unexpected outcomes, Also keep a reference of the mills
-
-              report.mills = areasToAnalyze;
+              // has some unexpected outcomes
               polygons = [];
 
               arrayUtils.forEach(areasToAnalyze, function (feature) {
 
-                // Strictly for Testing, still determining where this function should live
-                // If it lives here, radius will be passed from payload, but it should probably create these
-                // in the app and not in the report to simplify things at this stage
-                if (feature.geometry.x) {
-                  feature.geometry = preparePointAsPolygon(feature.geometry);
-                }
-
                 poly = new Polygon(sr);
                 poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
-
                 polygons.push(poly);
+                // Update the Mill Geometry since it will be needed to get area
+                // The geometry was stringified when saved, this breaks the prototype chain
+                feature.geometry = poly;
+
               });
+
+              // Keep a reference of the mills
+              report.mills = areasToAnalyze;
 
               // Now Union the Geometries, then reproject them into the correct spatial reference
               geometryService.union(polygons, function (unionedGeometry) {

@@ -375,6 +375,9 @@ top-border-radius()
 	
 .gfw .certified-area .list-container
 	top 230px
+	
+.gfw .mill-point .feature-list
+	margin-left -10px
 
 .gfw .wizard-body .country-select,
 .gfw .wizard-body .commodity-type-select,
@@ -445,9 +448,15 @@ top-border-radius()
 	right 10px
 	left 0
 	top 0
+	
+.point-radius-select
+	width 100px !important
+	
+.point-radius-select-container span
+	padding-right 20px
 
 // Changing this height, set line-height of .select-mill-list-button to this height plus 3px and
-// height of .mill-list-toggle-swatch to this height minus 4px
+// height of .mill-list-toggle-indicator to this height minus 4px
 .mill-list-options
 	border-radius(5px)
 	margin-right 10px
@@ -461,17 +470,17 @@ top-border-radius()
 	cursor pointer
 	width 50%
 	
-.select-mill-list-button.active
-	color white
-	
 .mill-list-toggle-indicator
-	transition all 0.5s ease-in-out
+	transition all 0.35s ease-in-out
 	border-radius(5px)
 	background orange
 	position absolute
 	height 31px
 	width 49%
 	top 2px
+	
+.select-mill-list-button.active
+	color white
 	
 .mill-list-toggle-indicator.mill-custom-list
 	left 50.5%

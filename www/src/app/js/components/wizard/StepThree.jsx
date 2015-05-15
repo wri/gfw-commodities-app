@@ -66,7 +66,7 @@ define([
         render: function() {
             var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
             var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-            var arePoints = selectedFeatures.length > 0 && selectedFeatures.every(function (feature) {
+            var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
               return feature.geometry.type === 'point';
             });
 
@@ -77,9 +77,9 @@ define([
                     <div className='step-title'>{config.title}</div>
                     {/* Show this Only If Mill Point Analysis is Being Done */}
                     {
-                      selectedAreaOfInterest === 'millPointOption' ?
-                        (arePoints ? this.createSelect() : <p className='sub-title'>(Analysis based on 50km buffer)</p>) :
-                        null 
+                      selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ? 
+                        this.createPointContent(hasPoints) : 
+                        null
                     }
                     <WizardCheckbox label={config.suit.label} value={config.suit.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                     <p className='layer-description'>{config.suit.description}</p>
@@ -119,29 +119,31 @@ define([
             />;
         },
 
-        createSelect: function () {
-          return <select className='mill-radius-select'>
-            <option>50Km</option>
-            <option>40Km</option>
-            <option>30Km</option>
-            <option>20Km</option>
-            <option>10Km</option>
-          </select>;
+        createPointContent: function (hasPoints) {
+
+          var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
+    
+          var options = config.pointRadiusOptions.map(function (option) {
+            return <option value={option.value}>{option.label}</option>;
+          });     
+
+          // If it has points, render a select to choose a buffer radius
+          // If it does not have points but it is custom features, user used Create Custom Area and 
+          // is analyzing polygons, so show nothing, otherwise, show little description
+
+          return (hasPoints ? 
+            <div className='point-radius-select-container'>
+                <span className='instructions'>{config.pointRadiusDescription}</span>
+                <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
+            </div> :
+              isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
+          );
         },
 
         /* jshint ignore:end */
 
         _selectionMade: function(checked) {
-
-            var completed = this._checkRequirements();
-
-            if (completed) {
-                var payload = this._getPayload();
-                WizardStore.set(KEYS.analysisSets, payload);
-            }
-
-            this.setState({ completed: completed });
-
+            this.setState({ completed: this._checkRequirements });
         },
 
         _checkRequirements: function() {
@@ -191,6 +193,14 @@ define([
 
         _proceed: function() {
             if (this.state.completed) {
+                var payload = this._getPayload();
+                WizardStore.set(KEYS.analysisSets, payload);
+                // Get the Radius and set it to the store if it exists
+                var pointRadiusSelect = this.refs.pointRadiusSelect;
+                if (pointRadiusSelect) {
+                    var radius = pointRadiusSelect.getDOMNode().value;
+                    WizardStore.set(KEYS.analysisPointRadius, radius);
+                }
                 this.props.callback.performAnalysis();
             }
         }
