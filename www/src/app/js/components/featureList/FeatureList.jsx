@@ -54,7 +54,7 @@ define([
       return (
         <div className={TEXT.className}>
           {clearButton}
-          <div className='padding__wide margin__bottom'>{TEXT.instruction}</div>
+          <div className='padding__wide margin__bottom instructions'>{TEXT.instruction}</div>
           <table className='no-border-spacing fill__wide border-box border-orange'>
             <thead>
               <tr className='text-white text-center back-orange'>

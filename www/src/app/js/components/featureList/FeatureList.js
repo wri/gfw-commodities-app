@@ -54,7 +54,7 @@ define([
       return (
         React.DOM.div({className: TEXT.className}, 
           clearButton, 
-          React.DOM.div({className: "padding__wide margin__bottom"}, TEXT.instruction), 
+          React.DOM.div({className: "padding__wide margin__bottom instructions"}, TEXT.instruction), 
           React.DOM.table({className: "no-border-spacing fill__wide border-box border-orange"}, 
             React.DOM.thead(null, 
               React.DOM.tr({className: "text-white text-center back-orange"}, 
