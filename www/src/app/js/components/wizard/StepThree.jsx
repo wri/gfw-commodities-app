@@ -127,9 +127,16 @@ define([
             return <option value={option.value}>{option.label}</option>;
           });     
 
+          // If it has points, render a select to choose a buffer radius
+          // If it does not have points but it is custom features, user used Create Custom Area and 
+          // is analyzing polygons, so show nothing, otherwise, show little description
+
           return (hasPoints ? 
-            <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select> :
-              isCustomArea ? null : <p className='sub-title'>(Analysis based on 50km buffer)</p>
+            <div className='point-radius-select-container'>
+                <span className='instructions'>{config.pointRadiusDescription}</span>
+                <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
+            </div> :
+              isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
           );
         },
 

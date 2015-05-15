@@ -127,9 +127,16 @@ define([
             return React.DOM.option({value: option.value}, option.label);
           });     
 
+          // If it has points, render a select to choose a buffer radius
+          // If it does not have points but it is custom features, user used Create Custom Area and 
+          // is analyzing polygons, so show nothing, otherwise, show little description
+
           return (hasPoints ? 
-            React.DOM.select({ref: "pointRadiusSelect", className: "point-radius-select"}, options) :
-              isCustomArea ? null : React.DOM.p({className: "sub-title"}, "(Analysis based on 50km buffer)")
+            React.DOM.div({className: "point-radius-select-container"}, 
+                React.DOM.span({className: "instructions"}, config.pointRadiusDescription), 
+                React.DOM.select({ref: "pointRadiusSelect", className: "point-radius-select"}, options)
+            ) :
+              isCustomArea ? null : React.DOM.p({className: "sub-title"}, config.knownMillsDisclaimer)
           );
         },
 

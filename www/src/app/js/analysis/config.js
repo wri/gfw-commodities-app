@@ -69,6 +69,17 @@ define([], function() {
             description: "Select which types of analysis you would like to perform and then click \"Perform Analysis\".  You must select at least one option.",
             //description: "Select which type of analysis you would like included in your results and then click \"Next\".",
             currentFeatureText: "Current selection: ",
+            millPoint: millPoint,
+            customArea: customArea,
+            pointRadiusDescription: 'Choose a buffer for your points:',
+            knownMillsDisclaimer: '(Analysis based on 50km buffer)',
+            pointRadiusOptions: [
+              {label: '50km', value: 50},
+              {label: '40km', value: 40},
+              {label: '30km', value: 30},
+              {label: '20km', value: 20},
+              {label: '10km', value: 10}
+            ],
             cb1: {
                 label: 'Forest Change',
                 value: 'forest'
@@ -145,16 +156,7 @@ define([], function() {
             forestChange: {
                 label: 'Forest Change Analysis',
                 description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
-            },
-            millPoint: millPoint,
-            customArea: customArea,
-            pointRadiusOptions: [
-              {label: '50km', value: 50},
-              {label: '40km', value: 40},
-              {label: '30km', value: 30},
-              {label: '20km', value: 20},
-              {label: '10km', value: 10}
-            ]
+            }
         },
 
         stepFour: {
