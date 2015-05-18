@@ -5,11 +5,11 @@ define([
     "map/MapModel",
     "analysis/Query",
     "analysis/config",
-    "analysis/WizardHelper",
+    "utils/Helper",
     "map/LayerController",
     "controllers/MapController",
     "controllers/ViewController"
-], function(topic, MapConfig, Controls, MapModel, AnalyzerQuery, AnalyzerConfig, WizardHelper, LayerController, MapController, ViewController) {
+], function(topic, MapConfig, Controls, MapModel, AnalyzerQuery, AnalyzerConfig, Helper, LayerController, MapController, ViewController) {
     'use strict';
 
     return {
@@ -23,7 +23,7 @@ define([
 
             // Events coming from the Wizard
             topic.subscribe('toggleWizard', function() {
-                WizardHelper.toggleWizard();
+                Helper.toggleWizard();
             });
 
             topic.subscribe('setAdminBoundariesDefinition', function(filter) {

@@ -15,19 +15,18 @@ define([
     "map/MapModel",
     "utils/Hasher",
     "utils/Animator",
+    "utils/Helper",
     "esri/geometry/webMercatorUtils",
     "esri/geometry/Point",
     "esri/graphicsUtils",
     "map/Controls",
     "map/LayerController",
-    "analysis/WizardHelper",
     "analysis/WizardStore",
     "components/LayerList",
     "utils/Loader",
     "map/Uploader",
-    "map/CoordinatesModal",
-    "utils/AlertsHelper"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardHelper, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, AlertsHelper) {
+    "map/CoordinatesModal"
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, Loader, Uploader, CoordinatesModal) {
     'use strict';
 
     var initialized = false,
@@ -146,7 +145,7 @@ define([
                 // Check Hash for some defaults and react accordingly
                 var wizardState = Hasher.getHash('wiz');
                 if (wizardState !== undefined && wizardState === 'open') {
-                    WizardHelper.toggleWizard();
+                    Helper.toggleWizard();
                 }
             });
 
@@ -284,7 +283,7 @@ define([
             });
 
             on(dom.byId("alert-button"), "click", function() {
-                AlertsHelper.toggleAlertsForm();
+                Helper.toggleAlerts();
             });
 
             on(dom.byId("dms-search"), "change", function(evt) {
@@ -352,7 +351,7 @@ define([
             });
 
             on(dom.byId("wizard-tab"), "click", function() {
-                WizardHelper.toggleWizard();
+                Helper.toggleWizard();
             });
 
             // Click info icon in suitabiliyy tools container for all sliders

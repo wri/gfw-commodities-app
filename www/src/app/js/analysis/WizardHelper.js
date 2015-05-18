@@ -10,7 +10,7 @@ define([
 	// My Modules
 	"map/config",
 	"utils/Hasher",
-	"utils/GeoHelper",
+  "utils/GeoHelper",
 	"analysis/Query",
 	"analysis/config",
 	"analysis/WizardStore",
@@ -34,7 +34,6 @@ define([
 					duration = 500,
 					wizardAnimation,
 					tabAnimation,
-					mapAnimation,
 					wizardWidth;
 
 			wizardWidth = (halfMapWidth >= MIN_WIDTH && halfMapWidth <= MAX_WIDTH) ? halfMapWidth : 
@@ -65,25 +64,14 @@ define([
 					//left: (wizardWidth - 30)
 					opacity: (wizardWidth === 0) ? 1.0 : 0.0
 				},
-				duration: duration
-			});
-
-			mapAnimation = Fx.animateProperty({
-				node: dom.byId("map-container"),
-				properties: {
-					left: wizardWidth
-				},
 				duration: duration,
-				onEnd: function () {
-					app.map.resize(true);
-					//app.map.centerAt(orignalCenterPoint);
-					if (wizardWidth > 0) {
-						domStyle.set('wizard', 'display', 'block');
-					}
-					deferred.resolve(true);
-				}
+        onEnd: function() {
+          if (wizardWidth > 0) {
+            domStyle.set('wizard', 'display', 'block');
+          }
+          deferred.resolve(true);
+        }
 			});
-
 
 			// If the Wizard has not been created yet, do so now
 			// but wait for the container to become visible to do so,
@@ -98,12 +86,6 @@ define([
 				// Use duration - 100 to make sure the wizard is defined before the animation completes
 				// and the deferred is resolved
 			}
-
-			coreFx.combine([
-				wizardAnimation,
-				tabAnimation,
-				mapAnimation
-			]).play();
 
 			if (wizardWidth === 0) {
 				this.cleanupWizard();
@@ -121,8 +103,7 @@ define([
 				Hasher.setHash('wiz', 'open');
 			}
 
-			return deferred.promise;
-
+			return [wizardAnimation,tabAnimation];
 		},
 
 		/*
