@@ -6,16 +6,18 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-style",
 	"dojo/dom-geometry",
-	"dojo/_base/array",
+  "dojo/_base/array",
+	"dojo/topic",
 	// My Modules
 	"map/config",
 	"utils/Hasher",
   "utils/GeoHelper",
+  "utils/AlertsHelper",
 	"analysis/Query",
 	"analysis/config",
 	"analysis/WizardStore",
 	"components/wizard/Wizard",
-], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, Hasher, GeoHelper, AnalyzerQuery, AnalyzerConfig, WizardStore, Wizard) {
+], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, topic, MapConfig, Hasher, GeoHelper, AlertsHelper, AnalyzerQuery, AnalyzerConfig, WizardStore, Wizard) {
 	'use strict';
 
 	var wizard;
@@ -177,10 +179,14 @@ define([
 				arrayUtils.some(layer.graphics, function (graphic) {
 					if (graphic.attributes.WRI_ID === parseInt(id)) {
 						if (!self.isOpen()) {
+              // NOTE: changed toggling to function off Helper to simplify closing
+              // the alert panel if it is open
 							// True means skip intro in wizard
-							self.toggleWizard(true).then(function () {
-								setWizardProps(graphic);
-							});
+							// self.toggleWizard(true).then(function () {
+              //  setWizardProps(graphic);
+              // });
+              topic.publish('toggleWizard');
+							setWizardProps(graphic);
 						} else {
 							setWizardProps(graphic);
 						}
@@ -194,25 +200,31 @@ define([
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
 						// True means skip intro in wizard
-						self.toggleWizard(true).then(function () {
-							setWizardProps(feature);
-							self.addGraphicFromPopup(feature);
-						});
-					} else {
-						setWizardProps(feature);
-						self.addGraphicFromPopup(feature);
-					}
-				});
-			} else {
-				// This should catch any generic dynamic layers
-				AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
-					feature.attributes.WRI_label = label;
-					if (!self.isOpen()) {
-						// True means skip intro in wizard
-						self.toggleWizard(true).then(function () {
-							setWizardProps(feature);
-							self.addGraphicFromPopup(feature);
-						});
+						// self.toggleWizard(true).then(function () {
+						// 	setWizardProps(feature);
+						// 	self.addGraphicFromPopup(feature);
+						// });
+            topic.publish('toggleWizard');
+            setWizardProps(feature);
+            self.addGraphicFromPopup(feature);
+          } else {
+            setWizardProps(feature);
+            self.addGraphicFromPopup(feature);
+          }
+        });
+      } else {
+        // This should catch any generic dynamic layers
+        AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
+          feature.attributes.WRI_label = label;
+          if (!self.isOpen()) {
+            // True means skip intro in wizard
+            // self.toggleWizard(true).then(function () {
+            //   setWizardProps(feature);
+            //   self.addGraphicFromPopup(feature);
+            // });
+            topic.publish('toggleWizard');
+            setWizardProps(feature);
+            self.addGraphicFromPopup(feature);
 					} else {
 						setWizardProps(feature);
 						self.addGraphicFromPopup(feature);

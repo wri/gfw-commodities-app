@@ -18,12 +18,17 @@ define([
 
   _getMapAnimation = function (leftAnimationValue) {
     _mapContainer = _mapContainer || document.getElementById('map-container')
+    var originalCenterPoint = app.map.extent.getCenter();
     return Fx.animateProperty({
       node:_mapContainer,
       properties: {
         left: leftAnimationValue
       },
-      duration: ANIMATION_DURATION
+      duration: ANIMATION_DURATION,
+      onEnd: function () {
+        app.map.resize(true);
+        app.map.centerAt(originalCenterPoint);
+      }
     })
   }
 

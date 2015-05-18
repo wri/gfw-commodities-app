@@ -4,11 +4,10 @@ define([
   'dojo/Deferred',
   'components/alertsForm/AlertsForm',
   'components/alertsDialog/alertsDialog',
-  'analysis/WizardHelper',
   'analysis/WizardStore',
   'analysis/config',
   'map/config'
-], function (coreFx, Fx, Deferred, AlertsForm, AlertsDialog, WizardHelper, WizardStore, AnalyzerConfig, MapConfig) {
+], function (coreFx, Fx, Deferred, AlertsForm, AlertsDialog, WizardStore, AnalyzerConfig, MapConfig) {
 
   var alertsForm,
       alertsDialog,
