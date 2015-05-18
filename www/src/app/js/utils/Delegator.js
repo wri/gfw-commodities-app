@@ -26,6 +26,11 @@ define([
                 Helper.toggleWizard();
             });
 
+            // Events coming from the Wizard
+            topic.subscribe('toggleAlerts', function() {
+                Helper.toggleAlerts();
+            });
+
             topic.subscribe('setAdminBoundariesDefinition', function(filter) {
                 LayerController.setWizardDynamicLayerDefinition(MapConfig.adminUnitsLayer, filter);
                 // If filter is none, dont zoom to none, above will turn layer off when none is selected

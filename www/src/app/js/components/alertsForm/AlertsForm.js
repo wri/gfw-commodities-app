@@ -15,6 +15,7 @@ define([
   'esri/graphic',
   'esri/geometry/Polygon',
   'esri/toolbars/draw',
+  'dojo/topic',
   'dojo/dom',
   'dojo/query',
   'dojo/dom-class',
@@ -22,7 +23,7 @@ define([
   'dojo/promise/all',
   'dojo/request/xhr',
   'dojox/validate/web'
-], function (React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
+], function (React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, topic, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
 
   var AlertsForm,
       drawToolbar,
@@ -101,7 +102,7 @@ define([
           // Header
           React.DOM.div({className: 'alerts-form__header'},
             React.DOM.div({className: 'fill__long border-box padding'}, TEXT.title),
-            React.DOM.button({'onClick': self.props.toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
+            React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
               React.DOM.img({'className': 'vertical-middle', 'src': 'app/css/images/close_symbol.png'})
             )
           ),
@@ -257,6 +258,10 @@ define([
       } else {
         React.renderComponent(this._modal(), modalMount);
       }
+    },
+
+    _toggle: function () {
+      topic.publish('toggleAlerts');
     },
 
     _activateToolbar: function (evt) {

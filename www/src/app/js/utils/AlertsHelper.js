@@ -4,13 +4,11 @@ define([
   'dojo/Deferred',
   'components/alertsForm/AlertsForm',
   'components/alertsDialog/alertsDialog',
-  'utils/Helper',
   'analysis/WizardHelper',
   'analysis/WizardStore',
   'analysis/config',
-  'map/config',
-  'exports'
-], function (coreFx, Fx, Deferred, AlertsForm, AlertsDialog, Helper, WizardHelper, WizardStore, AnalyzerConfig, MapConfig, exports) {
+  'map/config'
+], function (coreFx, Fx, Deferred, AlertsForm, AlertsDialog, WizardHelper, WizardStore, AnalyzerConfig, MapConfig) {
 
   var alertsForm,
       alertsDialog,
@@ -51,11 +49,13 @@ define([
   // NOTE: Below code is necessary to init dialog
   WizardStore.registerCallback(KEYS.alertsDialogActive, _initAlertsDialog);
 
-  exports.toggleAlertsForm =  function () {
-    alertsForm = alertsForm || new AlertsForm({toggle:Helper.toggleAlerts}, 'alerts-form');
-    return _toggle();
-  };
-  exports.isOpen = function () {
-    return _isOpen;
-  };
+  return {
+    toggleAlertsForm: function () {
+      alertsForm = alertsForm || new AlertsForm({}, 'alerts-form');
+      return _toggle();
+    },
+    isOpen: function () {
+      return _isOpen;
+    }
+  }
 });
