@@ -26,8 +26,8 @@ define([
     "utils/Loader",
     "map/Uploader",
     "map/CoordinatesModal",
-    "components/alertsForm/AlertsFormHelper"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardHelper, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, AlertsFormHelper) {
+    "utils/AlertsHelper"
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardHelper, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, AlertsHelper) {
     'use strict';
 
     var initialized = false,
@@ -284,7 +284,7 @@ define([
             });
 
             on(dom.byId("alert-button"), "click", function() {
-                AlertsFormHelper.toggleAlertsForm();
+                AlertsHelper.toggleAlertsForm();
             });
 
             on(dom.byId("dms-search"), "change", function(evt) {

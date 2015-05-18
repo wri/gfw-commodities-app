@@ -3,20 +3,27 @@ define([
   'dojo/_base/fx',
   'dojo/Deferred',
   'components/alertsForm/AlertsForm',
+  'components/alertsDialog/alertsDialog',
   'analysis/WizardHelper',
   'analysis/WizardStore',
   'analysis/config',
   'map/config'
-], function(coreFx, Fx, Deferred, AlertsForm, WizardHelper, WizardStore, AnalyzerConfig, MapConfig) {
+], function (coreFx, Fx, Deferred, AlertsForm, AlertsDialog, WizardHelper, WizardStore, AnalyzerConfig, MapConfig) {
 
   var alertsForm,
+      alertsDialog,
       isOpen = false,
       KEYS = AnalyzerConfig.STORE_KEYS,
+      _initAlertsDialog,
       _animate,
       _open,
       _close;
 
-  _animate = function(alertsFormWidth) {
+  _initAlertsDialog = function () {
+    alertsDialog = alertsDialog || new AlertsDialog();
+  }
+
+  _animate = function (alertsFormWidth) {
     var animations,
         deferred = new Deferred();
         orignalCenterPoint = app.map.extent.getCenter();
@@ -47,25 +54,25 @@ define([
       }
     ]
 
-    animations = animations.map(function(animation){ return Fx.animateProperty(animation); });
+    animations = animations.map(function (animation){ return Fx.animateProperty(animation); });
     coreFx.combine(animations).play();
 
     return deferred;
   }
 
-  _open = function() {
-    _animate(460).then(function() {
+  _open = function () {
+    _animate(460).then(function () {
       isOpen = true;
     });
   }
 
-  _close = function() {
-    _animate(0).then(function() {
+  _close = function () {
+    _animate(0).then(function () {
       isOpen = false;
     });
   },
 
-  _toggle = function() {
+  _toggle = function () {
     // open/close toggle, handling open wizard if necessary
     if (!isOpen) {
       if (WizardHelper.isOpen()) {
@@ -79,8 +86,11 @@ define([
     WizardStore.set(KEYS.selectedCustomFeatures, []);
   }
 
+  // NOTE: Below code is necessary to init dialog
+  WizardStore.registerCallback(KEYS.alertsDialogActive, _initAlertsDialog);
+
   return {
-    toggleAlertsForm: function() {
+    toggleAlertsForm: function () {
       alertsForm = alertsForm || new AlertsForm({toggle:_toggle}, 'alerts-form');
       _toggle();
     },

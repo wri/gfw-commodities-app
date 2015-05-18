@@ -16,7 +16,6 @@ define([
 
     // Unique configs
     MODAL_ID: 'subscription-modal',
-    MODAL_MOUNT_SELECTOR: '#subscription-modal .modal-content',
     TEXT: {
       title: 'Alerts Subscription',
       selection: 'Current selection:',

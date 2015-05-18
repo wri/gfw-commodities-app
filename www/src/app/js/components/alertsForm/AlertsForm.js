@@ -123,7 +123,8 @@ define([
           React.DOM.div({className:'alerts-form__footer'}, 
             React.DOM.div({className:'inline-block padding__left'}, TEXT.selection),
             React.DOM.div({className:'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title:currentSelectionLabel}, currentSelectionLabel),
-            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts, disabled:(this.state.modalOpen || this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
+            // React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts, disabled:(this.state.modalOpen || this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
+            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts}, TEXT.subscribe)
           )
         )
       );
@@ -359,6 +360,10 @@ define([
     // Adapted from Generator.js:subscribeToAlerts, some required functionality
     // separated to GeoHelper & subfunctions above
     _subscribeToAlerts: function () {
+      WizardStore.set(KEYS.alertsDialogActive, true);
+
+      return
+
       // Honeypot
       // if ((dom.byId(pbId1) == null || dom.byId(pbId2) == null) || (dom.byId(pbId1).value.length > 0 || dom.byId(pbId2).value !== pbVal)) {
       //   return;

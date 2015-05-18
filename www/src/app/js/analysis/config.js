@@ -349,13 +349,14 @@ define([], function() {
         },
 
         STORE_KEYS: {
+            customFeatures: 'customFeatures',
             removedCustomFeatures: 'removedCustomFeatures',
             selectedCustomFeatures: 'selectedCustomFeatures',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
-            customFeatures: 'customFeatures',
-            analysisPointRadius: 'analysisPointRadius'
+            analysisPointRadius: 'analysisPointRadius',
+            alertsDialogActive: 'alertsDialogActive'
         }
 
     };
