@@ -21,11 +21,19 @@ define([
       title: 'Alerts Subscription',
       selection: 'Current selection:',
       noSelection: 'none',
+      modalTitle: 'Subscribe to Alerts',
       subscribe: 'Subscribe',
       subscriptionPlaceholder: 'Subscription name',
       emailPlaceholder: 'youremail@example.com',
       forma: 'Monthly Clearance Alerts',
-      fires: 'Fire Alerts'
+      fires: 'Fire Alerts',
+      bufferOptions: [
+        ['50','50km'],
+        ['40','40km'],
+        ['30','30km'],
+        ['20','20km'],
+        ['10','10km']
+      ]
     },
     messagesLabel: 'Please fill in the following:\n',
     messages: {

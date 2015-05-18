@@ -22,7 +22,7 @@ define([
   'dojo/promise/all',
   'dojo/request/xhr',
   'dojox/validate/web'
-], function(React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
+], function (React, _, WizardStore, AlertsConfig, FeatureList, MapConfig, MapModel, Uploader, Symbols, GeoHelper, Graphic, Polygon, Draw, dom, dojoQuery, domClass, Deferred, all, xhr, validate) {
 
   var AlertsForm,
       drawToolbar,
@@ -38,12 +38,17 @@ define([
       emailId = _.uniqueId(),
       subscriptionNameId = _.uniqueId(),
       modal,
+      formaChecked = false,
+      firesChecked = false,
+      subscriptionName = '',
+      email = '',
       self = this;
 
-  getDefaultState = function() {
+  getDefaultState = function () {
     return {
       features: WizardStore.get(KEYS.customFeatures),
-      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures)
+      selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures),
+      modalOpen: false
     }
   }
 
@@ -51,22 +56,22 @@ define([
 
     getInitialState: getDefaultState,
 
-    componentDidMount: function() {
+    componentDidMount: function () {
       drawToolbar = new Draw(app.map);
       drawToolbar.on('draw-end', this._drawComplete);
 
-      WizardStore.registerCallback(KEYS.customFeatures, function() {
+      WizardStore.registerCallback(KEYS.customFeatures, function () {
         this.setState({features: WizardStore.get(KEYS.customFeatures)});
       }.bind(this));
 
-      WizardStore.registerCallback(KEYS.selectedCustomFeatures, function() {
+      WizardStore.registerCallback(KEYS.selectedCustomFeatures, function () {
         this.setState({selectedFeatures: WizardStore.get(KEYS.selectedCustomFeatures)});
       }.bind(this));
 
       this.setState(getDefaultState());
     },
 
-    componentWillReceiveProps: function(newProps) {
+    componentWillReceiveProps: function (newProps) {
       // Update state with newly received props
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
@@ -75,7 +80,13 @@ define([
       }
     },
 
-    render: function() {
+    componentDidUpdate: function (prevProps, prevState) {
+      if (prevState.modalOpen === true) {
+        this._renderModal()
+      }
+    },
+
+    render: function () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
           currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : TEXT.noSelection,
           self = this;
@@ -112,37 +123,104 @@ define([
           React.DOM.div({className:'alerts-form__footer'}, 
             React.DOM.div({className:'inline-block padding__left'}, TEXT.selection),
             React.DOM.div({className:'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title:currentSelectionLabel}, currentSelectionLabel),
-            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts}, TEXT.subscribe)
+            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts, disabled:(this.state.modalOpen || this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
           )
         )
       );
     },
 
-    _modal: function() {
-      var radiusSelect;
+    _modal: function () {
+      // TODO: refactor into own component
+      var radiusSelect,
+          modalMount = document.getElementById(AlertsConfig.MODAL_ID),
+          selectedFeatures = this.state.selectedFeatures,
+          selectionContainsPoint = _.find(selectedFeatures, function (feature) {return feature.geometry.type === 'point'}) ? true : false,
+          self = this,
+          close = function () {
+            domClass.toggle(AlertsConfig.MODAL_ID, 'active');
+            subscriptionName = '';
+            self.setState({modalOpen:false});
+            setTimeout(function () {React.unmountComponentAtNode(modalMount)}, 750);
+          },
+          emailChange = function (event) {
+            email = event.target.value;
+            self._renderModal();
+          },
+          formaChange = function (event) {
+            formaChecked = event.target.checked;
+            self._renderModal();
+          },
+          firesChange = function (event) {
+            firesChecked = event.target.checked;
+            self._renderModal();
+          },
+          subscribeClick = function (event) {
+            validations = [
+              // [!validate.isEmailAddress(emailAddr), messagesConfig.invalidEmail],
+              // [!formaCheck && !firesCheck, messagesConfig.noSelection],
+              // [!formaCheck && !firesCheck, messagesConfig.noSelection],
+              // [!subscriptionName || subscriptionName.length === 0, messagesConfig.noSelectionName],
+              // [selectedFeatures.length === 0, messagesConfig.noAreaSelection]
+            ].filter(function (validation) {
+              return validation[0];
+            }).map(function (validation) {
+              return validation[1];
+            }).join('\n');
 
-      // if (this.props.features.length == 0) {
+            if (validations.length > 0) {
+              alert(AlertsConfig.messagesLabel + validations);
+            } else {
+              // Map feature geometries to new Polygons for SpatialReference for union
+              // buffer points to circles if exist
+              polygons = selectedFeatures.map(function (feature) {
+                return feature.geometry.type === 'point' ? GeoHelper.preparePointAsPolygon(feature) : feature;
+              }).map(function (feature) {
+                return new Polygon(GeoHelper.getSpatialReference()).addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);;
+              });
+              GeoHelper.union(polygons).then(function (unionedPolygon) {
+                debugger;
+                // if (firesCheck) {
+                //   subscriptions.push(self._subscribeToFires(unionedPolygon, subscriptionName, emailAddr));
+                // }
+                // if (formaCheck) {
+                //   subscriptions.push(self._subscribeToForma(GeoHelper.convertGeometryToGeometric(unionedPolygon), subscriptionName, emailAddr));
+                // }
+
+                // all(subscriptions).then(function (responses) {
+                //   alert(responses.join('\n'))
+                // });
+              });
+            }
+
+          };
+
+      if (selectedFeatures.length == 1) {
+        subscriptionName = selectedFeatures[0].attributes.WRI_label ;
+      }
+
+      if (selectionContainsPoint) {
         radiusSelect = React.DOM.div({className:'margin__bottom'}, 
-          React.DOM.select(null,
-            React.DOM.option(null, '50')
+          React.DOM.span({className:'margin__left'}, 'Buffer size:'),
+          React.DOM.select({className:'margin__left'},
+            TEXT.bufferOptions.map(function (option) {
+              return React.DOM.option({value:option[0]}, option[1]);
+            })
           )
         );
-      // }
+      }
 
       return (
         React.DOM.div(null,
-          React.DOM.div({className:'close-icon'}),
+          React.DOM.div({className:'close-icon', onClick:close}),
           React.DOM.div({className:'modal-content'},
             React.DOM.div({'className':'alerts-form__form no-wide border-box'},
+              React.DOM.div({className:'modal-header'}, TEXT.modalTitle),
               React.DOM.div({className:'margin__bottom'},
-                'Subscribe'
-              ),
-              React.DOM.div({className:'margin__bottom'},
-                React.DOM.input({className:'vertical-middle', type: 'checkbox', id:formaId}),
+                React.DOM.input({className:'vertical-middle', type: 'checkbox', checked:formaChecked, onChange:formaChange, id:formaId}),
                 React.DOM.label({className:'vertical-middle', htmlFor:formaId}, TEXT.forma)
               ),
               React.DOM.div({className:'margin__bottom'},
-                React.DOM.input({className:'vertical-middle', type: 'checkbox', id:firesId}),
+                React.DOM.input({className:'vertical-middle', type: 'checkbox', checked:firesChecked, onChange:firesChange, id:firesId}),
                 React.DOM.label({className:'vertical-middle', htmlFor:firesId}, TEXT.fires)
               ),
               React.DOM.div({className:'pooh-bear text-center'},
@@ -151,19 +229,33 @@ define([
               ),
               radiusSelect,
               React.DOM.div({className:'text-center margin__bottom'},
-                React.DOM.input({id:subscriptionNameId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.subscriptionPlaceholder})
+                React.DOM.input({id:subscriptionNameId, className:'border-medium-gray border-radius', type:'text', defaultValue:subscriptionName, placeholder:TEXT.subscriptionPlaceholder})
               ),
               React.DOM.div({className:'text-center margin__bottom'},
-                React.DOM.input({id:emailId, className:'border-medium-gray border-radius', type:'text', placeholder:TEXT.emailPlaceholder})
+                React.DOM.input({id:emailId, className:'border-medium-gray border-radius', type:'text', value:email, onChange:emailChange, placeholder:TEXT.emailPlaceholder})
               ),
               React.DOM.div({className:'pooh-bear text-center'},
                 React.DOM.div({className:'pooh-bear'}, 'Please do not change this field'),
                 React.DOM.input({id:pbId2, className:'pooh-bear', type:'text', name:'address', defaultValue:pbVal})
+              ),
+              React.DOM.div({className:'text-right margin__bottom'},
+                React.DOM.button({className:'text-white back-orange no-border border-radius font-16px',  onClick:subscribeClick}, TEXT.subscribe)
               )
             )
           )
         )
       )
+    },
+
+    _renderModal: function () {
+      var modalMount = document.getElementById(AlertsConfig.MODAL_ID);
+      modal = modal || new this._modal();
+      
+      if (!modalMount) {
+        throw new Error('Undefined Error: Could not find modalMount element.');
+      } else {
+        React.renderComponent(this._modal(), modalMount);
+      }
     },
 
     _activateToolbar: function (evt) {
@@ -272,14 +364,9 @@ define([
       //   return;
       // }
 
-      var modal = modal || document.getElementById(AlertsConfig.MODAL_ID);
-      
-      if (!modal) {
-        throw new Error('Undefined Error: Could not find modal or modal-content.');
-      } else {
-        React.renderComponent(this._modal(), modal);
-        domClass.toggle(modal, 'active');
-      }
+      this._renderModal();
+      domClass.toggle(AlertsConfig.MODAL_ID, 'active');
+      this.setState({modalOpen:true});
 
       return
 
@@ -331,7 +418,7 @@ define([
     }
   });
 
-  return function(props, el) {
+  return function (props, el) {
     return React.renderComponent(new AlertsForm(props), document.getElementById(el));
   };
 });

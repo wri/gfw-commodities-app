@@ -134,8 +134,13 @@ cardinal-generator(rule, size)
 		display none !important
 	
 	// fonts
+
 	.font-arial
 		font-family Arial, sans-serif
+
+	for i in fontSizes
+		.font-{i}px
+			font-size 1px * i
 
 	// miscellaneous
 
