@@ -39,7 +39,11 @@ define([
 		},
 
     applySelectionSymbolToFeature: function (feature) {
-      return new Graphic(feature.geometry, Symbols.getPolygonSymbol(), feature.attributes);
+      var symbol = feature.geometry.type === 'point' ? 
+        Symbols.getHighlightPointSymbol() : 
+        Symbols.getHighlightPolygonSymbol();
+        
+      return new Graphic(feature.geometry, symbol, feature.attributes);
     },
 
     zoomToFeature: function (feature) {

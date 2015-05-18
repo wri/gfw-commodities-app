@@ -256,15 +256,13 @@ define([
               // Add it to the map and make it the current selection, give it a label
               feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
               graphic = GeoHelper.preparePointAsPolygon(feature);
+              graphic = GeoHelper.applySelectionSymbolToFeature(graphic);
               wizardGraphicsLayer.add(graphic);
               // Add Active Class, Add to array or features, and add label to array of labels
               newActiveListItemValues = self.state.activeListItemValues.concat([entityId]);
               self.setState({ activeListItemValues: newActiveListItemValues });
 
               selectedFeatures.push(graphic);
-
-              // Zoom to extent of new feature
-              app.map.centerAndZoom([graphic.attributes.Longitude, graphic.attributes.Latitude], 9);
             }
 
             // Mark this as your current selection and provide label

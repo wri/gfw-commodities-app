@@ -7,8 +7,9 @@ define([
   // src
   'components/featureList/config',
   'analysis/WizardStore',
-  'utils/GeoHelper'
-], function (React, _, FeatureListConfig, WizardStore, GeoHelper) {
+  'utils/GeoHelper',
+  'map/config'
+], function (React, _, FeatureListConfig, WizardStore, GeoHelper, MapConfig) {
 
   var FeatureList,
       getDefaultState,
@@ -29,7 +30,6 @@ define([
       var allFeaturesSelected = false,
           featureIds,
           selectedFeatureIds,
-          allFeaturesSelected,
           allFeaturesRSPO,
           clearButton,
           rspoChecksHeader = '';
@@ -123,7 +123,9 @@ define([
         filteredSelectedFeatures = _.filter(this.props.selectedFeatures, function (selectedFeature) { return selectedFeature.attributes.WRI_ID !== id })
       }
 
+      this.addHighlightFeatures(filteredSelectedFeatures);
       WizardStore.set(KEYS.selectedCustomFeatures, filteredSelectedFeatures);
+
     },
 
     _toggleAllFeaturesSelection: function (evt) {
@@ -131,17 +133,32 @@ define([
           featureIds = features.map(this._featuresIdMapper),
           selectedFeatureIds,
           featuresToSelect,
-          updatedSelectedFeatureIds;
+          updatedSelectedFeatures;
 
       if (evt.target.checked) {
         selectedFeatureIds = this.props.selectedFeatures.map(this._featuresIdMapper),
         featuresToSelect = _.difference(featureIds, selectedFeatureIds).map(function (id) { return _.find(features, function (feature) {return feature.attributes.WRI_ID === id}) }),
-        updatedSelectedFeatureIds = WizardStore.get(KEYS.selectedCustomFeatures).concat(featuresToSelect);
+        updatedSelectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures).concat(featuresToSelect);
       } else {
-        updatedSelectedFeatureIds = WizardStore.get(KEYS.selectedCustomFeatures).filter(function (feature) { return featureIds.indexOf(feature.attributes.WRI_ID) < 0 });
+        updatedSelectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures).filter(function (feature) { return featureIds.indexOf(feature.attributes.WRI_ID) < 0 });
       }
 
-      WizardStore.set(KEYS.selectedCustomFeatures, updatedSelectedFeatureIds);
+      this.addHighlightFeatures(updatedSelectedFeatures);
+      WizardStore.set(KEYS.selectedCustomFeatures, updatedSelectedFeatures);
+    },
+
+    addHighlightFeatures: function (features) {
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+
+      if (wizardGraphicsLayer) {
+        // Clear Previous Selection Features
+        wizardGraphicsLayer.clear();
+        features.forEach(function (feature) {
+          feature = GeoHelper.applySelectionSymbolToFeature(feature);
+          wizardGraphicsLayer.add(feature);
+        });
+      }
+
     },
 
     _toggleAllFeaturesRSPO: function () {
@@ -182,11 +199,16 @@ define([
           idsToRemoveFilter = function (feature) {return featureIdsToRemove.indexOf(feature.attributes.WRI_ID) < 0;},
           features = _.filter(WizardStore.get(KEYS.customFeatures), idsToRemoveFilter),
           selectedFeatures = _.filter(WizardStore.get(KEYS.selectedCustomFeatures), idsToRemoveFilter),
-          removedFeatures = _.reject(WizardStore.get(KEYS.selectedCustomFeatures), idsToRemoveFilter);
+          removedFeatures = _.reject(WizardStore.get(KEYS.selectedCustomFeatures), idsToRemoveFilter),
+          wizardGraphicsLayer;
 
       WizardStore.set(KEYS.removedCustomFeatures, removedFeatures);
       WizardStore.set(KEYS.customFeatures, features);
       WizardStore.set(KEYS.selectedCustomFeatures, selectedFeatures);
+
+      // Clear The Wizard Graphics Layer so no selected features are showing
+      wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+      if (wizardGraphicsLayer) { wizardGraphicsLayer.clear(); }
     },
 
     _renameFeature: function (evt) {

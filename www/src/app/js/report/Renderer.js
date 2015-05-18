@@ -1570,7 +1570,6 @@ define([
       }
 
       // Set up Click Listeners to give table custom toggling functionality and show information on info classes
-      // $("#value-toggle").click(toggleValues);
       $(".mill-table-container tr.parent").click(toggleChildren);
       $(".mill-table-container .info-icon").click(this.showMillPointInfo);
 
