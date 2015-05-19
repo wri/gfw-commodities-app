@@ -16,20 +16,20 @@ define([
       WIZARD_WIDTH = 460,
       self = this;
 
-  _getMapAnimation = function (leftAnimationValue) {
+  _getMapAnimation = function (leftAnimationValue, resize) {
     _mapContainer = _mapContainer || document.getElementById('map-container')
-    var originalCenterPoint = app.map.extent.getCenter();
-    return Fx.animateProperty({
-      node:_mapContainer,
-      properties: {
-        left: leftAnimationValue
-      },
-      duration: ANIMATION_DURATION,
-      onEnd: function () {
-        app.map.resize(true);
-        app.map.centerAt(originalCenterPoint);
-      }
-    })
+    var originalCenterPoint = app.map.extent.getCenter(),
+        resize = resize || true,
+        onEnd = resize ? function () { app.map.resize(true); app.map.centerAt(originalCenterPoint) } : function () {},
+        animation = {
+          node:_mapContainer,
+          properties: {
+            left: leftAnimationValue
+          },
+          duration: ANIMATION_DURATION,
+          onEnd: onEnd
+        };
+    return Fx.animateProperty(animation);
   }
 
   return {
@@ -44,7 +44,7 @@ define([
     toggleWizard: function () {
       var preAnimation;
       if (AlertsHelper.isOpen() === true) {
-        preAnimation = coreFx.combine([AlertsHelper.toggleAlertsForm()].concat([_getMapAnimation(0)]));
+        preAnimation = coreFx.combine([AlertsHelper.toggleAlertsForm()].concat([_getMapAnimation(0, false)]));
         connect.connect(preAnimation, 'onEnd', function() {
           coreFx.combine(WizardHelper.toggleWizard().concat(_getMapAnimation(WizardHelper.isOpen() ? WIZARD_WIDTH : 0))).play();
         });
@@ -56,7 +56,7 @@ define([
     toggleAlerts: function () {
       var preAnimation;
       if (WizardHelper.isOpen() === true) {
-        preAnimation = coreFx.combine(WizardHelper.toggleWizard().concat([_getMapAnimation(0)]));
+        preAnimation = coreFx.combine(WizardHelper.toggleWizard().concat([_getMapAnimation(0, false)]));
         connect.connect(preAnimation, 'onEnd', function() {
           coreFx.combine([AlertsHelper.toggleAlertsForm(), _getMapAnimation(AlertsHelper.isOpen() ? 0 : WIZARD_WIDTH)]).play();
         });
