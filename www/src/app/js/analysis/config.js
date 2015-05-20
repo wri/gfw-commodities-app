@@ -352,6 +352,7 @@ define([], function() {
             customFeatures: 'customFeatures',
             removedCustomFeatures: 'removedCustomFeatures',
             selectedCustomFeatures: 'selectedCustomFeatures',
+            selectedPresetFeature: 'selectedPresetFeature',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',

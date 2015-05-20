@@ -384,6 +384,7 @@ define([
             WizardStore.set('customFeatures', []);
             WizardStore.set('removedCustomFeatures', []);
             WizardStore.set('selectedCustomFeatures', []);
+            WizardStore.set('selectedPresetFeature', null);
             WizardStore.registerCallback('customFeatures', function() {
                 var layer = map.map.getLayer(MapConfig.customGraphicsLayer.id),
                     storeGraphics = WizardStore.get('customFeatures'),

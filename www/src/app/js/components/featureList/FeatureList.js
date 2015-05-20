@@ -52,10 +52,10 @@ define([
       }
 
       return (
-        React.DOM.div({className: TEXT.className}, 
+        React.DOM.div({className: "feature-list"}, 
           clearButton, 
           React.DOM.div({className: "padding__wide margin__bottom instructions"}, TEXT.instruction), 
-          React.DOM.table({className: "no-border-spacing fill__wide border-box border-orange"}, 
+          React.DOM.table({className: "feature-list__table no-border-spacing fill__wide border-box border-orange"}, 
             React.DOM.thead(null, 
               React.DOM.tr({className: "text-white text-center back-orange"}, 
                 React.DOM.th(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesSelection, checked: allFeaturesSelected, disabled: this.props.features.length === 0})), 
@@ -78,7 +78,7 @@ define([
           className = index % 2 === 0 ? 'back-light-gray' : '',
           className = isSelected ? 'text-white back-medium-gray' : className,
           rspoChecks = this.props.rspoChecks ? React.DOM.td({className: "text-center"}, React.DOM.input({type: "checkbox", onChange: this._toggleFeatureRSPO, checked: feature.attributes.isRSPO, 'data-feature-id': feature.attributes.WRI_ID})) : '',
-          typeIcon = feature.geometry.type === 'polygon' ? '/' : '.' ;
+          typeIcon = 'app/css/images/icon_' + (feature.geometry.type === 'polygon' ? 'triangle_' : 'circle_') + (isSelected ? 'white' : 'gray') + '.svg';
 
       return (
         React.DOM.tr({key: index, className: className}, 
@@ -86,10 +86,10 @@ define([
             React.DOM.input({type: "checkbox", onChange: this._toggleFeatureSelection, checked: isSelected, 'data-feature-index': index, 'data-feature-id': feature.attributes.WRI_ID})
           ), 
           React.DOM.td({className: "text-center"}, 
-            typeIcon
+            React.DOM.img({className: "vertical-middle", width: "15px", height: "15px", src: typeIcon})
           ), 
           React.DOM.td(null, 
-            React.DOM.input({className: "custom-feature-label text-inherit-color", type: "text", onChange: this._renameFeature, value: feature.attributes[FeatureListConfig.stepTwo.labelField], 'data-feature-index': index, 'data-feature-id': feature.attributes.WRI_ID})
+            React.DOM.input({className: "custom-feature-label text-inherit-color vertical-middle feedback-outline-orange", type: "text", onChange: this._renameFeature, value: feature.attributes[FeatureListConfig.stepTwo.labelField], 'data-feature-index': index, 'data-feature-id': feature.attributes.WRI_ID})
           ), 
           rspoChecks
         )

@@ -6,6 +6,7 @@ define([
     "map/config",
     "map/MapModel",
     "analysis/WizardHelper",
+    "utils/AlertsHelper",
     "esri/graphic",
     "dojo/_base/array",
     "esri/InfoTemplate",
@@ -14,7 +15,7 @@ define([
     "esri/tasks/IdentifyParameters",
     "esri/geometry/webMercatorUtils",
     "esri/symbols/PictureMarkerSymbol"
-], function(on, dom, Deferred, all, MapConfig, MapModel, WizardHelper, Graphic, arrayUtils, InfoTemplate, Point, IdentifyTask, IdentifyParameters, webMercatorUtils, PictureSymbol) {
+], function(on, dom, Deferred, all, MapConfig, MapModel, WizardHelper, AlertsHelper, Graphic, arrayUtils, InfoTemplate, Point, IdentifyTask, IdentifyParameters, webMercatorUtils, PictureSymbol) {
     'use strict';
 
     // NOTE: Map is available as app.map
@@ -286,7 +287,11 @@ define([
                 content = MapConfig.pal.infoTemplate.content + 
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
-                        "Analyze</button></div>";
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>";
 
                 template = new InfoTemplate(item.value, content);
                 item.feature.setInfoTemplate(template);
@@ -346,7 +351,11 @@ define([
                         MapConfig.rspoPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='RSPO Oil palm concession' data-id='${OBJECTID}'>" +
-                        "Analyze</button></div>"
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        item.value + "' data-type='RSPO Oil palm concession' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>"
                     );
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
@@ -357,7 +366,11 @@ define([
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
-                        "Analyze</button></div>"
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>"
                     );
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
@@ -419,14 +432,22 @@ define([
                         MapConfig.adminUnitsLayer.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         "${NAME_2}' data-type='AdminBoundary' data-id='${OBJECTID}'>" +
-                        "Analyze</button></div>"
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        "${NAME_2}' data-type='AdminBoundary' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>"
                     );
                 } else {
                     template = new InfoTemplate(item.value,
                         MapConfig.certificationSchemeLayer.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='CertScheme' data-id='${OBJECTID}'>" +
-                        "Analyze</button></div>"
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        item.value + "' data-type='CertScheme' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>"
                     );
                 }
                 item.feature.setInfoTemplate(template);
@@ -484,7 +505,10 @@ define([
                     MapConfig.mill.infoTemplate.content +
                     "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                     "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
-                    "Analyze</button></div>"
+                    "Analyze</button>" +
+                    "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                    "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>Subscribe</button>" +
+                    "</div>"
                 );
                 item.feature.setInfoTemplate(template);
                 features.push(item.feature);
@@ -517,9 +541,14 @@ define([
 
             infoTemplate = new InfoTemplate(label,
                 MapConfig.customGraphicsLayer.infoTemplate.content +
-                "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                "<div>" +
+                "<button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                 label + "' data-type='CustomGraphic' data-id='${WRI_ID}'>" +
-                "Analyze</button></div>"
+                "Analyze</button>" +
+                "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                label + "' data-type='CustomGraphic' data-id='${WRI_ID}'>" +
+                "Subscribe</button>" +
+                "</div>"
             );
             feature.setInfoTemplate(infoTemplate);
             return feature;
@@ -535,7 +564,8 @@ define([
         },
 
         setupInfowindowListeners: function() {
-            var handle;
+            var handle,
+                subscribeHandle;
 
             on(app.map.infoWindow, 'selection-change', function() {
                 setTimeout(function() {
@@ -546,12 +576,21 @@ define([
                         handle = on(dom.byId('popup-analyze-area'), 'click',
                             WizardHelper.analyzeAreaFromPopup.bind(WizardHelper));
                     }
+                    if (dom.byId('subscribe-area')) {
+                      if (subscribeHandle) {
+                        subscribeHandle.remove();
+                      }
+                      subscribeHandle = on(dom.byId('subscribe-area'), 'click', AlertsHelper.subscribeFromPopup)
+                    }
                 }, 0);
             });
 
             on(app.map.infoWindow, 'hide', function() {
                 if (handle) {
                     handle.remove();
+                }
+                if (subscribeHandle) {
+                    subscribeHandle.remove();
                 }
             });
 

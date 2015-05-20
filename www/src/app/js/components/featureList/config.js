@@ -9,7 +9,6 @@ define([
     STORE_KEYS: AnalyzerConfig.STORE_KEYS,
     // Unique configs
     TEXT: {
-      className: 'feature-list',
       instruction: 'Select areas of interest using the left checkboxes.',
       noAreas: 'No current areas of interest, please draw or upload some.',
       clear: 'Clear Selection',

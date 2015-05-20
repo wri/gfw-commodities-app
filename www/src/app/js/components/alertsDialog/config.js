@@ -22,6 +22,8 @@ define([
       subscriptionPlaceholder: 'Subscription name',
       emailPlaceholder: 'your_email@example.com',
       subscribe: 'Subscribe',
+      bufferLabel: 'Point data selected - buffer area(s) required.',
+      bufferOptionsLabel: 'Buffer radius:',
       bufferOptions: [
         ['50','50km'],
         ['40','40km'],

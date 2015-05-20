@@ -32,6 +32,7 @@ $alerts_body_padding = 50px
 		height $alerts_body_padding
 		border-bottom 1px solid greyBorder
 		font-size 26px
+		background-color #FFF
 
 		&__exit
 			border none
@@ -44,9 +45,20 @@ $alerts_body_padding = 50px
 		height 100%
 		width 100%
 		font-size 12px
+		overflow auto
+
+		th
+			font-size 16px
 
 	&__drawing-tool
 		font-size 18px
+		background-color lightGray
+
+		&:hover
+			background-color orangeHover
+
+		&.active
+			background-color orange
 
 	&__footer
 		position absolute
@@ -57,6 +69,7 @@ $alerts_body_padding = 50px
 		height $alerts_body_padding
 		border-top 1px solid greyBorder
 		line-height $alerts_body_padding
+		background-color #FFF
 		
 		&__selection
 			width 230px
@@ -79,6 +92,10 @@ $alerts_body_padding = 50px
 		input[type=text]
 			padding 5px 10px
 			width 80%
+
+.alerts-form
+	.feature-list__table
+		font-size 16px
 
 // TODO: refactor to own file
 .alerts-dialog

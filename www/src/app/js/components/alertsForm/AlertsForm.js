@@ -77,7 +77,8 @@ define([
         React.DOM.div({className: 'relative fill'},
           // Header
           React.DOM.div({className: 'alerts-form__header'},
-            React.DOM.div({className: 'fill__long border-box padding'}, TEXT.title),
+            React.DOM.img({className: 'box-sizing padding__left vertical-sub', width:'21px', height:'19px', src:'app/css/images/alert_symbol_black.png'}),
+            React.DOM.div({className: 'inline-block fill__long border-box padding__left padding__long vertical-middle'}, TEXT.title),
             React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
               React.DOM.img({'className': 'vertical-middle', 'src': 'app/css/images/close_symbol.png'})
             )
@@ -88,9 +89,9 @@ define([
             React.DOM.div({'className':'padding__wide padding__top'},
               React.DOM.div({'className':'margin__bottom'}, AlertsConfig.customArea.instructions),
               React.DOM.div({'className':'text-center margin__bottom'},
-                React.DOM.button({'className':'alerts-form__drawing-tool back-light-gray no-border border-radius margin padding pointer', 'onClick': this._activateToolbar, 'data-geometry-type': Draw.FREEHAND_POLYGON}, AlertsConfig.customArea.freehandLabel),
-                React.DOM.button({'className':'alerts-form__drawing-tool back-light-gray no-border border-radius margin padding pointer', 'onClick': this._activateToolbar, 'data-geometry-type': Draw.POLYGON}, AlertsConfig.customArea.polyLabel),
-                React.DOM.button({'className':'alerts-form__drawing-tool back-light-gray no-border border-radius margin padding pointer', 'onClick': Uploader.toggle.bind(Uploader), 'id':'alerts-draw-upload' }, AlertsConfig.customArea.uploadLabel)
+                React.DOM.button({'className':'alerts-form__drawing-tool no-border border-radius margin padding pointer', 'onClick': this._activateToolbar, 'data-geometry-type': Draw.FREEHAND_POLYGON}, AlertsConfig.customArea.freehandLabel),
+                React.DOM.button({'className':'alerts-form__drawing-tool no-border border-radius margin padding pointer', 'onClick': this._activateToolbar, 'data-geometry-type': Draw.POLYGON}, AlertsConfig.customArea.polyLabel),
+                React.DOM.button({'className':'alerts-form__drawing-tool no-border border-radius margin padding pointer', 'onClick': Uploader.toggle.bind(Uploader), 'id':'alerts-draw-upload' }, AlertsConfig.customArea.uploadLabel)
               )
             ),
             // Features
@@ -157,13 +158,18 @@ define([
     },
 
     _removeActiveClass: function () {
-      dojoQuery(".drawing-tools .drawing-tool-button").forEach(function (node) {
+      console.debug(dojoQuery(".alerts-form__body .alerts-form__drawing-tool"));
+      dojoQuery(".alerts-form__body .alerts-form__drawing-tool").forEach(function (node) {
         domClass.remove(node, "active");
       });
     },
 
     _subscribeToAlerts: function () {
-      WizardStore.set(KEYS.alertsDialogActive, WizardStore.get(KEYS.alertsDialogActive));
+      if (WizardStore.get(KEYS.alertsDialogActive) && WizardStore.get(KEYS.selectedPresetFeature) !== null) {
+        WizardStore.set(KEYS.selectedPresetFeature, null);
+      } else {
+        WizardStore.set(KEYS.alertsDialogActive, !WizardStore.get(KEYS.alertsDialogActive));
+      }
     }
   });
 

@@ -24,7 +24,7 @@ define([
       TEXT = Config.TEXT,
       self = this;
 
-  // NOTE: form attributes/text
+  // form attributes/text
   var pbVal,
       pbId1,
       pbId2,
@@ -41,7 +41,7 @@ define([
       email: '',
       subscriptionName: '',
       features: WizardStore.get(KEYS.selectedCustomFeatures),
-      presetFeature: null
+      presetFeature: WizardStore.get(KEYS.selectedPresetFeature)
     };
   }
 
@@ -50,7 +50,11 @@ define([
 
     componentDidMount: function () {
       WizardStore.registerCallback(KEYS.alertsDialogActive, function () {
-        domClass.toggle(IDS.mount, 'active');
+        if (WizardStore.get(KEYS.alertsDialogActive)) {
+          domClass.add(IDS.mount, 'active');
+        } else {
+          domClass.remove(IDS.mount, 'active');
+        }
       }.bind(this));
 
       WizardStore.registerCallback(KEYS.customFeatures, function () {
@@ -61,9 +65,9 @@ define([
         this.setState({features: WizardStore.get(KEYS.selectedCustomFeatures)});
       }.bind(this));
 
-      // WizardStore.registerCallback(KEYS.presetFeature, function () {
-      //   this.setState({features: WizardStore.get(KEYS.presetFeature)});
-      // });
+      WizardStore.registerCallback(KEYS.selectedPresetFeature, function () {
+        this.setState({presetFeature: WizardStore.get(KEYS.selectedPresetFeature)});
+      }.bind(this));
 
       if (WizardStore.get(KEYS.alertsDialogActive) === true) {
         domClass.add(IDS.mount, 'active');
@@ -73,7 +77,7 @@ define([
     render: function () {
       var features = this.state.features,
           presetFeature = this.state.presetFeature,
-          selection = features.length > 0 ? features.map(function (feature) {return feature.attributes.WRI_label}).join(',') : TEXT.noSelection,
+          selection,
           featuresContainsPoint,
           disable,
           disableConditions,
@@ -81,14 +85,21 @@ define([
 
       if (presetFeature !== null) {
         featuresContainsPoint = presetFeature.geometry.type === 'point';
+        selection = presetFeature.attributes.WRI_label ||
+                    presetFeature.attributes.Name ||
+                    presetFeature.attributes.NAME ||
+                    presetFeature.attributes.Mill_name ||
+                    TEXT.noSelection;
       } else {
         featuresContainsPoint = _.find(features, function (feature) {return feature.geometry.type === 'point'}) ? true : false;
+        selection = features.length > 0 ? features.map(function (feature) {return feature.attributes.WRI_label}).join(',') : TEXT.noSelection;
       }
 
       if (featuresContainsPoint) {
         radiusSelect = (
           <div className='margin__bottom'>
-            <span className='margin__left'>Buffer size:</span>
+            <div className='margin__left'>{TEXT.bufferLabel}</div>
+            <span className='margin__left'>{TEXT.bufferOptionsLabel}</span>
             <select id={bufferId} className='margin__left'>
               {TEXT.bufferOptions.map(function (option) {
                 return <option value={option[0]}>{option[1]}</option>
@@ -99,7 +110,7 @@ define([
       }
 
       disableConditions = [
-        features.length === 0,
+        features.length === 0 && presetFeature === null,
         this.state.subscriptionName.trim().length === 0,
         this.state.email.trim().length === 0,
         !validate.isEmailAddress(this.state.email),
@@ -150,7 +161,10 @@ define([
                 <input id={pbId2} className='pooh-bear' type='text' name='address' defaultValue={pbVal} />
               </div>
               <div className='text-right margin__bottom'>
-                <button className='text-white back-orange no-border border-radius font-16px' onClick={this._subscribe} disabled={disabled}>{TEXT.subscribe}</button>
+                <button className='text-white back-orange no-border border-radius font-16px' onClick={this._subscribe} disabled={disabled}>
+                  <img className='vertical-middle' width='21px' height='19px' src={'app/css/images/alert_symbol_' + (disabled ? 'black' : 'white') + '.png'} />
+                  <span className='padding__left vertical-middle'>{TEXT.subscribe}</span>
+                </button>
               </div>
             </div>
           </div>
@@ -172,7 +186,7 @@ define([
       this.setState(state);
     },
 
-    _subscribeToFires: function (unionedPolygons, subscriptionName, email) {
+    _subscribeToFires: function (unionedPolygon, subscriptionName, email) {
       var deferred = new Deferred(),
           messagesConfig = TEXT.messages,
           firesConfig = Config.requests.fires,
@@ -180,8 +194,8 @@ define([
           options = _.cloneDeep(firesConfig.options);
 
       options.data.features = JSON.stringify({
-        rings: unionedPolygons.rings,
-        spatialReference: unionedPolygons.spatialReference
+        rings: unionedPolygon.rings,
+        spatialReference: unionedPolygon.spatialReference
       });
       options.data.msg_addr = email;
       options.data.area_name = subscriptionName;
@@ -226,13 +240,20 @@ define([
       }
 
       var features = this.state.features,
-          featuresContainsPoint = _.find(features, function (feature) {return feature.geometry.type === 'point'}) ? true : false,
+          presetFeature = this.state.presetFeature,
+          featuresContainsPoint,
           polygons,
           pointsAsPolygons,
           radius,
           subscriptions = [];
 
-      // handle points
+      if (presetFeature !== null) {
+        features = [presetFeature];
+        featuresContainsPoint = features[0].geometry.type === 'point';
+      } else {
+        featuresContainsPoint = _.find(features, function (feature) {return feature.geometry.type === 'point'}) ? true : false;
+      }
+
       if (featuresContainsPoint) {
         radius = parseInt(dom.byId(bufferId).value);
         pointsAsPolygons = _.filter(features, function (feature) {return feature.geometry.type === 'point'});

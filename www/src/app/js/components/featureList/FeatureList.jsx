@@ -52,10 +52,10 @@ define([
       }
 
       return (
-        <div className={TEXT.className}>
+        <div className='feature-list'>
           {clearButton}
           <div className='padding__wide margin__bottom instructions'>{TEXT.instruction}</div>
-          <table className='no-border-spacing fill__wide border-box border-orange'>
+          <table className='feature-list__table no-border-spacing fill__wide border-box border-orange'>
             <thead>
               <tr className='text-white text-center back-orange'>
                 <th><input type='checkbox' onChange={this._toggleAllFeaturesSelection} checked={allFeaturesSelected} disabled={this.props.features.length === 0} /></th>
@@ -78,7 +78,7 @@ define([
           className = index % 2 === 0 ? 'back-light-gray' : '',
           className = isSelected ? 'text-white back-medium-gray' : className,
           rspoChecks = this.props.rspoChecks ? <td className='text-center'><input type='checkbox' onChange={this._toggleFeatureRSPO} checked={feature.attributes.isRSPO} data-feature-id={feature.attributes.WRI_ID}/></td> : '',
-          typeIcon = feature.geometry.type === 'polygon' ? '/' : '.' ;
+          typeIcon = 'app/css/images/icon_' + (feature.geometry.type === 'polygon' ? 'triangle_' : 'circle_') + (isSelected ? 'white' : 'gray') + '.svg';
 
       return (
         <tr key={index} className={className}>
@@ -86,10 +86,10 @@ define([
             <input type='checkbox' onChange={this._toggleFeatureSelection} checked={isSelected} data-feature-index={index} data-feature-id={feature.attributes.WRI_ID} />
           </td>
           <td className='text-center'>
-            {typeIcon}
+            <img className='vertical-middle' width='15px' height='15px' src={typeIcon} />
           </td>
           <td>
-            <input className='custom-feature-label text-inherit-color' type='text' onChange={this._renameFeature} value={feature.attributes[FeatureListConfig.stepTwo.labelField]} data-feature-index={index} data-feature-id={feature.attributes.WRI_ID} />
+            <input className='custom-feature-label text-inherit-color vertical-middle feedback-outline-orange' type='text' onChange={this._renameFeature} value={feature.attributes[FeatureListConfig.stepTwo.labelField]} data-feature-index={index} data-feature-id={feature.attributes.WRI_ID} />
           </td>
           {rspoChecks}
         </tr>
