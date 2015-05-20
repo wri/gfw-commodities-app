@@ -92,14 +92,14 @@ define([
                     TEXT.noSelection;
       } else {
         featuresContainsPoint = _.find(features, function (feature) {return feature.geometry.type === 'point'}) ? true : false;
-        selection = features.length > 0 ? features.map(function (feature) {return feature.attributes.WRI_label}).join(',') : TEXT.noSelection;
+        selection = features.length > 0 ? features.map(function (feature) {return feature.attributes.WRI_label}).join(', ') : TEXT.noSelection;
       }
 
       if (featuresContainsPoint) {
         radiusSelect = (
           <div className='margin__bottom'>
-            <div className='margin__left'>{TEXT.bufferLabel}</div>
-            <span className='margin__left'>{TEXT.bufferOptionsLabel}</span>
+            <div className='margin--small__left'>{TEXT.bufferLabel}</div>
+            <span className='margin--small__left'>{TEXT.bufferOptionsLabel}</span>
             <select id={bufferId} className='margin__left'>
               {TEXT.bufferOptions.map(function (option) {
                 return <option value={option[0]}>{option[1]}</option>
@@ -129,9 +129,9 @@ define([
           <div className='modal-content'>
             <div className='alerts-form__form no-wide border-box'>
               <div className='modal-header'>{TEXT.title}</div>
-              <div className='margin__bottom'>
+              <div className='margin__bottom margin--small__left'>
                 <span>{TEXT.selectionLabel}</span>
-                <span className='padding__left'>{selection}</span>
+                <span className='padding__left text-gold'>{selection}</span>
               </div>
               <div className='margin__bottom'>
                 <label className='vertical-middle'>
@@ -139,31 +139,43 @@ define([
                   {TEXT.forma}
                 </label>
               </div>
-              <div className='margin__bottom'>
-                <label className='vertical-middle'>
+              <div className=''>
+                <label className='margin--small__bottom vertical-middle'>
                   <input id={firesId} className='vertical-middle' type='checkbox' onChange={this._formChange} checked={this.state.fires} />
                   {TEXT.fires}
                 </label>
+              </div>
+              <div className='margin--small__wide'>
+                <div className='font-12px text-red border-red__top' style={{visibility: disableConditions[4] ? 'visible' : 'hidden'}}>
+                  {TEXT.requiredLabels.alerts}
+                </div>
               </div>
               <div className='pooh-bear text-center'>
                 <div className='pooh-bear'>Please leave this blank</div>
                 <input id={pbId1} className='pooh-bear' type='text' name='name' />
               </div>
-              {radiusSelect}
-              <div className='text-center margin__bottom'>
-                <input id={subscriptionNameId} className='border-medium-gray border-radius' type='text' onChange={this._formChange} value={this.state.subscriptionName} placeholder={TEXT.subscriptionPlaceholder} />
+              <div className='text-left margin__bottom margin--small__wide'>
+                <input id={subscriptionNameId} className='border-medium-gray border-radius' maxLength={toString(Config.MAX_INPUT_CHARS)} type='text' onChange={this._formChange} value={this.state.subscriptionName} placeholder={TEXT.subscriptionPlaceholder} />
+                <button className='margin__left font-16px text-white back-orange no-border border-radius' onClick={this._setDefaultSubscriptionName} disabled={disableConditions[0]}>{TEXT.subscriptionDefaultLabel}</button>
               </div>
-              <div className='text-center margin__bottom'>
-                <input id={emailId} className='border-medium-gray border-radius' type='text' onChange={this._formChange} value={this.state.email} placeholder={TEXT.emailPlaceholder} />
+              <div className='margin--small__wide font-12px text-red border-red__top' style={{visibility: disableConditions[1] ? 'visible' : 'hidden'}}>
+                {TEXT.requiredLabels.subscription}
+              </div>
+              <div className='text-left margin__bottom margin--small__wide'>
+                <input id={emailId} className='border-medium-gray border-radius' maxLength={toString(Config.MAX_INPUT_CHARS)} type='text' onChange={this._formChange} value={this.state.email} placeholder={TEXT.emailPlaceholder} />
               </div>
               <div className='pooh-bear text-center'>
                 <div className='pooh-bear'>Please do not change this field</div>
                 <input id={pbId2} className='pooh-bear' type='text' name='address' defaultValue={pbVal} />
               </div>
+              <div className='margin--small__wide font-12px text-red border-red__top' style={{visibility: disableConditions[3] ? 'visible' : 'hidden'}}>
+                {TEXT.requiredLabels.email}
+              </div>
+              {radiusSelect}
               <div className='text-right margin__bottom'>
                 <button className='text-white back-orange no-border border-radius font-16px' onClick={this._subscribe} disabled={disabled}>
-                  <img className='vertical-middle' width='21px' height='19px' src={'app/css/images/alert_symbol_' + (disabled ? 'black' : 'white') + '.png'} />
-                  <span className='padding__left vertical-middle'>{TEXT.subscribe}</span>
+                  <img className='vertical-sub' width='21px' height='19px' src={'app/css/images/alert_symbol_' + (disabled ? 'black' : 'white') + '.png'} />
+                  <span className='padding__left'>{TEXT.subscribe}</span>
                 </button>
               </div>
             </div>
@@ -288,7 +300,18 @@ define([
       }.bind(this));
 
       this._close();
+    },
+
+    _setDefaultSubscriptionName: function () {
+      var feature = this.state.presetFeature !== null ? this.state.presetFeature : this.state.features[0],
+          subscriptionName = feature.attributes.WRI_label ||
+                              feature.attributes.Name ||
+                              feature.attributes.NAME ||
+                              feature.attributes.Mill_name ||
+                              '';
+      this.setState({subscriptionName: subscriptionName});
     }
+
   });
 
   return function () {

@@ -92,14 +92,14 @@ define([
                     TEXT.noSelection;
       } else {
         featuresContainsPoint = _.find(features, function (feature) {return feature.geometry.type === 'point'}) ? true : false;
-        selection = features.length > 0 ? features.map(function (feature) {return feature.attributes.WRI_label}).join(',') : TEXT.noSelection;
+        selection = features.length > 0 ? features.map(function (feature) {return feature.attributes.WRI_label}).join(', ') : TEXT.noSelection;
       }
 
       if (featuresContainsPoint) {
         radiusSelect = (
           React.DOM.div({className: "margin__bottom"}, 
-            React.DOM.div({className: "margin__left"}, TEXT.bufferLabel), 
-            React.DOM.span({className: "margin__left"}, TEXT.bufferOptionsLabel), 
+            React.DOM.div({className: "margin--small__left"}, TEXT.bufferLabel), 
+            React.DOM.span({className: "margin--small__left"}, TEXT.bufferOptionsLabel), 
             React.DOM.select({id: bufferId, className: "margin__left"}, 
               TEXT.bufferOptions.map(function (option) {
                 return React.DOM.option({value: option[0]}, option[1])
@@ -129,9 +129,9 @@ define([
           React.DOM.div({className: "modal-content"}, 
             React.DOM.div({className: "alerts-form__form no-wide border-box"}, 
               React.DOM.div({className: "modal-header"}, TEXT.title), 
-              React.DOM.div({className: "margin__bottom"}, 
+              React.DOM.div({className: "margin__bottom margin--small__left"}, 
                 React.DOM.span(null, TEXT.selectionLabel), 
-                React.DOM.span({className: "padding__left"}, selection)
+                React.DOM.span({className: "padding__left text-gold"}, selection)
               ), 
               React.DOM.div({className: "margin__bottom"}, 
                 React.DOM.label({className: "vertical-middle"}, 
@@ -139,31 +139,43 @@ define([
                   TEXT.forma
                 )
               ), 
-              React.DOM.div({className: "margin__bottom"}, 
-                React.DOM.label({className: "vertical-middle"}, 
+              React.DOM.div({className: ""}, 
+                React.DOM.label({className: "margin--small__bottom vertical-middle"}, 
                   React.DOM.input({id: firesId, className: "vertical-middle", type: "checkbox", onChange: this._formChange, checked: this.state.fires}), 
                   TEXT.fires
+                )
+              ), 
+              React.DOM.div({className: "margin--small__wide"}, 
+                React.DOM.div({className: "font-12px text-red border-red__top", style: {visibility: disableConditions[4] ? 'visible' : 'hidden'}}, 
+                  TEXT.requiredLabels.alerts
                 )
               ), 
               React.DOM.div({className: "pooh-bear text-center"}, 
                 React.DOM.div({className: "pooh-bear"}, "Please leave this blank"), 
                 React.DOM.input({id: pbId1, className: "pooh-bear", type: "text", name: "name"})
               ), 
-              radiusSelect, 
-              React.DOM.div({className: "text-center margin__bottom"}, 
-                React.DOM.input({id: subscriptionNameId, className: "border-medium-gray border-radius", type: "text", onChange: this._formChange, value: this.state.subscriptionName, placeholder: TEXT.subscriptionPlaceholder})
+              React.DOM.div({className: "text-left margin__bottom margin--small__wide"}, 
+                React.DOM.input({id: subscriptionNameId, className: "border-medium-gray border-radius", maxLength: toString(Config.MAX_INPUT_CHARS), type: "text", onChange: this._formChange, value: this.state.subscriptionName, placeholder: TEXT.subscriptionPlaceholder}), 
+                React.DOM.button({className: "margin__left font-16px text-white back-orange no-border border-radius", onClick: this._setDefaultSubscriptionName, disabled: disableConditions[0]}, TEXT.subscriptionDefaultLabel)
               ), 
-              React.DOM.div({className: "text-center margin__bottom"}, 
-                React.DOM.input({id: emailId, className: "border-medium-gray border-radius", type: "text", onChange: this._formChange, value: this.state.email, placeholder: TEXT.emailPlaceholder})
+              React.DOM.div({className: "margin--small__wide font-12px text-red border-red__top", style: {visibility: disableConditions[1] ? 'visible' : 'hidden'}}, 
+                TEXT.requiredLabels.subscription
+              ), 
+              React.DOM.div({className: "text-left margin__bottom margin--small__wide"}, 
+                React.DOM.input({id: emailId, className: "border-medium-gray border-radius", maxLength: toString(Config.MAX_INPUT_CHARS), type: "text", onChange: this._formChange, value: this.state.email, placeholder: TEXT.emailPlaceholder})
               ), 
               React.DOM.div({className: "pooh-bear text-center"}, 
                 React.DOM.div({className: "pooh-bear"}, "Please do not change this field"), 
                 React.DOM.input({id: pbId2, className: "pooh-bear", type: "text", name: "address", defaultValue: pbVal})
               ), 
+              React.DOM.div({className: "margin--small__wide font-12px text-red border-red__top", style: {visibility: disableConditions[3] ? 'visible' : 'hidden'}}, 
+                TEXT.requiredLabels.email
+              ), 
+              radiusSelect, 
               React.DOM.div({className: "text-right margin__bottom"}, 
                 React.DOM.button({className: "text-white back-orange no-border border-radius font-16px", onClick: this._subscribe, disabled: disabled}, 
-                  React.DOM.img({className: "vertical-middle", width: "21px", height: "19px", src: 'app/css/images/alert_symbol_' + (disabled ? 'black' : 'white') + '.png'}), 
-                  React.DOM.span({className: "padding__left vertical-middle"}, TEXT.subscribe)
+                  React.DOM.img({className: "vertical-sub", width: "21px", height: "19px", src: 'app/css/images/alert_symbol_' + (disabled ? 'black' : 'white') + '.png'}), 
+                  React.DOM.span({className: "padding__left"}, TEXT.subscribe)
                 )
               )
             )
@@ -288,7 +300,18 @@ define([
       }.bind(this));
 
       this._close();
+    },
+
+    _setDefaultSubscriptionName: function () {
+      var feature = this.state.presetFeature !== null ? this.state.presetFeature : this.state.features[0],
+          subscriptionName = feature.attributes.WRI_label ||
+                              feature.attributes.Name ||
+                              feature.attributes.NAME ||
+                              feature.attributes.Mill_name ||
+                              '';
+      this.setState({subscriptionName: subscriptionName});
     }
+
   });
 
   return function () {

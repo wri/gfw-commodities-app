@@ -70,7 +70,7 @@ define([
 
     render: function () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
-          currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(',') : TEXT.noSelection,
+          currentSelectionLabel = currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label}).join(', ') : TEXT.noSelection,
           self = this;
 
       return (
@@ -158,7 +158,6 @@ define([
     },
 
     _removeActiveClass: function () {
-      console.debug(dojoQuery(".alerts-form__body .alerts-form__drawing-tool"));
       dojoQuery(".alerts-form__body .alerts-form__drawing-tool").forEach(function (node) {
         domClass.remove(node, "active");
       });

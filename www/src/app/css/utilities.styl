@@ -76,6 +76,9 @@ cardinal-generator(rule, size)
 	.margin
 		cardinal-generator('margin', 10px)
 
+		&--small
+			cardinal-generator('margin', 5px)
+
 	.no-padding
 		cardinal-generator('padding', 0px)
 
@@ -108,6 +111,12 @@ cardinal-generator(rule, size)
 
 	.text-gold
 		color goldFont
+
+	.text-red
+		color red
+
+	.border-red__top
+		border-top 1px solid red
 
 	.back-orange
 		background-color orange

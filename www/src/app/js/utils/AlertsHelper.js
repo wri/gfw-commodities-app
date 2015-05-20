@@ -107,11 +107,15 @@ define([
       return _isOpen;
     },
     subscribeFromPopup: function (event) {
+      var target = event.target,
+          isCustomGraphic = (target.dataset ? target.dataset.type : target.getAttribute('data-type')) === 'CustomGraphic';
+
       self._getFeatureFromPopup(event).then(function (response) {
         if (response) {
           WizardStore.set(KEYS.alertsDialogActive, true);
-          WizardStore.set(KEYS.selectedCustomFeatures, []);
-          WizardStore.set(KEYS.selectedPresetFeature, response);
+            WizardStore.set(KEYS.selectedCustomFeatures, isCustomGraphic ? [response] : []);
+            WizardStore.set(KEYS.selectedPresetFeature, isCustomGraphic ? null : response);
+          }
         } else {
           throw new Error('Could not identify feature from event data.');
         }

@@ -5,6 +5,7 @@ define([
     // Referenced configs
     STORE_KEYS: AnalysisConfig.STORE_KEYS,
     // Unique configs
+    MAX_INPUT_CHARS: 70,
     IDS: {
       mount: 'subscription-modal',
       forma: 'alerts-forma',
@@ -20,6 +21,7 @@ define([
       selectionLabel: 'Selection:',
       noSelection: 'none',
       subscriptionPlaceholder: 'Subscription name',
+      subscriptionDefaultLabel: 'Use selection',
       emailPlaceholder: 'your_email@example.com',
       subscribe: 'Subscribe',
       bufferLabel: 'Point data selected - buffer area(s) required.',
@@ -41,6 +43,11 @@ define([
         formaFail: 'There was an error with your request to subscribe to Forma alerts.  Please try again later.',
         fireSuccess: 'Thank you for subscribing to Fires Alerts.  You should receive a confirmation email soon.',
         fireFail: 'There was an error with your request to subscribe to Fires alerts.  Please try again later.'
+      },
+      requiredLabels: {
+        alerts: '* Please select at least an alert service.',
+        subscription: '* Please enter a subscription area name.',
+        email: '* Please enter a valid email.'
       }
     },
     requests: {
