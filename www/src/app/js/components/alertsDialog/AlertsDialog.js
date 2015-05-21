@@ -309,7 +309,7 @@ define([
                               feature.attributes.NAME ||
                               feature.attributes.Mill_name ||
                               '';
-      this.setState({subscriptionName: subscriptionName});
+      this.setState({subscriptionName: subscriptionName.substr(0, Config.MAX_INPUT_CHARS)});
     }
 
   });
