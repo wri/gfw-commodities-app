@@ -45,7 +45,7 @@ define([
         fireFail: 'There was an error with your request to subscribe to Fires alerts.  Please try again later.'
       },
       requiredLabels: {
-        alerts: '* Please select at least an alert service.',
+        alerts: '* Please select an alert service.',
         subscription: '* Please enter a subscription area name.',
         email: '* Please enter a valid email.'
       }
