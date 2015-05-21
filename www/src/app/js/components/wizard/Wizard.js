@@ -199,6 +199,9 @@ define([
                 isResetting: true
             });
             // Reset this components state
+            WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option3.id, true);
+            WizardStore.set(KEYS.selectedCustomFeatures, [], true);
+            WizardStore.set(KEYS.userStep, 1, true);
             this.replaceState(getDefaultState());
             // Clear the WizardGraphicsLayer
             var layer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);

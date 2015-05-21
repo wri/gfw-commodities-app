@@ -33,7 +33,7 @@ define([
 
     componentDidMount: function () {
       // Set the default value in the store
-      WizardStore.set(KEYS.areaOfInterest, getDefaultState().selectedOption);
+      WizardStore.set(KEYS.areaOfInterest, option3.id);
       // Register a callback to the item of interest
       WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
     },
@@ -47,7 +47,6 @@ define([
       if (newProps.isResetting) {
         var defaults = getDefaultState();
         this.replaceState(defaults);
-        WizardStore.set(KEYS.areaOfInterest, defaults.selectedOption);
       }
     },
 

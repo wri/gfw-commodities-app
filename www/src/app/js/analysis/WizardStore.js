@@ -38,9 +38,11 @@ define([
 		* @param {string} key - key of item in store
 		* @param {string} vaule - Item to save in store
 		*/
-		set: function (key, value) {
+		set: function (key, value, skipUpdate) {
 			Store[key] = value;
-			this.updateSubscribers(key);
+      if (!skipUpdate) {
+        this.updateSubscribers(key);
+      }
 		},
 
 		/**
