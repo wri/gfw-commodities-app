@@ -131,7 +131,15 @@ define([
               React.DOM.div({className: "modal-header"}, TEXT.title), 
               React.DOM.div({className: "margin__bottom margin--small__left"}, 
                 React.DOM.span(null, TEXT.selectionLabel), 
-                React.DOM.span({className: "padding__left text-gold"}, selection)
+                React.DOM.span({className: 'padding__left' + (disableConditions[0] ? ' text-red' : ' text-gold'), title: selection}, 
+                  selection.substr(0, 100), 
+                  selection.length > 100 ? '...' : ''
+                )
+              ), 
+              React.DOM.div({className: "margin--small__wide"}, 
+                React.DOM.div({className: "font-12px text-red margin__top", style: {visibility: disableConditions[4] ? 'visible' : 'hidden'}}, 
+                  TEXT.requiredLabels.alerts
+                )
               ), 
               React.DOM.div({className: "margin__bottom"}, 
                 React.DOM.label({className: "vertical-middle"}, 
@@ -145,21 +153,19 @@ define([
                   TEXT.fires
                 )
               ), 
-              React.DOM.div({className: "margin--small__wide"}, 
-                React.DOM.div({className: "font-12px text-red border-red__top", style: {visibility: disableConditions[4] ? 'visible' : 'hidden'}}, 
-                  TEXT.requiredLabels.alerts
-                )
-              ), 
               React.DOM.div({className: "pooh-bear text-center"}, 
                 React.DOM.div({className: "pooh-bear"}, "Please leave this blank"), 
                 React.DOM.input({id: pbId1, className: "pooh-bear", type: "text", name: "name"})
+              ), 
+              React.DOM.div({className: "margin--small__wide font-12px text-red margin__top", style: {visibility: disableConditions[1] ? 'visible' : 'hidden'}}, 
+                TEXT.requiredLabels.subscription
               ), 
               React.DOM.div({className: "text-left margin__bottom margin--small__wide"}, 
                 React.DOM.input({id: subscriptionNameId, className: "border-medium-gray border-radius", maxLength: toString(Config.MAX_INPUT_CHARS), type: "text", onChange: this._formChange, value: this.state.subscriptionName, placeholder: TEXT.subscriptionPlaceholder}), 
                 React.DOM.button({className: "margin__left font-16px text-white back-orange no-border border-radius", onClick: this._setDefaultSubscriptionName, disabled: disableConditions[0]}, TEXT.subscriptionDefaultLabel)
               ), 
-              React.DOM.div({className: "margin--small__wide font-12px text-red border-red__top", style: {visibility: disableConditions[1] ? 'visible' : 'hidden'}}, 
-                TEXT.requiredLabels.subscription
+              React.DOM.div({className: "margin--small__wide font-12px text-red margin__top", style: {visibility: disableConditions[3] ? 'visible' : 'hidden'}}, 
+                TEXT.requiredLabels.email
               ), 
               React.DOM.div({className: "text-left margin__bottom margin--small__wide"}, 
                 React.DOM.input({id: emailId, className: "border-medium-gray border-radius", maxLength: toString(Config.MAX_INPUT_CHARS), type: "text", onChange: this._formChange, value: this.state.email, placeholder: TEXT.emailPlaceholder})
@@ -168,13 +174,10 @@ define([
                 React.DOM.div({className: "pooh-bear"}, "Please do not change this field"), 
                 React.DOM.input({id: pbId2, className: "pooh-bear", type: "text", name: "address", defaultValue: pbVal})
               ), 
-              React.DOM.div({className: "margin--small__wide font-12px text-red border-red__top", style: {visibility: disableConditions[3] ? 'visible' : 'hidden'}}, 
-                TEXT.requiredLabels.email
-              ), 
               radiusSelect, 
-              React.DOM.div({className: "text-right margin__bottom"}, 
+              React.DOM.div({className: "text-center margin__bottom"}, 
                 React.DOM.button({className: "text-white back-orange no-border border-radius font-16px", onClick: this._subscribe, disabled: disabled}, 
-                  React.DOM.img({className: "vertical-sub", width: "21px", height: "19px", src: 'app/css/images/alert_symbol_' + (disabled ? 'black' : 'white') + '.png'}), 
+                  React.DOM.img({className: "vertical-sub", width: "21px", height: "19px", src: 'app/css/images/alert_symbol_' + (disabled ? 'gray' : 'white') + '.png'}), 
                   React.DOM.span({className: "padding__left"}, TEXT.subscribe)
                 )
               )

@@ -21,7 +21,7 @@ define([
       selectionLabel: 'Selection:',
       noSelection: 'none',
       subscriptionPlaceholder: 'Subscription name',
-      subscriptionDefaultLabel: 'Use selection',
+      subscriptionDefaultLabel: 'Use default',
       emailPlaceholder: 'your_email@example.com',
       subscribe: 'Subscribe',
       bufferLabel: 'Point data selected - buffer area(s) required.',
@@ -45,7 +45,7 @@ define([
         fireFail: 'There was an error with your request to subscribe to Fires alerts.  Please try again later.'
       },
       requiredLabels: {
-        alerts: '* Please select an alert service.',
+        alerts: '* Please select an alert type.',
         subscription: '* Please enter a subscription area name.',
         email: '* Please enter a valid email.'
       }

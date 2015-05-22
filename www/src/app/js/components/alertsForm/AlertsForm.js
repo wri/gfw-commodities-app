@@ -77,8 +77,7 @@ define([
         React.DOM.div({className: 'relative fill'},
           // Header
           React.DOM.div({className: 'alerts-form__header'},
-            React.DOM.img({className: 'box-sizing padding__left vertical-sub', width:'21px', height:'19px', src:'app/css/images/alert_symbol_black.png'}),
-            React.DOM.div({className: 'inline-block fill__long border-box padding__left padding__long vertical-middle'}, TEXT.title),
+            React.DOM.div({className: 'alerts-form__header__title inline-block fill__long border-box padding__long vertical-middle'}, TEXT.title),
             React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
               React.DOM.img({'className': 'vertical-middle', 'src': 'app/css/images/close_symbol.png'})
             )

@@ -131,7 +131,15 @@ define([
               <div className='modal-header'>{TEXT.title}</div>
               <div className='margin__bottom margin--small__left'>
                 <span>{TEXT.selectionLabel}</span>
-                <span className='padding__left text-gold'>{selection}</span>
+                <span className={'padding__left' + (disableConditions[0] ? ' text-red' : ' text-gold')} title={selection}>
+                  {selection.substr(0, 100)}
+                  {selection.length > 100 ? '...' : ''}
+                </span>
+              </div>
+              <div className='margin--small__wide'>
+                <div className='font-12px text-red margin__top' style={{visibility: disableConditions[4] ? 'visible' : 'hidden'}}>
+                  {TEXT.requiredLabels.alerts}
+                </div>
               </div>
               <div className='margin__bottom'>
                 <label className='vertical-middle'>
@@ -145,21 +153,19 @@ define([
                   {TEXT.fires}
                 </label>
               </div>
-              <div className='margin--small__wide'>
-                <div className='font-12px text-red border-red__top' style={{visibility: disableConditions[4] ? 'visible' : 'hidden'}}>
-                  {TEXT.requiredLabels.alerts}
-                </div>
-              </div>
               <div className='pooh-bear text-center'>
                 <div className='pooh-bear'>Please leave this blank</div>
                 <input id={pbId1} className='pooh-bear' type='text' name='name' />
+              </div>
+              <div className='margin--small__wide font-12px text-red margin__top' style={{visibility: disableConditions[1] ? 'visible' : 'hidden'}}>
+                {TEXT.requiredLabels.subscription}
               </div>
               <div className='text-left margin__bottom margin--small__wide'>
                 <input id={subscriptionNameId} className='border-medium-gray border-radius' maxLength={toString(Config.MAX_INPUT_CHARS)} type='text' onChange={this._formChange} value={this.state.subscriptionName} placeholder={TEXT.subscriptionPlaceholder} />
                 <button className='margin__left font-16px text-white back-orange no-border border-radius' onClick={this._setDefaultSubscriptionName} disabled={disableConditions[0]}>{TEXT.subscriptionDefaultLabel}</button>
               </div>
-              <div className='margin--small__wide font-12px text-red border-red__top' style={{visibility: disableConditions[1] ? 'visible' : 'hidden'}}>
-                {TEXT.requiredLabels.subscription}
+              <div className='margin--small__wide font-12px text-red margin__top' style={{visibility: disableConditions[3] ? 'visible' : 'hidden'}}>
+                {TEXT.requiredLabels.email}
               </div>
               <div className='text-left margin__bottom margin--small__wide'>
                 <input id={emailId} className='border-medium-gray border-radius' maxLength={toString(Config.MAX_INPUT_CHARS)} type='text' onChange={this._formChange} value={this.state.email} placeholder={TEXT.emailPlaceholder} />
@@ -168,13 +174,10 @@ define([
                 <div className='pooh-bear'>Please do not change this field</div>
                 <input id={pbId2} className='pooh-bear' type='text' name='address' defaultValue={pbVal} />
               </div>
-              <div className='margin--small__wide font-12px text-red border-red__top' style={{visibility: disableConditions[3] ? 'visible' : 'hidden'}}>
-                {TEXT.requiredLabels.email}
-              </div>
               {radiusSelect}
-              <div className='text-right margin__bottom'>
+              <div className='text-center margin__bottom'>
                 <button className='text-white back-orange no-border border-radius font-16px' onClick={this._subscribe} disabled={disabled}>
-                  <img className='vertical-sub' width='21px' height='19px' src={'app/css/images/alert_symbol_' + (disabled ? 'black' : 'white') + '.png'} />
+                  <img className='vertical-sub' width='21px' height='19px' src={'app/css/images/alert_symbol_' + (disabled ? 'gray' : 'white') + '.png'} />
                   <span className='padding__left'>{TEXT.subscribe}</span>
                 </button>
               </div>
