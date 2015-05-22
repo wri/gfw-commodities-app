@@ -163,11 +163,7 @@ define([
     },
 
     _subscribeToAlerts: function () {
-      if (WizardStore.get(KEYS.alertsDialogActive) && WizardStore.get(KEYS.selectedPresetFeature) !== null) {
-        WizardStore.set(KEYS.selectedPresetFeature, null);
-      } else {
-        WizardStore.set(KEYS.alertsDialogActive, !WizardStore.get(KEYS.alertsDialogActive));
-      }
+      WizardStore.set(KEYS.alertsDialogActive, WizardStore.get(KEYS.alertsDialogActive));
     }
   });
 

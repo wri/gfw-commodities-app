@@ -63,6 +63,7 @@ define([
 
       WizardStore.registerCallback(KEYS.selectedCustomFeatures, function () {
         this.setState({features: WizardStore.get(KEYS.selectedCustomFeatures)});
+        WizardStore.set(KEYS.selectedPresetFeature, null);
       }.bind(this));
 
       WizardStore.registerCallback(KEYS.selectedPresetFeature, function () {
@@ -132,8 +133,8 @@ define([
               <div className='margin__bottom margin--small__left'>
                 <span>{TEXT.selectionLabel}</span>
                 <span className={'padding__left' + (disableConditions[0] ? ' text-red' : ' text-gold')} title={selection}>
-                  {selection.substr(0, 100)}
-                  {selection.length > 100 ? '...' : ''}
+                  {selection.substr(0, 75)}
+                  {selection.length > 75 ? '...' : ''}
                 </span>
               </div>
               <div className='margin--small__wide'>
