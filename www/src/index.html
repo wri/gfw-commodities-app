@@ -66,6 +66,14 @@
 
         ga('create', 'UA-48182293-1', 'auto', {'name':"C",'cookieDomain':"'commodities.globalforestwatch.org']"});
         ga('C.send', 'pageview');
+
+        // Check if this page is in an iFrame or not and if so, send an event
+        if (window.top !== window.self) {
+          ga('A.send', 'event', 'Event', 'embed', 'iFrame Embed', 'This application was viewed inside an embedded iFrame.');
+          ga('B.send', 'event', 'Event', 'embed', 'iFrame Embed', 'This application was viewed inside an embedded iFrame.');
+          ga('C.send', 'event', 'Event', 'embed', 'iFrame Embed', 'This application was viewed inside an embedded iFrame.');
+        }
+
       </script>
       <!-- Google Analytics -->
     </head>

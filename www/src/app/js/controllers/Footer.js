@@ -23,7 +23,7 @@ define([
             setTimeout(function () {
                 var s = document.createElement('script'),
                 h = document.getElementsByTagName('body')[0];
-                s.setAttribute('src', "https://cdn.rawgit.com/simbiotica/gfw_assets/a1c6c10126d915e4198a7adf707adb266443f3e4/src/header-loader.js");
+                s.setAttribute('src', "https://cdn.rawgit.com/simbiotica/gfw_assets/ca8bde060fc1d3b8a57ad49a96e9b415017cace4/src/header-loader.js");
                 s.setAttribute('id', "loader-gfw");
                 s.setAttribute('data-current', ".shape-commodities");
                 //s.setAttribute('async', 'true');

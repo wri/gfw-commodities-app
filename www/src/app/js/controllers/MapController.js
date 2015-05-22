@@ -280,6 +280,10 @@ define([
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
+
+                ga('A.send', 'event', 'Event', 'click', 'Share Button', 'User clicked the share button.');
+                ga('B.send', 'event', 'Event', 'click', 'Share Button', 'User clicked the share button.');
+                ga('C.send', 'event', 'Event', 'click', 'Share Button', 'User clicked the share button.');
             });
 
             on(dom.byId("alert-button"), "click", function() {
