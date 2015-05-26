@@ -25,8 +25,9 @@ define([
     "components/LayerList",
     "utils/Loader",
     "map/Uploader",
-    "map/CoordinatesModal"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, Loader, Uploader, CoordinatesModal) {
+    "map/CoordinatesModal",
+    "utils/Analytics"
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, Analytics) {
     'use strict';
 
     var initialized = false,
@@ -281,9 +282,7 @@ define([
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
 
-                ga('A.send', 'event', 'Event', 'click', 'Share Button', 'User clicked the share button.');
-                ga('B.send', 'event', 'Event', 'click', 'Share Button', 'User clicked the share button.');
-                ga('C.send', 'event', 'Event', 'click', 'Share Button', 'User clicked the share button.');
+                Analytics.sendEvent('Event', 'click', 'Share Button', 'User clicked the share button.');
             });
 
             on(dom.byId("alert-button"), "click", function() {

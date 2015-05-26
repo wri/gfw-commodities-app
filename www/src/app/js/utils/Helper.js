@@ -43,7 +43,7 @@ define([
           onEnd: onEnd
         };
     return Fx.animateProperty(animation);
-  }
+  };
 
   return {
   	enableLayout: function () {
@@ -80,5 +80,5 @@ define([
         coreFx.combine([AlertsHelper.toggleAlertsForm(), _getMapAnimation(AlertsHelper.isOpen() ? 0 : WIZARD_WIDTH, true, originalCenterPoint)]).play();
       }
     }
-  }
+  };
 });
