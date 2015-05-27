@@ -163,7 +163,7 @@ define([
     },
 
     _subscribeToAlerts: function () {
-      WizardStore.set(KEYS.alertsDialogActive, WizardStore.get(KEYS.alertsDialogActive));
+      WizardStore.set(KEYS.alertsDialogActive, !WizardStore.get(KEYS.alertsDialogActive));
     }
   });
 

@@ -45,10 +45,13 @@ define([
         init: function(template) {
 
             var self = this,
-                ids = [];
+                ids = [],
+                url;
 
             if (initialized) {
                 registry.byId("stackContainer").selectChild("mapView");
+                url = location.href.split("#")[0] + "#v=map";
+                Analytics.sendPageview(url, "Map");
                 return;
             }
 
@@ -232,6 +235,9 @@ define([
                     Hasher.removeKey('f');
                 }
             });
+
+            url = location.href.split("#")[0] + "#v=map";
+            Analytics.sendPageview(url, "Map");
 
         },
 

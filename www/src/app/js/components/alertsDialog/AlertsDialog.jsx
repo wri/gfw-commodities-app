@@ -7,6 +7,7 @@ define([
   'components/alertsDialog/config',
   'analysis/WizardStore',
   'utils/GeoHelper',
+  'utils/Analytics',
   // esri/dojo
   'esri/geometry/Polygon',
   'dojo/dom',
@@ -15,7 +16,7 @@ define([
   'dojo/promise/all',
   'dojo/request/xhr',
   'dojox/validate/web'
-], function (React, _, Config, WizardStore, GeoHelper, Polygon, dom, domClass, Deferred, all, xhr, validate) {
+], function (React, _, Config, WizardStore, GeoHelper, Analytics, Polygon, dom, domClass, Deferred, all, xhr, validate) {
 
   var AlertsDialog,
       getDefaultState,
@@ -218,6 +219,9 @@ define([
       xhr(url, options).then(function (response) {
         deferred.resolve((response.message && response.message === firesConfig.successMessage) ? messagesConfig.fireSuccess : messagesConfig.fireFail);
       });
+
+      Analytics.sendEvent('Event', 'subscribe', 'Fire Alerts', 'User is subscribing to Fire Alerts.');
+
       return deferred.promise;
     },
 
@@ -245,6 +249,9 @@ define([
       request.open(options.method, url, true);
       request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       request.send(data);
+
+      Analytics.sendEvent('Event', 'subscribe', 'Monthly Clearance Alerts', 'User is subscribing to Monthly Clearance Alerts.');
+
       return deferred.promise;
     },
 

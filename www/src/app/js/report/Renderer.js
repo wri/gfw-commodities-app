@@ -6,8 +6,9 @@ define([
   "dojo/on",
   "dojo/dom",
   "dojo/dom-style",
-  "report/CSVExporter"
-], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle, CSVExporter) {
+  "report/CSVExporter",
+  "utils/Analytics"
+], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle, CSVExporter, Analytics) {
   'use strict';
 
   // Container IDS for charts and tables are as Follows
@@ -932,6 +933,8 @@ define([
           output = csvData.join(lineEnding);
 
           CSVExporter.exportCSV(output);
+
+          Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded RSPO results table.');
 
         });
 

@@ -13,8 +13,9 @@ define([
     "dojo/_base/lang",
     "esri/tasks/PrintTask",
     "map/Controls",
+    'utils/Analytics',
     'utils/GeoHelper'
-], function(React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, GeoHelper) {
+], function (React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, Analytics, GeoHelper) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
     var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -270,6 +271,9 @@ define([
                     win.document.dispatchEvent(readyEvent);
                 }
             }
+
+            // Emit Event for Analytics
+            Analytics.sendEvent('Event', 'click', 'Perform Analysis', 'User clicked perfrom analysis.');
 
         },
 

@@ -6,13 +6,14 @@ define([
 	"esri/geometry/Polygon",
 	// My Modules
 	"report/config",
+  "utils/Analytics",
 	// Dojo Modules
 	"dojo/Deferred",
 	"dojo/_base/lang",
 	"dojo/_base/array",
 	"dojo/promise/all",
 	"report/CSVExporter"
-], function (esriRequest, Query, QueryTask, Polygon, ReportConfig, Deferred, lang, arrayUtils, all, CSVExporter) {	
+], function (esriRequest, Query, QueryTask, Polygon, ReportConfig, Analytics, Deferred, lang, arrayUtils, all, CSVExporter) {	
 
 	return {
 
@@ -50,10 +51,12 @@ define([
 			csvData = CSVExporter.exportSuitabilityStatistics();
 			csvStringData = csvData.join(lineEnding);
 			CSVExporter.exportCSV(csvStringData);
+      Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded Suitability results table.');
 		},
 
 		downloadSuitabiltiySettings: function () {
 			CSVExporter.exportCSV(payload.suitability.csv);
+      Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded Suitability settings.');
 		},
 
 		getSuitableAreas: function (pixelSize) {

@@ -16,15 +16,15 @@ define([
     "esri/SpatialReference",
     "esri/tasks/GeometryService",
     "esri/geometry/webMercatorUtils",
+    "utils/Analytics",
     // Local Modules from report folder
     "report/config",
     "report/Fetcher",
     "report/CSVExporter",
-
     // Temp
     'esri/units',
     'esri/geometry/Circle'
-], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher, CSVExporter, Units, Circle) {
+], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Analytics, Config, Fetcher, CSVExporter, Units, Circle) {
     'use strict';
 
     window.report = {};
@@ -127,6 +127,10 @@ define([
                 if (output) {
                     CSVExporter.exportCSV(output);
                 }
+
+                var value = type === 'column' ? 'RSPO Land Use Change Analysis' : this.title.textStr;
+                Analytics.sendEvent('Event', 'click', 'Download CSV', value);
+
             }
 
             Highcharts.getOptions().exporting.buttons.contextButton.menuItems.push({
