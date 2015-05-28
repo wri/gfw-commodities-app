@@ -283,39 +283,31 @@ define([
           var pointRadius = WizardStore.get(KEYS.analysisPointRadius) || 50;
           var geometries = []; 
 
-          if (Object.prototype.toString.call(features) === '[object Array]') {
+          // If its not an array, force it into an array so I dont need two separate
+          // blocks of code to prepare the geometry, this can and should be removed once
+          // we verify that features is always of type array
+          if (Object.prototype.toString.call(features) !== '[object Array]') {
+            features = [features];
+          }
 
-            features.forEach(function (feature) {
-              // If the feature is a point, cast as a circle with radius
-              if (feature.geometry.type === 'point') {
-                feature = GeoHelper.preparePointAsPolygon(feature, pointRadius);
-              }
-
-              geometries.push({
-                geometry: feature.geometry,
-                type: (feature.geometry.radius ? 'circle' : 'polygon'),
-                isCustom: feature.attributes.WRI_ID !== undefined,
-                // Mill Point Specific Fields, Include them as undefined if tha values are not present
-                label: feature.attributes.WRI_label || undefined,
-                millId: feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined,
-                isRSPO: feature.attributes.isRSPO || undefined
-              });
-
-            });
-
-          } else {
+          features.forEach(function (feature) {
+            // If the feature is a point, cast as a circle with radius
+            if (feature.geometry.type === 'point') {
+              feature = GeoHelper.preparePointAsPolygon(feature, pointRadius);
+            }
 
             geometries.push({
-              geometry: features.geometry,
-              type: (features.geometry.radius ? 'circle' : 'polygon'),
-              isCustom: features.attributes.WRI_ID !== undefined,
+              geometry: feature.geometry,
+              type: (feature.geometry.radius ? 'circle' : 'polygon'),
+              isCustom: feature.attributes.WRI_ID !== undefined,
               // Mill Point Specific Fields, Include them as undefined if tha values are not present
-              label: features.attributes.WRI_label || undefined,
-              millId: features.attributes.Entity_ID || features.attributes.WRI_ID || undefined,
-              isRSPO: features.attributes.isRSPO || undefined
+              label: feature.attributes.WRI_label || undefined,
+              millId: feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined,
+              isRSPO: feature.attributes.isRSPO || undefined,
+              buffer: pointRadius
             });
 
-          }
+          });
 
           return JSON.stringify(geometries);
 

@@ -192,12 +192,14 @@ define([
 
               arrayUtils.forEach(areasToAnalyze, function (feature) {
 
-                poly = new Polygon(sr);
-                poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
-                polygons.push(poly);
-                // Update the Mill Geometry since it will be needed to get area
-                // The geometry was stringified when saved, this breaks the prototype chain
-                feature.geometry = poly;
+                if (feature.geometry.center) {
+                  poly = new Polygon(sr);
+                  poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
+                  polygons.push(poly);
+                  // Update the Mill Geometry since it will be needed to get area
+                  // The geometry was stringified when saved, this breaks the prototype chain
+                  feature.geometry = poly;
+                }
 
               });
 

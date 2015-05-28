@@ -1,17 +1,39 @@
 define([
 	"dojo/Deferred",
 	"esri/tasks/QueryTask", 
-  "esri/tasks/query", 
-  "esri/tasks/ImageServiceIdentifyTask",
-  "esri/tasks/ImageServiceIdentifyParameters", 
-  "esri/tasks/StatisticDefinition",
-  "esri/request"
-], function (Deferred,QueryTask, Query, ImageServiceIdentifyTask, ImageServiceIdentifyParameters, StatisticDefinition, esriRequest) {
+    "esri/tasks/query", 
+    "esri/tasks/ImageServiceIdentifyTask",
+    "esri/tasks/ImageServiceIdentifyParameters", 
+    "esri/tasks/StatisticDefinition",
+    "esri/request",
+    "esri/tasks/AreasAndLengthsParameters", 
+    "esri/tasks/GeometryService",
+    "esri/SpatialReference",
+    "esri/tasks/ProjectParameters",
+    "esri/tasks/BufferParameters"
+	// "core/config", 
+ //    "core/toolkitController", 
+ //    "core/modelSaveController"
+], 
+function(
+    Deferred,
+	QueryTask, 
+    Query, 
+    ImageServiceIdentifyTask, 
+    ImageServiceIdentifyParameters, 
+    StatisticDefinition, 
+    esriRequest,
+    AreasAndLengthsParameters, 
+    GeometryService,
+    SpatialReference,
+    ProjectParameters,
+    BufferParameters
+) {
 
     var o = {};
 
     var obj_to_esriParams = function(esriParamTarget, obj){
-        for (var param in obj){
+        for (param in obj){
             if (obj.hasOwnProperty(param)){
                 if (obj[param]){
                     esriParamTarget[param] = obj[param];
@@ -19,8 +41,16 @@ define([
             }
         }
         
-        return esriParamTarget;
-    };
+        return esriParamTarget
+    }
+
+    var getGeometryUnits = function(params){
+        params.lengthUnit = GeometryService[params.lengthUnit];
+        params.areaUnit = GeometryService[params.areaUnit];
+        return params;
+    }
+
+    
 
     var execute_task = function(task,params,execution){
         var deferred = new Deferred();
@@ -34,7 +64,43 @@ define([
             deferred.resolve(err);
         });
         return deferred;
-    };
+    }
+
+    o.getAreasLengths = function(url,params){
+        var deferred = new Deferred();
+        params = getGeometryUnits(params);
+        var al_params = obj_to_esriParams(new AreasAndLengthsParameters(),params);
+        var geometryService = new GeometryService(url);
+        geometryService.areasAndLengths(al_params).then(function(results){
+            deferred.resolve(results);
+        })
+        return deferred
+    }
+
+    o.project = function(url,params,outWkid){
+        var deferred = new Deferred();
+        params.outSR = new SpatialReference(outWkid)
+        var geometryService = new GeometryService(url);
+
+        var projParams = obj_to_esriParams(new ProjectParameters(),params);
+        geometryService.project(projParams).then(function(results){
+            deferred.resolve(results);
+        });
+        return deferred
+    }
+
+    o.buffer = function(url,params,wkid){
+        var deferred = new Deferred();
+        var bufferParams = obj_to_esriParams(new BufferParameters(),params);
+        bufferParams.unit = GeometryService[params.unit];
+        bufferParams.spatialReference = params.geometries[0].spatialReference;
+        bufferParams.outSpatialReference = new SpatialReference(wkid);
+        var geometryService = new GeometryService(url);
+        geometryService.buffer(bufferParams).then(function(results){
+            deferred.resolve(results);
+        });
+        return deferred
+    }
 
     o.loadServiceInfo = function(url){
         var deferred = new Deferred();
@@ -54,7 +120,7 @@ define([
         });
 
         return deferred;
-    };
+    }
 
     o.queryForStats = function(url, params, statdefs){
         //Create StatisticDefinition object for a query,
@@ -62,11 +128,11 @@ define([
         var deferred = new Deferred();
         var statDefArray = statdefs.map(function(def){
             return obj_to_esriParams(new StatisticDefinition(),def);
-        });
+        })
         params.outStatistics = statDefArray;
-        return o.queryEsri(url, params);
+        return o.queryEsri(url, params)
         
-    };
+    }
 
     o.queryEsri = function(url, params, execution) {
     	var queryTask = new QueryTask(url);
@@ -74,7 +140,7 @@ define([
         // debugger;
 
     	var deferred = execute_task(queryTask,query,execution);
-        return deferred;
+        return deferred
     };
 
 

@@ -90,7 +90,7 @@ define([
 
           featureDeferred.resolve({
             feature: data.feature,
-            area: data.area,
+            // area: data.area,
             inIndonesia: data.inIndonesia
           });
 
@@ -118,13 +118,13 @@ define([
     getAreaAndIndoIntersect: function (feature) {
       var mainDeferred = new Deferred();
 
-      var area = this.getArea(feature.geometry);
+      // var area = this.getArea(feature.geometry);
 
       this.getIntersectionStatus(feature).then(function (intersectionStatus) {
 
         mainDeferred.resolve({
           feature: feature,
-          area: area,
+          // area: area,
           inIndonesia: intersectionStatus
         });
 
@@ -138,10 +138,10 @@ define([
     * @param {object} geometry - Geometry of feature to get area for, feature should be in web mercator
     * @return {number} area - Returns the area of the given geometry in square meters
     */
-    getArea: function (geometry) {
-      var simplified = geometryEngine.simplify(geometry);
-      return geometryEngine.planarArea(simplified);
-    },
+    // getArea: function (geometry) {
+    //   var simplified = geometryEngine.simplify(geometry);
+    //   return geometryEngine.planarArea(simplified);
+    // },
 
     /**
     * @param {object} geometry - Geometry of feature to get area for, feature should be in web mercator
@@ -179,20 +179,21 @@ define([
           promises = [],
           inIndonesia,
           geometry,
-          area,
+          buffer,
+          // area,
           rspo;
       
       arrayUtils.forEach(featureObjects, function (featureObj) {
         var featureDeferred = new Deferred();
 
         rspo = featureObj.feature.isRSPO || false;
-        geometry = featureObj.feature.geometry;
+        geometry = featureObj.feature.geometry.getExtent().getCenter();
         inIndonesia = featureObj.inIndonesia;
-        area = featureObj.area;
+        // area = featureObj.area;
+        buffer = JSON.parse(featureObj.feature.buffer);
 
         all([
-          RiskController(geometry, area, 'concession', rspo, inIndonesia),
-          RiskController(geometry, area, 'radius', rspo, inIndonesia)
+          RiskController.getRisk(geometry, buffer, rspo, inIndonesia)
         ]).then(function (results) {
 
           featureDeferred.resolve({
@@ -222,78 +223,87 @@ define([
     */
     formatData: function (resultSets) {
       var mills = [],
-          concessionResults,
-          radiusResults,
           riskObject;
 
       // CONSTANT LOOK UP OBJECT
-      var RISK = {
-        1: 'low',
-        2: 'medium',
-        3: 'high'
-      };
+      // var RISK = {
+      //   1: 'low',
+      //   2: 'medium',
+      //   3: 'high'
+      // };
 
       /**
       * @param {object} data - concessionData object
       * @param {string} type - concession|radius only 
       */
-      function placeResultsInRiskObject (data, type) {
+      // function placeResultsInRiskObject (data, type) {
 
-        var key;
+      //   var key;
 
-        switch (data.label) {
-          case 'Legality': 
-            riskObject.legal[type] = { risk: RISK[data.risk] };
-          break;
-          case 'RSPO': 
-            // Do Nothing for Now
-            // riskObject.rspo.risk = (data.risk !== undefined ? data.risk : false);
-          break;
-          case 'Fires': 
-            riskObject.fire[type] = { risk: RISK[data.risk] };
-          break;
-          case 'Carbon':
-            arrayUtils.forEach(data.categories, function (category) {
-              if (category.key === 'loss_carbon') {
-                riskObject.deforestation.carbon[type] = { risk: RISK[category.risk] };
-              }
-            });
-          break;
-          case 'Peat':
-            key = (type === 'concession' ? 'peat_concession' : 'peat_radius');
-            riskObject.peat[key] = RISK[data.risk];
-            arrayUtils.forEach(data.categories, function (category) {
-              if (riskObject.peat[category.key]) {
-                riskObject.peat[category.key][type] = { risk: RISK[category.risk] };
-              }
-            });
-          break;
-          case 'Deforestation':
-            key = (type === 'concession' ? 'deforestation_concession' : 'deforestation_radius');
-            riskObject.deforestation[key] = RISK[data.risk];
-            arrayUtils.forEach(data.categories, function (category) {
-              riskObject.deforestation[category.key][type] = { risk: RISK[category.risk] };
-            });
-          break;
-        }
+      //   switch (data.label) {
+      //     case 'Legality': 
+      //       riskObject.legal[type] = { risk: RISK[data.risk] };
+      //     break;
+      //     case 'RSPO': 
+      //       // Do Nothing for Now
+      //       // riskObject.rspo.risk = (data.risk !== undefined ? data.risk : false);
+      //     break;
+      //     case 'Fires': 
+      //       riskObject.fire[type] = { risk: RISK[data.risk] };
+      //     break;
+      //     case 'Carbon':
+      //       arrayUtils.forEach(data.categories, function (category) {
+      //         if (category.key === 'loss_carbon') {
+      //           riskObject.deforestation.carbon[type] = { risk: RISK[category.risk] };
+      //         }
+      //       });
+      //     break;
+      //     case 'Peat':
+      //       key = (type === 'concession' ? 'peat_concession' : 'peat_radius');
+      //       riskObject.peat[key] = RISK[data.risk];
+      //       arrayUtils.forEach(data.categories, function (category) {
+      //         if (riskObject.peat[category.key]) {
+      //           riskObject.peat[category.key][type] = { risk: RISK[category.risk] };
+      //         }
+      //       });
+      //     break;
+      //     case 'Deforestation':
+      //       key = (type === 'concession' ? 'deforestation_concession' : 'deforestation_radius');
+      //       riskObject.deforestation[key] = RISK[data.risk];
+      //       arrayUtils.forEach(data.categories, function (category) {
+      //         riskObject.deforestation[category.key][type] = { risk: RISK[category.risk] };
+      //       });
+      //     break;
+      //   }
 
-      }
+      // }
 
       arrayUtils.forEach(resultSets, function (resultObj) {
-        concessionResults = resultObj.results[0];
-        radiusResults = resultObj.results[1];
+
         // All these values need to be filled in
-        riskObject = lang.clone(JSON_SPEC);
+        riskObject = lang.clone(resultObj.results[0]);
         riskObject.id = resultObj.feature.millId;
-        riskObject.rspo.risk = resultObj.feature.isRSPO;
+        riskObject.rspo = { risk: resultObj.feature.isRSPO };
 
-        arrayUtils.forEach(concessionResults, function (concessionData) {
-          placeResultsInRiskObject(concessionData, 'concession');
-        });
-
-        arrayUtils.forEach(radiusResults, function (radiusData) {
-          placeResultsInRiskObject(radiusData, 'radius');
-        });
+        // Temporary Fix, Get Alicia to Rename these and add in last values
+        // TODO:  
+        // 1. Change legality to legal
+        // 2. Change fires to fire
+        // 3. Add In Overall Priority Level
+        //1
+        riskObject.legal = {
+          concession: { risk: riskObject.legality.concession.risk },
+          radius: { risk: riskObject.legality.radius.risk }
+        };
+        //2
+        riskObject.fire = {
+          concession: { risk: riskObject.fires.concession.risk },
+          radius: { risk: riskObject.fires.radius.risk }
+        };
+        //3
+        riskObject.total_mill_priority_level = "N/A";
+        riskObject.priority_level_concession = "N/A";
+        riskObject.priority_level_radius = "N/A";
 
         mills.push(riskObject);
 
