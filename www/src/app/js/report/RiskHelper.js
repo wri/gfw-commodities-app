@@ -285,25 +285,10 @@ define([
         riskObject.id = resultObj.feature.millId;
         riskObject.rspo = { risk: resultObj.feature.isRSPO };
 
-        // Temporary Fix, Get Alicia to Rename these and add in last values
+        // Temporary Fix, Get Alicia to add in the last value
         // TODO:  
-        // 1. Change legality to legal
-        // 2. Change fires to fire
-        // 3. Add In Overall Priority Level
-        //1
-        riskObject.legal = {
-          concession: { risk: riskObject.legality.concession.risk },
-          radius: { risk: riskObject.legality.radius.risk }
-        };
-        //2
-        riskObject.fire = {
-          concession: { risk: riskObject.fires.concession.risk },
-          radius: { risk: riskObject.fires.radius.risk }
-        };
-        //3
+        // 1. Add In Overall Priority Level
         riskObject.total_mill_priority_level = "N/A";
-        riskObject.priority_level_concession = "N/A";
-        riskObject.priority_level_radius = "N/A";
 
         mills.push(riskObject);
 

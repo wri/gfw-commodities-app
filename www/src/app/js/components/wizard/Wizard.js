@@ -290,6 +290,14 @@ define([
             features = [features];
           }
 
+          // Helper function
+          function getMillId (feature) {
+            var areaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+                id = feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined;
+
+            return  areaOfInterest === 'millPointOption' ? id : undefined;
+          }
+
           features.forEach(function (feature) {
             // If the feature is a point, cast as a circle with radius
             if (feature.geometry.type === 'point') {
@@ -300,9 +308,9 @@ define([
               geometry: feature.geometry,
               type: (feature.geometry.radius ? 'circle' : 'polygon'),
               isCustom: feature.attributes.WRI_ID !== undefined,
-              // Mill Point Specific Fields, Include them as undefined if tha values are not present
               label: feature.attributes.WRI_label || undefined,
-              millId: feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined,
+              // Mill Point Specific Fields, Include them as undefined if the values are not present
+              millId: getMillId(feature),
               isRSPO: feature.attributes.isRSPO || undefined,
               buffer: pointRadius
             });

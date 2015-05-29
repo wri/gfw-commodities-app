@@ -43,6 +43,9 @@ define([
 
         var getRiskByBreaksCallback = function(low,high){
             return function(results){
+                if(!results.histograms[0]){
+                    return 1;
+                }
                 var value = results.histograms[0].counts[1] || 0;
                 if (value > high){
                     return 3;
@@ -54,12 +57,18 @@ define([
             }
         }
 
-        var getRiskByAreaBreaks = function(low,high){
+        var getRiskByAreaBreaks = function(low,high,pixelSize){
             return function(results){
+                if(!results.histograms[0]){
+                    return getRiskByBreaks(low,high,0);
+                }
                 var counts = results.histograms[0].counts[1] || 0;
 
-                var area = countsToArea(counts,100);
+                var area = countsToArea(counts,pixelSize);
                 var riskFactor = area/featureArea;
+
+                var breaks = {low:low,high:high}
+                // console.log(breaks,areaType, counts, area, featureArea, riskFactor)
 
                 return getRiskByBreaks(low,high,riskFactor);
             };
@@ -84,19 +93,24 @@ define([
                       "rasterFunctionArguments" : {
                         "InputRanges" : inputRanges,//[0,1, 1,2014],
                         "OutputValues" : outputValues,//[0, 1],
-                        "Raster": rasterId
+                        "Raster": rasterId,
+                        "AllowUnmatched": false
                       },
                       "variableName" : "Raster"
             };
         };
 
         var remapLoss = function(rasterId){
-            return remapRule([0,1, 1,2014],[0,1],rasterId);
+            return remapRule([0,1, 1,14],[0,1],rasterId);
         };
 
         var remapAlerts = function(rasterId){
             return remapRule([1,22],[1],rasterId)
         };
+
+        var remapHighCarbonDensity = function(rasterId){
+            return remapRule([1,100, 100,369],[0,1],rasterId);
+        }
 
         var arithmeticRule = function(raster1,raster2, operation){
             return {
@@ -135,25 +149,27 @@ define([
 
         };
 
+        var priority_breaks = {low:7,high:12};
+
         var priorities = [
             {
-                'label': 'legality',
+                'label': 'legal',
                 categories: ['legal'],
                 'singleIndicator': true
             },
             {
                 'label': 'deforestation',
-                categories: [
-                    'umd_loss',
-                    // 'area_primary',
-                    'umd_loss_primary', 
-                    'forma', 
-                    'forma_primary',
-                    // 'forma_peat',
-                    'loss_carbon'/*, 'area_carbon','area_carbon','alerts_carbon'*/],
-                // categories: ['area_carbon'],
-                high: 11,
-                low: 7
+                // categories: [
+                //     'umd_loss',
+                //     // 'area_primary',
+                //     'umd_loss_primary', 
+                //     'forma', 
+                //     'forma_primary',
+                //     // 'forma_peat',
+                //     'loss_carbon'/*, 'area_carbon','area_carbon','alerts_carbon'*/],
+                // // categories: ['area_carbon'],
+                high: 21,
+                low: 13
                 // high: 27,
                 // low: 21
             },
@@ -163,9 +179,9 @@ define([
             // },
             {
                 'label': 'peat',
-                categories: ['loss_peat_area','peat_alerts','peat_presence'],
-                high: 5,
-                low: 3
+                // categories: ['loss_peat_area','peat_alerts','peat_presence'],
+                high: 7,
+                low: 4
                 // high: 7,
                 // low: 4
             },
@@ -174,7 +190,7 @@ define([
                 categories: ['rspo'],
             },
             {
-                'label': 'fires',
+                'label': 'fire',
                 categories: ['fire'],
                 'singleIndicator': true
             }
@@ -218,7 +234,60 @@ define([
                     },
                     callbacks: {
                         'radius': getRiskByBreaksCallback(1,250*.02),
-                        'concession': getRiskByBreaksCallback(1,295)
+                        'concession': getRiskByBreaksCallback(25,295)
+                    }
+                },
+
+                { 
+                    key: 'forma_carbon',
+                    category: 'deforestation',
+                    service: services.commodities,
+                    request: methods.histogram,
+                    params:{
+                        renderingRule: arithmeticRule(
+                                remapAlerts(config.clearanceAlerts.rasterId),
+                                remapHighCarbonDensity("524"),
+                                3
+                            ),
+                        pixelSize: 30
+                    },
+                    callbacks: {
+                        'radius': getHighRiskIfPresent,
+                        'concession': getHighRiskIfPresent
+                    }
+                },
+
+                { 
+                    key: 'area_carbon',
+                    category: 'deforestation',
+                    service: services.commodities,
+                    request: methods.histogram,
+                    params:{
+                        renderingRule: remapHighCarbonDensity("$524"),
+                        pixelSize: 30
+                    },
+                    callbacks: {
+                        'radius': getRiskByAreaBreaks(0.747,0.913,30),
+                        'concession': getRiskByAreaBreaks(0,.2,30)
+                    }
+                },
+
+                { 
+                    key: 'area_primary',
+                    category: 'deforestation',
+                    service: services.commodities,
+                    request: methods.histogram,
+                    ind_params:{
+                        renderingRule: remapRule([1,3],[1],config.primaryForest.rasterId),
+                        pixelSize: 100
+                    },
+                    params:{
+                        renderingRule: remapRule([1,2],[1],config.intactForest.rasterId),
+                        pixelSize: 100
+                    },
+                    callbacks: {
+                        'radius': getRiskByAreaBreaks(.12,.18,100),
+                        'concession': getRiskByAreaBreaks(0,.2,100)
                     }
                 },
 
@@ -233,7 +302,7 @@ define([
                                 remapRule([1,3],[1], config.primaryForest.rasterId),
                                 3
                             ),
-                            pixelSize: 100
+                            pixelSize: 30
                         },
                     params:{
                             renderingRule: arithmeticRule(
@@ -256,17 +325,17 @@ define([
                     request: methods.histogram,
                     params:{
                         renderingRule: remapLoss(config.treeCoverLoss.rasterId),
-                        pixelSize: 100
+                        pixelSize: 30
                     },
                     callbacks: {
-                        'radius': getRiskByAreaBreaks(.05*.02,.28*.02),
+                        'radius': getRiskByAreaBreaks(.05*.02,.28*.02,30),
                         // function(results){
                         //     var calculatedMultiplier = .02;
                         //     var area = countsToArea(results.histograms[0].counts[1],100)
                         //     var pctArea = area/featureArea;
                         //     return getRiskByBreaks(.05,.28,pctArea);
                         // },
-                        'concession': getRiskByAreaBreaks(.05,.28)
+                        'concession': getRiskByAreaBreaks(.05,.28,30)
                     }
                 },
 
@@ -299,7 +368,7 @@ define([
 
                 {
                     key: 'fire',
-                    category: 'fires',
+                    category: 'fire',
                     service: services.fires,
                     request: methods.query,
                     params:{
@@ -338,7 +407,7 @@ define([
 
                 {
                     key: 'legal',
-                    category: 'legality',
+                    category: 'legal',
                     service: services.commodities,
                     request: methods.histogram,
                     ind_params:{
@@ -363,7 +432,28 @@ define([
                 },
 
                 { 
+                    // key: 'loss_peat_area',
                     key: 'clearance',
+                    category: 'peat',
+                    service: services.commodities,
+                    request: methods.histogram,
+
+                    params:{
+                        renderingRule: arithmeticRule(
+                            remapLoss(config.treeCoverLoss.rasterId),
+                            config.peatLands.rasterId,
+                            3
+                        ),
+                        pixelSize: 100
+                    },
+                    callbacks: {
+                        'radius': getHighRiskIfPresent,
+                        'concession': getHighRiskIfPresent
+                    }
+                },
+
+                { 
+                    key: 'alerts',
                     category: 'peat',
                     service: services.commodities,
                     request: methods.histogram,
@@ -392,8 +482,8 @@ define([
                     },
                     
                     callbacks: {
-                        'radius': getRiskByAreaBreaks(0.02,0.05),//getRiskByAreaBreaks(0.0059,0.0063),
-                        'concession': getRiskByAreaBreaks(0.02,0.05)//getRiskByAreaBreaks(0.0059,0.0063)
+                        'radius': getRiskByAreaBreaks(0.02,0.05,100),//getRiskByAreaBreaks(0.0059,0.0063),
+                        'concession': getRiskByAreaBreaks(0.02,0.05,100)//getRiskByAreaBreaks(0.0059,0.0063)
                     }
 
                 }
@@ -412,7 +502,7 @@ define([
             // Need a clone because if this gets called multiple times, multiple keys get embedded
             var clonedPriorities = lang.clone(priorities);
             var risk_labels = ['N/A','low','medium','high'];
-
+            var priority_level = 0;
 
             _.forIn(results,function(value,key){
 
@@ -424,6 +514,7 @@ define([
                 var single = _.result(_.find(priorities,{'label':category}),'singleIndicator')
                 if(single){
                     riskResults[category][areaType] = {risk:risk_labels[value]};
+                    priority_level += value;
                 }
                 else{
                     if(!riskResults[category][key]){
@@ -448,6 +539,7 @@ define([
                 var categores = _.pluck(_.groupBy(categories,'category')[priority.label],'key');
                 categories.forEach(function(cat, index){
                     total += results[cat];
+                    priority_level += results[cat];
                     cats.push({ 'key':cat, 'risk': results[cat] });
                 });
                 priority.categories = cats;
@@ -461,6 +553,8 @@ define([
                     var key = priority.label + '_' + areaType;
                     riskResults[category][key] = risk_labels[risk];
             });
+            priority_level = getRiskByBreaks(priority_breaks.low,priority_breaks.high,priority_level);
+            riskResults['priority_level_'+areaType] = risk_labels[priority_level];
             return riskResults;
         };
 
@@ -470,6 +564,16 @@ define([
         indonesia = indonesia;
 
         var promises = [];
+        if(!geometry){
+            var riskObj = {};
+            _.pluck(categories,'key').forEach(function(key){
+                riskObj[key] = 0;
+            })
+            calculatePriority(riskObj,areaType);
+            final_deferred.resolve(riskObj);
+
+            return final_deferred.promise;
+        }
         categories.forEach(function(category){
             var deferred = new Deferred();
             var params = indonesia && category.ind_params? category.ind_params : category.params;
@@ -540,11 +644,16 @@ define([
             var geometries = results.features.map(function(feature){
                 return feature.geometry;
             });
-
+            if (geometries.length<1){
+                var riskObj = {};
+                o.getRiskByGeometry(false, 0, 'concession', rspo, indonesia,riskResults);
+                deferred.resolve()
+                return;
+            }
             // debugger;
             var union = geoEngine.union(geometries);
-            //var simplify = geoEngine.simplify(union);
-            var poly = new Polygon(union);
+            var simplify = geoEngine.simplify(union);
+            var poly = new Polygon(simplify);
 
             var params = {
                 geometries: [poly]
@@ -554,7 +663,7 @@ define([
                 var projPoly = new Polygon(results[0]);
 
                 o.getGeometryArea(url,projPoly).then(function(area){
-
+                        // console.log('CONAREA',area)
                         var task = o.getRiskByGeometry(results[0], area, 'concession', rspo, indonesia,riskResults);
                         task.then(function(results){
                             deferred.resolve();
@@ -567,6 +676,27 @@ define([
             
         });
         return deferred
+    }
+
+    o.printProjectGeom = function(geom){
+         var url = config.geometryServiceUrl;
+
+            // debugger;
+            // var union = geoEngine.union(geometries);
+            // var simplify = geoEngine.simplify(union);
+            var poly = new Polygon(geom);
+
+            var params = {
+                geometries: [poly]
+            }
+
+            riskRequest.project(url,params,102100).then(function(results){
+                console.log("BUFFER GEOM",JSON.stringify(results[0]))
+            })
+
+            
+           
+            
     }
 
     o.getRadiusBuffer = function(point,distance){
@@ -584,7 +714,10 @@ define([
             o.getGeometryArea(url,buffPoly).then(function(area){
                     deferred.resolve({geometry:results[0],area:area});
             })
+            // o.printProjectGeom(buffPoly);
         })
+
+        
 
                 
         return deferred;
