@@ -225,59 +225,6 @@ define([
       var mills = [],
           riskObject;
 
-      // CONSTANT LOOK UP OBJECT
-      // var RISK = {
-      //   1: 'low',
-      //   2: 'medium',
-      //   3: 'high'
-      // };
-
-      /**
-      * @param {object} data - concessionData object
-      * @param {string} type - concession|radius only 
-      */
-      // function placeResultsInRiskObject (data, type) {
-
-      //   var key;
-
-      //   switch (data.label) {
-      //     case 'Legality': 
-      //       riskObject.legal[type] = { risk: RISK[data.risk] };
-      //     break;
-      //     case 'RSPO': 
-      //       // Do Nothing for Now
-      //       // riskObject.rspo.risk = (data.risk !== undefined ? data.risk : false);
-      //     break;
-      //     case 'Fires': 
-      //       riskObject.fire[type] = { risk: RISK[data.risk] };
-      //     break;
-      //     case 'Carbon':
-      //       arrayUtils.forEach(data.categories, function (category) {
-      //         if (category.key === 'loss_carbon') {
-      //           riskObject.deforestation.carbon[type] = { risk: RISK[category.risk] };
-      //         }
-      //       });
-      //     break;
-      //     case 'Peat':
-      //       key = (type === 'concession' ? 'peat_concession' : 'peat_radius');
-      //       riskObject.peat[key] = RISK[data.risk];
-      //       arrayUtils.forEach(data.categories, function (category) {
-      //         if (riskObject.peat[category.key]) {
-      //           riskObject.peat[category.key][type] = { risk: RISK[category.risk] };
-      //         }
-      //       });
-      //     break;
-      //     case 'Deforestation':
-      //       key = (type === 'concession' ? 'deforestation_concession' : 'deforestation_radius');
-      //       riskObject.deforestation[key] = RISK[data.risk];
-      //       arrayUtils.forEach(data.categories, function (category) {
-      //         riskObject.deforestation[category.key][type] = { risk: RISK[category.risk] };
-      //       });
-      //     break;
-      //   }
-
-      // }
-
       arrayUtils.forEach(resultSets, function (resultObj) {
 
         // All these values need to be filled in
