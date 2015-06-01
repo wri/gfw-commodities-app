@@ -108,16 +108,14 @@ module.exports = function(grunt) {
               dest: 'build/app/bootloader.js',
               src: 'src/app/bootloader.js'
             }, {
+              dest: 'build/app/js/report/ReportLoader.js',
+              src: 'src/app/js/report/ReportLoader.js'
+            }, {
               dest: 'build/app/libs/html5shiv.js',
               src: 'src/app/libs/html5shiv.js'
             }, {
               dest: 'build/app/libs/ionrangeslider/js/ion.rangeSlider.min.js',
               src: 'src/app/libs/ionrangeslider/js/ion.rangeSlider.min.js'
-            }, {
-              expand: true,
-              cwd: 'src/app/js/report/',
-              dest: 'build/app/js/report/',
-              src: '**/*.js'
             }]
           }
         },

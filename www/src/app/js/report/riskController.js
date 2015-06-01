@@ -20,6 +20,10 @@ define([
     var o = {};
     // Polygon Geometry, Area of Geometry, Area Type, RSPO Status, Is it in Indonesia
     
+    var eckert = 54012;
+    var webmercator = 102100;
+    var risk_labels = ['','low','medium','high'];
+    config.carbonDensity = {rasterId:"$524"};
 
 
     var services = { 
@@ -27,6 +31,19 @@ define([
         fires: "http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0",
         concessions: "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer/13"
     };
+
+    var setWMconfig = function(){
+        config.treeCoverLoss.rasterId = "$13";
+        config.clearanceAlerts.rasterId = "$2";
+        config.intactForest.rasterId = "$9";
+        config.primaryForest.rasterId = "$11";
+        config.legalClass.rasterId = "$7";
+        config.protectedArea.rasterId = "$10";
+        config.peatLands.rasterId = "$8";
+        config.carbonDensity.rasterId = "$15";
+    };
+
+    // setWMconfig();
         
     o.getRiskByGeometry = function(geometry, area, areaType, rspo, indonesia, riskResults){
         var featureArea = area;
@@ -82,6 +99,20 @@ define([
                 var counts = results.histograms[0].counts[1];
 
                 if (counts>0){
+                    return 3;
+                }
+                return 1;
+        };
+
+        var getCarbonHighRiskIfPresent = function(results){
+                if (!results.histograms.length ){
+                    return 1;
+                }
+                var counts = results.histograms[0].counts;
+                if(counts[2]){
+                    return 3;
+                }
+                if(counts[1]){
                     return 3;
                 }
                 return 1;
@@ -208,17 +239,17 @@ define([
                         renderingRule: arithmeticRule(
                             remapLoss(config.treeCoverLoss.rasterId),
                             remapRule(
-                                [0,100, 100,369],
-                                [0,1],
-                                "$524"
+                                [0,20, 20,80, 80,100],
+                                [0,1,2],
+                                config.carbonDensity.rasterId
                             ),
                             3
                         ),
                         pixelSize: 100
                     },
                     callbacks: {
-                        'radius': getHighRiskIfPresent,
-                        'concession': getHighRiskIfPresent
+                        'radius': getCarbonHighRiskIfPresent,
+                        'concession': getCarbonHighRiskIfPresent
                     }
                 },
 
@@ -246,7 +277,7 @@ define([
                     params:{
                         renderingRule: arithmeticRule(
                                 remapAlerts(config.clearanceAlerts.rasterId),
-                                remapHighCarbonDensity("524"),
+                                remapHighCarbonDensity(config.carbonDensity.rasterId),
                                 3
                             ),
                         pixelSize: 30
@@ -263,7 +294,7 @@ define([
                     service: services.commodities,
                     request: methods.histogram,
                     params:{
-                        renderingRule: remapHighCarbonDensity("$524"),
+                        renderingRule: remapHighCarbonDensity(config.carbonDensity.rasterId),
                         pixelSize: 30
                     },
                     callbacks: {
@@ -477,7 +508,8 @@ define([
                     service: services.commodities,
                     request: methods.histogram,
                     params:{
-                        mosaicRule: lockRaster(config.peatLands.rasterId),
+                        // mosaicRule: lockRaster(config.peatLands.rasterId),
+                        renderingRule: remapRule([0,1, 1,2],[0,1],config.peatLands.rasterId),
                         pixelSize: 100
                     },
                     
@@ -501,7 +533,6 @@ define([
         var calculatePriority = function(results,areaType){
             // Need a clone because if this gets called multiple times, multiple keys get embedded
             var clonedPriorities = lang.clone(priorities);
-            var risk_labels = ['N/A','low','medium','high'];
             var priority_level = 0;
 
             _.forIn(results,function(value,key){
@@ -555,6 +586,9 @@ define([
             });
             priority_level = getRiskByBreaks(priority_breaks.low,priority_breaks.high,priority_level);
             riskResults['priority_level_'+areaType] = risk_labels[priority_level];
+            if (priority_level>riskResults['total_mill_priority_level']){
+                riskResults['total_mill_priority_level'] = priority_level;
+            }
             return riskResults;
         };
 
@@ -562,6 +596,7 @@ define([
         var final_deferred = new Deferred();
         rspo = rspo;
         indonesia = indonesia;
+        riskResults['total_mill_priority_level'] = riskResults['total_mill_priority_level'] || 0;
 
         var promises = [];
         if(!geometry){
@@ -650,7 +685,6 @@ define([
                 deferred.resolve()
                 return;
             }
-            // debugger;
             var union = geoEngine.union(geometries);
             var simplify = geoEngine.simplify(union);
             var poly = new Polygon(simplify);
@@ -659,11 +693,10 @@ define([
                 geometries: [poly]
             }
 
-            riskRequest.project(url,params,54012).then(function(results){
+            riskRequest.project(url,params,webmercator).then(function(results){
                 var projPoly = new Polygon(results[0]);
 
                 o.getGeometryArea(url,projPoly).then(function(area){
-                        // console.log('CONAREA',area)
                         var task = o.getRiskByGeometry(results[0], area, 'concession', rspo, indonesia,riskResults);
                         task.then(function(results){
                             deferred.resolve();
@@ -680,7 +713,6 @@ define([
 
     o.printProjectGeom = function(geom){
          var url = config.geometryServiceUrl;
-
             // debugger;
             // var union = geoEngine.union(geometries);
             // var simplify = geoEngine.simplify(union);
@@ -693,10 +725,6 @@ define([
             riskRequest.project(url,params,102100).then(function(results){
                 console.log("BUFFER GEOM",JSON.stringify(results[0]))
             })
-
-            
-           
-            
     }
 
     o.getRadiusBuffer = function(point,distance){
@@ -709,17 +737,13 @@ define([
             distances: [distance],
             geometries: [point]
         }
-        riskRequest.buffer(url,buffParams,54012).then(function(results){
+        riskRequest.buffer(url,buffParams,webmercator).then(function(results){
             var buffPoly = results[0];
             o.getGeometryArea(url,buffPoly).then(function(area){
                     deferred.resolve({geometry:results[0],area:area});
             })
             // o.printProjectGeom(buffPoly);
         })
-
-        
-
-                
         return deferred;
     }
 
@@ -728,12 +752,13 @@ define([
         var riskResults = {};
 
         o.getRadiusBuffer(point,distance).then(function(results){
-            var area = results.area;
+            var area = 50*50*Math.PI;//results.area;
             var radius = results.geometry;
             var rad = o.getRiskByGeometry(radius,area,'radius',rspo,indonesia,riskResults);
             var con = o.getConcessionRisk(radius,rspo,indonesia,riskResults);
 
             all([rad,con]).then(function(results){
+                riskResults["total_mill_priority_level"] = risk_labels[riskResults["total_mill_priority_level"]];
             deferred.resolve(lang.clone(riskResults));
         });
 
