@@ -116,10 +116,10 @@ define([
           filteredSelectedFeatures;
 
       if (evt.target.checked) {
-        index = parseInt(evt.target.dataset ? evt.target.dataset.featureIndex : evt.target.getAttribute("data-feature-index"));
+        index = parseInt(evt.target.dataset ? evt.target.dataset.featureIndex : evt.target.getAttribute('data-feature-index'));
         filteredSelectedFeatures = this.props.selectedFeatures.concat(this.props.features[index]);
       } else {
-        id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute("data-feature-id")),
+        id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute('data-feature-id')),
         filteredSelectedFeatures = _.filter(this.props.selectedFeatures, function (selectedFeature) { return selectedFeature.attributes.WRI_ID !== id })
       }
 
@@ -164,7 +164,7 @@ define([
     _toggleAllFeaturesRSPO: function () {
       if (this.props.features.length === 0) {
         return;
-      } 
+      }
 
       var feature,
           features = WizardStore.get(KEYS.customFeatures),
@@ -182,7 +182,7 @@ define([
     },
 
     _toggleFeatureRSPO: function (evt) {
-      var id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute("data-feature-id")),
+      var id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute('data-feature-id')),
           features = WizardStore.get(KEYS.customFeatures),
           feature = _.find(features, function (feature) {return feature.attributes.WRI_ID === id});
 
@@ -212,10 +212,21 @@ define([
     },
 
     _renameFeature: function (evt) {
-      var index = parseInt(evt.target.dataset ? evt.target.dataset.featureIndex : evt.target.getAttribute("data-feature-index")),
-          features = WizardStore.get(KEYS.customFeatures);
-      
-      features[index].attributes[FeatureListConfig.stepTwo.labelField] = evt.target.value;
+      var id = parseInt(evt.target.dataset ? evt.target.dataset.featureId : evt.target.getAttribute('data-feature-id')),
+          features = WizardStore.get(KEYS.customFeatures),
+          updatedFeature = features.filter(function (feature) {return feature.attributes.WRI_ID === id});
+
+      if (!updatedFeature) {
+        throw new Error('Undefined: Could not identify feature to rename.')
+      }
+
+      features.some(function (feature, index) {
+        var isUpdatedFeature = feature.attributes.WRI_ID === id;
+        if (isUpdatedFeature) {
+          features[index].attributes[FeatureListConfig.stepTwo.labelField] = evt.target.value;
+        }
+        return isUpdatedFeature;
+      })
 
       WizardStore.set(KEYS.customFeatures, features);
       if (evt.target.parentNode.className.split(' ').indexOf('active') > -1) {
@@ -229,4 +240,4 @@ define([
 
   })
 })
-  
+
