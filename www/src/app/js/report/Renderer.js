@@ -1470,12 +1470,25 @@ define([
         content += generateChildRow('Total clearance alerts', mill.deforestation.forma, 'deforest-' + mill.id);
         content += generateChildRow('Clearance alerts on primary forest', mill.deforestation.forma_primary, 'deforest-' + mill.id);
         content += generateChildRow('Tree cover loss on carbon stock', mill.deforestation.carbon, 'deforest-' + mill.id);
+        
+        // These have not been added to GFW's API yet but are in ours
+        if (mill.deforestation.area_carbon) {
+          content += generateChildRow('Area in high carbon density', mill.deforestation.area_carbon, 'deforest-' + mill.id);
+          content += generateChildRow('Alerts on high carbon density', mill.deforestation.forma_carbon, 'deforest-' + mill.id);
+          content += generateChildRow('Clearance alerts on primary forest/IFL', mill.deforestation.forma_primary, 'deforest-' + mill.id);
+        }
+
         /* Child Rows */
         content += generateBasicRow('Legality', mill.legal);
         content += generateParentRow('Peat', mill.peat, 'peat-' + mill.id, 'peat');
         /* Child Rows */
         content += generateChildRow('Presence of peat', mill.peat.presence, 'peat-' + mill.id);
         content += generateChildRow('Clearance on peat', mill.peat.clearance, 'peat-' + mill.id);
+
+        // These have not been added to GFW's API yet but are in ours
+        if (mill.peat.alerts) {
+          content += generateChildRow('Clearance alerts on peat', mill.peat.alerts, 'peat-' + mill.id);
+        }        
         /* Child Rows */
         content += generateBasicRow('Fires', mill.fire);
         content += "</table>";

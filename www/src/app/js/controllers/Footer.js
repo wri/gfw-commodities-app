@@ -16,6 +16,13 @@ define([
             initialized = true;
             dom.byId("app-footer").innerHTML = template + dom.byId("app-footer").innerHTML;
 
+            // Inject Header and Footer from GFW, This must be loaded here
+            // until the architecture gets cleaned up or else things break
+            var s = document.createElement('script'),
+                h = document.getElementsByTagName('head')[0];
+            s.src = 'http://www.globalforestwatch.org/gfw-assets';
+            s.async = true;
+            h.appendChild(s);
         },
 
         toggle: function(hide) {

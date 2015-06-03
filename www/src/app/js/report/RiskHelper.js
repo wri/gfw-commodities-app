@@ -17,59 +17,59 @@ define([
 
 
   // Data Specification for the Response Needed by our templating function
-  var JSON_SPEC = {
-    'id': '',
-    'deforestation': {
-      'umd_loss_primary': { 
-        'concession': {}, 
-        'radius': {} 
-      },
-      'forma_primary': { 
-        'concession': {}, 
-        'radius': {} 
-    },
-      'umd_loss': { 
-        'concession': {}, 
-        'radius': {} 
-    },
-      'carbon': { 
-        'concession': {}, 
-        'radius': {} 
-    },
-      'forma': { 
-        'concession': {}, 
-        'radius': {} 
-      },
-      'area_primary': {
-        'concession': {}, 
-        'radius': {}
-      }
-    },
-    'legal': { 
-      'concession': {}, 
-      'radius': {} 
-    },
-    'fire': { 
-      'concession': {}, 
-      'radius': {}
-    },
-    'peat': { 
-      'concession': {}, 
-      'radius': {},
-      'clearance': {
-        'concession': {}, 
-        'radius': {},
-      },
-      'presence': {
-        'concession': {}, 
-        'radius': {},
-      }
-    },
-    'rspo': {},
-    'priority_level_concession': '',
-    'priority_level_radius': '',
-    'total_mill_priority_level': ''
-  };
+  // var JSON_SPEC = {
+  //   'id': '',
+  //   'deforestation': {
+  //     'umd_loss_primary': { 
+  //       'concession': {}, 
+  //       'radius': {} 
+  //     },
+  //     'forma_primary': { 
+  //       'concession': {}, 
+  //       'radius': {} 
+  //   },
+  //     'umd_loss': { 
+  //       'concession': {}, 
+  //       'radius': {} 
+  //   },
+  //     'carbon': { 
+  //       'concession': {}, 
+  //       'radius': {} 
+  //   },
+  //     'forma': { 
+  //       'concession': {}, 
+  //       'radius': {} 
+  //     },
+  //     'area_primary': {
+  //       'concession': {}, 
+  //       'radius': {}
+  //     }
+  //   },
+  //   'legal': { 
+  //     'concession': {}, 
+  //     'radius': {} 
+  //   },
+  //   'fire': { 
+  //     'concession': {}, 
+  //     'radius': {}
+  //   },
+  //   'peat': { 
+  //     'concession': {}, 
+  //     'radius': {},
+  //     'clearance': {
+  //       'concession': {}, 
+  //       'radius': {},
+  //     },
+  //     'presence': {
+  //       'concession': {}, 
+  //       'radius': {},
+  //     }
+  //   },
+  //   'rspo': {},
+  //   'priority_level_concession': '',
+  //   'priority_level_radius': '',
+  //   'total_mill_priority_level': ''
+  // };
 
   var Helper = {
 
@@ -227,17 +227,10 @@ define([
 
       arrayUtils.forEach(resultSets, function (resultObj) {
 
-        console.dir(resultObj);
-
         // All these values need to be filled in
         riskObject = lang.clone(resultObj.results[0]);
         riskObject.id = resultObj.feature.millId;
         riskObject.rspo = { risk: resultObj.feature.isRSPO };
-
-        // Temporary Fix, Get Alicia to add in the last value
-        // TODO:  
-        // 1. Add In Overall Priority Level
-        riskObject.total_mill_priority_level = "N/A";
 
         mills.push(riskObject);
 
