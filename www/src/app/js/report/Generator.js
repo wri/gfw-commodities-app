@@ -272,7 +272,7 @@ define([
                 } else {
                     // Get an array of arrays, each containing 3 lookup items so 
                     // we can request three analyses at a time
-                    requests = requests.chunk(3);
+                    requests = arrayChunk(requests, 3);
                     processRequests();
                 }
 

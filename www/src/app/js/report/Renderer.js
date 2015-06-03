@@ -205,8 +205,8 @@ define([
       var lossConfig = ReportConfig.totalLoss,
           yLabels = config.labels,
           xLabels = lossConfig.labels,
-          yMapValues = config.bounds.fromBounds(),
-          xMapValues = lossConfig.bounds.fromBounds(),
+          yMapValues = arrayFromBounds(config.bounds),
+          xMapValues = arrayFromBounds(lossConfig.bounds),
           mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
           colors = [],
@@ -326,8 +326,8 @@ define([
       var lossConfig = ReportConfig.totalLoss,
           yLabels = config.labels,
           xLabels = lossConfig.labels,
-          yMapValues = config.bounds.fromBounds(),
-          xMapValues = lossConfig.bounds.fromBounds(),
+          yMapValues = arrayFromBounds(config.bounds),
+          xMapValues = arrayFromBounds(lossConfig.bounds),
           mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
           colors = [],
@@ -428,8 +428,8 @@ define([
     */
     renderClearanceData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
       var yLabels = config.labels,
-          yMapValues = config.bounds.fromBounds(),
-          xMapValues = report.clearanceBounds.fromBounds(),
+          yMapValues = arrayFromBounds(config.bounds),
+          xMapValues = arrayFromBounds(report.clearanceBounds),
           // mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
           data = [],
@@ -818,7 +818,7 @@ define([
       @param {function} encoder
     */
     renderRSPOData: function (response, config, encoder) {
-      var lossValues = ReportConfig.rspo.lossBounds.fromBounds(),
+      var lossValues = arrayFromBounds(ReportConfig.rspo.lossBounds),
           self = this;
 
       // If there are results, build the table, else, mark dataNotAvailable to true

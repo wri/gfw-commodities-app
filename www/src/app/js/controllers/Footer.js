@@ -14,6 +14,9 @@ define([
             if (initialized) { return; }
 
             initialized = true;
+
+            // This is most likely the culprit for why gfw-assets must be loaded in the footer after this content
+            // is injected
             dom.byId("app-footer").innerHTML = template + dom.byId("app-footer").innerHTML;
 
             // Inject Header and Footer from GFW, This must be loaded here
