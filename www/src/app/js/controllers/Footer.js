@@ -11,35 +11,10 @@ define([
 
         init: function(template) {
 
-            if (initialized) {
-                return;
-            }
+            if (initialized) { return; }
 
             initialized = true;
-            //debugger;
             dom.byId("app-footer").innerHTML = template + dom.byId("app-footer").innerHTML;
-            //dom.byId(viewId).innerHTML = html + dom.byId(viewId).innerHTML;
-
-            setTimeout(function () {
-                var s = document.createElement('script'),
-                h = document.getElementsByTagName('body')[0];
-                s.setAttribute('src', "https://cdn.rawgit.com/simbiotica/gfw_assets/ca8bde060fc1d3b8a57ad49a96e9b415017cace4/src/header-loader.js");
-                s.setAttribute('id', "loader-gfw");
-                s.setAttribute('data-current', ".shape-commodities");
-                //s.setAttribute('async', 'true');
-                h.appendChild(s);
-
-            }, 0);
-
-
-            // $('#footer-logos').slick({
-            //     infinite: true,
-            //     slidesToShow: 5,
-            //     slidesToScroll: 5,
-            //     speed: 500,
-            //     autoplay: true,
-            //     autoplaySpeed: 3000
-            // });
 
         },
 

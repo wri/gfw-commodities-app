@@ -227,6 +227,8 @@ define([
 
       arrayUtils.forEach(resultSets, function (resultObj) {
 
+        console.dir(resultObj);
+
         // All these values need to be filled in
         riskObject = lang.clone(resultObj.results[0]);
         riskObject.id = resultObj.feature.millId;
