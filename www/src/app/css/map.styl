@@ -13,7 +13,7 @@ orangeSelected = rgb(233, 131, 0)
 orangeHover = rgba(233, 131, 0, 0.45)
 wizardBlue = #00688B
 
-.gfw .map-container 
+.gfw .map-container
 	position absolute
 	bottom 0
 	right 0
@@ -31,6 +31,8 @@ wizardBlue = #00688B
 	background none
 	color goldFont
 	border none
+	position fixed
+	top 155px
 
 .gfw .map-container .esriSimpleSlider div
 	background-color #FFF
@@ -45,7 +47,7 @@ wizardBlue = #00688B
 .gfw .map-container .esriControlsBR
 	right inherit
 	left 5px
-	
+
 .gfw .map-container .esriScalebar
 	left 75px !important
 	bottom 5px
@@ -87,7 +89,7 @@ wizardBlue = #00688B
 	line-height 30px
 
 .gfw .locator-widget-button
-	background url('images/locate.png') no-repeat #FFF -1px -35px	
+	background url('images/locate.png') no-repeat #FFF -1px -35px
 	top 125px
 
 .gfw .basemap-gallery-button
@@ -98,8 +100,8 @@ wizardBlue = #00688B
 	background url('images/share-icon.png') no-repeat #FFF -2px -35px
 	top 199px
 
-.gfw .locator-widget-button:hover, 
-.gfw .basemap-gallery-button:hover, 
+.gfw .locator-widget-button:hover,
+.gfw .basemap-gallery-button:hover,
 .gfw .share-button:hover,
 .gfw .map-container .HomeButton .home:hover,
 .gfw .map-container .esriSimpleSliderIncrementButton:hover,
@@ -146,7 +148,7 @@ wizardBlue = #00688B
 
 .gfw .map-container .sharing_toolbox
 	margin 9px 0 0 10px
-	
+
 .gfw .map-container .maptools-modal
 	border-radius(5px)
 	position absolute
@@ -177,7 +179,7 @@ wizardBlue = #00688B
 
 .gfw .overlays-checkbox.selected .custom-check
 	background-color orangeSelected
-	
+
 .gfw .overlays-checkbox.selected .custom-check span
 	left 9px
 
@@ -248,7 +250,7 @@ wizardBlue = #00688B
 	// SPecify the white so IE still renders some color but others use rgba
 	background-color white
 	// background-color rgba(255,255,255,0.75)
-	border 1px solid greyBorder	
+	border 1px solid greyBorder
 	position absolute
 	font-size 12px
 	width 300px
@@ -263,7 +265,7 @@ wizardBlue = #00688B
 	border 1px solid #000
 	border-radius(5px)
 	position absolute
-	bottom 35px	
+	bottom 35px
 	z-index 50
 	left 50%
 
@@ -375,7 +377,7 @@ wizardBlue = #00688B
 	display inline-block
 	margin 8px 0 0
 	padding 0
-	
+
 .gfw .toolbox .toolbox-list li
 	text-transform uppercase
 	border 1px solid #000
@@ -395,7 +397,7 @@ wizardBlue = #00688B
 	margin 6px 40px 0
 	font-size 13px
 	float left
-	
+
 .gfw .fires_toolbox .high-confidence-fires label
 	padding-left 5px
 
@@ -536,17 +538,17 @@ wizardBlue = #00688B
 
 .gfw .simple-legend
 	padding 10px 10px 0px
-	
+
 .gfw .simple-legend-title
 	padding 0px 0px 5px 3px
 
 .gfw .simple-legend-image
 .gfw .simple-legend-label
 	vertical-align middle
-	
+
 .gfw .simple-legend-label
 	padding-left 15px
-	
+
 .gfw .simple-legend-layer
 	padding 2px 0px 2px 1px
 
@@ -578,10 +580,10 @@ wizardBlue = #00688B
 	cursor pointer
 	height 18px
 	width 18px
-	
+
 .suitability-accordion .suitability-accordion-description
 	margin 10px 20px 2px
-	
+
 .range-slider
 	margin-left: auto;
 	margin-right: 3%;
@@ -629,12 +631,12 @@ wizardBlue = #00688B
 	padding-bottom 10px
 /* Overrides for Esri Legend */
 /* Overrides for Esri Basemap Gallery */
-.gfw .esriBasemapGalleryLabelContainer 
+.gfw .esriBasemapGalleryLabelContainer
 	font-size 13px
 	height 3em
 /* Overrides for Esri Basemap Gallery */
 /* Overrides for Info Window */
-.gfw .esriPopupWrapper .sizer 
+.gfw .esriPopupWrapper .sizer
 	width 330px
 
 .gfw .esriPopupWrapper .title
@@ -785,7 +787,7 @@ wizardBlue = #00688B
 
 .playLineFiller2 > div {
 	//display: inline-block;
-	
+
 	position: absolute;
 	margin-top: 18px;
 
@@ -950,18 +952,18 @@ wizardBlue = #00688B
 	height auto
 	top -500px
 	left 50%
-	
+
 .upload-modal
 	margin-left -225px
 	width 450px
-	
+
 .coordinates-modal
 	margin-left -140px
 	width 280px
-	
+
 .animated-modal.active
 	top 100px
-	
+
 .animated-modal .close-icon
 	background url('images/close_symbol.png') no-repeat center
 	position absolute
@@ -973,26 +975,26 @@ wizardBlue = #00688B
 
 .animated-modal .modal-content
 	margin 5px
-	
+
 .animated-modal .modal-header
 	margin-bottom 5px
 	font-weight bold
 	font-size 18px
-	
+
 .upload-modal .modal-subheader
 	margin 5px 0 3px
 	font-weight bold
 	font-size 12px
-	
+
 .shapefile-upload-instructions
 .csv-upload-instructions
 	font-size 11px
-	
+
 .upload-modal-form
 .post-upload-options
 	text-align center
 	margin 10px 0
-	
+
 .coordinates-modal-enter-button
 	background-color #e98300
 	display inline-block
@@ -1004,7 +1006,7 @@ wizardBlue = #00688B
 
 .subscription-modal
 	transform translate(-50%)
-	width 400px
+	width 405px
 
 /* Mozilla */
 @-moz-document url-prefix() {
@@ -1019,8 +1021,8 @@ wizardBlue = #00688B
 }
 
 /* Browser-Specific for Chrome (last to overwrite potential changes from others) */
-@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) { 
-	
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+
 }
 
 .dj_ie9.playLineFiller > div {

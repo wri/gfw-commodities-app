@@ -21,7 +21,7 @@ define([
       selectionLabel: 'Selection:',
       noSelection: 'none',
       subscriptionPlaceholder: 'Subscription name',
-      subscriptionDefaultLabel: 'Use default',
+      subscriptionDefaultLabel: 'Use default name',
       emailPlaceholder: 'your_email@example.com',
       subscribe: 'Subscribe',
       bufferLabel: 'Point data selected - buffer area(s) required.',
@@ -46,7 +46,7 @@ define([
       },
       requiredLabels: {
         alerts: '* Please select an alert type.',
-        subscription: '* Please enter a subscription area name.',
+        subscription: '* Please name this alert.',
         email: '* Please enter a valid email.'
       }
     },
