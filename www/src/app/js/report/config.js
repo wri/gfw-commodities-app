@@ -71,9 +71,9 @@ define([], function() {
         peatLandsBounds = [0, 1],
         peatLandsColors = ["#161D9C"];
 
-    var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Grassland / Shrub", "Mixed forest and grassland", "Non-forest", "Primary Forest", "Secondary Forest", "Settlements", "Swamp", "Water Bodies"],
-        lcGlobalBounds = [1, 10],
-        lcGlobalColors = ["#d89827", "#86fc1f", "#fdffb6", "#b98f57", "#CCC", "#5fa965", "#c7ffb6", "#fca0bf", "#538996", "#65a2f8"];
+    var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Open broadleaved forest", "Closed broadleaved forest", "Open needleleaved forest", "Closed needleleaved forest", "Open mixed forest", "Mixed forest and grassland", "Grassland / shrub", "Flooded forest", "Wetland", "Settlements", "Bare land", "Water bodies", "Snow / ice", "No data"],
+        lcGlobalBounds = [1, 16],
+        lcGlobalColors = ["#d89827", "#86fc1f", "#468317", "#7ab547", "#a8ca89", "#7bb748", "#757433", "#a77a41", "#fffead", "#24946e", "#568596", "#f5a7bd", "#c9c342", "#63a2ff", "#fbfbfb", "#a0a0a0"];
 
     var lcAsiaLabels = ["Agriculture", "Agroforestry", "Fish pond", "Grassland / Shrub", "Mining", "Oil Palm Plantation", "Primary Forest", "Rubber Plantation", "Secondary Forest", "Settlements", "Swamp", "Timber Plantation", "Water Bodies"],
         lcAsiaBounds = [1, 13],
