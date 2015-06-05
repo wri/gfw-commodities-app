@@ -29,7 +29,7 @@ define([
     var services = { 
         commodities: "http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer",
         fires: "http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0",
-        concessions: "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer/13"
+        concessions: "http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer/27"
     };
 
     var setWMconfig = function(){
@@ -41,11 +41,12 @@ define([
         config.protectedArea.rasterId = "$10";
         config.peatLands.rasterId = "$8";
         config.carbonDensity.rasterId = "$15";
+
     };
 
     // setWMconfig();
         
-    o.getRiskByGeometry = function(geometry, area, areaType, rspo, indonesia, riskResults){
+    o.getRiskByGeometry = function(geometry, area, areaType, rspo, indonesia, riskResults, concessions){
         var featureArea = area;
     //Helper functions
         var getRiskByBreaks = function(low, high, value){
@@ -71,8 +72,8 @@ define([
                     return 1;
                 }
                 return 2;
-            }
-        }
+            };
+        };
 
         var getRiskByAreaBreaks = function(low,high,pixelSize){
             return function(results){
@@ -81,12 +82,11 @@ define([
                 }
                 var counts = results.histograms[0].counts[1] || 0;
 
-                var area = countsToArea(counts,pixelSize);
-                var riskFactor = area/featureArea;
+                var countArea = countsToArea(counts,pixelSize);
+                var riskFactor = countArea/featureArea;
 
-                var breaks = {low:low,high:high}
+                var breaks = {low:low,high:high};
                 // console.log(breaks,areaType, counts, area, featureArea, riskFactor)
-
                 return getRiskByBreaks(low,high,riskFactor);
             };
             
@@ -136,12 +136,12 @@ define([
         };
 
         var remapAlerts = function(rasterId){
-            return remapRule([1,22],[1],rasterId)
+            return remapRule([1,22],[1],rasterId);
         };
 
         var remapHighCarbonDensity = function(rasterId){
-            return remapRule([1,100, 100,369],[0,1],rasterId);
-        }
+            return remapRule([1,20, 20,369],[0,1],rasterId);
+        };
 
         var arithmeticRule = function(raster1,raster2, operation){
             return {
@@ -160,7 +160,7 @@ define([
                       "lockRasterIds": [parseInt(rasterId.replace("$",""))],
                       "ascending" : true,
                       "mosaicOperation" : "MT_FIRST"
-                    }
+                    };
         };
 
         var countsToArea = function(count, pixelSize){
@@ -309,11 +309,11 @@ define([
                     service: services.commodities,
                     request: methods.histogram,
                     ind_params:{
-                        renderingRule: remapRule([1,3],[1],config.primaryForest.rasterId),
+                        renderingRule: remapRule([0,1, 1,3],[0,1],config.primaryForest.rasterId),
                         pixelSize: 100
                     },
                     params:{
-                        renderingRule: remapRule([1,2],[1],config.intactForest.rasterId),
+                        renderingRule: remapRule([0,1, 1,3],[0,1],config.intactForest.rasterId),
                         pixelSize: 100
                     },
                     callbacks: {
@@ -360,12 +360,6 @@ define([
                     },
                     callbacks: {
                         'radius': getRiskByAreaBreaks(.05*.02,.28*.02,30),
-                        // function(results){
-                        //     var calculatedMultiplier = .02;
-                        //     var area = countsToArea(results.histograms[0].counts[1],100)
-                        //     var pctArea = area/featureArea;
-                        //     return getRiskByBreaks(.05,.28,pctArea);
-                        // },
                         'concession': getRiskByAreaBreaks(.05,.28,30)
                     }
                 },
@@ -443,8 +437,8 @@ define([
                     request: methods.histogram,
                     ind_params:{
                             renderingRule: remapRule(   
-                                                        [0,2, 2,3, 3,5, 5,6, 6,7],
-                                                        [0, 1, 0, 1, 0],
+                                                        [0,1, 1,2, 2,3, 3,4, 4,7],
+                                                        [1, 0, 1, 0, 1],
                                                         config.legalClass.rasterId
                                                     ),
                             pixelSize: 100          
@@ -514,8 +508,8 @@ define([
                     },
                     
                     callbacks: {
-                        'radius': getRiskByAreaBreaks(0.02,0.05,100),//getRiskByAreaBreaks(0.0059,0.0063),
-                        'concession': getRiskByAreaBreaks(0.02,0.05,100)//getRiskByAreaBreaks(0.0059,0.0063)
+                        'radius': getRiskByAreaBreaks(.9*0.0059,1.1*0.0063),//getRiskByAreaBreaks(0.02,0.05,100),//
+                        'concession': getRiskByAreaBreaks(.9*0.0059,1.1*0.0063)//getRiskByAreaBreaks(0.02,0.05,100)//getRiskByAreaBreaks(0.0059,0.0063)
                     }
 
                 }
@@ -609,6 +603,38 @@ define([
 
             return final_deferred.promise;
         }
+
+        var splitConcessions = function(geometries,category,params,deferred){
+            var promises = geometries.map(function(geometry){
+                params.geometry = JSON.stringify(geometry);
+                return category.request(category.service,params,category.execution);
+            })
+
+            all(promises).then(function(results){
+                var output = {histograms:[{counts:[]}]};
+                var countsArr = _.pluck(_.flatten(_.pluck(results,'histograms')),'counts');
+
+                countsArr.forEach(function(counts){
+                    counts.forEach(function(count,index){
+
+                        output.histograms[0].counts[index] = output.histograms[0].counts[index] || 0;
+                        output.histograms[0].counts[index] += count;
+                    });
+                });
+                var obj = {};
+                // var callback = indonesia && category.ind_callback ? category.ind_callback : category.callback;
+                var callback = category.callbacks[areaType];
+                category.results = output;
+                obj[category.key] = callback(output,deferred);
+                deferred.resolve(obj);
+
+            },function(err){
+                console.log("SPLIT ERROR",err)
+            });
+        }
+
+
+        
         categories.forEach(function(category){
             var deferred = new Deferred();
             var params = indonesia && category.ind_params? category.ind_params : category.params;
@@ -632,6 +658,11 @@ define([
                 category.results = results;
                 obj[category.key] = callback(results,deferred);
                 deferred.resolve(obj);
+            },function(err){
+                console.log("HISTOGRAM ERROR", err);
+                if(concessions){
+                    splitConcessions(concessions,category,params,deferred);
+                }
             });
             promises.push(deferred.promise);
         });
@@ -654,7 +685,7 @@ define([
             var params = {
                 areaUnit: 'UNIT_SQUARE_METERS',
                 lengthUnit: 'UNIT_METERS',
-                calculationType: 'planar',
+                calculationType: 'geodesic',
                 polygons:[geometry]
             }
             riskRequest.getAreasLengths(url,params).then(function(results){
@@ -696,8 +727,8 @@ define([
             riskRequest.project(url,params,webmercator).then(function(results){
                 var projPoly = new Polygon(results[0]);
 
-                o.getGeometryArea(url,projPoly).then(function(area){
-                        var task = o.getRiskByGeometry(results[0], area, 'concession', rspo, indonesia,riskResults);
+                o.getGeometryArea(url,projPoly).then(function(geomArea){
+                        var task = o.getRiskByGeometry(results[0], geomArea, 'concession', rspo, indonesia,riskResults,geometries);
                         task.then(function(results){
                             deferred.resolve();
                         });
@@ -713,7 +744,6 @@ define([
 
     o.printProjectGeom = function(geom){
          var url = config.geometryServiceUrl;
-            // debugger;
             // var union = geoEngine.union(geometries);
             // var simplify = geoEngine.simplify(union);
             var poly = new Polygon(geom);
@@ -752,7 +782,7 @@ define([
         var riskResults = {};
 
         o.getRadiusBuffer(point,distance).then(function(results){
-            var area = 50*50*Math.PI;//results.area;
+            var area = distance*1000*distance*1000*Math.PI;//results.area;
             var radius = results.geometry;
             var rad = o.getRiskByGeometry(radius,area,'radius',rspo,indonesia,riskResults);
             var con = o.getConcessionRisk(radius,rspo,indonesia,riskResults);

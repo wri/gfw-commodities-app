@@ -220,7 +220,7 @@ define([
         deferred.resolve((response.message && response.message === firesConfig.successMessage) ? messagesConfig.fireSuccess : messagesConfig.fireFail);
       });
 
-      Analytics.sendEvent('Event', 'subscribe', 'Fire Alerts', 'User is subscribing to Fire Alerts.');
+      Analytics.sendEvent('Subscribe', 'click', 'Fire Alerts', 'User is subscribing to Fire Alerts.');
 
       return deferred.promise;
     },
@@ -250,7 +250,7 @@ define([
       request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       request.send(data);
 
-      Analytics.sendEvent('Event', 'subscribe', 'Monthly Clearance Alerts', 'User is subscribing to Monthly Clearance Alerts.');
+      Analytics.sendEvent('Subscribe', 'click', 'Monthly Clearance Alerts', 'User is subscribing to Monthly Clearance Alerts.');
 
       return deferred.promise;
     },

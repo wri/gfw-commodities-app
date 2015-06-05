@@ -12,9 +12,9 @@ define([
     // Utility Function
     // Convert DATA ANALYSIS to Data Analysis and ABOUT GFW to About GFW
     function convertToCamelCase (string) {
-      return string.split(" ").map(function (piece) {
-        return piece === 'GFW' ? piece : (piece.charAt(0).toUpperCase() + piece.slice(1).toLowerCase());
-      }).join(" ");
+      return string.replace(/\w*/g, function(txt) {
+        return txt === 'GFW' ? txt : txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
     }
 
     return {

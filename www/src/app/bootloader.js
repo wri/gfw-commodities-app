@@ -51,7 +51,9 @@
             deps: [
                 "dojo/domReady!"
             ],
-            callback: function() { require(['js/bundle']); }
+            callback: function() { 
+              require(['js/bundle']);
+            }
         }, // End dojoConfig
         src = [
             'http://js.arcgis.com/3.13/',

@@ -6,17 +6,15 @@
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
       <link rel="icon" type="image/png" href="app/css/images/favicon.png" />
-      <!-- <link rel="stylesheet" type="text/css" href="app/libs/ionrangeslider/css/normalize.min.css"> -->
       <link rel="stylesheet" type="text/css" href="app/libs/ionrangeslider/css/ion.rangeSlider.css">
       <link rel="stylesheet" type="text/css" href="app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css">
-      <!-- <link href='http://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,400italic' rel='stylesheet' type='text/css'> -->
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
       <script src="app/libs/ionrangeslider/js/ion.rangeSlider.min.js"></script>
       <script src="app/libs/FileSaver.js"></script>
 
-      <!-- <meta name="google-translate-customization" content="7c3525fe24f9031c-a8fc5e781072c0fe-g601838a822eefc5b-21" /> -->
-      <script async src="app/bootloader.js?v=2.3.6"></script>
+      <meta name="google-translate-customization" content="7c3525fe24f9031c-a8fc5e781072c0fe-g601838a822eefc5b-21" />
       <style>
             html,body,#map{height: 100%;width: 100%;padding: 0;margin: 0;}
             #app-header,#app-body,#app-footer{width: 100%;}
@@ -30,28 +28,21 @@
         <script src="app/libs/html5shiv.js"></script>
       <![endif]-->
       <!-- Add This Sharing Widget -->
-        <script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53a0b04d2a78d210&async=1"></script>
-        <script type="text/javascript">
-          var addthis_share = {
-            url_transforms: {
-                shorten: {
-                    twitter: 'bitly',
-                    facebook: 'bitly'
-                }
-            },
-            shorteners: {
-                bitly: {}
-            }
-          }; //end addThis_share
-        </script>
+      <script async type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53a0b04d2a78d210&async=1"></script>
+      <script type="text/javascript">
+        var addthis_share = {
+          url_transforms: {
+              shorten: {
+                  twitter: 'bitly',
+                  facebook: 'bitly'
+              }
+          },
+          shorteners: {
+              bitly: {}
+          }
+        }; //end addThis_share
+      </script>
       <!-- Add This Sharing Widget -->
-      <!-- Google Translate -->
-      <!--<script type="text/javascript">
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'de,en,es,fr,id,it,mr,pt,ru,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
-        }
-      </script>-->
-      <!-- Google Translate -->
       <!-- Google Analytics -->
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -60,18 +51,27 @@
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-35900039-3', 'auto', {'name':"A"});
-        ga('A.send', 'pageview');
         ga('create', 'UA-1981181-14', 'auto', {'name':"B"});
-        ga('B.send', 'pageview');
-
         ga('create', 'UA-48182293-1', 'auto', {'name':"C",'cookieDomain':"'commodities.globalforestwatch.org']"});
+
+        ga('A.send', 'pageview');
+        ga('B.send', 'pageview');
         ga('C.send', 'pageview');
 
         // Check if this page is in an iFrame or not and if so, send an event
         if (window.top !== window.self) {
-          ga('A.send', 'event', 'Event', 'embed', 'iFrame Embed', 'This application was viewed inside an embedded iFrame.');
-          ga('B.send', 'event', 'Event', 'embed', 'iFrame Embed', 'This application was viewed inside an embedded iFrame.');
-          ga('C.send', 'event', 'Event', 'embed', 'iFrame Embed', 'This application was viewed inside an embedded iFrame.');
+
+          var payload = {
+            'hitType': 'event',
+            'eventCategory': 'Event',
+            'eventAction': 'embed',
+            'eventLabel': 'iFrame Embed',
+            'eventValue': 'This application was viewed inside an embedded iFrame.'
+          };
+
+          ga('A.send', payload);
+          ga('B.send', payload);
+          ga('C.send', payload);
         }
 
       </script>
@@ -93,13 +93,14 @@
         </div>
         <div id="app-footer" class="app-footer">
           <div id="footerGfw"></div>
-          <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.3.15/slick.min.js"></script>
-          <script type="text/javascript">
-            setTimeout(function(){var a=document.createElement("script");
-            var b=document.getElementsByTagName("script")[0];
-            a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0027/6897.js?"+Math.floor(new Date().getTime()/3600000);
-            a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
-          </script>
         </div>
+        <script>
+          setTimeout(function(){var a=document.createElement("script");
+          var b=document.getElementsByTagName("script")[0];
+          a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0027/6897.js?"+Math.floor(new Date().getTime()/3600000);
+          a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+        </script>
+        <script src="http://cdn.jsdelivr.net/jquery.slick/1.3.15/slick.min.js"></script>
+        <script src="app/bootloader.js?v=2.3.6"></script>
     </body>
 </html>

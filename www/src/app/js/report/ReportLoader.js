@@ -88,7 +88,7 @@
     }
   }
 
-  /* Polyfills and/or prototype additions */
+  /* Global Helper Functions */
   /*
     takes an array of bounds and returns an array with every value between the bounds
     ex.
@@ -96,9 +96,8 @@
     @param {array} originalArray
     @return {array}
   */
-  Array.prototype.fromBounds = function () {
-    if (this.length !== 2) { return this; }
-    var res = [], index = this[0], length = this[1];
+  win.arrayFromBounds = function (array) {
+    var res = [], index = array[0], length = array[1];
     for (index; index <= length; index++) {
       res.push(index);
     }
@@ -109,10 +108,10 @@
     @param {number} chunkSize size of each chunk of the returned array
     @return {array} an array or arrays with each array's length being the specified chunk size
   */
-  Array.prototype.chunk = function (chunkSize) {
+  win.arrayChunk = function (array, chunkSize) {
     var resultingArrays = [], index = 0;
-    for(index; index < this.length; index += chunkSize)
-      resultingArrays.push(this.slice(index, index + chunkSize));
+    for(index; index < array.length; index += chunkSize)
+      resultingArrays.push(array.slice(index, index + chunkSize));
     return resultingArrays;
   };
 

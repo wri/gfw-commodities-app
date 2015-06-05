@@ -799,8 +799,8 @@ define([
             var self = this;
 
             return {
-                A: arrayA.fromBounds(),
-                B: arrayB.fromBounds(),
+                A: arrayFromBounds(arrayA),
+                B: arrayFromBounds(arrayB),
                 getSimpleRule: function(id1, id2) {
                     return JSON.stringify({
                         'rasterFunction': 'Arithmetic',
