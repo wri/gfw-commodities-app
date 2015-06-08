@@ -44,6 +44,13 @@ define([
       var selectedFeatures = Store.get(KEYS.selectedCustomFeatures);
       selectedFeatures = selectedFeatures.concat(graphics);
       Store.set(KEYS.selectedCustomFeatures, selectedFeatures);
+    },
+
+    /**
+    * Clear the selected features list
+    */
+    clearSelectedCustomFeatures: function () {
+      Store.set(KEYS.selectedCustomFeatures, []);
     }
 
   };

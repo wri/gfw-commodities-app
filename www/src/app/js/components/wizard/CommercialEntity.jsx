@@ -18,6 +18,7 @@ define([
   var config = AnalyzerConfig.commercialEntity;
   var KEYS = AnalyzerConfig.STORE_KEYS;
   var previousStep;
+  var previousFeatureType;
 
   function getDefaultState() {
     return {
@@ -162,14 +163,15 @@ define([
           graphic,
           id;
 
-      // Group Portion of this needs to be refactored when Albert comes back in to the office
-      // Seleting Children by querying dom should prob not be done, maybe pass selected group ID 
-      // to the nested list and let him activate the correct ones
-      // Needs to support removing features, and should not set any values to activeListItemValues
-      // otherwise when the user switches to a individual, the group remains active, it becomes difficult
-      // to know when the ids in the list are associated to a group or individual since we only store numeric ids
-      if (featureType === "group") {
+      if (previousFeatureType !== featureType) {
+        WizardActions.clearSelectedCustomFeatures();
+      }
 
+      // Update this for bookkeeping purposes
+      previousFeatureType = featureType;
+
+      if (featureType === "group") {
+        // Do nothing for group with no name since its not an actual group
         if (target.innerHTML === AnalyzerConfig.noNameField) {
           return;
         }
@@ -191,10 +193,10 @@ define([
 
         }
 
-        // Set the active group id, make sure individual features are not selected, this logic may change  
+        // Set the active group id and make sure individual features are not selected
         self.setState({
           activeListItemValues: [],
-          activeListGroupValue: parseInt(objectId)
+          activeListGroupValue: id
         });
 
         // Takes URL and group name, group name will always be the targets innerHTML
@@ -202,7 +204,7 @@ define([
           wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
 
           if (features && wizardGraphicsLayer) {
-            wizardGraphicsLayer.clear();
+            //wizardGraphicsLayer.clear();
             features.forEach(function (feature) {
               // Add it to the map and make it the current selection, give it a label
               feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
@@ -210,7 +212,7 @@ define([
               wizardGraphicsLayer.add(graphic);              
             });
 
-            WizardStore.set(KEYS.selectedCustomFeatures, features);
+            WizardActions.addSelectedFeatures(features);
           }
         });
 
