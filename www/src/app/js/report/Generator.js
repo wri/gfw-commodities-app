@@ -185,12 +185,17 @@ define([
 
             } else {
 
-              // Currently this can only be an array of mills, may change later
               // First I will need to convert circles to polygons since unioning circles/computing histograms
               // has some unexpected outcomes
               polygons = [];
 
               arrayUtils.forEach(areasToAnalyze, function (feature) {
+
+                // Prototype chain gets broken when stringified, so create a new poly
+                if (feature.geometry.type === 'polygon') {
+                    poly = new Polygon(feature.geometry);
+                    polygons.push(poly);
+                }
 
                 if (feature.geometry.center) {
                   poly = new Polygon(sr);

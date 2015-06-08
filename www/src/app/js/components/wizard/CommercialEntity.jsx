@@ -98,29 +98,29 @@ define([
       }
 
       return (
-        React.DOM.div({className: "commercial-entity"}, 
-          React.DOM.p({className: "instructions"}, " ", config.instructions, " "), 
-          React.DOM.select({className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
-            config.commodityOptions.map(this._selectMapper, this)
-          ), 
-          React.DOM.span({className: 'loading' + (this.state.isLoading ? '' : ' hidden')}), 
-          React.DOM.p({className: 'instructions' + (this.state.nestedListData.length> 0 ? '' : ' hidden')}, 
-            config.instructionsPartTwo
-          ), 
-          NestedList({
-            data: this.state.nestedListData, 
-            click: this._commodityClicked, 
-            placeholder: "Search commercial entities", 
-            activeListItemValues: this.state.activeListItemValues, 
-            activeListGroupValue: this.state.activeListGroupValue, 
-            isResetting: this.props.isResetting}
-          )
-        )
+        <div className='commercial-entity'>
+          <p className='instructions'> {config.instructions} </p>
+          <select className='commodity-type-select' value={this.state.selectedCommodity} onChange={this._loadFeatures}>
+            {config.commodityOptions.map(this._selectMapper, this)}
+          </select>
+          <span className={'loading' + (this.state.isLoading ? '' : ' hidden')} />
+          <p className={'instructions' + (this.state.nestedListData.length> 0 ? '' : ' hidden')}>
+            {config.instructionsPartTwo}
+          </p>
+          <NestedList
+            data={this.state.nestedListData}
+            click={this._commodityClicked}
+            placeholder='Search commercial entities'
+            activeListItemValues={this.state.activeListItemValues}
+            activeListGroupValue={this.state.activeListGroupValue}
+            isResetting={this.props.isResetting}
+          />
+        </div>
       );
     },
 
     _selectMapper: function (item) {
-      return React.DOM.option({value: item.value}, item.label);
+      return <option value={item.value}>{item.label}</option>;
     },
     /* jshint ignore:end */
 

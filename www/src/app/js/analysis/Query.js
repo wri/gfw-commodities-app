@@ -180,7 +180,7 @@ define([
 					query = new Query(),
 					self = this;
 
-			query.where = "OBJECTID = " + objectId;
+      query.objectIds = [objectId];
 			query.geometryPrecision = 0;
 			query.returnGeometry = true;
 			query.outFields = ["*"];

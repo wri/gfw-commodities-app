@@ -101,31 +101,31 @@ define([
       }
 
       return (
-        React.DOM.div({className: "certified-area"}, 
-          React.DOM.p({className: "instructions"}, " ", config.instructions, " "), 
-          React.DOM.select({className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._updateCommodity}, 
-            config.commodityOptions.map(this._selectMapper, this)
-          ), 
-          React.DOM.p({className: "instructions"}, " ", config.instructionsPartTwo, " "), 
-          React.DOM.select({className: "certification-scheme-select", value: this.state.selectedScheme, onChange: this._loadFeatures}, 
-            config.certificationOptions.map(this._selectMapper, this)
-          ), 
-          React.DOM.span({className: 'loading-wheel' + (this.state.isLoading ? '': ' hidden')}), 
-          React.DOM.p({className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartThree), 
-          NestedList({
-            data: this.state.nestedListData, 
-            click: this._schemeClicked, 
-            placeholder: "Search certified areas...", 
-            activeListItemValues: this.state.activeListItemValues, 
-            activeListGroupValue: this.state.activeListGroupValue, 
-            isResetting: this.props.isResetting}
-          )
-        )
+        <div className='certified-area'>
+          <p className='instructions'> {config.instructions} </p>
+          <select className='commodity-type-select' value={this.state.selectedCommodity} onChange={this._updateCommodity}>
+            {config.commodityOptions.map(this._selectMapper, this)}
+          </select>
+          <p className='instructions'> {config.instructionsPartTwo} </p>
+          <select className='certification-scheme-select' value={this.state.selectedScheme} onChange={this._loadFeatures}>
+            {config.certificationOptions.map(this._selectMapper, this)}
+          </select>
+          <span className={'loading-wheel' + (this.state.isLoading ? '': ' hidden')} />
+          <p className={'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}>{config.instructionsPartThree}</p>
+          <NestedList
+            data={this.state.nestedListData}
+            click={this._schemeClicked}
+            placeholder='Search certified areas...'
+            activeListItemValues={this.state.activeListItemValues}
+            activeListGroupValue={this.state.activeListGroupValue}
+            isResetting={this.props.isResetting}
+          />
+        </div>
       );
     },
 
     _selectMapper: function (item) {
-      return React.DOM.option({value: item.value}, item.label);
+      return <option value={item.value}>{item.label}</option>;
     },
     /* jshint ignore:end */
 

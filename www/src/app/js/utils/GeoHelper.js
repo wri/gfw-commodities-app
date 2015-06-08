@@ -9,8 +9,9 @@ define([
   "esri/tasks/GeometryService",
   "esri/geometry/webMercatorUtils",
   "dojo/Deferred",
-  "dojo/_base/array"
-], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, GeometryService, webMercatorUtils, Deferred, arrayUtils) {
+  "dojo/_base/array",
+  "utils/assert"
+], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, GeometryService, webMercatorUtils, Deferred, arrayUtils, assert) {
 
   var geometryService,
       spatialReference;
@@ -118,7 +119,7 @@ define([
 
     union: function (polygons) {
       if (Object.prototype.toString.call(polygons) !== '[object Array]') {
-        throw new Error('Method expects polygons paramter to be of type Array')
+        throw new Error('Method expects polygons paramter to be of type Array');
       }
 
       var deferred = new Deferred(),
@@ -130,6 +131,28 @@ define([
         geometryService.union(polygons, deferred.resolve, deferred.resolve);
       }
       return deferred;
+    },
+
+    /**
+    * Remove Graphic from graphics layer with a given OBJECTID
+    * @param {string} layerId - Id of the layer we want to remove graphic from
+    * @param {string} field - Field we will use for matching the graphic we want to remove
+    * @param {string} value - Value of the field in the graphic we want to remove
+    */
+    removeGraphicByField: function (layerId, field, value) {
+      assert(layerId && field && value, "removeGraphicByField - Invalid Parameters");
+
+      var layer = app.map.getLayer(layerId);
+
+      if (layer) {
+        arrayUtils.some(layer.graphics, function (graphic) {
+          if (graphic.attributes[field] === value) {
+            layer.remove(graphic);
+            return true;
+          }
+        });
+      }
+
     }
 
 	};

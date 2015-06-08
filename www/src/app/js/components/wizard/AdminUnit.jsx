@@ -27,7 +27,7 @@ define([
     };
   }
 
-	var AdminUnit = React.createClass({displayName: 'AdminUnit',
+	var AdminUnit = React.createClass({
 
     getInitialState: function () {
       return getDefaultState();
@@ -70,29 +70,29 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({className: "admin-unit", id: "admin-unit"}, 
-          React.DOM.p({className: "instructions"}, " ", config.instructions, " "), 
-          React.DOM.div({className: "select-container"}, 
-            React.DOM.select({
-              id: "country-select", 
-              className: "country-select", 
-              onChange: this._loadAdminUnits, 
-              'data-bind': "options: allCountries, optionsText: \"label\", optionsValue: \"value\""}
-            ), 
-            React.DOM.span({className: 'loading-wheel' + (this.state.isLoading ? '' : ' hidden')})
-          ), 
-          React.DOM.p({className: 'instructions' + (this.state.nestedListData.length > 0) ? '' : ' hidden'}, 
-            config.instructionsPartTwo
-          ), 
-          NestedList({
-            data: this.state.nestedListData, 
-            click: this._lowLevelAdminUnitClick, 
-            placeholder: "Search administrative units...", 
-            activeListItemValues: this.state.activeListItemValues, 
-            activeListGroupValue: this.state.activeListGroupValue, 
-            isResetting: this.props.isResetting}
-          )
-        )
+        <div className='admin-unit' id='admin-unit'>
+          <p className='instructions'> {config.instructions} </p>
+          <div className='select-container'>
+            <select
+              id='country-select'
+              className='country-select'
+              onChange={this._loadAdminUnits}
+              data-bind='options: allCountries, optionsText: "label", optionsValue: "value"'
+            />
+            <span className={'loading-wheel' + (this.state.isLoading ? '' : ' hidden')} />
+          </div>
+          <p className={'instructions' + (this.state.nestedListData.length > 0) ? '' : ' hidden'}>
+            {config.instructionsPartTwo}
+          </p>
+          <NestedList
+            data={this.state.nestedListData}
+            click={this._lowLevelAdminUnitClick}
+            placeholder='Search administrative units...'
+            activeListItemValues={this.state.activeListItemValues}
+            activeListGroupValue={this.state.activeListGroupValue}
+            isResetting={this.props.isResetting}
+          />
+        </div>
       );
     },
 

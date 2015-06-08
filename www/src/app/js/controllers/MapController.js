@@ -74,7 +74,6 @@ define([
             //console.log("**********************> map options:", mapOptions);
 
             // This is not esri map, it is custom map class, esri map object available as map.map
-            //map = new Map(MapConfig.mapOptions);
             map = new Map(mapOptions);
 
             // Set the map object to the global app variable for easy use throughout the project
@@ -321,8 +320,8 @@ define([
             });
 
             dojoQuery(".map-layer-controls li").forEach(function(node) {
-                on(node, "mouseover", function(evt) {
-                    self.toggleLayerList(node);
+                node.addEventListener('mouseenter', function () {
+                  self.toggleLayerList(node);
                 });
             });
 

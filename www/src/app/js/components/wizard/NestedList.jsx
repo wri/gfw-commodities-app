@@ -3,7 +3,7 @@ define([
 	"react"
 ], function (React) {
 
-	var ListItem = React.createClass({displayName: 'ListItem',
+	var ListItem = React.createClass({
 
 		propTypes: {
       label: React.PropTypes.string.isRequired,
@@ -21,10 +21,10 @@ define([
 				className = isGroupActive ? 'active' : '';
 				// No Filter applied, render like usual
 				return (
-					React.DOM.div({className: "wizard-list-item"}, 
-						React.DOM.span({'data-value': this.props.value, 'data-type': "group", onClick: this._click, className: className}, this.props.label), 
-						this.props.children ? this.props.children.map(this._childrenMapper.bind(this, isGroupActive)) : undefined
-					)
+					<div className='wizard-list-item'>
+						<span data-value={this.props.value} data-type='group' onClick={this._click} className={className}>{this.props.label}</span>
+						{this.props.children ? this.props.children.map(this._childrenMapper.bind(this, isGroupActive)) : undefined}
+					</div>
 				);
 			} else {
 				// Filter applied, none of the children match, if the root matches, show it, else hide it
@@ -32,9 +32,9 @@ define([
 				className = 'wizard-list-item' + (label.search(this.props.filter) > -1 ? '' : ' hidden') + (isGroupActive ? ' active' : '' );
 
 				return (
-					React.DOM.div({className: className}, 
-						React.DOM.span({'data-value': this.props.value, 'data-type': "group", onClick: this._click, className: className}, this.props.label)
-					)
+					<div className={className}>
+						<span data-value={this.props.value} data-type='group' onClick={this._click} className={className}>{this.props.label}</span>
+					</div>
 				);
 				
 			}
@@ -50,9 +50,9 @@ define([
 			}
 
 			return (
-				React.DOM.div({className: className, key: index}, 
-					React.DOM.span({'data-value': item.value, 'data-type': "individual", onClick: this._click}, item.label)
-				)
+				<div className={className} key={index}>
+					<span data-value={item.value} data-type='individual' onClick={this._click}>{item.label}</span>
+				</div>
 			);
 		},
 		/* jshint ignore:end */
@@ -80,7 +80,7 @@ define([
     };
 	}
 
-	var NestedList = React.createClass({displayName: 'NestedList',
+	var NestedList = React.createClass({
 
     getInitialState: function () {
       return (getDefaultState());
@@ -95,30 +95,30 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-      	React.DOM.div({className: "nested-list"}, 
-      		React.DOM.div({className: 'searchBox relative' + (this.props.data.length > 0 ? '' : ' hidden')}, 
-      			React.DOM.div({className: "nested-list-search-icon"}), 
-      			React.DOM.input({placeholder: this.props.placeholder, type: "text", value: this.state.filter, onChange: this._setFilter})
-      		), 
-      		React.DOM.div({className: 'list-container' + (this.state.filter !== '' ? ' filtered' : '')}, 
-      			this.props.data.map(this._mapper, this)
-      		)
-      	)
+      	<div className='nested-list'>
+      		<div className={'searchBox relative' + (this.props.data.length > 0 ? '' : ' hidden')}>
+      			<div className='nested-list-search-icon' />
+      			<input placeholder={this.props.placeholder} type='text' value={this.state.filter} onChange={this._setFilter} />
+      		</div>
+      		<div className={'list-container' + (this.state.filter !== '' ? ' filtered' : '')}>
+      			{this.props.data.map(this._mapper, this)}
+      		</div>
+      	</div>
       );
     },
 
     _mapper: function (item, index) {
     	return (
-    		ListItem({
-    			key: index, 
-    			label: item.label || 'No Name', 
-    			value: item.value, 
-    			click: this.props.click, 
-    			children: item.children, 
-    			activeListItemValues: this.props.activeListItemValues, 
-    			activeListGroupValue: this.props.activeListGroupValue, 
-    			filter: this.state.filter}
-    		)
+    		<ListItem
+    			key={index}
+    			label={item.label || 'No Name'}
+    			value={item.value}
+    			click={this.props.click}
+    			children={item.children}
+    			activeListItemValues={this.props.activeListItemValues}
+    			activeListGroupValue={this.props.activeListGroupValue}
+    			filter={this.state.filter}
+    		/>
     	);
     },
     /* jshint ignore:end */
