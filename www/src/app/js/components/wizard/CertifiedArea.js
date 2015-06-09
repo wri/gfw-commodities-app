@@ -17,7 +17,7 @@ define([
 
   var config = AnalyzerConfig.certifiedArea;
   var KEYS = AnalyzerConfig.STORE_KEYS;
-  var previousFeaturetype; // Track what kind of feature they are currently selecting
+  var previousFeatureType; // Track what kind of feature they are currently selecting
   var previousStep;
 
   function getDefaultState() {
@@ -172,7 +172,6 @@ define([
       });
     },
 
-    // Orignal 173 - 233, 60 lines
     _schemeClicked: function (target) {
       var objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
@@ -182,12 +181,12 @@ define([
           self = this,
           graphic;
 
-      if (featureType !== previousFeaturetype) {
+      if (featureType !== previousFeatureType) {
         WizardActions.clearSelectedCustomFeatures();
       }
       
       // Update this for bookkeeping
-      previousFeaturetype = featureType;
+      previousFeatureType = featureType;
 
       if (featureType === "group") {
     
@@ -200,7 +199,6 @@ define([
           self.setState({
             activeListGroupValue: undefined
           });
-        
         } else {
           self.setState({
             activeListItemValues: [],
@@ -217,7 +215,6 @@ define([
                 graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
                 wizardGraphicsLayer.add(graphic);
               });
-              
               WizardActions.addSelectedFeatures(features);
             }
           });
@@ -238,7 +235,6 @@ define([
             activeListItemValues: activeItems,
             activeListGroupValue: undefined
           });
-          
         } else {
 
           activeItems.push(objectId);
