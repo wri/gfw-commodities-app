@@ -290,9 +290,9 @@ define([
                 Analytics.sendEvent('Event', 'click', 'Share Button', 'User clicked the share button.');
             });
 
-            on(dom.byId("alert-button"), "click", function() {
-                Helper.toggleAlerts();
-            });
+            // on(dom.byId("alert-button"), "click", function() {
+            //     Helper.toggleAlerts();
+            // });
 
             on(dom.byId("dms-search"), "change", function(evt) {
                 var checked = evt.target ? evt.target.checked : evt.srcElement.checked;
