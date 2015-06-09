@@ -155,13 +155,13 @@ define([
     },
 
     _commodityClicked: function (target) {
-      var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
-          objectId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
+      var objectId = parseInt(target.getAttribute('data-value')),
+          featureType = target.getAttribute('data-type'),
           selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
+          label = target.innerText || target.innerHTML,
           wizardGraphicsLayer,
           self = this,
-          graphic,
-          id;
+          graphic;
 
       if (previousFeatureType !== featureType) {
         WizardActions.clearSelectedCustomFeatures();
@@ -172,97 +172,89 @@ define([
 
       if (featureType === "group") {
         // Do nothing for group with no name since its not an actual group
-        if (target.innerHTML === AnalyzerConfig.noNameField) {
+        if (label === AnalyzerConfig.noNameField) {
           return;
         }
 
         var activeGroupId = this.state.activeListGroupValue;
-        id = parseInt(objectId);
 
         // If the same feature is clicked, clear the list, selectedFeatures, and Map Graphics
-        if (id === activeGroupId) {
+        if (objectId === activeGroupId) {
           // The name is the inner HTML, the field is the field used for the query
-          WizardActions.removeSelectedFeatureByField(config.groupQuery.requiredField, target.innerHTML);
-          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, config.groupQuery.requiredField, target.innerHTML);
+          WizardActions.removeSelectedFeatureByField(config.groupQuery.requiredField, label);
+          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, config.groupQuery.requiredField, label);
 
           self.setState({
             activeListGroupValue: undefined
           });
 
-          return;
+        } else {
+          // Set the active group id and make sure individual features are not selected
+          self.setState({
+            activeListItemValues: [],
+            activeListGroupValue: objectId
+          });
 
+          AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, label).then(function (features) {
+            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            if (features && wizardGraphicsLayer) {
+              features.forEach(function (feature) {
+                // Add it to the map and make it the current selection, give it a label
+                feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+                graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
+                wizardGraphicsLayer.add(graphic);              
+              });
+
+              WizardActions.addSelectedFeatures(features);
+            }
+          });
         }
-
-        // Set the active group id and make sure individual features are not selected
-        self.setState({
-          activeListItemValues: [],
-          activeListGroupValue: id
-        });
-
-        // Takes URL and group name, group name will always be the targets innerHTML
-        AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
-          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-
-          if (features && wizardGraphicsLayer) {
-            //wizardGraphicsLayer.clear();
-            features.forEach(function (feature) {
-              // Add it to the map and make it the current selection, give it a label
-              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
-              graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
-              wizardGraphicsLayer.add(graphic);              
-            });
-
-            WizardActions.addSelectedFeatures(features);
-          }
-        });
 
       } else if (objectId) {
 
         var activeListIds = this.state.activeListItemValues;
-        id = parseInt(objectId);
-        var indexOfObject = activeListIds.indexOf(id);
+        var indexOfObject = activeListIds.indexOf(objectId);
 
         // If the id already exists, then we should remove it and exit
         if (indexOfObject > -1) {
           // Remove from list, selectedFeatures, and map
           activeListIds.splice(indexOfObject, 1);
-          WizardActions.removeSelectedFeatureByField('OBJECTID', id);
-          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, 'OBJECTID', id);
+          WizardActions.removeSelectedFeatureByField('OBJECTID', objectId);
+          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, 'OBJECTID', objectId);
 
           self.setState({
             activeListItemValues: activeListIds,
             activeListGroupValue: undefined
           });
+        } else {
+          // Item not yet selected, so add the ID to the selected list
+          activeListIds.push(objectId);
 
-          return;
-        }
+          // Update the state
+          self.setState({
+            activeListItemValues: activeListIds,
+            activeListGroupValue: undefined
+          });
 
-        // Item not yet selected, so add the ID to the selected list
-        activeListIds.push(id);
+          // Get the graphic and add it to the selected features list
+          AnalyzerQuery.getFeatureById(config.commodityQuery.url, objectId).then(function (feature) {
+            // Add it to the map and make it the current selection, give it a label
+            feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+            graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
+            WizardActions.addSelectedFeatures([graphic]);
 
-        // Update the state
-        self.setState({
-          activeListItemValues: activeListIds,
-          activeListGroupValue: undefined
-        });
+            // Add the graphic to the map
+            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            if (wizardGraphicsLayer) {
+              wizardGraphicsLayer.add(graphic);
+            }
 
-        // Get the graphic and add it to the selected features list
-        AnalyzerQuery.getFeatureById(config.commodityQuery.url, id).then(function (feature) {
-          // Add it to the map and make it the current selection, give it a label
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerHTML || target.innerText;
-          graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
-          WizardActions.addSelectedFeatures([graphic]);
+          });
+        } // End else
 
-          // Add the graphic to the map
-          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-          if (wizardGraphicsLayer) {
-            wizardGraphicsLayer.add(graphic);
-          }
+      } // End else if
 
-        });
-
-      }
-    }
+    }// End __commodityClicked
 
   });
 

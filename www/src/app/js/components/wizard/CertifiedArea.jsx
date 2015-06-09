@@ -5,16 +5,19 @@ define([
   "map/Symbols",
   "analysis/Query",
   "analysis/config",
+  "utils/GeoHelper",
   "analysis/WizardStore",
+  "analysis/WizardActions",
   "components/wizard/NestedList",
   // Other Helpful Modules
   "dojo/topic",
   "dojo/query",
   "esri/graphic"
-], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, WizardStore, NestedList, topic, query, Graphic) {
+], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, WizardActions, NestedList, topic, query, Graphic) {
 
   var config = AnalyzerConfig.certifiedArea;
   var KEYS = AnalyzerConfig.STORE_KEYS;
+  var previousFeaturetype; // Track what kind of feature they are currently selecting
   var previousStep;
 
   function getDefaultState() {
@@ -169,67 +172,99 @@ define([
       });
     },
 
+    // Orignal 173 - 233, 60 lines
     _schemeClicked: function (target) {
-      var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
-          objectId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
+      var objectId = parseInt(target.getAttribute('data-value')),
+          featureType = target.getAttribute('data-type'),
+          label = target.innerText || target.innerHTML,
           wizardGraphicsLayer,
+          activeItems,
           self = this,
           graphic;
 
-      if (featureType === "group") {
-
-        var newActiveListeItemValues = []; 
-        query('.wizard-list-child-item span', target.parentNode).forEach(function(element){
-          newActiveListeItemValues.push(parseInt(element.dataset ? element.dataset.value : element.getAttribute('data-value')));
-        });
+      if (featureType !== previousFeaturetype) {
+        WizardActions.clearSelectedCustomFeatures();
+      }
       
-        self.setState({
-          activeListItemValues: newActiveListeItemValues,
-          activeListGroupValue: parseInt(objectId)
-        });
+      // Update this for bookkeeping
+      previousFeaturetype = featureType;
 
-        // Takes URL and group name, group name will always be the targets innerHTML
-        AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
-          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-          if (features && wizardGraphicsLayer) {
-            wizardGraphicsLayer.clear();
-            features.forEach(function (feature) {
-              // Add it to the map and make it the current selection, give it a label
-              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
-              graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
-              wizardGraphicsLayer.add(graphic);
-            });
-            
-            // There should only be one feature returning from this call, if more then one come back
-            // something went wrong, this code should be refactored to be more clear that only one feature
-            // is coming back
-            WizardStore.set(KEYS.selectedCustomFeatures, features);
-          }
-        });
+      if (featureType === "group") {
+    
+        activeItems = this.state.activeListGroupValue; // Single Id
+        // Same group, deselect it by removing it from store, map, and list
+        if (activeItems === objectId) {
+          WizardActions.removeSelectedFeatureByField(config.groupQuery.requiredField, label);
+          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, config.groupQuery.requiredField, label);
+
+          self.setState({
+            activeListGroupValue: undefined
+          });
+        
+        } else {
+          self.setState({
+            activeListItemValues: [],
+            activeListGroupValue: objectId
+          });
+
+          // Takes URL and group name, group name will always be the targets innerHTML
+          AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, label).then(function (features) {
+            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            if (features && wizardGraphicsLayer) {
+              features.forEach(function (feature) {
+                // Add it to the map and make it the current selection, give it a label
+                feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+                graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
+                wizardGraphicsLayer.add(graphic);
+              });
+              
+              WizardActions.addSelectedFeatures(features);
+            }
+          });
+        }
+
       } else if (objectId) {
 
-        self.setState({
-          activeListItemValues: [parseInt(objectId)],
-          activeListGroupValue: null
-        });
+        activeItems = this.state.activeListItemValues;
+        var indexOfObject = activeItems.indexOf(objectId);
 
-        AnalyzerQuery.getFeatureById(config.schemeQuery.url, objectId).then(function (feature) {
+        // This item is already selected, deselect it by removing it from the store, map, and list
+        if (indexOfObject > -1) {
+          activeItems.splice(indexOfObject, 1);
+          WizardActions.removeSelectedFeatureByField('OBJECTID', objectId);
+          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, 'OBJECTID', objectId);
 
-          // Add it to the map and make it the current selection, give it a label
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText || target.innerHTML;
-          graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
-          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-          if (wizardGraphicsLayer) {
-            // Clear out any previous 'preview' features
-            wizardGraphicsLayer.clear();
-            wizardGraphicsLayer.add(graphic);
-            // Mark this as your current selection
-            WizardStore.set(KEYS.selectedCustomFeatures, [graphic]);
-          }
+          self.setState({
+            activeListItemValues: activeItems,
+            activeListGroupValue: undefined
+          });
+          
+        } else {
 
-        });
-      }
-    }
+          activeItems.push(objectId);
+
+          self.setState({
+            activeListItemValues: activeItems,
+            activeListGroupValue: null
+          });
+
+          AnalyzerQuery.getFeatureById(config.schemeQuery.url, objectId).then(function (feature) {
+            // Add it to the map and make it the current selection, give it a label
+            feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+            graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
+            WizardActions.addSelectedFeatures([graphic]);
+
+            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            if (wizardGraphicsLayer) {
+              wizardGraphicsLayer.add(graphic);
+            }
+          });
+
+        } // End else
+
+      }// End else if
+
+    }// End _schemeClicked
 
   });
 

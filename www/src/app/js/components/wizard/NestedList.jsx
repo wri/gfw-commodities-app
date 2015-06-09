@@ -7,7 +7,7 @@ define([
 
 		propTypes: {
       label: React.PropTypes.string.isRequired,
-      value: React.PropTypes.string.isRequired,
+      value: React.PropTypes.number.isRequired,
       click: React.PropTypes.func.isRequired,
       filter: React.PropTypes.string.isRequired
     },
@@ -17,9 +17,10 @@ define([
 			var isGroupActive = this.props.activeListGroupValue !== undefined && this.props.activeListGroupValue == this.props.value,
 					className;
 
+			// Filter not applied  or filter is applied and there are children who match the filter 
+			// This means we can't hide the parent or else the children will get hidden as well
 			if (this.props.filter === '' || this._searchChildrenForMatches(this.props.children, this.props.filter)) {
 				className = isGroupActive ? 'active' : '';
-				// No Filter applied, render like usual
 				return (
 					<div className='wizard-list-item'>
 						<span data-value={this.props.value} data-type='group' onClick={this._click} className={className}>{this.props.label}</span>
@@ -28,8 +29,7 @@ define([
 				);
 			} else {
 				// Filter applied, none of the children match, if the root matches, show it, else hide it
-				var label = this.props.label.toLowerCase();
-				className = 'wizard-list-item' + (label.search(this.props.filter) > -1 ? '' : ' hidden') + (isGroupActive ? ' active' : '' );
+				className = 'wizard-list-item' + (this.props.label.toLowerCase().search(this.props.filter) > -1 ? '' : ' hidden') + (isGroupActive ? ' active' : '' );
 
 				return (
 					<div className={className}>
