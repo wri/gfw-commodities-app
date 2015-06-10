@@ -242,7 +242,7 @@ define([
         identifyWDPA: function(mapPoint) {
             // Idenitfy URL is layer 25 using the oilPermit url
             var deferred = new Deferred(),
-                identifyTask = new IdentifyTask(MapConfig.oilPerm.url),
+                identifyTask = new IdentifyTask(MapConfig.palHelper.url),
                 params = new IdentifyParameters();
 
             params.tolerance = 3;
@@ -251,7 +251,8 @@ define([
             params.height = app.map.height;
             params.geometry = mapPoint;
             params.mapExtent = app.map.extent;
-            params.layerIds = [25];
+            params.layerIds = [MapConfig.palHelper.id];
+            params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
 
             identifyTask.execute(params, function(features) {
                 features.forEach(function(feature) {
