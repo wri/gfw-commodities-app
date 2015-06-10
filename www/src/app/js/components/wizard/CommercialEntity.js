@@ -155,16 +155,19 @@ define([
     },
 
     _commodityClicked: function (target) {
-      var objectId = parseInt(target.getAttribute('data-value')),
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+          objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
           selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
           label = target.innerText || target.innerHTML,
-          wizardGraphicsLayer,
           self = this,
           graphic;
 
+      // They cant select features and groups right now
+      // so if they swicth, clear the selection list and the layer
       if (previousFeatureType !== featureType) {
         WizardActions.clearSelectedCustomFeatures();
+        wizardGraphicsLayer.clear();
       }
 
       // Update this for bookkeeping purposes
@@ -178,7 +181,7 @@ define([
 
         var activeGroupId = this.state.activeListGroupValue;
 
-        // If the same feature is clicked, clear the list, selectedFeatures, and Map Graphics
+        // If the same group is clicked, clear the list, selectedFeatures, and Map Graphics
         if (objectId === activeGroupId) {
           // The name is the inner HTML, the field is the field used for the query
           WizardActions.removeSelectedFeatureByField(config.groupQuery.requiredField, label);
@@ -189,14 +192,17 @@ define([
           });
 
         } else {
+          // Clear Previous Features
+          WizardActions.clearSelectedCustomFeatures();
           // Set the active group id and make sure individual features are not selected
           self.setState({
             activeListItemValues: [],
             activeListGroupValue: objectId
           });
+          // Clear the layer
+          wizardGraphicsLayer.clear();
 
           AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, label).then(function (features) {
-            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
             if (features && wizardGraphicsLayer) {
               features.forEach(function (feature) {
                 // Add it to the map and make it the current selection, give it a label
@@ -215,7 +221,7 @@ define([
         var activeListIds = this.state.activeListItemValues;
         var indexOfObject = activeListIds.indexOf(objectId);
 
-        // If the id already exists, then we should remove it and exit
+        // If the id already exists, then we should remove it
         if (indexOfObject > -1) {
           // Remove from list, selectedFeatures, and map
           activeListIds.splice(indexOfObject, 1);
@@ -238,13 +244,12 @@ define([
 
           // Get the graphic and add it to the selected features list
           AnalyzerQuery.getFeatureById(config.commodityQuery.url, objectId).then(function (feature) {
-            // Add it to the map and make it the current selection, give it a label
+            // Add it to the map and make it the current selection
             feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
             graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
             WizardActions.addSelectedFeatures([graphic]);
 
             // Add the graphic to the map
-            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
             if (wizardGraphicsLayer) {
               wizardGraphicsLayer.add(graphic);
             }

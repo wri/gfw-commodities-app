@@ -181,8 +181,11 @@ define([
           self = this,
           graphic;
 
+      // They cant select features and groups right now
+      // so if they swicth, clear the selection list and the layer
       if (featureType !== previousFeatureType) {
         WizardActions.clearSelectedCustomFeatures();
+        wizardGraphicsLayer.clear();
       }
       
       // Update this for bookkeeping
@@ -200,10 +203,15 @@ define([
             activeListGroupValue: undefined
           });
         } else {
+          // Clear Previous Features
+          WizardActions.clearSelectedCustomFeatures();
+          // Update state
           self.setState({
             activeListItemValues: [],
             activeListGroupValue: objectId
           });
+          // Clear the layer
+          wizardGraphicsLayer.clear();
 
           // Takes URL and group name, group name will always be the targets innerHTML
           AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, label).then(function (features) {

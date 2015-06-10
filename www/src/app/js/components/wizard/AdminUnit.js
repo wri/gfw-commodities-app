@@ -130,17 +130,19 @@ define([
     },
 
     _lowLevelAdminUnitClick: function (target) {
-      var objectId = parseInt(target.getAttribute('data-value')),
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+          objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
           label = target.innerText || target.innerHTML,
-          wizardGraphicsLayer,
           activeItems,
           self = this,
           graphic;
 
-
+      // They cant select features and groups right now
+      // so if they swicth, clear the selection list and the layer
       if (featureType !== previousFeatureType) {
         WizardActions.clearSelectedCustomFeatures();
+        wizardGraphicsLayer.clear();
       }
       
       // Update this for bookkeeping
@@ -159,16 +161,20 @@ define([
           });
         } else {
 
+          // Clear Previous Features
+          WizardActions.clearSelectedCustomFeatures();
+
           self.setState({
             activeListItemValues: [],
             activeListGroupValue: objectId
           });
+          // Clear the layer
+          wizardGraphicsLayer.clear();
 
           // Takes URL and group name, group name will always be the targets innerHTML
           var countrySelect = document.getElementById('country-select').value;
     
           AnalyzerQuery.getFeaturesByGroupNameAndCountry(config.countryBoundaries, label, countrySelect).then(function (features) {
-            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
             if (features && wizardGraphicsLayer) {
               features.forEach(function (feature) {
                 // Add it to the map and make it the current selection, give it a label
@@ -212,7 +218,6 @@ define([
             graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
             WizardActions.addSelectedFeatures([graphic]);
 
-            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
             if (wizardGraphicsLayer) {
               wizardGraphicsLayer.add(graphic);
             }
