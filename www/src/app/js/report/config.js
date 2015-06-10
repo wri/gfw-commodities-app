@@ -73,7 +73,7 @@ define([], function() {
 
     var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Open broadleaved forest", "Closed broadleaved forest", "Open needleleaved forest", "Closed needleleaved forest", "Open mixed forest", "Mixed forest and grassland", "Grassland / shrub", "Flooded forest", "Wetland", "Settlements", "Bare land", "Water bodies", "Snow / ice", "No data"],
         lcGlobalBounds = [1, 16],
-        lcGlobalColors = ["#d89827", "#86fc1f", "#468317", "#7ab547", "#a8ca89", "#7bb748", "#757433", "#a77a41", "#fffead", "#24946e", "#568596", "#f5a7bd", "#c9c342", "#63a2ff", "#fbfbfb", "#a0a0a0"];
+        lcGlobalColors = ["#E0A828","#8BFB3B","#51952F","#287310","#B6D6A1","#89C364","#888749","#B98D5A","#FFFEC1","#19A785","#689AA7","#FCB7CB","#D3CE63","#77B5FC","#FFFFFF","#B3B3B3"];
 
     var lcAsiaLabels = ["Agriculture", "Agroforestry", "Fish pond", "Grassland / Shrub", "Mining", "Oil Palm Plantation", "Primary Forest", "Rubber Plantation", "Secondary Forest", "Settlements", "Swamp", "Timber Plantation", "Water Bodies"],
         lcAsiaBounds = [1, 13],
@@ -441,7 +441,7 @@ define([], function() {
         landCoverGlobal: {
             rootNode: 'globalLandCover',
             title: 'Land Cover - Global',
-            rasterId: '$3',
+            rasterId: '$525',
             bounds: lcGlobalBounds,
             labels: lcGlobalLabels,
             clearanceChart: {
