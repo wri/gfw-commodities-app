@@ -343,8 +343,8 @@ define([], function() {
 
         palHelper: {
             id: "ProtectedAreasHelper",
-            url: dynamicMapServiceUrl,
-            layerId: 25
+            url: protectedAreasUrl,
+            layerId: 0
         },
 
         // Definition for shareable feature init
