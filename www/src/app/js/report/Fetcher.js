@@ -78,12 +78,6 @@ define([
 
             var scalebar, graphic, symbol, poly, map;
 
-
-            map = new Map('print-map', {
-                basemap: 'topo',
-                sliderPosition: "top-right"
-            });
-
             function mapLoaded () {
                 map.graphics.clear();
                 map.resize();
@@ -99,6 +93,11 @@ define([
                 map.graphics.add(graphic);
                 map.setExtent(graphic.geometry.getExtent().expand(3), true);
             }
+
+            map = new Map('print-map', {
+                basemap: 'topo',
+                sliderPosition: "top-right"
+            });
 
             map.on('load', mapLoaded);
 
