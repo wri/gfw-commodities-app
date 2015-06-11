@@ -23,6 +23,12 @@
       name: 'report',
       location: URL + '/js/report'
     }, {
+        name: "map",
+        location: URL + "/js/map"
+    }, {
+        name: "components",
+        location: URL + "/js/components"
+    }, {
       name: 'utils',
       location: URL + '/js/utils'
     }],

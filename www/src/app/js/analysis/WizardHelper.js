@@ -179,12 +179,6 @@ define([
 				arrayUtils.some(layer.graphics, function (graphic) {
 					if (graphic.attributes.WRI_ID === parseInt(id)) {
 						if (!self.isOpen()) {
-              // NOTE: changed toggling to function off Helper to simplify closing
-              // the alert panel if it is open
-							// True means skip intro in wizard
-							// self.toggleWizard(true).then(function () {
-              //  setWizardProps(graphic);
-              // });
               topic.publish('toggleWizard');
 							setWizardProps(graphic);
 						} else {
@@ -199,11 +193,6 @@ define([
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
-						// True means skip intro in wizard
-						// self.toggleWizard(true).then(function () {
-						// 	setWizardProps(feature);
-						// 	self.addGraphicFromPopup(feature);
-						// });
             topic.publish('toggleWizard');
             setWizardProps(feature);
             self.addGraphicFromPopup(feature);
@@ -217,11 +206,6 @@ define([
         AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
           feature.attributes.WRI_label = label;
           if (!self.isOpen()) {
-            // True means skip intro in wizard
-            // self.toggleWizard(true).then(function () {
-            //   setWizardProps(feature);
-            //   self.addGraphicFromPopup(feature);
-            // });
             topic.publish('toggleWizard');
             setWizardProps(feature);
             self.addGraphicFromPopup(feature);

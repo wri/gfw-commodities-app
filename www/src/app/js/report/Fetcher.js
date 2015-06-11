@@ -8,6 +8,7 @@ define([
     "report/Renderer",
     "report/RiskHelper",
     "report/Suitability",
+    "map/Symbols",
     // esri modules
     "esri/map",
     "esri/request",
@@ -17,11 +18,11 @@ define([
     "esri/SpatialReference",
     "esri/geometry/Polygon",
     "esri/tasks/GeometryService",
+    'esri/geometry/geometryEngine',
     "esri/tasks/AreasAndLengthsParameters",
     "esri/Color",
-    "esri/graphic",
-    "esri/symbols/SimpleFillSymbol"
-], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters, Color, Graphic, SimpleFillSymbol) {
+    "esri/graphic"
+], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -76,9 +77,10 @@ define([
 
         setupMap: function () {
 
-            var scalebar, graphic, symbol, poly, map;
+            var scalebar, graphic, poly, map;
 
             function mapLoaded () {
+
                 map.graphics.clear();
                 map.resize();
                 
@@ -87,9 +89,12 @@ define([
                     scalebarUnit: 'metric'
                 });
 
-                symbol = new SimpleFillSymbol();
-                poly = new Polygon(report.geometry);
-                graphic = new Graphic(poly, symbol);
+                // Simplify this as multiparts and others may not display properly
+                poly = geometryEngine.simplify(new Polygon(report.geometry));
+                graphic = new Graphic();
+                graphic.setGeometry(poly);
+                graphic.setSymbol(Symbols.getPolygonSymbol());
+
                 map.graphics.add(graphic);
                 map.setExtent(graphic.geometry.getExtent().expand(3), true);
             }
@@ -99,7 +104,11 @@ define([
                 sliderPosition: "top-right"
             });
 
-            map.on('load', mapLoaded);
+            if (map.loaded) {
+              mapLoaded();
+            } else {
+              map.on('load', mapLoaded);
+            }
 
         },
 

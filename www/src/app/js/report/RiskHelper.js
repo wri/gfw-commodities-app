@@ -15,62 +15,6 @@ define([
   * To Perform Risk Analysis, for each feature, I need area to know if it is in Indonesia
   */
 
-
-  // Data Specification for the Response Needed by our templating function
-  // var JSON_SPEC = {
-  //   'id': '',
-  //   'deforestation': {
-  //     'umd_loss_primary': { 
-  //       'concession': {}, 
-  //       'radius': {} 
-  //     },
-  //     'forma_primary': { 
-  //       'concession': {}, 
-  //       'radius': {} 
-  //   },
-  //     'umd_loss': { 
-  //       'concession': {}, 
-  //       'radius': {} 
-  //   },
-  //     'carbon': { 
-  //       'concession': {}, 
-  //       'radius': {} 
-  //   },
-  //     'forma': { 
-  //       'concession': {}, 
-  //       'radius': {} 
-  //     },
-  //     'area_primary': {
-  //       'concession': {}, 
-  //       'radius': {}
-  //     }
-  //   },
-  //   'legal': { 
-  //     'concession': {}, 
-  //     'radius': {} 
-  //   },
-  //   'fire': { 
-  //     'concession': {}, 
-  //     'radius': {}
-  //   },
-  //   'peat': { 
-  //     'concession': {}, 
-  //     'radius': {},
-  //     'clearance': {
-  //       'concession': {}, 
-  //       'radius': {},
-  //     },
-  //     'presence': {
-  //       'concession': {}, 
-  //       'radius': {},
-  //     }
-  //   },
-  //   'rspo': {},
-  //   'priority_level_concession': '',
-  //   'priority_level_radius': '',
-  //   'total_mill_priority_level': ''
-  // };
-
   var Helper = {
 
     /**
@@ -132,16 +76,6 @@ define([
 
       return mainDeferred.promise;
     },
-
-    /**
-    * This is done here because requiring Fetcher will cause a circular Issue
-    * @param {object} geometry - Geometry of feature to get area for, feature should be in web mercator
-    * @return {number} area - Returns the area of the given geometry in square meters
-    */
-    // getArea: function (geometry) {
-    //   var simplified = geometryEngine.simplify(geometry);
-    //   return geometryEngine.planarArea(simplified);
-    // },
 
     /**
     * @param {object} geometry - Geometry of feature to get area for, feature should be in web mercator
