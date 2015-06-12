@@ -8,7 +8,7 @@ define([], function () {
     * @param {string} category - Category of an event, all should be 'Event'
     * @param {string} action - Type of action performed
     * @param {string} label - label describing the action
-    * @param {number} value - value associated with the action, usually 0
+    * @param {number} value - value associated with the action
     */
     sendEvent: function (category, action, label, value) {
 
@@ -17,13 +17,13 @@ define([], function () {
         'eventCategory': category,
         'eventAction': action,
         'eventLabel': label,
-        'eventValue': value || 0
+        'eventValue': value || 1
       };
 
       if (ga) {
-        ga('A.send', payload);
-        ga('B.send', payload);
-        ga('C.send', payload);
+        // ga('A.send', payload);
+        // ga('B.send', payload);
+        ga('send', payload);
       }
 
     },
@@ -43,9 +43,9 @@ define([], function () {
       if (overrideTitle) { payload.title = overrideTitle; }
 
       if (ga) {
-        ga('A.send', payload);
-        ga('B.send', payload);
-        ga('C.send', payload);
+        // ga('A.send', payload);
+        // ga('B.send', payload);
+        ga('send', payload);
       }
 
     }

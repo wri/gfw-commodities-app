@@ -50,13 +50,13 @@
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-35900039-3', 'auto', {'name':"A"});
-        ga('create', 'UA-1981181-14', 'auto', {'name':"B"});
-        ga('create', 'UA-48182293-1', 'auto', {'name':"C",'cookieDomain':'commodities.globalforestwatch.org'});
+        // ga('create', 'UA-35900039-3', 'auto', {'name':"A"});
+        // ga('create', 'UA-1981181-14', 'auto', {'name':"B"});
+        ga('create', 'UA-48182293-1', 'auto', {'cookieDomain':'commodities.globalforestwatch.org'});
 
-        ga('A.send', 'pageview');
-        ga('B.send', 'pageview');
-        ga('C.send', 'pageview');
+        // ga('A.send', 'pageview');
+        // ga('B.send', 'pageview');
+        ga('send', 'pageview');
 
         // Check if this page is in an iFrame or not and if so, send an event
         if (window.top !== window.self) {
@@ -65,13 +65,13 @@
             'hitType': 'event',
             'eventCategory': 'Event',
             'eventAction': 'embed',
-            'eventLabel': 'iFrame Embed',
-            'eventValue': 'This application was viewed inside an embedded iFrame.'
+            'eventLabel': 'This application was viewed inside an embedded iFrame.',
+            'eventValue': 1
           };
 
-          ga('A.send', payload);
-          ga('B.send', payload);
-          ga('C.send', payload);
+          // ga('A.send', payload);
+          // ga('B.send', payload);
+          ga('send', payload);
         }
 
       </script>

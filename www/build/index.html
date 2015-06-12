@@ -19,13 +19,13 @@
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-35900039-3', 'auto', {'name':"A"});
-        ga('create', 'UA-1981181-14', 'auto', {'name':"B"});
-        ga('create', 'UA-48182293-1', 'auto', {'name':"C",'cookieDomain':'commodities.globalforestwatch.org'});
+        // ga('create', 'UA-35900039-3', 'auto', {'name':"A"});
+        // ga('create', 'UA-1981181-14', 'auto', {'name':"B"});
+        ga('create', 'UA-48182293-1', 'auto', {'cookieDomain':'commodities.globalforestwatch.org'});
 
-        ga('A.send', 'pageview');
-        ga('B.send', 'pageview');
-        ga('C.send', 'pageview');
+        // ga('A.send', 'pageview');
+        // ga('B.send', 'pageview');
+        ga('send', 'pageview');
 
         // Check if this page is in an iFrame or not and if so, send an event
         if (window.top !== window.self) {
@@ -34,13 +34,13 @@
             'hitType': 'event',
             'eventCategory': 'Event',
             'eventAction': 'embed',
-            'eventLabel': 'iFrame Embed',
-            'eventValue': 'This application was viewed inside an embedded iFrame.'
+            'eventLabel': 'This application was viewed inside an embedded iFrame.',
+            'eventValue': 1
           };
 
-          ga('A.send', payload);
-          ga('B.send', payload);
-          ga('C.send', payload);
+          // ga('A.send', payload);
+          // ga('B.send', payload);
+          ga('send', payload);
         }</script></head><body class="gfw tundra"><div id="app-header" class="app-header"><div id="headerGfw"></div></div><div id="app-body" class=""><div id="stackContainer" class="mainStack" data-dojo-type="dijit/layout/StackContainer" data-dojo-props="id:'stackContainer',parseOnLoad:false"><div data-dojo-type="dijit/layout/ContentPane" id="homeView" data-dojo-props="region:'center',id:'homeView',parseOnLoad:false" class="contentPage"></div><div data-dojo-type="dijit/layout/ContentPane" id="mapView" data-dojo-props="region:'center',id:'mapView',parseOnLoad:false" class="contentPage"></div><div data-dojo-type="dijit/layout/ContentPane" id="dataView" data-dojo-props="region:'center',id:'dataView',parseOnLoad:false" class="contentPage"></div><div data-dojo-type="dijit/layout/ContentPane" id="methodsView" data-dojo-props="region:'center',id:'methodsView',parseOnLoad:false" class="contentPage"></div><div data-dojo-type="dijit/layout/ContentPane" id="aboutView" data-dojo-props="region:'center',id:'aboutView',parseOnLoad:false" class="contentPage"></div><div data-dojo-type="dijit/layout/ContentPane" id="publicationsView" data-dojo-props="region:'center',id:'publicationsView',parseOnLoad:false" class="contentPage"></div></div></div><div id="app-footer" class="app-footer"><div id="footerGfw"></div></div><script>setTimeout(function(){var a=document.createElement("script");
           var b=document.getElementsByTagName("script")[0];
           a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0027/6897.js?"+Math.floor(new Date().getTime()/3600000);
