@@ -40,11 +40,11 @@ define([
           }
 
           // For the customSuitability Layer, It has to make a request to the server for a url for the image
-          // and then load the image, show a loading wheel as this can be slow at times due to the double request
+          // and then load the image, show a loading wheel as this can be slow at times
           if (layerConfig.id === MapConfig.suit.id) {
               this.showSuitabilityLoader();
               // We also want to track this layer and not a lot of others for now
-              var message = 'User toggled Custom Suitabiltiy Layer ' + (layer.visible ? 'on.' : 'off.');
+              var message = 'User toggled Custom Suitabiltiy Layer ' + (layer.visible ? 'off.' : 'on.');
               Analytics.sendEvent('Event', 'toggle', 'Custom Suitability Layer', message);
           }
           if (layer) {
