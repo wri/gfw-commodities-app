@@ -1,40 +1,158 @@
 define([
-	"esri/Color",
+  "map/config",
+  "map/Symbols",
 	"esri/units",
   "esri/graphic",
   "esri/geometry/Point",
   "esri/geometry/Circle",
-  "esri/symbols/SimpleLineSymbol",
-  "esri/symbols/SimpleFillSymbol"
-], function (Color, Units, Graphic, Point, Circle, SimpleLineSymbol, SimpleFillSymbol) {
+  "esri/SpatialReference",
+  "esri/tasks/GeometryService",
+  "esri/geometry/webMercatorUtils",
+  "dojo/Deferred",
+  "dojo/_base/array",
+  "utils/assert"
+], function (MapConfig, Symbols, Units, Graphic, Point, Circle, SpatialReference, GeometryService, webMercatorUtils, Deferred, arrayUtils, assert) {
 
-  var polySymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                   new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
-                   new Color([255, 200, 103, 0.0]));
+  var geometryService,
+      spatialReference;
 
 	return {
 
-		preparePointAsPolygon: function (pointFeature) {
-			var longitude = pointFeature.attributes.Longitude,
-          latitude = pointFeature.attributes.Latitude,
-          circle = new Circle(new Point(pointFeature.geometry), {
-            "radius": 50,
+    getSpatialReference: function () {
+      return spatialReference = spatialReference || new SpatialReference(102100);
+    },
+
+    generatePointGraphicFromGeometric: function (longitude, latitude, attributes) {
+      return new Graphic(
+        webMercatorUtils.geographicToWebMercator(new Point(longitude, latitude)),
+        Symbols.getPointSymbol(),
+        attributes
+      );
+    },
+
+		preparePointAsPolygon: function (pointFeature, radius) {
+			var circle = new Circle(new Point(pointFeature.geometry), {
+            "radius": radius || 50,
             "radiusUnit": Units.KILOMETERS
           });
 
-      return new Graphic(circle, polySymbol, pointFeature.attributes);
+      return new Graphic(circle, Symbols.getPolygonSymbol(), pointFeature.attributes);
 		},
 
     applySelectionSymbolToFeature: function (feature) {
-      return new Graphic(feature.geometry, polySymbol, feature.attributes);
+      var symbol = feature.geometry.type === 'point' ? 
+        Symbols.getHighlightPointSymbol() : 
+        Symbols.getHighlightPolygonSymbol();
+        
+      return new Graphic(feature.geometry, symbol, feature.attributes);
     },
 
     zoomToFeature: function (feature) {
-      if (feature.geometry.center) {
+      if (feature.geometry.x) {
+        app.map.centerAndZoom(feature.geometry, 9);
+      } else if (feature.geometry.center) {
         app.map.centerAndZoom(feature.geometry.center, 9);
       } else {
         app.map.setExtent(feature.geometry.getExtent(), true);
       }
+    },
+
+    /**
+    * Return the next highest unique id, using WRI_ID as the unique id field
+    */
+    nextCustomFeatureId: function () {
+      var graphicsLayer = app.map.getLayer(MapConfig.customGraphicsLayer.id),
+          graphics = graphicsLayer.graphics,
+          length = graphics.length,
+          next = 0,
+          index,
+          temp;
+
+      for (index = 0; index < length; index++) {
+        temp = parseInt(graphics[index].attributes.WRI_ID);
+        if (!isNaN(temp)) {
+          next = Math.max(next, temp);
+        }
+      }
+      return (next + 1);
+    },
+
+    convertGeometryToGeometric: function(geometry) {
+      var geometryArray = [],
+          newRings = [],
+          lngLat,
+          point,
+          self = this;
+
+      // Helper function to determine if the coordinate is already in the array
+      // This signifies the completion of a ring and means I need to reset the newRings
+      // and start adding coordinates to the new newRings array
+      function sameCoords(arr, coords) {
+          var result = false;
+          arrayUtils.forEach(arr, function(item) {
+              if (item[0] === coords[0] && item[1] === coords[1]) {
+                  result = true;
+              }
+          });
+          return result;
+      }
+
+      arrayUtils.forEach(geometry.rings, function(ringers) {
+          arrayUtils.forEach(ringers, function(ring) {
+              point = new Point(ring, self.getSpatialReference());
+              lngLat = webMercatorUtils.xyToLngLat(point.x, point.y);
+              if (sameCoords(newRings, lngLat)) {
+                  newRings.push(lngLat);
+                  geometryArray.push(newRings);
+                  newRings = [];
+              } else {
+                  newRings.push(lngLat);
+              }
+          });
+      });
+
+      return {
+          geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
+          type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
+      };
+    },
+
+    union: function (polygons) {
+      if (Object.prototype.toString.call(polygons) !== '[object Array]') {
+        throw new Error('Method expects polygons paramter to be of type Array');
+      }
+
+      var deferred = new Deferred(),
+          geometryService = geometryService || new GeometryService(MapConfig.geometryServiceUrl);
+
+      if (polygons.length === 1) {
+        deferred.resolve(polygons[0]);
+      } else {
+        geometryService.union(polygons, deferred.resolve, deferred.resolve);
+      }
+      return deferred;
+    },
+
+    /**
+    * Remove Graphic from graphics layer with a given OBJECTID
+    * @param {string} layerId - Id of the layer we want to remove graphic from
+    * @param {string} field - Field we will use for matching the graphic we want to remove
+    * @param {string} value - Value of the field in the graphic we want to remove
+    */
+    removeGraphicByField: function (layerId, field, value) {
+      assert(layerId && field && value, "removeGraphicByField - Invalid Parameters");
+
+      var layer = app.map.getLayer(layerId);
+
+      if (layer) {
+        arrayUtils.some(layer.graphics, function (graphic) {
+          if (graphic.attributes[field] === value) {
+            layer.remove(graphic);
+            return true;
+          }
+        });
+      }
+
     }
 
 	};

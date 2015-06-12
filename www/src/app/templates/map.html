@@ -12,6 +12,10 @@
 		<div id="locator-widget-button" title="Locate" class="locator-widget-button"></div>
     <div id="basemap-gallery-button" title="Basemaps/Overlays" class="basemap-gallery-button"></div>
     <div id="share-button" title="Share" class="share-button"></div>
+    <!-- <div id="alert-button" class="alert-button font-arial padding__wide" title="Sign up for alerts">
+      <img class="vertical-sub" src="app/css/images/alert_symbol_white.png">
+      <span class="vertical-middle">Subscribe to alerts<span>
+    </div> -->
     <div id="simple-geocoder" class="simple-geocoder"></div>
     <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link" style="display: none;"></div>
     <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link" style="display: none;"></div>
@@ -134,6 +138,48 @@
       </div>
     </div>
     <!-- End Sharing Modal -->
+    <!-- Begin Upload Modal -->
+    <div id='upload-modal' class='upload-modal animated-modal'>
+      <div class="close-icon"></div>
+      <div class="modal-content">
+        <div class="modal-header" data-bind='text: uploadModalHeader'></div>
+        <div class="modal-subheader" data-bind='text: shapefileUploadInstructionHeader'></div>
+        <ul class="shapefile-upload-instructions" data-bind='foreach: shapefileInstructions'>
+          <li data-bind="text: $data"></li>
+        </ul>
+        <div class="modal-subheader" data-bind='text: csvUploadInstructionHeader'></div>
+        <div class="csv-upload-instructions" data-bind='text: csvInstructions'></div>
+        <form class='upload-modal-form' enctype='multipart/form-data' name='upload-form' method='post' id='upload-form'>
+          <label><input type="file" name="file" id="shapefileUploader"></label>
+          <!-- These need to be in here since Esri does not add them until after the upload fails -->
+          <input type="hidden" name='f' value='json'/>
+          <input type="hidden" name='filetype' value='shapefile' />
+          <input type="hidden" name='publishParameters' value='{}' />
+          <!-- These need to be in here since Esri does not add them until after the upload fails -->
+        </form>
+        <div id="postUploadOptions" class="post-upload-options"></div>
+      </div>
+    </div>
+    <!-- End Upload Modal -->
+    <!-- Begin Coordinates Modal -->
+    <div id="coordinates-modal" class="coordinates-modal animated-modal">
+      <div class="close-icon"></div>
+      <div class="modal-content">
+        <div class="modal-header" data-bind='text: coordinatesModalHeader'></div>
+        <div class="coord-inputs-container">
+          <input id='coordsModalLatitiude' type="text" data-bind='attr:{placeholder: latitudePlaceholder}' />
+          <input id='coordsModalLongitude' type="text" data-bind='attr:{placeholder: longitudePlaceholder}' />
+        </div>
+        <div class="coordinates-modal-enter-button" data-bind='text: coordinatesEnterButton'></div>
+      </div>
+    </div>
+    <!-- End Coordinates Modal -->
+    <!-- Begin Subscription Modal -->
+    <div id="subscription-modal" class="subscription-modal animated-modal">
+      <div class="close-icon"></div>
+      <div class="modal-content"></div>
+    </div>
+    <!-- End Subscription Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
 
@@ -457,5 +503,10 @@
   <div id="wizard" class="wizard"></div>
 </div>
 <!-- End Analysis Wizard -->
+<!-- Begin Alerts Form -->
+<div id="alerts-form-container" class="alerts-form-container">
+  <div id="alerts-form" class="alerts-form"></div>
+</div>
+<!-- End Alerts Form -->
 
 

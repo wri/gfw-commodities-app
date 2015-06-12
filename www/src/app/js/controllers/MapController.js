@@ -15,14 +15,19 @@ define([
     "map/MapModel",
     "utils/Hasher",
     "utils/Animator",
+    "utils/Helper",
     "esri/geometry/webMercatorUtils",
     "esri/geometry/Point",
+    "esri/graphicsUtils",
     "map/Controls",
     "map/LayerController",
-    "analysis/WizardHelper",
+    "analysis/WizardStore",
     "components/LayerList",
-    "utils/Loader"
-], function(on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, webMercatorUtils, Point, MapControl, LayerController, WizardHelper, LayerList, Loader) {
+    "utils/Loader",
+    "map/Uploader",
+    "map/CoordinatesModal",
+    "utils/Analytics"
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, Analytics) {
     'use strict';
 
     var initialized = false,
@@ -40,10 +45,13 @@ define([
         init: function(template) {
 
             var self = this,
-                ids = [];
+                ids = [],
+                url;
 
             if (initialized) {
                 registry.byId("stackContainer").selectChild("mapView");
+                url = location.href.split("#")[0] + "#v=map";
+                Analytics.sendPageview(url, "Map");
                 return;
             }
 
@@ -66,7 +74,6 @@ define([
             //console.log("**********************> map options:", mapOptions);
 
             // This is not esri map, it is custom map class, esri map object available as map.map
-            //map = new Map(MapConfig.mapOptions);
             map = new Map(mapOptions);
 
             // Set the map object to the global app variable for easy use throughout the project
@@ -94,7 +101,7 @@ define([
                                 url: MapConfig.pal.url + '/0',
                                 objectId: featureArgs[1],
                                 templateFunction: Finder.setWDPATemplates
-                            }
+                            };
                             LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                         case 'MillPoints':
@@ -103,7 +110,7 @@ define([
                                 url: MapConfig.mill.url + '/0',
                                 objectId: featureArgs[1],
                                 templateFunction: Finder.setMillPointTemplates
-                            }
+                            };
                             LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                         case 'Concessions':
@@ -112,7 +119,7 @@ define([
                                 url: MapConfig.concession.url + '/' + featureArgs[1],
                                 objectId: featureArgs[2],
                                 templateFunction: Finder.setConcessionTemplates
-                            }
+                            };
                             LayerController.setSelectedFeature(selectedFeatureOptions);
                             break;
                     }
@@ -136,10 +143,12 @@ define([
                 self.renderComponents();
                 // Connect Events
                 self.bindUIEvents();
+                // Register Wizard Store update callbacks
+                self.registerStoreCallbacks();
                 // Check Hash for some defaults and react accordingly
                 var wizardState = Hasher.getHash('wiz');
                 if (wizardState !== undefined && wizardState === 'open') {
-                    WizardHelper.toggleWizard();
+                    Helper.toggleWizard();
                 }
             });
 
@@ -162,7 +171,7 @@ define([
             Animator.fadeIn(ids, {
                 duration: 100
             });
-
+ 
             // Initialize Add This
             try {
                 addthis.init();
@@ -226,6 +235,9 @@ define([
                 }
             });
 
+            url = location.href.split("#")[0] + "#v=map";
+            Analytics.sendPageview(url, "Map");
+
         },
 
         bindUIEvents: function() {
@@ -274,7 +286,13 @@ define([
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
+
+                Analytics.sendEvent('Event', 'click', 'Share Button', 'User clicked the share button.');
             });
+
+            // on(dom.byId("alert-button"), "click", function() {
+            //     Helper.toggleAlerts();
+            // });
 
             on(dom.byId("dms-search"), "change", function(evt) {
                 var checked = evt.target ? evt.target.checked : evt.srcElement.checked;
@@ -302,8 +320,8 @@ define([
             });
 
             dojoQuery(".map-layer-controls li").forEach(function(node) {
-                on(node, "mouseover", function(evt) {
-                    self.toggleLayerList(node);
+                node.addEventListener('mouseenter', function () {
+                  self.toggleLayerList(node);
                 });
             });
 
@@ -341,7 +359,7 @@ define([
             });
 
             on(dom.byId("wizard-tab"), "click", function() {
-                WizardHelper.toggleWizard();
+                Helper.toggleWizard();
             });
 
             // Click info icon in suitabiliyy tools container for all sliders
@@ -362,7 +380,56 @@ define([
                 });
             });
 
+            on(dom.byId('upload-form'), 'change', Uploader.beginUpload.bind(Uploader));
+            on(document.querySelector('.coordinates-modal-enter-button'), 'click', CoordinatesModal.savePoint.bind(CoordinatesModal));
 
+
+        },
+
+        registerStoreCallbacks: function() {
+            // TODO: refactor keys to reference config
+            // TODO: refactor below sets to an init phase for the WizardStore
+            WizardStore.set('customFeatures', []);
+            WizardStore.set('removedCustomFeatures', []);
+            WizardStore.set('selectedCustomFeatures', []);
+            WizardStore.set('selectedPresetFeature', null);
+            WizardStore.registerCallback('customFeatures', function() {
+                var layer = map.map.getLayer(MapConfig.customGraphicsLayer.id),
+                    storeGraphics = WizardStore.get('customFeatures'),
+                    graphicsLengthDifference = layer.graphics.length - storeGraphics.length,
+                    graphicsToAdd,
+                    addGraphics,
+                    removeGraphics;
+
+                addGraphics = function() {
+                    storeGraphics.slice(layer.graphics.length - storeGraphics.length).forEach(function(graphic) {
+                        layer.add(graphic);
+                    });
+                }
+
+                removeGraphics = function() {
+                    WizardStore.get('removedCustomFeatures').forEach(function (feature) {
+                      layer.remove(feature);
+                    });
+                }
+
+                if (storeGraphics.length > 0 && graphicsLengthDifference < 0) {
+                    addGraphics();
+                } else if (graphicsLengthDifference > 0) {
+                    removeGraphics();
+                } else if (storeGraphics.length === 0) {
+                    layer.clear();
+                }
+            });
+
+            WizardStore.registerCallback('selectedCustomFeatures', function() {
+              var selectedFeatures = WizardStore.get('selectedCustomFeatures'),
+                  extent;
+
+              if (selectedFeatures.length > 0) {
+                map.map.setExtent(graphicsUtils.graphicsExtent(selectedFeatures), true);
+              }
+            });
         },
 
         toggleLayerList: function(el) {

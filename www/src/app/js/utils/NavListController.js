@@ -5,8 +5,17 @@ define([
     "dojo/dom-style",
     "dojo/hash",
     "dojo/io-query",
-    "utils/Hasher"
-], function (dom, query, domClass, domStyle, hash, ioQuery, Hasher){
+    "utils/Hasher",
+    "utils/Analytics"
+], function (dom, query, domClass, domStyle, hash, ioQuery, Hasher, Analytics){
+
+    // Utility Function
+    // Convert DATA ANALYSIS to Data Analysis and ABOUT GFW to About GFW
+    function convertToCamelCase (string) {
+      return string.replace(/\w*/g, function(txt) {
+        return txt === 'GFW' ? txt : txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    }
 
     return {
 
@@ -17,7 +26,7 @@ define([
                     //Add the a link function
                     node.onclick = function (){
                         changeNavItem (node, context);
-                    }
+                    };
                 }
             });
 
@@ -44,12 +53,17 @@ define([
                 navTitle = navTitle.replace("Nav", "").replace(context, "");
                 Hasher.setHash("n", navTitle);
 
-            };
+                // Camel Case the label and construct a clean url with minimal parameters
+                var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(node.children[0].innerHTML);
+                var url = location.href.split("#")[0] + "#v=" + context + "&n=" + navTitle;
+                Analytics.sendPageview(url, analyticsTitle);
+            }
         },
 
         loadNavView: function (context){
             var state = ioQuery.queryToObject(hash());
             var needsDefaults = true;
+            var activeNode;
             if(state.hasOwnProperty("n")){
                 //set selected nav-item
                 query(".nav-item").forEach(function(node){
@@ -61,6 +75,7 @@ define([
                             domStyle.set(node.id.match(/(.*)Nav/)[1], "display", "block");
                             domClass.add(node.id.match(/(.*)Nav/)[1], "selected");
                             needsDefaults = false;
+                            activeNode = node.children[0];
                         }
                     }
                 });
@@ -69,25 +84,36 @@ define([
                 query(".nav-item-a.default-selection").forEach(function(node){
                     if(node.parentElement.id.indexOf(context) > -1){
                         domClass.add(node, "selected");
+                        activeNode = node;
                     }
-                })
+                });
                 query(".nav-subpage.default-selection").forEach(function(node){
                     if(node.id.indexOf(context) > -1){
                         domStyle.set(node, "display", "block");
                     }
-                })
+                });
             }
             if(state.hasOwnProperty("s")){
                 if (dom.byId(state.s)) {
                     dom.byId(state.s).checked = true;
                 }
             }
+
+            // Camel Case the label and construct a clean url with minimal parameters
+            var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(activeNode.innerHTML);
+            var subPage = activeNode.parentElement.id.replace("Nav", "").replace(context, "");
+            var url = location.href.split("#")[0] + "#v=" + context + "&n=" + subPage;
+            Analytics.sendPageview(url, analyticsTitle);
+
         },
 
         urlControl: function (view) {
             //Page should be loaded, set URL
             //state object used to create url with dojo hasher
-            var state = {}
+            var state = {};
+            var divs;
+            var i;
+
             state.v = view;
 
             //Grab selected nav items and add them to state oject
@@ -97,7 +123,7 @@ define([
                     if(node.parentElement.id.indexOf(view) > -1){
                         state.n = node.parentElement.id.replace("Nav", "").replace(view, "");
                     }
-                })
+                });
             } else {
                 if(state.n) {
                     delete state.n;
@@ -105,8 +131,8 @@ define([
             }
 
             //Grab subpage mapped from nav item and add to state object
-            var divs = document.getElementsByTagName('input');
-            for(var i=0; i < divs.length; i++) {
+            divs = document.getElementsByTagName('input');
+            for(i=0; i < divs.length; i++) {
                 if(divs[i].checked){
                     state.s = divs[i].id;
                 } else {
@@ -119,8 +145,8 @@ define([
             //Find checked divs in data page
             //Only in data page, check context (view)
             var dataClickablesNeedsCleared = true;
-            var divs = document.getElementsByTagName('input');
-            for(var i=0; i < divs.length; i++) {
+            divs = document.getElementsByTagName('input');
+            for(i=0; i < divs.length; i++) {
                 if(divs[i].checked){
                     state.s = divs[i].id;
                     dataClickablesNeedsCleared = false;
@@ -138,4 +164,4 @@ define([
 
 
     };
-})
+});

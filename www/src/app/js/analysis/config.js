@@ -69,6 +69,17 @@ define([], function() {
             description: "Select which types of analysis you would like to perform and then click \"Perform Analysis\".  You must select at least one option.",
             //description: "Select which type of analysis you would like included in your results and then click \"Next\".",
             currentFeatureText: "Current selection: ",
+            millPoint: millPoint,
+            customArea: customArea,
+            pointRadiusDescription: 'Choose a buffer for your points:',
+            knownMillsDisclaimer: '(Analysis based on 50km buffer)',
+            pointRadiusOptions: [
+              {label: '50km', value: 50},
+              {label: '40km', value: 40},
+              {label: '30km', value: 30},
+              {label: '20km', value: 20},
+              {label: '10km', value: 10}
+            ],
             cb1: {
                 label: 'Forest Change',
                 value: 'forest'
@@ -145,8 +156,7 @@ define([], function() {
             forestChange: {
                 label: 'Forest Change Analysis',
                 description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
-            },
-            millPoint: millPoint
+            }
         },
 
         stepFour: {
@@ -203,7 +213,7 @@ define([], function() {
         },
 
         customArea: {
-            instructions: "Select a shape below and begin drawing on the map or choose \"Upload\" and upload a shapefile to analyze.",
+            instructions: "Select the \"Freehand\" or \"Polygon\" options below to draw an area of interest on the map, or choose \"Upload\" to upload a zipped shapefile of polygons or points or a list of point coordinates to analyze.",
             instructionsPartTwo: "Select an area from the list below and click \"Next\" to proceed.",
             freehandLabel: 'Freehand',
             uploadLabel: 'Upload',
@@ -317,8 +327,13 @@ define([], function() {
         },
 
         millPoints: {
-            instructions: 'Select a commodity type:',
-            instructionsPartTwo: "Select up to 5 mills from the list below and click \"Next\" to proceed.",
+            instructions: 'Select a method for choosing or creating mill points to analyze.',
+            selectInstructions: 'Select a commodity type:',
+            listInstructions: "Select mill(s) from the list below and click \"Next\" to proceed.",
+            selectFromListButton: 'Select from List',
+            selectFromCustomListButton: 'Select from my features',
+            enterCoordinatesButton: 'Enter Coordinates',
+            uploadButton: 'Upload',
             commodityOptions: [{
                 label: 'Oil palm',
                 value: 'Oil palm concession'
@@ -331,6 +346,18 @@ define([], function() {
             labelField: 'Mill_name', // Children
             valueField: 'Entity_ID',
             requiredField: 'Parent_Com' // Bucket a.k.a. parent
+        },
+
+        STORE_KEYS: {
+            customFeatures: 'customFeatures',
+            removedCustomFeatures: 'removedCustomFeatures',
+            selectedCustomFeatures: 'selectedCustomFeatures',
+            selectedPresetFeature: 'selectedPresetFeature',
+            userStep: 'userStep',
+            areaOfInterest: 'areaOfInterest',
+            analysisSets: 'analysisSets',
+            analysisPointRadius: 'analysisPointRadius',
+            alertsDialogActive: 'alertsDialogActive'
         }
 
     };

@@ -22,6 +22,15 @@
     }, {
       name: 'report',
       location: URL + '/js/report'
+    }, {
+        name: "map",
+        location: URL + "/js/map"
+    }, {
+        name: "components",
+        location: URL + "/js/components"
+    }, {
+      name: 'utils',
+      location: URL + '/js/utils'
     }],
     aliases: [
       ["knockout", "libs/knockout-3.1.0"],
@@ -31,49 +40,8 @@
       ["dom", "dojo/dom"],
       ["on", "dojo/on"]
     ],
-    deps: [
-      'report/Generator',
-      'dojo/domReady!'
-    ],
-    callback: function(Generator) {
-
-      var payloadReceived = false;
-
-      loadScriptAsync('http://code.jquery.com/jquery-1.11.0.min.js', function() {
-        loadScriptAsync('http://code.highcharts.com/highcharts.js', function() {
-          loadScriptAsync('http://code.highcharts.com/modules/exporting.js', function() {
-
-            // localStorage is the preferred mechanism, if not supported, get it from window
-            if (localStorage) {
-              win.payload = JSON.parse(localStorage.getItem('payload'));
-              if (win.payload) { payloadReceived = true; }
-            } else if (win.payload) {
-              payloadReceived = true;
-            }
-
-            // If we have data, lets begin
-            if (payloadReceived) {
-              Generator.init();
-            } else {
-              // Emit a special event from the other window telling me the payload is ready
-              document.addEventListener('PayloadReady', function () {
-                payloadReceived = true;
-              });
-              // Give it 5 seconds and check again, if no data by now, something went wrong
-              // This should take no more then 2 seconds
-              setTimeout(function () {
-                if (payloadReceived && win.payload) {
-                  Generator.init();
-                } else {
-                  alert("There was an error generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
-                }
-              }, 5000);
-            }
-          });
-        });
-      });
-
-    }
+    deps: [ 'dojo/domReady!' ],
+    callback: function () { require(['report/reportBundle']); }
   }; // End dojoConfig
 
   var loadScript = function(src, attrs) {
@@ -126,7 +94,7 @@
     }
   }
 
-  /* Polyfills and/or prototype additions */
+  /* Global Helper Functions */
   /*
     takes an array of bounds and returns an array with every value between the bounds
     ex.
@@ -134,9 +102,8 @@
     @param {array} originalArray
     @return {array}
   */
-  Array.prototype.fromBounds = function () {
-    if (this.length !== 2) { return this; }
-    var res = [], index = this[0], length = this[1];
+  win.arrayFromBounds = function (array) {
+    var res = [], index = array[0], length = array[1];
     for (index; index <= length; index++) {
       res.push(index);
     }
@@ -147,10 +114,10 @@
     @param {number} chunkSize size of each chunk of the returned array
     @return {array} an array or arrays with each array's length being the specified chunk size
   */
-  Array.prototype.chunk = function (chunkSize) {
+  win.arrayChunk = function (array, chunkSize) {
     var resultingArrays = [], index = 0;
-    for(index; index < this.length; index += chunkSize)
-      resultingArrays.push(this.slice(index, index + chunkSize));
+    for(index; index < array.length; index += chunkSize)
+      resultingArrays.push(array.slice(index, index + chunkSize));
     return resultingArrays;
   };
 

@@ -14,15 +14,17 @@ define([], function() {
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
-        protectedAreasUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/protectedareas/MapServer",
+        protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer",
         mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
         primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
-        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFWConservation/GFW_conservation/MapServer';
+        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/conservation/MapServer',
+        geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
     //customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
 
     return {
+        geometryServiceUrl: geometryServiceUrl,
 
         mapOptions: {
             basemap: 'gray',
@@ -30,6 +32,37 @@ define([], function() {
             centerY: 3,
             zoom: 5,
             sliderPosition: "top-right"
+        },
+
+        uploadForm: {
+            title: 'Upload Shapefile or CSV',
+            shapefileHeader: 'Shapefile Upload Instructions',
+            csvHeader: 'CSV Upload Instructions',
+            shapefileInstructions: [
+                'Select a zip file(.zip) containing a shapefile(.shp,.dbf,.prj) from your local file system.',
+                'The shapefile must be in Geographic Coorsinate System (WGS84).',
+                'The shapefile must not exceed 1 MB.'
+            ],
+            csvInstructions: 'Or, select a CSV from your local file system.  The CSV should contain a header row with columns for Name, Latitude, and Longitude.'
+        },
+
+        uploader: {
+            portalUrl: 'http://www.arcgis.com/sharing/rest/content/features/generate',
+            labelField: "WRI_label",
+            errors: {
+                
+            }
+        },
+
+        coordinatesDialog: {
+          coordinatesModalHeader: 'Enter Point Coordinates',
+          coordinatesEnterButton: 'Enter',
+          latitudePlaceholder: 'Latitude',
+          longitudePlaceholder: 'Longitude',
+          errors: {
+            invalidLatitude: 'You did not enter a valid value for Latitude.',
+            invalidLongitude: 'You did not enter a valid value for Longitude.'
+          }
         },
 
         // Layers which are not part of the Master Layer UI List Widget (Colored Categories Stripes across top of the map) go below
@@ -279,6 +312,7 @@ define([], function() {
             layerId: 16
         },
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
+        
         // This layer is also under forest use but has its own service
         mill: {
             id: 'MillPoints',
@@ -304,13 +338,13 @@ define([], function() {
         biodiversity: {
             id: "Biodiversity",
             url: biodiversityUrl,
-            layerId: 1
+            layerId: 0
         },
 
         palHelper: {
             id: "ProtectedAreasHelper",
-            url: dynamicMapServiceUrl,
-            layerId: 25
+            url: protectedAreasUrl,
+            layerId: 0
         },
 
         // Definition for shareable feature init
@@ -419,14 +453,16 @@ define([], function() {
             type: "radio",
             layerType: "dynamic",
             infoDivClass: "forest-change-nasa-active-fires"
-        }, {
-            key: "none_fc",
-            title: "None",
-            subtitle: "",
-            filter: "forest-change",
-            type: "radio",
-            layerType: "none"
-        }, {
+        }, 
+        // {
+        //     key: "none_fc",
+        //     title: "None",
+        //     subtitle: "",
+        //     filter: "forest-change",
+        //     type: "radio",
+        //     layerType: "none"
+        // }, 
+        {
             key: "tcd",
             title: "Tree Cover Density",
             subtitle: "(year 2000, 30m global)",
@@ -532,14 +568,16 @@ define([], function() {
             type: "radio",
             layerType: "dynamic",
             infoDivClass: "forest-and-land-cover-legal-classifications"
-        }, {
-            key: "none_fco",
-            title: "None",
-            subtitle: "",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "none"
-        }, {
+        }, 
+        // {
+        //     key: "none_fco",
+        //     title: "None",
+        //     subtitle: "",
+        //     filter: "forest-cover",
+        //     type: "radio",
+        //     layerType: "none"
+        // }, 
+        {
             key: "oilPerm",
             title: "Oil Palm",
             subtitle: "(varies, select countries)",
@@ -690,14 +728,16 @@ define([], function() {
             type: "radio",
             layerType: "dynamic",
             infoDivClass: "suitability-soil-type"
-        }, {
-            key: "none_agro",
-            title: "None",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "none"
-        }],
+        }
+        // , {
+        //     key: "none_agro",
+        //     title: "None",
+        //     subtitle: "",
+        //     filter: "agro-suitability",
+        //     type: "radio",
+        //     layerType: "none"
+        // }
+        ],
 
         // Miscellaneous Settings
         treeCoverLossSlider: {

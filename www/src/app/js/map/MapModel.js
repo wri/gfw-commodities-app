@@ -26,6 +26,19 @@ function (declare, AppConfig, MapConfig, ko) {
       // Storage of Custom Suitability Settings
       Model.vm.suitabilitySettings = ko.observable(MapConfig.customSuitabilityDefaults);
 
+      // Upload Dialog Items
+      Model.vm.uploadModalHeader = ko.observable(MapConfig.uploadForm.title);
+      Model.vm.shapefileUploadInstructionHeader = ko.observable(MapConfig.uploadForm.shapefileHeader);
+      Model.vm.csvUploadInstructionHeader = ko.observable(MapConfig.uploadForm.csvHeader);
+      Model.vm.shapefileInstructions = ko.observableArray(MapConfig.uploadForm.shapefileInstructions);
+      Model.vm.csvInstructions = ko.observable(MapConfig.uploadForm.csvInstructions);
+
+      // Coordinates Dialog Items
+      Model.vm.coordinatesModalHeader = ko.observable(MapConfig.coordinatesDialog.coordinatesModalHeader);
+      Model.vm.coordinatesEnterButton = ko.observable(MapConfig.coordinatesDialog.coordinatesEnterButton);
+      Model.vm.latitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.latitudePlaceholder);
+      Model.vm.longitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.longitudePlaceholder);
+
       // Storage of specific objects for Wizard
       // Admin Unit
       Model.vm.allCountries = ko.observableArray([]);

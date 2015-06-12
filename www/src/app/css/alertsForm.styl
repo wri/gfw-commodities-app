@@ -1,0 +1,116 @@
+// Definitions
+$alerts_width = 460px
+$alerts_body_padding = 50px
+
+// Core Styles
+.alerts-form-container
+	z-index 5
+	position absolute
+	top 0
+	right initial
+	bottom 0
+	left 0
+	overflow hidden
+	background-color #fff
+
+.alerts-form
+	&
+		height 100%
+		width $alerts_width
+		position absolute
+		top 0
+		right 0
+		bottom 0
+		left initial
+
+	&__header
+		position absolute
+		top 0
+		right 0
+		bottom initial
+		left 0
+		height $alerts_body_padding
+		border-bottom 1px solid greyBorder
+		font-size 26px
+		background-color #FFF
+
+		&__title
+			position relative
+			left 0px
+			padding-left 40px
+			background url(images/alert_symbol_black.png) no-repeat 10px center
+
+		&__exit
+			border none
+			border-left 1px solid greyBorder
+			width 40px
+
+	&__body
+		box-sizing border-box
+		padding $alerts_body_padding 0px
+		height 100%
+		width 100%
+		font-size 12px
+		overflow auto
+
+		th
+			font-size 16px
+
+	&__drawing-tool
+		font-size 18px
+		background-color lightGray
+
+		&:hover
+			background-color orangeHover
+
+		&.active
+			background-color orange
+
+	&__footer
+		position absolute
+		top initial
+		right 0
+		bottom 0
+		left 0
+		height $alerts_body_padding
+		border-top 1px solid greyBorder
+		line-height $alerts_body_padding
+		background-color #FFF
+		
+		&__selection
+			width 230px
+
+		button
+			font-size 16px
+
+			&[disabled]
+			&[disabled=true]
+				color darkGray
+				background-color mediumGray
+				cursor default
+
+	&__form
+		font-size 16px
+
+		input
+			font-size 14px
+
+		input[type=text]
+			padding 5px 10px
+			width 200px
+			
+		button
+			padding 5px 10px
+
+.alerts-form
+	.feature-list__table
+		font-size 16px
+
+// TODO: refactor to own file
+.alerts-dialog
+	button
+		&[disabled]
+		&[disabled=true]
+			color darkGray
+			background-color mediumGray
+			cursor default

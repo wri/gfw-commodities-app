@@ -1,10 +1,10 @@
 define([
     "react",
     "analysis/config",
+    "analysis/WizardStore",
     "components/wizard/StepOne",
     "components/wizard/StepTwo",
     "components/wizard/StepThree",
-    "components/wizard/StepFour",
     "components/wizard/StepFive",
     // Other Helpful Modules
     "dojo/topic",
@@ -12,17 +12,19 @@ define([
     "map/config",
     "dojo/_base/lang",
     "esri/tasks/PrintTask",
-    "map/Controls"
-], function(React, AnalyzerConfig, StepOne, StepTwo, StepThree, StepFour, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls) {
+    "map/Controls",
+    'utils/Analytics',
+    'utils/GeoHelper'
+], function (React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, Analytics, GeoHelper) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
+    var KEYS = AnalyzerConfig.STORE_KEYS;
 
     function getDefaultState() {
         return {
-            currentStep: 0,
-            analysisArea: undefined,
-            analysisSets: undefined,
-            analysisTypes: undefined
+            currentStep: WizardStore.get(KEYS.userStep) || 0,
+            analysisArea: WizardStore.get(KEYS.selectedCustomFeatures),
+            usersAreaOfInterest: WizardStore.get(KEYS.areaOfInterest)
         };
     }
 
@@ -36,42 +38,59 @@ define([
         },
 
         componentDidMount: function() {
+            // Register Callbacks for analysis area updates
+            // Anytime the data in the store at these keys is updated, these callbacks trigger
+            WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
+            WizardStore.registerCallback(KEYS.userStep, this.currentUserStepUpdated);
+            WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
+            // if we need to skip the intro, update the current step
+            // else, store the current step in the store since this key needs a default value in the store
             if (this.props.skipIntro) {
-                this.setState({
-                    currentStep: 3
-                });
+                WizardStore.set(KEYS.userStep, 3);
+            } else {
+                WizardStore.set(KEYS.userStep, this.state.currentStep);
             }
         },
+
+        /* Methods for reacting to store updates */
+        analysisAreaUpdated: function () {
+            var updatedArea = WizardStore.get(KEYS.selectedCustomFeatures);
+            this.setState({ analysisArea: updatedArea });
+        },
+
+        currentUserStepUpdated: function () {
+            var newStep = WizardStore.get(KEYS.userStep);
+            this.setState({ currentStep: newStep });
+        },
+
+        areaOfInterestUpdated: function () {
+            var newAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+            this.setState({ usersAreaOfInterest: newAreaOfInterest });
+        },
+        /* Methods for reacting to store updates above */
 
         componentDidUpdate: function(prevProps, prevState) {
             if (this.props.isResetting) {
                 // Reset the isResetting property so any future changes dont accidentally trigger a reset
-                this.setProps({
-                    isResetting: false
-                });
+                this.setProps({ isResetting: false });
             }
 
             // User returned to Step 1 so we need to reset some things.
             if (prevState.currentStep > 1 && this.state.currentStep === 1) {
-              // Reset the analysis area
-              this.setState({
-                analysisArea: undefined
-              });
               // Clear Graphics from Wizard Layer, it just shows the selection they made
               var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-              if (wizLayer) {
-                wizLayer.clear();
-              }
+              if (wizLayer) { wizLayer.clear(); }
             }
         },
 
         render: function() {
             var props = this.props;
+            // Mixin a callback to trigger the analysis when the user has completed the Wizard
+            props.callback = {
+                performAnalysis: this._performAnalysis
+            };
 
-            // Mixin any state/props that need to be mixed in here
-            props.analysisArea = this.state.analysisArea;
-            props.currentStep = this.state.currentStep;
-            if (props.currentStep === 0) {
+            if (this.state.currentStep === 0) {
                 $(".breadcrumbs").hide();
                 $(".gfw .wizard-header").css("height", "-=45px");
                 $(".gfw .wizard-body").css("top", "55px");
@@ -79,21 +98,13 @@ define([
             } else {
                 $(".breadcrumbs").show();
                 $(".gfw .wizard-header").css("height", "+=45px");
-                $(".gfw .wizard-body").css("top", "95px");
+                $(".gfw .wizard-body").css("top", "");
                 $(".gfw .wizard-header .button.reset").show();
                 $(".gfw .wizard-header .button.reset").css("top", "0px");
             }
-            props.callback = {
-                nextStep: this._nextStep,
-                update: this._updateSelectedArea,
-                updateAnalysisArea: this._updateAnalysisArea,
-                updateAnalysisType: this._updateAnalysisType,
-                updateAnalysisDatasets: this._updateAnalysisDatasets,
-                performAnalysis: this._performAnalysis
-            };
 
-            // Hide legend content pane if appropriates
-            if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.props.selectedArea) === -1 || this.props.currentStep === 1) {
+            // Hide legend content pane if appropriate
+            if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
                 topic.publish('hideConcessionsLegend');
             }
             
@@ -148,9 +159,6 @@ define([
                             },
                             new StepThree(props)
                         )
-                        // React.DOM.div({'className': this.state.currentStep !== 3 ? 'hidden' : ''},
-                        //   new StepFour(props)
-                        // )
                     )
                 )
             );
@@ -181,16 +189,9 @@ define([
             targetIndex *= 1;
 
             if (targetIndex < (this.state.currentStep + 1)) {
-                this.setState({
-                    currentStep: (1 * targetIndex) + 1 // Convert to Int, add 1 because adding intro added a new step
-                });
+                // Convert to Int, add 1 because adding intro added a new step
+                WizardStore.set(KEYS.userStep, (1 * targetIndex) + 1);
             }
-        },
-
-        _nextStep: function() {
-            this.setState({
-                currentStep: this.state.currentStep + 1
-            });
         },
 
         _reset: function() {
@@ -199,6 +200,9 @@ define([
                 isResetting: true
             });
             // Reset this components state
+            WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option3.id, true);
+            WizardStore.set(KEYS.selectedCustomFeatures, [], true);
+            WizardStore.set(KEYS.userStep, 0, true);
             this.replaceState(getDefaultState());
             // Clear the WizardGraphicsLayer
             var layer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
@@ -216,89 +220,41 @@ define([
             topic.publish("toggleWizard");
         },
 
-        _updateSelectedArea: function(value) {
-            this.setProps({
-                selectedArea: value
-            });
-        },
-
-        _updateAnalysisArea: function(feature, optionalLabel) {
-            // If optional label exists, pass it down as props, it will exist when feature is not
-            // a graphic but instead an array of graphics
-            if (optionalLabel) {
-                this.setProps({
-                    optionalLabel: optionalLabel
-                });
-            }
-
-            this.setState({
-                analysisArea: feature
-            });
-        },
-
-        _updateAnalysisType: function(typesOfAnalysis) {
-            this.setState({
-                analysisTypes: typesOfAnalysis
-            });
-        },
-
-        _updateAnalysisDatasets: function(datasets) {
-            this.setState({
-                analysisSets: datasets
-            });
-        },
-
         // Function that can be used in the Analyzer.js file to programmatically set which step it is on
         _externalSetStep: function(step) {
             if (step >= 0 || step <= 3) {
-                this.setState({
-                    currentStep: step
-                });
+                WizardStore.set(KEYS.userStep, step);
             }
         },
 
         _performAnalysis: function() {
-            // Grab All Necessary Props from State and Pass them on
-            // React updates state in the next available animation frame, wait until this component has 
-            // performed any necessary state changes before beginning analysis
-            // Call window.open here to make sure page opens correctly and can have multiple instances open
-            // Calling window.open in the animationFrame triggers pop-up blocker and/or opens in new window
-            // Something to do with calling window.open in a click handler allows it to work but animation frame
-            // is asynchronous and not counted as part of the click handler
             var self = this,
                 geometry = self._prepareGeometry(self.state.analysisArea),
+                datasets = WizardStore.get(KEYS.analysisSets),
                 labelField,
                 suitableRule,
                 readyEvent,
-                datasets,
                 payload,
                 win;
 
-                // = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
-
             labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
-            datasets = self.state.analysisSets;
-            // printTask = new PrintTask();
-            // var printJson = printTask._getPrintDefinition(app.map);
-            // printJson.exportOptions = {"outputSize": [850, 850],"dpi": 96};
+
             payload = {
                 geometry: geometry,
-                datasets: self.state.analysisSets,
+                datasets: datasets,
                 //types: self.state.analysisTypes,
-                title: (self.state.analysisArea.attributes ? self.state.analysisArea.attributes[labelField] : self.props.optionalLabel),
+                title: self.state.analysisArea.map(function (feature) {return feature.attributes.WRI_label;}).join(','),
                 suitability: {
                     renderRule: suitableRule,
                     csv: MapControls._getSettingsCSV()
-                    //settings: MapControls.serializeSuitabilitySettings()
-                }//,
-                //webMapJson: JSON.stringify(printJson)
+                }
             };
 
             win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
 
             if (localStorage) {
-                localStorage.setItem('payload', JSON.stringify(payload));
+               localStorage.setItem('payload', JSON.stringify(payload));
             } else {
                 win.payload = payload;
             }
@@ -316,53 +272,52 @@ define([
                 }
             }
 
+            // Emit Event for Analytics
+            Analytics.sendEvent('Event', 'click', 'Perform Analysis', 'User clicked perfrom analysis.');
+
         },
 
         _prepareGeometry: function(features) {
-          var isCircle,
-              outGeo; 
+          // Get the point radius incase we need it, we may not
+          // if it's not set for some reason, default to 50km
+          var pointRadius = WizardStore.get(KEYS.analysisPointRadius) || 50;
+          var geometries = []; 
 
-          if (Object.prototype.toString.call(features) === '[object Array]') {
-            isCircle = (features[0].geometry.radius !== undefined);
-            outGeo = [];
-            if (isCircle) {
-              features.forEach(function (feature) {
-                outGeo.push({
-                  label: feature.attributes.WRI_label,
-                  id: feature.attributes.Entity_ID,
-                  geometry: feature.geometry,
-                  type: 'circle'
-                });
-              });
-            } else if (features.length > 1) {
-              // May be deprecated, left in here as will need to test to be able to tell 
-              // if this is being used by exhaustively testing all paths to this
-              // function and seeing if it's executed
-              features.forEach(function (feature) {
-                outGeo.push({
-                  label: feature.attributes.WRI_label,
-                  geometry: feature.geometry,
-                  type: 'polygon'
-                });
-              });
-            } else {
-                outGeo = features[0].geometry;
-            }
-          } else {
-            isCircle = (features.geometry.radius !== undefined);
-            if (isCircle) {
-                outGeo = [{
-                  label: features.attributes.WRI_label,
-                  id: features.attributes.Entity_ID,
-                  geometry: features.geometry,
-                  type: 'circle'
-                }];
-            } else {
-                outGeo = features.geometry;
-            }
+          // If its not an array, force it into an array so I dont need two separate
+          // blocks of code to prepare the geometry, this can and should be removed once
+          // we verify that features is always of type array
+          if (Object.prototype.toString.call(features) !== '[object Array]') {
+            features = [features];
           }
 
-          return JSON.stringify(outGeo);
+          // Helper function
+          function getMillId (feature) {
+            var areaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+                id = feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined;
+
+            return  areaOfInterest === 'millPointOption' ? id : undefined;
+          }
+
+          features.forEach(function (feature) {
+            // If the feature is a point, cast as a circle with radius
+            if (feature.geometry.type === 'point') {
+              feature = GeoHelper.preparePointAsPolygon(feature, pointRadius);
+            }
+
+            geometries.push({
+              geometry: feature.geometry,
+              type: (feature.geometry.radius ? 'circle' : 'polygon'),
+              isCustom: feature.attributes.WRI_ID !== undefined,
+              label: feature.attributes.WRI_label || undefined,
+              // Mill Point Specific Fields, Include them as undefined if the values are not present
+              millId: getMillId(feature),
+              isRSPO: feature.attributes.isRSPO || undefined,
+              buffer: pointRadius
+            });
+
+          });
+
+          return JSON.stringify(geometries);
 
         },
 
@@ -372,7 +327,7 @@ define([
         _getStepAndActiveArea: function() {
             return {
                 currentStep: this.state.currentStep,
-                selectedArea: this.props.selectedArea || 'none'
+                selectedArea: this.state.usersAreaOfInterest || 'none'
             };
         }
 

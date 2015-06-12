@@ -11,6 +11,7 @@ define([
     "dijit/registry",
     "dojo/_base/array",
     "utils/Hasher",
+    "utils/Analytics",
     "esri/InfoTemplate",
     "esri/graphic",
     "esri/graphicsUtils",
@@ -18,37 +19,38 @@ define([
     "esri/tasks/QueryTask",
     "esri/layers/RasterFunction",
     "esri/layers/LayerDrawingOptions"
-], function(MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, InfoTemplate, Graphic, graphicsUtils, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
+], function (MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, Analytics, InfoTemplate, Graphic, graphicsUtils, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
     return {
 
         // Called From Delegator or internally, layerConfig is in the Map Config
         // This function should only show or hide layers
         toggleLayers: function(layerConfig) {
-            // The WDPA or pal layer has a helper layer it needs to manage
-            // offload that functionality to a different function
-            if (layerConfig.id === MapConfig.pal.id) {
-                this.updateZoomDependentLayer(layerConfig, MapConfig.palHelper, 6);
-                return;
-            }
+          var layer = app.map.getLayer(layerConfig.id);
+          // The WDPA or pal layer has a helper layer it needs to manage
+          // offload that functionality to a different function
+          if (layerConfig.id === MapConfig.pal.id) {
+              this.updateZoomDependentLayer(layerConfig, MapConfig.palHelper, 6);
+              return;
+          }
 
-            if (layerConfig.id === MapConfig.gain.id) {
-                this.updateZoomDependentLayer(layerConfig, MapConfig.gainHelper, 13);
-                return;
-            }
+          if (layerConfig.id === MapConfig.gain.id) {
+              this.updateZoomDependentLayer(layerConfig, MapConfig.gainHelper, 13);
+              return;
+          }
 
-            // For the customSuitability Layer, It has to make a request to the server for a url for the image
-            // and then load the image, show a loading wheel as this can be slow at times due to the double request
-            if (layerConfig.id === MapConfig.suit.id) {
-                this.showSuitabilityLoader();
-            }
-
-            var layer = app.map.getLayer(layerConfig.id);
-            if (layer) {
-
-                layer.setVisibility(!layer.visible);
-                this.refreshLegendWidget();
-            }
+          // For the customSuitability Layer, It has to make a request to the server for a url for the image
+          // and then load the image, show a loading wheel as this can be slow at times due to the double request
+          if (layerConfig.id === MapConfig.suit.id) {
+              this.showSuitabilityLoader();
+              // We also want to track this layer and not a lot of others for now
+              var message = 'User toggled Custom Suitabiltiy Layer ' + (layer.visible ? 'on.' : 'off.');
+              Analytics.sendEvent('Event', 'toggle', 'Custom Suitability Layer', message);
+          }
+          if (layer) {
+              layer.setVisibility(!layer.visible);
+              this.refreshLegendWidget();
+          }
         },
 
         // Called From Delegator or internally, props is coming from a click event on the layer UI.
@@ -62,7 +64,9 @@ define([
                 queryClass = props.filter,
                 visibleLayers = [],
                 itemLayer,
-                itemConf;
+                itemConf,
+                status,
+                value;
 
             dojoQuery(".gfw .filter-list ." + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
@@ -83,6 +87,27 @@ define([
                 }
                 this.refreshLegendWidget();
             }
+
+            // We only want to apply analytics to a few layers for now, catch those here
+            // As they add more layers we can find a better way to catch this, possibly higher
+            // up in the callstack so one function can catch all and this becomes less messy
+            // may also want to add descriptive content to layer config
+            status = arrayUtils.indexOf(visibleLayers, conf.layerId) > -1 ? 'on.' : 'off.';
+
+            switch (conf) {
+              case MapConfig.oilPerm:
+                value = 'User toggled Oil Palm Concessions layer ' + status;
+                Analytics.sendEvent('Event', 'toggle', 'Oil Palm Concessions', value);
+              break;
+              case MapConfig.rspoPerm:
+                value = 'User toggled RSPO Oil Palm Concessions layer ' + status;
+                Analytics.sendEvent('Event', 'toggle', 'RSPO Oil Palm Concessions', value);
+              break;
+              case MapConfig.mill:
+                value = 'User toggled RSPO Mills layer ' + status;
+                Analytics.sendEvent('Event', 'toggle', 'RSPO Mills', value);
+              break;
+            }        
 
         },
         // Called From Delegator or internally, layerConfig is in the Map Config

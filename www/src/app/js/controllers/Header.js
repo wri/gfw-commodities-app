@@ -22,19 +22,12 @@ define([
             }
             this.addSubscriptionDialog();
 
-            //dom.byId("app-header").innerHTML = template + dom.byId("app-header").innerHTML;
+            // This is most likely the culprit for why gfw-assets must be loaded in the footer after this content
+            // is injected
             dom.byId("app-header").innerHTML = dom.byId("app-header").innerHTML + template;
 
-            //dom.byId(viewId).innerHTML = html + dom.byId(viewId).innerHTML;
             this.bindEvents();
             initialized = true;
-            // Load in Google Analystics
-            // var s = document.createElement('script'),
-            //     h = document.getElementsByTagName('head')[0];
-            // s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-            // s.async = true;
-            // h.appendChild(s);
-
         },
 
         setState: function(newState) {

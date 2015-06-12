@@ -16,10 +16,15 @@ define([
     "esri/SpatialReference",
     "esri/tasks/GeometryService",
     "esri/geometry/webMercatorUtils",
+    "utils/Analytics",
     // Local Modules from report folder
     "report/config",
-    "report/Fetcher"
-], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Config, Fetcher) {
+    "report/Fetcher",
+    "report/CSVExporter",
+    // Temp
+    'esri/units',
+    'esri/geometry/Circle'
+], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Analytics, Config, Fetcher, CSVExporter, Units, Circle) {
     'use strict';
 
     window.report = {};
@@ -52,6 +57,10 @@ define([
                     }
                 }
             });
+
+            // RSPO Column Chart and Suitabiltiy Pie Chart are done and working
+            this.addCSVOptionToHighcharts();
+
         },
 
         // 20141217 CRB - Added info icon to Total Calculated Area in report header
@@ -69,6 +78,68 @@ define([
             });
         },
 
+        addCSVOptionToHighcharts: function () {
+            
+            var self = this;
+
+            function generateCSV () {
+                // This refers to chart context, not Generator context
+                // changing this or binding context to generateCSV will cause problems
+                // as we need the context to be the chart
+                var featureTitle = document.getElementById('title').innerHTML,
+                    type = this.options.chart.type,
+                    lineEnding = '\r\n',
+                    content = [],
+                    csvData,
+                    output;
+
+                // All Charts have a title except RSPO Land Use Change Analysis
+                // If the type is column, it's the RSPO Chart so return that for a title
+                content.push(type === 'column' ? 'RSPO Land Use Change Analysis' : this.title.textStr);
+                content.push(featureTitle);
+
+                // If type is bar it could be the loss charts or the suitable chart, check the number of xAxes.
+                // The suitability composition breakdown has two x axes while all others have one
+                // Use that as the determining factor but if more charts are added in the future, 
+                // this check may need to be updated
+                if (type === 'bar' && this.xAxis.length > 1) {
+                    // Pass in the reference to the chart
+                    csvData = CSVExporter.exportCompositionAnalysis(this);
+                    content = content.concat(csvData);
+                } else if (type === 'pie') {
+                    // Suitability by Legal Classification 
+                    // Pass in the reference to the chart
+                    csvData = CSVExporter.exportSuitabilityByLegalClass(this);
+                    content = content.concat(csvData);                    
+                } else {
+                    // Its either a bar chart with one axis, line chart, or column chart
+                    // Pass in the reference to the chart
+                    csvData = CSVExporter.exportSimpleChartAnalysis(this);
+                    content = content.concat(csvData);
+                }
+
+                // If only the chart title and feature title are in, then no data was exported so
+                // don't continue
+                if (content.length > 1) {
+                    output = content.join(lineEnding);
+                }
+
+                if (output) {
+                    CSVExporter.exportCSV(output);
+                }
+
+                var value = type === 'column' ? 'RSPO Land Use Change Analysis' : this.title.textStr;
+                Analytics.sendEvent('Event', 'click', 'Download CSV', value);
+
+            }
+
+            Highcharts.getOptions().exporting.buttons.contextButton.menuItems.push({
+                text: 'Download CSV',
+                onclick: generateCSV
+            });
+
+        },
+
         prepareForAnalysis: function() {
 
             var self = this,
@@ -79,9 +150,6 @@ define([
                 failure,
                 poly;
 
-            // Parse the geometry from the global payload object
-            report.geometry = JSON.parse(window.payload.geometry);
-            
             // Set the title and unhide the report
             this.setTitleAndShowReport(window.payload.title);
 
@@ -93,103 +161,70 @@ define([
             // datasets we will perform the above analyses on
             report.datasets = window.payload.datasets;
 
-            // Failure Callback for Mills
-            // failure = function() {
-            //     // Handle This Issue Here
-            //     // Discuss with Adrienne How to Handle
-            // };
+            // Parse the geometry from the global payload object
+            var areasToAnalyze = JSON.parse(window.payload.geometry);
 
-            // Callback for projected Geometries
-            // projectionCallback = function (projectedGeometry) {
-            //     if (projectedGeometry.length > 0) {
-            //         poly.rings = projectedGeometry[0].rings;
-            //         poly.setSpatialReference(sr);
-            //         report.geometry = poly;
-            //         self.beginAnalysis();
-            //     } else {
-            //         failure();
-            //     }
-            // };
-            // If I have an array of circles handle that here, I should not be getting other arrays
-            // but if that happens, the object in report.geometry contains a type of either circle or polygon
-            if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
-                // First I will need to convert circles to polygons since unioning circles/computing histograms
-                //  has some unexpected outcomes, Also keep a reference of the mills
-                report.mills = report.geometry;
-                polygons = [];
+            // If we have a single polygon, grab the geometry and begin
+            // If we have a single circle, convert to polygon and then continue
+            if (areasToAnalyze.length === 1) {
 
-                arrayUtils.forEach(report.geometry, function (feature) {
-                    poly = new Polygon(sr);
-                    poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
-                    polygons.push(poly);
-                });
+              var area = areasToAnalyze[0];
 
-                // Now Union the Geometries, then reproject them into the correct spatial reference
-                geometryService.union(polygons, function (unionedGeometry) {
-                    poly = new Polygon(unionedGeometry);
-                    report.geometry = poly;
-                    self.beginAnalysis();
-                });
-
-            // If I have a single circle object, handle here, esri gives it a geometry type of polygon
-            // so checking if it has a radius seems to be the best way to handle that here
-            // This could be mills with an Entity Id or could be a uploaded point with no entity id
-            // Do the same conversion as above so all histogram calls work properly
-            } else if (report.geometry.radius) {
-                // report.mills = report.geometry;
+              if (area.geometry.radius) {
                 poly = new Polygon(sr);
-                poly.addRing(report.geometry.rings[report.geometry.rings.length - 1]);
+                poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
-                this.beginAnalysis();
-            // If its a single polygon, just go ahead and run the analysis
-            } else {
-                this.beginAnalysis();
-            }
+                // Save the areas to the report.mills incase they are doing mill point analysis, we will need these
+                area.geometry = report.geometry;
+                report.mills = [area];
+              } else if (area.geometry.type === 'polygon') {
+                report.geometry = area.geometry;
+              }
 
-            // If the geometry is an array, it will be an array of Mill Point Objects with geometry, id, and labels
-            // Arrays of polygons are joined before being sent over so the only array will be of mills
-            // if (Object.prototype.toString.call(report.geometry) === '[object Array]') {
-            //     report.mills = report.geometry;
-            //     var polygons = [];
-            //     // First prepare an array of new polygons with only rings from index 1, rings at index 0
-            //     // represent the center point and are not necessary to be included
-            //     arrayUtils.forEach(report.geometry, function (feature) {
-            //         poly = new Polygon();
-            //         poly.addRing(feature.geometry.rings[1]);
-            //         polygons.push(poly);
-            //     });
-            //     // Then Union the geometries to get one polygon to represent them all,
-            //     // Then reproject the results into the correct projection, 102100 (sr below)
-            //     geometryService.union(polygons, function (unionedGeometry) {
-            //         poly = new Polygon(unionedGeometry);
-            //         geometryService.project([poly], sr, projectionCallback, failure);
-            //     }, failure);
-            //     // Add css class to title to size down the font for multiple mills
-            //     domClass.add('title','multiples');
-            // } else if (report.geometry.radius) {
-            //     // If report.geometry is a circle, we need to make it a new valid polygon
-            //     // Then reproject it in Web Mercator
-            //     report.mills = report.geometry;
-            //     poly = new Polygon();
-            //     var ring = report.geometry.rings[report.geometry.rings.length - 1];
-            //     poly.addRing(ring);
-            //     geometryService.project([poly], sr, projectionCallback, failure);
-            // } else {
-            //     // Next, set some properties that we can use to filter what kinds of queries we will be performing
-            //     // Logic for the Wizard was changed, below may not be needed but it left here for reference incase
-            //     // the logic changes again.
-            //     // report.analyzeClearanceAlerts = window.payload.types.forma;
-            //     // report.analyzeTreeCoverLoss = window.payload.types.loss;
-            //     // report.analyzeSuitability = window.payload.types.suit;
-            //     // report.analyzeMillPoints = window.payload.types.risk;
-            //     this.beginAnalysis();
-            // }
+              this.beginAnalysis();
+
+            } else {
+
+              // First I will need to convert circles to polygons since unioning circles/computing histograms
+              // has some unexpected outcomes
+              polygons = [];
+
+              arrayUtils.forEach(areasToAnalyze, function (feature) {
+
+                // Prototype chain gets broken when stringified, so create a new poly
+                if (feature.geometry.type === 'polygon') {
+                    poly = new Polygon(feature.geometry);
+                    polygons.push(poly);
+                }
+
+                if (feature.geometry.center) {
+                  poly = new Polygon(sr);
+                  poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
+                  polygons.push(poly);
+                  // Update the Mill Geometry since it will be needed to get area
+                  // The geometry was stringified when saved, this breaks the prototype chain
+                  feature.geometry = poly;
+                }
+
+              });
+
+              // Keep a reference of the mills
+              report.mills = areasToAnalyze;
+
+              // Now Union the Geometries, then reproject them into the correct spatial reference
+              geometryService.union(polygons, function (unionedGeometry) {
+                  poly = new Polygon(unionedGeometry);
+                  report.geometry = poly;
+                  self.beginAnalysis();
+              });
+
+            }
 
         },
 
         /*
-			@param  {string} title
-		*/
+            @param  {string} title
+        */
         setTitleAndShowReport: function(title) {
             // The report markup is hidden by default so they user does not see a flash of unstyled content
             // Remove the hidden class at this point and set the title
@@ -198,14 +233,14 @@ define([
         },
 
         /*
-			Get a lookup list of deferred functions to execute via _getArrayOfRequests
-			Fire off a query to get the area of the analysis and clearance alert bounds if necessary
-			split the lookup list based on the size to managable chunks using this._chunk
-			execute each chunk synchronously so we dont overwhelm the server using processRequests
-			  -- These deferred functions will request data, visualize it, and insert it into dom (all in Fetcher)
-			uses _getDeferredsForItems to return actual deferreds based on items in lookup list,
-			Once the major requests are completed, then fire off the fires query
-		*/
+            Get a lookup list of deferred functions to execute via _getArrayOfRequests
+            Fire off a query to get the area of the analysis and clearance alert bounds if necessary
+            split the lookup list based on the size to managable chunks using this._chunk
+            execute each chunk synchronously so we dont overwhelm the server using processRequests
+              -- These deferred functions will request data, visualize it, and insert it into dom (all in Fetcher)
+            uses _getDeferredsForItems to return actual deferreds based on items in lookup list,
+            Once the major requests are completed, then fire off the fires query
+        */
         beginAnalysis: function() {
 
             var requests = this._getArrayOfRequests(),
@@ -227,6 +262,9 @@ define([
 
             // Get area 
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
+            report.areaPromise.then(function (area) {
+              document.getElementById("total-area").innerHTML = area ? area : "Not Available";
+            });
 
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on
             all([
@@ -239,7 +277,7 @@ define([
                 } else {
                     // Get an array of arrays, each containing 3 lookup items so 
                     // we can request three analyses at a time
-                    requests = requests.chunk(3);
+                    requests = arrayChunk(requests, 3);
                     processRequests();
                 }
 
@@ -249,16 +287,12 @@ define([
 
         getFiresAnalysis: function() {
             var self = this;
-            //if (report.analyzeTreeCoverLoss) {
             all([Fetcher._getFireAlertAnalysis()]).then(self.analysisComplete);
-            //} else {
-            //	self.analysisComplete();
-            //}
         },
 
         /*
-			Analysis is complete, handle that here
-		*/
+            Analysis is complete, handle that here
+        */
         analysisComplete: function() {
 
             // Generate Print Request to get URL
@@ -288,46 +322,42 @@ define([
         /* Helper Functions */
 
         /*
-			Returns array of strings representing which requests need to be made
-			@return  {array}
-			Deferred Mapping is in comments below this function
-		*/
+            Returns array of strings representing which requests need to be made
+            @return  {array}
+            Deferred Mapping is in comments below this function
+        */
         _getArrayOfRequests: function() {
             var requests = [];
 
-            //if (report.analyzeTreeCoverLoss || report.analyzeClearanceAlerts) {
             for (var key in report.datasets) {
                 if (report.datasets[key]) {
                     requests.push(key);
                 }
             }
-            //}
 
             return requests;
         },
 
         /*
-			
-			Deferred's Mapping
-
-			suit - Fetcher._getSuitabilityAnalysis()
-			fires - Fetcher._getFireAlertAnalysis()
-			mill - Fetcher._getMillPointAnalysis()
-			primForest - Fetcher.getPrimaryForestResults()
-			protected - Fetcher.getProtectedAreaResults()
-			treeDensity - Fetcher.getTreeCoverResults()
-			carbon - Fetcher.getCarbonStocksResults()
-			intact - Fetcher.getIntactForestResults()
-			landCover - Fetcher.getLandCoverResults()
-			legal - Fetcher.getLegalClassResults()
-			peat - Fetcher.getPeatLandsResults()
-			rspo - Fetcher.getRSPOResults()
-		*/
+            Deferred's Mapping
+            suit - Fetcher._getSuitabilityAnalysis()
+            fires - Fetcher._getFireAlertAnalysis()
+            mill - Fetcher._getMillPointAnalysis()
+            primForest - Fetcher.getPrimaryForestResults()
+            protected - Fetcher.getProtectedAreaResults()
+            treeDensity - Fetcher.getTreeCoverResults()
+            carbon - Fetcher.getCarbonStocksResults()
+            intact - Fetcher.getIntactForestResults()
+            landCover - Fetcher.getLandCoverResults()
+            legal - Fetcher.getLegalClassResults()
+            peat - Fetcher.getPeatLandsResults()
+            rspo - Fetcher.getRSPOResults()
+        */
 
         /*
-			@param  {array} items
-			@return {array} of deferred functions
-		*/
+            @param  {array} items
+            @return {array} of deferred functions
+        */
         _getDeferredsForItems: function(items) {
             var deferreds = [];
 

@@ -180,7 +180,7 @@ define([
 					query = new Query(),
 					self = this;
 
-			query.where = "OBJECTID = " + objectId;
+      query.objectIds = [objectId];
 			query.geometryPrecision = 0;
 			query.returnGeometry = true;
 			query.outFields = ["*"];
@@ -372,9 +372,15 @@ define([
 
 			});
 
-			// Now push each bucket into an array
+			// Now push each bucket into an array except the no information field, do that last
 			for (var key in buckets) {
-				data.push(buckets[key]);
+				if (key !== AnalyzerConfig.noNameField) {
+					data.push(buckets[key]);
+				}
+			}
+
+			if (buckets[AnalyzerConfig.noNameField]) {
+				data.push(buckets[AnalyzerConfig.noNameField]);
 			}
 
 			return data;

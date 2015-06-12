@@ -1,12 +1,14 @@
 define([
-
     "dojo/number",
     "dojo/Deferred",
     "dojo/promise/all",
+    "dojo/_base/array",
     // My Modules
     "report/config",
     "report/Renderer",
+    "report/RiskHelper",
     "report/Suitability",
+    "map/Symbols",
     // esri modules
     "esri/map",
     "esri/request",
@@ -16,11 +18,11 @@ define([
     "esri/SpatialReference",
     "esri/geometry/Polygon",
     "esri/tasks/GeometryService",
+    'esri/geometry/geometryEngine',
     "esri/tasks/AreasAndLengthsParameters",
     "esri/Color",
-    "esri/graphic",
-    "esri/symbols/SimpleFillSymbol"
-], function (dojoNumber, Deferred, all, ReportConfig, ReportRenderer, Suitability, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, AreasAndLengthsParameters, Color, Graphic, SimpleFillSymbol) {
+    "esri/graphic"
+], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -43,16 +45,14 @@ define([
                         places: 0
                     });
                     report.area = result.areas[0];
-                    deferred.resolve(true);
+                    deferred.resolve(area);
                 } else {
                     area = errorString;
                     deferred.resolve(false);
                 }
-                document.getElementById("total-area").innerHTML = area;
             }
 
             function failure(err) {
-                document.getElementById("total-area").innerHTML = errorString;
                 deferred.resolve(false);
             }
 
@@ -77,15 +77,10 @@ define([
 
         setupMap: function () {
 
-            var scalebar, graphic, symbol, poly, map;
-
-
-            map = new Map('print-map', {
-                basemap: 'topo',
-                sliderPosition: "top-right"
-            });
+            var scalebar, graphic, poly, map;
 
             function mapLoaded () {
+
                 map.graphics.clear();
                 map.resize();
                 
@@ -94,60 +89,26 @@ define([
                     scalebarUnit: 'metric'
                 });
 
-                symbol = new SimpleFillSymbol();
-                poly = new Polygon(report.geometry);
-                graphic = new Graphic(poly, symbol);
+                // Simplify this as multiparts and others may not display properly
+                poly = geometryEngine.simplify(new Polygon(report.geometry));
+                graphic = new Graphic();
+                graphic.setGeometry(poly);
+                graphic.setSymbol(Symbols.getPolygonSymbol());
+
                 map.graphics.add(graphic);
                 map.setExtent(graphic.geometry.getExtent().expand(3), true);
             }
 
-            map.on('load', mapLoaded);
+            map = new Map('print-map', {
+                basemap: 'topo',
+                sliderPosition: "top-right"
+            });
 
-            // if (!payload.webMapJson) {
-            //     return;
-            // } else {
-            //     // Add in Export Options to the webMapJson
-            //     // payload.webMapJson.exportOptions = {
-            //     //     "outputSize": [850, 850],
-            //     //     "dpi": 96
-            //     // };
-            // }
-
-            // var printParams = {
-            //     "f": "json",
-            //     "format": "PNG32",
-            //     "Layout_Template": "MAP_ONLY",
-            //     "Web_Map_as_JSON": payload.webMapJson
-            // },
-            // url = ReportConfig.printUrl,
-            // node = document.getElementById('print-map');
-
-            // var req = esriRequest({
-            //     url: url,
-            //     content: printParams,
-            //     handleAs: 'json',
-            //     callbackParamName: 'callback',
-            //     timeout: 60000
-            // }, {
-            //     usePost: true
-            // });
-
-            // req.then(function (res) {
-            //     if (res.results.length > 0) {
-            //         var url = res.results[0].value.url;
-            //         if (url) {
-            //             node.innerHTML = "<img title='map' src='" + url + "' />";
-            //         } else {
-            //             error();
-            //         }
-            //     } else {
-            //         error();
-            //     }
-            // }, error);
-
-            // function error () {
-            //     node.innerHTML = '<div>Sorry, we were unable to generate a map printout at this time.</div>';
-            // }
+            if (map.loaded) {
+              mapLoaded();
+            } else {
+              map.on('load', mapLoaded);
+            }
 
         },
 
@@ -655,43 +616,88 @@ define([
             this._debug('Fetcher >>> _getMillPointAnalysis');
             var deferred = new Deferred(),
                 config = ReportConfig.millPoints,
-                response,
-                req;
+                customDeferred = new Deferred(),
+                knownDeferred = new Deferred(),
+                customMills = [],
+                knownMills = [];
 
             // Create the container for the results
             ReportRenderer.renderMillContainer(config);
 
-            // Get Results from API
-            req = new XMLHttpRequest();
+            // Create two separate lists of mills
+            arrayUtils.forEach(report.mills, function (mill) {
+              if (mill.isCustom) {
+                customMills.push(mill);
+              } else {
+                knownMills.push(mill);
+              }
+            });
 
-            window.shortcutConfig = config;
-            // req.open('POST', config.url, true);
-            req.open('POST', config.url, true);
-            req.onreadystatechange = function (res) {
-                if (req.readyState === 4) {
-                    if (req.status === 200) {
-                        response = JSON.parse(req.response);
-                        if (response.mills) {
-                            ReportRenderer.renderMillAssessment(response.mills, config);
-                            deferred.resolve(true);
-                        } else {
-                            deferred.resolve(false);
-                        }
+            // if the mill points are from the known mills list, use GFW's API
+            if (knownMills.length > 0) {
+              getKnownMillsResults();
+            } else {
+              knownDeferred.resolve();
+            }
+
+            // If the mill points are custom, use our API, our API requires a bit more pre processing since
+            // the geometry being analyzed is custom and of various sizes
+            if (customMills.length > 0) {
+              getCustomMillsResults();
+            } else {
+              customDeferred.resolve(false);
+            }
+
+            function getKnownMillsResults () {
+              var request = new XMLHttpRequest(), response;
+
+              request.open('POST', config.url, true);
+              request.onreadystatechange = function (res) {
+                if (request.readyState === 4) {
+                  if (request.status === 200) {
+                    response = JSON.parse(request.response);
+                    if (response.mills) {
+
+                      // ReportRenderer.renderMillAssessment(response.mills, config);
+                      knownDeferred.resolve(response.mills);
                     } else {
-                      deferred.resolve(false);
+                      knownDeferred.resolve(false);
                     }
+                  } else {
+                    knownDeferred.resolve(false);
+                  }
                 }
-            };
+              };
 
-            req.addEventListener('error', function () {
-              deferred.resolve(false);
-            }, false);
-            
-            var formData = new FormData();
-            formData.append("mills",report.mills.map(function(mill){return mill.id}).join(','));
+              request.addEventListener('error', function () {
+                knownDeferred.resolve(false);
+              }, false);
+              
+              var formData = new FormData();
+              formData.append("mills", knownMills.map(function (mill) { return mill.millId; }).join(','));
+              // Construct the POST Content in HERE for each Mill
+              request.send(formData);
 
-            // Construct the POST Content in HERE for each Mill
-            req.send( formData );
+            }
+
+            function getCustomMillsResults () {
+              RiskHelper.prepareFeatures(customMills).then(function (millObjects) {
+                customDeferred.resolve(millObjects);
+              });
+            }
+
+            all([customDeferred, knownDeferred]).then(function (results) {
+              // Merge the Results, then Render them
+              var mills = [];
+              arrayUtils.forEach(results, function (millResult) {
+                if (millResult) {
+                  mills = mills.concat(millResult);
+                }
+              });
+
+              ReportRenderer.renderMillAssessment(mills, config);
+              deferred.resolve(true);
+            });
 
             return deferred.promise;
         },
@@ -801,8 +807,8 @@ define([
             var self = this;
 
             return {
-                A: arrayA.fromBounds(),
-                B: arrayB.fromBounds(),
+                A: arrayFromBounds(arrayA),
+                B: arrayFromBounds(arrayB),
                 getSimpleRule: function(id1, id2) {
                     return JSON.stringify({
                         'rasterFunction': 'Arithmetic',

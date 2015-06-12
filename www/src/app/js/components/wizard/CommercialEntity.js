@@ -1,31 +1,30 @@
-// THIS COMPONENT IS A PIECE NECESSARY FOR STEP TWO
-
+/** @jsx React.DOM */
 define([
 	"react",
   "map/config",
+  "map/Symbols",
   "analysis/Query",
   "analysis/config",
+  "utils/GeoHelper",
+  "analysis/WizardStore",
+  "analysis/WizardActions",
   "components/wizard/NestedList",
   // Other Useful Modules
   "dojo/topic",
   "dojo/query",
-  "esri/Color",
-  "esri/graphic",
-  "esri/graphicsUtils",
-  "esri/symbols/SimpleFillSymbol",
-  "esri/symbols/SimpleLineSymbol"
-], function (React, MapConfig, AnalyzerQuery, AnalyzerConfig, NestedList, topic, query, Color, Graphic, graphicsUtils, SimpleFillSymbol, SimpleLineSymbol) {
+  "esri/graphic"
+], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, WizardActions, NestedList, topic, query, Graphic) {
 
-  var config = AnalyzerConfig.commercialEntity,
-      adminSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
-                    new Color([255, 200, 103, 0.0]));
+  var config = AnalyzerConfig.commercialEntity;
+  var KEYS = AnalyzerConfig.STORE_KEYS;
+  var previousStep;
+  var previousFeatureType;
 
   function getDefaultState() {
     return {
       nestedListData: [],
       activeListItemValues: [],
-      activeListGroupValue: null,
+      activeListGroupValue: undefined,
       isLoading: false,
       selectedCommodity: config.commodityOptions[0].value
     };
@@ -37,28 +36,44 @@ define([
       return getDefaultState();
     },
 
+    componentDidMount: function () {
+      // Register callbacks
+      WizardStore.registerCallback(KEYS.userStep, this.userChangedSteps);
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
+
+    shouldComponentUpdate: function () {
+      return WizardStore.get(KEYS.userStep) === 2 && WizardStore.get(KEYS.areaOfInterest) === AnalyzerConfig.stepOne.option3.id;
+    },
+
+    userChangedSteps: function () {
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
+      // If the user is arriving at this step and has selected a commoditity type
+      if (selectedAreaOfInterest === 'commercialEntityOption' && 
+          this.state.selectedCommodity !== 'NONE' &&
+          previousStep === 1 && currentStep === 2) {
+
+        topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
+      }      
+
+      previousStep = WizardStore.get(KEYS.userStep);
+    },
+
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
         this.replaceState(getDefaultState());
       }
-
-      // If the area is this one, we have a selected commodity, the current step is this one
-      // and the previous step is 0, then we should update the layer defs to match this UI
-
-      if (newProps.selectedArea === 'commercialEntityOption' && 
-                     this.state.selectedCommodity !== 'NONE' &&
-                     this.props.currentStep === 1 &&
-                     newProps.currentStep === 2) {
-        
-        topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
-
-      }
     },
 
+    /* jshint ignore:start */
     render: function () {
 
+      var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+      var currentStep = WizardStore.get(KEYS.userStep);
+
       // Filter legend content pane or hide
-      if (this.props.currentStep === 2 && this.props.selectedArea === 'commercialEntityOption') {
+      if (currentStep === 2 && selectedAreaOfInterest === 'commercialEntityOption') {
 
         switch (this.state.selectedCommodity) {
           case 'Logging concession':
@@ -84,32 +99,31 @@ define([
       }
 
       return (
-        React.DOM.div({'className': 'commercial-entity'},
-          React.DOM.p({'className': 'instructions'}, config.instructions),
-          React.DOM.select({
-              'className': 'commodity-type-select',
-              'value': this.state.selectedCommodity,
-              'onChange': this._loadFeatures
-            },
+        React.DOM.div({className: "commercial-entity"}, 
+          React.DOM.p({className: "instructions"}, " ", config.instructions, " "), 
+          React.DOM.select({className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
             config.commodityOptions.map(this._selectMapper, this)
-          ),
-          React.DOM.span({'className': 'loading-wheel ' + (this.state.isLoading ? '' : 'hidden')}),
-          React.DOM.p({'className': 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartTwo),
-          new NestedList({
-            'data': this.state.nestedListData,
-            'click': this._commodityClicked,
-            'placeholder': 'Search commercial entities...',
-            'activeListItemValues': this.state.activeListItemValues,
-            'activeListGroupValue': this.state.activeListGroupValue,
-            'isResetting': this.props.isResetting
-          })
+          ), 
+          React.DOM.span({className: 'loading' + (this.state.isLoading ? '' : ' hidden')}), 
+          React.DOM.p({className: 'instructions' + (this.state.nestedListData.length> 0 ? '' : ' hidden')}, 
+            config.instructionsPartTwo
+          ), 
+          NestedList({
+            data: this.state.nestedListData, 
+            click: this._commodityClicked, 
+            placeholder: "Search commercial entities", 
+            activeListItemValues: this.state.activeListItemValues, 
+            activeListGroupValue: this.state.activeListGroupValue, 
+            isResetting: this.props.isResetting}
+          )
         )
       );
     },
 
     _selectMapper: function (item) {
-      return React.DOM.option({'value': item.value}, item.label);
+      return React.DOM.option({value: item.value}, item.label);
     },
+    /* jshint ignore:end */
 
     _loadFeatures: function (evt) {
       var value = evt.target.value,
@@ -141,78 +155,111 @@ define([
     },
 
     _commodityClicked: function (target) {
-      var featureType = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
-          objectId = target.dataset ? target.dataset.value : target.getAttribute('data-value'),
-          wizardGraphicsLayer,
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+          objectId = parseInt(target.getAttribute('data-value')),
+          featureType = target.getAttribute('data-type'),
+          selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
+          label = target.innerText || target.innerHTML,
           self = this,
           graphic;
 
-      if (featureType === "group") {
+      // They cant select features and groups right now
+      // so if they swicth, clear the selection list and the layer
+      if (previousFeatureType !== featureType) {
+        WizardActions.clearSelectedCustomFeatures();
+        wizardGraphicsLayer.clear();
+      }
 
-        if (target.innerHTML === AnalyzerConfig.noNameField) {
+      // Update this for bookkeeping purposes
+      previousFeatureType = featureType;
+
+      if (featureType === "group") {
+        // Do nothing for group with no name since its not an actual group
+        if (label === AnalyzerConfig.noNameField) {
           return;
         }
 
-        var newActiveListeItemValues = []; 
-        query('.wizard-list-child-item span', target.parentNode).forEach(function(element){
-          newActiveListeItemValues.push(parseInt(element.dataset ? element.dataset.value : element.getAttribute('data-value')));
-        });
-      
-        self.setState({
-          activeListItemValues: newActiveListeItemValues,
-          activeListGroupValue: parseInt(objectId)
-        });
+        var activeGroupId = this.state.activeListGroupValue;
 
-        // Takes URL and group name, group name will always be the targets innerHTML
-        AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, target.innerHTML).then(function (features) {
-          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+        // If the same group is clicked, clear the list, selectedFeatures, and Map Graphics
+        if (objectId === activeGroupId) {
+          // The name is the inner HTML, the field is the field used for the query
+          WizardActions.removeSelectedFeatureByField(config.groupQuery.requiredField, label);
+          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, config.groupQuery.requiredField, label);
 
-          if (features && wizardGraphicsLayer) {
-            wizardGraphicsLayer.clear();
-            features.forEach(function (feature) {
-              // Add it to the map and make it the current selection, give it a label
-              feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerText;
-              graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
-              wizardGraphicsLayer.add(graphic);              
-            });
+          self.setState({
+            activeListGroupValue: undefined
+          });
 
-            // There should only be one feature returning from this call, if more then one come back
-            // something went wrong, this code should be refactored to be more clear that only one feature
-            // is coming back
-            self.props.callback.updateAnalysisArea(features[0]);
-            app.map.setExtent(graphicsUtils.graphicsExtent(features), true);
-          }
-        });
+        } else {
+          // Clear Previous Features
+          WizardActions.clearSelectedCustomFeatures();
+          // Set the active group id and make sure individual features are not selected
+          self.setState({
+            activeListItemValues: [],
+            activeListGroupValue: objectId
+          });
+          // Clear the layer
+          wizardGraphicsLayer.clear();
+
+          AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, label).then(function (features) {
+            if (features && wizardGraphicsLayer) {
+              features.forEach(function (feature) {
+                // Add it to the map and make it the current selection, give it a label
+                feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+                graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
+                wizardGraphicsLayer.add(graphic);              
+              });
+
+              WizardActions.addSelectedFeatures(features);
+            }
+          });
+        }
+
       } else if (objectId) {
 
-        self.setState({
-          activeListItemValues: [parseInt(objectId)],
-          activeListGroupValue: null
-        });
+        var activeListIds = this.state.activeListItemValues;
+        var indexOfObject = activeListIds.indexOf(objectId);
 
-        AnalyzerQuery.getFeatureById(config.commodityQuery.url, objectId).then(function (feature) {
+        // If the id already exists, then we should remove it
+        if (indexOfObject > -1) {
+          // Remove from list, selectedFeatures, and map
+          activeListIds.splice(indexOfObject, 1);
+          WizardActions.removeSelectedFeatureByField('OBJECTID', objectId);
+          GeoHelper.removeGraphicByField(MapConfig.wizardGraphicsLayer.id, 'OBJECTID', objectId);
 
-          // Add it to the map and make it the current selection, give it a label
-          feature.attributes[AnalyzerConfig.stepTwo.labelField] = target.innerHTML || target.innerText;
-          graphic = new Graphic(feature.geometry, adminSymbol, feature.attributes);
-          wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
-          if (wizardGraphicsLayer) {
-            // Clear out any previous 'preview' features
-            wizardGraphicsLayer.clear();
-            wizardGraphicsLayer.add(graphic);
-            // Mark this as your current selection
-            self.props.callback.updateAnalysisArea(graphic);
-            // Zoom to extent of new feature
-            if (graphic._extent) {
-              app.map.setExtent(graphic._extent, true);
-            } else {
-              app.map.setExtent(graphic.getExtent(), true);
+          self.setState({
+            activeListItemValues: activeListIds,
+            activeListGroupValue: undefined
+          });
+        } else {
+          // Item not yet selected, so add the ID to the selected list
+          activeListIds.push(objectId);
+
+          // Update the state
+          self.setState({
+            activeListItemValues: activeListIds,
+            activeListGroupValue: undefined
+          });
+
+          // Get the graphic and add it to the selected features list
+          AnalyzerQuery.getFeatureById(config.commodityQuery.url, objectId).then(function (feature) {
+            // Add it to the map and make it the current selection
+            feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+            graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
+            WizardActions.addSelectedFeatures([graphic]);
+
+            // Add the graphic to the map
+            if (wizardGraphicsLayer) {
+              wizardGraphicsLayer.add(graphic);
             }
-          }
 
-        });
-      }
-    }
+          });
+        } // End else
+
+      } // End else if
+
+    }// End __commodityClicked
 
   });
 

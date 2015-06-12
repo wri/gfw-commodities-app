@@ -4,9 +4,20 @@ border-radius()
 	-moz-border-radius arguments
 	-webkit-border-radius arguments
 
+red = #EA1F4B
+orange = #E98300
 baseGray = #e6e6e6
 lightGrayFont = #747474
 mediumGray = #888
+lightGray = #ececed
+goldFont = #f0ab00
+greyBorder = #b2b2b2
+hoverBackground = #CDCDCD
+orangeSelected = rgb(233, 131, 0)
+orangeHover = rgba(233, 131, 0, 0.45)
+wizardBlue = #00688B
+
+fontSizes = 12 16
 
 // Font Family for the Application
 @font-face {
@@ -112,3 +123,14 @@ html, body, .gfw {
 .gfw .step .step-one-main-description a {
   color: orange;
 }
+
+@require 'base'
+@require 'contentPages'
+@require 'footer'
+@require 'header'
+@require 'home'
+@require 'map'
+@require 'wizard'
+@require 'alertsForm'
+@require 'rangeSlider'
+@require 'utilities'

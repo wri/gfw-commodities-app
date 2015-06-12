@@ -1,7 +1,8 @@
 define([
 	"react",
-  "analysis/config"
-], function (React, AnalyzerConfig) {
+  "analysis/config",
+  "analysis/WizardStore"
+], function (React, AnalyzerConfig, WizardStore) {
 
   // Variables
   var config = AnalyzerConfig.stepOne, 
@@ -12,12 +13,15 @@ define([
       option3 = config.option3,
       option4 = config.option4,
       option5 = config.option5;
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
   
   // Helper Functions
   function getDefaultState() {
     return {
       completed: true,
-      selectedOption: option3.id
+      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option3.id,
+      previousAreaOfInterest: undefined
     };
   }
 
@@ -28,18 +32,21 @@ define([
     },
 
     componentDidMount: function () {
-      this.props.callback.update(getDefaultState().selectedOption);
+      // Set the default value in the store
+      WizardStore.set(KEYS.areaOfInterest, option3.id);
+      // Register a callback to the item of interest
+      WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
+    },
+
+    areaOfInterestUpdated: function () {
+      var selectedOption = WizardStore.get(KEYS.areaOfInterest);
+      this.setState({ selectedOption: selectedOption });
     },
 
     componentWillReceiveProps: function (newProps) {
       if (newProps.isResetting) {
         var defaults = getDefaultState();
         this.replaceState(defaults);
-        this.props.callback.update(defaults.selectedOption);
-      } else if (newProps.selectedArea) {
-        this.setState({
-          selectedOption: newProps.selectedArea
-        });
       }
     },
 
@@ -85,14 +92,23 @@ define([
     },
 
     _changeSelection: function (e) {
-      // this.setState({
-      //   selectedOption: e.target.id
-      // });
-      this.props.callback.update(e.target.id);
+      WizardStore.set(KEYS.areaOfInterest, e.target.id);
+    },
+
+    _resetSelectedFeatures: function() {
+      var previousAreaOfInterest = this.state.previousAreaOfInterest || false,
+          currentAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+
+      if (previousAreaOfInterest && previousAreaOfInterest !== currentAreaOfInterest) {
+        WizardStore.set(KEYS.selectedCustomFeatures, []);
+      } else {
+        this.setState({previousAreaOfInterest: currentAreaOfInterest});
+      }
     },
 
     _moveOn: function () {
-      this.props.callback.nextStep();
+      this._resetSelectedFeatures();
+      WizardStore.set(KEYS.userStep, WizardStore.get(KEYS.userStep) + 1);
     }
 
   });

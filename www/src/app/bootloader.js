@@ -1,7 +1,7 @@
 /* global window, document, location */
 (function(win, doc) {
     'use strict';
-    var version = "2.3.3",
+    var version = "2.3.8",
         URL = location.pathname.replace(/\/[^/]+$/, "") + 'app',
         dojoConfig = {
             parseOnLoad: false,
@@ -9,6 +9,9 @@
             async: true,
             cacheBust: "v=" + version,
             packages: [{
+                name: "js",
+                location: URL + "/js"
+            }, {
                 name: "main",
                 location: URL + "/js/main"
             }, {
@@ -41,23 +44,19 @@
             }],
             aliases: [
                 ['knockout', 'libs/knockout-3.1.0/index'],
-                ['react', 'libs/react-0.11.1.min/index']
-
+                ['react', 'libs/react-0.11.1.min/index'],
+                // ['react', 'libs/react-0.11.1/index'],
+                ['lodash', 'libs/lodash/lodash.min']
             ],
             deps: [
-                "main/Main",
                 "dojo/domReady!"
             ],
-            callback: function(Main) {
-                Main.init();
-                // Before Running grunt build or minify, remove main/Main from Require above and main parameter
-                // from callback, then uncomment below
-                // Release Version
-                // loadScript('app/js/app.min.js?v=' + version);
+            callback: function() { 
+              require(['js/bundle']);
             }
         }, // End dojoConfig
         src = [
-            'http://js.arcgis.com/3.12/',
+            'http://js.arcgis.com/3.13/',
             'app/libs/jquery-1.7.1.min.js',
             'app/libs/jquery-ui-custom.min.js',
             'app/libs/jQAllRangeSliders-min.js'

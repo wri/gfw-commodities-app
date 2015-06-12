@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 define([
 	"react",
 	"dojo/topic",
@@ -8,7 +9,7 @@ define([
 
 	var _components = [];
 
-  var List = React.createClass({
+  var List = React.createClass({displayName: 'List',
 
     getInitialState: function () {
       return ({
@@ -23,31 +24,31 @@ define([
     	// per radio container is selected or select none if none are selected
 
     	// Radio Button Groups
-    	var radioGroups = ['forest-change','forest-cover','agro-suitability'],
-    			noneComponent,
-    			foundActive;
+    	// var radioGroups = ['forest-change','forest-cover','agro-suitability'],
+    	// 		noneComponent,
+    	// 		foundActive;
 
-    	radioGroups.forEach(function (group) {
-    		foundActive = false;
-    		_components.forEach(function (component) {
-    			if (component.props.filter === group) {
-    				// Locate the none radio button
-    				if (component.props.key.search("none_") > -1) {
-    					noneComponent = component;
-    				}
-    				// Check if any are active
-    				if (component.state.active) {
-    					foundActive = true;
-    				}
-    			}
-    		});
-    		// If none are active, select the none radio button
-    		if (!foundActive) {
-    			noneComponent.setState({
-    				active: true
-    			});
-    		}
-    	});
+    	// radioGroups.forEach(function (group) {
+    	// 	foundActive = false;
+    	// 	_components.forEach(function (component) {
+    	// 		if (component.props.filter === group) {
+    	// 			// Locate the none radio button
+    	// 			if (component.props.key.search("none_") > -1) {
+    	// 				noneComponent = component;
+    	// 			}
+    	// 			// Check if any are active
+    	// 			if (component.state.active) {
+    	// 				foundActive = true;
+    	// 			}
+    	// 		}
+    	// 	});
+    	// 	// If none are active, select the none radio button
+    	// 	// if (!foundActive) {
+    	// 	// 	noneComponent.setState({
+    	// 	// 		active: true
+    	// 	// 	});
+    	// 	// }
+    	// });
 
     },
 
@@ -55,20 +56,21 @@ define([
 			this.setState(newProps);
 		},
 
+    /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({'className':'smart-list'}, 
-          React.DOM.div({'className': 'filter-list-title'}, this.props.title),
-          React.DOM.div({'className': 'layer-line'}),
-          React.DOM.ul({'className': 'filter-list'},
+        React.DOM.div({className: "smart-list"}, 
+          React.DOM.div({className: "filter-list-title"}, this.props.title), 
+          React.DOM.div({className: "layer-line"}), 
+          React.DOM.ul({className: "filter-list"}, 
             this.props.items.map(this._mapper, this)
           )
         )
       );
     },
+    /* jshint ignore:end */
 
     _mapper: function (item) {
-
       item.visible = (this.state.filter === item.filter);
       item.handle = this._handle;
       item.postCreate = this._postCreate;  
@@ -109,7 +111,7 @@ define([
       }   
     },
 
-    _radio: function (component) {
+    _radio: function (component) {      
 
       var previous,
       		isNewSelection;
@@ -146,6 +148,16 @@ define([
 						topic.publish('showLayer', component.props.key);
 		      }
 
+        } else {
+          // The Same button was clicked twice, just disable it
+          component.setState({
+            active: false
+          });
+
+          this._toggleChildren(component, 'remove');
+          Hasher.removeLayers(component.props.key);
+          topic.publish('hideLayer', component.props.key);
+
         }
       } else {
       	// Add New if None is not selected and isNew
@@ -155,11 +167,13 @@ define([
 	      }
       }
 
-      component.setState({
-        active: true
-      });
+      if (isNewSelection !== false) {
+        component.setState({
+          active: true
+        });
 
-      this._toggleChildren(component, 'add');
+        this._toggleChildren(component, 'add');
+      }
 
     },
 

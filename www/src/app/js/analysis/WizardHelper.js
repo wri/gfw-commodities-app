@@ -6,18 +6,22 @@ define([
 	"dojo/dom-class",
 	"dojo/dom-style",
 	"dojo/dom-geometry",
-	"dojo/_base/array",
+  "dojo/_base/array",
+	"dojo/topic",
 	// My Modules
 	"map/config",
 	"utils/Hasher",
-	"utils/GeoHelper",
+  "utils/GeoHelper",
+  "utils/AlertsHelper",
 	"analysis/Query",
 	"analysis/config",
+	"analysis/WizardStore",
 	"components/wizard/Wizard",
-], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, MapConfig, Hasher, GeoHelper, AnalyzerQuery, AnalyzerConfig, Wizard) {
+], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, topic, MapConfig, Hasher, GeoHelper, AlertsHelper, AnalyzerQuery, AnalyzerConfig, WizardStore, Wizard) {
 	'use strict';
 
 	var wizard;
+	var KEYS = AnalyzerConfig.STORE_KEYS;
 
 	return {
 
@@ -32,7 +36,6 @@ define([
 					duration = 500,
 					wizardAnimation,
 					tabAnimation,
-					mapAnimation,
 					wizardWidth;
 
 			wizardWidth = (halfMapWidth >= MIN_WIDTH && halfMapWidth <= MAX_WIDTH) ? halfMapWidth : 
@@ -63,25 +66,14 @@ define([
 					//left: (wizardWidth - 30)
 					opacity: (wizardWidth === 0) ? 1.0 : 0.0
 				},
-				duration: duration
-			});
-
-			mapAnimation = Fx.animateProperty({
-				node: dom.byId("map-container"),
-				properties: {
-					left: wizardWidth
-				},
 				duration: duration,
-				onEnd: function () {
-					app.map.resize(true);
-					//app.map.centerAt(orignalCenterPoint);
-					if (wizardWidth > 0) {
-						domStyle.set('wizard', 'display', 'block');
-					}
-					deferred.resolve(true);
-				}
+        onEnd: function() {
+          if (wizardWidth > 0) {
+            domStyle.set('wizard', 'display', 'block');
+          }
+          deferred.resolve(true);
+        }
 			});
-
 
 			// If the Wizard has not been created yet, do so now
 			// but wait for the container to become visible to do so,
@@ -96,12 +88,6 @@ define([
 				// Use duration - 100 to make sure the wizard is defined before the animation completes
 				// and the deferred is resolved
 			}
-
-			coreFx.combine([
-				wizardAnimation,
-				tabAnimation,
-				mapAnimation
-			]).play();
 
 			if (wizardWidth === 0) {
 				this.cleanupWizard();
@@ -119,8 +105,7 @@ define([
 				Hasher.setHash('wiz', 'open');
 			}
 
-			return deferred.promise;
-
+			return [wizardAnimation,tabAnimation];
 		},
 
 		/*
@@ -139,28 +124,13 @@ define([
 		},
 
 		/*
-			Takes a evt with a graphic inside it as a parameter, sets the UI in the wizard to a specific step and selects the feature
-		*/
-		customFeatureClicked: function (evt) {
-			if (evt.graphic) {
-				// Make the root selection the appropriate one, for Custom Area, it is option 1
-				wizard._updateSelectedArea(AnalyzerConfig.stepOne.option1.id);
-				// Set to Step 3, the parameter is index based so 0,1,2,3, 2 is the third step
-				wizard._externalSetStep(2);
-				// In this case, set the RefinedArea to the evt.graphic
-				// Graphics will need a WRI_label field that will be used as a label in the UI
-				wizard._updateAnalysisArea(evt.graphic);
-			}
-		},
-
-		/*
 			This will launch the wizard with some the first two steps already completed
 		*/
 		analyzeAreaFromPopup: function (evt) {
 			var target = evt.target ? evt.target : evt.srcElement,
-					label = target.dataset ? target.dataset.label : target.getAttribute('data-label'),
-					type = target.dataset ? target.dataset.type : target.getAttribute('data-type'),
-					id = target.dataset ? target.dataset.id : target.getAttribute('data-id'),
+					label = target.getAttribute('data-label'),
+					type = target.getAttribute('data-type'),
+					id = target.getAttribute('data-id'),
 					selectedArea = AnalyzerConfig.stepOne.option3.id,
 					url = MapConfig.oilPerm.url,
 					self = this,
@@ -198,6 +168,10 @@ define([
 				case "MillPoint":
 				selectedArea = AnalyzerConfig.stepOne.option5.id;
 				break;
+				case "WDPA":
+				url = MapConfig.palHelper.url;
+				layer = MapConfig.palHelper.layerId;
+				break;
 			}
 
 			if (type === "CustomGraphic") {
@@ -205,10 +179,8 @@ define([
 				arrayUtils.some(layer.graphics, function (graphic) {
 					if (graphic.attributes.WRI_ID === parseInt(id)) {
 						if (!self.isOpen()) {
-							// True means skip intro in wizard
-							self.toggleWizard(true).then(function () {
-								setWizardProps(graphic);
-							});
+              topic.publish('toggleWizard');
+							setWizardProps(graphic);
 						} else {
 							setWizardProps(graphic);
 						}
@@ -221,25 +193,22 @@ define([
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
-						// True means skip intro in wizard
-						self.toggleWizard(true).then(function () {
-							setWizardProps(feature);
-							self.addGraphicFromPopup(feature);
-						});
-					} else {
-						setWizardProps(feature);
-						self.addGraphicFromPopup(feature);
-					}
-				});
-			} else {
-				AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
-					feature.attributes.WRI_label = label;
-					if (!self.isOpen()) {
-						// True means skip intro in wizard
-						self.toggleWizard(true).then(function () {
-							setWizardProps(feature);
-							self.addGraphicFromPopup(feature);
-						});
+            topic.publish('toggleWizard');
+            setWizardProps(feature);
+            self.addGraphicFromPopup(feature);
+          } else {
+            setWizardProps(feature);
+            self.addGraphicFromPopup(feature);
+          }
+        });
+      } else {
+        // This should catch any generic dynamic layers
+        AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
+          feature.attributes.WRI_label = label;
+          if (!self.isOpen()) {
+            topic.publish('toggleWizard');
+            setWizardProps(feature);
+            self.addGraphicFromPopup(feature);
 					} else {
 						setWizardProps(feature);
 						self.addGraphicFromPopup(feature);
@@ -255,14 +224,11 @@ define([
 				// for Certified Areas, it is option 4
 				// for Mill Points, it is option 5
 				// selectedArea set in switch statement above
-				// console.log(selectedArea);
-				wizard._updateSelectedArea(selectedArea);
+				WizardStore.set(KEYS.areaOfInterest, selectedArea);
+				WizardStore.set(KEYS.selectedCustomFeatures, [feature]);
 				// Set to Step 3, the parameter is index based like 0,1,2,3, 3 is the third step
 				// because we inserted a introduction step that is now step 0
 				wizard._externalSetStep(3);
-				// In this case, set the RefinedArea to the evt.graphic
-				// Graphics will need a WRI_label field that will be used as a label in the UI
-				wizard._updateAnalysisArea(feature);
 			}
 
 			// Hide the info window
@@ -276,20 +242,9 @@ define([
 			if (layer) {
 				// Remove any previous features
 				layer.clear();
-				// If we have a symbol, add it, else, apply selection symbol and then add it.
-				// then zoom to feature
-				if (feature.symbol) {
-					layer.add(feature);
-					if (feature.geometry.radius) {
-						app.map.centerAndZoom([feature.attributes.Longitude, feature.attributes.Latitude], 9);
-					} else {
-						app.map.setExtent(feature.geometry.getExtent(), true);
-					}
-				} else {
-					feature = GeoHelper.applySelectionSymbolToFeature(feature);
-					layer.add(feature);
-					app.map.setExtent(feature.geometry.getExtent(), true);
-				}
+				// Apply selection symbol and then add it
+        feature = GeoHelper.applySelectionSymbolToFeature(feature);
+				layer.add(feature);
 			}
 		},
 

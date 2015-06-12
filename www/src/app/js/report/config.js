@@ -20,7 +20,8 @@ define([], function() {
         
         // clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
         // clearanceAnalysisUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
-        clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis_wm/ImageServer';
+        clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis_wm/ImageServer',
+        boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';
 
     // Totoal Loss
     var lossBounds = [1, 13],
@@ -70,9 +71,9 @@ define([], function() {
         peatLandsBounds = [0, 1],
         peatLandsColors = ["#161D9C"];
 
-    var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Grassland / Shrub", "Mixed forest and grassland", "Non-forest", "Primary Forest", "Secondary Forest", "Settlements", "Swamp", "Water Bodies"],
-        lcGlobalBounds = [1, 10],
-        lcGlobalColors = ["#d89827", "#86fc1f", "#fdffb6", "#b98f57", "#CCC", "#5fa965", "#c7ffb6", "#fca0bf", "#538996", "#65a2f8"];
+    var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Open broadleaved forest", "Closed broadleaved forest", "Open needleleaved forest", "Closed needleleaved forest", "Open mixed forest", "Mixed forest and grassland", "Grassland / shrub", "Flooded forest", "Wetland", "Settlements", "Bare land", "Water bodies", "Snow / ice", "No data"],
+        lcGlobalBounds = [1, 16],
+        lcGlobalColors = ["#E0A828","#8BFB3B","#51952F","#287310","#B6D6A1","#89C364","#888749","#B98D5A","#FFFEC1","#19A785","#689AA7","#FCB7CB","#D3CE63","#77B5FC","#FFFFFF","#B3B3B3"];
 
     var lcAsiaLabels = ["Agriculture", "Agroforestry", "Fish pond", "Grassland / Shrub", "Mining", "Oil Palm Plantation", "Primary Forest", "Rubber Plantation", "Secondary Forest", "Settlements", "Swamp", "Timber Plantation", "Water Bodies"],
         lcAsiaBounds = [1, 13],
@@ -97,6 +98,8 @@ define([], function() {
             "https://gfw-fires.wri.org",
             "http://gis-gfw.wri.org"
         ],
+
+        boundariesUrl: boundariesUrl,
 
         printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
 
@@ -438,7 +441,7 @@ define([], function() {
         landCoverGlobal: {
             rootNode: 'globalLandCover',
             title: 'Land Cover - Global',
-            rasterId: '$3',
+            rasterId: '$525',
             bounds: lcGlobalBounds,
             labels: lcGlobalLabels,
             clearanceChart: {

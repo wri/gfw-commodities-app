@@ -1,13 +1,13 @@
 define([
 	"react",
   "analysis/config",
+  "analysis/WizardStore",
   "components/wizard/MillPoint",
   "components/wizard/AdminUnit",
   "components/wizard/CustomArea",
   "components/wizard/CertifiedArea",
   "components/wizard/CommercialEntity"
-], function (React, AnalyzerConfig, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {
-
+], function (React, AnalyzerConfig, WizardStore, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {  
   // Variables
   var title = AnalyzerConfig.stepTwo.title,
       // Selection Area Variables
@@ -19,6 +19,8 @@ define([
       labelField = AnalyzerConfig.stepTwo.labelField,
       customTitles = {};
 
+  var KEYS = AnalyzerConfig.STORE_KEYS;
+
   customTitles[customArea] = 'Create a custom area';
   customTitles[adminUnit] = 'Administrative unit';
   customTitles[millPoint] = 'Mill point';
@@ -28,8 +30,14 @@ define([
   // Helper Functions
   function getDefaultState() {
     return {
-      completed: false
+      completed: false,
+      currentSelectionLabel: getCurrentSelectionLabel()
     };
+  }
+
+  function getCurrentSelectionLabel () {
+    var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+    return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
   }
 
 	return React.createClass({
@@ -39,55 +47,57 @@ define([
     },
 
     componentDidMount: function () {
-      
+      WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
     },
 
-    componentWillReceiveProps: function (newProps) {
-      if (newProps.isResetting) {
-        this.replaceState(getDefaultState());
-        return;
-      }
-
-      if (newProps.analysisArea) {
-        this.setState({
-          completed: true
+    analysisAreaUpdated: function () {
+      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+      
+      if (currentFeatures.length > 0) {
+        this.setState({ 
+          completed: true,
+          currentSelectionLabel: getCurrentSelectionLabel()
         });
       } else {
         this.replaceState(getDefaultState());
       }
     },
 
+    componentWillReceiveProps: function (newProps) {
+      if (newProps.isResetting) {
+        this.replaceState(getDefaultState());
+      }
+    },
+
     render: function () {
 
-      var currentSelection = (this.props.analysisArea ? 
-          (this.props.analysisArea.attributes ? this.props.analysisArea.attributes[labelField] : this.props.optionalLabel)
-          : "none");
+      var selectedArea = WizardStore.get(KEYS.areaOfInterest);
 
       return (
         React.DOM.div({'className': 'step'},
           React.DOM.div({'className': 'step-body'},
-            React.DOM.div({'className': 'step-title'}, title + ' - ' + customTitles[this.props.selectedArea]),
-            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== millPoint ? 'hidden' : '')},
+            React.DOM.div({'className': 'step-title'}, title + ' - ' + customTitles[selectedArea]),
+            React.DOM.div({'className': 's2-tools ' + (selectedArea !== millPoint ? 'hidden' : '')},
               new MillPoint(this.props)
             ),
-            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== adminUnit ? 'hidden' : '')},
+            React.DOM.div({'className': 's2-tools ' + (selectedArea !== adminUnit ? 'hidden' : '')},
               new AdminUnit(this.props)
             ),
-            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== customArea ? 'hidden' : '')},
+            React.DOM.div({'className': 's2-tools ' + (selectedArea !== customArea ? 'hidden' : '')},
               new CustomArea(this.props)
             ),
-            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== certArea ? 'hidden' : '')},
+            React.DOM.div({'className': 's2-tools ' + (selectedArea !== certArea ? 'hidden' : '')},
               new CertifiedArea(this.props)
             ),
-            React.DOM.div({'className': 's2-tools ' + (this.props.selectedArea !== commArea ? 'hidden' : '')},
+            React.DOM.div({'className': 's2-tools ' + (selectedArea !== commArea ? 'hidden' : '')},
               new CommercialEntity(this.props)
             )
           ),
           React.DOM.div({'className': 'step-footer'},
             React.DOM.div({'className': 'selected-analysis-area'},
               React.DOM.div({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
-              React.DOM.div({'className': 'current-selection','title': currentSelection}, 
-                currentSelection
+              React.DOM.div({'className': 'current-selection','title': this.state.currentSelectionLabel }, 
+                this.state.currentSelectionLabel
               )
             ),
             React.DOM.div({'className':'next-button-container ' + (this.state.completed ? '' : 'disabled'), 
@@ -101,16 +111,10 @@ define([
 
     _checkRequirements: function () {
       if (this.state.completed) {
-        this.props.callback.nextStep();
+        WizardStore.set(KEYS.userStep, WizardStore.get(KEYS.userStep) + 1);
       }
-    },
-
-    _setCompletion: function (completionStatus) {
-      this.setState({
-        completed: completionStatus
-      });
     }
-
+    
   });
 
 });

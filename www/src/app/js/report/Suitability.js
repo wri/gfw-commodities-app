@@ -6,12 +6,14 @@ define([
 	"esri/geometry/Polygon",
 	// My Modules
 	"report/config",
+  "utils/Analytics",
 	// Dojo Modules
 	"dojo/Deferred",
 	"dojo/_base/lang",
 	"dojo/_base/array",
-	"dojo/promise/all"
-], function (esriRequest, Query, QueryTask, Polygon, ReportConfig, Deferred, lang, arrayUtils, all) {	
+	"dojo/promise/all",
+	"report/CSVExporter"
+], function (esriRequest, Query, QueryTask, Polygon, ReportConfig, Analytics, Deferred, lang, arrayUtils, all, CSVExporter) {	
 
 	return {
 
@@ -21,6 +23,8 @@ define([
 
 			function complete(data) {
 				deferred.resolve(data);
+				// Attach Events for Downloading certain data as CSV data
+				self.attachEvents();
 			}
 
 			all([
@@ -32,6 +36,27 @@ define([
 			]).then(complete);
 
 			return deferred.promise;
+		},
+
+		attachEvents: function () {
+			$("#suitability-table-csv").click(this.downloadSuitabilityTable);
+			$("#suitability-settings-csv").click(this.downloadSuitabiltiySettings);
+		},
+
+		downloadSuitabilityTable: function () {
+			var lineEnding = '\r\n',
+					csvStringData,
+					csvData;
+
+			csvData = CSVExporter.exportSuitabilityStatistics();
+			csvStringData = csvData.join(lineEnding);
+			CSVExporter.exportCSV(csvStringData);
+      Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded Suitability results table.');
+		},
+
+		downloadSuitabiltiySettings: function () {
+			CSVExporter.exportCSV(payload.suitability.csv);
+      Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded Suitability settings.');
 		},
 
 		getSuitableAreas: function (pixelSize) {

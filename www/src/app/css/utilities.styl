@@ -1,0 +1,178 @@
+cardinal-generator(rule, size)
+	&, &__top, &__long
+		{rule}-top size
+	&, &__bottom, &__long
+		{rule}-bottom size
+	&, &__left, &__wide
+		{rule}-left size
+	&, &__right, &__wide
+		{rule}-right size
+
+.gfw
+
+	// alignment
+
+	.text-left
+		text-align left
+
+	.text-right
+		text-align right
+
+	.text-center
+		text-align center
+
+	.vertical-middle
+		vertical-align middle
+
+	.vertical-sub
+		vertical-align sub
+
+	.vertical-baseline
+		vertical-align baseline
+
+	.float-left
+		float left
+
+	.float-right
+		float right
+
+	// display
+
+	.absolute
+		position absolute
+
+	.relative
+		position relative
+
+	.inline-block
+		display inline-block
+
+	.table
+		display table
+
+	.table-row
+		display table-row
+
+	.table-cell
+		display table-cell
+
+	// box model
+
+	.border-box
+		box-sizing border-box
+
+	.no-long, .no-top
+		top 0px
+
+	.no-long, .no-bottom
+		bottom 0px
+
+	.no-wide, .no-left
+		left 0px
+
+	.no-wide, .no-right
+		right 0px
+
+	.no-margin
+		cardinal-generator('margin', 0px)
+
+	.margin
+		cardinal-generator('margin', 10px)
+
+		&--small
+			cardinal-generator('margin', 5px)
+
+	.no-padding
+		cardinal-generator('padding', 0px)
+
+	.padding
+		cardinal-generator('padding', 10px)
+
+	// table model
+	
+	.no-border-spacing
+		border-spacing 0
+
+	// sizing
+
+	.fill
+		&, &__long
+			height 100%
+		&, &__wide
+			width 100%
+
+	// color
+
+	.text-inherit-color
+		color inherit
+
+	.text-white
+		color #FFFFFF
+
+	.back-white
+		background-color #FFFFFF
+
+	.text-gold
+		color goldFont
+
+	.text-red
+		color red
+
+	.border-red__top
+		border-top 1px solid red
+
+	.back-orange
+		background-color orange
+
+	.border-orange
+		border 1px solid orange
+
+	.back-medium-gray
+		background-color mediumGray
+
+	.text-medium-gray
+		color mediumGray
+
+	.border-medium-gray
+		border 1px solid mediumGray
+
+	.back-light-gray
+		background-color lightGray
+
+	.feedback-outline-orange
+		&:hover, &:active, &:hover, &:focus
+			outline 1px solid orange
+
+	// discreet honeypot class
+
+	.pooh-bear
+		visibility hidden !important
+		display none !important
+	
+	// fonts
+
+	.font-arial
+		font-family Arial, sans-serif
+
+	for i in fontSizes
+		.font-{i}px
+			font-size 1px * i
+
+	// miscellaneous
+
+	.pointer
+		cursor pointer
+
+	.no-wrap
+		white-space nowrap
+
+	.no-border
+		border none
+
+	.border-radius
+		border-radius 5px
+
+	.ellipsis
+		white-space nowrap
+		overflow hidden
+		text-overflow ellipsis

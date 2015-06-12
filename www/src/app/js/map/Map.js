@@ -439,8 +439,8 @@ define([
                 mapOverlaysLayer,
                 // Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
                 // If needs be, seperate these out into multiple Graphics Layers
-                wizardGraphicsLayer,
-                customGraphicsLayer
+                customGraphicsLayer,
+                wizardGraphicsLayer
             ]);
 
             on.once(app.map, 'layers-add-result', function(response) {
