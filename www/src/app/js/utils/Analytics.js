@@ -21,9 +21,9 @@ define([], function () {
       };
 
       if (ga) {
-        // ga('A.send', payload);
-        // ga('B.send', payload);
-        ga('send', payload);
+        ga('A.send', payload);
+        ga('B.send', payload);
+        ga('C.send', payload);
       }
 
     },
@@ -43,9 +43,9 @@ define([], function () {
       if (overrideTitle) { payload.title = overrideTitle; }
 
       if (ga) {
-        // ga('A.send', payload);
-        // ga('B.send', payload);
-        ga('send', payload);
+        ga('A.send', payload);
+        ga('B.send', payload);
+        ga('C.send', payload);
       }
 
     }
