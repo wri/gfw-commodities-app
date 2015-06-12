@@ -273,7 +273,7 @@ define([
             }
 
             // Emit Event for Analytics
-            Analytics.sendEvent('Event', 'click', 'Perform Analysis', 'User clicked perfrom analysis.');
+            Analytics.sendEvent('Event', 'Perform Analysis', 'User clicked perfrom analysis.');
 
         },
 

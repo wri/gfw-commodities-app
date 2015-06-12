@@ -934,7 +934,7 @@ define([
 
           CSVExporter.exportCSV(output);
 
-          Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded RSPO results table.');
+          Analytics.sendEvent('Event', 'Download CSV', 'User downloaded RSPO results table.');
 
         });
 

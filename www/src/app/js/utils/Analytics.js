@@ -8,7 +8,7 @@ define([], function () {
     * @param {string} category - Category of an event, all should be 'Event'
     * @param {string} action - Type of action performed
     * @param {string} label - label describing the action
-    * @param {string | number} value - value associated with the action, usually 1
+    * @param {number} value - value associated with the action, usually 0
     */
     sendEvent: function (category, action, label, value) {
 
@@ -17,7 +17,7 @@ define([], function () {
         'eventCategory': category,
         'eventAction': action,
         'eventLabel': label,
-        'eventValue': value
+        'eventValue': value || 0
       };
 
       if (ga) {

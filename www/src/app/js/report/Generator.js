@@ -129,7 +129,7 @@ define([
                 }
 
                 var value = type === 'column' ? 'RSPO Land Use Change Analysis' : this.title.textStr;
-                Analytics.sendEvent('Event', 'click', 'Download CSV', value);
+                Analytics.sendEvent('Event', 'Download CSV', value);
 
             }
 

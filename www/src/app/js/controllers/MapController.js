@@ -287,7 +287,7 @@ define([
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
 
-                Analytics.sendEvent('Event', 'click', 'Share Button', 'User clicked the share button.');
+                Analytics.sendEvent('Event', 'Share Button', 'User clicked the share button.');
             });
 
             // on(dom.byId("alert-button"), "click", function() {

@@ -51,12 +51,12 @@ define([
 			csvData = CSVExporter.exportSuitabilityStatistics();
 			csvStringData = csvData.join(lineEnding);
 			CSVExporter.exportCSV(csvStringData);
-      Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded Suitability results table.');
+      Analytics.sendEvent('Event', 'Download CSV', 'User downloaded Suitability results table.');
 		},
 
 		downloadSuitabiltiySettings: function () {
 			CSVExporter.exportCSV(payload.suitability.csv);
-      Analytics.sendEvent('Event', 'click', 'Download CSV', 'User downloaded Suitability settings.');
+      Analytics.sendEvent('Event', 'Download CSV', 'User downloaded Suitability settings.');
 		},
 
 		getSuitableAreas: function (pixelSize) {

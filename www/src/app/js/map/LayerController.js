@@ -45,7 +45,7 @@ define([
               this.showSuitabilityLoader();
               // We also want to track this layer and not a lot of others for now
               var message = 'User toggled Custom Suitabiltiy Layer ' + (layer.visible ? 'off.' : 'on.');
-              Analytics.sendEvent('Event', 'toggle', 'Custom Suitability Layer', message);
+              Analytics.sendEvent('Event', 'Layer', message);
           }
           if (layer) {
               layer.setVisibility(!layer.visible);
@@ -97,15 +97,15 @@ define([
             switch (conf) {
               case MapConfig.oilPerm:
                 value = 'User toggled Oil Palm Concessions layer ' + status;
-                Analytics.sendEvent('Event', 'toggle', 'Oil Palm Concessions', value);
+                Analytics.sendEvent('Event', 'Layer', value);
               break;
               case MapConfig.rspoPerm:
                 value = 'User toggled RSPO Oil Palm Concessions layer ' + status;
-                Analytics.sendEvent('Event', 'toggle', 'RSPO Oil Palm Concessions', value);
+                Analytics.sendEvent('Event', 'Layer', value);
               break;
               case MapConfig.mill:
                 value = 'User toggled RSPO Mills layer ' + status;
-                Analytics.sendEvent('Event', 'toggle', 'RSPO Mills', value);
+                Analytics.sendEvent('Event', 'Layer', value);
               break;
             }        
 
