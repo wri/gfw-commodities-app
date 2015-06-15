@@ -15,7 +15,7 @@ define([
     * @param {string} value - Value to match to the provided field
     */
     removeSelectedFeatureByField: function (field, value) {
-      assert(field && value, 'removeSelectedFeatureByField - Invalid Parameters');
+      assert(field && value, 'Invalid Parameters for \'WizardActions.removeSelectedFeatureByField\'');
 
       var selectedFeatures = Store.get(KEYS.selectedCustomFeatures),
           featureRemoved,
@@ -39,7 +39,7 @@ define([
     * @param {array} graphics - Array of Esri Graphic object to add to the list
     */
     addSelectedFeatures: function (graphics) {
-      assert(graphics !== undefined, 'addSelectedFeature - Invalid Parameters');
+      assert(graphics !== undefined, 'Invalid Parameters for \'WizardActions.addSelectedFeature\'');
 
       var selectedFeatures = Store.get(KEYS.selectedCustomFeatures);
       selectedFeatures = selectedFeatures.concat(graphics);
@@ -51,6 +51,28 @@ define([
     */
     clearSelectedCustomFeatures: function () {
       Store.set(KEYS.selectedCustomFeatures, []);
+    },
+
+    /** 
+    * Move on to the next step in the wizard
+    */
+    proceedToNextStep: function () {
+      Store.set(KEYS.userStep, Store.get(KEYS.userStep) + 1);
+    },
+
+    /**
+    * Update the selected area of interest in the wizard
+    * @param {string} areaId - ID for the area of Interest
+    * Valid Options are in analysis/config.js:
+    * - AnalyzerConfig.stepOne.option1.id
+    * - AnalyzerConfig.stepOne.option2.id
+    * - AnalyzerConfig.stepOne.option3.id
+    * - AnalyzerConfig.stepOne.option4.id
+    * - AnalyzerConfig.stepOne.option5.id
+    */
+    setAreaOfInterest: function (areaId) {
+      assert(areaId !== undefined, 'Invalid Parameters for \'WizardActions.setAreaOfInterest\'.');
+      Store.set(KEYS.areaOfInterest, areaId);
     }
 
   };

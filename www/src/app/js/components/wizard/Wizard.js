@@ -5,7 +5,7 @@ define([
     "components/wizard/StepOne",
     "components/wizard/StepTwo",
     "components/wizard/StepThree",
-    "components/wizard/StepFive",
+    "components/wizard/Intro",
     // Other Helpful Modules
     "dojo/topic",
     "dojo/_base/array",
@@ -15,7 +15,7 @@ define([
     "map/Controls",
     'utils/Analytics',
     'utils/GeoHelper'
-], function (React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, StepFive, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, Analytics, GeoHelper) {
+], function (React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, Intro, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, Analytics, GeoHelper) {
 
     var breadcrumbs = AnalyzerConfig.wizard.breadcrumbs;
     var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -142,7 +142,7 @@ define([
                         React.DOM.div({
                                 'className': this.state.currentStep !== 0 ? 'hidden' : ''
                             },
-                            new StepFive(props)
+                            new Intro(props)
                         ),
                         React.DOM.div({
                                 'className': this.state.currentStep !== 1 ? 'hidden' : ''

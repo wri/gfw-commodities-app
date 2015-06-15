@@ -23,6 +23,23 @@ define([], function() {
             //breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
         },
 
+        intro: {
+          beginningText: "Create custom analysis of your area of interest – such as a commodity concession or group of concessions -- considering factors such as:",
+          firstList: [
+            "Tree cover change",
+            "Fire activity",
+            "Primary or intact forest areas",
+            "Protected areas",
+            "Legal classification of land"
+          ],
+          secondaryText: "You can also: ",
+          secondList: [
+            "Upload your own shapefiles for analysis",
+            "Draw an area of interest",
+            "Sign up for alerts for clearance activity"
+          ]
+        },
+
         stepOne: {
             title: "Step 1: Select Area of interest",
             description: "Set the area to analyze using one of the following options.",
@@ -193,23 +210,6 @@ define([], function() {
                 label: 'Peat Lands',
                 value: 'peat'
             }]
-        },
-
-        stepFive: {
-            beginningText: "Create custom analysis of your area of interest – such as a commodity concession or group of concessions -- considering factors such as:",
-            firstList: [
-                "Tree cover change",
-                "Fire activity",
-                "Primary or intact forest areas",
-                "Protected areas",
-                "Legal classification of land"
-            ],
-            secondaryText: "You can also: ",
-            secondList: [
-                "Upload your own shapefiles for analysis",
-                "Draw an area of interest",
-                "Sign up for alerts for clearance activity"
-            ]
         },
 
         customArea: {

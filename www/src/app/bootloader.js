@@ -23,6 +23,9 @@
             }, {
                 name: "report",
                 location: URL + "/js/report"
+            },  {
+                name: "actions",
+                location: URL + "/js/actions"
             }, {
                 name: "analysis",
                 location: URL + "/js/analysis"

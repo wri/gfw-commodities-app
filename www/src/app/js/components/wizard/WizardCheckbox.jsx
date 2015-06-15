@@ -34,18 +34,18 @@ define([
       var className = 'wizard-checkbox' + (this.state.active ? ' active' : '');
 
       return (
-        React.DOM.div({className: "wizard-checkbox-container"}, 
-          React.DOM.div({className: className, 'data-value': this.props.value}, 
-            React.DOM.span({className: "custom-check", onClick: this.toggle}, 
-              React.DOM.span(null)
-            ), 
-            React.DOM.a({className: "wizard-checkbox-label", onClick: this.toggle}, this.props.label), 
-            
+        <div className='wizard-checkbox-container'>          
+          <div className={className} data-value={this.props.value}>
+            <span className='custom-check' onClick={this.toggle}>
+              <span />
+            </span>
+            <a className='wizard-checkbox-label' onClick={this.toggle}>{this.props.label}</a>
+            {
               this.props.noInfoIcon ? null :
-              React.DOM.div({className: "layer-info-icon", onClick: this.showInfo})
-            
-          )
-        )
+              <div className='layer-info-icon' onClick={this.showInfo} />
+            }
+          </div>
+        </div>
       );
     },
     /* jshint ignore:end */

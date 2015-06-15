@@ -12,6 +12,7 @@
     'models': 'app/js/models',
     'utils': 'app/js/utils',
     'report': 'app/js/report',
+    'actions': 'app/js/actions',
     'analysis': 'app/js/analysis',
     'templates': 'app/templates',
     'controllers': 'app/js/controllers',

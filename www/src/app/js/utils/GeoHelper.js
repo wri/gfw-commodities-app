@@ -140,7 +140,7 @@ define([
     * @param {string} value - Value of the field in the graphic we want to remove
     */
     removeGraphicByField: function (layerId, field, value) {
-      assert(layerId && field && value, "removeGraphicByField - Invalid Parameters");
+      assert(layerId && field && value, "Invalid Parameters for 'GeoHelper.removeGraphicByField'");
 
       var layer = app.map.getLayer(layerId);
 

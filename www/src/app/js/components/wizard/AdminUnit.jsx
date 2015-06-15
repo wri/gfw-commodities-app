@@ -8,7 +8,7 @@ define([
   "analysis/config",
   "utils/GeoHelper",
   "analysis/WizardStore",
-  "analysis/WizardActions",
+  "actions/WizardActions",
   "components/wizard/NestedList",
   // Other Helpful Modules
   "dojo/topic",
