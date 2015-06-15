@@ -1,8 +1,10 @@
 define([
+    "dojo/query",
     "dojo/dom",
     "dojo/dom-style",
+    "dojo/dom-class",
     "models/FooterModel"
-], function(dom, domStyle, FooterModel) {
+], function(dojoQuery, dom, domStyle, domClass, FooterModel) {
     'use strict';
 
     var initialized = false;
@@ -25,6 +27,17 @@ define([
                 h = document.getElementsByTagName('head')[0];
             s.src = 'http://www.globalforestwatch.org/gfw-assets';
             s.async = true;
+            // Highlight current icon on load
+            s.onload = s.onreadystatechange = function () {
+              var icon,
+                  intervalID = setInterval(function () {
+                    icon = dojoQuery('#headerGfw .shape-commodities')[0];
+                    if (icon !== undefined) {
+                      domClass.add(icon, 'current');
+                      clearInterval(intervalID);
+                    }
+                  }, 50);
+            };
             h.appendChild(s);
         },
 
