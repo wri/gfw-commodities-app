@@ -59,7 +59,7 @@ define([
         // and not radio buttons, which is why it has it's own function and cannot use updateDynamicLayer,
         // This queries other checkboxes in the same layer to find out which needs to be added to visible layers
         updateLayer: function(props) {
-            var conf = MapConfig[props.key],
+            var conf = MapConfig[props.id],
                 layer = app.map.getLayer(conf.id),
                 queryClass = props.filter,
                 visibleLayers = [],

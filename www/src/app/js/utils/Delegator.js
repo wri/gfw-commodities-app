@@ -125,7 +125,7 @@ define([
 
             topic.subscribe('updateLayer', function(props) {
                 if (props.layerType === "tiled") {
-                    var config = MapConfig[props.key];
+                    var config = MapConfig[props.id];
                     if (config) {
                         LayerController.toggleLayers(config);
                     }

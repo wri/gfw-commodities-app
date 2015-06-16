@@ -305,7 +305,9 @@ define([
     });
 
     return function(props, el) {
+        /* jshint ignore:start */
         return React.render(<Wizard {...props} />, document.getElementById(el));
+        /* jshint ignore:end */
     };
 
 });

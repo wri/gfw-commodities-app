@@ -1,7 +1,7 @@
 /* global window, document, location */
 (function(win, doc) {
     'use strict';
-    var version = "2.4.1",
+    var version = "2.4.2",
         URL = location.pathname.replace(/\/[^/]+$/, "") + 'app',
         dojoConfig = {
             parseOnLoad: false,
@@ -47,8 +47,8 @@
             }],
             aliases: [
                 ['knockout', 'libs/knockout-3.1.0/index'],
-                // ['react', 'libs/react/react.min'],
-                ['react', 'libs/react/react'],
+                ['react', 'libs/react/react.min'],
+                // ['react', 'libs/react/react'],
                 ['lodash', 'libs/lodash/lodash.min']
             ],
             deps: [

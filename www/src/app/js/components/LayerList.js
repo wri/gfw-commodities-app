@@ -3,9 +3,9 @@ define([
 	"react",
 	"dojo/topic",
 	"utils/Hasher",
-	"components/Radio",
+	"components/RadioButton",
 	"components/Check"	
-], function (React, topic, Hasher, Radio, Check) {
+], function (React, topic, Hasher, RadioButton, Check) {
 
 	var _components = [];
 
@@ -33,7 +33,7 @@ define([
     	// 	_components.forEach(function (component) {
     	// 		if (component.props.filter === group) {
     	// 			// Locate the none radio button
-    	// 			if (component.props.key.search("none_") > -1) {
+    	// 			if (component.props.id.search("none_") > -1) {
     	// 				noneComponent = component;
     	// 			}
     	// 			// Check if any are active
@@ -68,20 +68,20 @@ define([
         )
       );
     },
-    /* jshint ignore:end */
 
-    _mapper: function (item) {
-      item.visible = (this.state.filter === item.filter);
-      item.handle = this._handle;
-      item.postCreate = this._postCreate;  
+    _mapper: function (props) {
+      props.visible = (this.state.filter === props.filter);
+      props.handle = this._handle;
+      props.postCreate = this._postCreate;
 
-      if (item.type === "radio") {
-        return new Radio(item);
+      if (props.type === "radio") {
+        return React.createElement(RadioButton, React.__spread({},  props));
       } else {
-        return new Check(item);
+        return React.createElement(Check, React.__spread({},  props));
       }
 
     },
+    /* jshint ignore:end */
 
     _handle: function (component) {
 
@@ -97,10 +97,10 @@ define([
       component.setState({
         active: newState
       });
-      Hasher.toggleLayers(component.props.key);
+      Hasher.toggleLayers(component.props.id);
 
-      if (component.props.useRadioCallback || component.props.key === 'suit') {
-        topic.publish('toggleLayer', component.props.key);
+      if (component.props.useRadioCallback || component.props.id === 'suit') {
+        topic.publish('toggleLayer', component.props.id);
       } else {
         // Call this function on the next animation frame to give React time 
         // to render the changes from its new state, the callback needs to read
@@ -125,7 +125,7 @@ define([
       });
 
       if (previous) {
-      	isNewSelection = (previous.props.key !== component.props.key);
+      	isNewSelection = (previous.props.id !== component.props.id);
         if (isNewSelection) {
           if (previous.props.type !== 'check') {
             previous.setState({
@@ -133,9 +133,9 @@ define([
             });
 
             // Remove Previous Hash but ignore it if None was previous
-            if (previous.props.key.search("none_") === -1) {
-              Hasher.toggleLayers(previous.props.key);
-              topic.publish('hideLayer', previous.props.key);
+            if (previous.props.id.search("none_") === -1) {
+              Hasher.toggleLayers(previous.props.id);
+              topic.publish('hideLayer', previous.props.id);
             }
 
             // Toggle Children for Previous if it has any
@@ -143,9 +143,9 @@ define([
           }
 
           // Add New if None is not selected and isNew
-		      if (component.props.key.search("none_") === -1) {
-		      	Hasher.toggleLayers(component.props.key);
-						topic.publish('showLayer', component.props.key);
+		      if (component.props.id.search("none_") === -1) {
+		      	Hasher.toggleLayers(component.props.id);
+						topic.publish('showLayer', component.props.id);
 		      }
 
         } else {
@@ -155,15 +155,16 @@ define([
           });
 
           this._toggleChildren(component, 'remove');
-          Hasher.removeLayers(component.props.key);
-          topic.publish('hideLayer', component.props.key);
+          Hasher.removeLayers(component.props.id);
+          topic.publish('hideLayer', component.props.id);
 
         }
       } else {
+        console.log(component);
       	// Add New if None is not selected and isNew
-	      if (component.props.key.search("none_") === -1) {
-	      	Hasher.toggleLayers(component.props.key);
-					topic.publish('showLayer', component.props.key);
+	      if (component.props.id.search("none_") === -1) {
+	      	Hasher.toggleLayers(component.props.id);
+					topic.publish('showLayer', component.props.id);
 	      }
       }
 
@@ -184,7 +185,7 @@ define([
     	if (component.props.children) {
     		component.props.children.forEach(function (child) {
     			_components.forEach(function (comp) {
-    				if (comp.props.key === child.key) {
+    				if (comp.props.id === child.id) {
     					childComponents.push(comp);
     				}
     			});
@@ -193,15 +194,15 @@ define([
     		if (action === 'remove') {
     			childComponents.forEach(function (child) {
     				if (child.state.active) {
-  						topic.publish('hideLayer', child.props.key);
-  						Hasher.removeLayers(child.props.key);
+  						topic.publish('hideLayer', child.props.id);
+  						Hasher.removeLayers(child.props.id);
     				}
 	    		});
     		} else {
     			childComponents.forEach(function (child) {
     				if (child.state.active) {
-							topic.publish('showLayer', child.props.key);
-							Hasher.toggleLayers(child.props.key);
+							topic.publish('showLayer', child.props.id);
+							Hasher.toggleLayers(child.props.id);
     				}
 	    		});
     		}
@@ -213,11 +214,11 @@ define([
       _components.push(component);
     },
 
-    toggleFormElement: function (key) {
+    toggleFormElement: function (id) {
       // Loop through the components
-      // If the key matches, trigger the onChange callback (a.k.a. props.handle)
+      // If the id matches, trigger the onChange callback (a.k.a. props.handle)
       _components.forEach(function (comp) {
-        if (comp.props.key === key) {
+        if (comp.props.id === id) {
           comp.props.handle(comp);
         }
       });
@@ -226,7 +227,9 @@ define([
   });
 
 	return function (props, el) {
-		return React.renderComponent(new List(props), document.getElementById(el));
+    /* jshint ignore:start */
+		return React.render(React.createElement(List, React.__spread({},  props)), document.getElementById(el));
+    /* jshint ignore:end */
 	};
 
 });

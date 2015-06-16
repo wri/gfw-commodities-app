@@ -8,7 +8,7 @@ define([
   "dijit/form/HorizontalSlider"
 ], function (React, topic, domClass, Hasher, Check, HorizontalSlider) {
 
-	var Radio = React.createClass({
+	var RadioButton = React.createClass({
 
     getInitialState: function () {
       return ({ active: this.props.active || false });
@@ -17,18 +17,18 @@ define([
     componentDidMount: function () {
       this.props.postCreate(this);
       var layerArray = Hasher.getLayers(),
-					active = layerArray.indexOf(this.props.key) > -1,
+					active = layerArray.indexOf(this.props.id) > -1,
           self = this;
 
 			if (active) {
-				topic.publish('showLayer', this.props.key);
+				topic.publish('showLayer', this.props.id);
 				this.setState({
 					active: active
 				});
 			}
 
       // Create the slider if the container exists
-      if (document.getElementById(this.props.key + "_slider") && !this.props.noSlider) {
+      if (document.getElementById(this.props.id + "_slider") && !this.props.noSlider) {
         new HorizontalSlider({
           value: 100,
           minimum: 0,
@@ -37,9 +37,9 @@ define([
           showButtons: false,
           intermediateChanges: false,
           onChange: function (value) {
-            topic.publish('changeLayerTransparency', self.props.key, self.props.layerType, value);
+            topic.publish('changeLayerTransparency', self.props.id, self.props.layerType, value);
           }
-        }, this.props.key + "_slider").startup();
+        }, this.props.id + "_slider").startup();
       }
 
     },
@@ -67,7 +67,7 @@ define([
                       (this.props.visible ? '' : ' hidden');
 
       return (
-        <li className={className} data-layer={this.props.key} data-name={this.props.filter}>
+        <li className={className} data-layer={this.props.id} data-name={this.props.filter}>
           <div onClick={this.toggle}>
             <span className='radio-icon'>
               {/* Used as an icon node */}
@@ -86,15 +86,13 @@ define([
               <ul> {this.props.children.map(this._mapper)} </ul> :
               this.props.layerType !== 'none' && !this.props.noSlider ?
                 <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
-                  <div id={this.props.key + '_slider'} />
+                  <div id={this.props.id + '_slider'} />
                 </div> :
                 null
           }
         </li>
       );
     },
-
-    /* jshint ignore:end */
 
     _mapper: function (item) {
 
@@ -104,14 +102,16 @@ define([
       item.useRadioCallback = true;
 
       if (item.type === "radio") {
-        return new Radio(item);
+        return <RadioButton {...item} />;
       } else {
-        return new Check(item);
+        return <Check {...item} />;
       }
     }
 
+    /* jshint ignore:end */
+
   });
 
-	return Radio;
+	return RadioButton;
 
 });

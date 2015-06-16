@@ -19,15 +19,15 @@ define([
     componentDidMount: function() {
       this.props.postCreate(this);
       var layerArray = Hasher.getLayers(),
-          active = layerArray.indexOf(this.props.key) > -1,
+          active = layerArray.indexOf(this.props.id) > -1,
           self = this;
 
       // If layer is activated from the hash in the url
       if (active) {
         this.setState({ active: active });
 
-        if (this.props.useRadioCallback || this.props.key === 'suit') {
-          topic.publish('toggleLayer', this.props.key);
+        if (this.props.useRadioCallback || this.props.id === 'suit') {
+          topic.publish('toggleLayer', this.props.id);
         } else {
           // Call these functions on the next animation frame to give React time 
           // to render the changes from its new state, the callback needs to read
@@ -39,7 +39,7 @@ define([
       }
 
       // Create the slider
-      if (document.getElementById(this.props.key + "_slider")) {
+      if (document.getElementById(this.props.id + "_slider")) {
         new HorizontalSlider({
           value: 100,
           minimum: 0,
@@ -48,9 +48,9 @@ define([
           showButtons: false,
           intermediateChanges: false,
           onChange: function(value) {
-            topic.publish('changeLayerTransparency', self.props.key, self.props.layerType, value);
+            topic.publish('changeLayerTransparency', self.props.id, self.props.layerType, value);
           }
-        }, this.props.key + "_slider").startup();
+        }, this.props.id + "_slider").startup();
       }
     },
 
@@ -76,23 +76,28 @@ define([
           (this.state.active ? ' active' : '') +
           (this.props.visible ? '' : ' hidden');
 
-      return (
-        <li className={className} data-layer={this.props.key}>
-          <div id={this.props.key + '_checkbox'} onClick={this.toggle}>
+      return (        
+        <li className={className} data-layer={this.props.id}>
+          <div id={this.props.id + '_checkbox'} onClick={this.toggle}>
+            
             <span className='custom-check'>
               {/* Used as an icon node */}
               <span />
             </span>
+            
             <a className='layer-title'>{this.props.title}</a>
             { /* If this condition is met, render a layer info icon, else, render nothing */ }
             {
               this.props.title !== 'Loss' && this.props.title !== 'Gain' && this.props.infoDivClass !== undefined ?
                 <span className='layer-info-icon' onClick={this.showInfo} /> : null
             }
+
             <p className='layer-sub-title'>{this.props.subtitle}</p>
             <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
-              <div id={this.props.key + '_slider'} />
+              <div id={this.props.id + '_slider'} />
             </div>
+            
+
           </div>
         </li>
       );

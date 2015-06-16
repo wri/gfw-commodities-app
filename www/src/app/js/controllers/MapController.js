@@ -473,9 +473,9 @@ define([
 
             MapControl.generateSuitabilitySliders();
 
-            // layerList = new LayerList({
-            //     items: MapConfig.layersUI
-            // }, "master-layer-list");
+            layerList = new LayerList({
+                items: MapConfig.layersUI
+            }, "master-layer-list");
 
             MapControl.generateTimeSliders();
 
