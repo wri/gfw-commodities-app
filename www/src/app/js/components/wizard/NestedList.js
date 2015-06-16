@@ -3,7 +3,7 @@ define([
 	"react"
 ], function (React) {
 
-	var ListItem = React.createClass({displayName: 'ListItem',
+	var ListItem = React.createClass({displayName: "ListItem",
 
 		propTypes: {
       label: React.PropTypes.string.isRequired,
@@ -22,8 +22,8 @@ define([
 			if (this.props.filter === '' || this._searchChildrenForMatches(this.props.children, this.props.filter)) {
 				className = isGroupActive ? 'active' : '';
 				return (
-					React.DOM.div({className: "wizard-list-item"}, 
-						React.DOM.span({'data-value': this.props.value, 'data-type': "group", onClick: this._click, className: className}, this.props.label), 
+					React.createElement("div", {className: "wizard-list-item"}, 
+						React.createElement("span", {"data-value": this.props.value, "data-type": "group", onClick: this._click, className: className}, this.props.label), 
 						this.props.children ? this.props.children.map(this._childrenMapper.bind(this, isGroupActive)) : undefined
 					)
 				);
@@ -32,8 +32,8 @@ define([
 				className = 'wizard-list-item' + (this.props.label.toLowerCase().search(this.props.filter) > -1 ? '' : ' hidden') + (isGroupActive ? ' active' : '' );
 
 				return (
-					React.DOM.div({className: className}, 
-						React.DOM.span({'data-value': this.props.value, 'data-type': "group", onClick: this._click, className: className}, this.props.label)
+					React.createElement("div", {className: className}, 
+						React.createElement("span", {"data-value": this.props.value, "data-type": "group", onClick: this._click, className: className}, this.props.label)
 					)
 				);
 				
@@ -49,8 +49,8 @@ define([
 			}
 
 			return (
-				React.DOM.div({className: className, key: index}, 
-					React.DOM.span({'data-value': item.value, 'data-type': "individual", onClick: this._click}, item.label)
+				React.createElement("div", {className: className, key: index}, 
+					React.createElement("span", {"data-value": item.value, "data-type": "individual", onClick: this._click}, item.label)
 				)
 			);
 		},
@@ -79,7 +79,7 @@ define([
     };
 	}
 
-	var NestedList = React.createClass({displayName: 'NestedList',
+	var NestedList = React.createClass({displayName: "NestedList",
 
     getInitialState: function () {
       return (getDefaultState());
@@ -94,12 +94,12 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-      	React.DOM.div({className: "nested-list"}, 
-      		React.DOM.div({className: 'searchBox relative' + (this.props.data.length > 0 ? '' : ' hidden')}, 
-      			React.DOM.div({className: "nested-list-search-icon"}), 
-      			React.DOM.input({placeholder: this.props.placeholder, type: "text", value: this.state.filter, onChange: this._setFilter})
+      	React.createElement("div", {className: "nested-list"}, 
+      		React.createElement("div", {className: 'searchBox relative' + (this.props.data.length > 0 ? '' : ' hidden')}, 
+      			React.createElement("div", {className: "nested-list-search-icon"}), 
+      			React.createElement("input", {placeholder: this.props.placeholder, type: "text", value: this.state.filter, onChange: this._setFilter})
       		), 
-      		React.DOM.div({className: 'list-container' + (this.state.filter !== '' ? ' filtered' : '')}, 
+      		React.createElement("div", {className: 'list-container' + (this.state.filter !== '' ? ' filtered' : '')}, 
       			this.props.data.map(this._mapper, this)
       		)
       	)
@@ -108,7 +108,7 @@ define([
 
     _mapper: function (item, index) {
     	return (
-    		ListItem({
+    		React.createElement(ListItem, {
     			key: index, 
     			label: item.label || 'No Name', 
     			value: item.value, 

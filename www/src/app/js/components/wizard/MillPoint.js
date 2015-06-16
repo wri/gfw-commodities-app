@@ -106,31 +106,31 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({className: "mill-point", id: "mill-point"}, 
+        React.createElement("div", {className: "mill-point", id: "mill-point"}, 
           /* Custom Toggle Switch, mill-list-toggle-indicator has orange background behind active list option */
-          React.DOM.div({className: "mill-list-options back-light-gray relative"}, 
-            React.DOM.div({className: 'mill-list-toggle-indicator mill-' + (this.state.showCustomFeaturesList ? 'custom-list' : 'known-list')}), 
-            React.DOM.div({className: 'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? '' : 'active'), 
+          React.createElement("div", {className: "mill-list-options back-light-gray relative"}, 
+            React.createElement("div", {className: 'mill-list-toggle-indicator mill-' + (this.state.showCustomFeaturesList ? 'custom-list' : 'known-list')}), 
+            React.createElement("div", {className: 'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? '' : 'active'), 
                   id: "selectFromList", 
                   onClick:  this.toggleList}, 
               config.selectFromListButton
             ), 
-            React.DOM.div({className: 'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? 'active' : ''), 
+            React.createElement("div", {className: 'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? 'active' : ''), 
                   id: "selectFromCustom", 
                   onClick:  this.toggleList}, 
               config.selectFromCustomListButton
             )
           ), 
           /* Render this list when user clicks selectFromList */
-          React.DOM.div({className: this.state.showCustomFeaturesList ? 'hidden' : ''}, 
-            React.DOM.p({className: "instructions"}, config.selectInstructions), 
-            React.DOM.div({className: "select-container"}, 
-              React.DOM.select({id: "mill-select", className: "mill-select", value: this.state.selectedCommodity, onChange: this._loadMillPoints}, 
+          React.createElement("div", {className: this.state.showCustomFeaturesList ? 'hidden' : ''}, 
+            React.createElement("p", {className: "instructions"}, config.selectInstructions), 
+            React.createElement("div", {className: "select-container"}, 
+              React.createElement("select", {id: "mill-select", className: "mill-select", value: this.state.selectedCommodity, onChange: this._loadMillPoints}, 
                  config.commodityOptions.map(this._selectMapper, this) 
               )
             ), 
-            React.DOM.p({className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, " ", config.listInstructions, " "), 
-            NestedList({data: this.state.nestedListData, 
+            React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, " ", config.listInstructions, " "), 
+            React.createElement(NestedList, {data: this.state.nestedListData, 
               click: this._millPointSelected, 
               placeholder: "Search mill points...", 
               activeListItemValues: this.state.activeListItemValues, 
@@ -138,20 +138,20 @@ define([
             )
           ), 
           /* Render this list when user clicks upload or enterCoords */
-          React.DOM.div({className: this.state.showCustomFeaturesList ? '' : 'hidden'}, 
-            React.DOM.p({className: "instructions"}, config.instructions), 
-            React.DOM.div({className: "drawing-tools"}, 
-              React.DOM.div({className: "drawing-tool-button", id: "enterCoords", onClick:  this.drawToolClicked}, config.enterCoordinatesButton), 
-              React.DOM.div({className: "drawing-tool-button", id: "upload", onClick:  this.drawToolClicked}, config.uploadButton)
+          React.createElement("div", {className: this.state.showCustomFeaturesList ? '' : 'hidden'}, 
+            React.createElement("p", {className: "instructions"}, config.instructions), 
+            React.createElement("div", {className: "drawing-tools"}, 
+              React.createElement("div", {className: "drawing-tool-button", id: "enterCoords", onClick:  this.drawToolClicked}, config.enterCoordinatesButton), 
+              React.createElement("div", {className: "drawing-tool-button", id: "upload", onClick:  this.drawToolClicked}, config.uploadButton)
             ), 
-            FeatureList({features: this.state.customFeatures, selectedFeatures: this.state.selectedCustomFeatures, rspoChecks: true, showClear: true})
+            React.createElement(FeatureList, {features: this.state.customFeatures, selectedFeatures: this.state.selectedCustomFeatures, rspoChecks: true, showClear: true})
           )
         )
       );
     },
 
     _selectMapper: function (item) {
-      return React.DOM.option({value: item.value}, " ", item.label, " ");
+      return React.createElement("option", {value: item.value}, " ", item.label, " ");
     },
     /* jshint ignore:end */
 

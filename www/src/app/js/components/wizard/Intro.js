@@ -12,23 +12,23 @@ define([
     /* jshint ignore:start */
     render: function() {
       return (
-        React.DOM.div({className: "step"}, 
-          React.DOM.div({className: "step-body"}, 
-            React.DOM.div({className: "step-title"}, config.title), 
-            React.DOM.div({className: "step-one-main-description"}, 
-              React.DOM.p(null, config.beginningText), 
-              React.DOM.ul(null, 
+        React.createElement("div", {className: "step"}, 
+          React.createElement("div", {className: "step-body"}, 
+            React.createElement("div", {className: "step-title"}, config.title), 
+            React.createElement("div", {className: "step-one-main-description"}, 
+              React.createElement("p", null, config.beginningText), 
+              React.createElement("ul", null, 
                 config.firstList.map(this._listMapper)
               ), 
-              React.DOM.p(null, config.secondaryText), 
-              React.DOM.ul(null, 
+              React.createElement("p", null, config.secondaryText), 
+              React.createElement("ul", null, 
                 config.secondList.map(this._listMapper)
               )
             )
           ), 
-          React.DOM.div({className: "step-footer"}, 
-            React.DOM.div({className: "next-button-container", onClick: WizardActions.proceedToNextStep}, 
-              React.DOM.div({className: "next-button"}, "Next")
+          React.createElement("div", {className: "step-footer"}, 
+            React.createElement("div", {className: "next-button-container", onClick: WizardActions.proceedToNextStep}, 
+              React.createElement("div", {className: "next-button"}, "Next")
             )
           )
         )
@@ -36,7 +36,7 @@ define([
     },
 
     _listMapper: function (item) {
-        return React.DOM.li(null, item);
+        return React.createElement("li", null, item);
     }
     /* jshint ignore:end */
 

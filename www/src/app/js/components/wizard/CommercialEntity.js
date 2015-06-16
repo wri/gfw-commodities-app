@@ -99,16 +99,16 @@ define([
       }
 
       return (
-        React.DOM.div({className: "commercial-entity"}, 
-          React.DOM.p({className: "instructions"}, " ", config.instructions, " "), 
-          React.DOM.select({className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
+        React.createElement("div", {className: "commercial-entity"}, 
+          React.createElement("p", {className: "instructions"}, " ", config.instructions, " "), 
+          React.createElement("select", {className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
             config.commodityOptions.map(this._selectMapper, this)
           ), 
-          React.DOM.span({className: 'loading' + (this.state.isLoading ? '' : ' hidden')}), 
-          React.DOM.p({className: 'instructions' + (this.state.nestedListData.length> 0 ? '' : ' hidden')}, 
+          React.createElement("span", {className: 'loading' + (this.state.isLoading ? '' : ' hidden')}), 
+          React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length> 0 ? '' : ' hidden')}, 
             config.instructionsPartTwo
           ), 
-          NestedList({
+          React.createElement(NestedList, {
             data: this.state.nestedListData, 
             click: this._commodityClicked, 
             placeholder: "Search commercial entities", 
@@ -121,7 +121,7 @@ define([
     },
 
     _selectMapper: function (item) {
-      return React.DOM.option({value: item.value}, item.label);
+      return React.createElement("option", {value: item.value}, item.label);
     },
     /* jshint ignore:end */
 

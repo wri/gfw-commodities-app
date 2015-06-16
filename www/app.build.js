@@ -19,7 +19,7 @@
     'components': 'app/js/components',
     // Aliases
     'knockout': 'app/libs/knockout-3.1.0/index',
-    'react': 'app/libs/react-0.11.1.min/index',
+    'react': 'app/libs/react/react.min',
     'lodash': 'app/libs/lodash/lodash.min'
   },
   name: 'app/js/bundle',

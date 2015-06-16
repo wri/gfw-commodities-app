@@ -9,7 +9,7 @@ define([
 
 	var _components = [];
 
-  var List = React.createClass({displayName: 'List',
+  var List = React.createClass({displayName: "List",
 
     getInitialState: function () {
       return ({
@@ -59,10 +59,10 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({className: "smart-list"}, 
-          React.DOM.div({className: "filter-list-title"}, this.props.title), 
-          React.DOM.div({className: "layer-line"}), 
-          React.DOM.ul({className: "filter-list"}, 
+        React.createElement("div", {className: "smart-list"}, 
+          React.createElement("div", {className: "filter-list-title"}, this.props.title), 
+          React.createElement("div", {className: "layer-line"}), 
+          React.createElement("ul", {className: "filter-list"}, 
             this.props.items.map(this._mapper, this)
           )
         )

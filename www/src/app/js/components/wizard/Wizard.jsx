@@ -109,60 +109,34 @@ define([
             if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
                 topic.publish('hideConcessionsLegend');
             }
-            
+
             return (
-                React.DOM.div({
-                        'className': 'relative wizard-root'
-                    },
-                    React.DOM.div({
-                            'className': 'wizard-header'
-                        },
-                        React.DOM.div({
-                                'className': 'title-section'
-                            },
-                            React.DOM.span({
-                                'className': 'title'
-                            }, "Analysis"),
-                            React.DOM.span({
-                                'className': 'button reset',
-                                onClick: this._reset
-                            }, "Reset"),
-                            React.DOM.span({
-                                'className': 'button close',
-                                onClick: this._close
-                            }, "")
-                        ),
-                        React.DOM.div({
-                                'className': 'breadcrumbs'
-                            },
-                            breadcrumbs.map(this._breadcrumbMapper, this)
-                        )
-                    ),
-                    React.DOM.div({
-                            'className': 'wizard-body'
-                        },
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 0 ? 'hidden' : ''
-                            },
-                            new Intro(props)
-                        ),
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 1 ? 'hidden' : ''
-                            },
-                            new StepOne(props)
-                        ),
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 2 ? 'hidden' : ''
-                            },
-                            new StepTwo(props)
-                        ),
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 3 ? 'hidden' : ''
-                            },
-                            new StepThree(props)
-                        )
-                    )
-                )
+              <div className='relative wizard-root'>
+                <div className='wizard-header'>
+                  <div className='title-section'>
+                    <span className='title'>Analysis</span>
+                    <span className='button reset' onClick={this._reset}>Reset</span>
+                    <span className='button close' onClick={this._close}></span>
+                  </div>
+                  <div className='breadcrumbs'>
+                    {breadcrumbs.map(this._breadcrumbMapper, this)}
+                  </div>
+                </div>
+                <div className='wizard-body'>
+                  <div className={this.state.currentStep !== 0 ? 'hidden' : ''}>
+                    <Intro {...props} />
+                  </div>
+                  <div className={this.state.currentStep !== 1 ? 'hidden' : ''}>
+                    <StepOne {...props} />
+                  </div>
+                  <div className={this.state.currentStep !== 2 ? 'hidden' : ''}>
+                    <StepTwo {...props} />
+                  </div>
+                  <div className={this.state.currentStep !== 3 ? 'hidden' : ''}>
+                    <StepThree {...props} />
+                  </div>
+                </div>
+              </div>
             );
         },
 
@@ -173,21 +147,9 @@ define([
             return (
                 <span className={className}>
                     <span className='piece' data-index={index} onClick={this._changeStep}>{item}</span>
-                    {(index < breadcrumbs.length - 1) ? <span className='carat'>></span> : null}
+                    {(index < breadcrumbs.length - 1) ? <span className='carat'> &gt; </span> : null}
                 </span>
             );
-            // return React.DOM.span({
-            //         'className': className
-            //     },
-            //     React.DOM.span({
-            //         'className': 'piece',
-            //         'data-index': index,
-            //         onClick: this._changeStep
-            //     }, item), 
-            //     (index < breadcrumbs.length - 1) ? React.DOM.span({
-            //         'className': 'carat'
-            //     }, ' > ') : null
-            // );
         },
         /* jshint ignore:end */
 
@@ -343,7 +305,7 @@ define([
     });
 
     return function(props, el) {
-        return React.renderComponent(new Wizard(props), document.getElementById(el));
+        return React.render(<Wizard {...props} />, document.getElementById(el));
     };
 
 });

@@ -104,18 +104,18 @@ define([
       }
 
       return (
-        React.DOM.div({className: "certified-area"}, 
-          React.DOM.p({className: "instructions"}, " ", config.instructions, " "), 
-          React.DOM.select({className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._updateCommodity}, 
+        React.createElement("div", {className: "certified-area"}, 
+          React.createElement("p", {className: "instructions"}, " ", config.instructions, " "), 
+          React.createElement("select", {className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._updateCommodity}, 
             config.commodityOptions.map(this._selectMapper, this)
           ), 
-          React.DOM.p({className: "instructions"}, " ", config.instructionsPartTwo, " "), 
-          React.DOM.select({className: "certification-scheme-select", value: this.state.selectedScheme, onChange: this._loadFeatures}, 
+          React.createElement("p", {className: "instructions"}, " ", config.instructionsPartTwo, " "), 
+          React.createElement("select", {className: "certification-scheme-select", value: this.state.selectedScheme, onChange: this._loadFeatures}, 
             config.certificationOptions.map(this._selectMapper, this)
           ), 
-          React.DOM.span({className: 'loading-wheel' + (this.state.isLoading ? '': ' hidden')}), 
-          React.DOM.p({className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartThree), 
-          NestedList({
+          React.createElement("span", {className: 'loading-wheel' + (this.state.isLoading ? '': ' hidden')}), 
+          React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, config.instructionsPartThree), 
+          React.createElement(NestedList, {
             data: this.state.nestedListData, 
             click: this._schemeClicked, 
             placeholder: "Search certified areas...", 
@@ -128,7 +128,7 @@ define([
     },
 
     _selectMapper: function (item) {
-      return React.DOM.option({value: item.value}, item.label);
+      return React.createElement("option", {value: item.value}, item.label);
     },
     /* jshint ignore:end */
 
@@ -173,10 +173,10 @@ define([
     },
 
     _schemeClicked: function (target) {
-      var objectId = parseInt(target.getAttribute('data-value')),
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+          objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
           label = target.innerText || target.innerHTML,
-          wizardGraphicsLayer,
           activeItems,
           self = this,
           graphic;

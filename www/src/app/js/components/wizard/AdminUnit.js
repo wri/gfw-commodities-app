@@ -30,7 +30,7 @@ define([
     };
   }
 
-	var AdminUnit = React.createClass({displayName: 'AdminUnit',
+	var AdminUnit = React.createClass({displayName: "AdminUnit",
 
     getInitialState: function () {
       return getDefaultState();
@@ -73,21 +73,21 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({className: "admin-unit", id: "admin-unit"}, 
-          React.DOM.p({className: "instructions"}, " ", config.instructions, " "), 
-          React.DOM.div({className: "select-container"}, 
-            React.DOM.select({
+        React.createElement("div", {className: "admin-unit", id: "admin-unit"}, 
+          React.createElement("p", {className: "instructions"}, " ", config.instructions, " "), 
+          React.createElement("div", {className: "select-container"}, 
+            React.createElement("select", {
               id: "country-select", 
               className: "country-select", 
               onChange: this._loadAdminUnits, 
-              'data-bind': "options: allCountries, optionsText: \"label\", optionsValue: \"value\""}
+              "data-bind": "options: allCountries, optionsText: \"label\", optionsValue: \"value\""}
             ), 
-            React.DOM.span({className: 'loading-wheel' + (this.state.isLoading ? '' : ' hidden')})
+            React.createElement("span", {className: 'loading-wheel' + (this.state.isLoading ? '' : ' hidden')})
           ), 
-          React.DOM.p({className: 'instructions' + (this.state.nestedListData.length > 0) ? '' : ' hidden'}, 
+          React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length > 0) ? '' : ' hidden'}, 
             config.instructionsPartTwo
           ), 
-          NestedList({
+          React.createElement(NestedList, {
             data: this.state.nestedListData, 
             click: this._lowLevelAdminUnitClick, 
             placeholder: "Search administrative units...", 

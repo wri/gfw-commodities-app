@@ -52,39 +52,39 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({className: "step"}, 
-          React.DOM.div({className: "step-body"}, 
-            React.DOM.div({className: "step-title"}, config.title), 
-            React.DOM.p({className: "step-one-main-description"}, config.description), 
-            React.DOM.div({className: "s1-radio-container"}, 
-              React.DOM.input({type: "radio", name: "first-step", onChange: this.changeSelection, id: option1.id, checked: this.state.selectedOption === option1.id}), 
-              React.DOM.label({htmlFor: option1.id}, option1.label), 
-              React.DOM.p({className: "step-one-option-description"}, option1.description)
+        React.createElement("div", {className: "step"}, 
+          React.createElement("div", {className: "step-body"}, 
+            React.createElement("div", {className: "step-title"}, config.title), 
+            React.createElement("p", {className: "step-one-main-description"}, config.description), 
+            React.createElement("div", {className: "s1-radio-container"}, 
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option1.id, checked: this.state.selectedOption === option1.id}), 
+              React.createElement("label", {htmlFor: option1.id}, option1.label), 
+              React.createElement("p", {className: "step-one-option-description"}, option1.description)
             ), 
-            React.DOM.div({className: "s1-radio-container"}, 
-              React.DOM.input({type: "radio", name: "first-step", onChange: this.changeSelection, id: option2.id, checked: this.state.selectedOption === option2.id}), 
-              React.DOM.label({htmlFor: option2.id}, option2.label), 
-              React.DOM.p({className: "step-one-option-description"}, option2.description)
+            React.createElement("div", {className: "s1-radio-container"}, 
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option2.id, checked: this.state.selectedOption === option2.id}), 
+              React.createElement("label", {htmlFor: option2.id}, option2.label), 
+              React.createElement("p", {className: "step-one-option-description"}, option2.description)
             ), 
-            React.DOM.div({className: "s1-radio-container"}, 
-              React.DOM.input({type: "radio", name: "first-step", onChange: this.changeSelection, id: option3.id, checked: this.state.selectedOption === option3.id}), 
-              React.DOM.label({htmlFor: option3.id}, option3.label), 
-              React.DOM.p({className: "step-one-option-description"}, option3.description)
+            React.createElement("div", {className: "s1-radio-container"}, 
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option3.id, checked: this.state.selectedOption === option3.id}), 
+              React.createElement("label", {htmlFor: option3.id}, option3.label), 
+              React.createElement("p", {className: "step-one-option-description"}, option3.description)
             ), 
-            React.DOM.div({className: "s1-radio-container"}, 
-              React.DOM.input({type: "radio", name: "first-step", onChange: this.changeSelection, id: option4.id, checked: this.state.selectedOption === option4.id}), 
-              React.DOM.label({htmlFor: option4.id}, option4.label), 
-              React.DOM.p({className: "step-one-option-description"}, option4.description)
+            React.createElement("div", {className: "s1-radio-container"}, 
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option4.id, checked: this.state.selectedOption === option4.id}), 
+              React.createElement("label", {htmlFor: option4.id}, option4.label), 
+              React.createElement("p", {className: "step-one-option-description"}, option4.description)
             ), 
-            React.DOM.div({className: "s1-radio-container"}, 
-              React.DOM.input({type: "radio", name: "first-step", onChange: this.changeSelection, id: option5.id, checked: this.state.selectedOption === option5.id}), 
-              React.DOM.label({htmlFor: option5.id}, option5.label), 
-              React.DOM.p({className: "step-one-option-description"}, option5.description)
+            React.createElement("div", {className: "s1-radio-container"}, 
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option5.id, checked: this.state.selectedOption === option5.id}), 
+              React.createElement("label", {htmlFor: option5.id}, option5.label), 
+              React.createElement("p", {className: "step-one-option-description"}, option5.description)
             )
           ), 
-          React.DOM.div({className: "step-footer"}, 
-            React.DOM.div({className: "next-button-container", onClick: this.proceed}, 
-              React.DOM.span({className: "next-button"}, "Next")
+          React.createElement("div", {className: "step-footer"}, 
+            React.createElement("div", {className: "next-button-container", onClick: this.proceed}, 
+              React.createElement("span", {className: "next-button"}, "Next")
             )
           )
         )

@@ -68,16 +68,16 @@ define([
     /* jshint ignore:start */
     render: function () {
       return (
-        React.DOM.div({className: "custom-area"}, 
-          React.DOM.p({className: "drawing-instructions"}, " ", AnalyzerConfig.customArea.instructions, " "), 
-          React.DOM.div({className: "drawing-tools"}, 
-            React.DOM.div({className: "drawing-tool-button", id: "draw-freehand", onClick: this._activateToolbar}, AnalyzerConfig.customArea.freehandLabel), 
-            React.DOM.div({className: "drawing-tool-button", id: "draw-polygon", onClick: this._activateToolbar}, AnalyzerConfig.customArea.polyLabel), 
-            React.DOM.div({className: "drawing-tool-button", id: "draw-upload", onClick: Uploader.toggle.bind(Uploader)}, AnalyzerConfig.customArea.uploadLabel)
+        React.createElement("div", {className: "custom-area"}, 
+          React.createElement("p", {className: "drawing-instructions"}, " ", AnalyzerConfig.customArea.instructions, " "), 
+          React.createElement("div", {className: "drawing-tools"}, 
+            React.createElement("div", {className: "drawing-tool-button", id: "draw-freehand", onClick: this._activateToolbar}, AnalyzerConfig.customArea.freehandLabel), 
+            React.createElement("div", {className: "drawing-tool-button", id: "draw-polygon", onClick: this._activateToolbar}, AnalyzerConfig.customArea.polyLabel), 
+            React.createElement("div", {className: "drawing-tool-button", id: "draw-upload", onClick: Uploader.toggle.bind(Uploader)}, AnalyzerConfig.customArea.uploadLabel)
           ), 
-          React.DOM.div({className: "custom-graphics-list-container"}, 
-            React.DOM.p({className: "drawing-instructions"}, AnalyzerConfig.customArea.instructionsPartTwo), 
-            FeatureList({features: this.state.graphics, selectedFeatures: this.state.selectedGraphics})
+          React.createElement("div", {className: "custom-graphics-list-container"}, 
+            React.createElement("p", {className: "drawing-instructions"}, AnalyzerConfig.customArea.instructionsPartTwo), 
+            React.createElement(FeatureList, {features: this.state.graphics, selectedFeatures: this.state.selectedGraphics})
           )
         )
       );

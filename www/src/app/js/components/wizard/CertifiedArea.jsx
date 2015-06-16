@@ -173,10 +173,10 @@ define([
     },
 
     _schemeClicked: function (target) {
-      var objectId = parseInt(target.getAttribute('data-value')),
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+          objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
           label = target.innerText || target.innerHTML,
-          wizardGraphicsLayer,
           activeItems,
           self = this,
           graphic;

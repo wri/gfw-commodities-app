@@ -71,41 +71,41 @@ define([
             });
 
             return (
-              React.DOM.div({className: "step select-analysis"}, 
-                React.DOM.div({className: "step-body"}, 
-                  React.DOM.div({className: "step-three-top"}, 
-                    React.DOM.div({className: "step-title"}, config.title), 
+              React.createElement("div", {className: "step select-analysis"}, 
+                React.createElement("div", {className: "step-body"}, 
+                  React.createElement("div", {className: "step-three-top"}, 
+                    React.createElement("div", {className: "step-title"}, config.title), 
                     /* Show this Only If Mill Point Analysis is Being Done */
                     
                       selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ? 
                         this.createPointContent(hasPoints) : 
                         null, 
                     
-                    WizardCheckbox({label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.DOM.p({className: "layer-description"}, config.suit.description), 
-                    WizardCheckbox({label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.DOM.p({className: "layer-description"}, config.rspo.description), 
-                    React.DOM.div({className: selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden', 
+                    React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                    React.createElement("p", {className: "layer-description"}, config.suit.description), 
+                    React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                    React.createElement("p", {className: "layer-description"}, config.rspo.description), 
+                    React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden', 
                       style: { 'position': 'relative'}
                     }, 
-                      React.DOM.div({className: "coming-soon"}, "Mill Point Risk Assessment Coming Soon!"), 
-                      WizardCheckbox({label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                      React.DOM.p({className: "layer-description"}, config.mill.description)
+                      React.createElement("div", {className: "coming-soon"}, "Mill Point Risk Assessment Coming Soon!"), 
+                      React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                      React.createElement("p", {className: "layer-description"}, config.mill.description)
                     ), 
-                    React.DOM.div({className: "step-sub-header"}, config.forestChange.label), 
-                    React.DOM.p({className: "layer-description"}, config.forestChange.description)
+                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label), 
+                    React.createElement("p", {className: "layer-description"}, config.forestChange.description)
                   ), 
 
-                  React.DOM.div({className: "checkbox-list"}, config.checkboxes.map(this._mapper, this))
+                  React.createElement("div", {className: "checkbox-list"}, config.checkboxes.map(this._mapper, this))
 
                 ), 
-                React.DOM.div({className: "step-footer"}, 
-                  React.DOM.div({className: "selected-analysis-area"}, 
-                    React.DOM.div({className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
-                    React.DOM.div({className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
+                React.createElement("div", {className: "step-footer"}, 
+                  React.createElement("div", {className: "selected-analysis-area"}, 
+                    React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
+                    React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
                   ), 
-                  React.DOM.div({onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
-                    React.DOM.span({className: "next-button"}, "Perform Analysis")
+                  React.createElement("div", {onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
+                    React.createElement("span", {className: "next-button"}, "Perform Analysis")
                   )
                 )
               )
@@ -113,7 +113,7 @@ define([
         },
 
         _mapper: function(item) {
-            return WizardCheckbox({label: item.label, value: item.value, change: this._selectionMade, 
+            return React.createElement(WizardCheckbox, {label: item.label, value: item.value, change: this._selectionMade, 
                 isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
                 defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
             );
@@ -124,7 +124,7 @@ define([
           var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
     
           var options = config.pointRadiusOptions.map(function (option) {
-            return React.DOM.option({value: option.value}, option.label);
+            return React.createElement("option", {value: option.value}, option.label);
           });     
 
           // If it has points, render a select to choose a buffer radius
@@ -132,11 +132,11 @@ define([
           // is analyzing polygons, so show nothing, otherwise, show little description
 
           return (hasPoints ? 
-            React.DOM.div({className: "point-radius-select-container"}, 
-                React.DOM.span({className: "instructions"}, config.pointRadiusDescription), 
-                React.DOM.select({ref: "pointRadiusSelect", className: "point-radius-select"}, options)
+            React.createElement("div", {className: "point-radius-select-container"}, 
+                React.createElement("span", {className: "instructions"}, config.pointRadiusDescription), 
+                React.createElement("select", {ref: "pointRadiusSelect", className: "point-radius-select"}, options)
             ) :
-              isCustomArea ? null : React.DOM.p({className: "sub-title"}, config.knownMillsDisclaimer)
+              isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer)
           );
         },
 

@@ -74,68 +74,33 @@ define([
     /* jshint ignore:start */
     render: function () {
       var selectedArea = WizardStore.get(KEYS.areaOfInterest);
-      // This may require newest react to use spread attributes
-      // return (
-      //   <div className='step'>
-      //     <div className='step-body'>
-      //       <div className='step-title'>{title + ' - ' + customTitles[selectedArea]}</div>
-      //       <div className={'s2-tools ' + (selectedArea !== millPoint ? 'hidden' : '')}>
-      //         <MillPoint {...this.props} />
-      //       </div>
-      //       <div className={'s2-tools ' + (selectedArea !== adminUnit ? 'hidden' : '')}>
-      //         <AdminUnit {...this.props} />
-      //       </div>
-      //       <div className={'s2-tools ' + (selectedArea !== customArea ? 'hidden' : '')}>
-      //         <CustomArea {...this.props} />
-      //       </div>
-      //       <div className={'s2-tools ' + (selectedArea !== certArea ? 'hidden' : '')}>
-      //         <CertifiedArea {...this.props} />
-      //       </div>
-      //       <div className={'s2-tools ' + (selectedArea !== commArea ? 'hidden' : '')}>
-      //         <CommercialEntity {...this.props} />
-      //       </div>
-      //     </div>
-      //     <div className='step-footer'>
-      //       <div className='selected-analysis-area'>
-      //         <div className='current-selection-label'>{AnalyzerConfig.stepTwo.currentFeatureText}</div>
-      //         <div className='current-selection' title={this.state.currentSelectionLabel}>{this.state.currentSelectionLabel}</div>
-      //       </div>
-      //       <div onClick={this.checkRequirements} className={'next-button-container ' + (this.state.completed ? '' : 'disabled')}>
-      //         <span className='next-button'>Next</span>
-      //       </div>
-      //     </div>
-      //   </div>
-      // );
       return (
-        React.DOM.div({'className': 'step'},
-          React.DOM.div({'className': 'step-body'},
-            React.DOM.div({'className': 'step-title'}, title + ' - ' + customTitles[selectedArea]),
-            React.DOM.div({'className': 's2-tools ' + (selectedArea !== millPoint ? 'hidden' : '')},
-              new MillPoint(this.props)
-            ),
-            React.DOM.div({'className': 's2-tools ' + (selectedArea !== adminUnit ? 'hidden' : '')},
-              new AdminUnit(this.props)
-            ),
-            React.DOM.div({'className': 's2-tools ' + (selectedArea !== customArea ? 'hidden' : '')},
-              new CustomArea(this.props)
-            ),
-            React.DOM.div({'className': 's2-tools ' + (selectedArea !== certArea ? 'hidden' : '')},
-              new CertifiedArea(this.props)
-            ),
-            React.DOM.div({'className': 's2-tools ' + (selectedArea !== commArea ? 'hidden' : '')},
-              new CommercialEntity(this.props)
+        React.createElement("div", {className: "step"}, 
+          React.createElement("div", {className: "step-body"}, 
+            React.createElement("div", {className: "step-title"}, title + ' - ' + customTitles[selectedArea]), 
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== millPoint ? 'hidden' : '')}, 
+              React.createElement(MillPoint, React.__spread({},  this.props))
+            ), 
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== adminUnit ? 'hidden' : '')}, 
+              React.createElement(AdminUnit, React.__spread({},  this.props))
+            ), 
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== customArea ? 'hidden' : '')}, 
+              React.createElement(CustomArea, React.__spread({},  this.props))
+            ), 
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== certArea ? 'hidden' : '')}, 
+              React.createElement(CertifiedArea, React.__spread({},  this.props))
+            ), 
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== commArea ? 'hidden' : '')}, 
+              React.createElement(CommercialEntity, React.__spread({},  this.props))
             )
-          ),
-          React.DOM.div({'className': 'step-footer'},
-            React.DOM.div({'className': 'selected-analysis-area'},
-              React.DOM.div({'className': 'current-selection-label'}, AnalyzerConfig.stepTwo.currentFeatureText),
-              React.DOM.div({'className': 'current-selection','title': this.state.currentSelectionLabel }, 
-                this.state.currentSelectionLabel
-              )
-            ),
-            React.DOM.div({'className':'next-button-container ' + (this.state.completed ? '' : 'disabled'), 
-                            onClick: this._checkRequirements},
-              React.DOM.span({'className': 'next-button' }, "Next")
+          ), 
+          React.createElement("div", {className: "step-footer"}, 
+            React.createElement("div", {className: "selected-analysis-area"}, 
+              React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
+              React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
+            ), 
+            React.createElement("div", {onClick: this.checkRequirements, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
+              React.createElement("span", {className: "next-button"}, "Next")
             )
           )
         )
@@ -146,7 +111,6 @@ define([
     checkRequirements: function () {
       if (this.state.completed) {
         WizardActions.proceedToNextStep();
-        // WizardStore.set(KEYS.userStep, WizardStore.get(KEYS.userStep) + 1);
       }
     }
     

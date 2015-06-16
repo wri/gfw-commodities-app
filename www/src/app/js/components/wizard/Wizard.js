@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 define([
     "react",
     "analysis/config",
@@ -31,7 +32,7 @@ define([
     // This Component has some dynamic properties that get created to trigger refresh on the children or
     // keep track of items that effect some childrens rendering
 
-    var Wizard = React.createClass({
+    var Wizard = React.createClass({displayName: "Wizard",
 
         getInitialState: function() {
             return getDefaultState();
@@ -83,6 +84,7 @@ define([
             }
         },
 
+        /* jshint ignore:start */
         render: function() {
             var props = this.props;
             // Mixin a callback to trigger the analysis when the user has completed the Wizard
@@ -107,60 +109,34 @@ define([
             if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
                 topic.publish('hideConcessionsLegend');
             }
-            
+
             return (
-                React.DOM.div({
-                        'className': 'relative wizard-root'
-                    },
-                    React.DOM.div({
-                            'className': 'wizard-header'
-                        },
-                        React.DOM.div({
-                                'className': 'title-section'
-                            },
-                            React.DOM.span({
-                                'className': 'title'
-                            }, "Analysis"),
-                            React.DOM.span({
-                                'className': 'button reset',
-                                onClick: this._reset
-                            }, "Reset"),
-                            React.DOM.span({
-                                'className': 'button close',
-                                onClick: this._close
-                            }, "")
-                        ),
-                        React.DOM.div({
-                                'className': 'breadcrumbs'
-                            },
-                            breadcrumbs.map(this._breadcrumbMapper, this)
-                        )
-                    ),
-                    React.DOM.div({
-                            'className': 'wizard-body'
-                        },
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 0 ? 'hidden' : ''
-                            },
-                            new Intro(props)
-                        ),
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 1 ? 'hidden' : ''
-                            },
-                            new StepOne(props)
-                        ),
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 2 ? 'hidden' : ''
-                            },
-                            new StepTwo(props)
-                        ),
-                        React.DOM.div({
-                                'className': this.state.currentStep !== 3 ? 'hidden' : ''
-                            },
-                            new StepThree(props)
-                        )
-                    )
+              React.createElement("div", {className: "relative wizard-root"}, 
+                React.createElement("div", {className: "wizard-header"}, 
+                  React.createElement("div", {className: "title-section"}, 
+                    React.createElement("span", {className: "title"}, "Analysis"), 
+                    React.createElement("span", {className: "button reset", onClick: this._reset}, "Reset"), 
+                    React.createElement("span", {className: "button close", onClick: this._close})
+                  ), 
+                  React.createElement("div", {className: "breadcrumbs"}, 
+                    breadcrumbs.map(this._breadcrumbMapper, this)
+                  )
+                ), 
+                React.createElement("div", {className: "wizard-body"}, 
+                  React.createElement("div", {className: this.state.currentStep !== 0 ? 'hidden' : ''}, 
+                    React.createElement(Intro, React.__spread({},  props))
+                  ), 
+                  React.createElement("div", {className: this.state.currentStep !== 1 ? 'hidden' : ''}, 
+                    React.createElement(StepOne, React.__spread({},  props))
+                  ), 
+                  React.createElement("div", {className: this.state.currentStep !== 2 ? 'hidden' : ''}, 
+                    React.createElement(StepTwo, React.__spread({},  props))
+                  ), 
+                  React.createElement("div", {className: this.state.currentStep !== 3 ? 'hidden' : ''}, 
+                    React.createElement(StepThree, React.__spread({},  props))
+                  )
                 )
+              )
             );
         },
 
@@ -168,19 +144,14 @@ define([
             var className = index < (this.state.currentStep - 1) ? 'enabled' : '';
             className += (this.state.currentStep - 1) === index ? ' active' : '';
 
-            return React.DOM.span({
-                    'className': className
-                },
-                React.DOM.span({
-                    'className': 'piece',
-                    'data-index': index,
-                    onClick: this._changeStep
-                }, item), (index < breadcrumbs.length - 1) ? React.DOM.span({
-                    'className': 'carat'
-                }, ' > ') : null
+            return (
+                React.createElement("span", {className: className}, 
+                    React.createElement("span", {className: "piece", "data-index": index, onClick: this._changeStep}, item), 
+                    (index < breadcrumbs.length - 1) ? React.createElement("span", {className: "carat"}, " > ") : null
+                )
             );
         },
-
+        /* jshint ignore:end */
 
         // UI Functions that affect internal properties only
         _changeStep: function(synEvent) {
@@ -334,7 +305,7 @@ define([
     });
 
     return function(props, el) {
-        return React.renderComponent(new Wizard(props), document.getElementById(el));
+        return React.render(React.createElement(Wizard, React.__spread({},  props)), document.getElementById(el));
     };
 
 });

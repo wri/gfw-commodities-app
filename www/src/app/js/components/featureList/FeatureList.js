@@ -42,29 +42,29 @@ define([
 
       if (this.props.rspoChecks) {
         allFeaturesRSPO = this.props.features.length > 0 ? _.every(this.props.features, function (feature) {return feature.attributes.isRSPO === true}) : false;
-        rspoChecksHeader = React.DOM.th(null, React.DOM.label(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesRSPO, checked: allFeaturesRSPO, disabled: this.props.features.length === 0}), TEXT.headers[2]));
+        rspoChecksHeader = React.createElement("th", null, React.createElement("label", null, React.createElement("input", {type: "checkbox", onChange: this._toggleAllFeaturesRSPO, checked: allFeaturesRSPO, disabled: this.props.features.length === 0}), TEXT.headers[2]));
       }
 
       if (this.props.selectedFeatures.length === 0 || (this.props.showClear !== undefined && this.props.showClear === false)) {
         clearButton = '';
       } else {
-        clearButton = React.DOM.button({className: "button-link float-right margin__right no-padding__right", onClick: this._removeFeatureSelection}, TEXT.clear);
+        clearButton = React.createElement("button", {className: "button-link float-right margin__right no-padding__right", onClick: this._removeFeatureSelection}, TEXT.clear);
       }
 
       return (
-        React.DOM.div({className: "feature-list"}, 
+        React.createElement("div", {className: "feature-list"}, 
           clearButton, 
-          React.DOM.div({className: "padding__wide margin__bottom instructions"}, TEXT.instruction), 
-          React.DOM.table({className: "feature-list__table no-border-spacing fill__wide border-box border-orange"}, 
-            React.DOM.thead(null, 
-              React.DOM.tr({className: "text-white text-center back-orange"}, 
-                React.DOM.th(null, React.DOM.input({type: "checkbox", onChange: this._toggleAllFeaturesSelection, checked: allFeaturesSelected, disabled: this.props.features.length === 0})), 
-                React.DOM.th(null, TEXT.headers[0]), 
-                React.DOM.th(null, TEXT.headers[1]), 
+          React.createElement("div", {className: "padding__wide margin__bottom instructions"}, TEXT.instruction), 
+          React.createElement("table", {className: "feature-list__table no-border-spacing fill__wide border-box border-orange"}, 
+            React.createElement("thead", null, 
+              React.createElement("tr", {className: "text-white text-center back-orange"}, 
+                React.createElement("th", null, React.createElement("input", {type: "checkbox", onChange: this._toggleAllFeaturesSelection, checked: allFeaturesSelected, disabled: this.props.features.length === 0})), 
+                React.createElement("th", null, TEXT.headers[0]), 
+                React.createElement("th", null, TEXT.headers[1]), 
                 rspoChecksHeader
               )
             ), 
-            React.DOM.tbody(null, 
+            React.createElement("tbody", null, 
               this._noFeatures(), 
               this.props.features.map(this._featuresMapper, this)
             )
@@ -77,19 +77,19 @@ define([
       var isSelected = _.find(this.props.selectedFeatures, function (selectedFeature) { return feature.attributes.WRI_ID === selectedFeature.attributes.WRI_ID}) || false,
           className = index % 2 === 0 ? 'back-light-gray' : '',
           className = isSelected ? 'text-white back-medium-gray' : className,
-          rspoChecks = this.props.rspoChecks ? React.DOM.td({className: "text-center"}, React.DOM.input({type: "checkbox", onChange: this._toggleFeatureRSPO, checked: feature.attributes.isRSPO, 'data-feature-id': feature.attributes.WRI_ID})) : '',
+          rspoChecks = this.props.rspoChecks ? React.createElement("td", {className: "text-center"}, React.createElement("input", {type: "checkbox", onChange: this._toggleFeatureRSPO, checked: feature.attributes.isRSPO, "data-feature-id": feature.attributes.WRI_ID})) : '',
           typeIcon = 'app/css/images/icon_' + (feature.geometry.type === 'polygon' ? 'triangle_' : 'circle_') + (isSelected ? 'white' : 'gray') + '.png';
 
       return (
-        React.DOM.tr({key: index, className: className}, 
-          React.DOM.td({className: "text-center"}, 
-            React.DOM.input({type: "checkbox", onChange: this._toggleFeatureSelection, checked: isSelected, 'data-feature-index': index, 'data-feature-id': feature.attributes.WRI_ID})
+        React.createElement("tr", {key: index, className: className}, 
+          React.createElement("td", {className: "text-center"}, 
+            React.createElement("input", {type: "checkbox", onChange: this._toggleFeatureSelection, checked: isSelected, "data-feature-index": index, "data-feature-id": feature.attributes.WRI_ID})
           ), 
-          React.DOM.td({className: "text-center"}, 
-            React.DOM.img({className: "vertical-middle", width: "15px", height: "15px", src: typeIcon})
+          React.createElement("td", {className: "text-center"}, 
+            React.createElement("img", {className: "vertical-middle", width: "15px", height: "15px", src: typeIcon})
           ), 
-          React.DOM.td(null, 
-            React.DOM.input({className: "custom-feature-label text-inherit-color vertical-middle feedback-outline-orange", type: "text", onChange: this._renameFeature, value: feature.attributes[FeatureListConfig.stepTwo.labelField], 'data-feature-index': index, 'data-feature-id': feature.attributes.WRI_ID})
+          React.createElement("td", null, 
+            React.createElement("input", {className: "custom-feature-label text-inherit-color vertical-middle feedback-outline-orange", type: "text", onChange: this._renameFeature, value: feature.attributes[FeatureListConfig.stepTwo.labelField], "data-feature-index": index, "data-feature-id": feature.attributes.WRI_ID})
           ), 
           rspoChecks
         )
@@ -100,12 +100,12 @@ define([
       var colSpan = this.props.rspoChecks ? '4' : '3';
 
       if (this.props.features.length > 0) {
-        return React.DOM.tr({className: "text-center"});
+        return React.createElement("tr", {className: "text-center"});
       }
 
       return (
-        React.DOM.tr(null, 
-          React.DOM.td({className: "text-center text-medium-gray", colSpan: colSpan}, React.DOM.i(null, TEXT.noAreas))
+        React.createElement("tr", null, 
+          React.createElement("td", {className: "text-center text-medium-gray", colSpan: colSpan}, React.createElement("i", null, TEXT.noAreas))
         )
       )
     },

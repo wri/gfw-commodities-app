@@ -8,7 +8,7 @@ define([
   "dijit/form/HorizontalSlider"
 ], function (React, topic, domClass, Hasher, Check, HorizontalSlider) {
 
-	var Radio = React.createClass({displayName: 'Radio',
+	var Radio = React.createClass({displayName: "Radio",
 
     getInitialState: function () {
       return ({ active: this.props.active || false });
@@ -67,26 +67,26 @@ define([
                       (this.props.visible ? '' : ' hidden');
 
       return (
-        React.DOM.li({className: className, 'data-layer': this.props.key, 'data-name': this.props.filter}, 
-          React.DOM.div({onClick: this.toggle}, 
-            React.DOM.span({className: "radio-icon"}, 
+        React.createElement("li", {className: className, "data-layer": this.props.key, "data-name": this.props.filter}, 
+          React.createElement("div", {onClick: this.toggle}, 
+            React.createElement("span", {className: "radio-icon"}, 
               /* Used as an icon node */
-              React.DOM.span(null)
+              React.createElement("span", null)
             ), 
-            React.DOM.a({className: "layer-title"}, this.props.title), 
+            React.createElement("a", {className: "layer-title"}, this.props.title), 
             /* If this condition is met, render a layer info icon, else, render nothing */ 
             
               this.props.title !== "None" && this.props.title !== "Loss" && this.props.title !== "Gain" && !this.props.noSlider ?
-              React.DOM.span({className: "layer-info-icon", onClick: this.showInfo}) : null, 
+              React.createElement("span", {className: "layer-info-icon", onClick: this.showInfo}) : null, 
             
-            React.DOM.p({className: "layer-sub-title"}, this.props.subtitle)
+            React.createElement("p", {className: "layer-sub-title"}, this.props.subtitle)
           ), 
           
             this.props.children ?
-              React.DOM.ul(null, " ", this.props.children.map(this._mapper), " ") :
+              React.createElement("ul", null, " ", this.props.children.map(this._mapper), " ") :
               this.props.layerType !== 'none' && !this.props.noSlider ?
-                React.DOM.div({title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
-                  React.DOM.div({id: this.props.key + '_slider'})
+                React.createElement("div", {title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
+                  React.createElement("div", {id: this.props.key + '_slider'})
                 ) :
                 null
           

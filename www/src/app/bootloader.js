@@ -47,8 +47,8 @@
             }],
             aliases: [
                 ['knockout', 'libs/knockout-3.1.0/index'],
-                ['react', 'libs/react-0.11.1.min/index'],
-                // ['react', 'libs/react-0.11.1/index'],
+                // ['react', 'libs/react/react.min'],
+                ['react', 'libs/react/react'],
                 ['lodash', 'libs/lodash/lodash.min']
             ],
             deps: [
