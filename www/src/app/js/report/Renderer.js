@@ -125,7 +125,7 @@ define([
               "<div id='suitability-settings-table'></div>" +
             "</div>" +
             "<div class='right-panel'>" +
-              "<div id='suitability-composition-analysis'></div>" +
+              "<div id='suitability-composition-analysis'><div class='loader-wheel'>composition</div></div>" +
             "</div>" +
           "</div>";
 

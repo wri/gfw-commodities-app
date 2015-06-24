@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<!-- This will eventually replace the other Report.html, it is the beginning to a refactored report page -->
+		<!-- This can move to the root as well once done and working, will need to change Wizard.js to point to the correct path -->
+
+		<title>Report | GFW Commodities</title>
+		<!-- Meta Tags -->
+		<meta name="author" content="Global Forest Watch, Blueraster">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<!-- Critical CSS -->
+		<style>html,body{height:100%;width:100%;padding:0;margin:0;}.hidden{display:none;}.relative{display:none;}</style>
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="../../css/images/favicon.png">
+		
+	</head>
+	<body class="gfw">
+
+		<!-- Header Content -->
+		<header>
+			<div id="title"></div>
+			<div id="subscribeToAlerts" class="subscribe-alerts">Subscribe to Alerts</div>
+			<div class="total-area">
+				<span id="total-area-info-icon" class="info-icon"></span>
+				<span>Total Calculated Area (ha):</span>
+				<span id='total-area' class="total-area-value"><div class="loader-wheel area"></div></span>
+			</div>
+			<div id="print" class="print-button disabled"></div>
+		</header>
+
+		<!-- Results Section, Will contain results for selected types of analysis -->
+		<section class='report-body'>
+			
+			<!-- Print Map Will be the Final Element in the Report, May be moved to React Component -->
+			<div class="print-map-container" id="print-map"></div>
+		</section>
+
+		<!-- Popups/Dialogs -->
+		<!-- Area Info Popup -->
+		<div id="total-area-info-popup" class="total-area-info-popup hidden">
+			<div class="total-area-info-popup-title">
+				<span class="total-area-info-popup-label">Total Calculated Area</span>
+				<span id="total-area-close-info-icon" class="close-info-icon"></span>
+			</div>
+			<div class="total-area-info-content">
+				Area calculated from data available in GFW Commodities. For individual concession calculated area, see data limitations (link to data page on concessions). For company group calculated area, the total area is calculated from the concessions included within GFW Commodities only, and may not represent the total amount of land owned, permitted for development, or permitted for exploration by this group. A group may own additional land areas not yet publicly disclosed and available for display within GFW Commodities, and these areas are thus not included in the total calculated area.
+			</div>
+		</div>
+
+		<!-- Remaining Scripts -->
+		<script>
+			// Current logic if this file is in the report folder
+			// location.pathname.replace(/app\/js\/report.*/, '') + 'app',
+			var path = location.pathname.replace(/\/[^/]+$/, "") + 'app';
+			var dojoConfig = {
+				async: true,
+				isDebug: false,
+				parseOnLoad: false,
+				packages: [
+					{ name: 'libs', location: path + '/libs' },
+					{ name: 'map', location: path + '/js/map' },
+					{ name: 'utils', location: path + '/js/utils' },
+					{ name: 'report', location: path + '/js/report' },
+					{ name: 'components', location: path + '/js/components' }
+				],
+				aliases: [
+					// ['react', 'libs/react/react'],
+					['react', 'libs/react/react.min'],
+					['lodash', 'libs/lodash/lodash.min']
+				],
+				deps: ['dojo/domReady!'],
+				callback: function () {
+					require(['report/reportBundle']);
+				}
+			};
+		</script>
+		<script async src='http://js.arcgis.com/3.13/init.js'></script>
+		<!-- Google Stuff -->
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,400italic">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-35900039-3', 'auto', {'name':"A"});
+      ga('create', 'UA-1981181-14', 'auto', {'name':"B"});
+      ga('create', 'UA-48182293-1', 'auto', {'name':"C",'cookieDomain':'commodities.globalforestwatch.org'});
+    </script>
+	</body>
+</html>

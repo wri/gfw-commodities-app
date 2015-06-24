@@ -130,9 +130,7 @@
   })();
   /* Polyfills and/or prototype additions */
 
-  if (win.requestAnimationFrame) {
-    win.requestAnimationFrame(loadDependencies);
-  } else if (doc.readyState === "loaded") {
+  if (doc.readyState === "loaded") {
     loadDependencies();
   } else {
     win.onload = loadDependencies;

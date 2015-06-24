@@ -67,13 +67,10 @@ define([
         setupHeader: function () {
             var node = dom.byId("total-area-info-icon");
             on(node, 'click', function(evt) {
-                //console.log("i button clicked -- setting popup visibility");
                 domStyle.set("total-area-info-popup", "visibility", "visible");
             });
             node = dom.byId("total-area-close-info-icon");
-            //console.log("adding click event to i button", node);
             on(node, 'click', function(evt) {
-                //console.log("i button clicked -- setting popup visibility");
                 domStyle.set("total-area-info-popup", "visibility", "hidden");
             });
         },
@@ -264,6 +261,14 @@ define([
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
             report.areaPromise.then(function (area) {
               document.getElementById("total-area").innerHTML = area ? area : "Not Available";
+
+              // If the area is over 3,000,000 hectares, warn user this will take some time
+              // and update the default value of the config item
+              if (report.area > 3000000) {
+                Config.pixelSize = 500;
+                alert('These area is rather large, please be patient while we crunch the analysis for you.');                
+              }
+
             });
 
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on

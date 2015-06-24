@@ -164,7 +164,7 @@ define([
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
                     mosaicRule: JSON.stringify(config.mosaicRule),
-                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;
@@ -400,7 +400,7 @@ define([
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
                     renderingRule: renderingRule,
-                    pixelSize: 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;
@@ -444,7 +444,7 @@ define([
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
                     renderingRule: renderingRule,
-                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;
@@ -558,7 +558,7 @@ define([
                         'ascending': true,
                         'mosaicOperation': 'MT_FIRST'
                     }),
-                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;

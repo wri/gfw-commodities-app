@@ -66,7 +66,7 @@ define([
 					self = this,
 					params = {
 						f: 'json',
-						pixelSize: 100,
+						pixelSize: ReportConfig.pixelSize,
 						geometryType: ReportConfig.suitability.geometryType,
 						geometry: JSON.stringify(report.geometry)
 					},
@@ -110,7 +110,7 @@ define([
 					self = this,
 					params = {
 						f: 'json',
-						pixelSize: 100,
+						pixelSize: ReportConfig.pixelSize,
 						geometryType: ReportConfig.suitability.geometryType,
 						geometry: JSON.stringify(report.geometry),
 						renderingRule: JSON.stringify(renderRule)
@@ -152,7 +152,7 @@ define([
 					self = this,
 					params = {
 						f: 'json',
-						pixelSize: 100,
+						pixelSize: ReportConfig.pixelSize,
 						geometryType: ReportConfig.suitability.geometryType,
 						geometry: JSON.stringify(report.geometry),
 						mosaicRule: JSON.stringify(mosaicRule)
@@ -214,7 +214,7 @@ define([
 					self = this,
 					params = {
 						f: 'json',
-						pixelSize: 100,
+						pixelSize: ReportConfig.pixelSize,
 						geometryType: ReportConfig.suitability.geometryType,
 						geometry: JSON.stringify(report.geometry)
 					},
@@ -526,7 +526,7 @@ define([
 			var url = ReportConfig.suitability.url,
 					params = {
 						f: 'json',
-						pixelSize: 100,
+						pixelSize: ReportConfig.pixelSize,
 						geometryType: ReportConfig.suitability.geometryType,
 						geometry: JSON.stringify(report.geometry),
 						renderingRule: JSON.stringify(renderingRule)

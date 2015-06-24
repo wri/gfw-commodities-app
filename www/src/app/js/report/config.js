@@ -86,11 +86,6 @@ define([], function() {
     return {
 
         corsEnabledServers: [
-            // "https://api-ssl.bitly.com",
-            // "http://globalforestwatch.org",
-            // "http://firms.modaps.eosdis.nasa.gov",
-            // "http://gfw-apis.appspot.com",
-            // "http://50.18.182.188",
             "http://gis-potico.wri.org",
             "http://175.41.139.43",
             "http://54.164.126.73",
@@ -100,12 +95,14 @@ define([], function() {
         ],
 
         boundariesUrl: boundariesUrl,
+        geometryServiceUrl: geometryServiceUrl,
+        imageServiceUrl: imageServiceUrl,
+        clearanceAnalysisUrl: clearanceAnalysisUrl,
 
         printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
 
         alertUrl: {
             forma: "http://gfw-apis.appspot.com/subscribe",
-            // fires: "http://54.164.126.73/subscribe_by_polygon"
             fires: "https://gfw-fires.wri.org/subscribe_by_polygon"
         },
 
@@ -124,9 +121,7 @@ define([], function() {
           Below is all the config items for the Analysis portion of the report
         */
 
-        geometryServiceUrl: geometryServiceUrl,
-        imageServiceUrl: imageServiceUrl,
-        clearanceAnalysisUrl: clearanceAnalysisUrl,
+        pixelSize: 100,
 
         /* Begin Main Layers for Analyses */
         totalLoss: {
