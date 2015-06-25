@@ -12,8 +12,67 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 		<!-- Critical CSS -->
-		<style>html,body{height:100%;width:100%;padding:0;margin:0;}.hidden{display:none;}.relative{display:none;}</style>
-
+		<style>
+			html,body{
+				height:100%;width:100%;padding:0;margin:0;font-family:'Fira Sans','fira_sans_otregular',Georgia,serif;
+			}
+			.hidden{display:none;}
+			.relative{position:relative;}
+		</style>
+		<style>
+			header,section {margin: 0 auto;width: 960px;}
+			header {
+				background: url(app/css/images/header_tree_background.jpg) repeat-x scroll center top transparent;
+				border: 1px solid black;
+				min-height: 100px;
+				border-bottom: 0;
+				margin-top: 20px;
+			}
+			.report-body {border: 1px solid black;}
+			#title {
+				padding-top: 10px;
+				margin-left: 10px;
+				max-width: 750px;
+				font-weight: bold;
+				font-size: 20px;
+			}
+			#title.multiples {font-size:24px;}
+			.subscribe-alerts {
+				background-color: rgb(233, 131, 0);
+				padding: 5px 8px 3px;
+				border-radius: 5px;
+				position: absolute;
+				cursor: pointer;
+				color: white;
+				right: 10px;
+				top: 10px;
+			}
+			.print-button {
+				background: url(app/css/images/print-icon.png) no-repeat -1px -35px;
+				position: absolute;
+				cursor: pointer;
+				height: 28px;
+				width: 32px;
+				right: 10px;
+				top: 50px;
+			}
+			.print-button.disabled {
+				background: url(app/css/images/print-icon.png) no-repeat -1px 0px;
+				cursor: wait;
+			}
+			.total-area-value {font-weight:bold;}
+			.total-area {
+				padding: 5px 0 15px;
+				margin-left: 10px;
+			}
+			.info-icon {
+				background: url(app/css/images/info-icon-gray.png) no-repeat center;
+				display: inline-block;
+				cursor: pointer;
+				height: 21px;
+				width: 20px;
+			}
+		</style>
 		<!-- Favicon -->
 		<link rel="icon" type="image/png" href="../../css/images/favicon.png">
 		
@@ -21,7 +80,7 @@
 	<body class="gfw">
 
 		<!-- Header Content -->
-		<header>
+		<header class="relative">
 			<div id="title"></div>
 			<div id="subscribeToAlerts" class="subscribe-alerts">Subscribe to Alerts</div>
 			<div class="total-area">
@@ -33,7 +92,7 @@
 		</header>
 
 		<!-- Results Section, Will contain results for selected types of analysis -->
-		<section class='report-body'>
+		<section id='report-results-section' class='report-body'>
 			
 			<!-- Print Map Will be the Final Element in the Report, May be moved to React Component -->
 			<div class="print-map-container" id="print-map"></div>
@@ -53,9 +112,7 @@
 
 		<!-- Remaining Scripts -->
 		<script>
-			// Current logic if this file is in the report folder
-			// location.pathname.replace(/app\/js\/report.*/, '') + 'app',
-			var path = location.pathname.replace(/\/[^/]+$/, "") + 'app';
+			var path = location.pathname.replace(/\/[^/]+$/, "") + '/app';
 			var dojoConfig = {
 				async: true,
 				isDebug: false,
@@ -73,12 +130,11 @@
 					['lodash', 'libs/lodash/lodash.min']
 				],
 				deps: ['dojo/domReady!'],
-				callback: function () {
-					require(['report/reportBundle']);
-				}
+				callback: function () { require(['report/reportBundle']); }
 			};
 		</script>
 		<script async src='http://js.arcgis.com/3.13/init.js'></script>
+		<script async src="https://cdn.rawgit.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script>
 		<!-- Google Stuff -->
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,400italic">
     <script>

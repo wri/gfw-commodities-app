@@ -1,21 +1,15 @@
 define([
-   "dojo/Deferred",
-        "dojo/promise/all",
-        "dojo/_base/lang",
-        "esri/geometry/geometryEngine",
-        "esri/geometry/Polygon",
-        "report/riskRequests",
-        "report/config"
-        // "app/riskRequests",
-        // "app/testconfig"
-], function (
-    Deferred,
-    all,
-    lang,
-    geoEngine,
-    Polygon,
-    riskRequest,
-    config) {
+  "lodash",
+  "dojo/Deferred",
+  "dojo/promise/all",
+  "dojo/_base/lang",
+  "esri/geometry/geometryEngine",
+  "esri/geometry/Polygon",
+  "report/riskRequests",
+  "report/config"
+  // "app/riskRequests",
+  // "app/testconfig"
+], function (_, Deferred, all, lang, geoEngine, Polygon, riskRequest, config) {
 
     var o = {};
     // Polygon Geometry, Area of Geometry, Area Type, RSPO Status, Is it in Indonesia

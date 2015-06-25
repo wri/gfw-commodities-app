@@ -20,7 +20,7 @@ define([
   // config.rootNode + '_content'
   // config.rootNode + '_chart'
 
-  var exportButtonImagePath = 'url(../../css/images/download-icon.svg)';
+  var exportButtonImagePath = 'url(./app/css/images/download-icon.svg)';
 
   return {
 

@@ -1,25 +1,11 @@
 define([], function() {
 
     var geometryServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-        
-        // clearanceAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
-        // OLD //clearanceAlertsUrl = 'http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer',
         clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
-
-        //imageServiceUrl = "http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-        //imageServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
-
         imageServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer",
-
-        // imageServiceUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWCanalysis/ImageServer",
         suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
-        // suitabilityUrl = "http://46.137.239.227/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
-        //suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer",
         firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia",
-        
-        // clearanceAnalysisUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
-        // clearanceAnalysisUrl = "http://46.137.239.227/arcgis/rest/services/CommoditiesAnalyzer/GFWanalysis_wm/ImageServer";
         clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis_wm/ImageServer',
         boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';
 
@@ -93,6 +79,57 @@ define([], function() {
             "https://gfw-fires.wri.org",
             "http://gis-gfw.wri.org"
         ],
+
+        urls: {
+          imageService: 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer'
+        },
+
+        messages: {
+          largeAreaWarning: 'The area for this analysis request is quite large and may take some time to process.'
+        },
+
+        rasterFunctions: {
+          range: {
+            "rasterFunction": "histogram16bit",
+            "outputPixelType": "U16",
+            "rasterFunctionArguments": {
+              "Rasters": ["$529"]
+            }
+          },
+          combination: {
+            "rasterFunction": "Combination",
+            "variableName": "AnalysisRaster",
+            "rasterFunctionArguments": {
+              "RasterRange": [1, 140],
+              "Raster2Length": [4],
+              "Raster": {
+                "rasterFunction": "Combination",
+                "variableName": "AnalysisRaster",
+                "rasterFunctionArguments": {
+                  "RasterRange": [1, 14],  // Change these values
+                  "Raster2Length": [10],  // Change these values
+                  "Raster": "$521",  // Change these values
+                  "Raster2": "$2"  // Change these values
+                }
+              },
+              "Raster2": {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": {
+                  "InputRanges": [
+                    946,946,
+                    947,947,
+                    948,948,
+                    949,949
+                  ],
+                  "OutputValues": [1,2,3,4],
+                  "Raster": "$529",
+                  "AllowUnmatched": false
+                },
+                "variableName": "Raster"
+              }
+            }
+          }
+        },
 
         boundariesUrl: boundariesUrl,
         geometryServiceUrl: geometryServiceUrl,
