@@ -79,11 +79,11 @@ define([
         setupHeader: function () {
             var node = dom.byId("total-area-info-icon");
             on(node, 'click', function(evt) {
-                domStyle.set("total-area-info-popup", "visibility", "visible");
+              domClass.remove("total-area-info-popup", "hidden");
             });
             node = dom.byId("total-area-close-info-icon");
             on(node, 'click', function(evt) {
-                domStyle.set("total-area-info-popup", "visibility", "hidden");
+              domClass.add("total-area-info-popup", "hidden");
             });
         },
 

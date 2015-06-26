@@ -30,6 +30,7 @@
 
   // Load Non-Critical CSS Now
   loadStyle('http://js.arcgis.com/3.13/esri/css/esri.css');
+  loadStyle('http://js.arcgis.com/3.13/dijit/themes/tundra/tundra.css');
   loadStyle('app/css/report.css');
 
   /* Global Helper Functions */
