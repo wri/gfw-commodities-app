@@ -132,6 +132,11 @@ define([
                 }
             }
 
+            layer = app.map.getLayer(MapConfig.biomes.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyBiomesLayer(mapPoint));
+            }
+
             if (deferreds.length === 0) {
                 return;
             }
@@ -177,6 +182,9 @@ define([
                             // This will only contain a single feature and return a single feature
                             // instead of an array of features
                             features.push(self.setCustomGraphicTemplates(item.feature));
+                            break;
+                        case "Biomes":
+                            features = features.concat(self.setBiomesTemplates(item.features));
                             break;
                         default: // Do Nothing
                             break;
@@ -299,6 +307,52 @@ define([
                 features.push(item.feature);
             });
             return features;
+        },
+
+        identifyBiomesLayer: function (mapPoint) {
+          var deferred = new Deferred(),
+              identifyTask = new IdentifyTask(MapConfig.biomes.url),
+              params = new IdentifyParameters();
+
+          params.tolerance = 3;
+          params.returnGeometry = true;
+          params.width = app.map.width;
+          params.height = app.map.height;
+          params.geometry = mapPoint;
+          params.mapExtent = app.map.extent;
+          params.layerIds = [MapConfig.biomes.layerId];
+          params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+
+          identifyTask.execute(params, function (results) {
+            if (results.length > 0) {
+              results.forEach(function (featureObj) {
+                featureObj.feature.layer = "Biomes";
+              });
+
+              deferred.resolve({
+                layer: "Biomes",
+                features: results
+              });
+
+            } else {
+              deferred.resolve(false);
+            }
+          });
+
+          return deferred;
+        },
+
+        setBiomesTemplates: function (featureObjects) {
+          var features = [],
+              content;
+
+          featureObjects.forEach(function (item) {
+            content = MapConfig.biomes.infoTemplate.content;
+            item.feature.setInfoTemplate(new InfoTemplate(item.value, content));
+            features.push(item.feature);
+          });
+
+          return features;
         },
 
         identifyConcessions: function(mapPoint) {

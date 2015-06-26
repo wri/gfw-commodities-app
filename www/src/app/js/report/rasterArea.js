@@ -174,6 +174,7 @@ define([
         // if no layerConfig options are presented, this is a simple area calculation so calculate area and bounce
         if (layerConfig === undefined) {
           area = sumCounts(rangeHistogram);
+          console.log(area);
           deferred.resolve(area);
           return;
         }

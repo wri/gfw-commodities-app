@@ -160,7 +160,7 @@ define([
 
         }
       } else {
-      	// Add New if None is not selected and isNew
+        // Add New if None is not selected and isNew
 	      if (component.props.id.search("none_") === -1) {
 	      	Hasher.toggleLayers(component.props.id);
 					topic.publish('showLayer', component.props.id);

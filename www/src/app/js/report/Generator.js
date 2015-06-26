@@ -293,8 +293,20 @@ define([
             // If the area is over 3,000,000 hectares, warn user this will take some time
             // and update the default value of the config item
             if (area > 3000000) {
-              Config.pixelSize = 500;
+              // Hold off on setting pixel size, seems to do more harm than good at the moment
+              //Config.pixelSize = 500;
+              // Dont use an alert as it blocks the requests from starting
               alert(Config.messages.largeAreaWarning);
+
+              // maxAllowableOffset 2000
+              // Save original geometry for the map
+              // report.geometry = geometryEngine.generalize(report.geometry, 2000, true);
+
+            } else {
+
+              // maxAllowableOffset 200
+              // Save original geometry for the map
+              // report.geometry = geometryEngine.generalize(report.geometry, 200, true);
             }
 
             // Get area 

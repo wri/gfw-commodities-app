@@ -212,7 +212,10 @@ define([], function() {
         biomes: {
           id: 'brazilBiomes',
           url: brazilBiomesLayer,
-          layerId: 0
+          layerId: 0,
+          infoTemplate: {
+            content: "<div>Area: ${area_ha:NumberFormat(places:0)}</div>"
+          }
         },
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
         ifl: {
