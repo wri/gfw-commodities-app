@@ -1,0 +1,82 @@
+<!doctype html><html><head><title>Report | GFW Commodities</title><meta name="author" content="Global Forest Watch, Blueraster"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style>html,body{
+				height:100%;width:100%;padding:0;margin:0;font-family:'Fira Sans','fira_sans_otregular',Georgia,serif;
+			}
+			.hidden{display:none;}
+			.relative{position:relative;}</style><style>header,section {margin: 0 auto;width: 960px;}
+			header {
+				background: url(app/css/images/header_tree_background.jpg) repeat-x scroll center top transparent;
+				border: 1px solid black;
+				min-height: 100px;
+				border-bottom: 0;
+				margin-top: 20px;
+			}
+			.report-body {border: 1px solid black;}
+			#title {
+				padding-top: 10px;
+				margin-left: 10px;
+				max-width: 750px;
+				font-weight: bold;
+				font-size: 20px;
+			}
+			#title.multiples {font-size:24px;}
+			.subscribe-alerts {
+				background-color: rgb(233, 131, 0);
+				padding: 5px 8px 3px;
+				border-radius: 5px;
+				position: absolute;
+				cursor: pointer;
+				color: white;
+				right: 10px;
+				top: 10px;
+			}
+			.print-button {
+				background: url(app/css/images/print-icon.png) no-repeat -1px -35px;
+				position: absolute;
+				cursor: pointer;
+				height: 28px;
+				width: 32px;
+				right: 10px;
+				top: 50px;
+			}
+			.print-button.disabled {
+				background: url(app/css/images/print-icon.png) no-repeat -1px 0px;
+				cursor: wait;
+			}
+			.total-area-value {font-weight:bold;}
+			.total-area {
+				padding: 5px 0 15px;
+				margin-left: 10px;
+			}
+			.info-icon {
+				background: url(app/css/images/info-icon-gray.png) no-repeat center;
+				display: inline-block;
+				cursor: pointer;
+				height: 21px;
+				width: 20px;
+			}</style><link rel="icon" type="image/png" href="../../css/images/favicon.png"></head><body class="gfw"><header class="relative"><div id="title"></div><div id="subscribeToAlerts" class="subscribe-alerts">Subscribe to Alerts</div><div class="total-area"><span id="total-area-info-icon" class="info-icon"></span> <span>Total Calculated Area (ha):</span> <span id="total-area" class="total-area-value"><div class="loader-wheel area"></div></span></div><div id="print" class="print-button disabled"></div></header><section id="report-results-section" class="report-body"><div class="print-map-container" id="print-map"></div></section><div id="total-area-info-popup" class="total-area-info-popup hidden"><div class="total-area-info-popup-title"><span class="total-area-info-popup-label">Total Calculated Area</span> <span id="total-area-close-info-icon" class="close-info-icon"></span></div><div class="total-area-info-content">Area calculated from data available in GFW Commodities. For individual concession calculated area, see data limitations (link to data page on concessions). For company group calculated area, the total area is calculated from the concessions included within GFW Commodities only, and may not represent the total amount of land owned, permitted for development, or permitted for exploration by this group. A group may own additional land areas not yet publicly disclosed and available for display within GFW Commodities, and these areas are thus not included in the total calculated area.</div></div><script>var path = location.pathname.replace(/\/[^/]+$/, "") + '/app';
+			var dojoConfig = {
+				async: true,
+				isDebug: false,
+				parseOnLoad: false,
+				packages: [
+					{ name: 'libs', location: path + '/libs' },
+					{ name: 'map', location: path + '/js/map' },
+					{ name: 'utils', location: path + '/js/utils' },
+					{ name: 'report', location: path + '/js/report' },
+					{ name: 'components', location: path + '/js/components' }
+				],
+				aliases: [
+					// ['react', 'libs/react/react'],
+					['react', 'libs/react/react.min'],
+					['lodash', 'libs/lodash/lodash.min']
+				],
+				deps: ['dojo/domReady!'],
+				callback: function () { require(['report/reportBundle']); }
+			};</script><script async src="http://js.arcgis.com/3.13/init.js"></script><script async src="https://cdn.rawgit.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,400italic"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-35900039-3', 'auto', {'name':"A"});
+      ga('create', 'UA-1981181-14', 'auto', {'name':"B"});
+      ga('create', 'UA-48182293-1', 'auto', {'name':"C",'cookieDomain':'commodities.globalforestwatch.org'});</script></body></html>
