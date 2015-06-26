@@ -3,10 +3,8 @@ define([
   'utils/assert',
   'utils/request',
   'report/config',
-  'dojo/Deferred',
-  'esri/SpatialReference',
-  'esri/tasks/GeometryService'
-], function (_, assert, request, config, Deferred, SpatialReference, GeometryService) {
+  'dojo/Deferred'
+], function (_, assert, request, config, Deferred) {
   'use strict';
 
   /**
@@ -15,20 +13,11 @@ define([
    *   1.1. If no layer config is provided, sumCounts and return, else continue
    * 2. generateRanges
    * 3. getAreaHistograms
+   *   3.1. If the request uses a simple rule, switch that into the main method
    * 4. decodeArea
    */
 
   var preferredPixelSize = 90;
-
-  function reproject (geometry, callback) {
-    var geometryService = new GeometryService(config.geometryServiceUrl),
-        sr = new SpatialReference(54012);
-
-    geometryService.project([geometry], sr, function(projectedGeometry) {
-      callback(projectedGeometry);
-    });
-
-  }
 
   /**
   * Takes geometry and returns histograms of pixel counts in given geometry
@@ -94,8 +83,65 @@ define([
     return ranges;
   }
 
-  function getAreaHistograms () {
+  /**
+  * Takes some geometry and a layer config and creates a new rendering rule and modifies it, then requests area
+  * @param {object} geometry - Esri polygon
+  * @param {array} ranges - Array of ranges
+  * @param {object} layersConfig - object containing rasterIds and bounds for the two layers we are getting area for
+  */
+  function getAreaHistograms (geometry, ranges, layersConfig) {
+    var deferred = new Deferred(),
+        renderingRule = _.clone(config.rasterFunctions.combination),
+        outputValues = [],
+        content;
 
+    // Update some necessary properties
+
+    // If we aer using the simple rule, we have to modify the whole rule with a remap
+    // NOTE the simple rule is only a piece of the original and then it has to be modified
+    // make sure to handle that correctly
+    if (layersConfig.simpleRule) {
+
+      renderingRule.rasterFunctionArguments.RasterRange = [1, 2];
+      renderingRule.rasterFunctionArguments.Raster = layersConfig.simpleRule;
+
+    } else {
+      // None of these layerConfig values exist yet, still deciding the best way to pass in 
+      // all the possible options that are necessary
+      var upperRangeLevel = (layersConfig.raster.bounds[1] * layersConfig.raster2.length[0]) + layersConfig.raster.bounds[1];
+
+      renderingRule.rasterFunctionArguments.RasterRange = [1, upperRangeLevel];
+      renderingRule.rasterFunctionArguments.Raster.rasterFunctionArguments = {
+        'RasterRange': layersConfig.raster.bounds,
+        'Raster2Length': layersConfig.raster2.length, // will be an array, so [10] for example
+        'Raster': layersConfig.raster.id,
+        'Raster2': layersConfig.raster2.id
+      };
+    }
+
+    // Generate the OutputValues array, this is fairly trivial so need for its own method
+    // if ranges is [950,950,951,951] then outputValues should be [1,2]
+    for (var i = 0; i < ranges.length /2; i++) {
+      outputValues.push(i + 1);
+    }
+
+    renderingRule.rasterFunctionArguments.Raster2.rasterFunctionArguments.InputRanges = ranges;
+    renderingRule.rasterFunctionArguments.Raster2.rasterFunctionArguments.OutputValues = outputValues;
+
+    content = {
+      'geometryType': 'esriGeometryPolygon',
+      'geometry': JSON.stringify(geometry),
+      'renderingRule': JSON.stringify(renderingRule),
+      'pixelSize': preferredPixelSize,
+      'f': 'json'
+    };
+
+    function success (data) {
+      console.log(data);
+    }
+
+    request.computeHistogram(config.urls.imageService, content, success, errback);
+    return deferred;
   }
 
   function decodeArea () {
@@ -129,12 +175,15 @@ define([
         if (layerConfig === undefined) {
           area = sumCounts(rangeHistogram);
           deferred.resolve(area);
-          console.log(area);
           return;
         }
 
         ranges = generateRanges(rangeHistogram);
+        getAreaHistograms(geometry, ranges, layerConfig).then(function (areaHistogram) {
 
+
+
+        }, errback);
       }, errback);
 
       return deferred;

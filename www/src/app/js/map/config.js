@@ -6,11 +6,7 @@ define([], function() {
     var dynamicMapServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer",
         treeCoverGainUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        //treeCoverGainUrl = "http://54.241.14.14:6080/arcgis/rest/services/Forest_Gain_2000_2012_map/MapServer",
-        //treeCoverGainImageUrl = "http://54.241.14.14:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer",
         treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
-        //treeCoverLossUrl = "http://ec2-54-176-223-60.us-west-1.compute.amazonaws.com:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
-        // formaAlertsUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/FORMA50/ImageServer",
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
@@ -21,7 +17,7 @@ define([], function() {
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
         biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/conservation/MapServer',
         geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
-    //customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kp_mosaic2/ImageServer";
+        brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
 
     return {
         geometryServiceUrl: geometryServiceUrl,
@@ -213,6 +209,11 @@ define([], function() {
             toolsNode: "suitability_toolbox"
         },
 
+        biomes: {
+          id: 'brazilBiomes',
+          url: brazilBiomesLayer,
+          layerId: 0
+        },
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
         ifl: {
             id: "ForestCover",
@@ -494,6 +495,13 @@ define([], function() {
             type: "radio",
             layerType: "dynamic",
             infoDivClass: "forest-and-land-cover-carbon-stocks"
+        }, {
+            id: "biomes",
+            title: "Brazil Biomes",
+            subtitle: "(year 2004, Brazil)",
+            filter: "forest-cover",
+            type: "radio",
+            layerType: "dynamic"
         }, {
             id: "primForest",
             title: "Primary Forests",

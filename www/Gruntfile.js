@@ -89,6 +89,9 @@ module.exports = function(grunt) {
               src: ['src/index.html'],
               dest: 'build/index.html'
             }, {
+              src: ['src/report.html'],
+              dest: 'build/report.html'
+            }, {
               expand: true,
               cwd: 'src/app',
               src: ['**/*.html'],
@@ -107,9 +110,6 @@ module.exports = function(grunt) {
             files: [{
               dest: 'build/app/bootloader.js',
               src: 'src/app/bootloader.js'
-            }, {
-              dest: 'build/app/js/report/ReportLoader.js',
-              src: 'src/app/js/report/ReportLoader.js'
             }, {
               dest: 'build/app/libs/html5shiv.js',
               src: 'src/app/libs/html5shiv.js'

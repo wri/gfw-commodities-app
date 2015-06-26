@@ -55,7 +55,7 @@ define([
 
                 // Camel Case the label and construct a clean url with minimal parameters
                 var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(node.children[0].innerHTML);
-                var url = location.href.split("#")[0] + "#v=" + context + "&n=" + navTitle;
+                var url = "/#v=" + context + "&n=" + navTitle;
                 Analytics.sendPageview(url, analyticsTitle);
             }
         },
@@ -102,7 +102,7 @@ define([
             // Camel Case the label and construct a clean url with minimal parameters
             var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(activeNode.innerHTML);
             var subPage = activeNode.parentElement.id.replace("Nav", "").replace(context, "");
-            var url = location.href.split("#")[0] + "#v=" + context + "&n=" + subPage;
+            var url = "/#v=" + context + "&n=" + subPage;
             Analytics.sendPageview(url, analyticsTitle);
 
         },

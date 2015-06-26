@@ -1,4 +1,5 @@
 define([
+    "lodash",
     "dojo/number",
     "dojo/Deferred",
     "dojo/promise/all",
@@ -21,8 +22,9 @@ define([
     'esri/geometry/geometryEngine',
     "esri/tasks/AreasAndLengthsParameters",
     "esri/Color",
-    "esri/graphic"
-], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic) {
+    "esri/graphic",
+    "report/rasterArea"
+], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic, rasterArea) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -495,6 +497,8 @@ define([
                 content,
                 encoder;
 
+            config = _.clone(config);
+
             function success(response) {
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderClearanceData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
@@ -544,7 +548,25 @@ define([
 
         _getCompositionAnalysis: function(config) {
 
-            ReportRenderer.renderCompositionAnalysisLoader(config);
+            // var simpleRule = {
+            //   "rasterFunction": "Remap",
+            //   "rasterFunctionArguments": {
+            //       "InputRanges": [1, 3],
+            //       "OutputValues": [1],
+            //       "Raster": config.rasterId,
+            //       "AllowUnmatched": false
+            //   }
+            // };
+
+            // var layerConfig = {
+            //   simpleRule: simpleRule
+            // };
+
+            // rasterArea.getArea(report.geometry, layerConfig).then(function (data) {
+
+            // });
+
+            ReportRenderer.renderCompositionAnalysisLoader(config);            
 
             var deferred = new Deferred(),
                 url = ReportConfig.imageServiceUrl,
