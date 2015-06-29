@@ -85,14 +85,14 @@ define([
 
                 map.graphics.clear();
                 map.resize();
-                
+
                 scalebar = new Scalebar({
                     map: map,
                     scalebarUnit: 'metric'
                 });
 
                 // Simplify this as multiparts and others may not display properly
-                poly = geometryEngine.simplify(new Polygon(report.geometry));
+                poly = new Polygon(report.mapGeometry);
                 graphic = new Graphic();
                 graphic.setGeometry(poly);
                 graphic.setSymbol(Symbols.getPolygonSymbol());
@@ -527,7 +527,7 @@ define([
                     config.rasterRemap.rasterFunctionArguments.Raster = config.formaId;
                 }
             }
-            
+
             encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
             rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId;
             renderingRule = useSimpleEncoderRule ?
@@ -566,7 +566,7 @@ define([
 
             // });
 
-            ReportRenderer.renderCompositionAnalysisLoader(config);            
+            ReportRenderer.renderCompositionAnalysisLoader(config);
 
             var deferred = new Deferred(),
                 url = ReportConfig.imageServiceUrl,
@@ -609,7 +609,7 @@ define([
             }
 
             this._computeHistogram(url, content, success, failure);
-        
+
             return deferred.promise;
         },
 
@@ -694,7 +694,7 @@ define([
               request.addEventListener('error', function () {
                 knownDeferred.resolve(false);
               }, false);
-              
+
               var formData = new FormData();
               formData.append("mills", knownMills.map(function (mill) { return mill.millId; }).join(','));
               // Construct the POST Content in HERE for each Mill
@@ -785,7 +785,7 @@ define([
                 incrementer = 0,
                 month,
                 req;
- 
+
             //if (report.analyzeClearanceAlerts) {
             req = esriRequest({
                 url: config.url,
@@ -810,7 +810,7 @@ define([
                 // For the meantime, we need to slice the first 12 values out to remove 2013 years from this
                 // When the new service gets min and max values set so that I can get the bounds from there
                 // report.clearanceBounds[0] = 13;
-                // report.clearanceLabels = report.clearanceLabels.slice(12); 
+                // report.clearanceLabels = report.clearanceLabels.slice(12);
 
                 deferred.resolve(true);
             }, function(err) {

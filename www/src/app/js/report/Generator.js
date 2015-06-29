@@ -52,7 +52,7 @@ define([
               chart: {
                 style: { fontFamily: "'Fira Sans', 'fira_sans_otregular', Georgia, serif" }
               }
-            });            
+            });
 
         },
 
@@ -117,7 +117,7 @@ define([
         },
 
         addCSVOptionToHighcharts: function () {
-            
+
             var self = this;
 
             function generateCSV () {
@@ -139,17 +139,17 @@ define([
 
                 // If type is bar it could be the loss charts or the suitable chart, check the number of xAxes.
                 // The suitability composition breakdown has two x axes while all others have one
-                // Use that as the determining factor but if more charts are added in the future, 
+                // Use that as the determining factor but if more charts are added in the future,
                 // this check may need to be updated
                 if (type === 'bar' && chartContext.xAxis.length > 1) {
                     // Pass in the reference to the chart
                     csvData = CSVExporter.exportCompositionAnalysis(chartContext);
                     content = content.concat(csvData);
                 } else if (type === 'pie') {
-                    // Suitability by Legal Classification 
+                    // Suitability by Legal Classification
                     // Pass in the reference to the chart
                     csvData = CSVExporter.exportSuitabilityByLegalClass(chartContext);
-                    content = content.concat(csvData);                    
+                    content = content.concat(csvData);
                 } else {
                     // Its either a bar chart with one axis, line chart, or column chart
                     // Pass in the reference to the chart
@@ -189,11 +189,11 @@ define([
                 failure,
                 poly;
 
-            // Next grab any suitability configurations if they are available, they will be used to perform 
+            // Next grab any suitability configurations if they are available, they will be used to perform
             // a suitability analysis on report.geometry
             report.suitable = window.payload.suitability;
 
-            // Lastly, grab the datasets from the payload and store them in report so we know which 
+            // Lastly, grab the datasets from the payload and store them in report so we know which
             // datasets we will perform the above analyses on
             report.datasets = window.payload.datasets;
 
@@ -272,7 +272,8 @@ define([
 
             var requests = this._getArrayOfRequests(),
                 self = this,
-                chunk;
+                chunk,
+                area;
 
             // Helper Function to Continue Making Requests if Necessary
             function processRequests() {
@@ -287,29 +288,35 @@ define([
                 }
             }
 
-            // Simplify before getting area and divide by 10000 to convert to hectares
+            // Simplify the Geometry
             report.geometry = geometryEngine.simplify(report.geometry);
-            var area = geometryEngine.planarArea(report.geometry) / 10000;
-            // If the area is over 3,000,000 hectares, warn user this will take some time
+            area = geometryEngine.planarArea(report.geometry) / 10000;
+            // If the area is over 5,000,000 hectares, warn user this will take some time
             // and update the default value of the config item
-            if (area > 3000000) {
+            if (area > 5000000) {
               // Hold off on setting pixel size, seems to do more harm than good at the moment
               //Config.pixelSize = 500;
-              // Dont use an alert as it blocks the requests from starting
-              alert(Config.messages.largeAreaWarning);
 
-              // maxAllowableOffset 2000
+              var popup = $('#warning-popup');
+              var content = $('#warning-popup-content');
+
+              content.html(Config.messages.largeAreaWarning);
+              popup.toggleClass('hidden');
+
+              on.once($('#warning-popup-close-icon'), 'click', function () {
+                content.html('');
+                popup.toggleClass('hidden');
+              });
+
               // Save original geometry for the map
-              // report.geometry = geometryEngine.generalize(report.geometry, 2000, true);
-
+              report.mapGeometry = report.geometry;
+              report.geometry = geometryEngine.generalize(report.geometry, 2000, true);
             } else {
-
-              // maxAllowableOffset 200
-              // Save original geometry for the map
-              // report.geometry = geometryEngine.generalize(report.geometry, 200, true);
+              report.mapGeometry = report.geometry;
+              report.geometry = geometryEngine.generalize(report.geometry, 200, true);
             }
 
-            // Get area 
+            // Get area
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
             report.areaPromise.then(function (area) {
               document.getElementById("total-area").innerHTML = area ? area : "Not Available";
@@ -324,7 +331,7 @@ define([
                 if (requests.length < 3) {
                     all(self._getDeferredsForItems(requests)).then(self.getFiresAnalysis.bind(self));
                 } else {
-                    // Get an array of arrays, each containing 3 lookup items so 
+                    // Get an array of arrays, each containing 3 lookup items so
                     // we can request three analyses at a time
                     requests = arrayChunk(requests, 3);
                     processRequests();
@@ -370,42 +377,24 @@ define([
 
         /* Helper Functions */
 
-        /*
-            Returns array of strings representing which requests need to be made
-            @return  {array}
-            Deferred Mapping is in comments below this function
+        /**
+        * Returns array of strings representing which requests need to be made
+        * @return  {array}
+        * Deferred Mapping is in comments below this function
         */
         _getArrayOfRequests: function() {
             var requests = [];
-
             for (var key in report.datasets) {
                 if (report.datasets[key]) {
                     requests.push(key);
                 }
             }
-
             return requests;
         },
 
-        /*
-            Deferred's Mapping
-            suit - Fetcher._getSuitabilityAnalysis()
-            fires - Fetcher._getFireAlertAnalysis()
-            mill - Fetcher._getMillPointAnalysis()
-            primForest - Fetcher.getPrimaryForestResults()
-            protected - Fetcher.getProtectedAreaResults()
-            treeDensity - Fetcher.getTreeCoverResults()
-            carbon - Fetcher.getCarbonStocksResults()
-            intact - Fetcher.getIntactForestResults()
-            landCover - Fetcher.getLandCoverResults()
-            legal - Fetcher.getLegalClassResults()
-            peat - Fetcher.getPeatLandsResults()
-            rspo - Fetcher.getRSPOResults()
-        */
-
-        /*
-            @param  {array} items
-            @return {array} of deferred functions
+        /**
+        *  @param  {array} items
+        *  @return {array} of deferred functions
         */
         _getDeferredsForItems: function(items) {
             var deferreds = [];
