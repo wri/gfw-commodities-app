@@ -183,15 +183,28 @@ gainLayer = #5952de
 
 .gfw .app-header .filter-list ul > li
 	border none
+	
+.info-icon-svg
+	pointer-events none
+	height 9px
+	width 10px
+	margin auto
 
 .gfw .app-header .layer-info-icon
-	float: right
-	background-image: url('images/info-icon-gray.png')
-	background-repeat: no-repeat;
-	background-position: center;
-	height 20px
-	width 20px
+.wizard-checkbox .layer-info-icon
+.suitability-accordion .layer-info-icon
+	float right
+	display flex
+	background-color #ddd
+	height 15px
+	width 15px
 	color #888 !important
+	border-radius 50%
+	
+.gfw .app-header .layer-info-icon:hover
+.wizard-checkbox .layer-info-icon:hover
+.suitability-accordion .layer-info-icon:hover
+	background-color #888
 
 .gfw .forest-change.active .layer-list-item .layer-title,
 .gfw .forest-change.active .layer-list-item .layer-sub-title,

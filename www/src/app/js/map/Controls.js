@@ -1335,7 +1335,7 @@ define([
                         soilTypeSelection += lbl.innerHTML;
                     }
                 }
-            });            
+            });
 
             //composite CSV
             var fields = ['Suitability Parameter', 'Suitability Values'];
@@ -1385,7 +1385,7 @@ define([
 
         },
 
-        serializeSuitabilitySettings: function () {
+        serializeSuitabilitySettings: function() {
             return {
                 'Peat Depth': jq171("#peat-depth-slider").rangeSlider('values').min,
                 'Conservation Area': jq171("#conservation-area-slider").rangeSlider('values').min,

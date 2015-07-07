@@ -59,7 +59,7 @@ define([], function() {
 
     var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Open broadleaved forest", "Closed broadleaved forest", "Open needleleaved forest", "Closed needleleaved forest", "Open mixed forest", "Mixed forest and grassland", "Grassland / shrub", "Flooded forest", "Wetland", "Settlements", "Bare land", "Water bodies", "Snow / ice", "No data"],
         lcGlobalBounds = [1, 16],
-        lcGlobalColors = ["#E0A828","#8BFB3B","#51952F","#287310","#B6D6A1","#89C364","#888749","#B98D5A","#FFFEC1","#19A785","#689AA7","#FCB7CB","#D3CE63","#77B5FC","#FFFFFF","#B3B3B3"];
+        lcGlobalColors = ["#E0A828", "#8BFB3B", "#51952F", "#287310", "#B6D6A1", "#89C364", "#888749", "#B98D5A", "#FFFEC1", "#19A785", "#689AA7", "#FCB7CB", "#D3CE63", "#77B5FC", "#FFFFFF", "#B3B3B3"];
 
     var lcAsiaLabels = ["Agriculture", "Agroforestry", "Fish pond", "Grassland / Shrub", "Mining", "Oil Palm Plantation", "Primary Forest", "Rubber Plantation", "Secondary Forest", "Settlements", "Swamp", "Timber Plantation", "Water Bodies"],
         lcAsiaBounds = [1, 13],
@@ -81,54 +81,54 @@ define([], function() {
         ],
 
         urls: {
-          imageService: 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer'
+            imageService: 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer'
         },
 
         messages: {
-          largeAreaWarning: 'The area for this analysis request is quite large and may take some time to process.'
+            largeAreaWarning: 'The area for this analysis request is quite large and may take some time to process.'
         },
 
         rasterFunctions: {
-          range: {
-            "rasterFunction": "histogram16bit",
-            "outputPixelType": "U16",
-            "rasterFunctionArguments": {
-              "Rasters": ["$529"]
-            }
-          },
-          combination: {
-            "rasterFunction": "Combination",
-            "variableName": "AnalysisRaster",
-            "rasterFunctionArguments": {
-              "RasterRange": [1, 140],
-              "Raster2Length": [4],
-              "Raster": {
+            range: {
+                "rasterFunction": "histogram16bit",
+                "outputPixelType": "U16",
+                "rasterFunctionArguments": {
+                    "Rasters": ["$529"]
+                }
+            },
+            combination: {
                 "rasterFunction": "Combination",
                 "variableName": "AnalysisRaster",
                 "rasterFunctionArguments": {
-                  "RasterRange": [1, 14],  // Change these values
-                  "Raster2Length": [10],  // Change these values
-                  "Raster": "$521",  // Change these values
-                  "Raster2": "$2"  // Change these values
+                    "RasterRange": [1, 140],
+                    "Raster2Length": [4],
+                    "Raster": {
+                        "rasterFunction": "Combination",
+                        "variableName": "AnalysisRaster",
+                        "rasterFunctionArguments": {
+                            "RasterRange": [1, 14], // Change these values
+                            "Raster2Length": [10], // Change these values
+                            "Raster": "$521", // Change these values
+                            "Raster2": "$2" // Change these values
+                        }
+                    },
+                    "Raster2": {
+                        "rasterFunction": "Remap",
+                        "rasterFunctionArguments": {
+                            "InputRanges": [
+                                946, 946,
+                                947, 947,
+                                948, 948,
+                                949, 949
+                            ],
+                            "OutputValues": [1, 2, 3, 4],
+                            "Raster": "$529",
+                            "AllowUnmatched": false
+                        },
+                        "variableName": "Raster"
+                    }
                 }
-              },
-              "Raster2": {
-                "rasterFunction": "Remap",
-                "rasterFunctionArguments": {
-                  "InputRanges": [
-                    946,946,
-                    947,947,
-                    948,948,
-                    949,949
-                  ],
-                  "OutputValues": [1,2,3,4],
-                  "Raster": "$529",
-                  "AllowUnmatched": false
-                },
-                "variableName": "Raster"
-              }
             }
-          }
         },
 
         boundariesUrl: boundariesUrl,
@@ -269,7 +269,7 @@ define([], function() {
             bounds: primaryForestBounds,
             labels: primaryForestLabels,
             clearanceChart: {
-                title: "Clearance Alerts in Primary Forests since Jan 2013",
+                title: "Clearance Alerts in Primary Forests since Jan 2014",
                 type: "pie"
             },
             lossChart: {
@@ -302,7 +302,7 @@ define([], function() {
             bounds: treeCoverBounds,
             labels: treeCoverLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Tree Cover Density since Jan 2013",
+                title: "Clearance Alerts on Tree Cover Density since Jan 2014",
                 type: "pie"
             },
             lossChart: {
@@ -349,7 +349,7 @@ define([], function() {
             bounds: legalClassBounds,
             labels: legalClassLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Legal Classifications since Jan 2013",
+                title: "Clearance Alerts on Legal Classifications since Jan 2014",
                 type: "pie"
             },
             lossChart: {
@@ -368,7 +368,7 @@ define([], function() {
             bounds: moratoriumBounds,
             labels: moratoriumLabels,
             clearanceChart: {
-                title: "Clearance alerts on Moratorium Areas since Jan 2013",
+                title: "Clearance alerts on Moratorium Areas since Jan 2014",
                 type: "bar"
             },
             lossChart: {
@@ -390,7 +390,7 @@ define([], function() {
             bounds: protectedAreaBounds,
             labels: protectedAreaLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Protected Areas since Jan 2013",
+                title: "Clearance Alerts on Protected Areas since Jan 2014",
                 type: "bar"
             },
             lossChart: {
@@ -414,7 +414,7 @@ define([], function() {
             bounds: carbonStockBounds,
             labels: carbonStockLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Forest Carbon Stocks since Jan 2013",
+                title: "Clearance Alerts on Forest Carbon Stocks since Jan 2014",
                 type: "pie"
             },
             lossChart: {
@@ -432,7 +432,7 @@ define([], function() {
             bounds: intactForestBounds,
             labels: intactForestLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Intact Forest Landscapes since Jan 2013",
+                title: "Clearance Alerts on Intact Forest Landscapes since Jan 2014",
                 type: "bar"
             },
             lossChart: {
@@ -452,7 +452,7 @@ define([], function() {
             bounds: peatLandsBounds,
             labels: peatLandsLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Peat Lands since Jan 2013",
+                title: "Clearance Alerts on Peat Lands since Jan 2014",
                 type: "bar"
             },
             lossChart: {
@@ -477,7 +477,7 @@ define([], function() {
             bounds: lcGlobalBounds,
             labels: lcGlobalLabels,
             clearanceChart: {
-                title: 'Clearance Alerts on Land Cover - Global since Jan 2013',
+                title: 'Clearance Alerts on Land Cover - Global since Jan 2014',
                 type: 'pie'
             },
             lossChart: {
@@ -494,7 +494,7 @@ define([], function() {
             bounds: lcAsiaBounds,
             labels: lcAsiaLabels,
             clearanceChart: {
-                title: 'Clearance Alerts on Land Cover - Southeast Asia since Jan 2013',
+                title: 'Clearance Alerts on Land Cover - Southeast Asia since Jan 2014',
                 type: 'pie'
             },
             lossChart: {
@@ -511,7 +511,7 @@ define([], function() {
             bounds: lcIndoBounds,
             labels: lcIndoLabels,
             clearanceChart: {
-                title: 'Clearance Alerts on Land Cover - Indonesia since Jan 2013',
+                title: 'Clearance Alerts on Land Cover - Indonesia since Jan 2014',
                 type: 'pie'
             },
             lossChart: {
