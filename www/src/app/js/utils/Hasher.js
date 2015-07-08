@@ -147,42 +147,6 @@ define([
             hash(ioQuery.objectToQuery(state));
         },
 
-        toggleMultipleLayers: function(layerIds, on) {
-            var state = ioQuery.queryToObject(hash()),
-                lyrsArray,
-                index;
-
-            lyrsArray = state.lyrs ? state.lyrs.split(",") : [];
-
-            for (var i = 0; i < layerIds.length; i++) {
-
-                index = lyrsArray.indexOf(layerIds[i]);
-
-                if (index > -1) {
-                    if (!on) {
-                        lyrsArray.splice(index, 1);
-                    }
-
-                } else {
-                    if (on) {
-                        lyrsArray.push(layerIds[i]);
-                    }
-
-                }
-
-                if (lyrsArray.length === 0) {
-                    delete state.lyrs;
-                } else {
-                    state.lyrs = lyrsArray.join(',');
-                }
-
-                hash(ioQuery.objectToQuery(state));
-
-            }
-
-
-        },
-
         forceLayer: function(layerId, on) {
             var state = ioQuery.queryToObject(hash()),
                 lyrsArray,
@@ -191,7 +155,6 @@ define([
             lyrsArray = state.lyrs ? state.lyrs.split(",") : [];
 
             index = lyrsArray.indexOf(layerId);
-            //debugger;
 
             if (on) {
                 if (index === -1) {
@@ -202,18 +165,6 @@ define([
                     lyrsArray.splice(index, 1);
                 }
             }
-
-            // if (index > -1) {
-            //     if (!on) {
-            //         lyrsArray.splice(index, 1);
-            //     }
-
-            // } else {
-            //     if (on) {
-            //         lyrsArray.push(layerId);
-            //     }
-
-            // }
 
             if (lyrsArray.length === 0) {
                 delete state.lyrs;
