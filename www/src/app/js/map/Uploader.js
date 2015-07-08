@@ -5,6 +5,7 @@ define([
     'utils/GeoHelper',
     'analysis/config',
     'analysis/WizardStore',
+    'utils/Analytics',
     // Dojo Modules
     'dojo/on',
     'dojo/sniff',
@@ -22,7 +23,7 @@ define([
     'esri/geometry/Polygon',
     'esri/geometry/scaleUtils',
     'esri/geometry/webMercatorUtils'
-], function(MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, CsvStore, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils, webMercatorUtils) {
+], function(MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, Analytics, on, sniff, domClass, registry, Memory, domConstruct, ComboBox, CsvStore, esriRequest, Graphic, Point, Extent, Polygon, scaleUtils, webMercatorUtils) {
     'use strict';
 
     var closeHandle;
@@ -110,6 +111,9 @@ define([
                             throw new Error('No items found in CSV file.');
                         }
 
+                        // Emit Event for Analytics
+                        Analytics.sendEvent('Event', 'Upload Data', 'User uploaded CSV.', items);
+
                         attributes = store.getAttributes(items[0]);
 
                         attributes.forEach(function(attr) {
@@ -145,6 +149,8 @@ define([
 
             var params,
                 extent;
+
+
 
             // Split the extension off using the . 
             filename = filename.split('.');
@@ -200,6 +206,9 @@ define([
             var featureCollection = res.featureCollection,
                 uploadedFeatureStore = [],
                 self = this;
+
+            // Emit Event for Analytics
+            Analytics.sendEvent('Event', 'Upload Data', 'User uploaded zip file.', res);
 
             // Create a store of data
             // Currently this upload only takes the first layer of a shapefile

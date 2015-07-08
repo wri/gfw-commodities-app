@@ -17,7 +17,7 @@ define([], function() {
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
         biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/conservation/MapServer',
         geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
-        brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
+    brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
 
     return {
         geometryServiceUrl: geometryServiceUrl,
@@ -46,19 +46,19 @@ define([], function() {
             portalUrl: 'http://www.arcgis.com/sharing/rest/content/features/generate',
             labelField: "WRI_label",
             errors: {
-                
+
             }
         },
 
         coordinatesDialog: {
-          coordinatesModalHeader: 'Enter Point Coordinates',
-          coordinatesEnterButton: 'Enter',
-          latitudePlaceholder: 'Latitude',
-          longitudePlaceholder: 'Longitude',
-          errors: {
-            invalidLatitude: 'You did not enter a valid value for Latitude.',
-            invalidLongitude: 'You did not enter a valid value for Longitude.'
-          }
+            coordinatesModalHeader: 'Enter Point Coordinates',
+            coordinatesEnterButton: 'Enter',
+            latitudePlaceholder: 'Latitude',
+            longitudePlaceholder: 'Longitude',
+            errors: {
+                invalidLatitude: 'You did not enter a valid value for Latitude.',
+                invalidLongitude: 'You did not enter a valid value for Longitude.'
+            }
         },
 
         // Layers which are not part of the Master Layer UI List Widget (Colored Categories Stripes across top of the map) go below
@@ -210,12 +210,12 @@ define([], function() {
         },
 
         biomes: {
-          id: 'brazilBiomes',
-          url: brazilBiomesLayer,
-          layerId: 0,
-          infoTemplate: {
-            content: "<div>Area: ${area_ha:NumberFormat(places:0)}</div>"
-          }
+            id: 'brazilBiomes',
+            url: brazilBiomesLayer,
+            layerId: 0,
+            infoTemplate: {
+                content: "<div>Area: ${area_ha:NumberFormat(places:0)}</div>"
+            }
         },
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
         ifl: {
@@ -316,7 +316,7 @@ define([], function() {
             layerId: 16
         },
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
-        
+
         // This layer is also under forest use but has its own service
         mill: {
             id: 'MillPoints',
@@ -419,335 +419,381 @@ define([], function() {
         // Required properties are key, title, subtitle, filter, and type
 
         layersUI: [{
-            id: "tcc",
-            title: "Tree Cover Change",
-            subtitle: "(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)",
-            filter: "forest-change",
-            type: "radio",
-            layerType: "none",
-            children: [{
-                id: "loss",
-                title: "Loss",
-                subtitle: "",
+                id: "tcc",
+                title: "Tree Cover Change",
+                subtitle: "(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)",
                 filter: "forest-change",
-                type: "check",
-                layerType: "tiled"
+                type: "radio",
+                layerType: "none",
+                children: [{
+                    id: "loss",
+                    title: "Loss",
+                    subtitle: "",
+                    filter: "forest-change",
+                    type: "check",
+                    layerType: "tiled"
+                }, {
+                    id: "gain",
+                    title: "Gain",
+                    subtitle: "",
+                    filter: "forest-change",
+                    type: "check",
+                    layerType: "image"
+                }],
+                infoDivClass: "forest-change-tree-cover-change"
             }, {
-                id: "gain",
-                title: "Gain",
-                subtitle: "",
+                id: "forma",
+                title: "FORMA Alerts",
+                subtitle: "(monthly, 500m, humid tropics)",
                 filter: "forest-change",
+                type: "radio",
+                layerType: "image",
+                infoDivClass: "forest-change-forma-alerts"
+            }, {
+                id: "fires",
+                title: "Active Fires",
+                subtitle: "(past 7 days, 1km, global; NASA)",
+                filter: "forest-change",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-change-nasa-active-fires"
+            },
+            // {
+            //     id: "none_fc",
+            //     title: "None",
+            //     subtitle: "",
+            //     filter: "forest-change",
+            //     type: "radio",
+            //     layerType: "none"
+            // }, 
+            {
+                id: "tcd",
+                title: "Tree Cover Density",
+                subtitle: "(year 2000, 30m global)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "image",
+                infoDivClass: "forest-and-land-cover-tree-cover-density"
+            }, {
+                id: "ifl",
+                title: "Intact Forest Landscapes",
+                subtitle: "(year 2000, 30m global)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-intact-forest-landscape"
+            }, {
+                id: "peat",
+                title: "Peat Lands",
+                subtitle: "(year 2002, Indonesia)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-peat-lands"
+            }, {
+                id: "tfcs",
+                title: "Tropical Carbon Stocks",
+                subtitle: "(early 2000s, 1km, tropics)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-carbon-stocks"
+            }, {
+                id: "biomes",
+                title: "Brazil Biomes",
+                subtitle: "(year 2004, Brazil)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic"
+            }, {
+                id: "primForest",
+                title: "Primary Forests",
+                subtitle: "(2000, 30m, Indonesia)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "image",
+                infoDivClass: "forest-and-land-cover-primary-forest"
+                //  children: [
+                //  {
+                //     id: "primForest-1",
+                //     title: "2000",
+                //     filter: "forest-change",
+                //     type: "radio",
+                //     layerType: "image",
+                //     noSlider: true
+                //   },
+                //   {
+                //     id: "primForest-2",
+                //     title: "2005",
+                //     filter: "forest-change",
+                //     type: "radio",
+                //     layerType: "image",
+                //     noSlider: true
+                //   },
+                //   {
+                //     id: "primForest-3",
+                //     title: "2010",
+                //     filter: "forest-change",
+                //     type: "radio",
+                //     layerType: "image",
+                //     noSlider: true
+                //   },
+                //   {
+                //     id: "primForest-4",
+                //     title: "2012",
+                //     filter: "forest-change",
+                //     type: "radio",
+                //     layerType: "image",
+                //     noSlider: true
+                //   }
+                // ]
+            }, {
+                id: "ldcover",
+                title: "Land Cover",
+                subtitle: "(mid 2000s, global)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-land-cover-global"
+            }, {
+                id: "ldcoverIndo",
+                title: "Land Cover Indonesia",
+                subtitle: "(mid 2000s, Indonesia)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-land-cover-indonesia"
+            }, {
+                id: "ldcoverAsia",
+                title: "Land Cover Southeast Asia",
+                subtitle: "(mid 2000s, Southeast Asia)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-land-cover-south-east-asia"
+            }, {
+                id: "legal",
+                title: "Legal Classifications",
+                subtitle: "(year 2010, select countries)",
+                filter: "forest-cover",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-legal-classifications"
+            }, {
+                kids: ["oilPerm", "rspoPerm", "woodPerm", "minePerm", "logPerm"],
+                id: "newConcessions",
+                title: "Concessions",
+                filter: "forest-use",
                 type: "check",
-                layerType: "image"
-            }],
-            infoDivClass: "forest-change-tree-cover-change"
-        }, {
-            id: "forma",
-            title: "FORMA Alerts",
-            subtitle: "(monthly, 500m, humid tropics)",
-            filter: "forest-change",
-            type: "radio",
-            layerType: "image",
-            infoDivClass: "forest-change-forma-alerts"
-        }, {
-            id: "fires",
-            title: "Active Fires",
-            subtitle: "(past 7 days, 1km, global; NASA)",
-            filter: "forest-change",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-change-nasa-active-fires"
-        }, 
-        // {
-        //     id: "none_fc",
-        //     title: "None",
-        //     subtitle: "",
-        //     filter: "forest-change",
-        //     type: "radio",
-        //     layerType: "none"
-        // }, 
-        {
-            id: "tcd",
-            title: "Tree Cover Density",
-            subtitle: "(year 2000, 30m global)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "image",
-            infoDivClass: "forest-and-land-cover-tree-cover-density"
-        }, {
-            id: "ifl",
-            title: "Intact Forest Landscapes",
-            subtitle: "(year 2000, 30m global)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-and-land-cover-intact-forest-landscape"
-        }, {
-            id: "peat",
-            title: "Peat Lands",
-            subtitle: "(year 2002, Indonesia)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-and-land-cover-peat-lands"
-        }, {
-            id: "tfcs",
-            title: "Tropical Carbon Stocks",
-            subtitle: "(early 2000s, 1km, tropics)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-and-land-cover-carbon-stocks"
-        }, {
-            id: "biomes",
-            title: "Brazil Biomes",
-            subtitle: "(year 2004, Brazil)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic"
-        }, {
-            id: "primForest",
-            title: "Primary Forests",
-            subtitle: "(2000, 30m, Indonesia)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "image",
-            infoDivClass: "forest-and-land-cover-primary-forest"
-            //  children: [
-            //  {
-            //     id: "primForest-1",
-            //     title: "2000",
-            //     filter: "forest-change",
+                layerType: "dynamic" //,
+                //infoDivClass: "new-concessionss" //Add this class to give this group an info icon
+            }, {
+                id: "oilPerm",
+                title: "Oil Palm",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-oil-palm",
+                parent: "newConcessions"
+            }, {
+                id: "rspoPerm",
+                title: "RSPO Oil Palm",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-rspo-consessions",
+                parent: "newConcessions"
+            }, {
+                id: "logPerm",
+                title: "Logging",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-logging",
+                parent: "newConcessions"
+            }, {
+                id: "minePerm",
+                title: "Mining",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-mining",
+                parent: "newConcessions"
+            }, {
+                id: "woodPerm",
+                title: "Wood Fiber Plantations",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-wood-fiber-plantation",
+                parent: "newConcessions"
+            }, {
+                kids: ["mill"],
+                id: "newInfrastructure",
+                title: "Infrastructure",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic"
+            }, {
+                id: "mill",
+                title: "RSPO Mills",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-mill-points",
+                parent: "newInfrastructure"
+            }, {
+                kids: ["moratorium"],
+                id: "newOther",
+                title: "Other",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic"
+            }, {
+                id: 'moratorium',
+                title: 'Indonesia Moratorium',
+                subtitle: '(IMM V7/V6, 2014, Indonesia)',
+                filter: 'forest-use',
+                type: 'check',
+                layerType: 'dynamic',
+                parent: "newOther"
+                // }, {
+                //     kids: ["mill2", "mill3"],
+                //     id: "newConcessions",
+                //     title: "New Concessions",
+                //     filter: "forest-use",
+                //     type: "check",
+                //     layerType: "dynamic" //,
+                //     //infoDivClass: "new-concessionss" //Add this class to give this group an info icon
+                // }, {
+                //     id: "mill2",
+                //     title: "RSPO Mills",
+                //     subtitle: "(varies, select countries)",
+                //     filter: "forest-use",
+                //     type: "check",
+                //     layerType: "dynamic",
+                //     infoDivClass: "land-use-mill-points",
+                //     parent: "newConcessions"
+                // }, {
+                //     id: "mill3",
+                //     title: "RSPO Mills",
+                //     subtitle: "(varies, select countries)",
+                //     filter: "forest-use",
+                //     type: "check",
+                //     layerType: "dynamic",
+                //     infoDivClass: "land-use-mill-points",
+                //     parent: "newConcessions"
+            }, {
+                id: "pal",
+                title: "Protected Areas",
+                subtitle: "(varies, global)",
+                filter: "conservation",
+                type: "check",
+                layerType: "tiled",
+                infoDivClass: "conservation-protected-areas"
+            }, {
+                id: 'biodiversity',
+                title: 'Biodiversity Hotspots',
+                subtitle: '(year 2011, global)',
+                filter: 'conservation',
+                type: 'check',
+                layerType: 'dynamic',
+                infoDivClass: 'conservation-biodiversity-hotspots'
+            }, {
+                id: "suit",
+                title: "Custom Suitability Map",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "check",
+                layerType: "image",
+                infoDivClass: "suitability-custom-suitability-mapper"
+            }, {
+                id: "opsd",
+                title: "WRI Suitability Standard - Oil Palm",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-wri-standard-suitability"
+            }, {
+                id: "cons",
+                title: "Conservation Areas",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-conservation-areas"
+            }, {
+                id: "elev",
+                title: "Elevation",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-elevation"
+            }, {
+                id: "slope",
+                title: "Slope",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-slope"
+            }, {
+                id: "rain",
+                title: "Rainfall",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-rainfall"
+            }, {
+                id: "soilDr",
+                title: "Soil Drainage",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-soil-drainage"
+            }, {
+                id: "soilDe",
+                title: "Soil Depth",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-soil-depth"
+            }, {
+                id: "soilAc",
+                title: "Soil Acidity",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-soil-acidity"
+            }, {
+                id: "soilTy",
+                title: "Soil Type",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "dynamic",
+                infoDivClass: "suitability-soil-type"
+            }
+            // , {
+            //     id: "none_agro",
+            //     title: "None",
+            //     subtitle: "",
+            //     filter: "agro-suitability",
             //     type: "radio",
-            //     layerType: "image",
-            //     noSlider: true
-            //   },
-            //   {
-            //     id: "primForest-2",
-            //     title: "2005",
-            //     filter: "forest-change",
-            //     type: "radio",
-            //     layerType: "image",
-            //     noSlider: true
-            //   },
-            //   {
-            //     id: "primForest-3",
-            //     title: "2010",
-            //     filter: "forest-change",
-            //     type: "radio",
-            //     layerType: "image",
-            //     noSlider: true
-            //   },
-            //   {
-            //     id: "primForest-4",
-            //     title: "2012",
-            //     filter: "forest-change",
-            //     type: "radio",
-            //     layerType: "image",
-            //     noSlider: true
-            //   }
-            // ]
-        }, {
-            id: "ldcover",
-            title: "Land Cover",
-            subtitle: "(mid 2000s, global)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-and-land-cover-land-cover-global"
-        }, {
-            id: "ldcoverIndo",
-            title: "Land Cover Indonesia",
-            subtitle: "(mid 2000s, Indonesia)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-and-land-cover-land-cover-indonesia"
-        }, {
-            id: "ldcoverAsia",
-            title: "Land Cover Southeast Asia",
-            subtitle: "(mid 2000s, Southeast Asia)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-and-land-cover-land-cover-south-east-asia"
-        }, {
-            id: "legal",
-            title: "Legal Classifications",
-            subtitle: "(year 2010, select countries)",
-            filter: "forest-cover",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "forest-and-land-cover-legal-classifications"
-        }, 
-        // {
-        //     id: "none_fco",
-        //     title: "None",
-        //     subtitle: "",
-        //     filter: "forest-cover",
-        //     type: "radio",
-        //     layerType: "none"
-        // }, 
-        {
-            id: "oilPerm",
-            title: "Oil Palm",
-            subtitle: "(varies, select countries)",
-            filter: "forest-use",
-            type: "check",
-            layerType: "dynamic",
-            infoDivClass: "land-use-oil-palm"
-        }, {
-            id: "rspoPerm",
-            title: "RSPO Oil Palm",
-            subtitle: "(varies, select countries)",
-            filter: "forest-use",
-            type: "check",
-            layerType: "dynamic",
-            infoDivClass: "land-use-rspo-consessions"
-        }, {
-            id: "logPerm",
-            title: "Logging",
-            subtitle: "(varies, select countries)",
-            filter: "forest-use",
-            type: "check",
-            layerType: "dynamic",
-            infoDivClass: "land-use-logging"
-        }, {
-            id: "minePerm",
-            title: "Mining",
-            subtitle: "(varies, select countries)",
-            filter: "forest-use",
-            type: "check",
-            layerType: "dynamic",
-            infoDivClass: "land-use-mining"
-        }, {
-            id: "woodPerm",
-            title: "Wood Fiber Plantations",
-            subtitle: "(varies, select countries)",
-            filter: "forest-use",
-            type: "check",
-            layerType: "dynamic",
-            infoDivClass: "land-use-wood-fiber-plantation"
-        }, {
-            id: "mill",
-            title: "RSPO Mills",
-            subtitle: "(varies, select countries)",
-            filter: "forest-use",
-            type: "check",
-            layerType: "dynamic",
-            infoDivClass: "land-use-mill-points"
-        }, {
-            id: 'moratorium',
-            title: 'Indonesia Moratorium',
-            subtitle: '(IMM V7/V6, 2014, Indonesia)',
-            filter: 'forest-use',
-            type: 'check',
-            layerType: 'dynamic'
-        }, {
-            id: "pal",
-            title: "Protected Areas",
-            subtitle: "(varies, global)",
-            filter: "conservation",
-            type: "check",
-            layerType: "tiled",
-            infoDivClass: "conservation-protected-areas"
-        }, {
-            id: 'biodiversity',
-            title: 'Biodiversity Hotspots',
-            subtitle: '(year 2011, global)',
-            filter: 'conservation',
-            type: 'check',
-            layerType: 'dynamic',
-            infoDivClass: 'conservation-biodiversity-hotspots'
-        }, {
-            id: "suit",
-            title: "Custom Suitability Map",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "check",
-            layerType: "image",
-            infoDivClass: "suitability-custom-suitability-mapper"
-        }, {
-            id: "opsd",
-            title: "WRI Suitability Standard - Oil Palm",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-wri-standard-suitability"
-        }, {
-            id: "cons",
-            title: "Conservation Areas",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-conservation-areas"
-        }, {
-            id: "elev",
-            title: "Elevation",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-elevation"
-        }, {
-            id: "slope",
-            title: "Slope",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-slope"
-        }, {
-            id: "rain",
-            title: "Rainfall",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-rainfall"
-        }, {
-            id: "soilDr",
-            title: "Soil Drainage",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-soil-drainage"
-        }, {
-            id: "soilDe",
-            title: "Soil Depth",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-soil-depth"
-        }, {
-            id: "soilAc",
-            title: "Soil Acidity",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-soil-acidity"
-        }, {
-            id: "soilTy",
-            title: "Soil Type",
-            subtitle: "",
-            filter: "agro-suitability",
-            type: "radio",
-            layerType: "dynamic",
-            infoDivClass: "suitability-soil-type"
-        }
-        // , {
-        //     id: "none_agro",
-        //     title: "None",
-        //     subtitle: "",
-        //     filter: "agro-suitability",
-        //     type: "radio",
-        //     layerType: "none"
-        // }
+            //     layerType: "none"
+            // }
         ],
 
         // Miscellaneous Settings
