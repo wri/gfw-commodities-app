@@ -631,7 +631,8 @@ define([], function() {
                 type: "check",
                 layerType: "dynamic",
                 infoDivClass: "land-use-wood-fiber-plantation",
-                parent: "newConcessions"
+                parent: "newConcessions",
+                endChild: true
             }, {
                 kids: ["mill"],
                 id: "newInfrastructure",
@@ -647,7 +648,8 @@ define([], function() {
                 type: "check",
                 layerType: "dynamic",
                 infoDivClass: "land-use-mill-points",
-                parent: "newInfrastructure"
+                parent: "newInfrastructure",
+                endChild: true
             }, {
                 kids: ["moratorium"],
                 id: "newOther",
@@ -662,7 +664,8 @@ define([], function() {
                 filter: 'forest-use',
                 type: 'check',
                 layerType: 'dynamic',
-                parent: "newOther"
+                parent: "newOther",
+                endChild: true
                 // }, {
                 //     kids: ["mill2", "mill3"],
                 //     id: "newConcessions",
