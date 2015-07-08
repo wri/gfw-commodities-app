@@ -607,7 +607,7 @@ define([], function() {
                 parent: "newConcessions"
             }, {
                 id: "logPerm",
-                title: "Logging",
+                title: "Wood Fiber",
                 subtitle: "(varies, select countries)",
                 filter: "forest-use",
                 type: "check",
@@ -625,7 +625,7 @@ define([], function() {
                 parent: "newConcessions"
             }, {
                 id: "woodPerm",
-                title: "Wood Fiber Plantations",
+                title: "Managed Forests",
                 subtitle: "(varies, select countries)",
                 filter: "forest-use",
                 type: "check",
@@ -641,7 +641,7 @@ define([], function() {
                 layerType: "dynamic"
             }, {
                 id: "mill",
-                title: "RSPO Mills",
+                title: "Palm Oil Mills",
                 subtitle: "(varies, select countries)",
                 filter: "forest-use",
                 type: "check",
@@ -657,7 +657,7 @@ define([], function() {
                 layerType: "dynamic"
             }, {
                 id: 'moratorium',
-                title: 'Indonesia Moratorium',
+                title: 'Indonesia Moratorium Areas',
                 subtitle: '(IMM V7/V6, 2014, Indonesia)',
                 filter: 'forest-use',
                 type: 'check',
