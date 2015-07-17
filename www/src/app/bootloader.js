@@ -1,7 +1,7 @@
 /* global window, document, location */
 (function(win, doc) {
     'use strict';
-    var version = "2.4.2",
+    var version = "2.4.3",
         URL = location.pathname.replace(/\/[^/]+$/, "") + 'app',
         dojoConfig = {
             parseOnLoad: false,
@@ -23,7 +23,7 @@
             }, {
                 name: "report",
                 location: URL + "/js/report"
-            },  {
+            }, {
                 name: "actions",
                 location: URL + "/js/actions"
             }, {
@@ -54,8 +54,8 @@
             deps: [
                 "dojo/domReady!"
             ],
-            callback: function() { 
-              require(['js/bundle']);
+            callback: function() {
+                require(['js/bundle']);
             }
         }, // End dojoConfig
         src = [
