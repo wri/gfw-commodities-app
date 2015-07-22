@@ -47,13 +47,25 @@ define([
     },
 
     /**
+    * Add a graphic to the store of custom features, either drawn, from coordinates, or from upload
+    * @param {array} graphics - Array of Esri Graphic object to add to the list
+    */
+    addCustomFeatures: function (graphics) {
+      assert(graphics !== undefined, 'Invalid Parameters for \'WizardActions.addCustomFeatures\'');
+
+      var customFeatures = Store.get(KEYS.customFeatures);
+      customFeatures = customFeatures.concat(graphics);
+      Store.set(KEYS.customFeatures, customFeatures);
+    },
+
+    /**
     * Clear the selected features list
     */
     clearSelectedCustomFeatures: function () {
       Store.set(KEYS.selectedCustomFeatures, []);
     },
 
-    /** 
+    /**
     * Move on to the next step in the wizard
     */
     proceedToNextStep: function () {

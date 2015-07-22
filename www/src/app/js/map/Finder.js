@@ -7,6 +7,7 @@ define([
     "map/MapModel",
     "analysis/WizardHelper",
     "utils/AlertsHelper",
+    'utils/GeoHelper',
     "esri/graphic",
     "dojo/_base/array",
     "esri/InfoTemplate",
@@ -15,7 +16,7 @@ define([
     "esri/tasks/IdentifyParameters",
     "esri/geometry/webMercatorUtils",
     "esri/symbols/PictureMarkerSymbol"
-], function(on, dom, Deferred, all, MapConfig, MapModel, WizardHelper, AlertsHelper, Graphic, arrayUtils, InfoTemplate, Point, IdentifyTask, IdentifyParameters, webMercatorUtils, PictureSymbol) {
+], function(on, dom, Deferred, all, MapConfig, MapModel, WizardHelper, AlertsHelper, GeoHelper, Graphic, arrayUtils, InfoTemplate, Point, IdentifyTask, IdentifyParameters, webMercatorUtils, PictureSymbol) {
     'use strict';
 
     // NOTE: Map is available as app.map
@@ -33,20 +34,9 @@ define([
                 graphic,
                 getValue = function(value) {
                     if (!invalidValue) {
-                        invalidValue = isNaN(parseInt(value));
+                        invalidValue = isNaN(parseFloat(value));
                     }
-                    return isNaN(parseInt(value)) ? 0 : parseInt(value);
-                },
-                nextAvailableId = function() {
-                    var value = 0;
-                    arrayUtils.forEach(app.map.graphics.graphics, function(g) {
-                        if (g.attributes) {
-                            if (g.attributes.locatorValue) {
-                                value = Math.max(value, parseInt(g.attributes.locatorValue));
-                            }
-                        }
-                    });
-                    return value;
+                    return isNaN(parseFloat(value)) ? 0 : parseFloat(value);
                 };
 
             // If the DMS Coords View is present, get the appropriate corrdinates and convert them
@@ -67,12 +57,13 @@ define([
             if (invalidValue) {
                 alert(invalidMessage);
             } else {
-                point = webMercatorUtils.geographicToWebMercator(new Point(longitude, latitude));
-                attributes.locatorValue = nextAvailableId();
+                attributes.locatorValue = GeoHelper.nextCustomFeatureId();
                 attributes.id = 'LOCATOR_' + attributes.locatorValue;
-                graphic = new Graphic(point, symbol, attributes);
+                graphic = GeoHelper.generatePointGraphicFromGeometric(longitude, latitude, attributes);
+                // point = webMercatorUtils.geographicToWebMercator(new Point(longitude, latitude));
+                // graphic = new Graphic(point, symbol, attributes);
                 app.map.graphics.add(graphic);
-                app.map.centerAndZoom(point, 7);
+                app.map.centerAndZoom(graphic.geometry, 7);
                 MapModel.set('showClearPinsOption', true);
             }
         },
@@ -154,7 +145,7 @@ define([
                     // if (item) {
                     //     item.features.forEach(function(feature) {
                     //         feature.feature.layer = item.layer;
-                    //     });                        
+                    //     });
                     // }
 
                     switch (item.layer) {
@@ -285,7 +276,7 @@ define([
                 content;
 
             arrayUtils.forEach(featureObjects, function(item) {
-                content = MapConfig.pal.infoTemplate.content + 
+                content = MapConfig.pal.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
                         "Analyze</button>" +

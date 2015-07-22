@@ -16,6 +16,7 @@ define([
     "utils/Hasher",
     "utils/Animator",
     "utils/Helper",
+    "utils/GeoHelper",
     "esri/geometry/webMercatorUtils",
     "esri/geometry/Point",
     "esri/graphicsUtils",
@@ -27,7 +28,7 @@ define([
     "map/Uploader",
     "map/CoordinatesModal",
     "utils/Analytics"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, Analytics) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, Analytics) {
     'use strict';
 
     var initialized = false,
@@ -39,7 +40,7 @@ define([
 
     return {
 
-        /* NOTE : Set Default Layers in renderComponents at the bottom of the page, 
+        /* NOTE : Set Default Layers in renderComponents at the bottom of the page,
 							Hash needs to be updated before the LayerList is created */
 
         init: function(template) {
@@ -68,9 +69,9 @@ define([
             for (var prop in MapConfig.mapOptions) {
                 mapOptions[prop] = MapConfig.mapOptions[prop];
             }
-            if (hashX != undefined && hashX != "") mapOptions.centerX = hashX;
-            if (hashX != undefined && hashX != "") mapOptions.centerY = hashY;
-            if (hashX != undefined && hashX != "") mapOptions.zoom = hashL;
+            if (hashX !== undefined && hashX !== "") mapOptions.centerX = hashX;
+            if (hashX !== undefined && hashX !== "") mapOptions.centerY = hashY;
+            if (hashX !== undefined && hashX !== "") mapOptions.zoom = hashL;
             //console.log("**********************> map options:", mapOptions);
 
             // This is not esri map, it is custom map class, esri map object available as map.map
@@ -139,7 +140,7 @@ define([
                 mapModel = MapModel.initialize("map-container");
                 // Render any React Components - These will activate any default or hashed layers
                 // Only use this after the map has been loaded,
-                // Also call other functions in renderComponents that build UI elements 
+                // Also call other functions in renderComponents that build UI elements
                 self.renderComponents();
                 // Connect Events
                 self.bindUIEvents();
@@ -163,7 +164,7 @@ define([
             Finder.createFormattingFunctions();
             Finder.setupInfowindowListeners();
 
-            // Fade in the map controls, first, get a list of the ids		
+            // Fade in the map controls, first, get a list of the ids
             dojoQuery(".gfw .map-layer-controls li").forEach(function(item) {
                 ids.push(item.id);
             });
@@ -171,7 +172,7 @@ define([
             Animator.fadeIn(ids, {
                 duration: 100
             });
- 
+
             // Initialize Add This
             try {
                 addthis.init();
@@ -207,7 +208,7 @@ define([
                             self = this;
 
                         self.features.forEach(function(feature) {
-                          isMillPoint = feature.attributes.Mill_name != undefined;
+                          isMillPoint = feature.attributes.Mill_name !== undefined;
                           if (isMillPoint) {
                             existsMillPoint = true;
                             reorderedFeatures.unshift(feature);
@@ -229,7 +230,7 @@ define([
                     }
 
                     Hasher.setHash('f', this.getSelectedFeature().layer + '-' + this.getSelectedFeature().attributes.OBJECTID);
-                  
+
                 } else {
                     Hasher.removeKey('f');
                 }
@@ -403,15 +404,25 @@ define([
 
                 addGraphics = function() {
                     storeGraphics.slice(layer.graphics.length - storeGraphics.length).forEach(function(graphic) {
+                      if (graphic.geometry.type === 'point') {
+                        var circle = GeoHelper.preparePointAsPolygon(graphic, 50);
+                        layer.add(circle);
+                      } else {
                         layer.add(graphic);
+                      }
                     });
-                }
+                };
 
                 removeGraphics = function() {
                     WizardStore.get('removedCustomFeatures').forEach(function (feature) {
-                      layer.remove(feature);
+                      if (feature.geometry.type === 'point') {
+                        var fieldName = 'WRI_ID';
+                        GeoHelper.removeGraphicByField(layer.id, fieldName, feature.attributes[fieldName]);
+                      } else {
+                        layer.remove(feature);
+                      }
                     });
-                }
+                };
 
                 if (storeGraphics.length > 0 && graphicsLengthDifference < 0) {
                     addGraphics();
@@ -497,8 +508,8 @@ define([
             var currentExtent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
 
             var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
-            var x = number.round(extent.getCenter().x, 2);
-            var y = number.round(extent.getCenter().y, 2);
+            x = number.round(extent.getCenter().x, 2);
+            y = number.round(extent.getCenter().y, 2);
             var l = map.map.getLevel();
 
             // Hasher.setHash('x', x);
@@ -529,20 +540,21 @@ define([
         },
 
         showInfoPanel: function(infoPanelClass) {
+          var content;
             if (typeof(infoPanelClass) === 'object') {
-                var content = infoPanelClass;
+                content = infoPanelClass;
                 MapControl.createDialogBox(content);
             } else {
                 if (dataDivLoaded) {
-                    var content = infoDiv.querySelector("." + infoPanelClass);
+                    content = infoDiv.querySelector("." + infoPanelClass);
                     MapControl.createDialogBox(content);
                 } else {
                     Loader.getTemplate("data").then(function(template) {
                         dataDivLoaded = true;
                         infoDiv.innerHTML = template;
-                        var content = infoDiv.querySelector("." + infoPanelClass);
+                        content = infoDiv.querySelector("." + infoPanelClass);
                         MapControl.createDialogBox(content);
-                    })
+                    });
                 }
             }
         }

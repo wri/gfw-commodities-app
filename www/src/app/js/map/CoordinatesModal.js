@@ -5,13 +5,14 @@ define([
   'utils/GeoHelper',
   'analysis/config',
   'analysis/WizardStore',
+  'actions/WizardActions',
   // Dojo Modules
   'dojo/on',
   'dojo/dom-class',
   // Esri Modules
   'esri/graphic',
   'esri/geometry/Point'
-], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, on, domClass, Graphic, Point) {
+], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, WizardActions, on, domClass, Graphic, Point) {
   'use strict';
 
   var closeHandle;
@@ -84,10 +85,10 @@ define([
       attributes.isRSPO = false;
 
       feature = GeoHelper.generatePointGraphicFromGeometric(longitude, latitude, attributes);
-      WizardStore.set(KEYS.customFeatures, WizardStore.get(KEYS.customFeatures).concat([feature]));
+      WizardActions.addCustomFeatures([feature]);
+      app.map.centerAndZoom(feature.geometry, 7);
       this.resetForm();
       this.close();
-
     }
 
   };

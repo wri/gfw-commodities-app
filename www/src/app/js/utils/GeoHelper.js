@@ -40,10 +40,10 @@ define([
 		},
 
     applySelectionSymbolToFeature: function (feature) {
-      var symbol = feature.geometry.type === 'point' ? 
-        Symbols.getHighlightPointSymbol() : 
+      var symbol = feature.geometry.type === 'point' ?
+        Symbols.getHighlightPointSymbol() :
         Symbols.getHighlightPolygonSymbol();
-        
+
       return new Graphic(feature.geometry, symbol, feature.attributes);
     },
 
