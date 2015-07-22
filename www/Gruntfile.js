@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         copy: {
           build: {
             files: [{
-              // htaccess file to prevent cachign of index.html allowing our cacheBust to work 
+              // htaccess file to prevent cachign of index.html allowing our cacheBust to work
               src: ['src/.htaccess'],
               dest: 'build/.htaccess',
               filter: 'isFile'
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
           }
         },
 
-        // Copy over and minify index.html and 
+        // Copy over and minify index.html and
         htmlmin: {
           build: {
             options: {
@@ -88,6 +88,9 @@ module.exports = function(grunt) {
             files: [{
               src: ['src/index.html'],
               dest: 'build/index.html'
+            }, {
+              src: ['src/report.html'],
+              dest: 'build/report.html'
             }, {
               expand: true,
               cwd: 'src/app',
