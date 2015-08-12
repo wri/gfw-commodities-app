@@ -359,7 +359,6 @@ define([], function() {
             analysisPointRadius: 'analysisPointRadius',
             alertsDialogActive: 'alertsDialogActive'
         }
-
     };
 
 });
