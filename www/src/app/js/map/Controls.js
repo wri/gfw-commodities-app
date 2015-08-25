@@ -84,7 +84,8 @@ define([
                 }
 
                 var dialog = new Dialog({
-                    title: content.querySelector(".source_title").innerHTML.toUpperCase(),
+                    // title: content.querySelector(".source_title").innerHTML.toUpperCase(),
+                    title: content.querySelector(".source_title").innerHTML,
                     style: "height: 600px; width: 600px; overflow-y: auto;",
                     draggable: false,
                     hide: function() {

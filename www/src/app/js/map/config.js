@@ -465,7 +465,7 @@ define([], function() {
         {
             id: "tcd",
             title: "Tree Cover Density",
-            subtitle: "(year 2000, 30m global)",
+            subtitle: "(year 2000, 30m global, Hansen/UMD/Google/USGS/Nasa)",
             filter: "forest-cover",
             type: "radio",
             layerType: "image",
