@@ -78,7 +78,13 @@ define([
           (this.state.active ? ' active' : '') +
           (this.props.parent ? ' indented' : '') +
           (this.props.kids ? ' newList' : '') +
+          (this.props.forceUnderline ? ' newList' : '') +
           (this.props.visible ? '' : ' hidden');
+
+          if (this.props.id == 'forma') {
+            debugger
+          }
+
 
       return (        
         <li className={className} data-layer={this.props.id}>
@@ -92,7 +98,7 @@ define([
             <a className='layer-title'>{this.props.title}</a>
             { /* If this condition is met, render a layer info icon, else, render nothing */ }
             {
-              this.props.title !== 'Loss' && this.props.title !== 'Gain' && this.props.infoDivClass !== undefined ?
+              this.props.infoDivClass !== undefined ?
                 <span onClick={this.showInfo} className='layer-info-icon' dangerouslySetInnerHTML={{__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}} /> : null
             }
 

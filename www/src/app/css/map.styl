@@ -527,7 +527,8 @@ wizardBlue = #00688B
 	margin-left 5px
 
 .gfw .legend-content
-	overflow scroll
+	overflow-y auto
+	overflow-x hidden
 	height 250px
 	width 100%
 
@@ -782,69 +783,54 @@ wizardBlue = #00688B
 	bottom: -5px;
 }
 
-.playLineFiller > div {
-	background: #a1ba42;
-	display: inline-block;
-	height: 8px;
-	width: 34px;
-	position: absolute;
-	margin-top: 4px;
-}
+.playLineFiller > div
+	background #a1ba42
+	display inline-block
+	height 8px
+	width 34px
+	position absolute
+	margin-top 2px
 
-.playLineFiller2 > div {
-	//display: inline-block;
+.playLineFiller2 > div
+	position absolute
+	margin-top 18px
+	color rgb(153, 153, 153)
+	font-family 'Fira Sans', 'fira_sans_otregular', Georgia, serif
+	font-size 13px
+	font-style normal
+	font-variant normal
+	font-weight normal
+	height auto
+	line-height 16px
 
-	position: absolute;
-	margin-top: 18px;
+.playLineFiller2 > div:nth-child(1)
+	margin-left 4px
 
-	color: rgb(153, 153, 153);
-	font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
-	font-size: 13px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: normal;
-	height: auto;
-	line-height: 16px;
+#sliderProgressLine
+	width 2px
+	height 60px
+	position absolute
+	top -5px
+	background-color #a1ba42
+	display none
 
-}
+#sliderProgressLine2 
+	width 2px
+	height 60px
+	position absolute
+	top -0px
+	background-color #a1ba42
+	display none
 
-.playLineFiller2 > div:nth-child(1) {
-    margin-left: 4px;
-}
+.playLineFiller > div
+	width 31px
 
-#sliderProgressLine {
-	//border: 1px solid #a1ba42;;
-	width:1px;
-	height: 60px;
-	position: absolute;
-	top: -5px;
-	background-color: #a1ba42;;
-	display: none;
-}
+.container2
+	width 850px
+	margin-left -15px
 
-#sliderProgressLine2 {
-	//border: 1px solid #a1ba42;;
-	width:1px;
-	height: 60px;
-	position: absolute;
-	top: -0px;
-	background-color: #a1ba42;;
-	display: none;
-
-}
-
-.playLineFiller > div {
-	width: 31px;
-}
-
-.container2 {
-	width: 850px;
-	margin-left: -15px;
-}
-
-.container2 > div:first-child {
-	margin-left: -10px;
-}
+.container2 > div:first-child
+	margin-left -10px
 
 .container2 > div:nth-child(2) {
     margin-left: 49px;

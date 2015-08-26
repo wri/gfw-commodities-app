@@ -96,7 +96,7 @@ define([
           this.props.infoDivClass = "forest-change-tree-cover-change";
           break;
       }
-
+      
       if (document.getElementsByClassName(this.props.infoDivClass).length) {
         topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
       } else {

@@ -212,7 +212,7 @@ define([], function() {
         biomes: {
             id: 'brazilBiomes',
             url: brazilBiomesLayer,
-            layerId: 0,
+            layerId: 1,
             infoTemplate: {
                 content: "<div>Area: ${area_ha:NumberFormat(places:0)}</div>"
             }
@@ -421,26 +421,28 @@ define([], function() {
         layersUI: [{
                 id: "tcc",
                 title: "Tree Cover Change",
-                subtitle: "(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)",
+                subtitle: "",
                 filter: "forest-change",
                 type: "radio",
                 layerType: "none",
                 children: [{
                     id: "loss",
                     title: "Loss",
-                    subtitle: "",
+                    subtitle: "(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)",
                     filter: "forest-change",
                     type: "check",
-                    layerType: "tiled"
+                    layerType: "tiled",
+                    infoDivClass: "forest-change-tree-cover-loss"
                 }, {
                     id: "gain",
                     title: "Gain",
-                    subtitle: "",
+                    subtitle: "(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)",
                     filter: "forest-change",
                     type: "check",
-                    layerType: "image"
-                }],
-                infoDivClass: "forest-change-tree-cover-change"
+                    layerType: "image",
+                    infoDivClass: "forest-change-tree-cover-gain"
+                }]//,
+                // infoDivClass: "forest-change-tree-cover-change"
             }, {
                 id: "forma",
                 title: "FORMA Alerts",
@@ -448,6 +450,7 @@ define([], function() {
                 filter: "forest-change",
                 type: "radio",
                 layerType: "image",
+                forceUnderline: true,
                 infoDivClass: "forest-change-forma-alerts"
             }, {
                 id: "fires",
@@ -485,7 +488,7 @@ define([], function() {
             }, {
                 id: "peat",
                 title: "Peat Lands",
-                subtitle: "(year 2002, Indonesia)",
+                subtitle: "(year 2011, Indonesia)",
                 filter: "forest-cover",
                 type: "radio",
                 layerType: "dynamic",
@@ -504,7 +507,8 @@ define([], function() {
                 subtitle: "(year 2004, Brazil)",
                 filter: "forest-cover",
                 type: "radio",
-                layerType: "dynamic"
+                layerType: "dynamic",
+                infoDivClass: "forest-and-land-cover-brazil-biomes"
             }, {
                 id: "primForest",
                 title: "Primary Forests",

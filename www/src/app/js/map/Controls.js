@@ -172,10 +172,24 @@ define([
                     var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
                     domConstruct.place(yearDot, "yearDotContainer");
                     domStyle.get(yearDot);
-                    var leftPx = (i * 53) + 25;
+                    
+
+                    var leftPx = (i * 46.5) + 32;
+
                     leftPx += "px";
 
-                    if (currentMonth === 1) {
+                    if (currentMonth === 1 && i === 1) {
+                        
+                        domStyle.set(yearDot, {
+                            "position": "absolute",
+                            // "left": leftPx,
+                            "left": "79px",
+                            "top": "17px",
+                            "font-size": "150%",
+                            "color": "black"
+                        });
+                    } else if (currentMonth === 1) {
+                        
                         domStyle.set(yearDot, {
                             "position": "absolute",
                             "left": leftPx,
@@ -417,6 +431,8 @@ define([
                     $('#sliderProgressLine2').css("left", sliderStart4);
                     $('#sliderProgressLine2').css("left", "-=7.5px");
                 }
+
+                // $("#yearDotContainer > div:nth-child(13)").css("color", "black");
                 $('#playLine3').css("left", "+=53px");
                 var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
@@ -459,8 +475,8 @@ define([
                     currentMonth = (monthNum + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=61px");
-                    $('#sliderProgressLine2').css("left", "+=61px");
+                    $('#playLine3').css("left", "+=46.5px");
+                    $('#sliderProgressLine2').css("left", "+=46.5px");
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];
@@ -682,11 +698,11 @@ define([
                     $('#playLine2').css("left", sliderStart2);
                     $('#sliderProgressLine').css("left", sliderStart2);
                 }
-                $('#playLine2').css("left", "-=21.5px");
+                $('#playLine2').css("left", "-=22px");
                 $("#playLine2").html(thumbOne);
 
                 $("#playLine2").show();
-                $('#sliderProgressLine').css("left", "+=7.5px");
+                $('#sliderProgressLine').css("left", "+=7px");
                 $("#sliderProgressLine").show();
 
                 if (thumbOne == thumbTwo) {
