@@ -7,7 +7,8 @@ define([], function() {
         treeCoverGainUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
-        formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
+        // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
+        formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
         protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer",
@@ -480,7 +481,7 @@ define([], function() {
             }, {
                 id: "ifl",
                 title: "Intact Forest Landscapes",
-                subtitle: "(year 2000, 30m global)",
+                subtitle: "(year 2013, 30m global)",
                 filter: "forest-cover",
                 type: "radio",
                 layerType: "dynamic",

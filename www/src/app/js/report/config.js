@@ -1,7 +1,8 @@
 define([], function() {
 
     var geometryServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-        clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
+        // clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
+        clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
         imageServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer",
         suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
@@ -168,7 +169,8 @@ define([], function() {
         },
 
         clearanceAlerts: {
-            rasterId: "$2"
+            rasterId: "$17"
+            // rasterId: "$2"
         },
 
         millPoints: {
@@ -245,7 +247,7 @@ define([], function() {
         // and must be used before any queries for clearanceAlerts will work
         clearanceBounds: {
             url: clearanceAlertsUrl,
-            baseYearLabel: 14
+            baseYearLabel: 15
         },
 
         /* End Main Layers for Analyses */
@@ -269,7 +271,7 @@ define([], function() {
             bounds: primaryForestBounds,
             labels: primaryForestLabels,
             clearanceChart: {
-                title: "Clearance Alerts in Primary Forests since Jan 2014",
+                title: "Clearance Alerts in Primary Forests since Jan 2015",
                 type: "pie"
             },
             lossChart: {
@@ -302,7 +304,7 @@ define([], function() {
             bounds: treeCoverBounds,
             labels: treeCoverLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Tree Cover Density since Jan 2014",
+                title: "Clearance Alerts on Tree Cover Density since Jan 2015",
                 type: "pie"
             },
             lossChart: {
@@ -349,7 +351,7 @@ define([], function() {
             bounds: legalClassBounds,
             labels: legalClassLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Legal Classifications since Jan 2014",
+                title: "Clearance Alerts on Legal Classifications since Jan 2015",
                 type: "pie"
             },
             lossChart: {
@@ -368,7 +370,7 @@ define([], function() {
             bounds: moratoriumBounds,
             labels: moratoriumLabels,
             clearanceChart: {
-                title: "Clearance alerts on Moratorium Areas since Jan 2014",
+                title: "Clearance alerts on Moratorium Areas since Jan 2015",
                 type: "bar"
             },
             lossChart: {
@@ -390,7 +392,7 @@ define([], function() {
             bounds: protectedAreaBounds,
             labels: protectedAreaLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Protected Areas since Jan 2014",
+                title: "Clearance Alerts on Protected Areas since Jan 2015",
                 type: "bar"
             },
             lossChart: {
@@ -414,7 +416,7 @@ define([], function() {
             bounds: carbonStockBounds,
             labels: carbonStockLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Forest Carbon Stocks since Jan 2014",
+                title: "Clearance Alerts on Forest Carbon Stocks since Jan 2015",
                 type: "pie"
             },
             lossChart: {
@@ -432,7 +434,7 @@ define([], function() {
             bounds: intactForestBounds,
             labels: intactForestLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Intact Forest Landscapes since Jan 2014",
+                title: "Clearance Alerts on Intact Forest Landscapes since Jan 2015",
                 type: "bar"
             },
             lossChart: {
@@ -452,7 +454,7 @@ define([], function() {
             bounds: peatLandsBounds,
             labels: peatLandsLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Peat Lands since Jan 2014",
+                title: "Clearance Alerts on Peat Lands since Jan 2015",
                 type: "bar"
             },
             lossChart: {
@@ -477,7 +479,7 @@ define([], function() {
             bounds: lcGlobalBounds,
             labels: lcGlobalLabels,
             clearanceChart: {
-                title: 'Clearance Alerts on Land Cover - Global since Jan 2014',
+                title: 'Clearance Alerts on Land Cover - Global since Jan 2015',
                 type: 'pie'
             },
             lossChart: {
@@ -494,7 +496,7 @@ define([], function() {
             bounds: lcAsiaBounds,
             labels: lcAsiaLabels,
             clearanceChart: {
-                title: 'Clearance Alerts on Land Cover - Southeast Asia since Jan 2014',
+                title: 'Clearance Alerts on Land Cover - Southeast Asia since Jan 2015',
                 type: 'pie'
             },
             lossChart: {
@@ -511,7 +513,7 @@ define([], function() {
             bounds: lcIndoBounds,
             labels: lcIndoLabels,
             clearanceChart: {
-                title: 'Clearance Alerts on Land Cover - Indonesia since Jan 2014',
+                title: 'Clearance Alerts on Land Cover - Indonesia since Jan 2015',
                 type: 'pie'
             },
             lossChart: {

@@ -159,7 +159,7 @@ define([
 
                 var valuesToUse = [];
 
-                var baseYear = 14;
+                var baseYear = 15;
                 var currentYear, currentMonth;
 
                 for (var i = 1; i < (to + 2); i++) {
@@ -173,8 +173,9 @@ define([
                     domConstruct.place(yearDot, "yearDotContainer");
                     domStyle.get(yearDot);
                     
-
-                    var leftPx = (i * 46.5) + 32;
+                    // var multiplier = 790 / (to + 1);
+                    // var leftPx = (i * multiplier) + 32;
+                    var leftPx = (i * 157.5) - 76;
 
                     leftPx += "px";
 
@@ -299,16 +300,16 @@ define([
                 // $(".irs-diapason").css("width", "790px");
                 $(".irs-diapason").css("background-color", "#a1ba42");
                 $("#yearDotContainer > div").css("color", "#a1ba42");
-                var nextYearLeft = $("#yearDotContainer > div:nth-child(13)").css("left");
+                // var nextYearLeft = $("#yearDotContainer > div:nth-child(13)").css("left");
 
-                // console.log(nextYearLeft);
-                var nextYearLeft2 = $("#yearDotContainer > div:nth-child(13)").css("left");
-                nextYearLeft2 = nextYearLeft2.split("p");
-                nextYearLeft2 = (nextYearLeft2[0] - 20) + "px";
+                // // console.log(nextYearLeft);
+                // var nextYearLeft2 = $("#yearDotContainer > div:nth-child(13)").css("left");
+                // nextYearLeft2 = nextYearLeft2.split("p");
+                // nextYearLeft2 = (nextYearLeft2[0] - 20) + "px";
 
-                // $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
-                // $(".playLineFiller2 > div:nth-child(3)").css("left", nextYearLeft2);
-                $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft2);
+                // // $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft);
+                // // $(".playLineFiller2 > div:nth-child(3)").css("left", nextYearLeft2);
+                // $(".playLineFiller2 > div:nth-child(2)").css("left", nextYearLeft2);
 
 
 
@@ -323,20 +324,20 @@ define([
             var $range2 = $(".gfw .toolbox .slider-container"),
                 $from = $(".js-from"),
                 $to = $(".js-to"),
-                min = "1-14",
+                min = "1-15",
                 max,
                 from = "0",
                 to;
 
             var incrementer = 0,
-                baseYear = 14,
+                baseYear = 15,
                 labels3 = [],
                 month;
             this.fetchFORMAAlertsLabels().then(function(res) {
                 if (res) {
                     to = res.maxValues[0] - res.minValues[0];
 
-                    max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 14);
+                    max = (to % 12 + 1) + "-" + (Math.floor(to / 12) + 15);
 
                     for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
                         month = i % 12 === 0 ? 12 : i % 12;
@@ -475,8 +476,8 @@ define([
                     currentMonth = (monthNum + 1) % 12;
                     monthDisplay = months[currentMonth];
                     $("#playLine3").html(monthDisplay);
-                    $('#playLine3').css("left", "+=46.5px");
-                    $('#sliderProgressLine2').css("left", "+=46.5px");
+                    $('#playLine3').css("left", "+=157.5px");
+                    $('#sliderProgressLine2').css("left", "+=157.5px");
 
                     var newDates = $range2[0].value.split(';');
                     var newThumbTwo = newDates[1];

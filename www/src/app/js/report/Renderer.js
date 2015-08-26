@@ -437,6 +437,7 @@ define([
           value,
           i, j;
 
+
       // Config eventually needs to be updated as this is no longer a pie chart
       // Pie chart code and config are staying this way until client approves
       // Will still need the if else, the else section constructs a series with only one value
@@ -569,6 +570,8 @@ define([
             series.push(value);
           }
         }
+
+        //series = series.slice(series.length - 6, series.length); //todo: Remove this slice hack after the 2014 data has been taken out of the service
 
         $("#" + config.rootNode + '_clearance').highcharts({
           chart: {
