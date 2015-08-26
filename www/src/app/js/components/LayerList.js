@@ -16,6 +16,8 @@ define([
         title: this.props.title,
         filter: this.props.filter
       });
+
+
     },
 
     componentDidMount: function () {
@@ -58,6 +60,7 @@ define([
 
     /* jshint ignore:start */
     render: function () {
+      
       return (
         React.createElement("div", {className: "smart-list"}, 
           React.createElement("div", {className: "filter-list-title"}, this.props.title), 
@@ -97,18 +100,49 @@ define([
       component.setState({
         active: newState
       });
-      Hasher.toggleLayers(component.props.id);
 
-      if (component.props.useRadioCallback || component.props.id === 'suit') {
-        topic.publish('toggleLayer', component.props.id);
-      } else {
-        // Call this function on the next animation frame to give React time 
-        // to render the changes from its new state, the callback needs to read
-        // the ui to update the layer correctly
-        requestAnimationFrame(function () {
-          topic.publish('updateLayer', component.props);
+      if (component.props.kids) {
+
+        var childComponents = [];
+
+        component.props.kids.forEach(function (child) {
+          _components.forEach(function (comp) {
+            if (comp.props.id === child) {
+              childComponents.push(comp);
+            }
+          });
         });
-      }   
+
+        childComponents.forEach(function (child) {
+
+          child.setState({
+            active: newState
+          });
+
+          //topic.publish('showLayer', child.props.id);
+          requestAnimationFrame(function () {
+            topic.publish('updateLayer', child.props);
+          });
+          Hasher.forceLayer(child.props.id, newState);          
+        });
+
+      } else {
+        Hasher.toggleLayers(component.props.id);
+
+        if (component.props.useRadioCallback || component.props.id === 'suit') {
+          topic.publish('toggleLayer', component.props.id);
+        } else {
+          // Call this function on the next animation frame to give React time 
+          // to render the changes from its new state, the callback needs to read
+          // the ui to update the layer correctly
+          requestAnimationFrame(function () {
+            topic.publish('updateLayer', component.props);
+          });
+        } 
+      }
+
+
+        
     },
 
     _radio: function (component) {      
@@ -160,8 +194,7 @@ define([
 
         }
       } else {
-        console.log(component);
-      	// Add New if None is not selected and isNew
+        // Add New if None is not selected and isNew
 	      if (component.props.id.search("none_") === -1) {
 	      	Hasher.toggleLayers(component.props.id);
 					topic.publish('showLayer', component.props.id);

@@ -78,7 +78,7 @@ define([
           className = index % 2 === 0 ? 'back-light-gray' : '',
           className = isSelected ? 'text-white back-medium-gray' : className,
           rspoChecks = this.props.rspoChecks ? React.createElement("td", {className: "text-center"}, React.createElement("input", {type: "checkbox", onChange: this._toggleFeatureRSPO, checked: feature.attributes.isRSPO, "data-feature-id": feature.attributes.WRI_ID})) : '',
-          typeIcon = 'app/css/images/icon_' + (feature.geometry.type === 'polygon' ? 'triangle_' : 'circle_') + (isSelected ? 'white' : 'gray') + '.png';
+          typeIcon = 'app/css/images/icon_' + (feature.geometry.type === 'polygon' ? 'polygon_' : 'circle_') + (isSelected ? 'white' : 'gray') + '.png';
 
       return (
         React.createElement("tr", {key: index, className: className}, 

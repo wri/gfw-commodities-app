@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         copy: {
             build: {
                 files: [{
-                    // htaccess file to prevent cachign of index.html allowing our cacheBust to work
+                    // htaccess file to prevent caching of index.html allowing our cacheBust to work
                     src: ['src/.htaccess'],
                     dest: 'build/.htaccess',
                     filter: 'isFile'

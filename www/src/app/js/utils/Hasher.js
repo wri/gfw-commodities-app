@@ -93,7 +93,7 @@ define([
             // this so it does not mess up his features, or we should probably
             // stash them and only bring them back when were in the map view
 
-            var currentHash = this.getHash();            
+            var currentHash = this.getHash();
             if (currentHash.x && currentHash.y) {
                 state.x = currentHash.x;
                 state.y = currentHash.y;
@@ -145,6 +145,35 @@ define([
             }
 
             hash(ioQuery.objectToQuery(state));
+        },
+
+        forceLayer: function(layerId, on) {
+            var state = ioQuery.queryToObject(hash()),
+                lyrsArray,
+                index;
+
+            lyrsArray = state.lyrs ? state.lyrs.split(",") : [];
+
+            index = lyrsArray.indexOf(layerId);
+
+            if (on) {
+                if (index === -1) {
+                    lyrsArray.push(layerId);
+                }
+            } else {
+                if (index > -1) {
+                    lyrsArray.splice(index, 1);
+                }
+            }
+
+            if (lyrsArray.length === 0) {
+                delete state.lyrs;
+            } else {
+                state.lyrs = lyrsArray.join(',');
+            }
+
+            hash(ioQuery.objectToQuery(state));
+
         },
 
         getLayers: function() {

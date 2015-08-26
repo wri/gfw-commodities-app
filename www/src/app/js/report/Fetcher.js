@@ -1,4 +1,5 @@
 define([
+    "lodash",
     "dojo/number",
     "dojo/Deferred",
     "dojo/promise/all",
@@ -21,8 +22,9 @@ define([
     'esri/geometry/geometryEngine',
     "esri/tasks/AreasAndLengthsParameters",
     "esri/Color",
-    "esri/graphic"
-], function (dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic) {
+    "esri/graphic",
+    "report/rasterArea"
+], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic, rasterArea) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -83,14 +85,14 @@ define([
 
                 map.graphics.clear();
                 map.resize();
-                
+
                 scalebar = new Scalebar({
                     map: map,
                     scalebarUnit: 'metric'
                 });
 
                 // Simplify this as multiparts and others may not display properly
-                poly = geometryEngine.simplify(new Polygon(report.geometry));
+                poly = new Polygon(report.mapGeometry);
                 graphic = new Graphic();
                 graphic.setGeometry(poly);
                 graphic.setSymbol(Symbols.getPolygonSymbol());
@@ -164,7 +166,7 @@ define([
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
                     mosaicRule: JSON.stringify(config.mosaicRule),
-                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;
@@ -400,7 +402,7 @@ define([
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
                     renderingRule: renderingRule,
-                    pixelSize: 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;
@@ -444,7 +446,7 @@ define([
                     geometryType: 'esriGeometryPolygon',
                     geometry: JSON.stringify(report.geometry),
                     renderingRule: renderingRule,
-                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;
@@ -495,6 +497,8 @@ define([
                 content,
                 encoder;
 
+            config = _.clone(config);
+
             function success(response) {
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderClearanceData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
@@ -523,7 +527,7 @@ define([
                     config.rasterRemap.rasterFunctionArguments.Raster = config.formaId;
                 }
             }
-            
+
             encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
             rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId;
             renderingRule = useSimpleEncoderRule ?
@@ -544,6 +548,24 @@ define([
 
         _getCompositionAnalysis: function(config) {
 
+            // var simpleRule = {
+            //   "rasterFunction": "Remap",
+            //   "rasterFunctionArguments": {
+            //       "InputRanges": [1, 3],
+            //       "OutputValues": [1],
+            //       "Raster": config.rasterId,
+            //       "AllowUnmatched": false
+            //   }
+            // };
+
+            // var layerConfig = {
+            //   simpleRule: simpleRule
+            // };
+
+            // rasterArea.getArea(report.geometry, layerConfig).then(function (data) {
+
+            // });
+
             ReportRenderer.renderCompositionAnalysisLoader(config);
 
             var deferred = new Deferred(),
@@ -558,7 +580,7 @@ define([
                         'ascending': true,
                         'mosaicOperation': 'MT_FIRST'
                     }),
-                    pixelSize: (report.geometry.rings.length > 45) ? 500 : 100,
+                    pixelSize: ReportConfig.pixelSize,
                     f: 'json'
                 },
                 self = this;
@@ -587,7 +609,7 @@ define([
             }
 
             this._computeHistogram(url, content, success, failure);
-        
+
             return deferred.promise;
         },
 
@@ -672,7 +694,7 @@ define([
               request.addEventListener('error', function () {
                 knownDeferred.resolve(false);
               }, false);
-              
+
               var formData = new FormData();
               formData.append("mills", knownMills.map(function (mill) { return mill.millId; }).join(','));
               // Construct the POST Content in HERE for each Mill
@@ -763,7 +785,7 @@ define([
                 incrementer = 0,
                 month,
                 req;
- 
+
             //if (report.analyzeClearanceAlerts) {
             req = esriRequest({
                 url: config.url,
@@ -788,7 +810,7 @@ define([
                 // For the meantime, we need to slice the first 12 values out to remove 2013 years from this
                 // When the new service gets min and max values set so that I can get the bounds from there
                 // report.clearanceBounds[0] = 13;
-                // report.clearanceLabels = report.clearanceLabels.slice(12); 
+                // report.clearanceLabels = report.clearanceLabels.slice(12);
 
                 deferred.resolve(true);
             }, function(err) {

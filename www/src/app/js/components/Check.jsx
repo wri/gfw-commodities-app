@@ -37,20 +37,22 @@ define([
           });
         }
       }
+      if (!this.props.kids) {
 
-      // Create the slider
-      if (document.getElementById(this.props.id + "_slider")) {
-        new HorizontalSlider({
-          value: 100,
-          minimum: 0,
-          maximum: 100,
-          discreteValues: 100,
-          showButtons: false,
-          intermediateChanges: false,
-          onChange: function(value) {
-            topic.publish('changeLayerTransparency', self.props.id, self.props.layerType, value);
-          }
-        }, this.props.id + "_slider").startup();
+        // Create the slider
+        if (document.getElementById(this.props.id + "_slider")) {
+          new HorizontalSlider({
+            value: 100,
+            minimum: 0,
+            maximum: 100,
+            discreteValues: 100,
+            showButtons: false,
+            intermediateChanges: false,
+            onChange: function(value) {
+              topic.publish('changeLayerTransparency', self.props.id, self.props.layerType, value);
+            }
+          }, this.props.id + "_slider").startup();
+        }
       }
     },
 
@@ -74,6 +76,8 @@ define([
       var className = 'layer-list-item ' +
           this.props.filter +
           (this.state.active ? ' active' : '') +
+          (this.props.parent ? ' indented' : '') +
+          (this.props.kids ? ' newList' : '') +
           (this.props.visible ? '' : ' hidden');
 
       return (        
@@ -89,13 +93,15 @@ define([
             { /* If this condition is met, render a layer info icon, else, render nothing */ }
             {
               this.props.title !== 'Loss' && this.props.title !== 'Gain' && this.props.infoDivClass !== undefined ?
-                <span className='layer-info-icon' onClick={this.showInfo} /> : null
+                <span onClick={this.showInfo} className='layer-info-icon' dangerouslySetInnerHTML={{__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}} /> : null
             }
 
             <p className='layer-sub-title'>{this.props.subtitle}</p>
-            <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
+            {
+            this.props.kids ? null : <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
               <div id={this.props.id + '_slider'} />
             </div>
+            }
             
 
           </div>

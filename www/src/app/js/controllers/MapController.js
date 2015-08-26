@@ -51,8 +51,7 @@ define([
 
             if (initialized) {
                 registry.byId("stackContainer").selectChild("mapView");
-                url = location.href.split("#")[0] + "#v=map";
-                Analytics.sendPageview(url, "Map");
+                Analytics.sendPageview("/#v=map", "Map");
                 return;
             }
 
@@ -236,8 +235,7 @@ define([
                 }
             });
 
-            url = location.href.split("#")[0] + "#v=map";
-            Analytics.sendPageview(url, "Map");
+            Analytics.sendPageview("/#v=map", "Map");
 
         },
 

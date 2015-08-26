@@ -222,7 +222,7 @@ define([
                 }
             };
 
-            win = window.open('./app/js/report/Report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
+            win = window.open('report.html', '_blank', 'menubar=yes,titlebar=yes,scrollbars=yes,resizable=yes');
 
             if (localStorage) {
                localStorage.setItem('payload', JSON.stringify(payload));

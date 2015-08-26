@@ -42,7 +42,7 @@ define([
             React.createElement("a", {className: "wizard-checkbox-label", onClick: this.toggle}, this.props.label), 
             
               this.props.noInfoIcon ? null :
-              React.createElement("div", {className: "layer-info-icon", onClick: this.showInfo})
+              React.createElement("span", {onClick: this.showInfo, className: "layer-info-icon", dangerouslySetInnerHTML: {__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}})
             
           )
         )

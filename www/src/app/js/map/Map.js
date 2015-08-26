@@ -204,6 +204,8 @@ define([
                 millPointsWizardParams,
                 millPointsWizardLayer,
                 wizardGraphicsLayer,
+                bimoesParams,
+                biomesLayer,
                 self = this;
 
             fireParams = new ImageParameters();
@@ -327,6 +329,17 @@ define([
                 visible: false
             });
 
+            bimoesParams = new ImageParameters();
+            bimoesParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            bimoesParams.layerIds = [MapConfig.biomes.layerId];
+            bimoesParams.format = "png32";
+
+            biomesLayer = new ArcGISDynamicLayer(MapConfig.biomes.url, {
+                imageParameters: bimoesParams,
+                id: MapConfig.biomes.id,
+                visible: false
+            });
+
             millParams = new ImageParameters();
             millParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             millParams.layerIds = [MapConfig.mill.layerId];
@@ -417,6 +430,7 @@ define([
                 treeCoverDensityLayer,
                 primaryForestLayer,
                 forestCoverLayer,
+                biomesLayer,
                 // Agricultural Suitability Layers
                 agroSuitabilityLayer,
                 customSuitabilityLayer,

@@ -20,7 +20,7 @@ define([
   // config.rootNode + '_content'
   // config.rootNode + '_chart'
 
-  var exportButtonImagePath = 'url(../../css/images/download-icon.svg)';
+  var exportButtonImagePath = 'url(./app/css/images/download-icon.svg)';
 
   return {
 
@@ -125,7 +125,7 @@ define([
               "<div id='suitability-settings-table'></div>" +
             "</div>" +
             "<div class='right-panel'>" +
-              "<div id='suitability-composition-analysis'></div>" +
+              "<div id='suitability-composition-analysis'><div class='loader-wheel'>composition</div></div>" +
             "</div>" +
           "</div>";
 

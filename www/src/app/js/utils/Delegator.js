@@ -163,7 +163,7 @@ define([
 
             topic.subscribe('filterConcessionsLegendItems', function(index) {
                 app.map._simpleLegends.concessions.filterItem(index);
-            })
+            });
 
         }
 

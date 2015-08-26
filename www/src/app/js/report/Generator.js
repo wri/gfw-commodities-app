@@ -15,6 +15,7 @@ define([
     "esri/geometry/Polygon",
     "esri/SpatialReference",
     "esri/tasks/GeometryService",
+    'esri/geometry/geometryEngine',
     "esri/geometry/webMercatorUtils",
     "utils/Analytics",
     // Local Modules from report folder
@@ -24,7 +25,7 @@ define([
     // Temp
     'esri/units',
     'esri/geometry/Circle'
-], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, webMercatorUtils, Analytics, Config, Fetcher, CSVExporter, Units, Circle) {
+], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, geometryEngine, webMercatorUtils, Analytics, Config, Fetcher, CSVExporter, Units, Circle) {
     'use strict';
 
     window.report = {};
@@ -34,52 +35,89 @@ define([
         init: function() {
             // Payload is passed as Global Payload object, grab and make sure its defined before doing anything else
             if (window.payload) {
-                this.applyConfigurations();
+                this.addConfigurations();
+                this.addContentAndEvents();
                 this.prepareForAnalysis();
-                this.addSubscriptionDialog();
-                
-                // 20141217 CRB - Added info icon to Total Calculated Area in report header
-                this.setupHeader();
             }
         },
 
-        applyConfigurations: function() {
+        addConfigurations: function() {
 
             arrayUtils.forEach(Config.corsEnabledServers, function(server) {
-                esriConfig.defaults.io.corsEnabledServers.push(server);
+              esriConfig.defaults.io.corsEnabledServers.push(server);
             });
 
             // Set defaults for Highcharts
             Highcharts.setOptions({
-                chart: {
-                    style: {
-                        fontFamily: "'Fira Sans', 'fira_sans_otregular', Georgia, serif"
-                    }
-                }
+              chart: {
+                style: { fontFamily: "'Fira Sans', 'fira_sans_otregular', Georgia, serif" }
+              }
             });
 
-            // RSPO Column Chart and Suitabiltiy Pie Chart are done and working
-            this.addCSVOptionToHighcharts();
+        },
 
+        addContentAndEvents: function () {
+          // Set the app title
+          this.setTitle(window.payload.title);
+          // Setup events for the header
+          this.setupHeader();
+          // Create a Dojo Dialog and add it, this will be going away in the future
+          // when we import Albert's subcription dialog from the map
+          this.addSubscriptionDialog();
+          // Add an option to download chart data as a CSV file
+          this.addCSVOptionToHighcharts();
+        },
+
+        /**
+        * @param {string} title
+        */
+        setTitle: function(title) {
+            document.getElementById("title").innerHTML = title;
         },
 
         // 20141217 CRB - Added info icon to Total Calculated Area in report header
         setupHeader: function () {
             var node = dom.byId("total-area-info-icon");
             on(node, 'click', function(evt) {
-                //console.log("i button clicked -- setting popup visibility");
-                domStyle.set("total-area-info-popup", "visibility", "visible");
+              domClass.remove("total-area-info-popup", "hidden");
             });
             node = dom.byId("total-area-close-info-icon");
-            //console.log("adding click event to i button", node);
             on(node, 'click', function(evt) {
-                //console.log("i button clicked -- setting popup visibility");
-                domStyle.set("total-area-info-popup", "visibility", "hidden");
+              domClass.add("total-area-info-popup", "hidden");
             });
         },
 
+        addSubscriptionDialog: function() {
+          var dialog = new Dialog({
+                title: 'Subscribe to Alerts!',
+                style: 'width: 300px;'
+              }),
+              self = this,
+              content = "<div class='subscription-content'>" +
+                "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Monthly Clearance Alerts</label></div>" +
+                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fire Alerts</label></div>" +
+                "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
+                "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
+                "<div id='form-response' class='message-container'></div>" +
+                "</div>";
+
+          dialog.setContent(content);
+
+          on(dom.byId("subscribeToAlerts"), 'click', function() {
+            dialog.show();
+          });
+
+          on(dom.byId("subscribe-now"), 'click', function() {
+            // Show loading Wheel
+            // It will be removed when there is an error or on complete
+            dom.byId('form-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
+            self.subscribeToAlerts();
+          });
+
+        },
+
         addCSVOptionToHighcharts: function () {
-            
+
             var self = this;
 
             function generateCSV () {
@@ -87,7 +125,8 @@ define([
                 // changing this or binding context to generateCSV will cause problems
                 // as we need the context to be the chart
                 var featureTitle = document.getElementById('title').innerHTML,
-                    type = this.options.chart.type,
+                    chartContext = this,
+                    type = chartContext.options.chart.type,
                     lineEnding = '\r\n',
                     content = [],
                     csvData,
@@ -95,26 +134,26 @@ define([
 
                 // All Charts have a title except RSPO Land Use Change Analysis
                 // If the type is column, it's the RSPO Chart so return that for a title
-                content.push(type === 'column' ? 'RSPO Land Use Change Analysis' : this.title.textStr);
+                content.push(type === 'column' ? 'RSPO Land Use Change Analysis' : chartContext.title.textStr);
                 content.push(featureTitle);
 
                 // If type is bar it could be the loss charts or the suitable chart, check the number of xAxes.
                 // The suitability composition breakdown has two x axes while all others have one
-                // Use that as the determining factor but if more charts are added in the future, 
+                // Use that as the determining factor but if more charts are added in the future,
                 // this check may need to be updated
-                if (type === 'bar' && this.xAxis.length > 1) {
+                if (type === 'bar' && chartContext.xAxis.length > 1) {
                     // Pass in the reference to the chart
-                    csvData = CSVExporter.exportCompositionAnalysis(this);
+                    csvData = CSVExporter.exportCompositionAnalysis(chartContext);
                     content = content.concat(csvData);
                 } else if (type === 'pie') {
-                    // Suitability by Legal Classification 
+                    // Suitability by Legal Classification
                     // Pass in the reference to the chart
-                    csvData = CSVExporter.exportSuitabilityByLegalClass(this);
-                    content = content.concat(csvData);                    
+                    csvData = CSVExporter.exportSuitabilityByLegalClass(chartContext);
+                    content = content.concat(csvData);
                 } else {
                     // Its either a bar chart with one axis, line chart, or column chart
                     // Pass in the reference to the chart
-                    csvData = CSVExporter.exportSimpleChartAnalysis(this);
+                    csvData = CSVExporter.exportSimpleChartAnalysis(chartContext);
                     content = content.concat(csvData);
                 }
 
@@ -128,7 +167,7 @@ define([
                     CSVExporter.exportCSV(output);
                 }
 
-                var value = type === 'column' ? 'RSPO Land Use Change Analysis' : this.title.textStr;
+                var value = type === 'column' ? 'RSPO Land Use Change Analysis' : chartContext.title.textStr;
                 Analytics.sendEvent('Event', 'Download CSV', value);
 
             }
@@ -150,14 +189,11 @@ define([
                 failure,
                 poly;
 
-            // Set the title and unhide the report
-            this.setTitleAndShowReport(window.payload.title);
-
-            // Next grab any suitability configurations if they are available, they will be used to perform 
+            // Next grab any suitability configurations if they are available, they will be used to perform
             // a suitability analysis on report.geometry
             report.suitable = window.payload.suitability;
 
-            // Lastly, grab the datasets from the payload and store them in report so we know which 
+            // Lastly, grab the datasets from the payload and store them in report so we know which
             // datasets we will perform the above analyses on
             report.datasets = window.payload.datasets;
 
@@ -174,11 +210,12 @@ define([
                 poly = new Polygon(sr);
                 poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
+
                 // Save the areas to the report.mills incase they are doing mill point analysis, we will need these
                 area.geometry = report.geometry;
                 report.mills = [area];
               } else if (area.geometry.type === 'polygon') {
-                report.geometry = area.geometry;
+                report.geometry = new Polygon(area.geometry);
               }
 
               this.beginAnalysis();
@@ -223,16 +260,6 @@ define([
         },
 
         /*
-            @param  {string} title
-        */
-        setTitleAndShowReport: function(title) {
-            // The report markup is hidden by default so they user does not see a flash of unstyled content
-            // Remove the hidden class at this point and set the title
-            document.getElementById("title").innerHTML = title;
-            domClass.remove("report", "hidden");
-        },
-
-        /*
             Get a lookup list of deferred functions to execute via _getArrayOfRequests
             Fire off a query to get the area of the analysis and clearance alert bounds if necessary
             split the lookup list based on the size to managable chunks using this._chunk
@@ -245,7 +272,8 @@ define([
 
             var requests = this._getArrayOfRequests(),
                 self = this,
-                chunk;
+                chunk,
+                area;
 
             // Helper Function to Continue Making Requests if Necessary
             function processRequests() {
@@ -260,7 +288,35 @@ define([
                 }
             }
 
-            // Get area 
+            // Simplify the Geometry
+            report.geometry = geometryEngine.simplify(report.geometry);
+            area = geometryEngine.planarArea(report.geometry) / 10000;
+            // If the area is over 5,000,000 hectares, warn user this will take some time
+            // and update the default value of the config item
+            if (area > 5000000) {
+              // Hold off on setting pixel size, seems to do more harm than good at the moment
+              //Config.pixelSize = 500;
+
+              var popup = $('#warning-popup');
+              var content = $('#warning-popup-content');
+
+              content.html(Config.messages.largeAreaWarning);
+              popup.toggleClass('hidden');
+
+              on.once($('#warning-popup-close-icon'), 'click', function () {
+                content.html('');
+                popup.toggleClass('hidden');
+              });
+
+              // Save original geometry for the map
+              report.mapGeometry = report.geometry;
+              report.geometry = geometryEngine.generalize(report.geometry, 2000, true);
+            } else {
+              report.mapGeometry = report.geometry;
+              report.geometry = geometryEngine.generalize(report.geometry, 200, true);
+            }
+
+            // Get area
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
             report.areaPromise.then(function (area) {
               document.getElementById("total-area").innerHTML = area ? area : "Not Available";
@@ -275,7 +331,7 @@ define([
                 if (requests.length < 3) {
                     all(self._getDeferredsForItems(requests)).then(self.getFiresAnalysis.bind(self));
                 } else {
-                    // Get an array of arrays, each containing 3 lookup items so 
+                    // Get an array of arrays, each containing 3 lookup items so
                     // we can request three analyses at a time
                     requests = arrayChunk(requests, 3);
                     processRequests();
@@ -321,42 +377,24 @@ define([
 
         /* Helper Functions */
 
-        /*
-            Returns array of strings representing which requests need to be made
-            @return  {array}
-            Deferred Mapping is in comments below this function
+        /**
+        * Returns array of strings representing which requests need to be made
+        * @return  {array}
+        * Deferred Mapping is in comments below this function
         */
         _getArrayOfRequests: function() {
             var requests = [];
-
             for (var key in report.datasets) {
                 if (report.datasets[key]) {
                     requests.push(key);
                 }
             }
-
             return requests;
         },
 
-        /*
-            Deferred's Mapping
-            suit - Fetcher._getSuitabilityAnalysis()
-            fires - Fetcher._getFireAlertAnalysis()
-            mill - Fetcher._getMillPointAnalysis()
-            primForest - Fetcher.getPrimaryForestResults()
-            protected - Fetcher.getProtectedAreaResults()
-            treeDensity - Fetcher.getTreeCoverResults()
-            carbon - Fetcher.getCarbonStocksResults()
-            intact - Fetcher.getIntactForestResults()
-            landCover - Fetcher.getLandCoverResults()
-            legal - Fetcher.getLegalClassResults()
-            peat - Fetcher.getPeatLandsResults()
-            rspo - Fetcher.getRSPOResults()
-        */
-
-        /*
-            @param  {array} items
-            @return {array} of deferred functions
+        /**
+        *  @param  {array} items
+        *  @return {array} of deferred functions
         */
         _getDeferredsForItems: function(items) {
             var deferreds = [];
@@ -416,35 +454,6 @@ define([
             });
 
             return deferreds;
-        },
-
-        addSubscriptionDialog: function() {
-            var dialog = new Dialog({
-                    title: 'Subscribe to Alerts!',
-                    style: 'width: 300px;'
-                }),
-                self = this,
-                content = "<div class='subscription-content'>" +
-                "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Monthly Clearance Alerts</label></div>" +
-                "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fire Alerts</label></div>" +
-                "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
-                "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
-                "<div id='form-response' class='message-container'></div>" +
-                "</div>";
-
-            dialog.setContent(content);
-
-            on(dom.byId("subscribeToAlerts"), 'click', function() {
-                dialog.show();
-            });
-
-            on(dom.byId("subscribe-now"), 'click', function() {
-                // Show loading Wheel
-                // It will be removed when there is an error or on complete
-                dom.byId('form-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
-                self.subscribeToAlerts();
-            });
-
         },
 
         subscribeToAlerts: function() {
