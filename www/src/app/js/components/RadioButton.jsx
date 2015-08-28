@@ -20,6 +20,8 @@ define([
 					active = layerArray.indexOf(this.props.id) > -1,
           self = this;
 
+          
+
 			if (active) {
 				topic.publish('showLayer', this.props.id);
 				this.setState({

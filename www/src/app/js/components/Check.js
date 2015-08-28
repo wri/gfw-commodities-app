@@ -81,19 +81,18 @@ define([
           (this.props.forceUnderline ? ' newList' : '') +
           (this.props.visible ? '' : ' hidden');
 
-          if (this.props.id == 'forma') {
-            debugger
-          }
-
-
+          
       return (        
         React.createElement("li", {className: className, "data-layer": this.props.id}, 
-          React.createElement("div", {id: this.props.id + '_checkbox', onClick: this.toggle}, 
+            React.createElement("div", {id: this.props.id + '_checkbox', onClick: this.props.kids ? null : this.toggle}, 
+
+
             
-            React.createElement("span", {className: "custom-check"}, 
-              /* Used as an icon node */
-              React.createElement("span", null)
-            ), 
+              this.props.kids ? null : React.createElement("span", {className: "custom-check"}, 
+                /* Used as an icon node */
+                React.createElement("span", null)
+              ), 
+            
             
             React.createElement("a", {className: "layer-title"}, this.props.title), 
             /* If this condition is met, render a layer info icon, else, render nothing */ 

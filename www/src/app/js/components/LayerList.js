@@ -101,52 +101,52 @@ define([
         active: newState
       });
 
-      if (component.props.kids) {
+      // if (component.props.kids) {
 
-        var childComponents = [];
+      //   var childComponents = [];
 
-        component.props.kids.forEach(function (child) {
-          _components.forEach(function (comp) {
-            if (comp.props.id === child) {
-              childComponents.push(comp);
-            }
-          });
-        });
+      //   component.props.kids.forEach(function (child) {
+      //     _components.forEach(function (comp) {
+      //       if (comp.props.id === child) {
+      //         childComponents.push(comp);
+      //       }
+      //     });
+      //   });
 
-        childComponents.forEach(function (child) {
+      //   childComponents.forEach(function (child) {
 
-          child.setState({
-            active: newState
-          });
+      //     child.setState({
+      //       active: newState
+      //     });
 
-          //topic.publish('showLayer', child.props.id);
-          requestAnimationFrame(function () {
-            topic.publish('updateLayer', child.props);
-          });
-          Hasher.forceLayer(child.props.id, newState);          
-        });
+      //     //topic.publish('showLayer', child.props.id);
+      //     requestAnimationFrame(function () {
+      //       topic.publish('updateLayer', child.props);
+      //     });
+      //     Hasher.forceLayer(child.props.id, newState);          
+      //   });
 
+      // } else {
+      Hasher.toggleLayers(component.props.id);
+
+      if (component.props.useRadioCallback || component.props.id === 'suit') {
+        topic.publish('toggleLayer', component.props.id);
       } else {
-        Hasher.toggleLayers(component.props.id);
-
-        if (component.props.useRadioCallback || component.props.id === 'suit') {
-          topic.publish('toggleLayer', component.props.id);
-        } else {
-          // Call this function on the next animation frame to give React time 
-          // to render the changes from its new state, the callback needs to read
-          // the ui to update the layer correctly
-          requestAnimationFrame(function () {
-            topic.publish('updateLayer', component.props);
-          });
-        } 
-      }
+        // Call this function on the next animation frame to give React time 
+        // to render the changes from its new state, the callback needs to read
+        // the ui to update the layer correctly
+        requestAnimationFrame(function () {
+          topic.publish('updateLayer', component.props);
+        });
+      } 
+      // }
 
 
         
     },
 
     _radio: function (component) {      
-
+      
       var previous,
       		isNewSelection;
 
@@ -212,7 +212,7 @@ define([
     },
 
     _toggleChildren: function (component, action) {
-
+      
     	var childComponents = [];
 
     	if (component.props.children) {

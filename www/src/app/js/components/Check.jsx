@@ -81,19 +81,18 @@ define([
           (this.props.forceUnderline ? ' newList' : '') +
           (this.props.visible ? '' : ' hidden');
 
-          if (this.props.id == 'forma') {
-            debugger
-          }
-
-
+          
       return (        
         <li className={className} data-layer={this.props.id}>
-          <div id={this.props.id + '_checkbox'} onClick={this.toggle}>
-            
-            <span className='custom-check'>
-              {/* Used as an icon node */}
-              <span />
-            </span>
+            <div id={this.props.id + '_checkbox'} onClick={this.props.kids ? null : this.toggle}>
+
+
+            {
+              this.props.kids ? null : <span className='custom-check'>
+                {/* Used as an icon node */}
+                <span />
+              </span>
+            }
             
             <a className='layer-title'>{this.props.title}</a>
             { /* If this condition is met, render a layer info icon, else, render nothing */ }
