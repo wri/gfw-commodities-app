@@ -147,6 +147,7 @@ define([
             var layer = app.map.getLayer(layerConfig.id),
                 visibleLayers = [];
             if (layer) {
+                debugger
                 visibleLayers.push(layerConfig.layerId);
                 layer.setVisibleLayers(visibleLayers);
                 layer.show();

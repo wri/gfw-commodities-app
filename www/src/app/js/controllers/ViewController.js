@@ -41,6 +41,9 @@ define([
 
             // If the View has already been loaded, dont fetch the content again
             if (loadedViews[view]) {
+                if (!callback) {
+                    callback = this.getCallback(view);
+                }
                 callback();
                 self.viewLoaded(view);
                 // if (view != "home view") {

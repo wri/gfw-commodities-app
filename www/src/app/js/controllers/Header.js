@@ -49,6 +49,14 @@ define([
                 });
             });
 
+            // query("#learn-more-dropdown .nav-link-more").forEach(function(item) {
+            //     on(item, "click", function(evt) {
+            //         var target = evt.target ? evt.target : evt.srcElement,
+            //             dataView = target.dataset ? target.dataset.view : target.getAttribute('data-view');
+            //         self.updateViewAbout(target, dataView);
+            //     });
+            // });
+
             query("#dijit_Dialog_0 > div.dijitDialogPaneContent > p > a").forEach(function(item) {
                 on(item, "click", function(evt) {
                     var target = evt.target ? evt.target : evt.srcElement,
@@ -60,6 +68,15 @@ define([
                     self.updateView(dataView, external, initialized);
                 });
             });
+
+            var handlerIn = function() {
+                $("#learn-more-dropdown").removeClass('hidden');
+            }
+            var handlerOut = function() {
+                $("#learn-more-dropdown").addClass('hidden');
+            }
+
+            $("#learnMoreItem").mouseenter(handlerIn).mouseleave(handlerOut);
         },
 
         updateView: function(view, isExternal, initialized) {
@@ -89,6 +106,7 @@ define([
                 Hasher.setHash("v", view);
             }
 
+
             // require(["controllers/HomeController"], function(HomeController) {
 
             //     if (view != "home" && HomeController.isInitialized()) {
@@ -98,6 +116,12 @@ define([
             //     }
             // });
         },
+
+        // updateViewAbout: function(target, dataView) {
+        //     Hasher.setHash("v", "about");
+        //     console.log(dataView)
+        //     Hasher.setHash("n", dataView);
+        // },
 
         toggleForView: function(view) {
             if (view === 'map') {
@@ -131,7 +155,6 @@ define([
         },
 
         setForHome: function() {
-            //debugger;
             domClass.add("nav-content", "inner");
             domClass.remove("nav-content", "outer");
             domClass.remove("app-header", "mapView");

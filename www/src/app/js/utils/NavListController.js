@@ -30,7 +30,16 @@ define([
                 }
             });
 
+
+            query(".nav-link-more").forEach(function(node){
+                node.onclick = function (){
+                    changeNavItemAbout(node, "about");
+                    
+                };
+            });
+
             function changeNavItem (node, context) {
+                console.log(node)
                 query(".nav-item-a.selected ").forEach(function(selectedDiv){
                     if(selectedDiv.parentElement.id.indexOf(context) > -1){
                         domClass.remove(selectedDiv, "selected");
@@ -51,12 +60,79 @@ define([
                 //extract nav title
                 var navTitle = node.id;
                 navTitle = navTitle.replace("Nav", "").replace(context, "");
+                console.log(navTitle)
+
                 Hasher.setHash("n", navTitle);
 
                 // Camel Case the label and construct a clean url with minimal parameters
                 var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(node.children[0].innerHTML);
                 var url = "/#v=" + context + "&n=" + navTitle;
                 Analytics.sendPageview(url, analyticsTitle);
+            }
+
+            function changeNavItemAbout(node, context) {
+                query(".nav-item-a.selected ").forEach(function(selectedDiv){
+                    
+                    if(selectedDiv.parentElement.id.indexOf(context) > -1){
+
+                        domClass.remove(selectedDiv, "selected");
+                        domStyle.set(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "display", "none");
+                        domClass.remove(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "selected");
+                    }
+                });
+                
+                var state = ioQuery.queryToObject(hash());
+
+                //if we're on the about page already, dont reset view
+                if (state.v != "about") {
+                    Hasher.setHash("v", "about"); 
+                    Hasher.setHash("n", node['dataset'].src);
+                    
+                } else {
+                    Hasher.setHash("n", node['dataset'].src);
+                }
+
+                var replacementNode;
+                switch (node['dataset'].src) {
+                    case "GFW":
+                      replacementNode = $("#aboutGFWNav");
+                      break;
+                    case "History":
+                      replacementNode = $("#aboutHistoryNav");
+                      break;
+                    case "Partners":
+                      replacementNode = $("#aboutPartnersNav");
+                      break;
+                    case "Users":
+                      replacementNode = $("#aboutUsersNav");
+                      break;
+                    case "Videos":
+                      replacementNode = $("#aboutVideosNav");
+                      break;
+                }
+
+                
+                // //if node matches #, set to selected
+                if(node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
+                    
+                    domClass.add(replacementNode[0].children[0], "selected");
+                    domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
+                    domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], "selected");
+                    needsDefaults = false;
+                    activeNode = replacementNode[0].children[0];
+                }
+
+                // domClass.add(node.children[0], "selected");
+
+                // domStyle.set(node.id.match(/(.*)Nav/)[1], "display", "block");
+
+
+                // var navTitle = node.id;
+                // navTitle = navTitle.replace("Nav", "").replace(context, "");
+                // console.log(navTitle)
+                // debugger
+                // Hasher.setHash("n", navTitle);
+
             }
         },
 
