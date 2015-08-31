@@ -56,6 +56,15 @@ define([
       }
     },
 
+    // componentWillReceiveProps: function(nextProps, nextState) {
+    //   if (nextProps.id === 'loss' || nextProps.id === 'gain') {
+    //     if (!nextProps.visible) {
+    //       this.setState({ 'active' : false })
+    //     }
+    //   }
+
+    // },
+
     toggle: function(synEvent) {
       if (!domClass.contains(synEvent.target, 'layer-info-icon') &&
         synEvent.target.className.search('dijit') < 0) {
@@ -78,7 +87,6 @@ define([
           (this.state.active ? ' active' : '') +
           (this.props.parent ? ' indented' : '') +
           (this.props.kids ? ' newList' : '') +
-          (this.props.forceUnderline ? ' newList' : '') +
           (this.props.visible ? '' : ' hidden');
 
           

@@ -66,6 +66,7 @@ define([
       var className = 'layer-list-item ' +
                       this.props.filter + 
                       (this.state.active ? ' active' : '') +
+                      (this.props.forceUnderline ? ' newList' : '') +
                       (this.props.visible ? '' : ' hidden');
 
 
