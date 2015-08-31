@@ -39,7 +39,6 @@ define([
             });
 
             function changeNavItem (node, context) {
-                console.log(node)
                 query(".nav-item-a.selected ").forEach(function(selectedDiv){
                     if(selectedDiv.parentElement.id.indexOf(context) > -1){
                         domClass.remove(selectedDiv, "selected");
@@ -60,7 +59,6 @@ define([
                 //extract nav title
                 var navTitle = node.id;
                 navTitle = navTitle.replace("Nav", "").replace(context, "");
-                console.log(navTitle)
 
                 Hasher.setHash("n", navTitle);
 
@@ -95,25 +93,28 @@ define([
                 var replacementNode;
                 switch (node['dataset'].src) {
                     case "GFW":
-                      replacementNode = $("#aboutGFWNav");
-                      break;
+                        replacementNode = $("#aboutGFWNav");
+                        break;
                     case "History":
-                      replacementNode = $("#aboutHistoryNav");
-                      break;
+                        replacementNode = $("#aboutHistoryNav");
+                        break;
                     case "Partners":
-                      replacementNode = $("#aboutPartnersNav");
-                      break;
-                    case "Users":
-                      replacementNode = $("#aboutUsersNav");
-                      break;
+                        replacementNode = $("#aboutPartnersNav");
+                        break;
                     case "Videos":
-                      replacementNode = $("#aboutVideosNav");
-                      break;
+                        replacementNode = $("#aboutVideosNav");
+                        break;
+                    case "Users":
+                        replacementNode = $("#aboutUsersNav");
+                        break;
+                    default:
+                        replacementNode = $("#aboutGFWNav");
+                        break;
                 }
 
                 
                 // //if node matches #, set to selected
-                if(node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
+                if (node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
                     
                     domClass.add(replacementNode[0].children[0], "selected");
                     domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
@@ -121,17 +122,6 @@ define([
                     needsDefaults = false;
                     activeNode = replacementNode[0].children[0];
                 }
-
-                // domClass.add(node.children[0], "selected");
-
-                // domStyle.set(node.id.match(/(.*)Nav/)[1], "display", "block");
-
-
-                // var navTitle = node.id;
-                // navTitle = navTitle.replace("Nav", "").replace(context, "");
-                // console.log(navTitle)
-                // debugger
-                // Hasher.setHash("n", navTitle);
 
             }
         },

@@ -37,7 +37,7 @@ define([
 
             topic.subscribe("/dojo/hashchange", function(changedHash) {
                 var oldState = state;
-
+                
                 state = ioQuery.queryToObject(changedHash);
                 //console.log(state);
 
