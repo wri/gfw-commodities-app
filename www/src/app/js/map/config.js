@@ -4,8 +4,8 @@ define([], function() {
     // The dynamicMapServiceUrl is currently being used by the following layers (by key):
     // ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm
     // var dynamicMapServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer",
-    var dynamicMapServiceUrl ="http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer",
-        dynamicMapServiceUrlForest = "http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer/",
+    var dynamicMapServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer",
+        dynamicMapServiceUrlForest = "http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer",
         dynamicMapServiceUrlComm = "http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer",
         dynamicMapServiceUrlLand = "http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer",
         treeCoverGainUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
@@ -21,7 +21,7 @@ define([], function() {
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
         biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/MapServer',
-        geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
+        geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer',
         brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
 
     return {
@@ -202,8 +202,11 @@ define([], function() {
             legendLayerId: 2
         },
         primForest: {
-            id: "PrimaryForest",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
+            infoTemplate: {
+                content: "<div>Area: ${area_ha:NumberFormat(places:0)}</div>"
+            },
             layerId: 8
             // legendLayerId: 33
         },
@@ -216,7 +219,7 @@ define([], function() {
         },
 
         biomes: {
-            id: 'brazilBiomes',
+            id: 'commodities',
             url: dynamicMapServiceUrlComm,
             layerId: 9,
             infoTemplate: {
@@ -225,44 +228,44 @@ define([], function() {
         },
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
         ifl: {
-            id: "ForestCover",
+            id: "forestCover",
             url: dynamicMapServiceUrlForest,
             layerId: 0
         },
         peat: {
-            id: "ForestCover",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 22
         },
         tfcs: {
-            id: "ForestCover",
+            id: "forestCover",
             url: dynamicMapServiceUrlForest,
             layerId: 1
         },
         ldcover: {
-            id: "ForestCover",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 11
         },
         ldcoverIndo: {
-            id: "ForestCover",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 12
         },
         ldcoverAsia: {
-            id: "ForestCover",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 10
         },
         legal: {
-            id: "ForestCover",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 13
         },
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
         oilPerm: {
-            id: "ForestUse",
+            id: "landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 1,
             infoTemplate: {
@@ -275,7 +278,7 @@ define([], function() {
             }
         },
         rspoPerm: {
-            id: "ForestUse",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 4,
             infoTemplate: {
@@ -302,22 +305,22 @@ define([], function() {
             }
         },
         logPerm: {
-            id: "ForestUse",
+            id: "landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 0
         },
         minePerm: {
-            id: "ForestUse",
+            id: "landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 2
         },
         woodPerm: {
-            id: "ForestUse",
+            id: "landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 3
         },
         moratorium: {
-            id: "ForestUse",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 7
         },
@@ -325,7 +328,7 @@ define([], function() {
 
         // This layer is also under forest use but has its own service
         mill: {
-            id: 'MillPoints',
+            id: 'commodities',
             url: dynamicMapServiceUrlComm,
             layerId: 6,
             infoTemplate: {
@@ -364,47 +367,47 @@ define([], function() {
 
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
         opsd: { // Oil Palm Suitability Default
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 23
         },
         cons: { //Conservation Areas
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 14
         },
         elev: { // Elevation
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 19
         },
         slope: { // Slope
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrl,
             layerId: 20
         },
         rain: { // Rainfall
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 21
         },
         soilDr: { // Soil Drainage
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 16
         },
         soilDe: { // Soil Depth
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 17
         },
         soilAc: { // Soil Acidity
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 18
         },
         soilTy: { // Soil Type
-            id: "AgriculturalSuitability",
+            id: "commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 15
         },

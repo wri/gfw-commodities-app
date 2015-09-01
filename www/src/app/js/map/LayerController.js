@@ -93,7 +93,7 @@ define([
             // up in the callstack so one function can catch all and this becomes less messy
             // may also want to add descriptive content to layer config
             status = arrayUtils.indexOf(visibleLayers, conf.layerId) > -1 ? 'on.' : 'off.';
-
+            
             switch (conf) {
               case MapConfig.oilPerm:
                 value = 'User toggled Oil Palm Concessions layer ' + status;
@@ -147,7 +147,6 @@ define([
             var layer = app.map.getLayer(layerConfig.id),
                 visibleLayers = [];
             if (layer) {
-                debugger
                 visibleLayers.push(layerConfig.layerId);
                 layer.setVisibleLayers(visibleLayers);
                 layer.show();
