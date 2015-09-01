@@ -93,6 +93,8 @@ define([
                     }
                 });
 
+                
+
                 dialog.onClose(function() {
                     //console.log("CLOSED");
                 });
@@ -100,6 +102,14 @@ define([
                 //content.getElementsByClassName("source_title")[0].innerHTML
                 dialog.setContent(contentClone.innerHTML);
                 dialog.show();
+
+                $('body').on('click',function(e){
+                    if (e.target.classList.contains('dijitDialogUnderlay')) {
+                        dialog.hide();
+                        $('body').off('click');
+                    }                    
+                });
+
             });
         },
 
