@@ -135,43 +135,46 @@ define([
 					url = MapConfig.oilPerm.url,
 					self = this,
 					layer;
+
+					
 						
 			// Get Graphic, and set the appropriate content
 			switch (type) {
 				case "Logging concession":
-				layer = 10;
-				break;
+					layer = 3;
+					break;
 				case "Mining concession":
-				layer = 26;
-				break;
+					layer = 2;
+					break;
 				case "Wood fiber plantation":
-				layer = 28;
-				break;
+					layer = 0;
+					break;
 				case "Oil palm concession":
-				layer = 32;
-				break;
+					layer = 1;
+					break;
 				case "RSPO Oil palm concession":
-				layer = 27;
-				break;
+					layer = 4;
+					url = MapConfig.commercialEntitiesLayer.url;
+					break;
 				case "AdminBoundary":
-				selectedArea = AnalyzerConfig.stepOne.option2.id;
-				url = MapConfig.adminUnitsLayer.url;
-				layer = MapConfig.adminUnitsLayer.layerId;
-				break;
+					selectedArea = AnalyzerConfig.stepOne.option2.id;
+					url = MapConfig.adminUnitsLayer.url;
+					layer = MapConfig.adminUnitsLayer.layerId;
+					break;
 				case "CertScheme":
-				url = MapConfig.commercialEntitiesLayer.url;
-				layer = MapConfig.commercialEntitiesLayer.layerId;
-				break;
+					url = MapConfig.commercialEntitiesLayer.url;
+					layer = MapConfig.commercialEntitiesLayer.layerId;
+					break;
 				case "CustomGraphic":
-				selectedArea = AnalyzerConfig.stepOne.option1.id;
-				break;
+					selectedArea = AnalyzerConfig.stepOne.option1.id;
+					break;
 				case "MillPoint":
-				selectedArea = AnalyzerConfig.stepOne.option5.id;
-				break;
+					selectedArea = AnalyzerConfig.stepOne.option5.id;
+					break;
 				case "WDPA":
-				url = MapConfig.palHelper.url;
-				layer = MapConfig.palHelper.layerId;
-				break;
+					url = MapConfig.palHelper.url;
+					layer = MapConfig.palHelper.layerId;
+					break;
 			}
 
 			if (type === "CustomGraphic") {
@@ -179,7 +182,7 @@ define([
 				arrayUtils.some(layer.graphics, function (graphic) {
 					if (graphic.attributes.WRI_ID === parseInt(id)) {
 						if (!self.isOpen()) {
-              topic.publish('toggleWizard');
+              	topic.publish('toggleWizard');
 							setWizardProps(graphic);
 						} else {
 							setWizardProps(graphic);
@@ -193,22 +196,22 @@ define([
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
-            topic.publish('toggleWizard');
-            setWizardProps(feature);
-            self.addGraphicFromPopup(feature);
-          } else {
-            setWizardProps(feature);
-            self.addGraphicFromPopup(feature);
-          }
-        });
-      } else {
+            			topic.publish('toggleWizard');
+            			setWizardProps(feature);
+            			self.addGraphicFromPopup(feature);
+          			} else {
+            			setWizardProps(feature);
+            			self.addGraphicFromPopup(feature);
+          			}
+        		});
+      		} else {
         // This should catch any generic dynamic layers
-        AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
-          feature.attributes.WRI_label = label;
-          if (!self.isOpen()) {
-            topic.publish('toggleWizard');
-            setWizardProps(feature);
-            self.addGraphicFromPopup(feature);
+		        AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
+		        	feature.attributes.WRI_label = label;
+		        	if (!self.isOpen()) {
+			            topic.publish('toggleWizard');
+			            setWizardProps(feature);
+			            self.addGraphicFromPopup(feature);
 					} else {
 						setWizardProps(feature);
 						self.addGraphicFromPopup(feature);

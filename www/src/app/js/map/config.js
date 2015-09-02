@@ -269,11 +269,11 @@ define([], function() {
             url: dynamicMapServiceUrlLand,
             layerId: 1,
             infoTemplate: {
-                content: "<table><tr><td>Concession Type: </td><td>${TYPE}</td></tr>" +
+                content: "<table><tr><td>Concession Type: </td><td>${Concession Type}</td></tr>" +
                     "<tr><td>Country: </td><td>${Country}</td></tr>" +
-                    "<tr><td>Group: </td><td>${GROUP_NAME:checkAvailable}</td></tr>" +
-                    "<tr><td>Certification Status: </td><td>${CERT_STAT:checkAvailable}</td></tr>" +
-                    "<tr><td>GIS Calculated Area (ha): </td><td>${AREA_HA:NumberFormat}</td></tr>" +
+                    "<tr><td>Group: </td><td>${Group:checkAvailable}</td></tr>" +
+                    "<tr><td>Certification Status: </td><td>${Certification Status:checkAvailable}</td></tr>" +
+                    "<tr><td>GIS Calculated Area (ha): </td><td>${GIS Calculated Area (ha):NumberFormat}</td></tr>" +
                     "<tr><td>Source: </td><td>${Source:checkAvailable}</td></tr></table>"
             }
         },
@@ -283,23 +283,23 @@ define([], function() {
             layerId: 4,
             infoTemplate: {
                 content: "<table>" +
-                    "<tr><td>Concession Type: </td><td>${TYPE:checkAvailable}</td></tr>" +
+                    "<tr><td>Concession Type: </td><td>${Concession Type:checkAvailable}</td></tr>" +
                     "<tr><td>Country:</td><td>${Country:checkAvailable}</td></tr>" +
-                    "<tr><td>Group:</td><td>${GROUP_NAME:checkAvailable}</td></tr>" +
-                    "<tr><td>Certification Status:</td><td>${CERT_STAT:checkAvailable}</td></tr>" +
-                    "<tr><td>GIS Calculated Area (ha):</td><td>${AREA_HA:NumberFormat}</td></tr>" +
-                    "<tr><td>Certificate ID:</td><td>${Certificat:checkAvailable}</td></tr>" +
-                    "<tr><td>Certificate Issue Date:</td><td>${Issued:checkAvailable}</td></tr>" +
-                    "<tr><td>Certificate Expiry Date:</td><td>${Expired:checkAvailable}</td></tr>" +
-                    "<tr><td>Mill name:</td><td>${Mill:checkAvailable}</td></tr>" +
-                    "<tr><td>Mill location:</td><td>${Location:checkAvailable}</td></tr>" +
-                    "<tr><td>Mill capacity (t/hour):</td><td>${Capacity:NumberFormat}</td></tr>" +
-                    "<tr><td>Certified CPO (mt):</td><td>${CPO:NumberFormat}</td></tr>" +
-                    "<tr><td>Certified PK (mt):</td><td>${PK:NumberFormat}</td></tr>" +
-                    "<tr><td>Estate Suppliers:</td><td>${Estate:checkAvailable}</td></tr>" +
-                    "<tr><td>Estate Area (ha):</td><td>${Estate_1:NumberFormat}</td></tr>" +
-                    "<tr><td>Outgrower Area (ha):</td><td>${Outgrowe:NumberFormat}</td></tr>" +
-                    "<tr><td>Scheme Smallholder area (ha):</td><td>${SH:NumberFormat}</td></tr>" +
+                    "<tr><td>Group:</td><td>${group_name:checkAvailable}</td></tr>" +
+                    "<tr><td>Certification Status:</td><td>${cert_schem:checkAvailable}</td></tr>" +
+                    "<tr><td>GIS Calculated Area (ha):</td><td>${GIS Calculated Area (ha):NumberFormat}</td></tr>" +
+                    "<tr><td>Certificate ID:</td><td>${certificat:checkAvailable}</td></tr>" +
+                    "<tr><td>Certificate Issue Date:</td><td>${issued:checkAvailable}</td></tr>" +
+                    "<tr><td>Certificate Expiry Date:</td><td>${expired:checkAvailable}</td></tr>" +
+                    "<tr><td>Mill name:</td><td>${mill:checkAvailable}</td></tr>" +
+                    "<tr><td>Mill location:</td><td>${location:checkAvailable}</td></tr>" +
+                    "<tr><td>Mill capacity (t/hour):</td><td>${capacity:NumberFormat}</td></tr>" +
+                    "<tr><td>Certified CPO (mt):</td><td>${cpo:NumberFormat}</td></tr>" +
+                    "<tr><td>Certified PK (mt):</td><td>${pk:NumberFormat}</td></tr>" +
+                    "<tr><td>Estate Suppliers:</td><td>${estate:checkAvailable}</td></tr>" +
+                    "<tr><td>Estate Area (ha):</td><td>${estate_1:NumberFormat}</td></tr>" +
+                    "<tr><td>Outgrower Area (ha):</td><td>${outgrower:NumberFormat}</td></tr>" +
+                    "<tr><td>Scheme Smallholder area (ha):</td><td>${sh:NumberFormat}</td></tr>" +
                     "<tr><td>Source: </td><td>${Source:checkAvailable}</td></tr>" +
                     "</table>"
             }
@@ -341,9 +341,9 @@ define([], function() {
             id: "ProtectedAreas",
             url: protectedAreasUrl,
             infoTemplate: {
-                content: "<table><tr><td>Local Name:</td><td>${ORIG_NAME}</td></tr>" +
-                    "<tr><td>Local Designation:</td><td>${DESIG_ENG}</td></tr>" +
-                    "<tr><td>WDPA ID:</td><td>${WDPAID}</td></tr>" +
+                content: "<table><tr><td>Local Name:</td><td>${Local Name}</td></tr>" +
+                    "<tr><td>Local Designation:</td><td>${Local Designation}</td></tr>" +
+                    "<tr><td>WDPA ID:</td><td>${WDPA ID}</td></tr>" +
                     "<tr><td>Source:</td><td>${Source:checkAvailable}</td></tr></table>"
             }
         },

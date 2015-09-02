@@ -12,7 +12,7 @@ define([], function() {
 
     // PRODUCTION URL
     var adminUnitQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        millPointMapService = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer';
+        millPointMapService = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer';
 
     return {
 
@@ -338,7 +338,7 @@ define([], function() {
                 label: 'Oil palm',
                 value: 'Oil palm concession'
             }],
-            url: millPointMapService + '/0',
+            url: millPointMapService + '/6',
             // api: 'http://risk-api.appspot.com/',
             api: 'http://wip.risk-api.appspot.com/',
             outFields: ['Parent_Com', 'Mill_name', 'Entity_ID'],
