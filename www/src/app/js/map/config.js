@@ -202,7 +202,7 @@ define([], function() {
             legendLayerId: 2
         },
         primForest: {
-            id: "commodities",
+            id: "forestCover_commodities",
             url: dynamicMapServiceUrlComm,
             infoTemplate: {
                 content: "<div>Area: ${area_ha:NumberFormat(places:0)}</div>"
@@ -219,7 +219,7 @@ define([], function() {
         },
 
         biomes: {
-            id: 'commodities',
+            id: 'forestCover_commodities',
             url: dynamicMapServiceUrlComm,
             layerId: 9,
             infoTemplate: {
@@ -228,44 +228,44 @@ define([], function() {
         },
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
         ifl: {
-            id: "forestCover",
+            id: "forestCover_forestCover",
             url: dynamicMapServiceUrlForest,
             layerId: 0
         },
         peat: {
-            id: "commodities",
+            id: "forestCover_commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 22
         },
         tfcs: {
-            id: "forestCover",
+            id: "forestCover_forestCover",
             url: dynamicMapServiceUrlForest,
             layerId: 1
         },
         ldcover: {
-            id: "commodities",
+            id: "forestCover_commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 11
         },
         ldcoverIndo: {
-            id: "commodities",
+            id: "forestCover_commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 12
         },
         ldcoverAsia: {
-            id: "commodities",
+            id: "forestCover_commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 10
         },
         legal: {
-            id: "commodities",
+            id: "forestCover_commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 13
         },
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
         oilPerm: {
-            id: "landUse",
+            id: "forestUse_landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 1,
             infoTemplate: {
@@ -278,7 +278,7 @@ define([], function() {
             }
         },
         rspoPerm: {
-            id: "commodities",
+            id: "forestUse_commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 4,
             infoTemplate: {
@@ -305,22 +305,22 @@ define([], function() {
             }
         },
         logPerm: {
-            id: "landUse",
+            id: "forestUse_landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 0
         },
         minePerm: {
-            id: "landUse",
+            id: "forestUse_landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 2
         },
         woodPerm: {
-            id: "landUse",
+            id: "forestUse_landUse",
             url: dynamicMapServiceUrlLand,
             layerId: 3
         },
         moratorium: {
-            id: "commodities",
+            id: "forestUse_commodities",
             url: dynamicMapServiceUrlComm,
             layerId: 7
         },
@@ -328,7 +328,7 @@ define([], function() {
 
         // This layer is also under forest use but has its own service
         mill: {
-            id: 'commodities',
+            id: 'forestUse_commodities',
             url: dynamicMapServiceUrlComm,
             layerId: 6,
             infoTemplate: {

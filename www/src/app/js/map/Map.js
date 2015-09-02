@@ -181,13 +181,12 @@ define([
                 treeCoverDensityLayer,
 
 
-                forestCoverAggregate,
-                commoditiesAggregate,
-                landUserAggregate,
+                batchParams,
 
-                forestCoverAggregateParams,
-                commoditiesAggregateParams,
-                landUserAggregateParams,
+                forestCover_forestCover,
+                forestUse_landUse,
+                forestCover_commodities,
+                forestUse_commodities,
 
 
                 primaryForestLayer,
@@ -301,86 +300,59 @@ define([
             });
 
 
+            batchParams = new ImageParameters();
+            batchParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            batchParams.layerIds = [];
+            batchParams.format = "png32";
 
 
-            forestCoverAggregateParams = new ImageParameters();
-            forestCoverAggregateParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            forestCoverAggregateParams.layerIds = [];
-            forestCoverAggregateParams.format = "png32";
-
-            commoditiesAggregateParams = new ImageParameters();
-            commoditiesAggregateParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            commoditiesAggregateParams.layerIds = [];
-            commoditiesAggregateParams.format = "png32";
-
-            landUserAggregateParams = new ImageParameters();
-            landUserAggregateParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            landUserAggregateParams.layerIds = [];
-            landUserAggregateParams.format = "png32";
-
-
-            forestCoverAggregate = new ArcGISDynamicLayer(MapConfig.ifl.url, {
-                imageParameters: forestCoverAggregateParams,
-                id: "forestCover",
+            forestCover_forestCover = new ArcGISDynamicLayer(MapConfig.ifl.url, {
+                imageParameters: batchParams,
+                id: "forestCover_forestCover",
                 visible: false
             });
-
-            commoditiesAggregate = new ArcGISDynamicLayer(MapConfig.peat.url, {
-                imageParameters: commoditiesAggregateParams,
-                id: "commodities",
+            forestCover_commodities = new ArcGISDynamicLayer(MapConfig.peat.url, {
+                imageParameters: batchParams,
+                id: "forestCover_commodities",
                 visible: false
             });
-
-            landUserAggregate = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
-                imageParameters: landUserAggregateParams,
-                id: "landUse",
+            forestUse_landUse = new ArcGISDynamicLayer(MapConfig.minePerm.url, {
+                imageParameters: batchParams,
+                id: "forestUse_landUse",
+                visible: false
+            });
+            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.rspoPerm.url, {
+                imageParameters: batchParams,
+                id: "forestUse_commodities",
                 visible: false
             });
 
 
-
-            // primaryParams = new ImageParameters();
-            // primaryParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            // primaryParams.layerIds = [MapConfig.primForest.layerId];
-            // primaryParams.format = "png32";
-
-            // primaryForestLayer = new ArcGISDynamicLayer(MapConfig.primForest.url, {
-            //     imageParameters: primaryParams,
-            //     id: MapConfig.primForest.id,
+            // forestCoverAggregate = new ArcGISDynamicLayer(MapConfig.ifl.url, {
+            //     imageParameters: batchParams,
+            //     id: "forestCover",
             //     visible: false
             // });
+
+            // commoditiesAggregate = new ArcGISDynamicLayer(MapConfig.peat.url, {
+            //     imageParameters: batchParams,
+            //     id: "commodities",
+            //     visible: false
+            // });
+
+            // landUserAggregate = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
+            //     imageParameters: batchParams,
+            //     id: "landUse",
+            //     visible: false
+            // });
+
+
+
 
             customSuitabilityLayer = new SuitabilityImageServiceLayer(MapConfig.suit.url, {
                 id: MapConfig.suit.id,
                 visible: false
             });
-
-            // Uses ifl config, which is the same as peat, tfcs, ldcover, legal.  They
-            // are all part of the same dynamic layer so any config item could be used
-            // forestCoverParams = new ImageParameters();
-            // forestCoverParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            // forestCoverParams.layerIds = [MapConfig.peat.layerId];
-            // forestCoverParams.format = "png32";
-
-            // forestCoverLayer = new ArcGISDynamicLayer(MapConfig.peat.url, {
-            //     imageParameters: forestCoverParams,
-            //     id: MapConfig.peat.id,
-            //     visible: false
-            // });
-
-            // Uses oilPerm config, which is the same as logPerm, minePerm, woodPerm.  They
-            // are all part of the same dynamic layer so any config item could be used
-            // forestUseParams = new ImageParameters();
-            // forestUseParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            // forestUseParams.layerIds = [];
-            // forestUseParams.format = "png32";
-
-            // forestUseLayer = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
-            //     imageParameters: forestUseParams,
-            //     id: MapConfig.oilPerm.id,
-            //     visible: false
-            // });
-
 
 
             protectAreasLayer = new ArcGISTiledMapServiceLayer(MapConfig.pal.url, {
@@ -455,9 +427,14 @@ define([
 
                 // Conservation Layers
 
-                forestCoverAggregate,
-                commoditiesAggregate,
-                landUserAggregate,
+                // forestCoverAggregate,
+                // commoditiesAggregate,
+                // landUserAggregate,
+                forestCover_forestCover,
+                forestUse_landUse,
+                forestCover_commodities,
+                forestUse_commodities,
+
 
 
                 protectAreasLayer,
@@ -507,9 +484,14 @@ define([
             customSuitabilityLayer.on('error', this.addLayerError);
             protectAreasLayer.on('error', this.addLayerError);
             protectAreasHelper.on('error', this.addLayerError);
-            forestCoverAggregate.on('error', this.addLayerError);
-            commoditiesAggregate.on('error', this.addLayerError);
-            landUserAggregate.on('error', this.addLayerError);
+            // forestCoverAggregate.on('error', this.addLayerError);
+            // commoditiesAggregate.on('error', this.addLayerError);
+            // landUserAggregate.on('error', this.addLayerError);
+            forestCover_forestCover.on('error', this.addLayerError);
+            forestUse_landUse.on('error', this.addLayerError);
+            forestCover_commodities.on('error', this.addLayerError);
+            forestUse_commodities.on('error', this.addLayerError);
+
             wizardDynamicLayer.on('error', this.addLayerError);
             mapOverlaysLayer.on('error', this.addLayerError);
             customGraphicsLayer.on('error', this.addLayerError);

@@ -109,12 +109,12 @@ define([
                 }
             }
 
-            layer = app.map.getLayer(MapConfig.mill.id);
-            if (layer) {
-                if (layer.visible) {
-                    deferreds.push(self.identifyMillPoints(mapPoint));
-                }
-            }
+            // layer = app.map.getLayer(MapConfig.mill.id);
+            // if (layer) {
+            //     if (layer.visible) {
+            //         deferreds.push(self.identifyMillPoints(mapPoint));
+            //     }
+            // }
 
             layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
             if (layer) {
@@ -123,10 +123,10 @@ define([
                 }
             }
 
-            layer = app.map.getLayer(MapConfig.biomes.id);
-            if (layer && layer.visible) {
-              deferreds.push(self.identifyBiomesLayer(mapPoint));
-            }
+            // layer = app.map.getLayer(MapConfig.biomes.id);
+            // if (layer && layer.visible) {
+            //   deferreds.push(self.identifyBiomesLayer(mapPoint));
+            // }
 
             if (deferreds.length === 0) {
                 return;
