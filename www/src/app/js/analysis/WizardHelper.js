@@ -231,6 +231,13 @@ define([
 				WizardStore.set(KEYS.selectedCustomFeatures, [feature]);
 				// Set to Step 3, the parameter is index based like 0,1,2,3, 3 is the third step
 				// because we inserted a introduction step that is now step 0
+
+				if (wizard === undefined) {
+					wizard = new Wizard({
+						skipIntro: true
+					}, "wizard");
+				}
+
 				wizard._externalSetStep(3);
 			}
 

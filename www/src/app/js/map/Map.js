@@ -187,6 +187,7 @@ define([
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
+                production_commodities,
 
 
                 primaryForestLayer,
@@ -326,6 +327,13 @@ define([
                 id: "forestUse_commodities",
                 visible: false
             });
+            production_commodities = new ArcGISDynamicLayer(MapConfig.opsd.url, {
+                imageParameters: batchParams,
+                id: "productionSuitability",
+                visible: false
+            });
+
+            
 
 
             // forestCoverAggregate = new ArcGISDynamicLayer(MapConfig.ifl.url, {
@@ -434,7 +442,7 @@ define([
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
-
+                production_commodities,
 
 
                 protectAreasLayer,
@@ -491,6 +499,7 @@ define([
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
             forestUse_commodities.on('error', this.addLayerError);
+            production_commodities.on('error', this.addLayerError);
 
             wizardDynamicLayer.on('error', this.addLayerError);
             mapOverlaysLayer.on('error', this.addLayerError);

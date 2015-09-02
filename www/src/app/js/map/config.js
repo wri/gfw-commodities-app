@@ -367,47 +367,47 @@ define([], function() {
 
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
         opsd: { // Oil Palm Suitability Default
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 23
         },
         cons: { //Conservation Areas
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 14
         },
         elev: { // Elevation
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 19
         },
         slope: { // Slope
-            id: "commodities",
-            url: dynamicMapServiceUrl,
+            id: "productionSuitability",
+            url: dynamicMapServiceUrlComm,
             layerId: 20
         },
         rain: { // Rainfall
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 21
         },
         soilDr: { // Soil Drainage
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 16
         },
         soilDe: { // Soil Depth
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 17
         },
         soilAc: { // Soil Acidity
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 18
         },
         soilTy: { // Soil Type
-            id: "commodities",
+            id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
             layerId: 15
         },
