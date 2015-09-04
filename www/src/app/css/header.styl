@@ -171,6 +171,7 @@ gainLayer = #5952de
 	
 .gfw .filter-list .layer-list-item.newList
 	border-top 1px solid baseLightGray
+	cursor default
 	//border-bottom 1px solid baseLightGray
 
 .gfw .filter-list .layer-list-item.hidden
@@ -467,7 +468,7 @@ gainLayer = #5952de
 	display inline-block
 	font-weight bold
 	padding 6px 8px
-	font-size 12px
+	font-size 14px
 	color darkFont
 	margin 0 2px
 
@@ -476,6 +477,10 @@ gainLayer = #5952de
 
 .gfw .nav-link-list .nav-link:hover
 	background-color orangeHover
+
+#learnMoreItem:hover
+	webkit-border-radius 0
+	border-radius 0
 
 .gfw .nav-link-list .nav-link.selected
 	background-color orangeSelected
@@ -489,6 +494,47 @@ gainLayer = #5952de
 .gfw .filter-list .sliderContainer
 	margin 10px 5px
 	padding-top 5px
+	
+.hidden
+	display none
+	
+.gfw .app-header #learn-more-dropdown
+	font-size 12px
+	background-color white
+	position absolute
+	width 100%
+	z-index 500
+	opacity 1
+	left 0px
+	top 29px
+	// top 42px
+	padding 0px
+	
+.nav-link-more
+	color #333
+	list-style none
+	border-bottom 1px solid #D8D8D8
+	text-align center
+	padding 3px
+	cursor pointer
+	padding-bottom 10px
+	padding-top 10px
+	
+.nav-link-more:hover
+	background-color rgba(233,131,0,0.15)
+
+.nav-link-more:a
+	text-decoration none
+	color #333
+	
+.nav-link-more
+	a:visited, a:-webkit-any-link 
+		text-decoration none
+		color #333
+	
+#learnMoreItem
+	position relative
+	cursor pointer
 	
 // html, body{
 //     padding: 0;

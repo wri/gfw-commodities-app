@@ -60,17 +60,18 @@ define([
                     self.updateView(dataView, external, initialized);
                 });
             });
+
+            var handlerIn = function() {
+                $("#learn-more-dropdown").removeClass('hidden');
+            }
+            var handlerOut = function() {
+                $("#learn-more-dropdown").addClass('hidden');
+            }
+
+            $("#learnMoreItem").mouseenter(handlerIn).mouseleave(handlerOut);
         },
 
         updateView: function(view, isExternal, initialized) {
-            /*if (view == "home") {
-                require(["controllers/HomeController"], function(HomeController) {
-                    console.log("home has already been initialized");
-                    //if (HomeController.initialized == false) {
-                    HomeController.o.startModeAnim();
-                    //}
-                });
-            }*/
 
             if (isExternal === "true") {
                 this.redirectPage(view);
@@ -89,14 +90,6 @@ define([
                 Hasher.setHash("v", view);
             }
 
-            // require(["controllers/HomeController"], function(HomeController) {
-
-            //     if (view != "home" && HomeController.isInitialized()) {
-
-            //         console.log("should stop the animation here...")
-            //         HomeController.stopModeAnim();
-            //     }
-            // });
         },
 
         toggleForView: function(view) {
@@ -127,11 +120,9 @@ define([
 
             // Resize the page here!
 
-
         },
 
         setForHome: function() {
-            //debugger;
             domClass.add("nav-content", "inner");
             domClass.remove("nav-content", "outer");
             domClass.remove("app-header", "mapView");

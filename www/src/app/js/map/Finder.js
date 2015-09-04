@@ -80,10 +80,25 @@ define([
             // Clear out Previous Features
             app.map.infoWindow.clearFeatures();
 
+
             layer = app.map.getLayer(MapConfig.fires.id);
             if (layer) {
                 if (layer.visible) {
                     deferreds.push(self.identifyFires(mapPoint));
+                }
+            }
+
+            layer = app.map.getLayer(MapConfig.rspoPerm.id);
+            if (layer) {
+                if (layer.visible) {
+                    deferreds.push(self.identifyforestUseCommodities(mapPoint));
+                }
+            }
+
+            layer = app.map.getLayer(MapConfig.oilPerm.id);
+            if (layer) {
+                if (layer.visible) {
+                    deferreds.push(self.identifyforestUseLandUse(mapPoint));
                 }
             }
 
@@ -95,12 +110,12 @@ define([
                 }
             }
 
-            layer = app.map.getLayer(MapConfig.oilPerm.id);
-            if (layer) {
-                if (layer.visible) {
-                    deferreds.push(self.identifyConcessions(mapPoint));
-                }
-            }
+            // layer = app.map.getLayer(MapConfig.oilPerm.id);
+            // if (layer) {
+            //     if (layer.visible) {
+            //         deferreds.push(self.identifyConcessions(mapPoint));
+            //     }
+            // }
 
             layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
             if (layer) {
@@ -109,23 +124,18 @@ define([
                 }
             }
 
-            layer = app.map.getLayer(MapConfig.mill.id);
-            if (layer) {
-                if (layer.visible) {
-                    deferreds.push(self.identifyMillPoints(mapPoint));
-                }
-            }
+            // layer = app.map.getLayer(MapConfig.mill.id);
+            // if (layer) {
+            //     if (layer.visible) {
+            //         deferreds.push(self.identifyMillPoints(mapPoint));
+            //     }
+            // }
 
             layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
             if (layer) {
                 if (layer.visible) {
                     deferreds.push(self.getCustomGraphics(evt));
                 }
-            }
-
-            layer = app.map.getLayer(MapConfig.biomes.id);
-            if (layer && layer.visible) {
-              deferreds.push(self.identifyBiomesLayer(mapPoint));
             }
 
             if (deferreds.length === 0) {
@@ -152,30 +162,33 @@ define([
                     //         feature.feature.layer = item.layer;
                     //     });
                     // }
+                    console.log(item)
+                    console.log(item.layer)
 
                     switch (item.layer) {
+                        
                         case "Fires":
                             features = features.concat(self.setFireTemplates(item.features));
+                            break;
+                        case "forestUseCommodities":
+                            features = features.concat(self.setForestUseCommoditiesTemplates(item.features));
+                            break;
+                        case "forestUseLandUse":
+                            features = features.concat(self.setForestUseLandUseTemplates(item.features));
                             break;
                         case "WDPA":
                             features = features.concat(self.setWDPATemplates(item.features));
                             break;
-                        case "Concessions":
-                            features = features.concat(self.setConcessionTemplates(item.features));
-                            break;
+                        // case "Concessions":
+                        //     features = features.concat(self.setConcessionTemplates(item.features));
+                        //     break;
                         case "WizardDynamic":
                             features = features.concat(self.setWizardTemplates(item.features));
-                            break;
-                        case "MillPoints":
-                            features = features.concat(self.setMillPointTemplates(item.features));
                             break;
                         case "CustomGraphics":
                             // This will only contain a single feature and return a single feature
                             // instead of an array of features
                             features.push(self.setCustomGraphicTemplates(item.feature));
-                            break;
-                        case "Biomes":
-                            features = features.concat(self.setBiomesTemplates(item.features));
                             break;
                         default: // Do Nothing
                             break;
@@ -300,50 +313,74 @@ define([
             return features;
         },
 
-        identifyBiomesLayer: function (mapPoint) {
-          var deferred = new Deferred(),
-              identifyTask = new IdentifyTask(MapConfig.biomes.url),
-              params = new IdentifyParameters();
+        identifyforestUseCommodities: function(mapPoint) {
+            var deferred = new Deferred(),
+                identifyTask = new IdentifyTask(MapConfig.rspoPerm.url),
+                params = new IdentifyParameters();
 
-          params.tolerance = 3;
-          params.returnGeometry = true;
-          params.width = app.map.width;
-          params.height = app.map.height;
-          params.geometry = mapPoint;
-          params.mapExtent = app.map.extent;
-          params.layerIds = [MapConfig.biomes.layerId];
-          params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+            params.tolerance = 3;
+            params.returnGeometry = true;
+            params.width = app.map.width;
+            params.height = app.map.height;
+            params.geometry = mapPoint;
+            params.mapExtent = app.map.extent;
+            params.layerIds = app.map.getLayer(MapConfig.rspoPerm.id).visibleLayers;
+            params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
+            params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
 
-          identifyTask.execute(params, function (results) {
-            if (results.length > 0) {
-              results.forEach(function (featureObj) {
-                featureObj.feature.layer = "Biomes";
-              });
+            identifyTask.execute(params, function(features) {
+                if (features.length > 0) {
+                    features.forEach(function(feature) {
+                        feature.feature.layer = "forestUseCommodities-" + feature.layerId;
+                    });
 
-              deferred.resolve({
-                layer: "Biomes",
-                features: results
-              });
+                    deferred.resolve({
+                        layer: "forestUseCommodities",
+                        features: features
+                    });
+                } else {
+                    deferred.resolve(false);
+                }
+            }, function(error) {
+                deferred.resolve(false);
+            });
 
-            } else {
-              deferred.resolve(false);
-            }
-          });
-
-          return deferred;
+            return deferred.promise;
         },
 
-        setBiomesTemplates: function (featureObjects) {
-          var features = [],
-              content;
+        identifyforestUseLandUse: function(mapPoint) {
+            var deferred = new Deferred(),
+                identifyTask = new IdentifyTask(MapConfig.oilPerm.url),
+                params = new IdentifyParameters();
 
-          featureObjects.forEach(function (item) {
-            content = MapConfig.biomes.infoTemplate.content;
-            item.feature.setInfoTemplate(new InfoTemplate(item.value, content));
-            features.push(item.feature);
-          });
+            params.tolerance = 3;
+            params.returnGeometry = true;
+            params.width = app.map.width;
+            params.height = app.map.height;
+            params.geometry = mapPoint;
+            params.mapExtent = app.map.extent;
+            params.layerIds = app.map.getLayer(MapConfig.oilPerm.id).visibleLayers;
+            params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
+            params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
 
-          return features;
+            identifyTask.execute(params, function(features) {
+                if (features.length > 0) {
+                    features.forEach(function(feature) {
+                        feature.feature.layer = "forestUseLandUse-" + feature.layerId;
+                    });
+
+                    deferred.resolve({
+                        layer: "forestUseLandUse",
+                        features: features
+                    });
+                } else {
+                    deferred.resolve(false);
+                }
+            }, function(error) {
+                deferred.resolve(false);
+            });
+
+            return deferred.promise;
         },
 
         identifyConcessions: function(mapPoint) {
@@ -386,13 +423,54 @@ define([
                                       a feature and some metadata
       @return {array} features - array of features with their info templates set
     */
-        setConcessionTemplates: function(featureObjects) {
+        // setConcessionTemplates: function(featureObjects) {
+        //     var template,
+        //         features = [],
+        //         self = this;
+
+        //     arrayUtils.forEach(featureObjects, function(item) {
+        //         if (item.layerId === 27) {
+        //             template = new InfoTemplate(item.value,
+        //                 MapConfig.rspoPerm.infoTemplate.content +
+        //                 "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+        //                 item.value + "' data-type='RSPO Oil palm concession' data-id='${OBJECTID}'>" +
+        //                 "Analyze</button>" +
+        //                 "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+        //                 item.value + "' data-type='RSPO Oil palm concession' data-id='${OBJECTID}'>" +
+        //                 "Subscribe</button>" +
+        //                 "</div>"
+        //             );
+        //             item.feature.setInfoTemplate(template);
+        //             features.push(item.feature);
+        //         } else if (item.layerId === 16) {
+        //             console.log("Finder >>> setConcessionTemplates");
+        //         } else {
+        //             template = new InfoTemplate(item.value,
+        //                 MapConfig.oilPerm.infoTemplate.content +
+        //                 "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+        //                 item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
+        //                 "Analyze</button>" +
+        //                 "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+        //                 item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
+        //                 "Subscribe</button>" +
+        //                 "</div>"
+        //             );
+        //             item.feature.setInfoTemplate(template);
+        //             features.push(item.feature);
+        //         }
+        //     });
+        //     return features;
+        // },
+
+        setForestUseCommoditiesTemplates: function(featureObjects) {
             var template,
                 features = [],
                 self = this;
+                
 
             arrayUtils.forEach(featureObjects, function(item) {
-                if (item.layerId === 27) {
+                console.log(item.layerId)
+                if (item.layerId === 4) {
                     template = new InfoTemplate(item.value,
                         MapConfig.rspoPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
@@ -405,16 +483,81 @@ define([
                     );
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
-                } else if (item.layerId === 16) {
-                    console.log("Finder >>> setConcessionTemplates");
-                } else {
+                } else if (item.layerId === 6) {
+                    // debugger
+                    template = new InfoTemplate(item.value,
+                        MapConfig.mill.infoTemplate.content +
+                        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                        "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>Subscribe</button>" +
+                        "</div>"
+                    );
+                    item.feature.setInfoTemplate(template);
+                    features.push(item.feature);
+                } 
+            });
+            return features;
+        },
+
+        setForestUseLandUseTemplates: function(featureObjects) {
+            var template,
+                features = [],
+                self = this;
+                
+
+            arrayUtils.forEach(featureObjects, function(item) {
+                console.log(item.layerId) // 0,1,2,3 
+                if (item.layerId === 0) {
                     template = new InfoTemplate(item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-                        item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
+                        item.value + "' data-type='Wood fiber plantation' data-id='${OBJECTID}'>" +
                         "Analyze</button>" +
                         "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
-                        item.value + "' data-type='${TYPE}' data-id='${OBJECTID}'>" +
+                        item.value + "' data-type='Wood fiber plantation' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>"
+                    );
+                    item.feature.setInfoTemplate(template);
+                    features.push(item.feature);
+                } else if (item.layerId === 1) {
+                    // debugger
+                    template = new InfoTemplate(item.value,
+                        MapConfig.oilPerm.infoTemplate.content +
+                        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                        item.value + "' data-type='Oil palm concession' data-id='${OBJECTID}'>" +
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        item.value + "' data-type='Oil palm concession' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>"
+                    );
+                    item.feature.setInfoTemplate(template);
+                    features.push(item.feature);
+                } else if (item.layerId === 2) {
+                    // debugger
+                    template = new InfoTemplate(item.value,
+                        MapConfig.oilPerm.infoTemplate.content +
+                        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                        item.value + "' data-type='Mining concession' data-id='${OBJECTID}'>" +
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        item.value + "' data-type='Mining concession' data-id='${OBJECTID}'>" +
+                        "Subscribe</button>" +
+                        "</div>"
+                    );
+                    item.feature.setInfoTemplate(template);
+                    features.push(item.feature);
+                } else if (item.layerId === 3) {
+                    template = new InfoTemplate(item.value,
+                        MapConfig.oilPerm.infoTemplate.content +
+                        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                        item.value + "' data-type='Logging concession' data-id='${OBJECTID}'>" +
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        item.value + "' data-type='Logging concession' data-id='${OBJECTID}'>" +
                         "Subscribe</button>" +
                         "</div>"
                     );
@@ -424,6 +567,7 @@ define([
             });
             return features;
         },
+
 
         identifyWizardDynamicLayer: function(mapPoint) {
             var deferred = new Deferred(),
@@ -541,26 +685,7 @@ define([
             return deferred.promise;
         },
 
-        setMillPointTemplates: function(featureObjects) {
-            var template,
-                features = [],
-                self = this;
 
-            arrayUtils.forEach(featureObjects, function(item) {
-                template = new InfoTemplate(item.value,
-                    MapConfig.mill.infoTemplate.content +
-                    "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-                    "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
-                    "Analyze</button>" +
-                    "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
-                    "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>Subscribe</button>" +
-                    "</div>"
-                );
-                item.feature.setInfoTemplate(template);
-                features.push(item.feature);
-            });
-            return features;
-        },
 
         getCustomGraphics: function(evt) {
             var deferred = new Deferred();

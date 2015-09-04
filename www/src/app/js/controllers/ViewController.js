@@ -34,13 +34,20 @@ define([
         },
 
         load: function(view, callback) {
+            if (!view) {
+                return
+            }
             var self = this;
             if (!callback) {
                 callback = this.getCallback(view);
             }
 
+
             // If the View has already been loaded, dont fetch the content again
             if (loadedViews[view]) {
+                if (!callback) {
+                    callback = this.getCallback(view);
+                }
                 callback();
                 self.viewLoaded(view);
                 // if (view != "home view") {

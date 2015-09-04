@@ -20,6 +20,8 @@ define([
 					active = layerArray.indexOf(this.props.id) > -1,
           self = this;
 
+          
+
 			if (active) {
 				topic.publish('showLayer', this.props.id);
 				this.setState({
@@ -64,6 +66,7 @@ define([
       var className = 'layer-list-item ' +
                       this.props.filter + 
                       (this.state.active ? ' active' : '') +
+                      (this.props.forceUnderline ? ' newList' : '') +
                       (this.props.visible ? '' : ' hidden');
 
 

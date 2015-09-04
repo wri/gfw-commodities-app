@@ -67,27 +67,116 @@ define([
                 itemConf,
                 status,
                 value;
-
+                
             dojoQuery(".gfw .filter-list ." + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
                 itemConf = MapConfig[itemLayer];
                 if (itemConf) {
+                   
                     if (itemConf.id === layer.id && domClass.contains(node, "active")) {
                         visibleLayers.push(itemConf.layerId);
                     }
                 }
             });
 
+            // if (queryClass === "forest-use") {
+            //     dojoQuery(".gfw .filter-list .forest-cover").forEach(function(node) {
+            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+            //         itemConf = MapConfig[itemLayer];
+            //         if (itemConf) {
+                       
+            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+            //                 visibleLayers.push(itemConf.layerId);
+            //             }
+            //         }
+            //     });
+            //     dojoQuery(".gfw .filter-list .forest-change").forEach(function(node) {
+            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+            //         itemConf = MapConfig[itemLayer];
+            //         if (itemConf) {
+                       
+            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+            //                 visibleLayers.push(itemConf.layerId);
+            //             }
+            //         }
+            //     });
+            // } else if (queryClass === "forest-cover") {
+            //    dojoQuery(".gfw .filter-list .forest-use").forEach(function(node) {
+            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+            //         itemConf = MapConfig[itemLayer];
+            //         if (itemConf) {
+                       
+            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+            //                 visibleLayers.push(itemConf.layerId);
+            //             }
+            //         }
+            //     });
+            //    dojoQuery(".gfw .filter-list .forest-change").forEach(function(node) {
+            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+            //         itemConf = MapConfig[itemLayer];
+            //         if (itemConf) {
+                       
+            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+            //                 visibleLayers.push(itemConf.layerId);
+            //             }
+            //         }
+            //     });
+            // } else if (queryClass === "forest-change") {
+            //    dojoQuery(".gfw .filter-list .forest-use").forEach(function(node) {
+            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+            //         itemConf = MapConfig[itemLayer];
+            //         if (itemConf) {
+                       
+            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+            //                 visibleLayers.push(itemConf.layerId);
+            //             }
+            //         }
+            //     });
+            //    dojoQuery(".gfw .filter-list .forest-cover").forEach(function(node) {
+            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+            //         itemConf = MapConfig[itemLayer];
+            //         if (itemConf) {
+                       
+            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+            //                 visibleLayers.push(itemConf.layerId);
+            //             }
+            //         }
+            //     });
+            // }
+
+            
+
             if (layer) {
+
                 if (visibleLayers.length > 0) {
+                    if (layer.visibleLayers.length > 0) {
+
+                        // for (var i = 0; i < layer.visibleLayers.length; i++) {
+                        //     if (visibleLayers.indexOf(layer.visibleLayers[i]) == -1 && layer.visibleLayers[i] != 0) {
+                        //         console.log(layer.visibleLayers[i]);
+                        //         debugger
+                        //         visibleLayers.push(layer.visibleLayers[i]);
+                        //     }
+                        // }
+
+                        // if (visibleLayers.indexOf(layer.visibleLayers[0]) == -1) {
+                        //     debugger
+                        //     visibleLayers.push(layer.visibleLayers[0]);
+                        // }
+                    }
+
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
+                    console.log(layer.visibleLayers)
                 } else {
+                    console.log("hiding")
+                    console.log(layer.visibleLayers)
                     layer.hide();
                 }
                 this.refreshLegendWidget();
             }
 
+            
             // We only want to apply analytics to a few layers for now, catch those here
             // As they add more layers we can find a better way to catch this, possibly higher
             // up in the callstack so one function can catch all and this becomes less messy
@@ -132,9 +221,22 @@ define([
         // This function should only hide layers, helper for hiding children
         hideLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
+            
             if (layer) {
                 if (layer.visible) {
-                    layer.hide();
+                    if (layer.visibleLayers) {
+                        if (layer.visibleLayers.length > 1 && layerConfig.layerId) {
+                            var index = layer.visibleLayers.indexOf(layerConfig.layerId);
+                            layer.visibleLayers.splice(index, 1);
+                            layer.setVisibleLayers(layer.visibleLayers);
+                        } else {
+                            layer.hide();
+                        }
+                    } else {
+                        layer.hide();
+                    }
+                    
+                    
                     this.refreshLegendWidget();
                 }
             }
@@ -147,7 +249,14 @@ define([
             var layer = app.map.getLayer(layerConfig.id),
                 visibleLayers = [];
             if (layer) {
+                
+                // if (layer.visibleLayers.length > 0) {
+                //     for (var i = 0; i < layer.visibleLayers.length; i++) {
+                //         visibleLayers.push(layer.visibleLayers[i]);
+                //     }
+                // }
                 visibleLayers.push(layerConfig.layerId);
+                console.log(visibleLayers);
                 layer.setVisibleLayers(visibleLayers);
                 layer.show();
                 this.refreshLegendWidget();

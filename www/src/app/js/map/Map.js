@@ -179,17 +179,28 @@ define([
                 lossLayer,
                 lossParams,
                 treeCoverDensityLayer,
+
+
+                batchParams,
+
+                forestCover_forestCover,
+                forestUse_landUse,
+                forestCover_commodities,
+                forestUse_commodities,
+                production_commodities,
+
+
                 primaryForestLayer,
                 forestCoverLayer,
                 forestCoverParams,
+                forestCoverCommoditiesParams,
                 forestUseLayer,
                 forestUseParams,
                 protectAreasLayer,
                 protectAreasHelperParams,
                 protectAreasHelper,
                 customSuitabilityLayer,
-                agroSuitabilityLayer,
-                agroSuitabilityParams,
+
                 mapOverlaysLayer,
                 mapOverlaysParams,
                 customGraphicsLayer,
@@ -199,13 +210,9 @@ define([
                 wizardDynamicLayer,
                 bioDiversityParams,
                 bioDiversityLayer,
-                millParams,
-                millLayer,
-                millPointsWizardParams,
-                millPointsWizardLayer,
+               
+                primaryParams,
                 wizardGraphicsLayer,
-                bimoesParams,
-                biomesLayer,
                 self = this;
 
             fireParams = new ImageParameters();
@@ -293,63 +300,68 @@ define([
                 visible: false
             });
 
-            primaryForestLayer = new ArcGISImageServiceLayer(MapConfig.primForest.url, {
-                id: MapConfig.primForest.id,
+
+            batchParams = new ImageParameters();
+            batchParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            batchParams.layerIds = [];
+            batchParams.format = "png32";
+
+
+            forestCover_forestCover = new ArcGISDynamicLayer(MapConfig.ifl.url, {
+                imageParameters: batchParams,
+                id: "forestCover_forestCover",
                 visible: false
             });
+            forestCover_commodities = new ArcGISDynamicLayer(MapConfig.peat.url, {
+                imageParameters: batchParams,
+                id: "forestCover_commodities",
+                visible: false
+            });
+            forestUse_landUse = new ArcGISDynamicLayer(MapConfig.minePerm.url, {
+                imageParameters: batchParams,
+                id: "forestUse_landUse",
+                visible: false
+            });
+            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.rspoPerm.url, {
+                imageParameters: batchParams,
+                id: "forestUse_commodities",
+                visible: false
+            });
+            production_commodities = new ArcGISDynamicLayer(MapConfig.opsd.url, {
+                imageParameters: batchParams,
+                id: "productionSuitability",
+                visible: false
+            });
+
+            
+
+
+            // forestCoverAggregate = new ArcGISDynamicLayer(MapConfig.ifl.url, {
+            //     imageParameters: batchParams,
+            //     id: "forestCover",
+            //     visible: false
+            // });
+
+            // commoditiesAggregate = new ArcGISDynamicLayer(MapConfig.peat.url, {
+            //     imageParameters: batchParams,
+            //     id: "commodities",
+            //     visible: false
+            // });
+
+            // landUserAggregate = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
+            //     imageParameters: batchParams,
+            //     id: "landUse",
+            //     visible: false
+            // });
+
+
+
 
             customSuitabilityLayer = new SuitabilityImageServiceLayer(MapConfig.suit.url, {
                 id: MapConfig.suit.id,
                 visible: false
             });
 
-            // Uses ifl config, which is the same as peat, tfcs, ldcover, legal.  They
-            // are all part of the same dynamic layer so any config item could be used
-            forestCoverParams = new ImageParameters();
-            forestCoverParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            forestCoverParams.layerIds = [];
-            forestCoverParams.format = "png32";
-
-            forestCoverLayer = new ArcGISDynamicLayer(MapConfig.ifl.url, {
-                imageParameters: forestCoverParams,
-                id: MapConfig.ifl.id,
-                visible: false
-            });
-
-            // Uses oilPerm config, which is the same as logPerm, minePerm, woodPerm.  They
-            // are all part of the same dynamic layer so any config item could be used
-            forestUseParams = new ImageParameters();
-            forestUseParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            forestUseParams.layerIds = [];
-            forestUseParams.format = "png32";
-
-            forestUseLayer = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
-                imageParameters: forestUseParams,
-                id: MapConfig.oilPerm.id,
-                visible: false
-            });
-
-            bimoesParams = new ImageParameters();
-            bimoesParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            bimoesParams.layerIds = [MapConfig.biomes.layerId];
-            bimoesParams.format = "png32";
-
-            biomesLayer = new ArcGISDynamicLayer(MapConfig.biomes.url, {
-                imageParameters: bimoesParams,
-                id: MapConfig.biomes.id,
-                visible: false
-            });
-
-            millParams = new ImageParameters();
-            millParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            millParams.layerIds = [MapConfig.mill.layerId];
-            millParams.format = "png32";
-
-            millLayer = new ArcGISDynamicLayer(MapConfig.mill.url, {
-                imageParameters: millParams,
-                id: MapConfig.mill.id,
-                visible: false
-            });
 
             protectAreasLayer = new ArcGISTiledMapServiceLayer(MapConfig.pal.url, {
                 id: MapConfig.pal.id,
@@ -378,18 +390,6 @@ define([
                 visible: false
             });
 
-            // Uses opsd config, which is the same as cons, elev, slope, rain, soilDr, soilDe, soilAc, soilTy.  
-            // They are all part of the same dynamic layer so any config item could be used
-            agroSuitabilityParams = new ImageParameters();
-            agroSuitabilityParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-            agroSuitabilityParams.layerIds = [];
-            agroSuitabilityParams.format = "png32";
-
-            agroSuitabilityLayer = new ArcGISDynamicLayer(MapConfig.opsd.url, {
-                imageParameters: agroSuitabilityParams,
-                id: MapConfig.opsd.id,
-                visible: false
-            });
 
             mapOverlaysParams = new ImageParameters();
             mapOverlaysParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
@@ -428,15 +428,23 @@ define([
                 legendLayer,
                 // Forest Cover Layers
                 treeCoverDensityLayer,
-                primaryForestLayer,
-                forestCoverLayer,
-                biomesLayer,
+
                 // Agricultural Suitability Layers
-                agroSuitabilityLayer,
                 customSuitabilityLayer,
                 // Forest Use Layers
-                forestUseLayer,
+
                 // Conservation Layers
+
+                // forestCoverAggregate,
+                // commoditiesAggregate,
+                // landUserAggregate,
+                forestCover_forestCover,
+                forestUse_landUse,
+                forestCover_commodities,
+                forestUse_commodities,
+                production_commodities,
+
+
                 protectAreasLayer,
                 protectAreasHelper,
                 bioDiversityLayer,
@@ -449,7 +457,6 @@ define([
                 firesLayer,
                 // Overlays
                 wizardDynamicLayer,
-                millLayer,
                 mapOverlaysLayer,
                 // Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
                 // If needs be, seperate these out into multiple Graphics Layers
@@ -482,17 +489,21 @@ define([
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
             treeCoverDensityLayer.on('error', this.addLayerError);
-            primaryForestLayer.on('error', this.addLayerError);
             customSuitabilityLayer.on('error', this.addLayerError);
-            forestCoverLayer.on('error', this.addLayerError);
-            forestUseLayer.on('error', this.addLayerError);
             protectAreasLayer.on('error', this.addLayerError);
             protectAreasHelper.on('error', this.addLayerError);
-            agroSuitabilityLayer.on('error', this.addLayerError);
+            // forestCoverAggregate.on('error', this.addLayerError);
+            // commoditiesAggregate.on('error', this.addLayerError);
+            // landUserAggregate.on('error', this.addLayerError);
+            forestCover_forestCover.on('error', this.addLayerError);
+            forestUse_landUse.on('error', this.addLayerError);
+            forestCover_commodities.on('error', this.addLayerError);
+            forestUse_commodities.on('error', this.addLayerError);
+            production_commodities.on('error', this.addLayerError);
+
             wizardDynamicLayer.on('error', this.addLayerError);
             mapOverlaysLayer.on('error', this.addLayerError);
             customGraphicsLayer.on('error', this.addLayerError);
-            millLayer.on('error', this.addLayerError);
             bioDiversityLayer.on('error', this.addLayerError);
 
             // Add Layer Specific events here
