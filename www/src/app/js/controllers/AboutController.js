@@ -4,8 +4,9 @@ define([
     "dojo/dom-class",
     "dojo/dom-style",
 	"dijit/registry",
+	"utils/Hasher",
     "utils/NavListController"
-], function (dom, query, domClass, domStyle, registry, NavListController) {
+], function (dom, query, domClass, domStyle, registry, Hasher, NavListController) {
 	'use strict';
 
 	var initialized = false;
@@ -24,8 +25,18 @@ define([
 			registry.byId("aboutView").set('content', template);
 
             var context = "about";
+            
+            Hasher.setHash("n", "videos");
+
+            // debugger
+            
             NavListController.loadNavControl(context);
-            NavListController.loadNavView(context);
+            // if (newContext) {
+            // 	NavListController.loadNavView(newContext);
+            // } else {
+            NavListController.loadNavView(context);	
+            // }
+            
 
 		}
 

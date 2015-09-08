@@ -34,7 +34,6 @@ define([
             query(".nav-link-more").forEach(function(node){
                 node.onclick = function (){
                     changeNavItemAbout(node, "about");
-                    
                 };
             });
 
@@ -89,7 +88,7 @@ define([
                 } else {
                     Hasher.setHash("n", node['dataset'].src);
                 }
-
+                
                 var replacementNode;
                 switch (node['dataset'].src) {
                     case "GFW":
@@ -113,15 +112,19 @@ define([
                 }
 
                 
-                // //if node matches #, set to selected
-                if (node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
-                    
-                    domClass.add(replacementNode[0].children[0], "selected");
-                    domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
-                    domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], "selected");
-                    needsDefaults = false;
-                    activeNode = replacementNode[0].children[0];
+
+                if (replacementNode[0]) {
+                   // //if node matches #, set to selected
+                    if (node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
+                        
+                        domClass.add(replacementNode[0].children[0], "selected");
+                        domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
+                        domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], "selected");
+                        needsDefaults = false;
+                        activeNode = replacementNode[0].children[0];
+                    } 
                 }
+                
 
             }
         },

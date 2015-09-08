@@ -112,6 +112,38 @@ define([
 
             });
         },
+        
+        showFiresConfidenceInfo: function(evt) {
+            var _self = this;
+            require([
+                "dijit/Dialog",
+                "dojo/on",
+                "dojo/_base/lang"
+            ], function(Dialog, on, Lang) {
+                //Export Dialog
+                //TODO: Move this HTML into one of the template files.
+                var content = "<p>" + MapConfig.firesConfidenceDialog.text + "</p>";
+
+                var dialog = new Dialog({
+                    title: MapConfig.firesConfidenceDialog.title.toUpperCase(),
+                    style: "height: 310px; width: 415px; font-size:14px; padding: 5px;",
+                    draggable: false,
+                    hide: function() {
+                        dialog.destroy();
+                    }
+                });
+                dialog.setContent(content);
+                dialog.show();
+
+                $('body').on('click',function(e){
+                    if (e.target.classList.contains('dijitDialogUnderlay')) {
+                        dialog.hide();
+                        $('body').off('click');
+                    }
+                });
+
+            });
+        },
 
         toggleFiresLayerOptions: function(evt) {
             var target = evt.target ? evt.target : evt.srcElement,
