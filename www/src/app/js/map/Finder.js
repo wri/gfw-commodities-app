@@ -110,13 +110,6 @@ define([
                 }
             }
 
-            // layer = app.map.getLayer(MapConfig.oilPerm.id);
-            // if (layer) {
-            //     if (layer.visible) {
-            //         deferreds.push(self.identifyConcessions(mapPoint));
-            //     }
-            // }
-
             layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
             if (layer) {
                 if (layer.visible) {
@@ -124,12 +117,10 @@ define([
                 }
             }
 
-            // layer = app.map.getLayer(MapConfig.mill.id);
-            // if (layer) {
-            //     if (layer.visible) {
-            //         deferreds.push(self.identifyMillPoints(mapPoint));
-            //     }
-            // }
+            layer = app.map.getLayer(MapConfig.biomes.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyBiomesLayer(mapPoint));
+            }
 
             layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
             if (layer) {
@@ -189,6 +180,9 @@ define([
                             // This will only contain a single feature and return a single feature
                             // instead of an array of features
                             features.push(self.setCustomGraphicTemplates(item.feature));
+                            break;
+                        case "Biomes":
+                            features = features.concat(self.setBiomesTemplates(item.features));
                             break;
                         default: // Do Nothing
                             break;
@@ -383,40 +377,52 @@ define([
             return deferred.promise;
         },
 
-        identifyConcessions: function(mapPoint) {
-            var deferred = new Deferred(),
-                identifyTask = new IdentifyTask(MapConfig.oilPerm.url),
-                params = new IdentifyParameters();
+        identifyBiomesLayer: function (mapPoint) {
+          var deferred = new Deferred(),
+              identifyTask = new IdentifyTask(MapConfig.biomes.url),
+              params = new IdentifyParameters();
 
-            params.tolerance = 3;
-            params.returnGeometry = true;
-            params.width = app.map.width;
-            params.height = app.map.height;
-            params.geometry = mapPoint;
-            params.mapExtent = app.map.extent;
-            params.layerIds = app.map.getLayer(MapConfig.oilPerm.id).visibleLayers;
-            params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
-            params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+          params.tolerance = 3;
+          params.returnGeometry = true;
+          params.width = app.map.width;
+          params.height = app.map.height;
+          params.geometry = mapPoint;
+          params.mapExtent = app.map.extent;
+          params.layerIds = [MapConfig.biomes.layerId];
+          params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
 
-            identifyTask.execute(params, function(features) {
-                if (features.length > 0) {
-                    features.forEach(function(feature) {
-                        feature.feature.layer = "Concessions-" + feature.layerId;
-                    });
+          identifyTask.execute(params, function (results) {
+            if (results.length > 0) {
+              results.forEach(function (featureObj) {
+                featureObj.feature.layer = "Biomes";
+              });
 
-                    deferred.resolve({
-                        layer: "Concessions",
-                        features: features
-                    });
-                } else {
-                    deferred.resolve(false);
-                }
-            }, function(error) {
-                deferred.resolve(false);
-            });
+              deferred.resolve({
+                layer: "Biomes",
+                features: results
+              });
 
-            return deferred.promise;
+            } else {
+              deferred.resolve(false);
+            }
+          });
+
+          return deferred;
         },
+
+        setBiomesTemplates: function (featureObjects) {
+          var features = [],
+              content;
+
+          featureObjects.forEach(function (item) {
+            content = MapConfig.biomes.infoTemplate.content;
+            item.feature.setInfoTemplate(new InfoTemplate(item.value, content));
+            features.push(item.feature);
+          });
+
+          return features;
+        },
+
 
         /*
       @param {array} featureObjects - takes an array of feature objects which contain

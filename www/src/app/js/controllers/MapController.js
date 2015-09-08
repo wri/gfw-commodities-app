@@ -335,6 +335,8 @@ define([
 
             on(dom.byId("high-confidence"), "change", MapControl.toggleFiresConfidenceLevel);
 
+            on(dom.byId("high-confidence-info"), "click", MapControl.showFiresConfidenceInfo);
+
             dojoQuery(".gfw .overlays-container .overlays-checkbox").forEach(function(node) {
                 on(node, "click", MapControl.toggleOverlays);
             });

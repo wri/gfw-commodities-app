@@ -341,11 +341,11 @@ define([], function() {
             url: millPointMapService + '/6',
             // api: 'http://risk-api.appspot.com/',
             api: 'http://wip.risk-api.appspot.com/',
-            outFields: ['Parent_Com', 'Mill_name', 'Entity_ID'],
-            orderBy: ['Parent_Com', 'Mill_name'],
-            labelField: 'Mill_name', // Children
-            valueField: 'Entity_ID',
-            requiredField: 'Parent_Com' // Bucket a.k.a. parent
+            outFields: ['parent_com', 'mill_name', 'entity_id'],
+            orderBy: ['parent_com', 'mill_name'],
+            labelField: 'mill_name', // Children
+            valueField: 'entity_id',
+            requiredField: 'parent_com' // Bucket a.k.a. parent
         },
 
         STORE_KEYS: {

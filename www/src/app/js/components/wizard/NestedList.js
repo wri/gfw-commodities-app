@@ -41,6 +41,7 @@ define([
 		},
 		
 		_childrenMapper: function (parentActive, item, index) {
+			
 			var label = item.label.toLowerCase(), // Filter is lowercase, make the label lowercase for comparison
 					className = 'wizard-list-child-item' + (label.search(this.props.filter) > -1 ? '' : ' hidden');
 

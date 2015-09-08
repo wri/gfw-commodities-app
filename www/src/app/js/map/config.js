@@ -16,6 +16,7 @@ define([], function() {
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
         protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/wdpa_protected_areas_cached/MapServer",
+        protectedAreasHelperUrl = "http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer",
         mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
         primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
@@ -1112,6 +1113,12 @@ define([], function() {
                 11: "2012"
             }
         },
+
+        firesConfidenceDialog: {
+            title: "High Confidence Fires",
+            text: "GFW employs a recommendation for detecting forest clearing fires (described in Morton and Defries, 2008), identifying fires with a Brightness value greater than or equal to 330 Kelvin and a Confidence value greater than or equal to 30% to indicate fires that have a higher confidence for being forest-clearing fires. Low confidence fires are lower intensity fires that could either be from non-forest-clearing fire activity (clearing fields or grass burning), or could be older fires that have decreased in intensity (smoldering rather than flaming fires). The use of this classification establishes a higher standard for fire detection than using all fire alerts equally."
+        },
+
         suitabilityExportDialog: {
             title: "Export Suitability Settings and GeoTiff",
             instruction: "The resolution downloaded for the Suitability Map is based on your current zoom extent. For a higher resolution download, zoom in closer to your area of interest."
