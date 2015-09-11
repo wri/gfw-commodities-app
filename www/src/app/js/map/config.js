@@ -55,6 +55,11 @@ define([], function() {
             }
         },
 
+        tcdModal: {
+          label: 'Adjust the minimum canopy density for tree cover and tree cover loss',
+          defaultValue: 30
+        },
+
         coordinatesDialog: {
             coordinatesModalHeader: 'Enter Point Coordinates',
             coordinatesEnterButton: 'Enter',
@@ -477,7 +482,7 @@ define([], function() {
             //     filter: "forest-change",
             //     type: "radio",
             //     layerType: "none"
-            // }, 
+            // },
             {
                 id: "tcd",
                 title: "Tree Cover Density",

@@ -12,10 +12,6 @@
 		<div id="locator-widget-button" title="Locate" class="locator-widget-button"></div>
     <div id="basemap-gallery-button" title="Basemaps/Overlays" class="basemap-gallery-button"></div>
     <div id="share-button" title="Share" class="share-button"></div>
-    <!-- <div id="alert-button" class="alert-button font-arial padding__wide" title="Sign up for alerts">
-      <img class="vertical-sub" src="app/css/images/alert_symbol_white.png">
-      <span class="vertical-middle">Subscribe to alerts<span>
-    </div> -->
     <div id="simple-geocoder" class="simple-geocoder"></div>
     <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link" style="display: none;"></div>
     <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link" style="display: none;"></div>
@@ -180,6 +176,23 @@
       <div class="modal-content"></div>
     </div>
     <!-- End Subscription Modal -->
+		<!-- Begin Tree Cover Density Modal -->
+    <div id="tcd-modal" class="tcd-modal animated-modal">
+      <div class="close-icon"></div>
+      <div class="modal-content">
+      	<div class="modal-header">
+      		<div class="tcd-modal-label" data-bind="text: tcdModalLabel"></div>
+					<div class="trees">
+						<span class="tree-icon"></span>
+						<span class="forest-icon"></span>
+					</div>
+      	</div>
+				<div class="tcd-slider-container">
+					<div id="tcd-density-slider"></div>
+				</div>
+      </div>
+    </div>
+    <!-- End Tree Cover Density Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
 
@@ -217,7 +230,7 @@
         </div>
       </div>
 
-      
+
       <div id="forma_toolbox" class="toolbox forma_toolbox" style="display: none">
         <div class="toolbox_legend">
           <p>FORMA alerts</p>
@@ -225,7 +238,7 @@
         <div class="toolbox-inner">
           <div class="slider-container">
             <div id="formaAlertSlider"></div>
-            
+
               <div id = "yearDotContainer">
                 <!-- <g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
                 <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
@@ -249,8 +262,8 @@
                 <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
                 <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g> -->
               </div>
-            
-            
+
+
             <div class="playLineFiller2">
               <div>
                 <!-- <g class="tick" transform="translate(0,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy=".71em" class="" style="text-anchor: middle;">2014</text></g> -->
@@ -499,7 +512,7 @@
     <div id="wizard-tab" class="wizard-tab">Analysis</div>
     <!-- Wizard Tab -->
 	</div>
-  <!-- End Map Object -->  
+  <!-- End Map Object -->
 </div>
 <!-- Begin Analysis Wizard -->
 <div id="wizard-container" class="wizard-container">
@@ -511,5 +524,3 @@
   <div id="alerts-form" class="alerts-form"></div>
 </div>
 <!-- End Alerts Form -->
-
-

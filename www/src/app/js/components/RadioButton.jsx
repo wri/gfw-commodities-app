@@ -20,7 +20,7 @@ define([
 					active = layerArray.indexOf(this.props.id) > -1,
           self = this;
 
-          
+
 
 			if (active) {
 				topic.publish('showLayer', this.props.id);
@@ -44,6 +44,10 @@ define([
         }, this.props.id + "_slider").startup();
       }
 
+			if (this.props.id === 'tcd') {
+				
+			}
+
     },
 
     toggle: function (synEvent) {
@@ -61,10 +65,14 @@ define([
         }
     },
 
+		showTCDSlider: function () {
+			console.log('showTCDSlider');
+		},
+
     /* jshint ignore:start */
     render: function () {
       var className = 'layer-list-item ' +
-                      this.props.filter + 
+                      this.props.filter +
                       (this.state.active ? ' active' : '') +
                       (this.props.forceUnderline ? ' newList' : '') +
                       (this.props.visible ? '' : ' hidden');
@@ -94,6 +102,9 @@ define([
                 </div> :
                 null
           }
+					{
+						this.props.id === 'tcd' ? <div className='tcd-percentage-button' onClick={this.showTCDSlider}>30</div> : null
+					}
         </li>
       );
     },

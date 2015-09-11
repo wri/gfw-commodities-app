@@ -39,6 +39,10 @@ function (declare, AppConfig, MapConfig, ko) {
       Model.vm.latitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.latitudePlaceholder);
       Model.vm.longitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.longitudePlaceholder);
 
+      // Tree Cover Density Items
+      Model.vm.tcdModalLabel = ko.observable(MapConfig.tcdModal.label);
+      Model.vm.tcdModalValue = ko.observable(MapConfig.tcdModal.defaultValue);
+
       // Storage of specific objects for Wizard
       // Admin Unit
       Model.vm.allCountries = ko.observableArray([]);
