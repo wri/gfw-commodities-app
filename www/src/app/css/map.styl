@@ -400,7 +400,7 @@ wizardBlue = #00688B
 
 .gfw .fires_toolbox .high-confidence-fires label
 	padding-left 5px
-	
+
 .gfw .fires_toolbox #high-confidence-info
 	cursor pointer
 	color #e98300
@@ -620,18 +620,6 @@ wizardBlue = #00688B
 	top: 0;
 	height: 50%;
 
-#newSlider
-	position: absolute;
-	bottom: 15px;
-	left: 30px;
-	cursor: pointer;
-
-#newSlider2
-	position: absolute;
-	bottom: 16px;
-	left: 27px;
-	cursor: pointer;
-
 .gfw #legend #legend_msg, .gfw #legend .esriLegendServiceLabel
 	display none
 
@@ -674,24 +662,6 @@ wizardBlue = #00688B
 #environmental-criteria
 	overflow-x hidden
 /* Overrides for Accordion Containers that contain sliders and checkboxes */
-.container2 {
-	margin-top: 20px;
-	font-size: 11px;
-}
-
-.container2 > div {
-    display: inline-block;
-    display: -moz-inline-box;
-    *display: inline; /* For IE7 */
-    zoom: 1; /* Trigger hasLayout */
-    width: 8.15%;
-    text-align: center;
-    font-size: 11x;
-    color: #a1ba42;
-    margin: -10px;
-    position: absolute;
-    top: 33px;
-}
 #irs-1 {
 	position: absolute;
 	width: 730px;
@@ -787,29 +757,6 @@ wizardBlue = #00688B
 	bottom: -5px;
 }
 
-.playLineFiller > div
-	background #a1ba42
-	display inline-block
-	height 8px
-	width 34px
-	position absolute
-	margin-top 2px
-
-.playLineFiller2 > div
-	position absolute
-	margin-top 18px
-	color rgb(153, 153, 153)
-	font-family 'Fira Sans', 'fira_sans_otregular', Georgia, serif
-	font-size 13px
-	font-style normal
-	font-variant normal
-	font-weight normal
-	height auto
-	line-height 16px
-
-.playLineFiller2 > div:nth-child(1)
-	margin-left 4px
-
 #sliderProgressLine
 	width 2px
 	height 60px
@@ -826,118 +773,37 @@ wizardBlue = #00688B
 	background-color #a1ba42
 	display none
 
-.playLineFiller > div
-	width 31px
+.irs-grid-pol.small
+	display none
 
-.container2
-	width 850px
-	margin-left -15px
+#lossPlayButton
+	position: absolute;
+	bottom: 15px;
+	left: 30px;
+	cursor: pointer;
 
-.container2 > div:first-child
-	margin-left -10px
+#lossPlayButton
+	position: absolute;
+	bottom: 16px;
+	left: 27px;
+	cursor: pointer;
 
-.container2 > div:nth-child(2) {
-    margin-left: 49px;
-}
+.irs-slider
+	background: url('images/dragger.png');
+	width: 15px;
+	height: 15px;
 
-.container2 > div:nth-child(3) {
-    margin-left: 110px;
-}
+.irs-bar
+.irs-line
+	top 21px
 
-.container2 > div:nth-child(4) {
-    margin-left: 171px;
-}
+.irs-line-mid
+.irs-line-left
+.irs-line-right
+	background white
 
-.container2 > div:nth-child(5) {
-    margin-left: 231px;
-}
-
-.container2 > div:nth-child(6) {
-    margin-left: 292px;
-}
-
-.container2 > div:nth-child(7) {
-    margin-left: 353px;
-}
-
-.container2 > div:nth-child(8) {
-    margin-left: 414px;
-}
-
-.container2 > div:nth-child(9) {
-    margin-left: 475px;
-}
-
-.container2 > div:nth-child(10) {
-    margin-left: 536px;
-}
-
-.container2 > div:nth-child(11) {
-    margin-left: 597px;
-}
-
-.container2 > div:nth-child(12) {
-    margin-left: 658px;
-}
-
-.container2 > div:nth-child(13) {
-    margin-left: 721px;
-}
-
-.container2 > div:nth-child(14) {
-    margin-left: 780px;
-}
-
-.playLineFiller > div:first-child {
-	margin-left: 85px;
-}
-
-.playLineFiller > div:nth-child(2) {
-    margin-left: 85px;
-    width: 31px;
-}
-
-.playLineFiller > div:nth-child(3) {
-    margin-left: 146px;
-}
-
-.playLineFiller > div:nth-child(4) {
-    margin-left: 206px;
-}
-
-.playLineFiller > div:nth-child(5) {
-    margin-left: 267px;
-}
-
-.playLineFiller > div:nth-child(6) {
-    margin-left: 328px;
-}
-
-.playLineFiller > div:nth-child(7) {
-    margin-left: 389px;
-}
-
-.playLineFiller > div:nth-child(8) {
-    margin-left: 450px;
-}
-
-.playLineFiller > div:nth-child(9) {
-    margin-left: 511px;
-}
-
-.playLineFiller > div:nth-child(10) {
-    margin-left: 572px;
-}
-
-.playLineFiller > div:nth-child(11) {
-    margin-left: 632px;
-    width: 32px;
-}
-
-.playLineFiller > div:nth-child(12) {
-    margin-left: 695px;
-    width: 32px;
-}
+.irs-bar
+	background #ABC24B
 
 .animated-modal
 	transition all 0.75s ease-in-out
@@ -1039,13 +905,6 @@ wizardBlue = #00688B
 	height 60px
 	width 91px
 
-/* Mozilla */
-@-moz-document url-prefix() {
-	.playLineFiller > div {
-		margin-top: 3px;
-	}
-}
-
 /* For Safari */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 
@@ -1054,12 +913,4 @@ wizardBlue = #00688B
 /* Browser-Specific for Chrome (last to overwrite potential changes from others) */
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
 
-}
-
-.dj_ie9.playLineFiller > div {
-	margin-top: 45px;
-}
-
-.dj_ie8.playLineFiller > div {
-	margin-top: 45px;
 }

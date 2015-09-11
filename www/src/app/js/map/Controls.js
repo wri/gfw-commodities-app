@@ -93,7 +93,7 @@ define([
                     }
                 });
 
-                
+
 
                 dialog.onClose(function() {
                     //console.log("CLOSED");
@@ -107,12 +107,12 @@ define([
                     if (e.target.classList.contains('dijitDialogUnderlay')) {
                         dialog.hide();
                         $('body').off('click');
-                    }                    
+                    }
                 });
 
             });
         },
-        
+
         showFiresConfidenceInfo: function(evt) {
             var _self = this;
             require([
@@ -214,7 +214,7 @@ define([
                     var yearDot = domConstruct.toDom('<div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>');
                     domConstruct.place(yearDot, "yearDotContainer");
                     domStyle.get(yearDot);
-                    
+
                     // var multiplier = 790 / (to + 1);
                     // var leftPx = (i * multiplier) + 32;
                     var leftPx = (i * 157.5) - 76;
@@ -222,7 +222,7 @@ define([
                     leftPx += "px";
 
                     if (currentMonth === 1 && i === 1) {
-                        
+
                         domStyle.set(yearDot, {
                             "position": "absolute",
                             // "left": leftPx,
@@ -232,7 +232,7 @@ define([
                             "color": "black"
                         });
                     } else if (currentMonth === 1) {
-                        
+
                         domStyle.set(yearDot, {
                             "position": "absolute",
                             "left": leftPx,
@@ -402,7 +402,7 @@ define([
                 $("#playLine3").hide();
                 $("#sliderProgressLine2").hide();
                 var $this = $(this);
-                setTimeout(function() { //TODO : Fix this 
+                setTimeout(function() { //TODO : Fix this
                     ionCallback.call();
                 }, 300);
                 $("#irs-2 > span.irs > span.irs-to").css("left", "759px");
@@ -554,6 +554,12 @@ define([
 
         newTimeSlider: function() {
 
+            require(['map/LossSlider'], function (Slider) {
+              Slider.show();
+            });
+
+            return;
+
             $(".extra-controls #newSlider").click(function() {
                 play();
             });
@@ -580,6 +586,7 @@ define([
                     $("#irs-1 > span.irs > span.irs-slider.to.last").css("left", ((newLeft2 + 8) + 'px'));
                 }
             });
+
             $("#master-layer-list > div > ul > li.layer-list-item.forest-change.active > div").click(function() {
                 var newLeft = $("#irs-1 > span.irs > span.irs-to").css("left");
                 var newLeft2 = newLeft.slice(0, (newLeft.length - 2));
@@ -616,35 +623,36 @@ define([
                             $("#sliderProgressLine").hide();
                             $("#playLine2").hide();
                             var values3 = [from - 2001, to - 2001];
-                            for (var i = 1; i < 13; i++) {
-                                var item1 = $(".playLineFiller > div:nth-child(" + i + ")");
-                                var item2 = $(".container2 > div:nth-child(" + i + ")");
+                            // for (var i = 1; i < 13; i++) {
+                            //     var item1 = $(".playLineFiller > div:nth-child(" + i + ")");
+                            //     var item2 = $(".container2 > div:nth-child(" + i + ")");
+                            //
+                            //     if ((i <= from - 2000) || (i >= to - 2000)) {
+                            //         $(item1.selector).css("background-color", "transparent");
+                            //     } else {
+                            //         $(item1.selector).css("background-color", "#a1ba42");
+                            //     }
+                            //     if ((i < from - 1999) || (i > to - 2000)) {
+                            //         $(item2.selector).css("color", "grey");
+                            //     } else {
+                            //         $(item2.selector).css("color", "#a1ba42");
+                            //     }
+                            // }
+                            // var item3 = $("#irs-1 > span.irs > span.irs-from").css("display");
+                            // if (item3 === "none") {
+                            //     $(".playLineFiller > div").css("background-color", "#a1ba42");
+                            // } // TODO: Find a better way to make the bars green on 1st thumb drag when the map is loaded w/ the Forma url & then this slider is turned on
+                            // if (to != 2013) {
+                            //     $(".container2 > div:nth-child(13)").css("color", "grey");
+                            // } else {
+                            //     $(".container2 > div:nth-child(13)").css("color", "#a1ba42");
+                            // }
+                            // if (to === from) {
+                            //     $(".playLineFiller > div").css("background-color", "transparent");
+                            //     $(".container2 > div").css("color", "grey");
+                            // }
 
-                                if ((i <= from - 2000) || (i >= to - 2000)) {
-                                    $(item1.selector).css("background-color", "transparent");
-                                } else {
-                                    $(item1.selector).css("background-color", "#a1ba42");
-                                }
-                                if ((i < from - 1999) || (i > to - 2000)) {
-                                    $(item2.selector).css("color", "grey");
-                                } else {
-                                    $(item2.selector).css("color", "#a1ba42");
-                                }
-                            }
-                            var item3 = $("#irs-1 > span.irs > span.irs-from").css("display");
-                            if (item3 === "none") {
-                                $(".playLineFiller > div").css("background-color", "#a1ba42");
-                            } // TODO: Find a better way to make the bars green on 1st thumb drag when the map is loaded w/ the Forma url & then this slider is turned on
-                            if (to != 2013) {
-                                $(".container2 > div:nth-child(13)").css("color", "grey");
-                            } else {
-                                $(".container2 > div:nth-child(13)").css("color", "#a1ba42");
-                            }
-                            if (to === from) {
-                                $(".playLineFiller > div").css("background-color", "transparent");
-                                $(".container2 > div").css("color", "grey");
-                            }
-
+                            console.dir(values3, MapConfig.loss);
                             LayerController.updateImageServiceRasterFunction(values3, MapConfig.loss);
                         }
                     },
@@ -1100,7 +1108,7 @@ define([
                 );
             });
             // Newest Version of Sliders has a css bug, this is a hack to hide it
-            // May need to switch to ion sliders instead in future and remove older version 
+            // May need to switch to ion sliders instead in future and remove older version
             // of jQuery
             dojoQuery('.ui-rangeSlider-innerBar').forEach(function(node) {
                 domConstruct.create('div', {
@@ -1409,7 +1417,7 @@ define([
 
         resizeRangeSliders: function() {
             /* Do the Following for Each Slider
-			 - Hide the labels 
+			 - Hide the labels
 			 - resize the slider
 			 - reactivate the listeners to show labels
 			*/
