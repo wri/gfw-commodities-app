@@ -376,6 +376,8 @@ define([
             protectAreasHelper = new ArcGISDynamicLayer(MapConfig.palHelper.url, {
                 imageParameters: protectAreasHelperParams,
                 id: MapConfig.palHelper.id,
+                maxScale: 0,
+                minScale: 0,
                 visible: false
             });
 
