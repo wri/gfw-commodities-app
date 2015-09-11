@@ -595,23 +595,6 @@ wizardBlue = #00688B
 .suitability-accordion .suitability-accordion-description
 	margin 10px 20px 2px
 
-.range-slider
-	margin-left: auto;
-	margin-right: 3%;
-	width: 88%;
-	background-color: white;
-
-.range-slider:after {
-  position: absolute;
-  left: 7.5%;
-  top: 0;
-  width: 1px;
-  background: black;
-  content: "";
-  height: 100%;
-  display: block;
-}
-
 .sliderStart
 	z-index: 1;
 	display: block;
@@ -804,6 +787,20 @@ wizardBlue = #00688B
 
 .irs-bar
 	background #ABC24B
+
+.range-slider
+	margin-left auto
+	margin-right 3%
+	width 88%
+	&::after
+		position absolute
+		background black
+		display block
+		content ""
+		height 100%
+		width 1px
+		left 7.5%
+		top 0
 
 .animated-modal
 	transition all 0.75s ease-in-out
