@@ -3,6 +3,10 @@ define([
 ], function () {
   "use strict";
 
+  var config = {
+    container: "treecover_change_toolbox"
+  };
+
   var LossSliderController = {
 
     show: function () {
@@ -14,7 +18,7 @@ define([
     },
 
     update: function () {
-      
+
     }
 
   };
