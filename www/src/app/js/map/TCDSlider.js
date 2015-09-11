@@ -5,7 +5,7 @@ define([
 
   var tcdSlider;
 
-  var Controller = {
+  var TCDSliderController = {
 
     show: function () {
       var self = this;
@@ -14,6 +14,7 @@ define([
 					values: [0, 10, 15, 20, 25, 30, 50, 75, 100],
 					from_min: 1,
 					from_max: 7,
+          grid: true,
 					from: 5,
 					onFinish: self.update
 				});
@@ -33,6 +34,6 @@ define([
 
   };
 
-  return Controller;
+  return TCDSliderController;
 
 });
