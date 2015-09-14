@@ -1,13 +1,16 @@
 define([
     "dojo/on",
     "dojo/dom",
+    "dojo/dom-style",
     "dojo/query",
+    "dojo/hash",
     "dojo/dom-class",
+    "dojo/io-query",
     "dijit/Dialog",
     "utils/Hasher",
     "main/config",
     "utils/NavListController"
-], function(on, dom, query, domClass, Dialog, Hasher, AppConfig, NavListController) {
+], function(on, dom, domStyle, query, hash, domClass, ioQuery, Dialog, Hasher, AppConfig, NavListController) {
     'use strict';
 
     var state = 'large', // large, small, or mobile
@@ -61,6 +64,13 @@ define([
                 });
             });
 
+
+            query(".nav-link-more").forEach(function(node){
+                node.onclick = function (){
+                    self.changeNavItemAbout(node, "about");
+                };
+            });
+
             var handlerIn = function() {
                 $("#learn-more-dropdown").removeClass('hidden');
             }
@@ -70,6 +80,67 @@ define([
 
             $("#learnMoreItem").mouseenter(handlerIn).mouseleave(handlerOut);
         },
+
+        changeNavItemAbout: function(node, context) {
+                query(".nav-item-a.selected ").forEach(function(selectedDiv){
+                    
+                    if(selectedDiv.parentElement.id.indexOf(context) > -1){
+
+                        domClass.remove(selectedDiv, "selected");
+                        domStyle.set(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "display", "none");
+                        domClass.remove(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "selected");
+                    }
+                });
+                
+                var state = ioQuery.queryToObject(hash());
+
+                //if we're on the about page already, dont reset view
+                if (state.v != "about") {
+                    Hasher.setHash("v", "about"); 
+                    Hasher.setHash("n", node['dataset'].src);
+                    
+                } else {
+                    Hasher.setHash("n", node['dataset'].src);
+                }
+                
+                var replacementNode;
+                switch (node['dataset'].src) {
+                    case "GFW":
+                        replacementNode = $("#aboutGFWNav");
+                        break;
+                    case "History":
+                        replacementNode = $("#aboutHistoryNav");
+                        break;
+                    case "Partners":
+                        replacementNode = $("#aboutPartnersNav");
+                        break;
+                    case "Videos":
+                        replacementNode = $("#aboutVideosNav");
+                        break;
+                    case "Users":
+                        replacementNode = $("#aboutUsersNav");
+                        break;
+                    default:
+                        replacementNode = $("#aboutGFWNav");
+                        break;
+                }
+
+                
+
+                if (replacementNode[0]) {
+                   // //if node matches #, set to selected
+                    if (node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
+                        
+                        domClass.add(replacementNode[0].children[0], "selected");
+                        domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
+                        domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], "selected");
+                        // needsDefaults = false;
+                        // activeNode = replacementNode[0].children[0];
+                    } 
+                }
+                
+
+            },
 
         updateView: function(view, isExternal, initialized) {
 
