@@ -11,8 +11,8 @@ define([], function() {
         boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';
 
     // Totoal Loss
-    var lossBounds = [1, 13],
-        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013];
+    var lossBounds = [1, 14],
+        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014];
 
 
     // Tree Cover Density
@@ -109,7 +109,7 @@ define([], function() {
                         "rasterFunctionArguments": {
                             "RasterRange": [1, 14], // Change these values
                             "Raster2Length": [10], // Change these values
-                            "Raster": "$521", // Change these values
+                            "Raster": "$530", // Change these values
                             "Raster2": "$2" // Change these values
                         }
                     },
@@ -163,7 +163,7 @@ define([], function() {
 
         /* Begin Main Layers for Analyses */
         totalLoss: {
-            rasterId: "$521", //12
+            rasterId: "$530", //12
             bounds: lossBounds,
             labels: lossLabels
         },
@@ -328,7 +328,7 @@ define([], function() {
             rasterId: "$517",
             mosaicRule: {
                 'mosaicMethod': 'esriMosaicLockRaster',
-                'lockRasterIds': [521],
+                'lockRasterIds': [530],
                 'ascending': true,
                 'mosaicOperation': 'MT_FIRST'
             },
@@ -336,7 +336,7 @@ define([], function() {
                 title: "Annual Tree Cover Loss (in hectares)"
             },
             compositionAnalysis: {
-                rasterId: 521,
+                rasterId: 530,
                 histogramSlice: 1
             },
             bounds: treeCoverBounds,
