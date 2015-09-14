@@ -286,7 +286,7 @@ define([], function() {
                 content: "<table>" +
                     "<tr><td>Concession Type: </td><td>${Concession Type:checkAvailable}</td></tr>" +
                     "<tr><td>Country:</td><td>${Country:checkAvailable}</td></tr>" +
-                    "<tr><td>Group:</td><td>${group_name:checkAvailable}</td></tr>" +
+                    "<tr><td>Group:</td><td>${group_comp:checkAvailable}</td></tr>" +
                     "<tr><td>Certification Status:</td><td>${cert_schem:checkAvailable}</td></tr>" +
                     "<tr><td>GIS Calculated Area (ha):</td><td>${GIS Calculated Area (ha):NumberFormat}</td></tr>" +
                     "<tr><td>Certificate ID:</td><td>${certificat:checkAvailable}</td></tr>" +
@@ -478,7 +478,7 @@ define([], function() {
             //     filter: "forest-change",
             //     type: "radio",
             //     layerType: "none"
-            // }, 
+            // },
             {
                 id: "tcd",
                 title: "Tree Cover Density",
