@@ -180,13 +180,11 @@
     <div id="tcd-modal" class="tcd-modal animated-modal">
       <div class="close-icon"></div>
       <div class="modal-content">
-      	<div class="modal-header">
-      		<div class="tcd-modal-label" data-bind="text: tcdModalLabel"></div>
-					<div class="trees">
-						<span class="tree-icon"></span>
-						<span class="forest-icon"></span>
-					</div>
-      	</div>
+    		<div class="tcd-modal-label" data-bind="text: tcdModalLabel"></div>
+				<div class="trees">
+					<span class="tree-icon"></span>
+					<span class="forest-icon"></span>
+				</div>
 				<div class="tcd-slider-container">
 					<div id="tcd-density-slider"></div>
 				</div>
@@ -195,7 +193,7 @@
     <!-- End Tree Cover Density Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
-
+			<!-- Tree Cover Loss Time Slider -->
       <div id="treecover_change_toolbox" class="toolbox treecover_change_toolbox" style="display: none">
         <div class="toolbox_legend">
           <p>Tree cover change</p>
@@ -207,8 +205,8 @@
             <div id="lossPlayButton">&#9658;</div>
         </div>
       </div>
-
-
+			<!-- Tree Cover Loss Time Slider -->
+			<!-- Forma Alerts Time Slider -->
       <div id="forma_toolbox" class="toolbox forma_toolbox" style="display: none">
         <div class="toolbox_legend">
           <p>FORMA alerts</p>
@@ -223,7 +221,8 @@
 						<div id="formaPlayButton">&#9658;</div>
 				</div>
       </div>
-
+			<!-- Forma Alerts Time Slider -->
+			<!-- Fires Toolbox -->
       <div id="fires_toolbox" class="toolbox fires_toolbox" style="display: none">
         <div class="toolbox_legend">
           <p>NASA active fire alerts</p>
@@ -241,6 +240,8 @@
           </div>
         </div>
       </div>
+			<!-- Fires Toolbox -->
+			<!-- Suitability Toolbox -->
       <div id='suitability_toolbox' class="suitability_toolbox" style="display: none">
         <div id='suitability_loader' class="loading-wheel-container hidden">
           <div class="loading-wheel"></div>
@@ -438,6 +439,7 @@
           </div>
         </div>
       </div>
+			<!-- Suitability Toolbox -->
     </div>
     <!-- End Layer Controls Container -->
     <!-- Begin Legend -->

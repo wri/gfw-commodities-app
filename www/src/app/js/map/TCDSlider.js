@@ -3,7 +3,8 @@ define([
 ], function (on) {
   "use strict";
 
-  var tcdSlider;
+  var tcdSlider,
+      modal;
 
   var TCDSliderController = {
 
@@ -20,12 +21,14 @@ define([
 				});
       }
 
-      $("#tcd-modal").addClass("active");
-      on.once($("#tcd-modal .close-icon"), "click", this.hide);
+      // Cache the dom query operation
+      modal = $("#tcd-modal");
+      modal.addClass("active");
+      on.once($("#tcd-modal .close-icon")[0], "click", self.hide);
     },
 
     hide: function () {
-      $("#tcd-modal").removeClass("active");
+      if (modal) { modal.removeClass("active"); }
     },
 
     update: function () {

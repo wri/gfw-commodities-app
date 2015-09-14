@@ -5,14 +5,14 @@ define([
   "dojo/Deferred",
   "map/LayerController"
 ], function (on, MapConfig, esriRequest, Deferred, LayerController) {
-  "use strict";
+  // "use strict";
 
   var playInterval,
       formaSlider,
       playButton;
 
   var config = {
-    sliderSelector: '#forma-alert-slider',
+    sliderSelector: "#forma-alert-slider",
     playHtml: "&#9658;",
     pauseHtml: "&#x25fc;",
     baseYear: 15 // 2015
@@ -30,9 +30,9 @@ define([
 
     request = esriRequest({
       url: MapConfig.forma.url,
-      callbackParamName: 'callback',
-      content: { f: 'json' },
-      handleAs: 'json'
+      callbackParamName: "callback",
+      content: { f: "json" },
+      handleAs: "json"
     });
 
     request.then(function (res) {
@@ -43,7 +43,7 @@ define([
 
       for (min; min <= max; min++) {
         year = config.baseYear + Math.floor(min / 12);
-        labels.push(min + ' - ' + year);
+        labels.push(min + " - " + year);
       }
 
       deferred.resolve(labels);
@@ -66,7 +66,7 @@ define([
             grid: true,
             hide_min_max: true,
             hide_from_to: true,
-            onChange: self.change,
+            onFinish: self.change,
             onUpdate: self.update
           });
           // Save this instance to a variable ???
@@ -80,7 +80,6 @@ define([
     },
 
     change: function (data) {
-      console.log(data.from, data.to)
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.forma);
     },
 

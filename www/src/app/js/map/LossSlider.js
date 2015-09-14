@@ -36,7 +36,7 @@ define([
           hide_min_max: true,
           hide_from_to: true,
           prettify_enabled: false,
-					onChange: self.change,
+					onFinish: self.change,
           onUpdate: self.update
 				});
         // Save this instance to a variable ???

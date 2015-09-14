@@ -4,9 +4,10 @@ define([
 	"dojo/topic",
   "dojo/dom-class",
 	"utils/Hasher",
+	"map/TCDSlider",
 	"components/Check",
   "dijit/form/HorizontalSlider"
-], function (React, topic, domClass, Hasher, Check, HorizontalSlider) {
+], function (React, topic, domClass, Hasher, TCDSlider, Check, HorizontalSlider) {
 
 	var RadioButton = React.createClass({
 
@@ -66,7 +67,7 @@ define([
     },
 
 		showTCDSlider: function () {
-			console.log('showTCDSlider');
+			TCDSlider.show();
 		},
 
     /* jshint ignore:start */
@@ -103,7 +104,13 @@ define([
                 null
           }
 					{
-						this.props.id === 'tcd' ? <div className={'tcd-percentage-button'  + (this.state.active ? '' : ' hidden')} onClick={this.showTCDSlider}>30</div> : null
+						this.props.id === 'tcd' ? (
+							<div className={'tcd-button-container' + (this.state.active ? '' : ' hidden')}>
+										<span className='tcd-percentage-label'>Displaying at </span>
+										<span className='tcd-percentage-button' onClick={this.showTCDSlider}>30</span>
+										<span className='tcd-percentage-label'> density</span>
+							</div>
+						) : null
 					}
         </li>
       );
