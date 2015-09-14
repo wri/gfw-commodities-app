@@ -67,84 +67,17 @@ define([
                 itemConf,
                 status,
                 value;
-                
+
             dojoQuery(".gfw .filter-list ." + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
                 itemConf = MapConfig[itemLayer];
                 if (itemConf) {
-                   
+
                     if (itemConf.id === layer.id && domClass.contains(node, "active")) {
                         visibleLayers.push(itemConf.layerId);
                     }
                 }
-            });
-
-            // if (queryClass === "forest-use") {
-            //     dojoQuery(".gfw .filter-list .forest-cover").forEach(function(node) {
-            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
-            //         itemConf = MapConfig[itemLayer];
-            //         if (itemConf) {
-                       
-            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
-            //                 visibleLayers.push(itemConf.layerId);
-            //             }
-            //         }
-            //     });
-            //     dojoQuery(".gfw .filter-list .forest-change").forEach(function(node) {
-            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
-            //         itemConf = MapConfig[itemLayer];
-            //         if (itemConf) {
-                       
-            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
-            //                 visibleLayers.push(itemConf.layerId);
-            //             }
-            //         }
-            //     });
-            // } else if (queryClass === "forest-cover") {
-            //    dojoQuery(".gfw .filter-list .forest-use").forEach(function(node) {
-            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
-            //         itemConf = MapConfig[itemLayer];
-            //         if (itemConf) {
-                       
-            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
-            //                 visibleLayers.push(itemConf.layerId);
-            //             }
-            //         }
-            //     });
-            //    dojoQuery(".gfw .filter-list .forest-change").forEach(function(node) {
-            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
-            //         itemConf = MapConfig[itemLayer];
-            //         if (itemConf) {
-                       
-            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
-            //                 visibleLayers.push(itemConf.layerId);
-            //             }
-            //         }
-            //     });
-            // } else if (queryClass === "forest-change") {
-            //    dojoQuery(".gfw .filter-list .forest-use").forEach(function(node) {
-            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
-            //         itemConf = MapConfig[itemLayer];
-            //         if (itemConf) {
-                       
-            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
-            //                 visibleLayers.push(itemConf.layerId);
-            //             }
-            //         }
-            //     });
-            //    dojoQuery(".gfw .filter-list .forest-cover").forEach(function(node) {
-            //         itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
-            //         itemConf = MapConfig[itemLayer];
-            //         if (itemConf) {
-                       
-            //             if (itemConf.id === layer.id && domClass.contains(node, "active")) {
-            //                 visibleLayers.push(itemConf.layerId);
-            //             }
-            //         }
-            //     });
-            // }
-
-            
+            });          
 
             if (layer) {
 
@@ -176,7 +109,7 @@ define([
                 this.refreshLegendWidget();
             }
 
-            
+
             // We only want to apply analytics to a few layers for now, catch those here
             // As they add more layers we can find a better way to catch this, possibly higher
             // up in the callstack so one function can catch all and this becomes less messy
@@ -196,7 +129,7 @@ define([
                 value = 'User toggled RSPO Mills layer ' + status;
                 Analytics.sendEvent('Event', 'Layer', value);
               break;
-            }        
+            }
 
         },
         // Called From Delegator or internally, layerConfig is in the Map Config
@@ -221,7 +154,7 @@ define([
         // This function should only hide layers, helper for hiding children
         hideLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
-            
+
             if (layer) {
                 if (layer.visible) {
                     if (layer.visibleLayers) {
@@ -235,28 +168,21 @@ define([
                     } else {
                         layer.hide();
                     }
-                    
-                    
+
+
                     this.refreshLegendWidget();
                 }
             }
         },
 
         // Updates a dynamic layer controlled by a radio button so it simply changes the visible layers
-        // to the one tied to the radio button, no need to have multiple sublayers turned on, if you do need 
+        // to the one tied to the radio button, no need to have multiple sublayers turned on, if you do need
         // that, look at updateLayer function instead or create a new one as that one is tied to the checkboxes
         updateDynamicLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id),
                 visibleLayers = [];
             if (layer) {
-                
-                // if (layer.visibleLayers.length > 0) {
-                //     for (var i = 0; i < layer.visibleLayers.length; i++) {
-                //         visibleLayers.push(layer.visibleLayers[i]);
-                //     }
-                // }
                 visibleLayers.push(layerConfig.layerId);
-                console.log(visibleLayers);
                 layer.setVisibleLayers(visibleLayers);
                 layer.show();
                 this.refreshLegendWidget();
@@ -562,7 +488,7 @@ define([
 
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
-            // Make sure to set layer drawing options for those values so they do not display 
+            // Make sure to set layer drawing options for those values so they do not display
             // over their ImageService counterparts
 
             ldos = new LayerDrawingOptions();
@@ -612,7 +538,7 @@ define([
                 return;
             }
             // Protected Areas Layer has a helper dynamic layer to show closer then zoom level 6
-            // So if we are setting transparency for Protected Areas, pass the helper config on to 
+            // So if we are setting transparency for Protected Areas, pass the helper config on to
             // the Set Dynamic Layer Transparency function
             if (layer.id === 'ProtectedAreas') {
                 this.setDynamicLayerTransparency(MapConfig.palHelper, transparency);
@@ -663,7 +589,7 @@ define([
                 graphic,
                 location,
                 item;
-            
+
             // Build query
             query.objectIds = [options.objectId];
             query.outFields = ['*'];
@@ -678,7 +604,7 @@ define([
                     graphic.layer = options.layer;
 
                     location = graphicsUtils.graphicsExtent([graphic]).getCenter();
-                    
+
                     // Format an input for Finder template function
                     item = {
                         feature: graphic,

@@ -45,7 +45,7 @@ define([
       }
 
 			if (this.props.id === 'tcd') {
-				
+
 			}
 
     },
@@ -103,7 +103,7 @@ define([
                 null
           }
 					{
-						this.props.id === 'tcd' ? <div className='tcd-percentage-button' onClick={this.showTCDSlider}>30</div> : null
+						this.props.id === 'tcd' ? <div className={'tcd-percentage-button'  + (this.state.active ? '' : ' hidden')} onClick={this.showTCDSlider}>30</div> : null
 					}
         </li>
       );

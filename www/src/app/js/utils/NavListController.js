@@ -69,7 +69,7 @@ define([
 
             function changeNavItemAbout(node, context) {
                 query(".nav-item-a.selected ").forEach(function(selectedDiv){
-                    
+
                     if(selectedDiv.parentElement.id.indexOf(context) > -1){
 
                         domClass.remove(selectedDiv, "selected");
@@ -77,18 +77,18 @@ define([
                         domClass.remove(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "selected");
                     }
                 });
-                
+
                 var state = ioQuery.queryToObject(hash());
 
                 //if we're on the about page already, dont reset view
                 if (state.v != "about") {
-                    Hasher.setHash("v", "about"); 
+                    Hasher.setHash("v", "about");
                     Hasher.setHash("n", node['dataset'].src);
-                    
+
                 } else {
                     Hasher.setHash("n", node['dataset'].src);
                 }
-                
+
                 var replacementNode;
                 switch (node['dataset'].src) {
                     case "GFW":
@@ -111,20 +111,20 @@ define([
                         break;
                 }
 
-                
+
 
                 if (replacementNode[0]) {
                    // //if node matches #, set to selected
                     if (node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
-                        
+
                         domClass.add(replacementNode[0].children[0], "selected");
                         domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
                         domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], "selected");
                         needsDefaults = false;
                         activeNode = replacementNode[0].children[0];
-                    } 
+                    }
                 }
-                
+
 
             }
         },
