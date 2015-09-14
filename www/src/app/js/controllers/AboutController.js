@@ -26,7 +26,7 @@ define([
 
             var context = "about";
             
-            Hasher.setHash("n", "videos");
+            // Hasher.setHash("n", "videos");
 
             // debugger
             

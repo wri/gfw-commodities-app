@@ -12,9 +12,10 @@ define([
     "controllers/DataController",
     "controllers/MethodsController",
     "controllers/PublicationsController",
+    "controllers/SubmissionController",
     "utils/Hasher",
     "utils/NavListController"
-], function(domClass, query, ioQuery, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController, Hasher, NavListController) {
+], function(domClass, query, ioQuery, registry, Loader, Header, Footer, MapController, HomeController, AboutController, DataController, MethodsController, PublicationsController, SubmissionController, Hasher, NavListController) {
     'use strict';
 
     var loadedViews = {};
@@ -104,6 +105,8 @@ define([
                     return AboutController.init.bind(AboutController);
                 case 'publications':
                     return PublicationsController.init.bind(PublicationsController);
+                case 'submission':
+                    return PublicationsController.init.bind(SubmissionController);
                 default:
                     return;
             }
