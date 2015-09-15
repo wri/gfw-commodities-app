@@ -58,7 +58,7 @@ define([], function() {
 
         tcdModal: {
           label: 'Adjust the minimum canopy density for tree cover and tree cover loss',
-          defaultValue: 30
+          densityValue: 30
         },
 
         coordinatesDialog: {

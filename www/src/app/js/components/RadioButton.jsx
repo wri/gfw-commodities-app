@@ -1,13 +1,15 @@
 /** @jsx React.DOM */
 define([
 	"react",
+	"knockout",
 	"dojo/topic",
   "dojo/dom-class",
 	"utils/Hasher",
+	"map/MapModel",
 	"map/TCDSlider",
 	"components/Check",
   "dijit/form/HorizontalSlider"
-], function (React, topic, domClass, Hasher, TCDSlider, Check, HorizontalSlider) {
+], function (React, ko, topic, domClass, Hasher, MapModel, TCDSlider, Check, HorizontalSlider) {
 
 	var RadioButton = React.createClass({
 
@@ -46,7 +48,7 @@ define([
       }
 
 			if (this.props.id === 'tcd') {
-
+				ko.applyBindings(MapModel.get('model'), document.querySelector('.tcd-button-container'));
 			}
 
     },
@@ -107,7 +109,7 @@ define([
 						this.props.id === 'tcd' ? (
 							<div className={'tcd-button-container' + (this.state.active ? '' : ' hidden')}>
 										<span className='tcd-percentage-label'>Displaying at </span>
-										<span className='tcd-percentage-button' onClick={this.showTCDSlider}>30</span>
+										<span className='tcd-percentage-button' onClick={this.showTCDSlider} data-bind="text: tcdDensityValue"></span>
 										<span className='tcd-percentage-label'> density</span>
 							</div>
 						) : null

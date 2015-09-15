@@ -41,7 +41,7 @@ function (declare, AppConfig, MapConfig, ko) {
 
       // Tree Cover Density Items
       Model.vm.tcdModalLabel = ko.observable(MapConfig.tcdModal.label);
-      Model.vm.tcdModalValue = ko.observable(MapConfig.tcdModal.defaultValue);
+      Model.vm.tcdDensityValue = ko.observable(MapConfig.tcdModal.densityValue);
 
       // Storage of specific objects for Wizard
       // Admin Unit
@@ -56,7 +56,7 @@ function (declare, AppConfig, MapConfig, ko) {
   });
 
   Model.get = function (item) {
-    return item === 'model' ? Model.vm : Model.vm[item]();
+    return item === "model" ? Model.vm : Model.vm[item]();
   };
 
   Model.set = function (item, value) {

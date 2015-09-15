@@ -1,6 +1,7 @@
 define([
-  "dojo/on"
-], function (on) {
+  "dojo/on",
+  "map/MapModel"
+], function (on, MapModel) {
   "use strict";
 
   var tcdSlider,
@@ -17,7 +18,7 @@ define([
 					from_max: 7,
           grid: true,
 					from: 5,
-					onFinish: self.update
+					onFinish: self.change
 				});
       }
 
@@ -31,8 +32,9 @@ define([
       if (modal) { modal.removeClass("active"); }
     },
 
-    update: function () {
-
+    change: function (data) {
+      // Update the Value in the Model
+      MapModel.set('tcdDensityValue', data.from_value);
     }
 
   };
