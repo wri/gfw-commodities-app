@@ -23,6 +23,7 @@
     "react"
   ],
   "rules": {
+    "quotes": [0, "single", "avoid-escape"],
     "semi": [2, "always"],
     "no-alert": 1,
     "no-array-constructor": 2,

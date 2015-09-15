@@ -1,7 +1,8 @@
 define([
   "dojo/on",
-  "map/MapModel"
-], function (on, MapModel) {
+  "map/MapModel",
+  "map/LayerController"
+], function (on, MapModel, LayerController) {
   "use strict";
 
   var tcdSlider,
@@ -33,8 +34,12 @@ define([
     },
 
     change: function (data) {
-      // Update the Value in the Model
-      MapModel.set('tcdDensityValue', data.from_value);
+      var value = data.from_value;
+      if (value) {
+        // Update the Value in the Model
+        MapModel.set('tcdDensityValue', data.from_value);
+        LayerController.updateTCDRenderingRule(data.from_value);
+      }
     }
 
   };

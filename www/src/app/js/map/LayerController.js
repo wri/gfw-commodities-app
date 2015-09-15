@@ -77,7 +77,7 @@ define([
                         visibleLayers.push(itemConf.layerId);
                     }
                 }
-            });          
+            });
 
             if (layer) {
 
@@ -309,7 +309,7 @@ define([
                     range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
                 }
 
-                rasterFunction = this.getSpecificRasterFunction(layerConfig.colormap, range, outRange);
+                rasterFunction = this.getColormapRasterFunction(layerConfig.colormap, range, outRange);
                 layer.setRenderingRule(rasterFunction);
 
             }
@@ -317,7 +317,22 @@ define([
 
         },
 
-        getSpecificRasterFunction: function(colormap, range, outRange) {
+        updateTCDRenderingRule: function (newInputValue) {
+          var config = MapConfig.tcd,
+              colormap = config.colormap,
+              output = config.outputValue,
+              input = [newInputValue, 101],
+              layer;
+
+          layer = app.map.getLayer(config.id);
+
+          if (layer) {
+            layer.setRenderingRule(this.getColormapRasterFunction(colormap, input, output));
+          }
+
+        },
+
+        getColormapRasterFunction: function(colormap, range, outRange) {
             return new RasterFunction({
                 "rasterFunction": "Colormap",
                 "rasterFunctionArguments": {
