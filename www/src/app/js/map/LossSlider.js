@@ -15,12 +15,11 @@ define([
     sliderSelector: '#loss-range-slider',
     baseValue: 2001,
     playHtml: "&#9658;",
-    pauseHtml: "&#x25fc;"
+    pauseHtml: "&#x25A0"
   };
 
   var state = {
-    isPlaying: false,
-    startValue: undefined
+    isPlaying: false
   };
 
   var LossSliderController = {
@@ -37,7 +36,7 @@ define([
           hide_from_to: true,
           prettify_enabled: false,
 					onFinish: self.change,
-          onUpdate: self.update
+          onUpdate: self.change
 				});
         // Save this instance to a variable ???
         lossSlider = $(config.sliderSelector).data("ionRangeSlider");
@@ -50,55 +49,17 @@ define([
     },
 
     /**
-    * Use the show and hide functions after the layer list is refactored, instead of just initialiing the tools
-    * in one module, showing them in another, and hiding them all every time one gets activated, we can use show and
-    * hide individually in new functions that will be coming soon, LayerController.addLayer and LayerController.removeLayer
-    */
-    // show: function () {
-    //   var self = this;
-    //   if (lossSlider === undefined) {
-    //     // Initialize the slider
-    //     $(config.sliderSelector).ionRangeSlider({
-    //       type: "double",
-		// 			values: config.values,
-    //       grid: true,
-    //       hide_min_max: true,
-    //       hide_from_to: true,
-		// 			onChange: self.change,
-    //       onUpdate: self.update
-		// 		});
-    //     // Save this instance to a variable ???
-    //     lossSlider = $(config.sliderSelector).data("ionRangeSlider");
-    //     // Attach Events related to this item
-    //     on(playButton, "click", self.playToggle);
-    //   }
-    //
-    // },
-    //
-    // hide: function () {
-    //
-    // },
-
-    /**
-    * Called when the user drags a thumb on the slider
+    * Called when the user drags a thumb on the slider or update is called programmatically
     */
     change: function (data) {
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.loss);
     },
 
-    /**
-    * Called only when user hits the play button and we explicitly call update on lossSlider, state.startValue is set in playToggle function
-    */
-    update: function (data) {
-      LayerController.updateImageServiceRasterFunction([state.startValue, data.from], MapConfig.loss);
-    },
-
     playToggle: function () {
-      var fromValue, toValue;
+      var fromValue, toValue, endValue;
 
       function stopPlaying() {
         state.isPlaying = false;
-        state.startValue = undefined;
         clearInterval(playInterval);
         playButton.html(config.playHtml);
       };
@@ -108,22 +69,22 @@ define([
       } else {
         // Update some state
         state.isPlaying = true;
-        state.startValue = lossSlider.result.from;
-        // Trigger a change on the layer for the initial value
-        LayerController.updateImageServiceRasterFunction([state.startValue, state.startValue], MapConfig.loss);
+        endValue = lossSlider.result.to;
+        // Trigger a change on the layer for the initial value, with both handles starting at the same point
+        lossSlider.update({ from: lossSlider.result.from, to: lossSlider.result.from });
         // Start the interval
         playInterval = setInterval(function () {
           // We will be incrementing the from value to move the slider forward
           fromValue = lossSlider.result.from;
           toValue = lossSlider.result.to;
           // Quit if from value is equal to or greater than the to value
-          if (fromValue >= toValue) {
+          if (toValue >= endValue) {
             stopPlaying();
           } else {
             // Update the slider
             lossSlider.update({
-              from: ++fromValue,
-              to: toValue
+              from: fromValue,
+              to: ++toValue
             });
           }
 

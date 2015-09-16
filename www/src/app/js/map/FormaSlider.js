@@ -14,13 +14,12 @@ define([
   var config = {
     sliderSelector: "#forma-alert-slider",
     playHtml: "&#9658;",
-    pauseHtml: "&#x25fc;",
+    pauseHtml: "&#x25A0",
     baseYear: 15 // 2015
   };
 
   var state = {
-    isPlaying: false,
-    startValue: undefined
+    isPlaying: false
   };
 
   var getFormaLabels = function getFormaLabels () {
@@ -67,7 +66,7 @@ define([
             hide_min_max: true,
             hide_from_to: true,
             onFinish: self.change,
-            onUpdate: self.update
+            onUpdate: self.change
           });
           // Save this instance to a variable ???
           formaSlider = $(config.sliderSelector).data("ionRangeSlider");
@@ -83,16 +82,11 @@ define([
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.forma);
     },
 
-    update: function (data) {
-      LayerController.updateImageServiceRasterFunction([state.startValue, data.from], MapConfig.forma);
-    },
-
     playToggle: function () {
-      var fromValue, toValue;
+      var fromValue, toValue, endValue;
 
       function stopPlaying() {
         state.isPlaying = false;
-        state.startValue = undefined;
         clearInterval(playInterval);
         playButton.html(config.playHtml);
       };
@@ -102,22 +96,22 @@ define([
       } else {
         // Update some state
         state.isPlaying = true;
-        state.startValue = formaSlider.result.from;
-        // Trigger a change on the layer for the initial value
-        LayerController.updateImageServiceRasterFunction([state.startValue, state.startValue], MapConfig.forma);
+        endValue = formaSlider.result.to;
+        // Trigger a change on the layer for the initial value, with both handles starting at the same point
+        formaSlider.update({ from: formaSlider.result.from, to: formaSlider.result.from });
         // Start the interval
         playInterval = setInterval(function () {
           // We will be incrementing the from value to move the slider forward
           fromValue = formaSlider.result.from;
           toValue = formaSlider.result.to;
           // Quit if from value is equal to or greater than the to value
-          if (fromValue >= toValue) {
+          if (toValue >= endValue) {
             stopPlaying();
           } else {
             // Update the slider
             formaSlider.update({
-              from: ++fromValue,
-              to: toValue
+              from: fromValue,
+              to: ++toValue
             });
           }
 

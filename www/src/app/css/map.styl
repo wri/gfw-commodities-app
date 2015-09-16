@@ -752,9 +752,6 @@ wizardBlue = #00688B
 .irs-bar
 	background #ABC24B
 
-.irs-grid
-	bottom 10px
-
 .irs-grid-pol
 	background-color #000
 	border-radius 50%
@@ -764,9 +761,22 @@ wizardBlue = #00688B
 	&.small
 		display none
 
+.irs-grid
+	bottom 10px
+
 .irs-grid-text
 	font-size 11px
 	color #ABC24B
+
+.tcd-modal
+	& .irs-slider.to
+	&	.irs-to
+	& .irs-single
+	& .irs-grid-pol[style="left: 100%"]
+		display none
+	& .irs-from
+		visibility visible !important
+
 
 .range-slider
 	margin-left auto
@@ -857,10 +867,11 @@ wizardBlue = #00688B
 	width 340px
 
 .tcd-modal-label
-	padding-right 20px
+	margin-top 25px
+	padding 0 10px
 
 .tcd-modal .trees
-	margin 20px 0
+	margin 10px 0
 	height 60px
 	width 100%
 

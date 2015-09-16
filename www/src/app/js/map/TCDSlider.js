@@ -14,12 +14,17 @@ define([
       var self = this;
       if (tcdSlider === undefined) {
         tcdSlider = $("#tcd-density-slider").ionRangeSlider({
+          type: 'double',
 					values: [0, 10, 15, 20, 25, 30, 50, 75, 100],
+          hide_min_max: true,
 					from_min: 1,
 					from_max: 7,
+          to_fixed: true,
           grid: true,
+          grid_snap: true,
 					from: 5,
-					onFinish: self.change
+					onFinish: self.change,
+          prettify: function (value) { return value + '%'; }
 				});
       }
 
