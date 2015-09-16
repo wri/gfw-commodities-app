@@ -36,18 +36,18 @@ module.exports = function(grunt) {
                     filter: 'isFile'
                 }, {
                     // CSS used to Support Ion Range Slider
-                    src: ['src/app/libs/ionrangeslider/css/normalize.min.css'],
-                    dest: 'build/app/libs/ionrangeslider/css/normalize.min.css',
+                    src: ['src/app/libs/ion.rangeslider/css/normalize.min.css'],
+                    dest: 'build/app/libs/ion.rangeslider/css/normalize.min.css',
                     filter: 'isFile'
                 }, {
                     // CSS used to Support Ion Range Slider
-                    src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css'],
-                    dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.skinNice.css',
+                    src: ['src/app/libs/ion.rangeslider/css/ion.rangeSlider.skinNice.css'],
+                    dest: 'build/app/libs/ion.rangeslider/css/ion.rangeSlider.skinNice.css',
                     filter: 'isFile'
                 }, {
                     // CSS used to Support Ion Range Slider
-                    src: ['src/app/libs/ionrangeslider/css/ion.rangeSlider.css'],
-                    dest: 'build/app/libs/ionrangeslider/css/ion.rangeSlider.css',
+                    src: ['src/app/libs/ion.rangeslider/css/ion.rangeSlider.css'],
+                    dest: 'build/app/libs/ion.rangeslider/css/ion.rangeSlider.css',
                     filter: 'isFile'
                 }, {
                     // Helper Libraries used at various points in the app
@@ -117,8 +117,8 @@ module.exports = function(grunt) {
                     dest: 'build/app/libs/html5shiv.js',
                     src: 'src/app/libs/html5shiv.js'
                 }, {
-                    dest: 'build/app/libs/ionrangeslider/js/ion.rangeSlider.min.js',
-                    src: 'src/app/libs/ionrangeslider/js/ion.rangeSlider.min.js'
+                    dest: 'build/app/libs/ion.rangeslider/js/ion.rangeSlider.min.js',
+                    src: 'src/app/libs/ion.rangeslider/js/ion.rangeSlider.min.js'
                 }]
             }
         },
