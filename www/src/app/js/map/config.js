@@ -678,6 +678,7 @@ define([], function() {
                 filter: 'forest-use',
                 type: 'check',
                 layerType: 'dynamic',
+                infoDivClass: "land-use-moratorium-areas",
                 parent: "newOther",
                 endChild: true
                 // }, {

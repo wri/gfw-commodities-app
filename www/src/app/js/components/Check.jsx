@@ -87,7 +87,7 @@ define([
           (this.state.active ? ' active' : '') +
           (this.props.parent ? ' indented' : '') +
           (this.props.kids ? ' newList' : '') +
-          (this.props.visible ? '' : ' hidden');
+          (this.props.visible ? '' : ' hidden'); 
 
           
       return (        
