@@ -14,7 +14,7 @@ define([
 	return {
 
 		init: function (template) {
-			
+
 			if (initialized) {
 				registry.byId("stackContainer").selectChild("aboutView");
 				return;
@@ -25,18 +25,18 @@ define([
 			registry.byId("aboutView").set('content', template);
 
             var context = "about";
-            
+
             // Hasher.setHash("n", "videos");
 
             // debugger
-            
+
             NavListController.loadNavControl(context);
             // if (newContext) {
             // 	NavListController.loadNavView(newContext);
             // } else {
-            NavListController.loadNavView(context);	
+            NavListController.loadNavView(context);
             // }
-            
+
 
 		}
 

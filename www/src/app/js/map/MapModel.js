@@ -39,6 +39,10 @@ function (declare, AppConfig, MapConfig, ko) {
       Model.vm.latitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.latitudePlaceholder);
       Model.vm.longitudePlaceholder = ko.observable(MapConfig.coordinatesDialog.longitudePlaceholder);
 
+      // Tree Cover Density Items
+      Model.vm.tcdModalLabel = ko.observable(MapConfig.tcdModal.label);
+      Model.vm.tcdDensityValue = ko.observable(MapConfig.tcdModal.densityValue);
+
       // Storage of specific objects for Wizard
       // Admin Unit
       Model.vm.allCountries = ko.observableArray([]);
@@ -52,7 +56,7 @@ function (declare, AppConfig, MapConfig, ko) {
   });
 
   Model.get = function (item) {
-    return item === 'model' ? Model.vm : Model.vm[item]();
+    return item === "model" ? Model.vm : Model.vm[item]();
   };
 
   Model.set = function (item, value) {

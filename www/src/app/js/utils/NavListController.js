@@ -67,12 +67,12 @@ define([
                 Analytics.sendPageview(url, analyticsTitle);
             }
 
-            
+
         },
 
         loadNavView: function (context){
 
-            
+
             var state = ioQuery.queryToObject(hash());
             var needsDefaults = true;
             var activeNode;

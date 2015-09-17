@@ -56,6 +56,11 @@ define([], function() {
             }
         },
 
+        tcdModal: {
+          label: 'Adjust the minimum canopy density for tree cover and tree cover loss',
+          densityValue: 30
+        },
+
         coordinatesDialog: {
             coordinatesModalHeader: 'Enter Point Coordinates',
             coordinatesEnterButton: 'Enter',
@@ -200,7 +205,10 @@ define([], function() {
         tcd: {
             id: "TreeCoverDensity",
             url: treeCoverDensityUrl,
-            legendLayerId: 2
+            legendLayerId: 2,
+            // The following are options needed for the rendering rule
+            colormap: [[50, 14, 204, 14]],
+            outputValue: [50]
         },
         primForest: {
             id: "forestCover_commodities",

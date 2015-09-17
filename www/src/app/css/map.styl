@@ -262,8 +262,7 @@ wizardBlue = #00688B
 .gfw .layer-controls-container > .toolbox
 	box-shadow 0px 0px 6px 1px rgba(0,0,0,0.25)
 	background-color white
-	border 1px solid #000
-	border-radius(5px)
+	border 1px solid #CCC
 	position absolute
 	bottom 35px
 	z-index 50
@@ -271,6 +270,7 @@ wizardBlue = #00688B
 
 .gfw .layer-controls-container .toolbox_legend
 	position absolute
+	font-size 12px
 	top -20px
 	left 0
 
@@ -345,28 +345,25 @@ wizardBlue = #00688B
 
 .gfw .layer-controls-container .forma_toolbox
 	margin-left -500px
-	height 55px
+	height 60px
 	width 800px
 	padding-right 25px
 	padding-left 65px
-	padding-top 5px
 
-.gfw .layer-controls-container .forma_toolbox:after {
-  position: absolute;
-  left: 7%;
-  top: 0;
-  width: 1px;
-  background: black;
-  content: "";
-  height: 100%;
-  display: block;
-}
+.gfw .layer-controls-container .forma_toolbox:after
+	position absolute
+	background #CCC
+	display block
+	height 40px
+	content ""
+	width 1px
+	top 10px
+	left 7%
 
 .gfw .layer-controls-container .treecover_change_toolbox
 	margin-left -500px
-	height 55px
+	height 60px
 	width 900px
-	padding-top 5px
 
 .gfw .toolbox .toolbox-inner
 	text-align center
@@ -400,7 +397,7 @@ wizardBlue = #00688B
 
 .gfw .fires_toolbox .high-confidence-fires label
 	padding-left 5px
-	
+
 .gfw .fires_toolbox #high-confidence-info
 	cursor pointer
 	color #e98300
@@ -557,35 +554,6 @@ wizardBlue = #00688B
 .gfw .simple-legend-layer
 	padding 2px 0px 2px 1px
 
-// .gfw #concessions-legend
-// 	height 250px
-// 	position absolute
-// 	top 30px
-// 	left 0
-// 	right 0
-// 	padding 10px
-// 	box-sizing border-box
-// 	background #FFF
-
-/* Overrides for Esri Legend */
-
-// .wizard-checkbox .layer-info-icon {
-//   float: right;
-//   background-image: url("images/info-icon-gray.png");
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   height: 20px;
-//   width: 20px;
-//   color: #888 !important;
-// }
-
-// .suitability-accordion .layer-info-icon
-// 	background url("images/info-icon-gray.png") no-repeat center
-// 	display inline-block
-// 	cursor pointer
-// 	height 18px
-// 	width 18px
-
 .gfw .maptools-modal .esriBasemapGallery
 	padding 15px 15px 5px !important
 
@@ -595,23 +563,6 @@ wizardBlue = #00688B
 .suitability-accordion .suitability-accordion-description
 	margin 10px 20px 2px
 
-.range-slider
-	margin-left: auto;
-	margin-right: 3%;
-	width: 88%;
-	background-color: white;
-
-.range-slider:after {
-  position: absolute;
-  left: 7.5%;
-  top: 0;
-  width: 1px;
-  background: black;
-  content: "";
-  height: 100%;
-  display: block;
-}
-
 .sliderStart
 	z-index: 1;
 	display: block;
@@ -619,18 +570,6 @@ wizardBlue = #00688B
 	border-right: 2px solid black;
 	top: 0;
 	height: 50%;
-
-#newSlider
-	position: absolute;
-	bottom: 15px;
-	left: 30px;
-	cursor: pointer;
-
-#newSlider2
-	position: absolute;
-	bottom: 16px;
-	left: 27px;
-	cursor: pointer;
 
 .gfw #legend #legend_msg, .gfw #legend .esriLegendServiceLabel
 	display none
@@ -674,24 +613,6 @@ wizardBlue = #00688B
 #environmental-criteria
 	overflow-x hidden
 /* Overrides for Accordion Containers that contain sliders and checkboxes */
-.container2 {
-	margin-top: 20px;
-	font-size: 11px;
-}
-
-.container2 > div {
-    display: inline-block;
-    display: -moz-inline-box;
-    *display: inline; /* For IE7 */
-    zoom: 1; /* Trigger hasLayout */
-    width: 8.15%;
-    text-align: center;
-    font-size: 11x;
-    color: #a1ba42;
-    margin: -10px;
-    position: absolute;
-    top: 33px;
-}
 #irs-1 {
 	position: absolute;
 	width: 730px;
@@ -787,29 +708,6 @@ wizardBlue = #00688B
 	bottom: -5px;
 }
 
-.playLineFiller > div
-	background #a1ba42
-	display inline-block
-	height 8px
-	width 34px
-	position absolute
-	margin-top 2px
-
-.playLineFiller2 > div
-	position absolute
-	margin-top 18px
-	color rgb(153, 153, 153)
-	font-family 'Fira Sans', 'fira_sans_otregular', Georgia, serif
-	font-size 13px
-	font-style normal
-	font-variant normal
-	font-weight normal
-	height auto
-	line-height 16px
-
-.playLineFiller2 > div:nth-child(1)
-	margin-left 4px
-
 #sliderProgressLine
 	width 2px
 	height 60px
@@ -818,7 +716,7 @@ wizardBlue = #00688B
 	background-color #a1ba42
 	display none
 
-#sliderProgressLine2 
+#sliderProgressLine2
 	width 2px
 	height 60px
 	position absolute
@@ -826,131 +724,86 @@ wizardBlue = #00688B
 	background-color #a1ba42
 	display none
 
-.playLineFiller > div
-	width 31px
+#lossPlayButton
+#formaPlayButton
+	position absolute
+	bottom 16px
+	left 27px
+	cursor pointer
 
-.container2
-	width 850px
-	margin-left -15px
+.irs-slider
+	background url('images/dragger.png')
+	cursor col-resize
+	width 15px
+	height 15px
 
-.container2 > div:first-child
-	margin-left -10px
+.irs-bar
+.irs-line
+	top 21px
 
-.container2 > div:nth-child(2) {
-    margin-left: 49px;
-}
+.irs-bar-edge
+	display none
 
-.container2 > div:nth-child(3) {
-    margin-left: 110px;
-}
+.irs-line-mid
+.irs-line-left
+.irs-line-right
+	background white
 
-.container2 > div:nth-child(4) {
-    margin-left: 171px;
-}
+.irs-bar
+	background #ABC24B
 
-.container2 > div:nth-child(5) {
-    margin-left: 231px;
-}
+.irs-grid-pol
+	background-color #000
+	border-radius 50%
+	height 2px
+	width 2px
+	top -6px
+	&.small
+		display none
 
-.container2 > div:nth-child(6) {
-    margin-left: 292px;
-}
+.irs-grid
+	bottom 10px
 
-.container2 > div:nth-child(7) {
-    margin-left: 353px;
-}
+.irs-grid-text
+	font-size 11px
+	color #ABC24B
 
-.container2 > div:nth-child(8) {
-    margin-left: 414px;
-}
+.tcd-modal
+	& .irs-slider.to
+	&	.irs-to
+	& .irs-single
+	& .irs-grid-pol[style="left: 100%"]
+		display none
+	& .irs-from
+		visibility visible !important
 
-.container2 > div:nth-child(9) {
-    margin-left: 475px;
-}
 
-.container2 > div:nth-child(10) {
-    margin-left: 536px;
-}
-
-.container2 > div:nth-child(11) {
-    margin-left: 597px;
-}
-
-.container2 > div:nth-child(12) {
-    margin-left: 658px;
-}
-
-.container2 > div:nth-child(13) {
-    margin-left: 721px;
-}
-
-.container2 > div:nth-child(14) {
-    margin-left: 780px;
-}
-
-.playLineFiller > div:first-child {
-	margin-left: 85px;
-}
-
-.playLineFiller > div:nth-child(2) {
-    margin-left: 85px;
-    width: 31px;
-}
-
-.playLineFiller > div:nth-child(3) {
-    margin-left: 146px;
-}
-
-.playLineFiller > div:nth-child(4) {
-    margin-left: 206px;
-}
-
-.playLineFiller > div:nth-child(5) {
-    margin-left: 267px;
-}
-
-.playLineFiller > div:nth-child(6) {
-    margin-left: 328px;
-}
-
-.playLineFiller > div:nth-child(7) {
-    margin-left: 389px;
-}
-
-.playLineFiller > div:nth-child(8) {
-    margin-left: 450px;
-}
-
-.playLineFiller > div:nth-child(9) {
-    margin-left: 511px;
-}
-
-.playLineFiller > div:nth-child(10) {
-    margin-left: 572px;
-}
-
-.playLineFiller > div:nth-child(11) {
-    margin-left: 632px;
-    width: 32px;
-}
-
-.playLineFiller > div:nth-child(12) {
-    margin-left: 695px;
-    width: 32px;
-}
+.range-slider
+	margin-left auto
+	margin-right 3%
+	width 88%
+	&::after
+		position absolute
+		background #CCC
+		display block
+		content ""
+		height 40px
+		width 1px
+		left 7.5%
+		top 10px
 
 .animated-modal
 	transition all 0.75s ease-in-out
 	border 1px solid #b2b2b2
 	background-color #FFF
 	position absolute
-	z-index 100
+	z-index 1000
 	height auto
 	top -500px
 	left 50%
 
 .upload-modal
-	margin-left -225px
+	transform translate(-50%)
 	width 450px
 
 .coordinates-modal
@@ -1009,12 +862,36 @@ wizardBlue = #00688B
 	transform translate(-50%)
 	width 405px
 
-/* Mozilla */
-@-moz-document url-prefix() {
-	.playLineFiller > div {
-		margin-top: 3px;
-	}
-}
+.tcd-modal
+	transform translate(-50%)
+	width 340px
+
+.tcd-modal-label
+	margin-top 25px
+	padding 0 10px
+
+.tcd-modal .trees
+	margin 10px 0
+	height 60px
+	width 100%
+
+.tcd-slider-container
+	margin 10px auto
+	width 250px
+
+.tcd-modal .tree-icon
+	background url('images/tree.png') no-repeat
+	margin 25px 0 0 15px
+	height 41px
+	width 25px
+	float left
+
+.tcd-modal .forest-icon
+	background url('images/forest.png') no-repeat
+	margin-right 15px
+	float right
+	height 60px
+	width 91px
 
 /* For Safari */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -1024,12 +901,4 @@ wizardBlue = #00688B
 /* Browser-Specific for Chrome (last to overwrite potential changes from others) */
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
 
-}
-
-.dj_ie9.playLineFiller > div {
-	margin-top: 45px;
-}
-
-.dj_ie8.playLineFiller > div {
-	margin-top: 45px;
 }

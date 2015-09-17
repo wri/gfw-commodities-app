@@ -1,12 +1,15 @@
 /** @jsx React.DOM */
 define([
 	"react",
+	"knockout",
 	"dojo/topic",
   "dojo/dom-class",
 	"utils/Hasher",
+	"map/MapModel",
+	"map/TCDSlider",
 	"components/Check",
   "dijit/form/HorizontalSlider"
-], function (React, topic, domClass, Hasher, Check, HorizontalSlider) {
+], function (React, ko, topic, domClass, Hasher, MapModel, TCDSlider, Check, HorizontalSlider) {
 
 	var RadioButton = React.createClass({
 
@@ -20,7 +23,7 @@ define([
 					active = layerArray.indexOf(this.props.id) > -1,
           self = this;
 
-          
+
 
 			if (active) {
 				topic.publish('showLayer', this.props.id);
@@ -44,6 +47,10 @@ define([
         }, this.props.id + "_slider").startup();
       }
 
+			if (this.props.id === 'tcd') {
+				ko.applyBindings(MapModel.get('model'), document.querySelector('.tcd-button-container'));
+			}
+
     },
 
     toggle: function (synEvent) {
@@ -61,10 +68,14 @@ define([
         }
     },
 
+		showTCDSlider: function () {
+			TCDSlider.show();
+		},
+
     /* jshint ignore:start */
     render: function () {
       var className = 'layer-list-item ' +
-                      this.props.filter + 
+                      this.props.filter +
                       (this.state.active ? ' active' : '') +
                       (this.props.forceUnderline ? ' newList' : '') +
                       (this.props.visible ? '' : ' hidden');
@@ -94,6 +105,15 @@ define([
                 </div> :
                 null
           }
+					{
+						this.props.id === 'tcd' ? (
+							<div className={'tcd-button-container' + (this.state.active ? '' : ' hidden')}>
+										<span className='tcd-percentage-label'>Displaying at </span>
+										<span className='tcd-percentage-button' onClick={this.showTCDSlider} data-bind="text: tcdDensityValue"></span>
+										<span className='tcd-percentage-label'> density</span>
+							</div>
+						) : null
+					}
         </li>
       );
     },

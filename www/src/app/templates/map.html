@@ -12,10 +12,6 @@
 		<div id="locator-widget-button" title="Locate" class="locator-widget-button"></div>
     <div id="basemap-gallery-button" title="Basemaps/Overlays" class="basemap-gallery-button"></div>
     <div id="share-button" title="Share" class="share-button"></div>
-    <!-- <div id="alert-button" class="alert-button font-arial padding__wide" title="Sign up for alerts">
-      <img class="vertical-sub" src="app/css/images/alert_symbol_white.png">
-      <span class="vertical-middle">Subscribe to alerts<span>
-    </div> -->
     <div id="simple-geocoder" class="simple-geocoder"></div>
     <div id="basemap-linker" data-bind="visible: showBasemapGallery()" class="basemap-linker modal-link" style="display: none;"></div>
     <div id="locator-linker" data-bind="visible: showLocatorOptions()" class="locator-linker modal-link" style="display: none;"></div>
@@ -180,95 +176,53 @@
       <div class="modal-content"></div>
     </div>
     <!-- End Subscription Modal -->
+		<!-- Begin Tree Cover Density Modal -->
+    <div id="tcd-modal" class="tcd-modal animated-modal">
+      <div class="close-icon"></div>
+      <div class="modal-content">
+    		<div class="tcd-modal-label" data-bind="text: tcdModalLabel"></div>
+				<div class="trees">
+					<span class="tree-icon"></span>
+					<span class="forest-icon"></span>
+				</div>
+				<div class="tcd-slider-container">
+					<div id="tcd-density-slider"></div>
+				</div>
+      </div>
+    </div>
+    <!-- End Tree Cover Density Modal -->
     <!-- Begin Layer Controls Container -->
     <div id='layer-controls' class="layer-controls-container">
-
+			<!-- Tree Cover Loss Time Slider -->
       <div id="treecover_change_toolbox" class="toolbox treecover_change_toolbox" style="display: none">
         <div class="toolbox_legend">
           <p>Tree cover change</p>
         </div>
-      <!-- Begin Custom Slider Container -->
-        <div class="range-slider">
-            <input type="text" class="js-range-slider" value="" />
-            <div class="container2">
-              <div>2001</div><div>2002</div><div>2003</div>
-              <div>2004</div><div>2005</div><div>2006</div>
-              <div>2007</div><div>2008</div><div>2009</div>
-              <div>2010</div><div>2011</div><div>2012</div>
-              <div>2013</div><div>2014</div>
-            </div>
-            <div class="playLineFiller">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+        <div class="range-slider loss-slider">
+            <div id="loss-range-slider"></div>
         </div>
         <div class="extra-controls">
-            <div id="newSlider">&#9658;</div>
+            <div id="lossPlayButton">&#9658;</div>
         </div>
       </div>
-
-      
+			<!-- Tree Cover Loss Time Slider -->
+			<!-- Forma Alerts Time Slider -->
       <div id="forma_toolbox" class="toolbox forma_toolbox" style="display: none">
         <div class="toolbox_legend">
           <p>FORMA alerts</p>
         </div>
         <div class="toolbox-inner">
-          <div class="slider-container">
-            <div id="formaAlertSlider"></div>
-            
-              <div id = "yearDotContainer">
-                <!-- <g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g></div>
-                <div><g class="tick" transform="translate(120,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy="0em">▪</text></g> -->
-              </div>
-            
-            
-            <div class="playLineFiller2">
-              <div>
-                <!-- <g class="tick" transform="translate(0,0)" style="opacity: 1;"><line y2="0" x2="0"></line><text y="0" x="0" dy=".71em" class="" style="text-anchor: middle;">2014</text></g> -->
-              </div>
-              <div>2015</div>
-<!--               <div>2015</div> -->
-            </div>
-
-            <div class="extra-controls2">
-                <div id="newSlider2">&#9658;</div>
-            </div>
+					<div class="forma-playline"></div>
+          <div class="slider-container forma-slider">
+            <div id="forma-alert-slider"></div>
           </div>
         </div>
+				<div class="extra-controls">
+						<div id="formaPlayButton">&#9658;</div>
+				</div>
       </div>
-
-
-
-
+			<!-- Forma Alerts Time Slider -->
+			<!-- Fires Toolbox -->
       <div id="fires_toolbox" class="toolbox fires_toolbox" style="display: none">
         <div class="toolbox_legend">
           <p>NASA active fire alerts</p>
@@ -286,6 +240,8 @@
           </div>
         </div>
       </div>
+			<!-- Fires Toolbox -->
+			<!-- Suitability Toolbox -->
       <div id='suitability_toolbox' class="suitability_toolbox" style="display: none">
         <div id='suitability_loader' class="loading-wheel-container hidden">
           <div class="loading-wheel"></div>
@@ -483,6 +439,7 @@
           </div>
         </div>
       </div>
+			<!-- Suitability Toolbox -->
     </div>
     <!-- End Layer Controls Container -->
     <!-- Begin Legend -->
@@ -499,7 +456,7 @@
     <div id="wizard-tab" class="wizard-tab">Analysis</div>
     <!-- Wizard Tab -->
 	</div>
-  <!-- End Map Object -->  
+  <!-- End Map Object -->
 </div>
 <!-- Begin Analysis Wizard -->
 <div id="wizard-container" class="wizard-container">
@@ -511,5 +468,3 @@
   <div id="alerts-form" class="alerts-form"></div>
 </div>
 <!-- End Alerts Form -->
-
-
