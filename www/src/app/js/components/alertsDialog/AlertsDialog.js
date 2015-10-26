@@ -326,6 +326,6 @@ define([
   });
 
   return function () {
-    return React.renderComponent(new AlertsDialog, dom.byId(IDS.mount));
+    return React.render(React.createElement(AlertsDialog, null), dom.byId(IDS.mount));
   };
 });
