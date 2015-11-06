@@ -1973,15 +1973,15 @@ define([
 
         var frag = "<tr class='data-row'>";
             frag += "<td class='test'><span>" + mill_name + "</span></td>";
-            frag += "<td class='" + priority_level + "'><span class='new-data'>" + priority_level + "</span></td>";
-            frag += "<td class='" + historic_loss + "'><span class='new-data'>" + historic_loss + "</span></td>";
-            frag += "<td class='" + future_risk + "'><span class='new-data'>" + future_risk + "</span></td>";
-            frag += "<td class='" + tree_cover + "'><span class='new-data'>" + tree_cover + "</span></td>";
-            frag += "<td class='" + primary_forest + "'><span class='new-data'>" + primary_forest + "</span></td>";
-            frag += "<td class='" + peat + "'><span class='new-data'>" + peat + "</span></td>";
-            frag += "<td class='" + protected_areas + "'><span class='new-data'>" + protected_areas + "</span></td>";
-            frag += "<td class='" + carbon + "'><span class='new-data'>" + carbon + "</span></td>";
-            frag += "<td class='" + fire + "'><span class='new-data'>" + fire + "</span></td>";
+            frag += "<td class='" + priority_level + "'><span class='large-swatch'></span>" + priority_level + "</td>";
+            frag += "<td class='" + historic_loss + "'><span class='large-swatch'></span>" + historic_loss + "</td>";
+            frag += "<td class='" + future_risk + "'><span class='large-swatch'></span>" + future_risk + "</td>";
+            frag += "<td class='" + tree_cover + "'><span class='large-swatch'></span>" + tree_cover + "</td>";
+            frag += "<td class='" + primary_forest + "'><span class='large-swatch'></span>" + primary_forest + "</td>";
+            frag += "<td class='" + peat + "'><span class='large-swatch'></span>" + peat + "</td>";
+            frag += "<td class='" + protected_areas + "'><span class='large-swatch'></span>" + protected_areas + "</td>";
+            frag += "<td class='" + carbon + "'><span class='large-swatch'></span>" + carbon + "</td>";
+            frag += "<td class='" + fire + "'><span class='large-swatch'></span>" + fire + "</td>";
             frag += "</tr>";
 
         return frag;
@@ -2000,9 +2000,9 @@ define([
             frag += "<table class='single-mill-table-header-v2'>";
             frag += "<tr class='data-row'>";
             frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
-            frag += "<tr><td>Tree cover</td><td class='" + tree_cover + "'><span class='new-data'>" + tree_cover + "</span></td><td>Protected Areas</td><td class='" + protected_areas + "'><span class='new-data'>" + protected_areas + "</span></td></tr>";
-            frag += "<tr><td>Primary Forest</td><td class='" + primary_forest + "'><span class='new-data'>" + primary_forest + "</span></td><td>Carbon</td><td class='" + carbon + "'><span class='new-data'>" + carbon + "</span></td></tr>";
-            frag += "<tr><td>Peat</td><td class='" + peat + "'><span class='new-data'>" + peat + "</span></td><td>Fire</td><td class='" + fire + "'><span class='new-data'>" + fire + "</span></td></tr>";
+            frag += "<tr><td>Tree cover</td><td class='" + tree_cover + "'><span class='large-swatch'></span>" + tree_cover + "</td><td>Protected Areas</td><td class='" + protected_areas + "'><span class='large-swatch'></span>" + protected_areas + "</td></tr>";
+            frag += "<tr><td>Primary Forest</td><td class='" + primary_forest + "'><span class='large-swatch'></span>" + primary_forest + "</td><td>Carbon</td><td class='" + carbon + "'><span class='large-swatch'></span>" + carbon + "</td></tr>";
+            frag += "<tr><td>Peat</td><td class='" + peat + "'><span class='large-swatch'></span>" + peat + "</td><td>Fire</td><td class='" + fire + "'><span class='large-swatch'></span>" + fire + "</td></tr>";
             frag += "</tr>";
             frag += "</table>";
 
@@ -2023,9 +2023,9 @@ define([
         frag += "<table class='single-mill-table-header-v2'>";
         frag += "<tr class='data-row'>";
         frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
-        frag += "<tr><td>Tree cover</td><td class='" + tree_cover + "'><span class='new-data'>" + tree_cover + "</span></td><td>Protected Areas</td><td class='" + protected_areas + "'><span class='new-data'>" + protected_areas + "</span></td></tr>";
-        frag += "<tr><td>Primary Forest</td><td class='" + primary_forest + "'><span class='new-data'>" + primary_forest + "</span></td><td>Carbon</td><td class='" + carbon + "'><span class='new-data'>" + carbon + "</span></td></tr>";
-        frag += "<tr><td>Peat</td><td class='" + peat + "'><span class='new-data'>" + peat + "</span></td><td>Fire</td><td class='" + fire + "'><span class='new-data'>" + fire + "</span></td></tr>";
+        frag += "<tr><td>Tree cover</td><td class='" + tree_cover + "'><span class='large-swatch'></span>" + tree_cover + "</span></td><td>Protected Areas</td><td class='" + protected_areas + "'><span class='large-swatch'></span>" + protected_areas + "</td></tr>";
+        frag += "<tr><td>Primary Forest</td><td class='" + primary_forest + "'><span class='large-swatch'></span>" + primary_forest + "</td><td>Carbon</td><td class='" + carbon + "'><span class='large-swatch'></span>" + carbon + "</td></tr>";
+        frag += "<tr><td>Peat</td><td class='" + peat + "'><span class='large-swatch'></span>" + peat + "</td><td>Fire</td><td class='" + fire + "'><span class='large-swatch'></span>" + fire + "</td></tr>";
         frag += "</tr>";
         frag += "</table>";
 
