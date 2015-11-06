@@ -21,6 +21,387 @@ define([
   // config.rootNode + '_chart'
 
   var exportButtonImagePath = 'url(./app/css/images/download-icon.svg)';
+  var testData =
+  {
+    "mills": [
+      {
+        "mill_name": "Ayer Itam Oil Mill",
+        "id": "WRI_1",
+        "tree_cover": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 0.5
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "primary_forest": {
+          "risk": "medium low",
+          "loss": {
+            "rank": "medium",
+            "amount": 54
+          },
+          "extent": {
+            "rank": "low",
+            "amount": 12
+          }
+        },
+        "peat": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 51
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 28.5
+          }
+        },
+        "protected_areas": {
+          "risk": "low",
+          "loss": {
+            "rank": "low",
+            "amount": 12
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22.7
+          }
+        },
+        "carbon": {
+          "risk": "high",
+          "loss": {
+            "rank": "high",
+            "amount": 78
+          },
+          "extent": {
+            "rank": "high",
+            "amount": 22.7
+          }
+        },
+        "fire": {
+          "risk": "high",
+          "activity": {
+            "rank": "high",
+            "amount": 65
+          },
+          "rate": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "historic_loss": "high",
+        "future_risk": "high",
+        "lat": 1.9262,
+        "lon": 103.1856,
+        "priority_level": "medium"
+      },
+
+      {
+        "mill_name": "Buket Lee Lau",
+        "id": "WRI_10",
+        "tree_cover": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 0.5
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "primary_forest": {
+          "risk": "medium low",
+          "loss": {
+            "rank": "medium",
+            "amount": 54
+          },
+          "extent": {
+            "rank": "low",
+            "amount": 12
+          }
+        },
+        "peat": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 51
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 28.5
+          }
+        },
+        "protected_areas": {
+          "risk": "low",
+          "loss": {
+            "rank": "low",
+            "amount": 12
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22.7
+          }
+        },
+        "carbon": {
+          "risk": "high",
+          "loss": {
+            "rank": "high",
+            "amount": 78
+          },
+          "extent": {
+            "rank": "high",
+            "amount": 22.7
+          }
+        },
+        "fire": {
+          "risk": "high",
+          "activity": {
+            "rank": "high",
+            "amount": 65
+          },
+          "rate": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "historic_loss": "low",
+        "future_risk": "medium low",
+        "lat": 3.303,
+        "lon": 103.1377,
+        "priority_level": "medium low"
+      },
+      {
+        "mill_name": "Hargy Mill",
+        "id": "WRI_133",
+        "tree_cover": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 0.5
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "primary_forest": {
+          "risk": "medium low",
+          "loss": {
+            "rank": "medium",
+            "amount": 54
+          },
+          "extent": {
+            "rank": "low",
+            "amount": 12
+          }
+        },
+        "peat": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 51
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 28.5
+          }
+        },
+        "protected_areas": {
+          "risk": "low",
+          "loss": {
+            "rank": "low",
+            "amount": 12
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22.7
+          }
+        },
+        "carbon": {
+          "risk": "high",
+          "loss": {
+            "rank": "high",
+            "amount": 78
+          },
+          "extent": {
+            "rank": "high",
+            "amount": 22.7
+          }
+        },
+        "fire": {
+          "risk": "high",
+          "activity": {
+            "rank": "high",
+            "amount": 65
+          },
+          "rate": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "historic_loss": "low",
+        "future_risk": "low",
+        "lat": -5.3167,
+        "lon": 151.0333,
+        "priority_level": "low"
+      },
+      {
+        "mill_name": "Arah Bersama",
+        "id": "WRI_150",
+        "tree_cover": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 0.5
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "primary_forest": {
+          "risk": "medium low",
+          "loss": {
+            "rank": "medium",
+            "amount": 54
+          },
+          "extent": {
+            "rank": "low",
+            "amount": 12
+          }
+        },
+        "peat": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 51
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 28.5
+          }
+        },
+        "protected_areas": {
+          "risk": "low",
+          "loss": {
+            "rank": "low",
+            "amount": 12
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22.7
+          }
+        },
+        "carbon": {
+          "risk": "high",
+          "loss": {
+            "rank": "high",
+            "amount": 78
+          },
+          "extent": {
+            "rank": "high",
+            "amount": 22.7
+          }
+        },
+        "fire": {
+          "risk": "high",
+          "activity": {
+            "rank": "high",
+            "amount": 65
+          },
+          "rate": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "historic_loss": "high",
+        "future_risk": "high",
+        "lat": 3.8,
+        "lon": 113.75,
+        "priority_level": "medium"
+      },
+      {
+        "mill_name": "SI KUANG",
+        "id": "WRI_676",
+        "tree_cover": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 0.5
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "primary_forest": {
+          "risk": "medium low",
+          "loss": {
+            "rank": "medium",
+            "amount": 54
+          },
+          "extent": {
+            "rank": "low",
+            "amount": 12
+          }
+        },
+        "peat": {
+          "risk": "medium high",
+          "loss": {
+            "rank": "high",
+            "amount": 51
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 28.5
+          }
+        },
+        "protected_areas": {
+          "risk": "low",
+          "loss": {
+            "rank": "low",
+            "amount": 12
+          },
+          "extent": {
+            "rank": "medium",
+            "amount": 22.7
+          }
+        },
+        "carbon": {
+          "risk": "high",
+          "loss": {
+            "rank": "high",
+            "amount": 78
+          },
+          "extent": {
+            "rank": "high",
+            "amount": 22.7
+          }
+        },
+        "fire": {
+          "risk": "high",
+          "activity": {
+            "rank": "high",
+            "amount": 65
+          },
+          "rate": {
+            "rank": "medium",
+            "amount": 22
+          }
+        },
+        "historic_loss": "high",
+        "future_risk": "high",
+        "lat": 0.4144,
+        "lon": 101.6668,
+        "priority_level": "medium"
+      }
+    ]
+  };
 
   return {
 
@@ -1456,15 +1837,31 @@ define([
         }
 
         // Create Header for the table
-        content = "<div class='mill-header'><span class='mill-title'>" + title + "</span>" + 
-                  "<span class='mill-risk-level " + mill.total_mill_priority_level + "'><span class='large-swatch'></span>" + 
-                  "Total Mill Priority Level: <span class='overall-risk'>" + mill.total_mill_priority_level + "</span></span>" +
-                  "<span class='mill-rspo-certification'>RSPO Certification: <span>" + (mill.rspo.risk ? 'Yes' : 'No') + "</span></span></div>";
-        // Create Table
-        content += "<table><tr><th></th><th>Concession<span class='info-icon' data-type='concession'></span>" + 
-                   "</th><th>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
-        // Generate Rows for Each section of data
+        //content = "<div class='mill-header'><span class='mill-title'>" + title + "</span>" +
+        //          "<span class='mill-risk-level " + mill.total_mill_priority_level + "'><span class='large-swatch'></span>" +
+        //          "Total Mill Priority Level: <span class='overall-risk'>" + mill.total_mill_priority_level + "</span></span>" +
+        //          "<span class='mill-rspo-certification'>RSPO Certification: <span>" + (mill.rspo.risk ? 'Yes' : 'No') + "</span></span></div>";
 
+        // New Header for the table
+        content = "<table class=\"mill-table-header-v2\">\n    <tr>\n        <td class=\"dark\" rowspan=\"2\"></td>\n        <td class=\"dark\" rowspan=\"2\">Overall Priority Level</td>\n        <td class=\"dark\" rowspan=\"2\">Historic Behavior</td>\n        <td class=\"dark\" rowspan=\"2\">Future Potential Loss</td>\n        <td class=\"white span-60\" colspan=\"6\">Environmental Indicators</td>\n    </tr>\n    <tr>\n        <td class=\"white\">Tree Cover</td>\n        <td class=\'white\'>Primary Forest</td>\n        <td class=\'white\'>Peat</td>\n        <td class=\'white\'>Protected Areas</td>\n        <td class=\'white\'>Carbon</td>\n        <td class=\'white\'>Fires</td>\n    </tr>\n</table>\n\n";
+
+        // Group Results
+        content += "<table class='mill-table-container-v2'>";
+          var numberOfElements = testData.mills.length;
+          for (var i = 0; i < numberOfElements; i++) {
+            content += generateBasicRowNew(i);
+          };
+        content += "</table>";
+
+        //Single Mill Result
+        content += generateSingleMillTableHeader(i);
+
+
+        // Create Table
+        content += "<table><tr><th></th><th>Concession<span class='info-icon' data-type='concession'></span>" +
+                   "</th><th>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
+
+        // Generate Rows for Each section of data
         content += generateBasicRow('Priority Level', mill, 'priority_level');
         content += generateParentRow('Deforestation', mill.deforestation, 'deforest-' + mill.id, 'deforestation');
         /* Child Rows */
@@ -1552,6 +1949,85 @@ define([
         frag += "<td class='" + concession + "'><span class='large-swatch'></span><span class='risk-label'>" + concession + "</span></td>";
         frag += "<td class='" + radius + "'><span class='large-swatch'></span><span class='risk-label'>" + radius + "</span></td>";
         frag += "</tr>";
+
+        return frag;
+      }
+
+      /**
+        @param {string} name - Represents Name in table row
+        @param {object} data - Represents segment of response
+          - some json values are nested in objects, if no fieldName is provided, this function assumes thats the case
+        @return String - HTML Fragment which is a <tr>
+      */
+      function generateBasicRowNew(i) {
+        var mill_name = testData.mills[i].mill_name;
+        var priority_level = testData.mills[i].priority_level;
+        var historic_loss = testData.mills[i].historic_loss;
+        var future_risk = testData.mills[i].future_risk;
+        var tree_cover = testData.mills[i].tree_cover.risk;
+        var primary_forest = testData.mills[i].primary_forest.risk;
+        var peat = testData.mills[i].peat.risk;
+        var protected_areas = testData.mills[i].protected_areas.risk;
+        var carbon = testData.mills[i].carbon.risk;
+        var fire = testData.mills[i].fire.risk;
+
+        var frag = "<tr class='data-row'>";
+            frag += "<td class='test'><span>" + mill_name + "</span></td>";
+            frag += "<td class='" + priority_level + "'><span class='new-data'>" + priority_level + "</span></td>";
+            frag += "<td class='" + historic_loss + "'><span class='new-data'>" + historic_loss + "</span></td>";
+            frag += "<td class='" + future_risk + "'><span class='new-data'>" + future_risk + "</span></td>";
+            frag += "<td class='" + tree_cover + "'><span class='new-data'>" + tree_cover + "</span></td>";
+            frag += "<td class='" + primary_forest + "'><span class='new-data'>" + primary_forest + "</span></td>";
+            frag += "<td class='" + peat + "'><span class='new-data'>" + peat + "</span></td>";
+            frag += "<td class='" + protected_areas + "'><span class='new-data'>" + protected_areas + "</span></td>";
+            frag += "<td class='" + carbon + "'><span class='new-data'>" + carbon + "</span></td>";
+            frag += "<td class='" + fire + "'><span class='new-data'>" + fire + "</span></td>";
+            frag += "</tr>";
+
+        return frag;
+      }
+
+      function generateSingleMillTableHeader() {
+        var mill_name = testData.mills[0].mill_name;
+        var tree_cover = testData.mills[0].tree_cover.risk;
+        var primary_forest = testData.mills[0].primary_forest.risk;
+        var peat = testData.mills[0].peat.risk;
+        var protected_areas = testData.mills[0].protected_areas.risk;
+        var carbon = testData.mills[0].carbon.risk;
+        var fire = testData.mills[0].fire.risk;
+
+        var frag  = "<div class='single-mill-header'><h4 class='title'>" + mill_name + "</h4></div>";
+            frag += "<table class='single-mill-table-header-v2'>";
+            frag += "<tr class='data-row'>";
+            frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
+            frag += "<tr><td>Tree cover</td><td class='" + tree_cover + "'><span class='new-data'>" + tree_cover + "</span></td><td>Protected Areas</td><td class='" + protected_areas + "'><span class='new-data'>" + protected_areas + "</span></td></tr>";
+            frag += "<tr><td>Primary Forest</td><td class='" + primary_forest + "'><span class='new-data'>" + primary_forest + "</span></td><td>Carbon</td><td class='" + carbon + "'><span class='new-data'>" + carbon + "</span></td></tr>";
+            frag += "<tr><td>Peat</td><td class='" + peat + "'><span class='new-data'>" + peat + "</span></td><td>Fire</td><td class='" + fire + "'><span class='new-data'>" + fire + "</span></td></tr>";
+            frag += "</tr>";
+            frag += "</table>";
+
+        return frag;
+      }
+
+
+      function generateSingleMillTableHeader() {
+        var mill_name = testData.mills[0].mill_name;
+        var tree_cover = testData.mills[0].tree_cover.risk;
+        var primary_forest = testData.mills[0].primary_forest.risk;
+        var peat = testData.mills[0].peat.risk;
+        var protected_areas = testData.mills[0].protected_areas.risk;
+        var carbon = testData.mills[0].carbon.risk;
+        var fire = testData.mills[0].fire.risk;
+
+        var frag  = "<div class='single-mill-header'><h4 class='title'>" + mill_name + "</h4></div>";
+        frag += "<table class='single-mill-table-header-v2'>";
+        frag += "<tr class='data-row'>";
+        frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
+        frag += "<tr><td>Tree cover</td><td class='" + tree_cover + "'><span class='new-data'>" + tree_cover + "</span></td><td>Protected Areas</td><td class='" + protected_areas + "'><span class='new-data'>" + protected_areas + "</span></td></tr>";
+        frag += "<tr><td>Primary Forest</td><td class='" + primary_forest + "'><span class='new-data'>" + primary_forest + "</span></td><td>Carbon</td><td class='" + carbon + "'><span class='new-data'>" + carbon + "</span></td></tr>";
+        frag += "<tr><td>Peat</td><td class='" + peat + "'><span class='new-data'>" + peat + "</span></td><td>Fire</td><td class='" + fire + "'><span class='new-data'>" + fire + "</span></td></tr>";
+        frag += "</tr>";
+        frag += "</table>";
 
         return frag;
       }
