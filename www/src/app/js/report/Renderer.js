@@ -1843,15 +1843,15 @@ define([
         //          "<span class='mill-rspo-certification'>RSPO Certification: <span>" + (mill.rspo.risk ? 'Yes' : 'No') + "</span></span></div>";
 
         // New Header for the table
-        content = "<table class=\'mill-table-header-v2\'>\n    <tr>\n        <td class=\'dark\' rowspan=\'2\'></td>\n        <td class=\'dark\' rowspan=\'2\'>Overall Priority Level</td>\n        <td class=\'dark\' rowspan=\'2\'>Historic Behavior</td>\n        <td class=\'dark\' rowspan=\'2\'>Future Potential Loss</td>\n        <td class=\'white span-60\' colspan=\'6\'>Environmental Indicators</td>\n    </tr>\n    <tr>\n        <td class=\'white\'>Tree Cover</td>\n        <td class=\'white\'>Primary Forest</td>\n        <td class=\'white\'>Peat</td>\n        <td class=\'white\'>Protected Areas</td>\n        <td class=\'white\'>Carbon</td>\n        <td class=\'white\'>Fires</td>\n    </tr>\n</table>\n\n";
+        content = "<table  class=\'mill-table-v2\'>\n    <thead class=\'mill-table-header-v2\'>\n        <tr>\n            <td class=\'dark\' rowspan=\'2\'></td>\n            <td class=\'dark\' rowspan=\'2\'>Overall Priority Level</td>\n            <td class=\'dark\' rowspan=\'2\'>Historic Behavior</td>\n            <td class=\'dark\' rowspan=\'2\'>Future Potential Loss</td>\n            <td class=\'white span-60\' colspan=\'6\'>Environmental Indicators</td>\n        </tr>\n        <tr>\n            <td class=\'white\'>Tree Cover</td>\n            <td class=\'white\'>Primary Forest</td>\n            <td class=\'white\'>Peat</td>\n            <td class=\'white\'>Protected Areas</td>\n            <td class=\'white\'>Carbon</td>\n            <td class=\'white\'>Fires</td>\n        </tr>\n    </thead>\n";
 
-        // Group Results
+        // Group Mill Results
         var numberOfElements = testData.mills.length;
-        content += "<table class='mill-table-container-v2'>";
+        content += "<tbody class='mill-table-container-v2'>";
         for (var element = 0; element < numberOfElements; element++) {
           content += generateBasicRowNew(testData.mills[element]);
         };
-        content += "</table>";
+        content += "</tbody></table>";
 
         //Single Mill Result
         for (var element = 0; element < numberOfElements; element++) {
@@ -1859,41 +1859,6 @@ define([
           content += generateSingleMillTableContent(testData.mills[element]);
         };
 
-        // Create Table
-        //content += "<table><tr><th></th><th>Concession<span class='info-icon' data-type='concession'></span>" +
-        //           "</th><th>Radius<span class='info-icon' data-type='radius'></span></th></tr>";
-        //
-        //// Generate Rows for Each section of data
-        //content += generateBasicRow('Priority Level', mill, 'priority_level');
-        //content += generateParentRow('Deforestation', mill.deforestation, 'deforest-' + mill.id, 'deforestation');
-        ///* Child Rows */
-        //content += generateChildRow('Total tree cover loss', mill.deforestation.umd_loss, 'deforest-' + mill.id);
-        //content += generateChildRow('Tree cover loss on primary forest', mill.deforestation.umd_loss_primary, 'deforest-' + mill.id);
-        //content += generateChildRow('Total clearance alerts', mill.deforestation.forma, 'deforest-' + mill.id);
-        //content += generateChildRow('Clearance alerts on primary forest', mill.deforestation.forma_primary, 'deforest-' + mill.id);
-        //content += generateChildRow('Tree cover loss on carbon stock', mill.deforestation.carbon, 'deforest-' + mill.id);
-        //
-        //// These have not been added to GFW's API yet but are in ours
-        //if (mill.deforestation.area_carbon) {
-        //  content += generateChildRow('Area in high carbon density', mill.deforestation.area_carbon, 'deforest-' + mill.id);
-        //  content += generateChildRow('Alerts on high carbon density', mill.deforestation.forma_carbon, 'deforest-' + mill.id);
-        //  content += generateChildRow('Clearance alerts on primary forest/IFL', mill.deforestation.forma_primary, 'deforest-' + mill.id);
-        //}
-        //
-        ///* Child Rows */
-        //content += generateBasicRow('Legality', mill.legal);
-        //content += generateParentRow('Peat', mill.peat, 'peat-' + mill.id, 'peat');
-        ///* Child Rows */
-        //content += generateChildRow('Presence of peat', mill.peat.presence, 'peat-' + mill.id);
-        //content += generateChildRow('Clearance on peat', mill.peat.clearance, 'peat-' + mill.id);
-        //
-        //// These have not been added to GFW's API yet but are in ours
-        //if (mill.peat.alerts) {
-        //  content += generateChildRow('Clearance alerts on peat', mill.peat.alerts, 'peat-' + mill.id);
-        //}
-        ///* Child Rows */
-        //content += generateBasicRow('Fires', mill.fire);
-        //content += "</table>";
         millTables.push(content);
       });
 
