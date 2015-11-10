@@ -1843,7 +1843,8 @@ define([
         //          "<span class='mill-rspo-certification'>RSPO Certification: <span>" + (mill.rspo.risk ? 'Yes' : 'No') + "</span></span></div>";
 
         // New Header for the table
-        content = "<table  class=\'mill-table-v2\'>\n    <thead class=\'mill-table-header-v2\'>\n        <tr>\n            <td class=\'dark\' rowspan=\'2\'></td>\n            <td class=\'dark\' rowspan=\'2\'>Overall Priority Level</td>\n            <td class=\'dark\' rowspan=\'2\'>Historic Behavior</td>\n            <td class=\'dark\' rowspan=\'2\'>Future Potential Loss</td>\n            <td class=\'white span-60\' colspan=\'6\'>Environmental Indicators</td>\n        </tr>\n        <tr>\n            <td class=\'white\'>Tree Cover</td>\n            <td class=\'white\'>Primary Forest</td>\n            <td class=\'white\'>Peat</td>\n            <td class=\'white\'>Protected Areas</td>\n            <td class=\'white\'>Carbon</td>\n            <td class=\'white\'>Fires</td>\n        </tr>\n    </thead>\n";
+        content = "<table class='mill-table-v2'><thead class='mill-table-header-v2'><tr><td class='dark' rowspan='2'></td><td class='dark' rowspan='2'>Overall Priority Level</td><td class='dark' rowspan='2'>Historic Behavior</td><td class='dark' rowspan='2'>Future Potential Loss</td><td class='white span-60' colspan='6'>Environmental Indicators</td></tr>" +
+                  "<tr><td class='white'>Tree Cover</td><td class='white'>Primary Forest</td><td class='white'>Peat</td><td class='white'>Protected Areas</td><td class='white'>Carbon</td><td class='white'>Fires</td></tr></thead>";
 
         // Group Mill Results
         var numberOfElements = testData.mills.length;
@@ -1930,7 +1931,7 @@ define([
         var largeSwatch = "'><span class='large-swatch'></span>";
 
         var frag  = "<tr class='data-row'>";
-            frag += "<td class='test'><span>" + mill.mill_name + "</span></td>";
+            frag += "<td class='mill_name'><span>" + mill.mill_name + "</span></td>";
             frag += "<td class='" + mill.priority_level + largeSwatch + mill.priority_level + "</td>";
             frag += "<td class='" + mill.historic_loss + largeSwatch + mill.historic_loss + "</td>";
             frag += "<td class='" + mill.future_risk + largeSwatch + mill.future_risk + "</td>";
@@ -1950,7 +1951,7 @@ define([
 
         var frag  = "<div class='single-mill-header'><h4 class='title'>" + mill.mill_name + "</h4></div>";
             frag += "<table class='single-mill-table-header-v2'>";
-            frag += "<tr class='data-row'>";
+            frag += "<tr class=''>";
             frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
             frag += "<tr><td>Tree cover</td><td class='" + mill.tree_cover.risk + largeSwatch + mill.tree_cover.risk + "</td><td>Protected Areas</td><td class='" + mill.protected_areas.risk + largeSwatch + mill.protected_areas.risk + "</td></tr>";
             frag += "<tr><td>Primary Forest</td><td class='" + mill.primary_forest.risk + largeSwatch + mill.primary_forest.risk + "</td><td>Carbon</td><td class='" + mill.carbon.risk + largeSwatch + mill.carbon.risk + "</td></tr>";
@@ -1965,9 +1966,9 @@ define([
         var largeSwatch = "'><span class='large-swatch'></span>";
 
         var frag  = "<table class='single-mill-table-content-v2'>";
-            frag += "<tr><th colspan='3' class='" + mill.historic_loss + "'>Historic behavior: <span class='large-swatch'></span>" + mill.historic_loss + " Risk</th>" +
+            frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic behavior: <span class='large-swatch'></span>" + mill.historic_loss + " Risk</th>" +
                     "<th colspan='3' class='" + mill.future_risk + "'>Potential for future loss:  <span class='large-swatch'></span>" + mill.future_risk + " Risk</th></tr>";
-            frag += "<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr>";
+            frag += "<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>";
             frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + largeSwatch + mill.tree_cover.loss.rank + "</td><td>" + mill.tree_cover.loss.amount +" ha/year</td>" +
                     "<td>Tree cover extent</td><td class='" + mill.tree_cover.extent.rank + largeSwatch + mill.tree_cover.extent.rank + "</td><td>" + mill.tree_cover.extent.amount + " ha</td></tr>";
             frag += "<tr><td>Tree cover loss on primary forest</td><td class='" + mill.primary_forest.loss.rank + largeSwatch + mill.primary_forest.loss.rank + "</td><td>" + mill.primary_forest.loss.amount + " ha</td>" +

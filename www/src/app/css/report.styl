@@ -11,6 +11,8 @@ redButton = #F44
 orangeButton = rgb(233, 131, 0)
 high = #e4132c
 medium = #f4820d
+mediumLow = #FFFF66
+mediumHigh = #990000
 low = #78c1dc
 
 .gfw .loading-wheel
@@ -222,7 +224,7 @@ low = #78c1dc
 
 .gfw .mill-table-container th,
 .gfw .mill-table-container td
-	border 1px solid baseGray
+	border 1px solid #cccccc
 	padding 5px
 
 
@@ -243,13 +245,17 @@ low = #78c1dc
 	width 10%
 	border: 1px solid #cccccc !important
 	font-size 12px
+	font-weight normal
+
+.gfw .mill-table-container-v2 td.mill_name
+	font-weight bold
 
 .gfw .mill-table-header-v2 td.span-60
 	width 60%
 	font-weight bold
 	background: baseGray
 
-.gfw .mill-table-header-v2 td.dark
+.gfw .mill-table-header-v2 td
 	background baseGray
 	color #000
 
@@ -264,7 +270,8 @@ low = #78c1dc
 	font-size 20px
 	padding-left 8px
 
-.gfw .single-mill-table-header-v2 th
+.gfw .single-mill-table-header-v2 th,
+.gfw .single-mill-table-content-v2 thead
 	background baseGray
 
 .gfw .single-mill-table-header-v2 th,
@@ -283,10 +290,9 @@ low = #78c1dc
 	width 125px
 	text-align left
 	font-size 12px
-	border: 1px solid #ccc !important;
 
-.gfw .single-mill-table-content-v2 tr:nth-child(odd)
-	background-color baseGray
+.gfw .single-mill-table-content-v2 thead td
+	font-weight bold
 
 
 .gfw .mill-table-container tr.data-row td:nth-child(3),
@@ -382,6 +388,16 @@ low = #78c1dc
 .gfw .high .large-swatch,
 .gfw .high .small-swatch
 	background-color high
+
+.gfw .medium.high .large-swatch,
+.gfw .medium.high .small-swatch
+	background-color mediumHigh
+
+.gfw .medium.low .large-swatch,
+.gfw .medium.low .small-swatch
+	background-color mediumLow
+
+
 
 .gfw .value-toggle
 	position absolute
