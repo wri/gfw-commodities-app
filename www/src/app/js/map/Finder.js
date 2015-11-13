@@ -503,7 +503,6 @@ define([
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
                 } else if (item.layerId === 27) {
-                    // TODO: differentiate between rspo & gfw mill
                     template = new InfoTemplate(item.value,
                         MapConfig.gfwMill.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
@@ -514,7 +513,10 @@ define([
                         "</div>"
                     );
                     item.feature.setInfoTemplate(template);
-                    features.push(item.feature);
+                    // prevent duplicate features
+                    if (features.filter(function(f) {return f.attributes.wri_id === item.feature.attributes.wri_id}).length === 0) {
+                      features.push(item.feature);
+                    }
                 } 
             });
             return features;

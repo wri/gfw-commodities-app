@@ -339,19 +339,22 @@ define([], function() {
         mill: {
             id: 'forestUse_commodities',
             url: dynamicMapServiceUrlComm,
-            layerId: 6,
+            layerId: 27,
+            query: 'certificat = \'RSPO Certified\'',
             infoTemplate: {
-                content: "<table><tr><td>Parent Company:</td><td>${parent_com}</td></tr>" +
-                    "<tr><td>Mill Name:</td><td>${mill_name}</td></tr>" +
-                    "<tr><td>RSPO Certified:</td><td>${rspo_certi}</td></tr></table>"
+                content: "<table><tr><td>Parent Company:</td><td>${group_name}</td></tr>" +
+                    "<tr><td>Mill Name:</td><td>${mill_name_}</td></tr>" +
+                    "<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>"
             }
         },
         gfwMill: {
             id: 'forestUse_commodities',
             url: dynamicMapServiceUrlComm,
             layerId: 27,
+            query: 'certificat = \'None\'',
             infoTemplate: {
-                content: "<table><tr><td>Mill Name:</td><td>${mill_name_}</td></tr>" +
+                content: "<table><tr><td>Parent Company:</td><td>${group_name}</td></tr>" +
+                    "<tr><td>Mill Name:</td><td>${mill_name_}</td></tr>" +
                     "<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>"
             }
         },
