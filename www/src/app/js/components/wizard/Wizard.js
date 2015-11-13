@@ -264,7 +264,8 @@ define([
           // Helper function
           function getMillId (feature) {
             var areaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-                id = feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined;
+                // id = feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined;
+                id = feature.attributes.wri_id || feature.attributes.WRI_ID || undefined;
 
             return  areaOfInterest === 'millPointOption' ? id : undefined;
           }

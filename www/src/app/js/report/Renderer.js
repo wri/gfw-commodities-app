@@ -21,387 +21,6 @@ define([
   // config.rootNode + '_chart'
 
   var exportButtonImagePath = 'url(./app/css/images/download-icon.svg)';
-  var testData =
-  {
-    "mills": [
-      {
-        "mill_name": "Ayer Itam Oil Mill",
-        "id": "WRI_1",
-        "tree_cover": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 0.5
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "primary_forest": {
-          "risk": "medium low",
-          "loss": {
-            "rank": "medium",
-            "amount": 54
-          },
-          "extent": {
-            "rank": "low",
-            "amount": 12
-          }
-        },
-        "peat": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 51
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 28.5
-          }
-        },
-        "protected_areas": {
-          "risk": "low",
-          "loss": {
-            "rank": "low",
-            "amount": 12
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22.7
-          }
-        },
-        "carbon": {
-          "risk": "high",
-          "loss": {
-            "rank": "high",
-            "amount": 78
-          },
-          "extent": {
-            "rank": "high",
-            "amount": 22.7
-          }
-        },
-        "fire": {
-          "risk": "high",
-          "activity": {
-            "rank": "high",
-            "amount": 65
-          },
-          "rate": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "historic_loss": "high",
-        "future_risk": "high",
-        "lat": 1.9262,
-        "lon": 103.1856,
-        "priority_level": "medium"
-      },
-
-      {
-        "mill_name": "Buket Lee Lau",
-        "id": "WRI_10",
-        "tree_cover": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 0.5
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "primary_forest": {
-          "risk": "medium low",
-          "loss": {
-            "rank": "medium",
-            "amount": 54
-          },
-          "extent": {
-            "rank": "low",
-            "amount": 12
-          }
-        },
-        "peat": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 51
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 28.5
-          }
-        },
-        "protected_areas": {
-          "risk": "low",
-          "loss": {
-            "rank": "low",
-            "amount": 12
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22.7
-          }
-        },
-        "carbon": {
-          "risk": "high",
-          "loss": {
-            "rank": "high",
-            "amount": 78
-          },
-          "extent": {
-            "rank": "high",
-            "amount": 22.7
-          }
-        },
-        "fire": {
-          "risk": "high",
-          "activity": {
-            "rank": "high",
-            "amount": 65
-          },
-          "rate": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "historic_loss": "low",
-        "future_risk": "medium low",
-        "lat": 3.303,
-        "lon": 103.1377,
-        "priority_level": "medium low"
-      },
-      {
-        "mill_name": "Hargy Mill",
-        "id": "WRI_133",
-        "tree_cover": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 0.5
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "primary_forest": {
-          "risk": "medium low",
-          "loss": {
-            "rank": "medium",
-            "amount": 54
-          },
-          "extent": {
-            "rank": "low",
-            "amount": 12
-          }
-        },
-        "peat": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 51
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 28.5
-          }
-        },
-        "protected_areas": {
-          "risk": "low",
-          "loss": {
-            "rank": "low",
-            "amount": 12
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22.7
-          }
-        },
-        "carbon": {
-          "risk": "high",
-          "loss": {
-            "rank": "high",
-            "amount": 78
-          },
-          "extent": {
-            "rank": "high",
-            "amount": 22.7
-          }
-        },
-        "fire": {
-          "risk": "high",
-          "activity": {
-            "rank": "high",
-            "amount": 65
-          },
-          "rate": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "historic_loss": "low",
-        "future_risk": "low",
-        "lat": -5.3167,
-        "lon": 151.0333,
-        "priority_level": "low"
-      },
-      {
-        "mill_name": "Arah Bersama",
-        "id": "WRI_150",
-        "tree_cover": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 0.5
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "primary_forest": {
-          "risk": "medium low",
-          "loss": {
-            "rank": "medium",
-            "amount": 54
-          },
-          "extent": {
-            "rank": "low",
-            "amount": 12
-          }
-        },
-        "peat": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 51
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 28.5
-          }
-        },
-        "protected_areas": {
-          "risk": "low",
-          "loss": {
-            "rank": "low",
-            "amount": 12
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22.7
-          }
-        },
-        "carbon": {
-          "risk": "high",
-          "loss": {
-            "rank": "high",
-            "amount": 78
-          },
-          "extent": {
-            "rank": "high",
-            "amount": 22.7
-          }
-        },
-        "fire": {
-          "risk": "high",
-          "activity": {
-            "rank": "high",
-            "amount": 65
-          },
-          "rate": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "historic_loss": "high",
-        "future_risk": "high",
-        "lat": 3.8,
-        "lon": 113.75,
-        "priority_level": "medium"
-      },
-      {
-        "mill_name": "SI KUANG",
-        "id": "WRI_676",
-        "tree_cover": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 0.5
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "primary_forest": {
-          "risk": "medium low",
-          "loss": {
-            "rank": "medium",
-            "amount": 54
-          },
-          "extent": {
-            "rank": "low",
-            "amount": 12
-          }
-        },
-        "peat": {
-          "risk": "medium high",
-          "loss": {
-            "rank": "high",
-            "amount": 51
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 28.5
-          }
-        },
-        "protected_areas": {
-          "risk": "low",
-          "loss": {
-            "rank": "low",
-            "amount": 12
-          },
-          "extent": {
-            "rank": "medium",
-            "amount": 22.7
-          }
-        },
-        "carbon": {
-          "risk": "high",
-          "loss": {
-            "rank": "high",
-            "amount": 78
-          },
-          "extent": {
-            "rank": "high",
-            "amount": 22.7
-          }
-        },
-        "fire": {
-          "risk": "high",
-          "activity": {
-            "rank": "high",
-            "amount": 65
-          },
-          "rate": {
-            "rank": "medium",
-            "amount": 22
-          }
-        },
-        "historic_loss": "high",
-        "future_risk": "high",
-        "lat": 0.4144,
-        "lon": 101.6668,
-        "priority_level": "medium"
-      }
-    ]
-  };
 
   return {
 
@@ -471,7 +90,7 @@ define([
       node.id = config.rootNode;
       node.className = "result-container";
       node.innerHTML = "<div class='title'>" + config.title + "</div>" +
-          "<div class='rspo-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>rspo analysis</div></div>" + 
+          "<div class='rspo-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>rspo analysis</div></div>" +
           "<div class='rspo-chart-container' id='" + config.rootNode + "_chart'></div>";
 
       // Append root to fragment and then fragment to document
@@ -546,7 +165,7 @@ define([
           areaLabel,
           percentage,
           area;
-          
+
       if (compositionConfig.histogramSlice) {
         area = histogramData.slice(compositionConfig.histogramSlice);
       }
@@ -571,7 +190,7 @@ define([
         fragment.appendChild(node);
         dest.innerHTML = "";
         dest.appendChild(fragment);
-        
+
       });
     },
 
@@ -872,7 +491,7 @@ define([
         //    data: data
         //  }]
         // });
-  
+
         // Format data for line chart
         for (i = 0; i < yMapValues.length; i++) {
           value = 0;
@@ -1062,11 +681,11 @@ define([
         node.innerHTML = "<div>Active fires are detected in:</div>" +
                          "<div class='active-fires-label'>" +
                               "<span>" + labels[0] + " Forests</span>" +
-                              "<div>" + number.format(values[0] || 0) + "</div>" + 
+                              "<div>" + number.format(values[0] || 0) + "</div>" +
                             "</div>" +
                             "<div class='active-fires-label'>" +
                               "<span>" + labels[1] + " Forests</span>" +
-                              "<div>" + number.format(values[1] || 0) + "</div>" + 
+                              "<div>" + number.format(values[1] || 0) + "</div>" +
                             "</div>" +
                             "<div class='total-active-fires-label'><span>out of " + number.format(totalFires) + " total active fires</span></div>" +
                          "</div>";
@@ -1078,7 +697,7 @@ define([
 
       /*
         @param {string} rootNode
-        @param {array} data 
+        @param {array} data
         @param {string} labels
         @param {string} colors
         @param {string} bounds
@@ -1171,14 +790,14 @@ define([
           createBadge(rootNode, total, features.length, config.badgeDesc);
           return;
         }
-        
+
         if (features.length === 0) {
           createBadge(rootNode, 0, 0, config.badgeDesc);
         } else if (config.type === 'pie') {
           chartData = [];
           // Set initial values to 0 for all labels
           for (i = 0; i <= config.labels.length; i++) {
-            chartData[i] = 0; 
+            chartData[i] = 0;
           }
           arrayUtils.forEach(features, function (feature) {
             chartData[feature.attributes[config.field]]++;
@@ -1388,7 +1007,7 @@ define([
         },
         tooltip: {
           formatter: function () {
-            return '<strong>' + this.key + '</strong><br/>' + 
+            return '<strong>' + this.key + '</strong><br/>' +
                     this.series.name + ': ' + number.format(this.y) + '<br/>' +
                     'Total: ' + number.format(this.point.stackTotal);
           }
@@ -1504,14 +1123,14 @@ define([
       content += "</table>";
       // Add Local rights/interests and field assessment links
       content += "<p>" + config.localRights.content + "</p>";
-      content += "<div class='field-assessment-link'>" + 
-                   "<a href='" + config.localRights.fieldAssessmentUrl + "'>" + config.localRights.fieldAssessmentLabel + "</a>" + 
+      content += "<div class='field-assessment-link'>" +
+                   "<a href='" + config.localRights.fieldAssessmentUrl + "'>" + config.localRights.fieldAssessmentLabel + "</a>" +
                   "</div>";
 
       document.getElementById(config.rootNode + '_content').innerHTML = content;
       this.renderSuitabilityChart(config, payloads[4]);
       this.renderSuitabilitySettingsTable();
-      
+
     },
 
     /**
@@ -1670,7 +1289,7 @@ define([
           convertible,
           production,
           other;
-      
+
 
       // Build data Objects for chart
       function buildValues(indices) {
@@ -1821,6 +1440,8 @@ define([
       arrayUtils.forEach(mills, function (mill, index) {
         // Create Header, if mill_name exits, use that, else, loop over report.mills and find a 
         // matching id and use that
+        content = "";
+
         if (mill.mill_name) {
           title = mill.mill_name;
         } else if (report.mills) {
@@ -1832,35 +1453,30 @@ define([
           });
         }
 
-        if (title === undefined) { 
-          title = window.payload.title; 
+        if (title === undefined) {
+          title = window.payload.title;
         }
 
-        // Create Header for the table
-        //content = "<div class='mill-header'><span class='mill-title'>" + title + "</span>" +
-        //          "<span class='mill-risk-level " + mill.total_mill_priority_level + "'><span class='large-swatch'></span>" +
-        //          "Total Mill Priority Level: <span class='overall-risk'>" + mill.total_mill_priority_level + "</span></span>" +
-        //          "<span class='mill-rspo-certification'>RSPO Certification: <span>" + (mill.rspo.risk ? 'Yes' : 'No') + "</span></span></div>";
+        // Group Mill Results table if more then one mill
+        if(mills.length > 1 && index == 0) {
+          // Table header
+          content += "<table class='mill-table-v2'><thead class='mill-table-header-v2'><tr><td class='dark' rowspan='2'></td><td class='dark' rowspan='2'>Overall Priority Level</td><td class='dark' rowspan='2'>Historic Behavior</td><td class='dark' rowspan='2'>Future Potential Loss</td><td class='white span-60' colspan='6'>Environmental Indicators</td></tr>" +
+            "<tr><td class='white'>Tree Cover</td><td class='white'>Primary Forest</td><td class='white'>Peat</td><td class='white'>Protected Areas</td><td class='white'>Carbon</td><td class='white'>Fires</td></tr></thead>";
 
-        // New Header for the table
-        content = "<table class='mill-table-v2'><thead class='mill-table-header-v2'><tr><td class='dark' rowspan='2'></td><td class='dark' rowspan='2'>Overall Priority Level</td><td class='dark' rowspan='2'>Historic Behavior</td><td class='dark' rowspan='2'>Future Potential Loss</td><td class='white span-60' colspan='6'>Environmental Indicators</td></tr>" +
-                  "<tr><td class='white'>Tree Cover</td><td class='white'>Primary Forest</td><td class='white'>Peat</td><td class='white'>Protected Areas</td><td class='white'>Carbon</td><td class='white'>Fires</td></tr></thead>";
+          // Table body
+          content += "<tbody class='mill-table-container-v2'>";
+          for (var element = 0; element < mills.length; element++) {
+            content += generateGroupMillRow(mills[element]);
+          }
 
-        // Group Mill Results
-        var numberOfElements = testData.mills.length;
-        content += "<tbody class='mill-table-container-v2'>";
-        for (var element = 0; element < numberOfElements; element++) {
-          content += generateBasicRowNew(testData.mills[element]);
-        };
-        content += "</tbody></table>";
+        }
 
         //Single Mill Result
-        for (var element = 0; element < numberOfElements; element++) {
-          content += generateSingleMillTableHeader(testData.mills[element]);
-          content += generateSingleMillTableContent(testData.mills[element]);
-        };
+        content += generateSingleMillTableTop(mills[index]);
+        content += generateSingleMillTableBottom(mills[index]);
 
         millTables.push(content);
+
       });
 
       /**
@@ -1892,7 +1508,7 @@ define([
       */
       function generateParentRow(name, data, className, fieldPrefix) {
         var rowClass = 'data-row parent';
-        var frag = "<tr class='" + rowClass + "' data-class='" + className + "'><td class='row-name'>" + 
+        var frag = "<tr class='" + rowClass + "' data-class='" + className + "'><td class='row-name'>" +
                    "<span class='toggle-icon'></span><span>" + name + "</span></td>";
 
         frag += "<td class='" + (data[fieldPrefix + '_concession'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_concession'] || 'N/A') + "</span></td>";
@@ -1922,69 +1538,76 @@ define([
       }
 
       /**
-        @param {string} name - Represents Name in table row
-        @param {object} data - Represents segment of response
-          - some json values are nested in objects, if no fieldName is provided, this function assumes thats the case
-        @return String - HTML Fragment which is a <tr>
+        @param {object} mill - Represents segment of response
+        @return String - HTML Fragment which is <tr>
       */
-      function generateBasicRowNew(mill) {
-        var largeSwatch = "'><span class='large-swatch'></span>";
+      function generateGroupMillRow(mill) {
+        var smallSwatch = "'><span class='small-swatch'></span>";
 
         var frag  = "<tr class='data-row'>";
             frag += "<td class='mill_name'><span>" + mill.mill_name + "</span></td>";
-            frag += "<td class='" + mill.priority_level + largeSwatch + mill.priority_level + "</td>";
-            frag += "<td class='" + mill.historic_loss + largeSwatch + mill.historic_loss + "</td>";
-            frag += "<td class='" + mill.future_risk + largeSwatch + mill.future_risk + "</td>";
-            frag += "<td class='" + mill.tree_cover.risk + largeSwatch + mill.tree_cover.risk + "</td>";
-            frag += "<td class='" + mill.primary_forest.risk + largeSwatch + mill.primary_forest.risk + "</td>";
-            frag += "<td class='" + mill.peat.risk + largeSwatch + mill.peat.risk + "</td>";
-            frag += "<td class='" + mill.protected_areas.risk + largeSwatch + mill.protected_areas.risk + "</td>";
-            frag += "<td class='" + mill.carbon.risk + largeSwatch + mill.carbon.risk + "</td>";
-            frag += "<td class='" + mill.fire.risk + largeSwatch + mill.fire.risk + "</td>";
+            frag += "<td class='" + mill.priority_level + smallSwatch + mill.priority_level + "</td>";
+            frag += "<td class='" + mill.historic_loss + smallSwatch + mill.historic_loss + "</td>";
+            frag += "<td class='" + mill.future_risk + smallSwatch + mill.future_risk + "</td>";
+            frag += "<td class='" + mill.tree_cover.risk + smallSwatch + mill.tree_cover.risk + "</td>";
+            frag += "<td class='" + mill.primary_forest.risk + smallSwatch + mill.primary_forest.risk + "</td>";
+            frag += "<td class='" + mill.peat.risk + smallSwatch + mill.peat.risk + "</td>";
+            frag += "<td class='" + mill.protected_areas.risk + smallSwatch + mill.protected_areas.risk + "</td>";
+            frag += "<td class='" + mill.carbon.risk + smallSwatch + mill.carbon.risk + "</td>";
+            frag += "<td class='" + mill.fire.risk + smallSwatch + mill.fire.risk + "</td>";
             frag += "</tr>";
 
         return frag;
       }
 
-      function generateSingleMillTableHeader(mill) {
-        var largeSwatch = "'><span class='large-swatch'></span>";
+      /**
+       @param {object} mill - Represents segment of response
+       @return String - HTML Fragment which is <div> and <table>
+      */
+      function generateSingleMillTableTop(mill) {
+        var smallSwatch = "'><span class='small-swatch'></span>";
 
-        var frag  = "<div class='single-mill-header'><h4 class='title'>" + mill.mill_name + "</h4></div>";
-            frag += "<table class='single-mill-table-header-v2'>";
+        var frag = "<table class='single-mill-table-header-v2'>";
+            frag += "<tr class='single-mill-header'><th colspan='4'><span class='title'>" + mill.mill_name + "</span></th></tr>";
             frag += "<tr class=''>";
             frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
-            frag += "<tr><td>Tree cover</td><td class='" + mill.tree_cover.risk + largeSwatch + mill.tree_cover.risk + "</td><td>Protected Areas</td><td class='" + mill.protected_areas.risk + largeSwatch + mill.protected_areas.risk + "</td></tr>";
-            frag += "<tr><td>Primary Forest</td><td class='" + mill.primary_forest.risk + largeSwatch + mill.primary_forest.risk + "</td><td>Carbon</td><td class='" + mill.carbon.risk + largeSwatch + mill.carbon.risk + "</td></tr>";
-            frag += "<tr><td>Peat</td><td class='" + mill.peat.risk + largeSwatch + mill.peat.risk + "</td><td>Fire</td><td class='" + mill.fire.risk + largeSwatch + mill.fire.risk + "</td></tr>";
+            frag += "<tr><td>Tree cover</td><td class='" + mill.tree_cover.risk + smallSwatch + mill.tree_cover.risk + "</td><td>Protected Areas</td><td class='" + mill.protected_areas.risk + smallSwatch + mill.protected_areas.risk + "</td></tr>";
+            frag += "<tr><td>Primary Forest</td><td class='" + mill.primary_forest.risk + smallSwatch + mill.primary_forest.risk + "</td><td>Carbon</td><td class='" + mill.carbon.risk + smallSwatch + mill.carbon.risk + "</td></tr>";
+            frag += "<tr><td>Peat</td><td class='" + mill.peat.risk + smallSwatch + mill.peat.risk + "</td><td>Fire</td><td class='" + mill.fire.risk + smallSwatch + mill.fire.risk + "</td></tr>";
             frag += "</tr>";
             frag += "</table>";
 
         return frag;
       }
 
-      function generateSingleMillTableContent(mill) {
-        var largeSwatch = "'><span class='large-swatch'></span>";
+      /**
+       @param {object} mill - Represents segment of response
+       @return String - HTML Fragment which is <table>
+      */
+      function generateSingleMillTableBottom(mill) {
+        var smallSwatch = "'><span class='small-swatch'></span>";
 
         var frag  = "<table class='single-mill-table-content-v2'>";
-            frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic behavior: <span class='large-swatch'></span>" + mill.historic_loss + " Risk</th>" +
-                    "<th colspan='3' class='" + mill.future_risk + "'>Potential for future loss:  <span class='large-swatch'></span>" + mill.future_risk + " Risk</th></tr>";
+            frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic behavior: <span class='small-swatch'></span>" + mill.historic_loss + " Risk</th>" +
+                    "<th colspan='3' class='" + mill.future_risk + "'>Potential for future loss:  <span class='small-swatch'></span>" + mill.future_risk + " Risk</th></tr>";
             frag += "<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>";
-            frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + largeSwatch + mill.tree_cover.loss.rank + "</td><td>" + mill.tree_cover.loss.amount +" ha/year</td>" +
-                    "<td>Tree cover extent</td><td class='" + mill.tree_cover.extent.rank + largeSwatch + mill.tree_cover.extent.rank + "</td><td>" + mill.tree_cover.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on primary forest</td><td class='" + mill.primary_forest.loss.rank + largeSwatch + mill.primary_forest.loss.rank + "</td><td>" + mill.primary_forest.loss.amount + " ha</td>" +
-                    "<td>Area in primary forest</td><td class='" + mill.primary_forest.extent.rank + largeSwatch + mill.primary_forest.extent.rank + "</td><td>" + mill.primary_forest.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on peat</td><td class='" + mill.peat.loss.rank + largeSwatch + mill.peat.loss.rank + "</td><td>" + mill.peat.loss.amount + " ha</td>" +
-                    "<td>Area in peat</td><td class='" + mill.peat.extent.rank + largeSwatch + mill.peat.extent.rank + "</td><td>" + mill.peat.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on protected areas</td><td class='" + mill.protected_areas.loss.rank + largeSwatch + mill.protected_areas.loss.rank + "</td><td>" + mill.protected_areas.loss.amount + " ha</td>" +
-                    "<td>Area in protected areas</td><td class='" + mill.protected_areas.extent.rank + largeSwatch + mill.protected_areas.extent.rank + "</td><td>" + mill.protected_areas.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on carbon dense areas</td><td class='" + mill.carbon.loss.rank + largeSwatch + mill.carbon.loss.rank + "</td><td>" + mill.carbon.loss.amount + " ha</td>" +
-                    "<td>Area of high carbon density</td><td class='" + mill.carbon.extent.rank + largeSwatch + mill.carbon.extent.rank + "</td><td>" + mill.carbon.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Fire activity</td><td class='" + mill.fire.activity.rank + largeSwatch + mill.fire.activity.rank + "</td><td>" + mill.fire.activity.amount + " fires/1000 ha</td>" +
-                    "<td>Rate of fire activity last three years</td><td class='" + mill.fire.rate.rank + largeSwatch + mill.fire.rate.rank + "</td><td>" + mill.fire.rate.amount + " fires/1000 ha per year</td></tr>";
+            frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + "</td><td>" + mill.tree_cover.loss.amount +" ha/year</td>" +
+                    "<td>Tree cover extent</td><td class='" + mill.tree_cover.extent.rank + smallSwatch + mill.tree_cover.extent.rank + "</td><td>" + mill.tree_cover.extent.amount + " ha</td></tr>";
+            frag += "<tr><td>Tree cover loss on primary forest</td><td class='" + mill.primary_forest.loss.rank + smallSwatch + mill.primary_forest.loss.rank + "</td><td>" + mill.primary_forest.loss.amount + " ha</td>" +
+                    "<td>Area in primary forest</td><td class='" + mill.primary_forest.extent.rank + smallSwatch + mill.primary_forest.extent.rank + "</td><td>" + mill.primary_forest.extent.amount + " ha</td></tr>";
+            frag += "<tr><td>Tree cover loss on peat</td><td class='" + mill.peat.loss.rank + smallSwatch + mill.peat.loss.rank + "</td><td>" + mill.peat.loss.amount + " ha</td>" +
+                    "<td>Area in peat</td><td class='" + mill.peat.extent.rank + smallSwatch + mill.peat.extent.rank + "</td><td>" + mill.peat.extent.amount + " ha</td></tr>";
+            frag += "<tr><td>Tree cover loss on protected areas</td><td class='" + mill.protected_areas.loss.rank + smallSwatch + mill.protected_areas.loss.rank + "</td><td>" + mill.protected_areas.loss.amount + " ha</td>" +
+                    "<td>Area in protected areas</td><td class='" + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + "</td><td>" + mill.protected_areas.extent.amount + " ha</td></tr>";
+            frag += "<tr><td>Tree cover loss on carbon dense areas</td><td class='" + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + "</td><td>" + mill.carbon.loss.amount.toFixed(3) + " ha</td>" +
+                    "<td>Area of high carbon density</td><td class='" + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + "</td><td>" + mill.carbon.extent.amount + " ha</td></tr>";
+            frag += "<tr><td>Fire activity</td><td class='" + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + "</td><td>" + mill.fire.extent.amount.toFixed(3) + " fires/1000 ha</td>" +
+                    "<td>Rate of fire activity last three years</td><td class='" + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + "</td><td>" + mill.fire.loss.amount + " fires/1000 ha per year</td></tr>";
             frag += "</table>";
 
         return frag;
       }
+
 
       // Add the Content, can add headerContent before millTables if we want toggle switch for raw values
       // currently the API removed raw values so we don't support it
@@ -2042,7 +1665,7 @@ define([
         content: config.content,
         style: "width: 300px;"
       });
-      
+
       dialog.show();
     },
 

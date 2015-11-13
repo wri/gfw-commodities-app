@@ -173,6 +173,33 @@ define([
 		},
 
 		/*
+			Simple Query to retrieve mills by their wri id
+		*/
+		getMillByWriId: function (wriID) {
+			var deferred = new Deferred(),
+					query = new Query(),
+					self = this;
+
+			query.where = "wri_id = '" + wriID + "'";
+			query.geometryPrecision = 2;
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+
+			this._query(AnalyzerConfig.millPoints.url, query, function (res) {
+				if (res.features.length === 1) {
+					deferred.resolve(res.features[0]);
+				} else {
+					deferred.resolve(false);
+				}
+			}, function (err) {
+				deferred.resolve(false);
+				self._queryErrorHandler(err);
+			});
+
+			return deferred.promise;
+		},
+
+		/*
 			Simple Query to retrieve a feature by its Object ID
 		*/
 		getFeatureById: function (url, objectId) {
@@ -243,7 +270,7 @@ define([
 			// This May need to change as we have more options for mill points and this function
 			// may need to take an argument specifying a type of filter we want to apply based on which
 			// commodity type the user selected in the app
-			query.where = '1 = 1';
+			query.where = 'mill_name_ <> \'Unknown\'';
 			query.returnGeometry = false;
 			query.outFields = config.outFields;
 			query.orderByFields = config.orderBy;
