@@ -338,14 +338,14 @@ define([], function() {
                 label: 'Oil palm',
                 value: 'Oil palm concession'
             }],
-            url: millPointMapService + '/6',
+            url: millPointMapService + '/27',
             // api: 'http://risk-api.appspot.com/',
             api: 'http://wip.risk-api.appspot.com/',
-            outFields: ['parent_com', 'mill_name', 'entity_id'],
-            orderBy: ['parent_com', 'mill_name'],
-            labelField: 'mill_name', // Children
-            valueField: 'entity_id',
-            requiredField: 'parent_com' // Bucket a.k.a. parent
+            outFields: ['group_name', 'mill_name_', 'wri_id'],
+            orderBy: ['group_name', 'mill_name_'],
+            labelField: 'mill_name_', // Children
+            valueField: 'wri_id',
+            requiredField: 'group_name' // Bucket a.k.a. parent
         },
 
         STORE_KEYS: {

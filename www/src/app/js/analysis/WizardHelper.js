@@ -192,7 +192,8 @@ define([
 					return false;
 				});
 			} else if (type === "MillPoint") {
-				AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
+        // AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
+				AnalyzerQuery.getMillByWriId(id).then(function (feature) {
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {

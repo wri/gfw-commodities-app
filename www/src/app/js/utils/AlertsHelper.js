@@ -73,7 +73,8 @@ define([
       layer = MapConfig.commercialEntitiesLayer.layerId;
       url = MapConfig.commercialEntitiesLayer.url + '/' + layer;
     } else if (type === 'MillPoint') {
-      deferred = AnalyzerQuery.getMillByEntityId(id);
+      // deferred = AnalyzerQuery.getMillByEntityId(id);
+      deferred = AnalyzerQuery.getMillByWriId(id);
     } else if (type === 'WDPA') {
       layer = MapConfig.palHelper.layerId;
       url = MapConfig.palHelper.url + '/' + layer;
