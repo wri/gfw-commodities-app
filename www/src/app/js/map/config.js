@@ -341,9 +341,18 @@ define([], function() {
             url: dynamicMapServiceUrlComm,
             layerId: 6,
             infoTemplate: {
-                content: "<table><tr><td>Parent Company:</td><td>${Parent_Com}</td></tr>" +
-                    "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr>" +
-                    "<tr><td>RSPO Certified:</td><td>${RSPO_Certi}</td></tr></table>"
+                content: "<table><tr><td>Parent Company:</td><td>${parent_com}</td></tr>" +
+                    "<tr><td>Mill Name:</td><td>${mill_name}</td></tr>" +
+                    "<tr><td>RSPO Certified:</td><td>${rspo_certi}</td></tr></table>"
+            }
+        },
+        gfwMill: {
+            id: 'forestUse_commodities',
+            url: dynamicMapServiceUrlComm,
+            layerId: 27,
+            infoTemplate: {
+                content: "<table><tr><td>Mill Name:</td><td>${mill_name_}</td></tr>" +
+                    "<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>"
             }
         },
         pal: {
@@ -656,7 +665,7 @@ define([], function() {
                 parent: "newConcessions",
                 endChild: true
             }, {
-                kids: ["mill"],
+                kids: ["mill", "gfwMill"],
                 id: "newInfrastructure",
                 title: "Infrastructure",
                 filter: "forest-use",
@@ -664,12 +673,21 @@ define([], function() {
                 layerType: "dynamic"
             }, {
                 id: "mill",
-                title: "Palm Oil Mills",
+                title: "RSPO Palm Oil Mills",
                 subtitle: "(varies, select countries)",
                 filter: "forest-use",
                 type: "check",
                 layerType: "dynamic",
                 infoDivClass: "land-use-mill-points",
+                parent: "newInfrastructure"
+            }, {
+                id: "gfwMill",
+                title: "Palm Oil Mills",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-gfw-mill-points",
                 parent: "newInfrastructure",
                 endChild: true
             }, {

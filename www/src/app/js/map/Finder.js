@@ -494,10 +494,22 @@ define([
                     template = new InfoTemplate(item.value,
                         MapConfig.mill.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-                        "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
+                        "${mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>" +
                         "Analyze</button>" +
                         "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
-                        "${Mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>Subscribe</button>" +
+                        "${mill_name}' data-type='MillPoint' data-id='${Entity_ID}'>Subscribe</button>" +
+                        "</div>"
+                    );
+                    item.feature.setInfoTemplate(template);
+                    features.push(item.feature);
+                } else if (item.layerId === 27) {
+                    template = new InfoTemplate(item.value,
+                        MapConfig.gfwMill.infoTemplate.content +
+                        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                        "${mill_name_}' data-type='MillPoint' data-id='${Entity_ID}'>" +
+                        "Analyze</button>" +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                        "${mill_name_}' data-type='MillPoint' data-id='${Entity_ID}'>Subscribe</button>" +
                         "</div>"
                     );
                     item.feature.setInfoTemplate(template);
