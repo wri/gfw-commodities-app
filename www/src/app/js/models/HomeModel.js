@@ -14,7 +14,9 @@ define([
                 Model.vm.homeModeOptions = ko.observableArray(AppConfig.homeModeOptions);
                 //console.log(AppConfig.homeModeOptions);
 
-
+                Model.vm.dataSubmit = function(obj, evt) {
+                    debugger
+                }
                 Model.vm.modeSelect = function(obj, evt) {
                     var eventName = obj.eventName;
                     require(["controllers/HomeController"], function(HomeController) {
