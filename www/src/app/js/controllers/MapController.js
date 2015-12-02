@@ -72,7 +72,7 @@ define([
             if (hashX !== undefined && hashX !== "") mapOptions.centerY = hashY;
             if (hashX !== undefined && hashX !== "") mapOptions.zoom = hashL;
             //console.log("**********************> map options:", mapOptions);
-
+            
             // This is not esri map, it is custom map class, esri map object available as map.map
             map = new Map(mapOptions);
 
@@ -132,9 +132,9 @@ define([
                 var x = number.round(extent.getCenter().x, 2);
                 var y = number.round(extent.getCenter().y, 2);
 
-                Hasher.setHash('x', x);
-                Hasher.setHash('y', y);
-                Hasher.setHash('l', 5);
+                // Hasher.setHash('x', x);
+                // Hasher.setHash('y', y);
+                // Hasher.setHash('l', 5);
 
                 mapModel = MapModel.initialize("map-container");
                 // Render any React Components - These will activate any default or hashed layers
