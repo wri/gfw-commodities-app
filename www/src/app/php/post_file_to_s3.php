@@ -9,12 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if(isset($_FILES['dateFile'])){
         $upload = json_encode(uploadFile($bucket, $_FILES['dateFile']));
         array_push($upload,$uploads);
+        print_r($upload);
       }
       if(isset($_FILES['attributeFile'])){
         $upload2 = json_encode(uploadFile($bucket, $_FILES['attributeFile']));
         array_push($upload2,$uploads);
       }
-      print_r(json_encode($uploads));
 
   } catch (S3Exception $e) {
       echo "ERROR" . $e->getMessage() . "\n";
