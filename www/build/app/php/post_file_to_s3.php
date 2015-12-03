@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $bucket=getenv('bucket');
       // $uploads = array();
       // if(isset($_FILES['dataFile'])){
-      $upload = json_encode(uploadFile($bucket, $_FILES['dataFile']));
+      $upload = uploadFile($bucket, $_FILES['dataFile']);
       // array_push($upload,$uploads);
       print_r($upload);
       // }
