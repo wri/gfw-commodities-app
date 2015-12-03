@@ -9,9 +9,9 @@
             async: true,
             cacheBust: "v=" + version,
             packages: [{
-              name: "js",
-              location: URL + "/js"
-          }, {
+                name: "js",
+                location: URL + "/js"
+            }, {
                 name: "php",
                 location: URL + "/php"
             }, {
