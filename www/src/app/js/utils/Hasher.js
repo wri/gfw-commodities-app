@@ -59,7 +59,7 @@ define([
 
         handleHashChange: function(newState, oldState) {
             var that = this;
-            debugger
+
             //o.newState = newState;
             //var changedView = oldState.v != newState.v;
             //var mapView = newState.v == "map";
