@@ -1,10 +1,10 @@
 <?php
 require('../../../../vendor/autoload.php');
-
+$bucket=getenv('bucket');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try{
       $s3 = Aws\S3\S3Client::factory();
-      $bucket=getenv('bucket');
+
       $uploads = array();
       if(isset($_FILES['dataFile'])){
         print_r('sss')
