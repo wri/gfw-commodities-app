@@ -3,13 +3,14 @@ require('../../../../vendor/autoload.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try{
-      print_r('Here');
+
       $s3 = Aws\S3\S3Client::factory();
       $file = $_FILES['file'];
       $dataFileName = $_POST["dataFileName"];
       $dataFileType = $_POST["dataFileType"];
       $bucket=getenv('bucket');
       $upload = $s3->upload($bucket, $_FILES['file']['name'], fopen($_FILES['file']['tmp_name'], 'rb'), 'public-read');
+      print_r($upload);
       // $result = $s3->putObject(array(
       //   'Bucket' => $bucket,
       //   'Key'    => $file['name'],
