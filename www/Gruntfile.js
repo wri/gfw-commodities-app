@@ -9,10 +9,26 @@ module.exports = function(grunt) {
         copy: {
             build: {
                 files: [{
-                    // htaccess file to prevent caching of index.html allowing our cacheBust to work
-                    src: ['src/app/php/post_file_to_s3.php'],
-                    dest: 'build/app/php/post_file_to_s3.php'
+                  // htaccess file to prevent caching of index.html allowing our cacheBust to work
+                  src: ['src/app/php/proxy-verification.php'],
+                  dest: 'build/app/php/proxy-verification.php'
                 }, {
+                  // htaccess file to prevent caching of index.html allowing our cacheBust to work
+                  src: ['src/app/php/proxy.php'],
+                  dest: 'build/app/php/proxy.php'
+                  }, {
+                    // htaccess file to prevent caching of index.html allowing our cacheBust to work
+                      src: ['src/app/php/proxy.config'],
+                      dest: 'build/app/php/proxy.config'
+                  }, {
+                      // htaccess file to prevent caching of index.html allowing our cacheBust to work
+                      src: ['src/app/php/proxy.sqlite'],
+                      dest: 'build/app/php/proxy.sqlite'
+                  }, {
+                      // htaccess file to prevent caching of index.html allowing our cacheBust to work
+                      src: ['src/app/php/post_file_to_s3.php'],
+                      dest: 'build/app/php/post_file_to_s3.php'
+                  }, {
                     // htaccess file to prevent caching of index.html allowing our cacheBust to work
                     src: ['src/.htaccess'],
                     dest: 'build/.htaccess',
