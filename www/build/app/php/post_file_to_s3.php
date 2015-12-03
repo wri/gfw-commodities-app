@@ -5,12 +5,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try{
       $s3 = Aws\S3\S3Client::factory();
       $bucket=getenv('bucket');
-      $uploads = array();
-      if(isset($_FILES['dataFile'])){
-        $upload = json_encode(uploadFile($bucket, $_FILES['dataFile']));
-        array_push($upload,$uploads);
-        print_r($upload);
-      }
+      // $uploads = array();
+      // if(isset($_FILES['dataFile'])){
+      $upload = json_encode(uploadFile($bucket, $_FILES['dataFile']));
+      // array_push($upload,$uploads);
+      print_r($upload);
+      // }
       if(isset($_FILES['attributeFile'])){
         $upload2 = json_encode(uploadFile($bucket, $_FILES['attributeFile']));
         array_push($upload2,$uploads);
