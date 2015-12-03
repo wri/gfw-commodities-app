@@ -6,8 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $s3 = Aws\S3\S3Client::factory();
       $bucket=getenv('bucket');
       $uploads = array();
-      if(isset($_FILES['dateFile'])){
-        $upload = json_encode(uploadFile($bucket, $_FILES['dateFile']));
+      if(isset($_FILES['dataFile'])){
+        $upload = json_encode(uploadFile($bucket, $_FILES['dataFile']));
         array_push($upload,$uploads);
         print_r($upload);
       }
