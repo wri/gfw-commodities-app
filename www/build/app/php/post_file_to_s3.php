@@ -1,17 +1,15 @@
 <?php
-  require('../../../../vendor/autoload.php');
+require('../../../../vendor/autoload.php');
 
-
-  echo(getenv( $bucket ));
-
-  // echo($_ENV["bucket"]);
-  $s3 = Aws\S3\S3Client::factory();
+  echo($_ENV["bucket"]);
 // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  // $s3 = Aws\S3\S3Client::factory();
   $file = $_POST["file"];
   $dataFileName = $_POST["dataFileName"];
   $dataFileType = $_POST["dataFileType"];
 
-  // $bucket=getenv('bucket');
+  $bucket=getenv('bucket');
   echo($bucket);
 
 // } else {
