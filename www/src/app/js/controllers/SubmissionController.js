@@ -90,16 +90,21 @@ define([
 
         var dataFile = $('#dataInput')[0].files[0];
         var attributeFile = $('#attributeDataInput')[0].files[0];
+        debugger
 
-        // if (dataFile && attributeFile) {
-
-
-          // var params = {Key: dataFileName, ContentType: dataFileType, Body: dataFile};
+        if (dataFile) {
 
           var form_data = new FormData();
-          form_data.append('file', dataFile);
+          form_data.append('dataFile', dataFile);
           form_data.append('dataFileName', dataFileName);
           form_data.append('dataFileType', dataFileType);
+
+          if (attributeFile) {
+            form_data.append('attributeFile', attributeFile);
+            form_data.append('attributeFileName', attributeFileName);
+            form_data.append('attributeFileType', attributeFileType);
+          }
+
 
 
           $.ajax({
@@ -133,36 +138,10 @@ define([
             }
           });
 
-          // var attributeParams = {Key: attributeFileName, ContentType: attributeFileType, Body: attributeFile};
-          // console.log(params)
 
-          // console.log($(params).serialize())
+          //http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures
 
-
-          // $.post( "app/php/post_file_to_s3.php",stringify(params),function( data ) {
-          //
-          //   console.log(data);
-          // });
-
-          // bucket.upload(params, function (err, data) {
-          //   if (!err) {
-          //     console.log('success!');
-            // debugger;// applyEdits to the featureService here!
-
-
-
-            //features: features
-
-
-            //http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures
-
-          //   } else {
-          //     console.log('failure');
-          //   }
-          //   debugger
-          //   // results.innerHTML = err ? 'ERROR!' : 'UPLOADED.';
-          // });
-        // }
+        }
 
 
 
