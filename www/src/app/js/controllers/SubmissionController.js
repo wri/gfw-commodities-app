@@ -90,7 +90,7 @@ define([
 
         var dataFile = $('#dataInput')[0].files[0];
         var attributeFile = $('#attributeDataInput')[0].files[0];
-        debugger
+
 
         if (dataFile) {
 

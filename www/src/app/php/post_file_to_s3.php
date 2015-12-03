@@ -7,14 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $bucket=getenv('bucket');
       $uploads = array();
       if(isset($_FILES['dateFile'])){
-        $upload = uploadFile($bucket, $_FILES['dateFile']);
+        $upload = json_encode(uploadFile($bucket, $_FILES['dateFile']));
         array_push($upload,$uploads);
       }
       if(isset($_FILES['attributeFile'])){
-        $upload2 = uploadFile($bucket, $_FILES['attributeFile']);
+        $upload2 = json_encode(uploadFile($bucket, $_FILES['attributeFile']));
         array_push($upload2,$uploads);
       }
-      print_r($uploads);
+      print_r(json_encode($uploads));
 
   } catch (S3Exception $e) {
       echo "ERROR" . $e->getMessage() . "\n";
