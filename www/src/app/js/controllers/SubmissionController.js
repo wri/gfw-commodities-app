@@ -111,7 +111,25 @@ define([
             data: form_data,
             type: 'post',
             success: function(response){
-              console.log(response); // display response from the PHP script, if any
+
+              console.log(response);
+              debugger;
+
+              var feature = {};
+              feature.attributes = {};
+              feature.attributes.name = model.storyNameData();
+              feature.attributes.company = model.storyCompanyData();
+              feature.attributes.title = model.storyTitleData();
+              feature.attributes.email = model.storyEmailData();
+              feature.attributes.notes = model.storyDetailsData(); //todo: if its not undefined
+              feature.attributes.data_file_name = model.dataFileName();
+              feature.attributes.att_file_name = model.attributeFileName(); //todo: if its not undefined
+
+              var features = [];
+              features.push(feature);
+
+              // data_url,
+              // attribute_url
             }
           });
 
@@ -130,20 +148,7 @@ define([
           //   if (!err) {
           //     console.log('success!');
             // debugger;// applyEdits to the featureService here!
-            // var feature = {};
-            // var feature.attributes = {};
-            // attributes.name = model.storyNameData();
-            // attributes.company = model.storyCompanyData();
-            // attributes.title = model.storyTitleData();
-            // attributes.email = model.storyEmailData();
-            // attributes.notes = model.storyDetailsData(); //todo: if its not undefined
-            // attributes.data_file_name = model.dataFileName();
-            // attributes.att_file_name = model.attributeFileName(); //todo: if its not undefined
-            //
-            // feature.setAttributes(attributes);
-            //
-            // var features = [];
-            // features.push(feature);
+
 
 
             //features: features
