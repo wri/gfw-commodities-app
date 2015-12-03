@@ -10,6 +10,10 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     // htaccess file to prevent caching of index.html allowing our cacheBust to work
+                    src: ['src/app/php/post_file_to_s3.php'],
+                    dest: 'build/app/php/post_file_to_s3.php'
+                }, {
+                    // htaccess file to prevent caching of index.html allowing our cacheBust to work
                     src: ['src/.htaccess'],
                     dest: 'build/.htaccess',
                     filter: 'isFile'
