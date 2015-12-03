@@ -1,11 +1,18 @@
 <?php
 
-// $bucket = $_POST["bucket"];
-$key = $_POST["Key"];
-$contentType = $_POST["ContentType"];
-$body = $_POST["Body"];
-print_r($key);
-print_r($_POST);
+  // echo(getenv( $bucket ));
 
+  echo($_ENV["bucket"]);
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $file = $_POST["file"];
+  $dataFileName = $_POST["dataFileName"];
+  $dataFileType = $_POST["dataFileType"];
+
+  $bucket=getenv('bucket');
+  echo($bucket);
+
+// } else {
+//   echo("Sorry, you're not allowed to do this.");
+// }
 
 ?>

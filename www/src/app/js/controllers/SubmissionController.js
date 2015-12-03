@@ -4,9 +4,10 @@ define([
     "dojo/dom-class",
     "dojo/dom-style",
     "dijit/registry",
+    "esri/graphic",
     "utils/NavListController",
     "models/SubmissionModel"
-], function (dom, query, domClass, domStyle, registry, NavListController, SubmissionModel) {
+], function (dom, query, domClass, domStyle, registry, Graphic, NavListController, SubmissionModel) {
     'use strict';
 
 	var initialized = false;
@@ -20,14 +21,13 @@ define([
 				return;
 			}
 
+
 			initialized = true;
 			registry.byId("stackContainer").selectChild("submissionView");
 			registry.byId("submissionView").set('content', template);
       SubmissionModel.initialize("submissionView");
 
 
-      esriConfig.defaults.io.corsEnabledServers.push("https://s3.amazonaws.com/wri-dataupload/commodities");
-      esriConfig.defaults.io.corsEnabledServers.push("http://wri-dataupload.s3.amazonaws.com/commodities/");
       // var context = "submission";
       // NavListController.loadNavControl(context);
       // NavListController.loadNavView(context);
@@ -92,18 +92,65 @@ define([
         var attributeFile = $('#attributeDataInput')[0].files[0];
 
         // if (dataFile && attributeFile) {
-          var bucket = new AWS.S3({params: {Bucket: 'wri-dataupload/commodities'}});
 
-          var params = {Key: dataFileName, ContentType: dataFileType, Body: dataFile};
-          var attributeParams = {Key: attributeFileName, ContentType: attributeFileType, Body: attributeFile};
 
-          $.post( "app/php/post_file_to_s3.php",JSON.stringify(params),function( data ) {
-            console.log(data);
+          // var params = {Key: dataFileName, ContentType: dataFileType, Body: dataFile};
+
+          var form_data = new FormData();
+          form_data.append('file', dataFile);
+          form_data.append('dataFileName', dataFileName);
+          form_data.append('dataFileType', dataFileType);
+
+
+          $.ajax({
+            url: 'app/php/post_file_to_s3.php', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(response){
+              console.log(response); // display response from the PHP script, if any
+            }
           });
+
+          // var attributeParams = {Key: attributeFileName, ContentType: attributeFileType, Body: attributeFile};
+          // console.log(params)
+
+          // console.log($(params).serialize())
+
+
+          // $.post( "app/php/post_file_to_s3.php",stringify(params),function( data ) {
+          //
+          //   console.log(data);
+          // });
 
           // bucket.upload(params, function (err, data) {
           //   if (!err) {
           //     console.log('success!');
+            // debugger;// applyEdits to the featureService here!
+            // var feature = {};
+            // var feature.attributes = {};
+            // attributes.name = model.storyNameData();
+            // attributes.company = model.storyCompanyData();
+            // attributes.title = model.storyTitleData();
+            // attributes.email = model.storyEmailData();
+            // attributes.notes = model.storyDetailsData(); //todo: if its not undefined
+            // attributes.data_file_name = model.dataFileName();
+            // attributes.att_file_name = model.attributeFileName(); //todo: if its not undefined
+            //
+            // feature.setAttributes(attributes);
+            //
+            // var features = [];
+            // features.push(feature);
+
+
+            //features: features
+
+
+            //http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures
+
           //   } else {
           //     console.log('failure');
           //   }
@@ -114,9 +161,6 @@ define([
 
 
 
-        //upload the csv's to this WRI bucket.  upload both the .zip of the shapfile (or the csv) and the 2nd csv
-        //Once those have uploaded, grab the name of each of these files and add them into the data_file_name field, and the att_file_name field in the feature. Then applyEdits
-        //http://wri-dataupload.s3.amazonaws.com/commodities/
 
     },
     handleFileChange: function(obj, evt){
