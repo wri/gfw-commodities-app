@@ -9,9 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $dataFileName = $_POST["dataFileName"];
       $dataFileType = $_POST["dataFileType"];
       $bucket=getenv('bucket');
-      
-      print_r($file['name']);
-      print_r($file['tmp_name']);
+      $upload = $s3->upload($bucket, $_FILES['file']['name'], fopen($_FILES['file']['tmp_name'], 'rb'), 'public-read');
       // $result = $s3->putObject(array(
       //   'Bucket' => $bucket,
       //   'Key'    => $file['name'],
@@ -19,10 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //   'ACL'    => 'public-read'
       // ));
   } catch (S3Exception $e) {
-      echo $e->getMessage() . "\n";
+      echo "ERROR" . $e->getMessage() . "\n";
   }
 
-  // $upload = $s3->upload($bucket, $_FILES['userfile']['name'], fopen($_FILES['userfile']['tmp_name'], 'rb'), 'public-read');
+
 
 } else {
   echo("Sorry, you're not allowed to do this.");
