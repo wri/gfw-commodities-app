@@ -37,7 +37,7 @@ define([
 
             topic.subscribe("/dojo/hashchange", function(changedHash) {
                 var oldState = state;
-                
+
                 state = ioQuery.queryToObject(changedHash);
                 //console.log(state);
 
@@ -59,11 +59,12 @@ define([
 
         handleHashChange: function(newState, oldState) {
             var that = this;
+            debugger
             //o.newState = newState;
             //var changedView = oldState.v != newState.v;
             //var mapView = newState.v == "map";
             var centerChange = ((oldState.x != newState.x) || (oldState.y != newState.y) || (oldState.y != newState.y));
-            //var centerChange = 
+            //var centerChange =
             //handle different scenarios here
             // if (changedView) {
             //     that.changeView(newState.v, oldState.v);
@@ -89,7 +90,7 @@ define([
         setHashFromState: function(state) {
             // We dont wont to overwrite the lyrs part of the hash,
             // We need to hold on to that and make sure it is mixed in
-            // Discuss with Jason, May need to find another way to implement 
+            // Discuss with Jason, May need to find another way to implement
             // this so it does not mess up his features, or we should probably
             // stash them and only bring them back when were in the map view
 

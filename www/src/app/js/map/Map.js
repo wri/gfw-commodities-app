@@ -210,7 +210,7 @@ define([
                 wizardDynamicLayer,
                 bioDiversityParams,
                 bioDiversityLayer,
-               
+
                 primaryParams,
                 wizardGraphicsLayer,
                 self = this;
@@ -333,7 +333,7 @@ define([
                 visible: false
             });
 
-            
+
 
 
             // forestCoverAggregate = new ArcGISDynamicLayer(MapConfig.ifl.url, {
@@ -404,7 +404,7 @@ define([
                 visible: false
             });
 
-            // Uses adminUnitsLayer config, which is the same as certificationSchemeLayer.  
+            // Uses adminUnitsLayer config, which is the same as certificationSchemeLayer.
             // They are all part of the same dynamic layer so any config item could be used
             wizardDynamicParams = new ImageParameters();
             wizardDynamicParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;

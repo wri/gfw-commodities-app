@@ -72,7 +72,7 @@ define([
             if (hashX !== undefined && hashX !== "") mapOptions.centerY = hashY;
             if (hashX !== undefined && hashX !== "") mapOptions.zoom = hashL;
             //console.log("**********************> map options:", mapOptions);
-            
+
             // This is not esri map, it is custom map class, esri map object available as map.map
             map = new Map(mapOptions);
 
@@ -131,10 +131,15 @@ define([
                 var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
                 var x = number.round(extent.getCenter().x, 2);
                 var y = number.round(extent.getCenter().y, 2);
+                var l = map.map.getZoom();
 
-                // Hasher.setHash('x', x);
-                // Hasher.setHash('y', y);
-                // Hasher.setHash('l', 5);
+                setTimeout(function () {
+                  Hasher.setHash('x', x);
+                  Hasher.setHash('y', y);
+                  // Hasher.setHash('l', 5);
+                  // Hasher.setHash('l', l);
+                }, 1000);
+
 
                 mapModel = MapModel.initialize("map-container");
                 // Render any React Components - These will activate any default or hashed layers
@@ -142,7 +147,10 @@ define([
                 // Also call other functions in renderComponents that build UI elements
                 self.renderComponents();
                 // Connect Events
+
                 self.bindUIEvents();
+
+
                 // Register Wizard Store update callbacks
                 self.registerStoreCallbacks();
                 // Check Hash for some defaults and react accordingly
@@ -150,6 +158,9 @@ define([
                 if (wizardState !== undefined && wizardState === 'open') {
                     Helper.toggleWizard();
                 }
+
+
+
             });
 
             // Set up zoom listener for Protected Areas Layer *and now Gain Layer
@@ -157,6 +168,8 @@ define([
 
             // Set up Click Listener to Perform Identify
             app.map.on('click', Finder.performIdentify.bind(Finder));
+
+
 
             // Have the Finder create any formatter functions necessary for info window content
             // and then have it setup info window specific listeners for specific info windows with buttons
@@ -262,11 +275,6 @@ define([
                 Hasher.setHash('y', y);
                 Hasher.setHash('l', lod.level);
 
-                // Hasher.setHash({
-                //     x: x,
-                //     y: y,
-                //     l: lod.level
-                // });
             });
 
             on(dom.byId("locator-widget-button"), "click", function() {
@@ -498,8 +506,7 @@ define([
         },
 
         centerChange: function(x, y, zoom) {
-            //debugger;
-            //console.log("center change");
+            console.log("center change");
             //console.log(o.map);
             //compare current center and change if different
             if (!initialized) {
@@ -511,6 +518,9 @@ define([
             x = number.round(extent.getCenter().x, 2);
             y = number.round(extent.getCenter().y, 2);
             var l = map.map.getLevel();
+            console.log(x);
+            console.log(y);
+
 
             // Hasher.setHash('x', x);
             // Hasher.setHash('y', y);
