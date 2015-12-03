@@ -29,7 +29,7 @@ define([
         var currentModeOption = function(id) {
 
             var homeModeOptions = HomeModel.vm.homeModeOptions();
-            var mappedHomModeOptions = arrayUtil.map(homeModeOptions, function(hmOpt, i) { 
+            var mappedHomModeOptions = arrayUtil.map(homeModeOptions, function(hmOpt, i) {
 
                 if (i === id) {
                     //alert(i);
@@ -143,7 +143,7 @@ define([
             initialized = true;
             registry.byId("stackContainer").selectChild("homeView");
             registry.byId("homeView").set('content', template);
-
+            
             HomeModel.initialize("homeView");
             o.startModeAnim();
 

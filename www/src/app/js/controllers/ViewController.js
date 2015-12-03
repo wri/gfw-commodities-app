@@ -106,7 +106,7 @@ define([
                 case 'publications':
                     return PublicationsController.init.bind(PublicationsController);
                 case 'submission':
-                    return PublicationsController.init.bind(SubmissionController);
+                    return SubmissionController.init.bind(SubmissionController);
                 default:
                     return;
             }
