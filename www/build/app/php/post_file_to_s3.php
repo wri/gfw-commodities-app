@@ -1,5 +1,5 @@
 <?php
-
+  require('vendor/autoload.php');
   // echo(getenv( $bucket ));
 
   echo($_ENV["bucket"]);
