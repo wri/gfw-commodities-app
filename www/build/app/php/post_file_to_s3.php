@@ -7,8 +7,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $urls = array();
       $bucket=getenv('bucket');
       if(isset($_FILES['dataFile'])){
-        $upload = $s3->upload($bucket, $_FILES['dataFile']['name'], fopen($_FILES['dataFile']['tmp_name'], 'rb'), 'public-read');
-        print_r($upload[1]);
+
+
+
+        $result = $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $_FILES['dataFile']['name'],
+            'SourceFile'   => $_FILES['dataFile']['tmp_name'],
+            'ACL'          => 'public-read'
+        ));
+
+
+
+        // $upload = $s3->upload($bucket, $_FILES['dataFile']['name'], fopen($_FILES['dataFile']['tmp_name'], 'rb'), 'public-read');
+        // print_r($upload[1]);
+        print_r($result['ObjectURL']);
+        // print_r($upload[1]['ObjectURL']);
       }
       if(isset($_FILES['attributeFile'])){
         $upload = $s3->upload($bucket, $_FILES['attributeFile']['name'], fopen($_FILES['attributeFile']['tmp_name'], 'rb'), 'public-read');
