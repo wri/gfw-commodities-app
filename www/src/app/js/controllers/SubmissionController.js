@@ -137,16 +137,16 @@ define([
 
       var fileType = evt.target.files[0].type;
 
-      if (fileType !== "text/csv" && fileType !== "application/zip" && hash[ext] !== 1) {
-        evt.target.value = '';
-        if (evt.target.value) {
-          evt.target.type = 'file';
-          evt.target.type = 'input';
-        }
-        alert('You must submit a zipped shapfile or a CSV/XLS!');
-
-        return;
-      }
+      // if (fileType !== "text/csv" && fileType !== "application/zip" && hash[ext] !== 1) {
+      //   evt.target.value = '';
+      //   if (evt.target.value) {
+      //     evt.target.type = 'file';
+      //     evt.target.type = 'input';
+      //   }
+      //   alert('You must submit a zipped shapfile or a CSV/XLS!');
+      //
+      //   return;
+      // }
       if (evt.target.id === 'dataInput') {
         obj.dataFileName(fileName);
         obj.dataFileType(fileType);

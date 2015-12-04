@@ -52,29 +52,14 @@
                 <div class="storiesInput">
                   <h4 class="storyHeader">TITLE/POSITION</h4>
                   <h5 id="requiredTitle" class="requiredItem">Required</h5>
-                  <input id="storyTitleInput" data-bind="value: storyTitleData" type="text" required="required"/>
+                  <input id="storyTitleInput" data-bind="value: storyTitleData" type="text"/>
                 </div>
                 <div class="storiesInput">
                   <h4 class="storyHeader">EMAIL</h4>
                   <h5 id="requiredEmail" class="requiredItem">Required</h5>
-                  <input id="storyEmailInput" data-bind="value: storyEmailData" type="email" required="required"/>
+                  <input id="storyEmailInput" data-bind="value: storyEmailData" type="email"/>
                   <input type="email" name="verify_email" id="verifyEmailForStory" />
                 </div>
-
-                <!-- <div class="storiesInput">
-                  <h5 class="storyHeader">AFFECTED AREAS</h5>
-                  <h5 id="requiredArea" class="requiredItem">Drop a pin on the map near the affected area</h5>
-                  <div id="storiesMap" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0;">
-                    <div id="esri-geocoder-widget-story"></div>
-                    <div id="storyBasemaps" style="position:absolute; right:25px; top:10px; z-Index:10; font-size: 12px;">
-                      <div data-dojo-type="dijit/TitlePane" data-dojo-props="title:'Basemaps', closable:false, open:false">
-                        <div data-dojo-type="dijit/layout/ContentPane" style="width:255px; height:220px; overflow:auto;">
-                          <div id="basemapGallery"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
 
                 <div class="storiesInput">
                   <h4 class="storyHeader">Additional information or notes you would like to include:</h4>
