@@ -1256,7 +1256,7 @@ class Proxy {
     {
         $user = getenv('username');
         $pass = getenv('password');
-        
+
         if (isset($user) && isset($pass)) {
 
             return true;
