@@ -3,7 +3,7 @@ require('../../../../vendor/autoload.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try{
-      $s3 = Aws\S3\S3Client::factory();
+      // $s3 = Aws\S3\S3Client::factory();
       print_r('finally');
       // $bucket=getenv('bucket');
       // $uploads = array();
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
   echo("Sorry, you're not allowed to do this.");
 }
-// 
+//
 // function uploadFile($bucket,$file){
 //     $upload = $s3->upload($bucket, $file['name'], fopen($file['tmp_name'], 'rb'), 'public-read');
 // }
