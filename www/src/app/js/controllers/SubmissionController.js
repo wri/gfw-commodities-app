@@ -213,7 +213,9 @@ define([
       layersRequest.then(
         function(response) {
           console.log("Success: ", response);
+          alert("Data successfully submitted!")
       }, function(error) {
+          alert("Data was not successfully submitted, please try again.")
           console.log("Error: ", error.message);
       });
 
