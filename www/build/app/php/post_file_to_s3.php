@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try {
       $s3 = Aws\S3\S3Client::factory();
 
-      $urls = array();
+      $urls = "";
       $bucket=getenv('bucket');
       if(isset($_FILES['dataFile'])){
 
@@ -15,16 +15,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'SourceFile'   => $_FILES['dataFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
-
-        array_push($result['ObjectURL'], $urls);
-
-        print_r($urls);
+        $urls = $urls . $result['ObjectURL'];
 
       }
       if(isset($_FILES['attributeFile'])){
-        $upload = $s3->upload($bucket, $_FILES['attributeFile']['name'], fopen($_FILES['attributeFile']['tmp_name'], 'rb'), 'public-read');
+        //$upload = $s3->upload($bucket, $_FILES['attributeFile']['name'], fopen($_FILES['attributeFile']['tmp_name'], 'rb'), 'public-read');
         //array_push($upload2,$uploads);
+
+        $result = $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $_FILES['attributeFile']['name'],
+            'SourceFile'   => $_FILES['attributeFile']['tmp_name'],
+            'ACL'          => 'public-read'
+        ));
+        $urls = $urls . ";" . $result['ObjectURL'];
+
       }
+      print_r($urls);
 
   } catch (S3Exception $e) {
       echo "ERROR" . $e->getMessage() . "\n";
