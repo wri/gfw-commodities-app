@@ -1254,8 +1254,10 @@ class Proxy {
 
     public function isUserLogin()
     {
-
-        if (isset(getenv('username')) && isset(getenv('password'))) {
+        $user = getenv('username');
+        $pass = getenv('password');
+        
+        if (isset($user) && isset($pass)) {
 
             return true;
         }

@@ -108,7 +108,7 @@ define([
           }
         ];
 
-        var proxyUrl = "./app/php/proxy.php";
+        var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
 
         esri.config.defaults.io.proxyUrl = proxyUrl;
         esri.config.defaults.io.alwaysUseProxy = false;
