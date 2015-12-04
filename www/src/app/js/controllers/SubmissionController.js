@@ -88,87 +88,37 @@ define([
         var dataFile = $('#dataInput')[0].files[0];
         var attributeFile = $('#attributeDataInput')[0].files[0];
 
-        var attributes = {};
-        attributes.name = self.model.storyNameData();
-        attributes.company = self.model.storyCompanyData();
-        attributes.title = self.model.storyTitleData();
-        attributes.email = self.model.storyEmailData();
-        if (self.model.storyDetailsData()) {
-            attributes.notes = self.model.storyDetailsData();
-        }
 
-        attributes.data_file_name = self.model.dataFileName();
+        if (dataFile) {
 
-        if (self.model.attributeFileName()) {
-            attributes.att_file_name = self.model.attributeFileName();
-        }
-        var features = [
-          {
-            attributes: attributes
+          var form_data = new FormData();
+          form_data.append('dataFile', dataFile);
+          form_data.append('dataFileName', dataFileName);
+          form_data.append('dataFileType', dataFileType);
+
+          if (attributeFile) {
+            form_data.append('attributeFile', attributeFile);
+            form_data.append('attributeFileName', attributeFileName);
+            form_data.append('attributeFileType', attributeFileType);
           }
-        ];
 
-        var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
+          $.ajax({
+            url: 'app/php/post_file_to_s3.php', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(response){
 
-        esri.config.defaults.io.proxyUrl = proxyUrl;
-        esri.config.defaults.io.alwaysUseProxy = false;
-
-        var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures";
-        var layersRequest = esriRequest({
-          url: layerUrl,
-          content: {
-            'f': 'json',
-            features: JSON.stringify(features)
-          },
-          handleAs: "json",
-          callbackParamName: "callback"
-        },
-        {
-          usePost: true,
-          useProxy: true
-        });
-
-        layersRequest.then(
-          function(response) {
-            console.log("Success: ", response);
-        }, function(error) {
-            console.log("Error: ", error.message);
-        });
-
-        // var features = [];
-        // features.push(feature);
+              self.uploadToAGOL(response);
 
 
-        // if (dataFile) {
-        //
-        //   var form_data = new FormData();
-        //   form_data.append('dataFile', dataFile);
-        //   form_data.append('dataFileName', dataFileName);
-        //   form_data.append('dataFileType', dataFileType);
-        //
-        //   if (attributeFile) {
-        //     form_data.append('attributeFile', attributeFile);
-        //     form_data.append('attributeFileName', attributeFileName);
-        //     form_data.append('attributeFileType', attributeFileType);
-        //   }
-        //
-        //   $.ajax({
-        //     url: 'app/php/post_file_to_s3.php', // point to server-side PHP script
-        //     dataType: 'text',  // what to expect back from the PHP script, if anything
-        //     cache: false,
-        //     contentType: false,
-        //     processData: false,
-        //     data: form_data,
-        //     type: 'post',
-        //     success: function(response){
-        //
-        //       self.uploadToAGOL(response);
-        //
-        //
-        //     }
-        //   });
-        //
-        // }
+            }
+          });
+
+        }
 
 
     },
@@ -217,30 +167,56 @@ define([
       if (arr.length > 1){
         url2 = arr[1];
       }
-      var feature = {};
-      feature.attributes = {};
-      feature.attributes.name = self.model.storyNameData();
-      feature.attributes.company = self.model.storyCompanyData();
-      feature.attributes.title = self.model.storyTitleData();
-      feature.attributes.email = self.model.storyEmailData();
+      var attributes = {};
+      attributes.name = self.model.storyNameData();
+      attributes.company = self.model.storyCompanyData();
+      attributes.title = self.model.storyTitleData();
+      attributes.email = self.model.storyEmailData();
       if (self.model.storyDetailsData()) {
-          feature.attributes.notes = self.model.storyDetailsData(); //todo: if its not undefined
+          attributes.notes = self.model.storyDetailsData();
       }
-
-      feature.attributes.data_file_name = self.model.dataFileName();
-
+      attributes.data_file_name = self.model.dataFileName();
       if (self.model.attributeFileName()) {
-          feature.attributes.att_file_name = self.model.attributeFileName(); //todo: if its not undefined
+          attributes.att_file_name = self.model.attributeFileName();
       }
-      feature.attributes.data_url = url1;
+      attributes.data_url = url1;
       if (url2) {
-        feature.attributes.attribute_url = url2;
+        attributes.attribute_url = url2;
       }
-      console.log(feature);
-      // var features = [];
-      // features.push(feature);
 
-      //http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures
+      var features = [
+        {
+          attributes: attributes
+        }
+      ];
+
+      var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
+
+      esri.config.defaults.io.proxyUrl = proxyUrl;
+      esri.config.defaults.io.alwaysUseProxy = false;
+
+      var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures";
+      var layersRequest = esriRequest({
+        url: layerUrl,
+        content: {
+          'f': 'json',
+          features: JSON.stringify(features)
+        },
+        handleAs: "json",
+        callbackParamName: "callback"
+      },
+      {
+        usePost: true,
+        useProxy: true
+      });
+
+      layersRequest.then(
+        function(response) {
+          console.log("Success: ", response);
+      }, function(error) {
+          console.log("Error: ", error.message);
+      });
+      
 
     }
 
