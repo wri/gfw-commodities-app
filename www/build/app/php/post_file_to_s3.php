@@ -8,17 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $bucket=getenv('bucket');
       $uploads = array();
       if(isset($_FILES['dataFile'])){
-        print_r('In the If');
         $upload = $s3->upload($bucket, $_FILES['dataFile']['name'], fopen($_FILES['dataFile']['tmp_name'], 'rb'), 'public-read');
-        // array_push($upload,$uploads);
-        print_r($upload);
-      }else{
-        print_r("Never Made it in");
+        array_push($upload,$uploads);
+        print_r(json_encode($upload));
+        print_r(json_encode($uploads));
       }
-      // if(isset($_FILES['attributeFile'])){
-      //   $upload2 = json_encode(uploadFile($bucket, $_FILES['attributeFile']));
-      //   array_push($upload2,$uploads);
-      //}
+      if(isset($_FILES['attributeFile'])){
+        $upload = $s3->upload($bucket, $_FILES['attributeFile']['name'], fopen($_FILES['attributeFile']['tmp_name'], 'rb'), 'public-read');
+        //array_push($upload2,$uploads);
+      }
 
   } catch (S3Exception $e) {
       echo "ERROR" . $e->getMessage() . "\n";
@@ -28,8 +26,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   echo("Sorry, you're not allowed to do this.");
 }
 
-// function uploadFile($bucket,$file){
-//     $upload = $s3->upload($bucket, $file['name'], fopen($file['tmp_name'], 'rb'), 'public-read');
-// }
 
 ?>
