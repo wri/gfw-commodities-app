@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // $upload = $s3->upload($bucket, $_FILES['dataFile']['name'], fopen($_FILES['dataFile']['tmp_name'], 'rb'), 'public-read');
         // print_r($upload[1]);
-        print_r($result['ObjectURL']);
+        print_r($result);
         // print_r($upload[1]['ObjectURL']);
       }
       if(isset($_FILES['attributeFile'])){
