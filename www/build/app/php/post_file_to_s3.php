@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if(isset($_FILES['dataFile'])){
 
 
-
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $_FILES['dataFile']['name'],
@@ -17,12 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ACL'          => 'public-read'
         ));
 
+        array_push($result['ObjectURL'], $urls);
 
+        print_r($urls);
 
-        // $upload = $s3->upload($bucket, $_FILES['dataFile']['name'], fopen($_FILES['dataFile']['tmp_name'], 'rb'), 'public-read');
-        // print_r($upload[1]);
-        print_r($result);
-        // print_r($upload[1]['ObjectURL']);
       }
       if(isset($_FILES['attributeFile'])){
         $upload = $s3->upload($bucket, $_FILES['attributeFile']['name'], fopen($_FILES['attributeFile']['tmp_name'], 'rb'), 'public-read');
