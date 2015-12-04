@@ -9,8 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $uploads = array();
       if(isset($_FILES['dataFile'])){
         print_r('In the If');
-        $upload = json_encode(uploadFile($bucket, $_FILES['dataFile']));
-        array_push($upload,$uploads);
+        $upload = $s3->upload($bucket, $_FILES['dataFile']['name'], fopen($_FILES['dataFile']['tmp_name'], 'rb'), 'public-read');
+        // array_push($upload,$uploads);
         print_r($upload);
       }else{
         print_r("Never Made it in");
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
   echo("Sorry, you're not allowed to do this.");
 }
-//
+
 // function uploadFile($bucket,$file){
 //     $upload = $s3->upload($bucket, $file['name'], fopen($file['tmp_name'], 'rb'), 'public-read');
 // }
