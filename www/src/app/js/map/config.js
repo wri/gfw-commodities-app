@@ -375,6 +375,12 @@ define([], function() {
         },
 
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
+
+        responsibleSoy: { // Oil Palm Suitability Default
+            id: "productionSuitability",
+            url: dynamicMapServiceUrlComm,
+            layerId: 28
+        },
         opsd: { // Oil Palm Suitability Default
             id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
@@ -420,6 +426,7 @@ define([], function() {
             url: dynamicMapServiceUrlComm,
             layerId: 15
         },
+
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
 
         /***
@@ -732,11 +739,35 @@ define([], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'conservation-biodiversity-hotspots'
             }, {
+                kids: ["responsibleSoy"],
+                id: "soyBean",
+                title: "Soy Bean",
+                filter: "agro-suitability",
+                type: "check",
+                layerType: "dynamic"
+            }, {
+                id: "responsibleSoy",
+                title: "Round Table on responsible soy",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "image",
+                parent: "soyBean",
+                infoDivClass: "suitability-soy-layer"
+            }, {
+                kids: ["suit","opsd","cons","elev","slope","rain","soilDr","soilDe","soilAc","soilTy"],
+                id: "oilPalm",
+                title: "Oil Palm",
+                filter: "agro-suitability",
+                type: "check",
+                layerType: "dynamic"
+            }, {
                 id: "suit",
                 title: "Custom Suitability Map",
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "check",
+                parent: "oilPalm",
                 layerType: "image",
                 infoDivClass: "suitability-custom-suitability-mapper"
             }, {
@@ -745,6 +776,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-wri-standard-suitability"
             }, {
@@ -753,6 +785,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-conservation-areas"
             }, {
@@ -761,6 +794,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-elevation"
             }, {
@@ -769,6 +803,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-slope"
             }, {
@@ -777,6 +812,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-rainfall"
             }, {
@@ -785,6 +821,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-drainage"
             }, {
@@ -793,6 +830,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-depth"
             }, {
@@ -801,6 +839,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-acidity"
             }, {
@@ -809,6 +848,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-type"
             }
