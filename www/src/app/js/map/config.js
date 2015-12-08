@@ -30,9 +30,9 @@ define([], function() {
 
         mapOptions: {
             basemap: 'gray',
-            centerX: 114,
-            centerY: 3,
-            zoom: 5,
+            centerX: 4,//114,
+            centerY: 5,//3,
+            zoom: 3,//5,
             sliderPosition: "top-right"
         },
 
@@ -741,13 +741,13 @@ define([], function() {
             }, {
                 kids: ["responsibleSoy"],
                 id: "soyBean",
-                title: "Soy Bean",
+                title: "Soybean",
                 filter: "agro-suitability",
                 type: "check",
                 layerType: "dynamic"
             }, {
                 id: "responsibleSoy",
-                title: "Round Table on responsible soy",
+                title: "Round Table on Responsible Soy",
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
