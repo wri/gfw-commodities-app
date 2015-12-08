@@ -109,6 +109,20 @@ define([
                 this.refreshLegendWidget();
             }
 
+            // If layer is a mill point, update definition query
+            if (conf.layerId == '27') {
+                var millChecked = domClass.contains(dom.byId('mill_checkbox').parentElement, 'active'),
+                    gfwMillChecked = domClass.contains(dom.byId('gfwMill_checkbox').parentElement, 'active'),
+                    layerDefinitions = [],
+                    definitionQueries = [];
+
+                if (millChecked) {definitionQueries.push(MapConfig.mill.query);}
+                if (gfwMillChecked) {definitionQueries.push(MapConfig.gfwMill.query);}
+
+                layerDefinitions[27] = definitionQueries.join(' OR ');
+                app.map.getLayer(conf.id).setLayerDefinitions(layerDefinitions);
+                app.map.getLayer(conf.id).refresh();
+            }
 
             // We only want to apply analytics to a few layers for now, catch those here
             // As they add more layers we can find a better way to catch this, possibly higher

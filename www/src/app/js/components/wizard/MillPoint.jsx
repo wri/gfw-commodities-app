@@ -209,7 +209,7 @@ define([
 
     _millPointSelected: function (target) {
       var featureType = target.getAttribute('data-type'),
-          entityId = target.getAttribute('data-value'),
+          wriId = target.getAttribute('data-value'),
           selectedFeatures = this.state.selectedCustomFeatures,
           newActiveListItemValues,
           wizardGraphicsLayer,
@@ -222,18 +222,19 @@ define([
       if (featureType === "group") {
         // Mills dont support group selection
 
-      } else if (entityId) {
+      } else if (wriId) {
 
         wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
         if (wizardGraphicsLayer) {
-          AnalyzerQuery.getMillByEntityId(entityId).then(function (feature) {
+	  // AnalyzerQuery.getMillByEntityId(wriId).then(function (feature) {
+          AnalyzerQuery.getMillByWriId(wriId).then(function (feature) {
             // Get Reference to Parent for showing selected or not selected
             label = target.innerText || target.innerHTML;
 
 
-            if ( self.state.activeListItemValues.indexOf(entityId) != -1 ) {
+            if ( self.state.activeListItemValues.indexOf(wriId) != -1 ) {
               // Remove The Entity Id
-              var valueIndex = self.state.activeListItemValues.indexOf(entityId);
+              var valueIndex = self.state.activeListItemValues.indexOf(wriId);
               newActiveListItemValues = self.state.activeListItemValues.slice(0);
               newActiveListItemValues.splice(valueIndex, 1);
               self.setState( { activeListItemValues: newActiveListItemValues } );
@@ -259,7 +260,7 @@ define([
               graphic = GeoHelper.applySelectionSymbolToFeature(graphic);
               wizardGraphicsLayer.add(graphic);
               // Add Active Class, Add to array or features, and add label to array of labels
-              newActiveListItemValues = self.state.activeListItemValues.concat([entityId]);
+              newActiveListItemValues = self.state.activeListItemValues.concat([wriId]);
               self.setState({ activeListItemValues: newActiveListItemValues });
 
               selectedFeatures.push(graphic);

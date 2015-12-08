@@ -174,7 +174,7 @@ define([], function() {
         },
 
         millPoints: {
-            url: 'http://update.risk-api.appspot.com/',
+            url: 'http://api.risk-api.appspot.com/',
             title: 'Palm Oil Mill Risk Assessment',
             rootNode: 'millPoints'
         },
