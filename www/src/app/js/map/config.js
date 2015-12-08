@@ -747,7 +747,7 @@ define([], function() {
                 layerType: "dynamic"
             }, {
                 id: "responsibleSoy",
-                title: "Round Table on Responsible Soy",
+                title: "RTRS Guides for Responsible Soy Expansion",
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
