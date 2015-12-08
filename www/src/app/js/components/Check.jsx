@@ -29,7 +29,7 @@ define([
         if (this.props.useRadioCallback || this.props.id === 'suit') {
           topic.publish('toggleLayer', this.props.id);
         } else {
-          // Call these functions on the next animation frame to give React time 
+          // Call these functions on the next animation frame to give React time
           // to render the changes from its new state, the callback needs to read
           // the ui to update the layer correctly
           requestAnimationFrame(function() {
@@ -87,10 +87,10 @@ define([
           (this.state.active ? ' active' : '') +
           (this.props.parent ? ' indented' : '') +
           (this.props.kids ? ' newList' : '') +
-          (this.props.visible ? '' : ' hidden'); 
+          (this.props.visible ? '' : ' hidden');
 
-          
-      return (        
+
+      return (
         <li className={className} data-layer={this.props.id}>
             <div id={this.props.id + '_checkbox'} onClick={this.props.kids ? null : this.toggle}>
 
@@ -101,13 +101,13 @@ define([
                 <span />
               </span>
             }
-            
-            <a className='layer-title'>{this.props.title}</a>
             { /* If this condition is met, render a layer info icon, else, render nothing */ }
             {
               this.props.infoDivClass !== undefined ?
                 <span onClick={this.showInfo} className='layer-info-icon' dangerouslySetInnerHTML={{__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}} /> : null
             }
+            <a className='layer-title'>{this.props.title}</a>
+
 
             <p className='layer-sub-title'>{this.props.subtitle}</p>
             {
@@ -115,7 +115,7 @@ define([
               <div id={this.props.id + '_slider'} />
             </div>
             }
-            
+
 
           </div>
         </li>

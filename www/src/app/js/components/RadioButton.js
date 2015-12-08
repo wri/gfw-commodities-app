@@ -89,12 +89,13 @@ define([
               /* Used as an icon node */
               React.createElement("span", null)
             ), 
-            React.createElement("a", {className: "layer-title"}, this.props.title), 
-            /* If this condition is met, render a layer info icon, else, render nothing */ 
+						/* If this condition is met, render a layer info icon, else, render nothing */ 
             
               (this.props.title !== "None" && this.props.id !== "tcc" && !this.props.noSlider) ?
               React.createElement("span", {onClick: this.showInfo, className: "layer-info-icon", dangerouslySetInnerHTML: {__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}}) : null, 
             
+            React.createElement("a", {className: "layer-title"}, this.props.title), 
+
             React.createElement("p", {className: "layer-sub-title"}, this.props.subtitle)
           ), 
           
