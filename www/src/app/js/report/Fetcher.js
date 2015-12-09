@@ -272,7 +272,7 @@ define([
             this._debug('Fetcher >>> getCarbonStocksResults');
             var deferred = new Deferred(),
                 config = ReportConfig.carbonStock;
-
+                console.dir(config)
             // Create the container for all the results
             // Add this config to Fires so the Fires request knows to add data here
             ReportRenderer.renderContainers(config);
@@ -519,7 +519,7 @@ define([
             /*
             * Some layers have special ids that need to be overwritten from the config becuase
             * the config powers multiple charts and the clearance alerts analysis is the onlyone that
-            * uses a different value, if more layers need this, five them a 'formaId' in report/config.js
+            * uses a different value, if more layers need this, give them a 'formaId' in report/config.js
             */
             if (config.formaId) {
                 config.rasterId = config.formaId;

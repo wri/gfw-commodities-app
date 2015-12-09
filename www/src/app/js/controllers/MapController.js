@@ -506,8 +506,6 @@ define([
         },
 
         centerChange: function(x, y, zoom) {
-            console.log("center change");
-            //console.log(o.map);
             //compare current center and change if different
             if (!initialized) {
                 return; //map not initialized yet
@@ -518,9 +516,6 @@ define([
             x = number.round(extent.getCenter().x, 2);
             y = number.round(extent.getCenter().y, 2);
             var l = map.map.getLevel();
-            console.log(x);
-            console.log(y);
-
 
             // Hasher.setHash('x', x);
             // Hasher.setHash('y', y);
