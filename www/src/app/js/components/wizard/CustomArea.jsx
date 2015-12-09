@@ -35,6 +35,7 @@ define([
     },
 
     componentDidMount: function () {
+
       // Create all the Necessary Drawing Tools Here
       drawToolbar = new Draw(app.map);
       drawToolbar.on('draw-end', this._drawComplete);
@@ -71,9 +72,9 @@ define([
         <div className='custom-area'>
           <p className='drawing-instructions'> {AnalyzerConfig.customArea.instructions} </p>
           <div className='drawing-tools'>
-            <div className='drawing-tool-button' id='draw-freehand' onClick={this._activateToolbar}>{AnalyzerConfig.customArea.freehandLabel}</div>
-            <div className='drawing-tool-button' id='draw-polygon' onClick={this._activateToolbar}>{AnalyzerConfig.customArea.polyLabel}</div>
-            <div className='drawing-tool-button' id='draw-upload' onClick={Uploader.toggle.bind(Uploader)}>{AnalyzerConfig.customArea.uploadLabel}</div>
+            <div className='drawing-tool-button' id='draw-freehand' data-label={AnalyzerConfig.customArea.freehandLabel} onClick={this._activateToolbar}>{AnalyzerConfig.customArea.freehandLabel}</div>
+            <div className='drawing-tool-button' id='draw-polygon' data-label={AnalyzerConfig.customArea.polyLabel} onClick={this._activateToolbar}>{AnalyzerConfig.customArea.polyLabel}</div>
+            <div className='drawing-tool-button' id='draw-upload' data-label={AnalyzerConfig.customArea.uploadLabel} onClick={Uploader.toggle.bind(Uploader)}>{AnalyzerConfig.customArea.uploadLabel}</div>
           </div>
           <div className='custom-graphics-list-container'>
             <p className='drawing-instructions'>{AnalyzerConfig.customArea.instructionsPartTwo}</p>
@@ -99,8 +100,15 @@ define([
       }
 
       activeTool = evt.target.id;
-
-      switch (evt.target.innerHTML) {
+			var innerText;
+			if (evt.target.getAttribute('data-label')) {
+				innerText = evt.target.getAttribute('data-label');
+			} else if (evt.target.parentElement.getAttribute('data-label')) {
+				innerText = evt.target.parentElement.getAttribute('data-label');
+			} else {
+				innerText = evt.target.parentElement.parentElement.getAttribute('data-label');
+			}
+      switch (innerText) {
         case AnalyzerConfig.customArea.freehandLabel:
           drawToolbar.activate(Draw.FREEHAND_POLYGON);
         break;
@@ -119,7 +127,7 @@ define([
     },
 
     _drawComplete: function (evt) {
-      
+
       this._removeActiveClass();
       this._deactivateToolbar();
 
