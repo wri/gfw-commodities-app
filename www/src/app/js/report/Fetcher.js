@@ -171,7 +171,6 @@ define([
                 },
                 self = this;
 
-
             // Create the container for all the result
             ReportRenderer.renderTotalLossContainer(config);
             ReportRenderer.renderCompositionAnalysisLoader(config);
@@ -191,6 +190,13 @@ define([
                     if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
                         content.pixelSize = 500;
                         self._computeHistogram(url, content, success, failure);
+                    } else if (error.details.length === 0) {
+                        function newFailure(error) {
+                          deferred.resolve(false);
+                        }
+                        var maxDeviation = 10;
+                        content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
+                        self._computeHistogram(url, content, success, newFailure);
                     } else {
                         deferred.resolve(false);
                     }
