@@ -423,6 +423,7 @@ define([], function() {
                 title: "Annual Tree Cover Loss (in hectares) on Forest Carbon Stocks (Mg C /Ha)",
                 removeBelowYear: 2005
             },
+            includeFormaIdInRemap: true,
             formaId: "$15",
             rasterRemap: {
                 "rasterFunction": "Remap",

@@ -316,6 +316,7 @@ define([
               report.geometry = geometryEngine.generalize(report.geometry, 200, true);
             }
 
+
             // Get area
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
             report.areaPromise.then(function (area) {

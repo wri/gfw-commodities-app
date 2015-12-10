@@ -186,14 +186,14 @@ define([
             }
 
             function failure(error) {
+                var newFailure = function(error){
+                  deferred.resolve(false);
+                }
                 if (error.details) {
                     if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
                         content.pixelSize = 500;
                         self._computeHistogram(url, content, success, failure);
                     } else if (error.details.length === 0) {
-                        function newFailure(error) {
-                          deferred.resolve(false);
-                        }
                         var maxDeviation = 10;
                         content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
                         self._computeHistogram(url, content, success, newFailure);
@@ -436,7 +436,7 @@ define([
             return deferred.promise;
         },
 
-        // Main Query Calls Go Here
+         // Main Query Calls Go Here
 
         _getTotalLossAnalysis: function(config, useSimpleEncoderRule) {
             this._debug('Fetcher >>> _getTotalLossAnalysis');
@@ -890,8 +890,8 @@ define([
         },
 
         /*
-			Simple wrapper function for making requests to computeHistogram
-		*/
+  		 	   Simple wrapper function for making requests to computeHistogram
+  		  */
         _computeHistogram: function(url, content, callback, errback) {
             var req = esriRequest({
                 url: url + '/computeHistograms',
@@ -907,8 +907,8 @@ define([
         },
 
         /*
-			Wrapper function for logging messages
-		*/
+		 	    Wrapper function for logging messages
+		    */
         _debug: function(msg) {
             console.log(msg);
         }
