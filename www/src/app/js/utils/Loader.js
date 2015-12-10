@@ -7,7 +7,7 @@ define([
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.17',
+                path = './app/templates/' + name + '.html?v=2.5.18',
                 req;
 
             req = new XMLHttpRequest();

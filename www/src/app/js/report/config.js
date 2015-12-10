@@ -44,7 +44,7 @@ define([], function() {
         protectedAreaColors = ["#296eaa"];
 
     // Carbon Stocks
-    var carbonStockLabels = ["0-19", "20 - 79", "Greater than 80"],//["0", "1 - 10", "11 - 20", "21- 35", "36 - 70", "71 - 100", "101 - 150", "151 - 200", "201 - 300", "Greater than 300"],
+    var carbonStockLabels = ["1-19", "20 - 79", "Greater than 80"],//["0", "1 - 10", "11 - 20", "21- 35", "36 - 70", "71 - 100", "101 - 150", "151 - 200", "201 - 300", "Greater than 300"],
         carbonStockBounds = [0,2],//[0, 9],
         carbonStockColors = ["#fdffcc","#f1bc8b","#d56f4a"];//["#fdffcc", "#faeeb9", "#f6ddaa", "#f4ca99", "#f1bc8b", "#eca97a", "#e89c6f", "#e08b5e", "#db7c54", "#d56f4a"];
 
@@ -428,7 +428,7 @@ define([], function() {
             rasterRemap: {
                 "rasterFunction": "Remap",
                 "rasterFunctionArguments": {
-                    "InputRanges": [0, 20, 20, 80, 80, 370],
+                    "InputRanges": [1, 20, 20, 80, 80, 370],
                     "OutputValues": [0, 1, 2],
                     "Raster": "$524",
                     "AllowUnmatched": false
