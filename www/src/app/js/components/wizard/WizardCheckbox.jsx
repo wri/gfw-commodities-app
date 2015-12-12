@@ -34,7 +34,7 @@ define([
       var className = 'wizard-checkbox' + (this.state.active ? ' active' : '');
 
       return (
-        <div className='wizard-checkbox-container'>          
+        <div className='wizard-checkbox-container'>
           <div className={className} data-value={this.props.value}>
             <span className='custom-check' onClick={this.toggle}>
               <span />
@@ -80,6 +80,9 @@ define([
         case "primForest":
           this.props.infoDivClass = "forest-and-land-cover-primary-forest";
           break;
+        case "biomes":
+          this.props.infoDivClass = "forest-and-land-cover-brazil-biomes";
+          break;
         case "suit":
           this.props.infoDivClass = "land-use-oil-palm";
           break;
@@ -96,7 +99,7 @@ define([
           this.props.infoDivClass = "forest-change-tree-cover-change";
           break;
       }
-      
+
       if (document.getElementsByClassName(this.props.infoDivClass).length) {
         topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
       } else {

@@ -294,6 +294,26 @@ define([
             return deferred.promise;
         },
 
+        getBrazilBiomesResults: function() {
+            this._debug('Fetcher >>> getBrazilBiomesResults');
+            var deferred = new Deferred(),
+                config = ReportConfig.brazilBiomes;
+                console.dir(config)
+            // Create the container for all the results
+            // Add this config to Fires so the Fires request knows to add data here
+            ReportRenderer.renderContainers(config);
+            _fireQueriesToRender.push(config);
+
+            all([
+                this._getTotalLossAnalysis(config),
+                this._getClearanceAlertAnalysis(config)
+            ]).then(function() {
+                deferred.resolve(true);
+            });
+
+            return deferred.promise;
+        },
+
         getIntactForestResults: function() {
             this._debug('Fetcher >>> getIntactForestResults');
             var deferred = new Deferred(),

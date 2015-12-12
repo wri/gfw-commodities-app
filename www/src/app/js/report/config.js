@@ -48,6 +48,11 @@ define([], function() {
         carbonStockBounds = [0,2],//[0, 9],
         carbonStockColors = ["#fdffcc","#f1bc8b","#d56f4a"];//["#fdffcc", "#faeeb9", "#f6ddaa", "#f4ca99", "#f1bc8b", "#eca97a", "#e89c6f", "#e08b5e", "#db7c54", "#d56f4a"];
 
+  // Brazil Biomes
+  var brazilBiomesLabels = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"],
+      brazilBiomesBounds = [0,5],
+      brazilBiomesColors = ["#4E7311","#A6FD7C","#C0E7AE","#76B276","#A3D3FD","#084E73"];
+
     // Intact Forests
     var intactForestLabels = ["Intact Forest"],
         intactForestBounds = [0, 1],
@@ -438,6 +443,35 @@ define([], function() {
             fireKey: 'carbonStock' // Key to the Fires Config for items related to this
         },
 
+        brazilBiomes: {
+            rootNode: "brazilBiomes",
+            title: "Brazil Biomes",
+            rasterId: "$531",
+            bounds: brazilBiomesBounds,
+            labels: brazilBiomesLabels,
+            clearanceChart: {
+                title: "Clearance Alerts on Brazil Biomes since Jan 2015",
+                type: "pie"
+            },
+            lossChart: {
+                title: "Annual Tree Cover Loss (in hectares) on Brazil Biomes (Mg C /Ha)",
+                removeBelowYear: 2004
+            },
+            // includeFormaIdInRemap: true,
+            formaId: "$15",
+            // rasterRemap: {
+            //     "rasterFunction": "Remap",
+            //     "rasterFunctionArguments": {
+            //         "InputRanges": [1, 20, 20, 80, 80, 370],
+            //         "OutputValues": [0, 1, 2],
+            //         "Raster": "$524",
+            //         "AllowUnmatched": false
+            //     }
+            // },
+            colors: brazilBiomesColors,
+            fireKey: 'brazilBiomes' // Key to the Fires Config for items related to this
+        },
+
         intactForest: {
             rootNode: "intactForestLandscape",
             title: "Intact Forest Landscapes",
@@ -573,6 +607,16 @@ define([], function() {
                 labels: carbonStockLabels,
                 bounds: carbonStockBounds,
                 colors: carbonStockColors,
+
+                title: 'Active Fires by Forest Carbon Stocks over the past 7 days',
+                badgeDesc: 'on forest carbon stocks out of'
+            },
+            brazilBiomes: {
+                type: 'pie',
+                field: 'biomes',
+                labels: brazilBiomesLabels,
+                bounds: brazilBiomesBounds,
+                colors: brazilBiomesColors,
 
                 title: 'Active Fires by Forest Carbon Stocks over the past 7 days',
                 badgeDesc: 'on forest carbon stocks out of'
