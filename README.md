@@ -27,6 +27,7 @@ Change the FTP folder in Gruntfile.js before you begin.  Modify "dest" property 
 ### Setup
 <p>The project is configured already with grunt.  If you need grunt, run <code>npm install -g grunt-cli</code>.  Just run <code>npm install</code> in the root directory to install all of grunt's dependencies.</p>
 <p>All css is written in stylus and then compiled by grunt into a single css file called app.css.  Typing <code>grunt develop</code> will start the watch task and compile all .styl files in the css directory. (This may change later when trying to optimize loading to load a smaller css file which contains only the necessary css to load the homepage and then a larger one with all the rest, but probably wont)</p>
+<p>Warning: If you run this project over an Apache server, it is possible that your server configurations will clash with the project's <strong>.htaccess</strong> file.  If this project is not visible on your web server or you cannot view it in the browser, comment out your <strong>.htaccess</strong> file, <strong> but make sure your edits are not tracked in git</strong>.  Just run <code>git update-index --assume-unchanged .htaccess</code> in the root directory to ensure that any changes you make to the <strong>.htaccess</strong> file will not affect production.</p>
 
 ### Prepare to Build
 The bootload.js file loads the classes differently when running locally vs on a server.  Change the "deps" and "callback" as needed. (Also see comments around line 34 in bootloader.js.)
