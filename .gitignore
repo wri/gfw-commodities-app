@@ -11,3 +11,4 @@ www/src/app/css/*.css
 .module-cache
 /www/build
 *.swp
+.htaccess
