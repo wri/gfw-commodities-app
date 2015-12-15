@@ -49,14 +49,9 @@ define([], function() {
         carbonStockColors = ["#fdffcc","#f1bc8b","#d56f4a"];//["#fdffcc", "#faeeb9", "#f6ddaa", "#f4ca99", "#f1bc8b", "#eca97a", "#e89c6f", "#e08b5e", "#db7c54", "#d56f4a"];
 
   // Brazil Biomes
-  // var brazilBiomesLabels = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"],
-  //     brazilBiomesBounds = [0,5],
-  //     brazilBiomesColors = ["#4E7311","#A6FD7C","#C0E7AE","#76B276","#A3D3FD","#084E73"];
-
-
-  var brazilBiomesLabels = ["Amazônia", "Caatinga", "Cerrado", "Mata Atlântica", "Pampa", "Pantanal"],
-      brazilBiomesBounds = [0,5],
-      brazilBiomesColors = ["#76B276","#A6FD7C","#C0E7AE","#A3D3FD","#4E7311","#084E73"];
+    var brazilBiomesLabels = ["Pampa", "Caatinga", "Cerrado", "Amazônia", "Mata Atlântica", "Pantanal"],
+        brazilBiomesBounds = [0,5],
+        brazilBiomesColors = ["#4E7311","#A6FD7C","#C0E7AE","#76B276","#A3D3FD","#084E73"];
 
     // Intact Forests
     var intactForestLabels = ["Intact Forest"],
