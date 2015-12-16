@@ -81,7 +81,7 @@ define([
       // If they are moving forward through the wizard and end up here
       if (selectedAreaOfInterest === 'millPointOption' && previousStep === 1 && currentStep === 2) {
         // If Mill Points is not visible show it and select it in the UI, otherwise do nothing
-        var layer = app.map.getLayer(MapConfig.mill.id);
+        var layer = lucas.map.getLayer(MapConfig.mill.id);
         if (layer) {
           if (!layer.visible) {
             topic.publish('showMillPoints');
@@ -224,7 +224,7 @@ define([
 
       } else if (entityId) {
 
-        wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+        wizardGraphicsLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
         if (wizardGraphicsLayer) {
           AnalyzerQuery.getMillByEntityId(entityId).then(function (feature) {
             // Get Reference to Parent for showing selected or not selected
@@ -281,7 +281,7 @@ define([
 
     _localReset: function () {
       // Call this to reset the selection list and graphics layer
-      var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+      var wizLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
       WizardStore.set(KEYS.selectedCustomFeatures, []);
       wizLayer.clear();
 
