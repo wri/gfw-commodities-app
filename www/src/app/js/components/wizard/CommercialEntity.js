@@ -155,7 +155,7 @@ define([
     },
 
     _commodityClicked: function (target) {
-      var wizardGraphicsLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
           objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
           selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),

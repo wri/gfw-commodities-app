@@ -79,7 +79,7 @@ define([
             // User returned to Step 1 so we need to reset some things.
             if (prevState.currentStep > 1 && this.state.currentStep === 1) {
               // Clear Graphics from Wizard Layer, it just shows the selection they made
-              var wizLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+              var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
               if (wizLayer) { wizLayer.clear(); }
             }
         },
@@ -176,12 +176,12 @@ define([
             WizardStore.set(KEYS.userStep, 0, true);
             this.replaceState(getDefaultState());
             // Clear the WizardGraphicsLayer
-            var layer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            var layer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
             if (layer) {
               layer.clear();
             }
             // Hide the Dynamic Layer Associated with the Wizard
-            layer = lucas.map.getLayer(MapConfig.adminUnitsLayer.id);
+            layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
             if (layer) {
               layer.hide();
             }            
@@ -209,7 +209,7 @@ define([
                 win;
 
             labelField = AnalyzerConfig.stepTwo.labelField;
-            suitableRule = lucas.map.getLayer(MapConfig.suit.id).getRenderingRule();
+            suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
 
             payload = {
                 geometry: geometry,

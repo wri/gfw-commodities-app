@@ -148,7 +148,7 @@ define([
     },
 
     addHighlightFeatures: function (features) {
-      var wizardGraphicsLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
 
       if (wizardGraphicsLayer) {
         // Clear Previous Selection Features
@@ -207,7 +207,7 @@ define([
       WizardStore.set(KEYS.selectedCustomFeatures, selectedFeatures);
 
       // Clear The Wizard Graphics Layer so no selected features are showing
-      wizardGraphicsLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+      wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
       if (wizardGraphicsLayer) { wizardGraphicsLayer.clear(); }
     },
 

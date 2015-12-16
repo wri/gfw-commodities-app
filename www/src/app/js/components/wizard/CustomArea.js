@@ -36,7 +36,7 @@ define([
 
     componentDidMount: function () {
       // Create all the Necessary Drawing Tools Here
-      drawToolbar = new Draw(lucas.map);
+      drawToolbar = new Draw(app.map);
       drawToolbar.on('draw-end', this._drawComplete);
       // Register Callbacks
       WizardStore.registerCallback(KEYS.customFeatures, this.graphicsListUpdated);

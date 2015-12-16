@@ -173,7 +173,7 @@ define([
     },
 
     _schemeClicked: function (target) {
-      var wizardGraphicsLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id),
+      var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
           objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
           label = target.innerText || target.innerHTML,
@@ -215,7 +215,7 @@ define([
 
           // Takes URL and group name, group name will always be the targets innerHTML
           AnalyzerQuery.getFeaturesByGroupName(config.groupQuery, label).then(function (features) {
-            wizardGraphicsLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
             if (features && wizardGraphicsLayer) {
               features.forEach(function (feature) {
                 // Add it to the map and make it the current selection, give it a label
@@ -258,7 +258,7 @@ define([
             graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
             WizardActions.addSelectedFeatures([graphic]);
 
-            wizardGraphicsLayer = lucas.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+            wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
             if (wizardGraphicsLayer) {
               wizardGraphicsLayer.add(graphic);
             }
