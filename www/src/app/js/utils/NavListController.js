@@ -38,6 +38,7 @@ define([
             // });
 
             function changeNavItem (node, context) {
+
                 query(".nav-item-a.selected ").forEach(function(selectedDiv){
                     if(selectedDiv.parentElement.id.indexOf(context) > -1){
                         domClass.remove(selectedDiv, "selected");
@@ -61,6 +62,7 @@ define([
 
                 Hasher.setHash("n", navTitle);
 
+
                 // Camel Case the label and construct a clean url with minimal parameters
                 var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(node.children[0].innerHTML);
                 var url = "/#v=" + context + "&n=" + navTitle;
@@ -72,7 +74,7 @@ define([
 
         loadNavView: function (context){
 
-
+          // debugger
             var state = ioQuery.queryToObject(hash());
             var needsDefaults = true;
             var activeNode;
@@ -83,6 +85,7 @@ define([
                     //check that its in appropriate context
                     if(node.id.indexOf(context) > -1){
                         //if node matches #, set to selected
+
                         if(state.n === node.id.replace("Nav", "").replace(context, "")){
                             domClass.add(node.children[0], "selected");
                             domStyle.set(node.id.match(/(.*)Nav/)[1], "display", "block");
@@ -90,6 +93,19 @@ define([
                             needsDefaults = false;
                             activeNode = node.children[0];
                         }
+                    }
+                    if (!activeNode) {
+                      query(".nav-item-a.default-selection").forEach(function(node){
+                          if(node.parentElement.id.indexOf(context) > -1){
+                              domClass.add(node, "selected");
+                              activeNode = node;
+                          }
+                      });
+                      query(".nav-subpage.default-selection").forEach(function(node){
+                          if(node.id.indexOf(context) > -1){
+                              domStyle.set(node, "display", "block");
+                          }
+                      });
                     }
                 });
             } else {
@@ -113,10 +129,13 @@ define([
             }
 
             // Camel Case the label and construct a clean url with minimal parameters
-            var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(activeNode.innerHTML);
-            var subPage = activeNode.parentElement.id.replace("Nav", "").replace(context, "");
-            var url = "/#v=" + context + "&n=" + subPage;
-            Analytics.sendPageview(url, analyticsTitle);
+            if (activeNode) {
+              var analyticsTitle = convertToCamelCase(context) + ' - ' + convertToCamelCase(activeNode.innerHTML);
+              var subPage = activeNode.parentElement.id.replace("Nav", "").replace(context, "");
+              var url = "/#v=" + context + "&n=" + subPage;
+              Analytics.sendPageview(url, analyticsTitle);
+            }
+
 
         },
 
