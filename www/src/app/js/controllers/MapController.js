@@ -82,6 +82,7 @@ define([
             // On layers-loaded attempt to focus on selected feature from share url
             map.on('layers-loaded', function() {
                 // Feature focus
+
                 var feature = Hasher.getHash('f'),
                     featureArgs,
                     layer,
@@ -124,6 +125,14 @@ define([
                             break;
                     }
                 }
+
+                var forestUse = map.map.getLayer('forestUse_commodities');
+                console.log(map.map.layerIds.length)
+                console.log(map.map.graphicsLayerIds.length)
+
+                map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
+
+
             });
 
             map.on("map-ready", function() {
