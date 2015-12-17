@@ -9,3 +9,5 @@ npm-debug.log
 www/src/app/css/*.css
 /notes.txt
 .module-cache
+/www/build
+*.swp

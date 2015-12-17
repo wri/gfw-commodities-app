@@ -171,7 +171,6 @@ define([
                 },
                 self = this;
 
-
             // Create the container for all the result
             ReportRenderer.renderTotalLossContainer(config);
             ReportRenderer.renderCompositionAnalysisLoader(config);
@@ -187,10 +186,17 @@ define([
             }
 
             function failure(error) {
+                var newFailure = function(error){
+                  deferred.resolve(false);
+                }
                 if (error.details) {
                     if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
                         content.pixelSize = 500;
                         self._computeHistogram(url, content, success, failure);
+                    } else if (error.details.length === 0) {
+                        var maxDeviation = 10;
+                        content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
+                        self._computeHistogram(url, content, success, newFailure);
                     } else {
                         deferred.resolve(false);
                     }
@@ -272,7 +278,7 @@ define([
             this._debug('Fetcher >>> getCarbonStocksResults');
             var deferred = new Deferred(),
                 config = ReportConfig.carbonStock;
-
+                console.dir(config)
             // Create the container for all the results
             // Add this config to Fires so the Fires request knows to add data here
             ReportRenderer.renderContainers(config);
@@ -430,7 +436,7 @@ define([
             return deferred.promise;
         },
 
-        // Main Query Calls Go Here
+         // Main Query Calls Go Here
 
         _getTotalLossAnalysis: function(config, useSimpleEncoderRule) {
             this._debug('Fetcher >>> _getTotalLossAnalysis');
@@ -519,7 +525,7 @@ define([
             /*
             * Some layers have special ids that need to be overwritten from the config becuase
             * the config powers multiple charts and the clearance alerts analysis is the onlyone that
-            * uses a different value, if more layers need this, five them a 'formaId' in report/config.js
+            * uses a different value, if more layers need this, give them a 'formaId' in report/config.js
             */
             if (config.formaId) {
                 config.rasterId = config.formaId;
@@ -884,8 +890,8 @@ define([
         },
 
         /*
-			Simple wrapper function for making requests to computeHistogram
-		*/
+  		 	   Simple wrapper function for making requests to computeHistogram
+  		  */
         _computeHistogram: function(url, content, callback, errback) {
             var req = esriRequest({
                 url: url + '/computeHistograms',
@@ -901,8 +907,8 @@ define([
         },
 
         /*
-			Wrapper function for logging messages
-		*/
+		 	    Wrapper function for logging messages
+		    */
         _debug: function(msg) {
             console.log(msg);
         }

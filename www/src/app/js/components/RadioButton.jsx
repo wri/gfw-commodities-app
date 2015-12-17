@@ -77,6 +77,7 @@ define([
       var className = 'layer-list-item ' +
                       this.props.filter +
                       (this.state.active ? ' active' : '') +
+											(this.props.parent ? ' indented' : '') +
                       (this.props.forceUnderline ? ' newList' : '') +
                       (this.props.visible ? '' : ' hidden');
 
@@ -88,12 +89,13 @@ define([
               {/* Used as an icon node */}
               <span />
             </span>
-            <a className='layer-title'>{this.props.title}</a>
-            { /* If this condition is met, render a layer info icon, else, render nothing */ }
+						{ /* If this condition is met, render a layer info icon, else, render nothing */ }
             {
               (this.props.title !== "None" && this.props.id !== "tcc" && !this.props.noSlider) ?
               <span onClick={this.showInfo} className='layer-info-icon' dangerouslySetInnerHTML={{__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}} /> : null
             }
+            <a className='layer-title'>{this.props.title}</a>
+
             <p className='layer-sub-title'>{this.props.subtitle}</p>
           </div>
           {

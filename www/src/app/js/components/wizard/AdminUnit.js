@@ -144,7 +144,7 @@ define([
         WizardActions.clearSelectedCustomFeatures();
         wizardGraphicsLayer.clear();
       }
-      
+
       // Update this for bookkeeping
       previousFeatureType = featureType;
 
@@ -173,7 +173,7 @@ define([
 
           // Takes URL and group name, group name will always be the targets innerHTML
           var countrySelect = document.getElementById('country-select').value;
-    
+    			console.log(countrySelect)
           AnalyzerQuery.getFeaturesByGroupNameAndCountry(config.countryBoundaries, label, countrySelect).then(function (features) {
             if (features && wizardGraphicsLayer) {
               features.forEach(function (feature) {

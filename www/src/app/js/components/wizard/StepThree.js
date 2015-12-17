@@ -13,7 +13,7 @@ define([
 
     /* Helper Functions */
     function getDefaultState() {
-      return { 
+      return {
         completed: false,
         currentSelectionLabel: getCurrentSelectionLabel()
       };
@@ -43,7 +43,7 @@ define([
             var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
             var currentStep = WizardStore.get(KEYS.userStep);
 
-            if (selectedAreaOfInterest !== 'millPointOption' && 
+            if (selectedAreaOfInterest !== 'millPointOption' &&
                      prevProps.currentStep === 2 &&
                      currentStep === 3) {
                 // Recheck requirements and update state if necessary
@@ -69,6 +69,9 @@ define([
             var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
               return feature.geometry.type === 'point';
             });
+            // <div className='coming-soon'>Mill Point Risk Assessment Coming Soon!</div>
+            // <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+            // <p className='layer-description'>{config.mill.description}</p>
 
             return (
               React.createElement("div", {className: "step select-analysis"}, 
@@ -77,8 +80,8 @@ define([
                     React.createElement("div", {className: "step-title"}, config.title), 
                     /* Show this Only If Mill Point Analysis is Being Done */
                     
-                      selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ? 
-                        this.createPointContent(hasPoints) : 
+                      selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ?
+                        this.createPointContent(hasPoints) :
                         null, 
                     
                     React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
@@ -87,10 +90,9 @@ define([
                     React.createElement("p", {className: "layer-description"}, config.rspo.description), 
                     React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden', 
                       style: { 'position': 'relative'}
-                    }, 
-                      React.createElement("div", {className: "coming-soon"}, "Mill Point Risk Assessment Coming Soon!"), 
-                      React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                      React.createElement("p", {className: "layer-description"}, config.mill.description)
+                    }
+
+
                     ), 
                     React.createElement("div", {className: "step-sub-header"}, config.forestChange.label), 
                     React.createElement("p", {className: "layer-description"}, config.forestChange.description)
@@ -122,16 +124,16 @@ define([
         createPointContent: function (hasPoints) {
 
           var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
-    
+
           var options = config.pointRadiusOptions.map(function (option) {
             return React.createElement("option", {value: option.value}, option.label);
-          });     
+          });
 
           // If it has points, render a select to choose a buffer radius
-          // If it does not have points but it is custom features, user used Create Custom Area and 
+          // If it does not have points but it is custom features, user used Create Custom Area and
           // is analyzing polygons, so show nothing, otherwise, show little description
 
-          return (hasPoints ? 
+          return (hasPoints ?
             React.createElement("div", {className: "point-radius-select-container"}, 
                 React.createElement("span", {className: "instructions"}, config.pointRadiusDescription), 
                 React.createElement("select", {ref: "pointRadiusSelect", className: "point-radius-select"}, options)
@@ -143,7 +145,10 @@ define([
         /* jshint ignore:end */
 
         _selectionMade: function(checked) {
-            this.setState({ completed: this._checkRequirements });
+          // console.log(this._checkRequirements)
+          var completed = this._checkRequirements();
+
+            this.setState({ completed: completed });
         },
 
         _checkRequirements: function() {
@@ -151,6 +156,7 @@ define([
                 nodes = document.querySelectorAll(".select-analysis .wizard-checkbox.active"),
                 selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
                 value;
+
 
             // Conditions
             // At least One item must be checked

@@ -44,9 +44,9 @@ define([], function() {
         protectedAreaColors = ["#296eaa"];
 
     // Carbon Stocks
-    var carbonStockLabels = ["0", "1 - 10", "11 - 20", "21- 35", "36 - 70", "71 - 100", "101 - 150", "151 - 200", "201 - 300", "Greater than 300"],
-        carbonStockBounds = [0, 9],
-        carbonStockColors = ["#fdffcc", "#faeeb9", "#f6ddaa", "#f4ca99", "#f1bc8b", "#eca97a", "#e89c6f", "#e08b5e", "#db7c54", "#d56f4a"];
+    var carbonStockLabels = ["1-19", "20 - 79", "Greater than 80"],//["0", "1 - 10", "11 - 20", "21- 35", "36 - 70", "71 - 100", "101 - 150", "151 - 200", "201 - 300", "Greater than 300"],
+        carbonStockBounds = [0,2],//[0, 9],
+        carbonStockColors = ["#fdffcc","#f1bc8b","#d56f4a"];//["#fdffcc", "#faeeb9", "#f6ddaa", "#f4ca99", "#f1bc8b", "#eca97a", "#e89c6f", "#e08b5e", "#db7c54", "#d56f4a"];
 
     // Intact Forests
     var intactForestLabels = ["Intact Forest"],
@@ -174,7 +174,7 @@ define([], function() {
         },
 
         millPoints: {
-            url: 'http://update.risk-api.appspot.com/',
+            url: 'http://api.risk-api.appspot.com/',
             title: 'Palm Oil Mill Risk Assessment',
             rootNode: 'millPoints'
         },
@@ -412,7 +412,7 @@ define([], function() {
         carbonStock: {
             rootNode: "carbonStocks",
             title: "Forest Carbon Stocks",
-            rasterId: "$1",
+            rasterId: "$524",
             bounds: carbonStockBounds,
             labels: carbonStockLabels,
             clearanceChart: {
@@ -422,6 +422,17 @@ define([], function() {
             lossChart: {
                 title: "Annual Tree Cover Loss (in hectares) on Forest Carbon Stocks (Mg C /Ha)",
                 removeBelowYear: 2005
+            },
+            includeFormaIdInRemap: true,
+            formaId: "$15",
+            rasterRemap: {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": {
+                    "InputRanges": [1, 20, 20, 80, 80, 370],
+                    "OutputValues": [0, 1, 2],
+                    "Raster": "$524",
+                    "AllowUnmatched": false
+                }
             },
             colors: carbonStockColors,
             fireKey: 'carbonStock' // Key to the Fires Config for items related to this
@@ -562,6 +573,7 @@ define([], function() {
                 labels: carbonStockLabels,
                 bounds: carbonStockBounds,
                 colors: carbonStockColors,
+
                 title: 'Active Fires by Forest Carbon Stocks over the past 7 days',
                 badgeDesc: 'on forest carbon stocks out of'
             },

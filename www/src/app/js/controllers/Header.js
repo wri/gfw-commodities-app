@@ -23,14 +23,15 @@ define([
             if (initialized) {
                 return;
             }
-            this.addSubscriptionDialog();
 
             // This is most likely the culprit for why gfw-assets must be loaded in the footer after this content
             // is injected
             dom.byId("app-header").innerHTML = dom.byId("app-header").innerHTML + template;
 
             this.bindEvents();
+
             initialized = true;
+
         },
 
         setState: function(newState) {
@@ -79,11 +80,18 @@ define([
             }
 
             $("#learnMoreItem").mouseenter(handlerIn).mouseleave(handlerOut);
+
+            setTimeout(function () {
+              $("#footerSelecter").click(function() {
+                self.addSubscriptionDialog();
+              });
+            }, 200);
+
         },
 
         changeNavItemAbout: function(node, context) {
                 query(".nav-item-a.selected ").forEach(function(selectedDiv){
-                    
+
                     if(selectedDiv.parentElement.id.indexOf(context) > -1){
 
                         domClass.remove(selectedDiv, "selected");
@@ -91,18 +99,18 @@ define([
                         domClass.remove(selectedDiv.parentElement.id.match(/(.*)Nav/)[1], "selected");
                     }
                 });
-                
+
                 var state = ioQuery.queryToObject(hash());
 
                 //if we're on the about page already, dont reset view
                 if (state.v != "about") {
-                    Hasher.setHash("v", "about"); 
+                    Hasher.setHash("v", "about");
                     Hasher.setHash("n", node['dataset'].src);
-                    
+
                 } else {
                     Hasher.setHash("n", node['dataset'].src);
                 }
-                
+
                 var replacementNode;
                 switch (node['dataset'].src) {
                     case "GFW":
@@ -125,20 +133,20 @@ define([
                         break;
                 }
 
-                
+
 
                 if (replacementNode[0]) {
                    // //if node matches #, set to selected
                     if (node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
-                        
+
                         domClass.add(replacementNode[0].children[0], "selected");
                         domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
                         domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], "selected");
                         // needsDefaults = false;
                         // activeNode = replacementNode[0].children[0];
-                    } 
+                    }
                 }
-                
+
 
             },
 
@@ -206,26 +214,28 @@ define([
         },
 
         addSubscriptionDialog: function() {
+            this.dialog2 = new Dialog({
+                style: 'width: 300px; text-align: center;'
+            });
+            var self = this;
+            var content = '<p>To sign up for tree clearance or fire alerts go to the <span id="goToMapFromDialog">Map</span>, turn on a data layer from the Forest Use or Conservation drop-down tabs, select an area on the map, and click "Subscribe".</p>';
 
-            var dialog2 = new Dialog({
-                    style: 'width: 300px; text-align: center;'
-                }),
-                self = this,
-                content = "<p>To sign up for clearance or fire alerts, go to the Map and select an area to analyze. You can sign up for alerts on that area through the Subscribe button on the analysis report.</p>";
+            this.dialog2.setContent(content);
 
-            dialog2.setContent(content);
-            $("#dijit_Dialog_0 > div.dijitDialogPaneContent").html(function(index, value) {
-                return value.replace(/\b(Map)\b/g, '<a style="cursor:pointer;color:#e98300;"><strong>Map</strong></a>');
+            $("#goToMapFromDialog").css("color", "#e98300");
+            $("#goToMapFromDialog").css("cursor", "pointer");
+            $("#goToMapFromDialog").css("font-weight", "bold");
+
+            $("#goToMapFromDialog").click(function(){
+              self.dialog2.destroy();
+              self.updateView("map", false, true);
+
             });
 
             $("#dijit_Dialog_0 > div.dijitDialogPaneContent").css("margin-top", "-30px");
             $("#dijit_Dialog_0 > div.dijitDialogPaneContent").css("margin-bottom", "-10px");
 
-            query("#app-footer > div.footerModesContainer > div > div > div:nth-child(2) > div > div:nth-child(5) > a").forEach(function(item) {
-                on(item, "click", function(evt) {
-                    dialog2.show();
-                });
-            });
+            this.dialog2.show();
 
         }
 

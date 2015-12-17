@@ -5,13 +5,16 @@ border-radius()
 	-webkit-border-radius arguments
 
 baseGray = #e6e6e6
+borderGray = #CCCCCC
 lightGrayFont = #747474
 mediumGray = #888
 redButton = #F44
 orangeButton = rgb(233, 131, 0)
-high = #e4132c
-medium = #f4820d
 low = #78c1dc
+mediumLow = #ffcc66
+medium = #f4820d
+mediumHigh = #e4132c
+high = #990000
 
 .gfw .loading-wheel
 	background url('images/loader.gif')
@@ -222,8 +225,72 @@ low = #78c1dc
 
 .gfw .mill-table-container th,
 .gfw .mill-table-container td
-	border 1px solid baseGray
+	border 1px solid borderGray
 	padding 5px
+
+.gfw .mill-table-header-v2
+	margin 0 auto !important
+
+.gfw .mill-table-header-v2 td,
+.gfw .mill-table-container-v2 td
+	width 10%
+	border: 1px solid borderGray !important
+	font-size 12px
+	font-weight normal
+
+.gfw .mill-table-container-v2 td.mill_name
+	font-weight bold
+
+.gfw .mill-table-header-v2 td.span-60
+	width 60%
+	font-weight bold
+	background: baseGray
+
+.gfw .mill-table-header-v2 td
+	background baseGray
+	color #000
+
+.gfw .single-mill-header,
+.gfw .single-mill-table-header-v2,
+.gfw .single-mill-table-content-v2
+	width 750px !important
+
+.gfw .single-mill-table-header-v2 .single-mill-header th
+	background #fff;
+	border-top 0 !important
+	border-left 0 !important
+	border-right 0 !important
+	padding 10px 0 0 6px
+
+.gfw .single-mill-header .title
+	margin-bottom 0
+	font-size 20px
+	padding-left 8px
+
+.gfw .single-mill-table-header-v2 th,
+.gfw .single-mill-table-content-v2 thead
+	background baseGray
+
+.gfw .single-mill-table-header-v2 th,
+.gfw .single-mill-table-header-v2 td
+	width 20%
+	text-align left
+	font-size 12px
+	border: 1px solid #ccc !important;
+
+.gfw .single-mill-table-header-v2 th,
+.gfw .single-mill-table-content-v2 th
+	text-align left
+	font-size 14px
+
+.gfw .single-mill-table-content-v2 td
+	width 125px
+	text-align left
+	font-size 12px
+
+.gfw .single-mill-table-content-v2 thead td
+	font-weight bold
+
 
 .gfw .mill-table-container tr.data-row td:nth-child(3),
 .gfw .mill-table-container tr.data-row td:nth-child(5)
@@ -318,6 +385,16 @@ low = #78c1dc
 .gfw .high .large-swatch,
 .gfw .high .small-swatch
 	background-color high
+
+.gfw .medium.high .large-swatch,
+.gfw .medium.high .small-swatch
+	background-color mediumHigh
+
+.gfw .medium.low .large-swatch,
+.gfw .medium.low .small-swatch
+	background-color mediumLow
+
+
 
 .gfw .value-toggle
 	position absolute

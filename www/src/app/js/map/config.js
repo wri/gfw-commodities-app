@@ -30,9 +30,9 @@ define([], function() {
 
         mapOptions: {
             basemap: 'gray',
-            centerX: 114,
-            centerY: 3,
-            zoom: 5,
+            centerX: 4,//114,
+            centerY: 5,//3,
+            zoom: 3,//5,
             sliderPosition: "top-right"
         },
 
@@ -339,11 +339,23 @@ define([], function() {
         mill: {
             id: 'forestUse_commodities',
             url: dynamicMapServiceUrlComm,
-            layerId: 6,
+            layerId: 27,
+            query: 'certificat = \'RSPO Certified\'',
             infoTemplate: {
-                content: "<table><tr><td>Parent Company:</td><td>${Parent_Com}</td></tr>" +
-                    "<tr><td>Mill Name:</td><td>${Mill_name}</td></tr>" +
-                    "<tr><td>RSPO Certified:</td><td>${RSPO_Certi}</td></tr></table>"
+                content: "<table><tr><td>Parent Company:</td><td>${group_name}</td></tr>" +
+                    "<tr><td>Mill Name:</td><td>${mill_name_}</td></tr>" +
+                    "<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>"
+            }
+        },
+        gfwMill: {
+            id: 'forestUse_commodities',
+            url: dynamicMapServiceUrlComm,
+            layerId: 27,
+            query: 'certificat = \'None\'',
+            infoTemplate: {
+                content: "<table><tr><td>Parent Company:</td><td>${group_name}</td></tr>" +
+                    "<tr><td>Mill Name:</td><td>${mill_name_}</td></tr>" +
+                    "<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>"
             }
         },
         pal: {
@@ -375,6 +387,12 @@ define([], function() {
         },
 
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
+
+        responsibleSoy: { // Oil Palm Suitability Default
+            id: "productionSuitability",
+            url: dynamicMapServiceUrlComm,
+            layerId: 28
+        },
         opsd: { // Oil Palm Suitability Default
             id: "productionSuitability",
             url: dynamicMapServiceUrlComm,
@@ -420,6 +438,7 @@ define([], function() {
             url: dynamicMapServiceUrlComm,
             layerId: 15
         },
+
         /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER AGRICULTURAL SUITABILITY *****/
 
         /***
@@ -656,7 +675,7 @@ define([], function() {
                 parent: "newConcessions",
                 endChild: true
             }, {
-                kids: ["mill"],
+                kids: ["mill", "gfwMill"],
                 id: "newInfrastructure",
                 title: "Infrastructure",
                 filter: "forest-use",
@@ -664,12 +683,21 @@ define([], function() {
                 layerType: "dynamic"
             }, {
                 id: "mill",
-                title: "Palm Oil Mills",
+                title: "RSPO Palm Oil Mills",
                 subtitle: "(varies, select countries)",
                 filter: "forest-use",
                 type: "check",
                 layerType: "dynamic",
                 infoDivClass: "land-use-mill-points",
+                parent: "newInfrastructure"
+            }, {
+                id: "gfwMill",
+                title: "Palm Oil Mills",
+                subtitle: "(varies, select countries)",
+                filter: "forest-use",
+                type: "check",
+                layerType: "dynamic",
+                infoDivClass: "land-use-gfw-mill-points",
                 parent: "newInfrastructure",
                 endChild: true
             }, {
@@ -732,11 +760,35 @@ define([], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'conservation-biodiversity-hotspots'
             }, {
+                kids: ["responsibleSoy"],
+                id: "soyBean",
+                title: "Soybean",
+                filter: "agro-suitability",
+                type: "check",
+                layerType: "dynamic"
+            }, {
+                id: "responsibleSoy",
+                title: "RTRS Guides for Responsible Soy Expansion",
+                subtitle: "",
+                filter: "agro-suitability",
+                type: "radio",
+                layerType: "image",
+                parent: "soyBean",
+                infoDivClass: "suitability-soy-layer"
+            }, {
+                kids: ["suit","opsd","cons","elev","slope","rain","soilDr","soilDe","soilAc","soilTy"],
+                id: "oilPalm",
+                title: "Oil Palm",
+                filter: "agro-suitability",
+                type: "check",
+                layerType: "dynamic"
+            }, {
                 id: "suit",
                 title: "Custom Suitability Map",
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "check",
+                parent: "oilPalm",
                 layerType: "image",
                 infoDivClass: "suitability-custom-suitability-mapper"
             }, {
@@ -745,6 +797,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-wri-standard-suitability"
             }, {
@@ -753,6 +806,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-conservation-areas"
             }, {
@@ -761,6 +815,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-elevation"
             }, {
@@ -769,6 +824,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-slope"
             }, {
@@ -777,6 +833,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-rainfall"
             }, {
@@ -785,6 +842,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-drainage"
             }, {
@@ -793,6 +851,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-depth"
             }, {
@@ -801,6 +860,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-acidity"
             }, {
@@ -809,6 +869,7 @@ define([], function() {
                 subtitle: "",
                 filter: "agro-suitability",
                 type: "radio",
+                parent: "oilPalm",
                 layerType: "dynamic",
                 infoDivClass: "suitability-soil-type"
             }
