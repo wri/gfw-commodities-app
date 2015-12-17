@@ -184,7 +184,7 @@ define([
             layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
             if (layer) {
               layer.hide();
-            }            
+            }
         },
 
         _close: function() {
@@ -252,7 +252,7 @@ define([
           // Get the point radius incase we need it, we may not
           // if it's not set for some reason, default to 50km
           var pointRadius = WizardStore.get(KEYS.analysisPointRadius) || 50;
-          var geometries = []; 
+          var geometries = [];
 
           // If its not an array, force it into an array so I dont need two separate
           // blocks of code to prepare the geometry, this can and should be removed once
@@ -293,7 +293,7 @@ define([
 
         },
 
-        // External Function to Help determine what state the wizard is in, could be useful 
+        // External Function to Help determine what state the wizard is in, could be useful
         // for handling various layers and other functions when toggling the wizard or jumping around
         // Leverage some of the published functions for layers, see delegator
         _getStepAndActiveArea: function() {

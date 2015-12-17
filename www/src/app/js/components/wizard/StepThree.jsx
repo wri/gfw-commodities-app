@@ -69,6 +69,9 @@ define([
             var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
               return feature.geometry.type === 'point';
             });
+            // <div className='coming-soon'>Mill Point Risk Assessment Coming Soon!</div>
+            // <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+            // <p className='layer-description'>{config.mill.description}</p>
 
             return (
               <div className='step select-analysis'>
@@ -88,9 +91,8 @@ define([
                     <div className={selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden'}
                       style={{ 'position': 'relative' }}
                     >
-                      
-                      <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
-                      <p className='layer-description'>{config.mill.description}</p>
+
+
                     </div>
                     <div className='step-sub-header'>{config.forestChange.label}</div>
                     <p className='layer-description'>{config.forestChange.description}</p>
