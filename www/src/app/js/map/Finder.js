@@ -157,7 +157,7 @@ define([
                     console.log(item.layer)
 
                     switch (item.layer) {
-                        
+
                         case "Fires":
                             features = features.concat(self.setFireTemplates(item.features));
                             break;
@@ -472,7 +472,7 @@ define([
             var template,
                 features = [],
                 self = this;
-                
+
 
             arrayUtils.forEach(featureObjects, function(item) {
                 console.log(item.layerId)
@@ -517,7 +517,7 @@ define([
                     if (features.filter(function(f) {return f.attributes.wri_id === item.feature.attributes.wri_id}).length === 0) {
                       features.push(item.feature);
                     }
-                } 
+                }
             });
             return features;
         },
@@ -526,10 +526,10 @@ define([
             var template,
                 features = [],
                 self = this;
-                
+
 
             arrayUtils.forEach(featureObjects, function(item) {
-                console.log(item.layerId) // 0,1,2,3 
+                console.log(item.layerId) // 0,1,2,3
                 if (item.layerId === 0) {
                     template = new InfoTemplate(item.value,
                         MapConfig.oilPerm.infoTemplate.content +
@@ -558,8 +558,8 @@ define([
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
                 } else if (item.layerId === 2) {
-                    // debugger
-                    template = new InfoTemplate(item.value,
+                    
+                    template = new InfoTemplate(item.feature.attributes.Company,//item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='Mining concession' data-id='${OBJECTID}'>" +
