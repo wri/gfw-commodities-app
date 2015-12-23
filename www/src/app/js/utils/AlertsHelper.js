@@ -15,11 +15,11 @@ define([
       alertsDialog,
       KEYS = AnalyzerConfig.STORE_KEYS,
       GENERIC_LAYER_IDS = {
-        'Logging concession': 10,
-        'Mining concession': 26,
-        'Wood fiber plantation': 28,
-        'Oil palm concession': 32,
-        'RSPO Oil palm concession': 27
+        'Logging concession': 3,
+        'Mining concession': 2,
+        'Wood fiber plantation': 0,
+        'Oil palm concession': 1//,
+        //'RSPO Oil palm concession': 27
       },
       _isOpen = false,
       _initAlertsDialog,
@@ -112,7 +112,9 @@ define([
           isCustomGraphic = (target.dataset ? target.dataset.type : target.getAttribute('data-type')) === 'CustomGraphic';
 
       self._getFeatureFromPopup(event).then(function (response) {
+
         if (response) {
+          
           WizardStore.set(KEYS.alertsDialogActive, true);
           WizardStore.set(KEYS.selectedCustomFeatures, isCustomGraphic ? [response] : []);
           WizardStore.set(KEYS.selectedPresetFeature, isCustomGraphic ? null : response);

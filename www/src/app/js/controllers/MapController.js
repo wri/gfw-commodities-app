@@ -454,6 +454,7 @@ define([
               var selectedFeatures = WizardStore.get('selectedCustomFeatures'),
                   extent;
 
+
               if (selectedFeatures.length > 0) {
                 map.map.setExtent(graphicsUtils.graphicsExtent(selectedFeatures), true);
               }

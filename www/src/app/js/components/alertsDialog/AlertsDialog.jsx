@@ -69,6 +69,7 @@ define([
 
       WizardStore.registerCallback(KEYS.selectedPresetFeature, function () {
         this.setState({presetFeature: WizardStore.get(KEYS.selectedPresetFeature)});
+
       }.bind(this));
 
       if (WizardStore.get(KEYS.alertsDialogActive) === true) {
@@ -83,15 +84,19 @@ define([
           featuresContainsPoint,
           disable,
           disableConditions,
+          hiddenConditions,
           radiusSelect;
 
       if (presetFeature !== null) {
+
         featuresContainsPoint = presetFeature.geometry.type === 'point';
         selection = presetFeature.attributes.WRI_label ||
                     presetFeature.attributes.Name ||
+                    presetFeature.attributes.name ||
                     presetFeature.attributes.NAME ||
                     presetFeature.attributes.Mill_name ||
                     TEXT.noSelection;
+
       } else {
         featuresContainsPoint = _.find(features, function (feature) {return feature.geometry.type === 'point'}) ? true : false;
         selection = features.length > 0 ? features.map(function (feature) {return feature.attributes.WRI_label}).join(', ') : TEXT.noSelection;
@@ -110,6 +115,9 @@ define([
           </div>
         )
       }
+      hiddenConditions = [
+        selection === TEXT.noSelection
+      ]
 
       disableConditions = [
         features.length === 0 && presetFeature === null,
@@ -117,7 +125,9 @@ define([
         this.state.email.trim().length === 0,
         !validate.isEmailAddress(this.state.email),
         this.state.forma !== true && this.state.fires !== true
+
       ]
+
       disabled = disableConditions.indexOf(true) > -1;
 
       pbId1 = 'pb_' + _.random(1,100).toString();
@@ -164,7 +174,7 @@ define([
               </div>
               <div className='text-left margin__bottom margin--small__wide'>
                 <input id={subscriptionNameId} className='border-medium-gray border-radius' maxLength={toString(Config.MAX_INPUT_CHARS)} type='text' onChange={this._formChange} value={this.state.subscriptionName} placeholder={TEXT.subscriptionPlaceholder} />
-                <button className='margin__left font-16px text-white back-orange no-border border-radius' onClick={this._setDefaultSubscriptionName} disabled={disableConditions[0]}>{TEXT.subscriptionDefaultLabel}</button>
+                <button className='margin__left font-16px text-white back-orange no-border border-radius' onClick={this._setDefaultSubscriptionName} disabled={disableConditions[0]} style={{display: hiddenConditions[0] ? 'none' : 'inline-block'}}>{TEXT.subscriptionDefaultLabel}</button>
               </div>
               <div className='margin--small__wide font-12px text-red margin__top' style={{visibility: disableConditions[3] ? 'visible' : 'hidden'}}>
                 {TEXT.requiredLabels.email}

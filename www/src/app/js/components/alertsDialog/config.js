@@ -19,7 +19,7 @@ define([
       forma: 'Monthly Clearance Alerts',
       fires: 'Fire Alerts',
       selectionLabel: 'Selection:',
-      noSelection: 'none',
+      noSelection: 'No name available',
       subscriptionPlaceholder: 'Subscription name',
       subscriptionDefaultLabel: 'Use default name',
       emailPlaceholder: 'your_email@example.com',

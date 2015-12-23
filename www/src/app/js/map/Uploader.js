@@ -112,7 +112,7 @@ define([
                         }
 
                         // Emit Event for Analytics
-                        Analytics.sendEvent('Event', 'Upload Data', 'User uploaded CSV.', items);
+                        Analytics.sendEvent('Event', 'Upload Data', 'User uploaded CSV.', 1);
 
                         attributes = store.getAttributes(items[0]);
 
@@ -152,7 +152,7 @@ define([
 
 
 
-            // Split the extension off using the . 
+            // Split the extension off using the .
             filename = filename.split('.');
 
             //Chrome and IE add c:\fakepath to the value - we need to remove it
@@ -208,7 +208,7 @@ define([
                 self = this;
 
             // Emit Event for Analytics
-            Analytics.sendEvent('Event', 'Upload Data', 'User uploaded zip file.', res);
+            Analytics.sendEvent('Event', 'Upload Data', 'User uploaded zip file.', 1);
 
             // Create a store of data
             // Currently this upload only takes the first layer of a shapefile
