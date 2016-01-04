@@ -58,9 +58,15 @@ define([], function() {
         peatLandsBounds = [0, 1],
         peatLandsColors = ["#161D9C"];
 
-    var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Open broadleaved forest", "Closed broadleaved forest", "Open needleleaved forest", "Closed needleleaved forest", "Open mixed forest", "Mixed forest and grassland", "Grassland / shrub", "Flooded forest", "Wetland", "Settlements", "Bare land", "Water bodies", "Snow / ice", "No data"],
-        lcGlobalBounds = [1, 16],
-        lcGlobalColors = ["#E0A828", "#8BFB3B", "#51952F", "#287310", "#B6D6A1", "#89C364", "#888749", "#B98D5A", "#FFFEC1", "#19A785", "#689AA7", "#FCB7CB", "#D3CE63", "#77B5FC", "#FFFFFF", "#B3B3B3"];
+
+  var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Secondary forest", "Primary forest", "Mixed forest and grassland", "Grassland / shrub", "Swamp", "Settlements", "Bare land", "Water bodies", "Snow / ice"],
+      lcGlobalBounds = [1, 11],
+      lcGlobalColors = ["#E0A828", "#8BFB3B", "#D4FEC0", "#76B276", "#B98D5A", "#FFFEC1", "#689AA7", "#FCB7CB", "#D3CE63", "#77B5FC", "#FFFFFF"];
+
+
+    // var lcGlobalLabels = ["Agriculture", "Mixed agriculture and forest", "Open broadleaved forest", "Closed broadleaved forest", "Open needleleaved forest", "Closed needleleaved forest", "Open mixed forest", "Mixed forest and grassland", "Grassland / shrub", "Flooded forest", "Wetland", "Settlements", "Bare land", "Water bodies", "Snow / ice", "No data"],
+    //     lcGlobalBounds = [1, 16],
+    //     lcGlobalColors = ["#E0A828", "#8BFB3B", "#51952F", "#287310", "#B6D6A1", "#89C364", "#888749", "#B98D5A", "#FFFEC1", "#19A785", "#689AA7", "#FCB7CB", "#D3CE63", "#77B5FC", "#FFFFFF", "#B3B3B3"];
 
     var lcAsiaLabels = ["Agriculture", "Agroforestry", "Fish pond", "Grassland / Shrub", "Mining", "Oil Palm Plantation", "Primary Forest", "Rubber Plantation", "Secondary Forest", "Settlements", "Swamp", "Timber Plantation", "Water Bodies"],
         lcAsiaBounds = [1, 13],
@@ -486,7 +492,7 @@ define([], function() {
         landCoverGlobal: {
             rootNode: 'globalLandCover',
             title: 'Land Cover - Global',
-            rasterId: '$525',
+            rasterId:  '$544',//'$525',
             bounds: lcGlobalBounds,
             labels: lcGlobalLabels,
             clearanceChart: {
@@ -497,6 +503,8 @@ define([], function() {
                 title: 'Annual Tree Cover Loss (in hectares) on Land Cover - Global',
                 removeBelowYear: 2004
             },
+            // includeFormaIdInRemap: true,
+            formaId: "$22",
             colors: lcGlobalColors,
             fireKey: 'landCoverGlobal' // Key to the Fires Config for items related to this
         },
