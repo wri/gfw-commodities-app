@@ -133,6 +133,9 @@ define([], function() {
                 label: 'Forest Carbon Stocks',
                 value: 'carbon'
             }, {
+                label: 'Brazil Biomes',
+                value: 'biomes'
+            }, {
                 label: 'Intact Forests',
                 value: 'intact'
             }, {
@@ -237,7 +240,7 @@ define([], function() {
                 outFields: ["NAME_0"],
                 orderBy: ["NAME_0"],
                 groupBy: ["NAME_0"],
-                statistic: { // This is necessary to support the groupBy, cannot currently groupBy without statisticsQuery :( 
+                statistic: { // This is necessary to support the groupBy, cannot currently groupBy without statisticsQuery :(
                     "statisticType": 'count',
                     "onStatisticField": 'OBJECTID',
                     "outStatisticFieldName": 'OBJECTID'

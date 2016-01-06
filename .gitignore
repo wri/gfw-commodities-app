@@ -10,3 +10,4 @@ www/src/app/css/*.css
 /notes.txt
 .module-cache
 *.swp
+.htaccess

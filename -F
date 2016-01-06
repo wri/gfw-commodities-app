@@ -1,0 +1,16 @@
+New production build for moratorium info
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch Moratorium-Info-Icons
+# Changes to be committed:
+#	modified:   build/app/bootloader.js
+#	modified:   build/app/js/bundle.js
+#	modified:   build/app/js/report/ReportLoader.js
+#	modified:   build/app/libs/html5shiv.js
+#	modified:   build/app/libs/ionrangeslider/js/ion.rangeSlider.min.js
+#	modified:   build/app/templates/data.html
+#	modified:   build/index.html
+#	modified:   src/app/bootloader.js
+#	modified:   src/index.html
+#

@@ -62,6 +62,7 @@ define([
             ], function(Dialog, Lang) {
 
                 var contentClone = Lang.clone(content);
+
                 var node = contentClone.querySelector(".source_body");
 
                 if (node.querySelector(".source_extended")) {
