@@ -301,6 +301,23 @@ define([
 
         },
 
+        updateLossImageServiceRasterFunction: function(values, layerConfig, densityRange) {
+
+            var layer = app.map.getLayer(layerConfig.id),
+                outRange = [1],
+                rasterFunction,
+                range;
+
+            if (layer) {
+                // range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
+                range = [values[0] + 2001, values[1] + 2001];
+                rasterFunction = this.getColormapLossRasterFunction(layerConfig.colormap, range, outRange, densityRange);
+                layer.setRenderingRule(rasterFunction);
+
+            }
+
+        },
+
         updateImageServiceRasterFunction: function(values, layerConfig) {
 
             var layer = app.map.getLayer(layerConfig.id),
@@ -317,8 +334,8 @@ define([
                 // if they are 3,4 then use 4,6
                 if (layerConfig.id === 'FormaAlerts') {
                     var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
-                    range = [1,1,values[0] + 1,finalValue];
-                    outRange = [0,1];
+                    range = [1, 1, values[0] + 1, finalValue];
+                    outRange = [0, 1];
                 } else {
                     range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
                 }
@@ -346,21 +363,50 @@ define([
 
         },
 
-        getColormapRasterFunction: function(colormap, range, outRange) {
+        getColormapLossRasterFunction: function(colormap, range, outRange, densityRange) {
+          console.log(range)
+          console.log(densityRange)
             return new RasterFunction({
-                "rasterFunction": "Colormap",
-                "rasterFunctionArguments": {
-                    "Colormap": colormap,
-                    "Raster": {
-                        "rasterFunction": "Remap",
-                        "rasterFunctionArguments": {
-                            "InputRanges": range,
-                            "OutputValues": outRange,
-                            "AllowUnmatched": false
+                // 'rasterFunction': 'Colormap',
+                // 'rasterFunctionArguments': {
+                //     'Colormap': colormap,
+                //     'Raster': {
+                //         'rasterFunction': 'ForestCover_lossyear_density',
+                //         'rasterFunctionArguments': {
+                //             'min_year': range[0],
+                //             'max_year': range[1],
+                //             'min_density': densityRange[0],
+                //             'max_density': densityRange[1]
+                //         }
+                //     }
+                // },
+                // 'variableName': 'Raster'
+                'rasterFunction': 'ForestCover_lossyear_density',
+                'rasterFunctionArguments': {
+                    'min_year': range[0],
+                    'max_year': range[1],
+                    'min_density': densityRange[0],
+                    'max_density': densityRange[1]
+                }
+            });
+        },
+
+        getColormapRasterFunction: function(colormap, range, outRange) {
+
+            return new RasterFunction({
+                'rasterFunction': 'Colormap',
+                'rasterFunctionArguments': {
+                    'Colormap': colormap,
+                    'Raster': {
+                        'rasterFunction': 'Remap',
+                        'rasterFunctionArguments': {
+                            'InputRanges': range,
+                            'OutputValues': outRange,
+                            'AllowUnmatched': false
                         }
                     }
                 },
-                "variableName": "Raster"
+                'variableName': 'Raster'
             });
         },
 

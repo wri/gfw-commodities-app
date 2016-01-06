@@ -10,20 +10,21 @@ define([], function() {
         dynamicMapServiceUrlLand = "http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer",
         treeCoverGainUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
+        // treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
+        treeCoverLossUrl = 'http://54.151.10.85:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
         protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/wdpa_protected_areas_cached/MapServer",
-        protectedAreasHelperUrl = "http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer",
+        // protectedAreasHelperUrl = "http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer",
         mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
-        primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
+        // primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
         customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
         biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/MapServer',
-        geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer',
-        brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
+        geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
+        // brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
 
     return {
         geometryServiceUrl: geometryServiceUrl,

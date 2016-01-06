@@ -1,8 +1,9 @@
 define([
   "dojo/on",
   "map/MapModel",
+  "map/config",
   "map/LayerController"
-], function (on, MapModel, LayerController) {
+], function (on, MapModel, MapConfig, LayerController) {
   "use strict";
 
   var tcdSlider,
@@ -44,6 +45,12 @@ define([
         // Update the Value in the Model
         MapModel.set('tcdDensityValue', data.from_value);
         LayerController.updateTCDRenderingRule(data.from_value);
+
+        var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
+        var densityRange = [data.from_value, data.to_value];
+        var from = treeCoverLoss.renderingRule.functionArguments.min_year - 2001;
+        var to = treeCoverLoss.renderingRule.functionArguments.max_year - 2001;
+        LayerController.updateLossImageServiceRasterFunction([from, to], MapConfig.loss, densityRange);
       }
     }
 

@@ -52,7 +52,15 @@ define([
     * Called when the user drags a thumb on the slider or update is called programmatically
     */
     change: function (data) {
-      LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.loss);
+      var densityRange;
+      var treeCoverDensity = app.map.getLayer(MapConfig.tcd.id);
+      if (treeCoverDensity.renderingRule.functionArguments) {
+        densityRange = treeCoverDensity.renderingRule.functionArguments.Raster.rasterFunctionArguments.InputRanges;
+      } else {
+        densityRange = [30, 101]; //MapConfig.tcdModal.densityValue for first arguement
+      }
+
+      LayerController.updateLossImageServiceRasterFunction([data.from, data.to], MapConfig.loss, densityRange);
     },
 
     playToggle: function () {
@@ -62,7 +70,7 @@ define([
         state.isPlaying = false;
         clearInterval(playInterval);
         playButton.html(config.playHtml);
-      };
+      }
 
       if (state.isPlaying) {
         stopPlaying();

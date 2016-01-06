@@ -127,8 +127,6 @@ define([
                 }
 
                 var forestUse = map.map.getLayer('forestUse_commodities');
-                console.log(map.map.layerIds.length)
-                console.log(map.map.graphicsLayerIds.length)
 
                 map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
 
@@ -538,7 +536,7 @@ define([
             // Hasher.toggleLayers('loss');
 
 
-            var centerChangeByUrl = ((parseFloat(state.x) != x) || (parseFloat(state.y) != y) || (parseInt(state.l) != l));
+            var centerChangeByUrl = ((parseFloat(state.x) !== x) || (parseFloat(state.y) !== y) || (parseInt(state.l) !== l));
             //console.log(centerChangeByUrl + " " + state.y + " " + state.x);
             if (centerChangeByUrl) {
                 //o.mapExtentPausable.pause();

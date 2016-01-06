@@ -191,12 +191,12 @@ define([
                 production_commodities,
 
 
-                primaryForestLayer,
-                forestCoverLayer,
-                forestCoverParams,
-                forestCoverCommoditiesParams,
-                forestUseLayer,
-                forestUseParams,
+                // primaryForestLayer,
+                // forestCoverLayer,
+                // forestCoverParams,
+                // forestCoverCommoditiesParams,
+                // forestUseLayer,
+                // forestUseParams,
                 protectAreasLayer,
                 protectAreasHelperParams,
                 protectAreasHelper,
@@ -205,14 +205,14 @@ define([
                 mapOverlaysLayer,
                 mapOverlaysParams,
                 customGraphicsLayer,
-                adminBoundariesParams,
-                adminBoundariesLayer,
+                // adminBoundariesParams,
+                // adminBoundariesLayer,
                 wizardDynamicParams,
                 wizardDynamicLayer,
                 bioDiversityParams,
                 bioDiversityLayer,
 
-                primaryParams,
+                // primaryParams,
                 wizardGraphicsLayer,
                 self = this;
 
@@ -264,19 +264,26 @@ define([
 
             lossParams = new ImageServiceParameters();
             lossParams.renderingRule = new RasterFunction({
-                "rasterFunction": "Colormap",
-                "rasterFunctionArguments": {
-                    "Colormap": MapConfig.loss.colormap,
-                    "Raster": {
-                        "rasterFunction": "Remap",
-                        "rasterFunctionArguments": {
-                            "InputRanges": MapConfig.loss.defaultRange,
-                            "OutputValues": [1],
-                            "AllowUnmatched": false
-                        }
-                    }
-                },
-                "variableName": "Raster"
+                // "rasterFunction": "Colormap",
+                // "rasterFunctionArguments": {
+                //     "Colormap": MapConfig.loss.colormap,
+                //     "Raster": {
+                //         "rasterFunction": "Remap",
+                //         "rasterFunctionArguments": {
+                //             "InputRanges": MapConfig.loss.defaultRange,
+                //             "OutputValues": [1],
+                //             "AllowUnmatched": false
+                //         }
+                //     }
+                // },
+                // "variableName": "Raster"
+                'rasterFunction': 'ForestCover_lossyear_density',
+                'rasterFunctionArguments': {
+                    'min_year': MapConfig.loss.defaultRange[0] + 2000,
+                    'max_year': MapConfig.loss.defaultRange[1] + 2000,
+                    'min_density': 30,
+                    'max_density': 101
+                }
             });
 
             lossLayer = new ArcGISImageServiceLayer(MapConfig.loss.url, {
