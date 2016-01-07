@@ -263,6 +263,7 @@ define([
             });
 
             lossParams = new ImageServiceParameters();
+            lossParams.interpolation = 'RSP_NearestNeighbor';
             lossParams.renderingRule = new RasterFunction({
                 // "rasterFunction": "Colormap",
                 // "rasterFunctionArguments": {
@@ -282,7 +283,7 @@ define([
                     'min_year': MapConfig.loss.defaultRange[0] + 2000,
                     'max_year': MapConfig.loss.defaultRange[1] + 2000,
                     'min_density': 30,
-                    'max_density': 101
+                    'max_density': 100
                 }
             });
 
@@ -290,6 +291,7 @@ define([
                 imageServiceParameters: lossParams,
                 id: MapConfig.loss.id,
                 visible: false,
+                // interpolation: 'RSP_NearestNeighbor',//INTERPOLATION_NEARESTNEIGHBOR
                 opacity: 1
             });
 

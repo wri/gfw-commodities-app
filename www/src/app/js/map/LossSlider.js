@@ -57,7 +57,7 @@ define([
       if (treeCoverDensity.renderingRule.functionArguments) {
         densityRange = treeCoverDensity.renderingRule.functionArguments.Raster.rasterFunctionArguments.InputRanges;
       } else {
-        densityRange = [30, 101]; //MapConfig.tcdModal.densityValue for first arguement
+        densityRange = [30, 100];
       }
 
       LayerController.updateLossImageServiceRasterFunction([data.from, data.to], MapConfig.loss, densityRange);
