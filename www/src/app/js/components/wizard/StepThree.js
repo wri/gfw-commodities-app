@@ -90,8 +90,9 @@ define([
                     React.createElement("p", {className: "layer-description"}, config.rspo.description), 
                     React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden', 
                       style: { 'position': 'relative'}
-                    }
-
+                    }, 
+                      React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                      React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                     ), 
                     React.createElement("div", {className: "step-sub-header"}, config.forestChange.label), 
