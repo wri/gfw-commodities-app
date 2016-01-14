@@ -172,6 +172,9 @@ define([
       attributes.company = self.model.storyCompanyData();
       attributes.title = self.model.storyTitleData();
       attributes.email = self.model.storyEmailData();
+      attributes.lat = 0; //todo: get this dynamically
+      attributes.lon = 0;
+
       if (self.model.storyDetailsData()) {
           attributes.notes = self.model.storyDetailsData();
       }
