@@ -6,9 +6,11 @@ define([
     "dijit/registry",
     "esri/graphic",
     "esri/request",
+    "esri/geometry/Point",
+    "esri/geometry/Geometry",
     "utils/NavListController",
     "models/SubmissionModel"
-], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
+], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, Point, Geometry, NavListController, SubmissionModel) {
     'use strict';
 
 	var initialized = false;
@@ -172,8 +174,6 @@ define([
       attributes.company = self.model.storyCompanyData();
       attributes.title = self.model.storyTitleData();
       attributes.email = self.model.storyEmailData();
-      attributes.lat = 0; //todo: get this dynamically
-      attributes.lon = 0;
 
       if (self.model.storyDetailsData()) {
           attributes.notes = self.model.storyDetailsData();
@@ -186,12 +186,12 @@ define([
       if (url2) {
         attributes.attribute_url = url2;
       }
+      var point = new Point(0, 0); //todo: get this dynamically
+      var graphic = new Graphic();
+      graphic.setAttributes(attributes);
+      graphic.setGeometry(point);
 
-      var features = [
-        {
-          attributes: attributes
-        }
-      ];
+      var features = [graphic];
 
       var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
 
