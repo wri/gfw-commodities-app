@@ -4,7 +4,7 @@ define([
 	"dojo/topic",
 	"utils/Hasher",
 	"components/RadioButton",
-	"components/Check"	
+	"components/Check"
 ], function (React, topic, Hasher, RadioButton, Check) {
 
 	var _components = [];
@@ -60,7 +60,7 @@ define([
 
     /* jshint ignore:start */
     render: function () {
-      
+
       return (
         React.createElement("div", {className: "smart-list"}, 
           React.createElement("div", {className: "filter-list-title"}, this.props.title), 
@@ -96,7 +96,7 @@ define([
     },
 
     _check: function (component) {
-    	var newState = !component.state.active;
+			var newState = !component.state.active;
       component.setState({
         active: newState
       });
@@ -123,7 +123,7 @@ define([
       //     requestAnimationFrame(function () {
       //       topic.publish('updateLayer', child.props);
       //     });
-      //     Hasher.forceLayer(child.props.id, newState);          
+      //     Hasher.forceLayer(child.props.id, newState);
       //   });
 
       // } else {
@@ -132,28 +132,28 @@ define([
       if (component.props.useRadioCallback || component.props.id === 'suit') {
         topic.publish('toggleLayer', component.props.id);
       } else {
-        // Call this function on the next animation frame to give React time 
+        // Call this function on the next animation frame to give React time
         // to render the changes from its new state, the callback needs to read
         // the ui to update the layer correctly
         requestAnimationFrame(function () {
           topic.publish('updateLayer', component.props);
         });
-      } 
+      }
       // }
 
 
-        
+
     },
 
-    _radio: function (component) {      
-      
+    _radio: function (component) {
+
       var previous,
       		isNewSelection;
 
       _components.forEach(function (item, idx) {
         if (item.props.filter === component.props.filter) {
           if (item.state.active) {
-            previous = item; 
+            previous = item;
           }
         }
       });
@@ -212,7 +212,7 @@ define([
     },
 
     _toggleChildren: function (component, action) {
-      
+
     	var childComponents = [];
 
     	if (component.props.children) {

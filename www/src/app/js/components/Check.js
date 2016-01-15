@@ -1,11 +1,14 @@
 /** @jsx React.DOM */
 define([
   "react",
+  "knockout",
   "dojo/topic",
   "dojo/dom-class",
+  "map/TCDSlider",
+  "map/MapModel",
   "utils/Hasher",
   "dijit/form/HorizontalSlider"
-], function(React, topic, domClass, Hasher, HorizontalSlider) {
+], function(React, ko, topic, domClass, TCDSlider, MapModel, Hasher, HorizontalSlider) {
 
 
   return React.createClass({
@@ -54,6 +57,11 @@ define([
           }, this.props.id + "_slider").startup();
         }
       }
+
+      if (this.props.id === 'loss') {
+				ko.applyBindings(MapModel.get('model'), document.querySelector('.loss-button-container'));
+			}
+
     },
 
     // componentWillReceiveProps: function(nextProps, nextState) {
@@ -79,6 +87,11 @@ define([
         topic.publish('showInfoPanel', this.props.infoDivClass);
       }
     },
+
+    showTCDSlider: function (evt) {
+			TCDSlider.show();
+      evt.stopPropagation();
+		},
 
     /* jshint ignore:start */
     render: function() {
@@ -113,9 +126,17 @@ define([
             
             this.props.kids ? null : React.createElement("div", {title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
               React.createElement("div", {id: this.props.id + '_slider'})
-            )
+            ), 
             
-
+            
+  						this.props.id === 'loss' ? (
+  							React.createElement("div", {className: 'loss-button-container' + (this.state.active ? '' : ' hidden')}, 
+  										React.createElement("span", {className: "loss-percentage-label"}, "Displaying at "), 
+  										React.createElement("span", {className: "loss-percentage-button", onClick: this.showTCDSlider, "data-bind": "text: tcdDensityValue"}), 
+  										React.createElement("span", {className: "loss-percentage-label"}, " density")
+  							)
+  						) : null
+  					
 
           )
         )

@@ -183,7 +183,7 @@ gainLayer = #5952de
 	padding-right 10px
 	text-align left
 
-.gfw .tcd-percentage-button
+.gfw .tcd-percentage-button, .gfw .loss-percentage-button
 	background-color forestCover
 	display inline-block
 	border-radius 35px
@@ -191,15 +191,16 @@ gainLayer = #5952de
 	cursor pointer
 	font-size 10px
 	color white
+	z-index 500
 
-.gfw .tcd-percentage-label
+.gfw .tcd-percentage-label, .gfw .loss-percentage-label
 	font-size 10px
 	color #888
 
-.gfw .tcd-percentage-button::before
+.gfw .tcd-percentage-button::before, .gfw .loss-percentage-button::before
 	content "> "
 
-.gfw .tcd-percentage-button::after
+.gfw .tcd-percentage-button::after, .gfw .loss-percentage-button::after
 	content " %"
 
 .gfw .app-header .filter-list ul
