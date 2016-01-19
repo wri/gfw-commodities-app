@@ -72,7 +72,7 @@ define([
             // <div className='coming-soon'>Mill Point Risk Assessment Coming Soon!</div>
             // <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
             // <p className='layer-description'>{config.mill.description}</p>
-
+            console.log('completed ', this.state.completed);
             return (
               <div className='step select-analysis'>
                 <div className='step-body'>
@@ -88,11 +88,11 @@ define([
                     <p className='layer-description'>{config.suit.description}</p>
                     <WizardCheckbox label={config.rspo.label} value={config.rspo.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                     <p className='layer-description'>{config.rspo.description}</p>
-                    <div className={selectedAreaOfInterest === 'millPointOption' ? '' : 'hidden'}
+                    <div className={selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden'}
                       style={{ 'position': 'relative' }}
                     >
-                      <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
-                      <p className='layer-description'>{config.mill.description}</p>
+                    <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                    <p className='layer-description'>{config.mill.description}</p>
 
                     </div>
                     <div className='step-sub-header'>{config.forestChange.label}</div>
@@ -163,17 +163,17 @@ define([
             // At least One item must be checked
             // If more than one item is checked, we pass
             if (nodes.length > 0) {
-                if (nodes.length > 1) {
-                    result = true;
-                } else {
-                    // nodes === 1
-                    value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
-                    if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-                        // This Fails, result is already false so do nothing
-                    } else {
-                        result = true;
-                    }
-                }
+                // if (nodes.length > 1) {
+                result = true;
+                // } else {
+                //     // nodes === 1
+                //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
+                //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
+                //     //     // This Fails, result is already false so do nothing
+                //     // } else {
+                //         result = true;
+                //     // }
+                // } // millPoint is back in as a viable Analysis Layer, hence the check removal
             }
 
             return result;
