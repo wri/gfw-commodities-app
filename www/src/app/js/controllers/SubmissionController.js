@@ -4,13 +4,14 @@ define([
     "dojo/dom-class",
     "dojo/dom-style",
     "dijit/registry",
+    "dijit/Dialog",
     "esri/graphic",
     "esri/request",
     "esri/geometry/Point",
     "esri/geometry/Geometry",
     "utils/NavListController",
     "models/SubmissionModel"
-], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, Point, Geometry, NavListController, SubmissionModel) {
+], function (dom, query, domClass, domStyle, registry, Dialog, Graphic, esriRequest, Point, Geometry, NavListController, SubmissionModel) {
     'use strict';
 
 	var initialized = false;
@@ -116,7 +117,6 @@ define([
 
               self.uploadToAGOL(response);
 
-
             }
           });
 
@@ -160,7 +160,6 @@ define([
 
     },
     uploadToAGOL: function(response){
-
 
       var arr = response.split(';');
 
@@ -216,10 +215,45 @@ define([
       layersRequest.then(
         function(response) {
           console.log("Success: ", response);
-          alert("Data successfully submitted!")
+          $("#storyForm")[0].reset();
+
+
+          var widget = registry.byId("successDialog");
+          if (widget) {
+            widget.destroy();
+          }
+          var buttonContent = "<p style='font-size:13px;'>Feel free to submit additional data via this page.</p>";
+          var dialog = new Dialog({
+              id: 'successDialog',
+              title: 'Your data was successfully submitted!',
+              style: 'width: 550px;',
+              content: buttonContent
+          });
+          // dialog.on('cancel', function () {
+          //     var widget = registry.byId("successDialog");
+          //     widget.destroy();
+          //     // this.destroy();
+          // });
+
+          dialog.show();
+
       }, function(error) {
-          alert("Data was not successfully submitted, please try again.")
-          console.log("Error: ", error.message);
+        var widget = registry.byId("failureDialog");
+        if (widget) {
+          widget.destroy();
+        }
+
+        var failContent = "<p style='font-size:13px;'>Please review the submission requirements, or try again at a later date.</p>";
+        var dialog = new Dialog({
+            id: 'failureDialog',
+            title: 'There was an error uploading your data.',
+            style: 'width: 550px;',
+            content: failContent
+        });
+
+        dialog.show();
+
+        console.log("Error: ", error.message);
       });
 
 
