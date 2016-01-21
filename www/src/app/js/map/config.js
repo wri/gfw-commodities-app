@@ -11,7 +11,7 @@ define([], function() {
         treeCoverGainUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         // treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
-        treeCoverLossUrl = 'http://54.151.10.85:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
+        treeCoverLossUrl = 'http://globalforestwatch-624153201.us-west-1.elb.amazonaws.com/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
         activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
