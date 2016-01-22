@@ -552,7 +552,7 @@ define([
             }
         },
 
-        showInfoPanel: function(infoPanelClass) {
+        showInfoPanel: function(infoPanelClass) {//"forest-change-tree-cover-loss"
           var content;
             if (typeof(infoPanelClass) === 'object') {
                 content = infoPanelClass;
@@ -562,12 +562,15 @@ define([
                     content = infoDiv.querySelector("." + infoPanelClass);
                     MapControl.createDialogBox(content);
                 } else {
-                    Loader.getTemplate("data").then(function(template) {
-                        dataDivLoaded = true;
-                        infoDiv.innerHTML = template;
-                        content = infoDiv.querySelector("." + infoPanelClass);
-                        MapControl.createDialogBox(content);
-                    });
+                  Loader.getWRITemplate().then(function (template) {
+                    debugger
+                  });
+                    // Loader.getTemplate("data").then(function(template) {
+                    //     dataDivLoaded = true;
+                    //     infoDiv.innerHTML = template;
+                    //     content = infoDiv.querySelector("." + infoPanelClass);
+                    //     MapControl.createDialogBox(content);
+                    // });
                 }
             }
         }

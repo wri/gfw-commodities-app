@@ -107,7 +107,6 @@ define([
         <li className={className} data-layer={this.props.id}>
             <div id={this.props.id + '_checkbox'} onClick={this.props.kids ? null : this.toggle}>
 
-
             {
               this.props.kids ? null : <span className='custom-check'>
                 {/* Used as an icon node */}
