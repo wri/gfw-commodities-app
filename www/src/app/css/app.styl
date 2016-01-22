@@ -87,7 +87,7 @@ html, body, .gfw {
 	position relative
 	height 10px
 	width 17px
-	
+
 .gfw .custom-check span
 	transition all 0.1s ease-in-out
 	background-color #fff
@@ -102,14 +102,14 @@ html, body, .gfw {
 	background none !important
 	padding 10px 6px 3px 7px !important
 	color #aaa
-	
+
 .gfw .source_description
 	display block
 	font-size 13px
 	color #999
 	line-height 1.2
 	margin-top 5px
-	
+
 .metadataTitle
 	display block
 	color #555555 !important
@@ -127,6 +127,32 @@ html, body, .gfw {
 .gfw a:link
 	color #97bd3d
 
+#loader-wheel-submit
+	background url('images/loader.gif') no-repeat left
+	background-color baseGray
+	background-color rgba(230,230,230,1)
+	display inline-block
+	border-radius(5px)
+	height 22px
+	position fixed
+	width 22px
+	padding 0px
+	top 50%
+	left 50%
+	z-index 200
+	background-size 22px
+	border 1px solid black
+	display none
+
+#loader-background
+	position fixed
+	top 0px
+	bottom 0px
+	width 100%
+	background-color rgba(255, 255, 255, 0.50)
+	z-index 150
+	display none
+
 .gfw .step .step-one-main-description {
   font-size: 14px;
   margin-left: 15px;
@@ -138,6 +164,8 @@ html, body, .gfw {
 .gfw .step .step-one-main-description a {
   color: orange;
 }
+
+
 
 @require 'base'
 @require 'contentPages'

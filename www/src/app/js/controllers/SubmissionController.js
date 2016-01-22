@@ -105,6 +105,10 @@ define([
             form_data.append('attributeFileType', attributeFileType);
           }
 
+          $('#loader-wheel-submit').show();
+          $('#loader-background').show();
+          $('body').css('overflow', 'hidden');
+
           $.ajax({
             url: 'app/php/post_file_to_s3.php', // point to server-side PHP script
             dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -117,6 +121,11 @@ define([
 
               self.uploadToAGOL(response);
 
+            },
+            error: function(xhr, error){
+              $('#loader-wheel-submit').hide();
+              $('#loader-background').hide();
+              $('body').css('overflow', 'visible');
             }
           });
 
@@ -197,7 +206,7 @@ define([
       esri.config.defaults.io.proxyUrl = proxyUrl;
       esri.config.defaults.io.alwaysUseProxy = false;
 
-      var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures";
+      var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_portal_form/FeatureServer/0/addFeatures";
       var layersRequest = esriRequest({
         url: layerUrl,
         content: {
@@ -216,7 +225,9 @@ define([
         function(response) {
           console.log("Success: ", response);
           $("#storyForm")[0].reset();
-
+          $('#loader-wheel-submit').hide();
+          $('#loader-background').hide();
+          $('body').css('overflow', 'visible');
 
           var widget = registry.byId("successDialog");
           if (widget) {
@@ -238,6 +249,11 @@ define([
           dialog.show();
 
       }, function(error) {
+
+        $('#loader-wheel-submit').hide();
+        $('#loader-background').hide();
+        $('body').css('overflow', 'visible');
+
         var widget = registry.byId("failureDialog");
         if (widget) {
           widget.destroy();
