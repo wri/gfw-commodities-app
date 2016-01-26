@@ -61,33 +61,34 @@ define([
                 "dojo/_base/lang"
             ], function(Dialog, Lang) {
 
-                var contentClone = Lang.clone(content);
-
-                var node = contentClone.querySelector(".source_body");
-
-                if (node.querySelector(".source_extended")) {
-                    node.removeChild(node.querySelector(".source_extended"));
-                }
-                if (node.querySelector(".source_download")) {
-                    node.removeChild(node.querySelector(".source_download"));
-                }
-                if (node.querySelector(".overview_title")) {
-                    node.querySelector(".source_summary").removeChild(node.querySelector(".overview_title"));
-                }
-                if (contentClone.querySelector(".source_header")) {
-                    contentClone.removeChild(contentClone.querySelector(".source_header"));
-
-                }
-                //remove checkbox
-
-                if (contentClone.getElementsByTagName("input").length) {
-                    contentClone.removeChild(contentClone.getElementsByTagName("input")[0]);
-
-                }
+                // var contentClone = Lang.clone(content);
+                //
+                // var node = contentClone.querySelector(".source_body");
+                //
+                // if (node.querySelector(".source_extended")) {
+                //     node.removeChild(node.querySelector(".source_extended"));
+                // }
+                // if (node.querySelector(".source_download")) {
+                //     node.removeChild(node.querySelector(".source_download"));
+                // }
+                // if (node.querySelector(".overview_title")) {
+                //     node.querySelector(".source_summary").removeChild(node.querySelector(".overview_title"));
+                // }
+                // if (contentClone.querySelector(".source_header")) {
+                //     contentClone.removeChild(contentClone.querySelector(".source_header"));
+                //
+                // }
+                // //remove checkbox
+                //
+                // if (contentClone.getElementsByTagName("input").length) {
+                //     contentClone.removeChild(contentClone.getElementsByTagName("input")[0]);
+                //
+                // }
 
                 var dialog = new Dialog({
                     // title: content.querySelector(".source_title").innerHTML.toUpperCase(),
-                    title: content.querySelector(".source_title").innerHTML,
+                    // title: content.querySelector(".source_title").innerHTML,
+                    title: content,
                     style: "height: 600px; width: 600px; overflow-y: auto;",
                     draggable: false,
                     hide: function() {
@@ -95,14 +96,15 @@ define([
                     }
                 });
 
-
+                // dialog.setContent(contentClone.innerHTML);
 
                 dialog.onClose(function() {
                     //console.log("CLOSED");
                 });
                 //for possible title
                 //content.getElementsByClassName("source_title")[0].innerHTML
-                dialog.setContent(contentClone.innerHTML);
+
+
                 dialog.show();
 
                 $('body').on('click',function(e){

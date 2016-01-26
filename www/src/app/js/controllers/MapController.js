@@ -24,17 +24,20 @@ define([
     "map/LayerController",
     "analysis/WizardStore",
     "components/LayerList",
+    "components/LayerModal",
     "utils/Loader",
     "map/Uploader",
     "map/CoordinatesModal",
     "utils/Analytics"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, Loader, Uploader, CoordinatesModal, Analytics) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, LayerModal, Loader, Uploader, CoordinatesModal, Analytics) {
     'use strict';
 
     var initialized = false,
         mapModel,
         layerList,
+        layerModal,
         dataDivLoaded = false,
+        layerData,
         map;
     var infoDiv = document.createElement("infoDiv");
 
@@ -504,6 +507,9 @@ define([
                 items: MapConfig.layersUI
             }, "master-layer-list");
 
+            layerModal = new LayerModal({
+            }, "layer-modal");
+
             MapControl.generateTimeSliders();
 
         },
@@ -511,6 +517,10 @@ define([
 
         toggleItemInLayerList: function(key) {
             layerList.toggleFormElement(key);
+        },
+
+        updateLayerModalData: function(data) {
+            layerModal.setData(data);
         },
 
         centerChange: function(x, y, zoom) {
@@ -553,17 +563,106 @@ define([
         },
 
         showInfoPanel: function(infoPanelClass) {//"forest-change-tree-cover-loss"
-          var content;
+          var content = '';
+          console.log(self)
             if (typeof(infoPanelClass) === 'object') {
                 content = infoPanelClass;
                 MapControl.createDialogBox(content);
             } else {
+              switch (infoPanelClass) {
+                  case 'forest-change-tree-cover-loss':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-change-tree-cover-gain':
+                      infoPanelClass = 'tree_cover_gain';
+                      break;
+                  case 'forest-change-forma-alerts':
+                      infoPanelClass = 'forma';
+                      break;
+                  case 'forest-change-nasa-active-fires':
+                      infoPanelClass = 'firms_active_fires';
+                      break;
+                  case 'forest-and-land-cover-tree-cover-density':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-intact-forest-landscape':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-peat-lands':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-carbon-stocks':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-brazil-biomes':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-primary-forest':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-land-cover-global':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-land-cover-indonesia':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-land-cover-south-east-asia':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'forest-and-land-cover-legal-classifications':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+                  case 'land-use-oil-palm':
+                      infoPanelClass = 'tree_cover_loss';
+                      break;
+
+                }
                 if (dataDivLoaded) {
-                    content = infoDiv.querySelector("." + infoPanelClass);
-                    MapControl.createDialogBox(content);
+                    // content = infoDiv.querySelector("." + infoPanelClass);
+                    var metadata = layerData[infoPanelClass];
+                    if (metadata) {
+                      // for (var field in metadata) {
+                      //   content += field + ': ' + metadata[field];
+                      // }
+
+                      // console.log(content);
+                      // console.log(infoPanelClass);
+                      // self.updateLayerModalData(metadata)
+                      layerModal.setData(metadata);
+                      // MapControl.createDialogBox(content);
+                    } else {
+                      console.log("nah")
+                    }
+
                 } else {
-                  Loader.getWRITemplate().then(function (template) {
-                    debugger
+
+                  // Loader.getWRITemplate().then(function (template) {
+                  //   debugger
+                  // });
+                  var getTemplate = Loader.getWRITemplate();
+                  self = this;
+                  getTemplate.then(function(data) {
+                    console.log(layerModal)
+                    dataDivLoaded = true;
+                    layerData = data;
+                    var metadata = data[infoPanelClass];
+                    if (metadata) {
+                    //   for (var field in metadata) {
+                    //     content += field + ': ' + metadata[field];
+                    //   }
+                    //
+                    //   console.log(content);
+                    //   console.log(infoPanelClass);
+                    //
+                    //   MapControl.createDialogBox(content);
+                    layerModal.setData(metadata);
+                    $('#layer-modal').show();
+                      // self.updateLayerModalData(metadata)
+                    } else {
+                      console.log("nah")
+                    }
+
+
                   });
                     // Loader.getTemplate("data").then(function(template) {
                     //     dataDivLoaded = true;

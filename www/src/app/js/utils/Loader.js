@@ -25,16 +25,16 @@ define([
         },
 
         getWRITemplate: function() {
-            var deferred = new Deferred(),
-                path = 'http://54.88.79.102/gfw-sync/metadata',
-                req;
+            var path = 'http://54.88.79.102/gfw-sync/metadata';
+                // deferred = new Deferred(),
+                // req;
 
             urlUtils.addProxyRule({
               urlPrefix: "http://54.88.79.102",
               proxyUrl: "./app/php/proxy.php"
             });
             // esri.config.defaults.io.corsEnabledServers.push('54.88.79.102');
-            console.log('added proxyUrl!')
+            console.log('added proxyUrl!');
             var layersRequest = esriRequest({
                 url: path,
                 handleAs: "json",
@@ -42,11 +42,16 @@ define([
               }, {
                   usePost: true
               });
-            layersRequest.then(
-                function (response) {
-                  debugger
-                }
-            );
+
+            return layersRequest;
+            // layersRequest.then(
+            //   function (response) {
+            //     console.log(response);
+            //     return response;
+            // }, function (error) {
+            //     console.log(error);
+            //     return false;
+            // });
 
             // req = new XMLHttpRequest();
             // req.onreadystatechange = function() {
@@ -58,7 +63,7 @@ define([
             //
             // req.open("GET", path, true);
             // req.send();
-            return deferred.promise;
+            // return deferred.promise;
         },
 
         loadCSS: function(path) {

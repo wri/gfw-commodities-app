@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $bucket=getenv('bucket');
       if(isset($_FILES['dataFile'])){
 
-
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $_FILES['dataFile']['name'],
