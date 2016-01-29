@@ -20,26 +20,71 @@ define([
     componentWillReceiveProps: function (newProps, oldProps) {
 			this.setState(newProps);
 		},
-    // debugger;
-    // this.props
-    /* jshint ignore:start */
-    // render: function() {
-    //   return (
-    //     <div className='smart-list'>Lucas</div>
-    //   );
-    // },
+
     render: function() {
-      console.log(this.state.layerInfo)
+      var layerInfo = [];
+      for (var layer in this.state.layerInfo) {
+        layerInfo.push(this.state.layerInfo[layer]);
+      }
+
       return (
           <ModalWrapper>
           {!this.state.layerInfo.title ? <div className='no-info-available'>No information available</div> :
-          <div className='layer-modal-content'>
-            <div className='source-header'>
-              <strong className='source-title'>{this.state.layerInfo.title}</strong>
-              <em className='source-description'>{this.state.layerInfo.subtitle}</em>
-            </div>
-            <div className='source-body'>
-              {this.state.layerInfo.map(this.tableMap)}
+          <div className='modal-content'>
+            <div className='modal-source'>
+              <h2 className='modal-title'>{this.state.layerInfo.title}</h2>
+              <h3 className='modal-subtitle'>{this.state.layerInfo.subtitle}</h3>
+              <div className='modal-table'>
+                {!this.state.layerInfo.function ? null :
+                  this.tableMap(this.state.layerInfo.function, 'function')
+                }
+                {
+                  !this.state.layerInfo.resolution ? null :
+                  this.tableMap(this.state.layerInfo.function, 'RESOLUTION/SCALE')
+                }
+                {
+                  !this.state.layerInfo.geographic_coverage ? null :
+                  this.tableMap(this.state.layerInfo.geographic_coverage, 'GEOGRAPHIC COVERAGE')
+                }
+                {
+                  !this.state.layerInfo.source ? null :
+                  this.tableMap(this.state.layerInfo.source, 'source data')
+                }
+                {
+                  !this.state.layerInfo.frequency_of_updates ? null :
+                  this.tableMap(this.state.layerInfo.frequency_of_updates, 'FREQUENCY OF UPDATES')
+                }
+                {
+                  !this.state.layerInfo.date_of_content ? null :
+                  this.tableMap(this.state.layerInfo.date_of_content, 'DATE OF CONTENT')
+                }
+                {
+                  !this.state.layerInfo.cautions ? null :
+                  this.tableMap(this.state.layerInfo.cautions, 'cautions')
+                }
+                {
+                  !this.state.layerInfo.other ? null :
+                  this.tableMap(this.state.layerInfo.other, 'other')
+                }
+                {
+                  !this.state.layerInfo.license ? null :
+                  this.tableMap(this.state.layerInfo.license, 'license')
+                }
+              </div>
+              <div className='modal-overview'>
+                <h3>Overview</h3>
+                {
+                  !this.state.layerInfo.overview ? null :
+                  this.summaryMap(this.state.layerInfo.overview)
+                }
+              </div>
+              <div className='modal-credits'>
+                <h3>Citation</h3>
+                {
+                  !this.state.layerInfo.citation ? null :
+                  this.summaryMap(this.state.layerInfo.citation)
+                }
+              </div>
             </div>
           </div>
         }
@@ -53,15 +98,22 @@ define([
       });
   },
 
-  tableMap: function (item) {
-    debugger
+  tableMap: function (item, label) {
     return (
       <dl className='source-row'>
-        <dt>{item.label}</dt>
-        <dd dangerouslySetInnerHTML={{ __html: item.html }}></dd>
+        <dt>{label}</dt>
+        <dd dangerouslySetInnerHTML={{ __html: item }}></dd>
+
       </dl>
     );
+  },
+
+  summaryMap: function (item) {
+    return (
+      <div dangerouslySetInnerHTML={{ __html: item }}></div>
+    );
   }
+
   /* jshint ignore:end */
 
   });

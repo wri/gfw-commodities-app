@@ -94,6 +94,47 @@ define([], function() {
             layerId: 5
         },
 
+        // The Following maps our layerIds to the WRI metadata API Ids
+
+        metadataIds: {
+          'forest-change-tree-cover-loss': 'tree_cover_loss',
+          'forest-change-tree-cover-gain': 'tree_cover_gain',
+          'forest-change-forma-alerts': 'forma',
+          'forest-change-nasa-active-fires': 'firms_active_fires',
+          'forest-and-land-cover-tree-cover-density': 'tree_cover',
+          'forest-and-land-cover-intact-forest-landscape': 'intact_forest_landscapes_change',
+          'forest-and-land-cover-peat-lands': 'idn_peat_lands',
+          'forest-and-land-cover-carbon-stocks': 'tropical_forest_carbon_stocks',
+          'forest-and-land-cover-brazil-biomes': 'bra_biomes',
+          'forest-and-land-cover-primary-forest': 'idn_primary_forests',//cod_primary_forest
+          'forest-and-land-cover-land-cover-global': 'global_landcover',
+          'forest-and-land-cover-land-cover-indonesia': 'idn_land_cover_metadata',
+          'forest-and-land-cover-land-cover-south-east-asia': 'khm_economic_land_concession',
+          'forest-and-land-cover-legal-classifications': 'idn_conservation_areas',
+          'land-use-oil-palm': 'gfw_oil_palm',
+          'land-use-rspo-consessions': 'tree_cover_loss',
+          'land-use-logging': 'gfw_logging',
+          'land-use-mining': 'gfw_mining',
+          'land-use-wood-fiber-plantation': 'gfw_wood_fiber',
+          'land-use-mill-points': 'oil_palm_mills',
+          'land-use-gfw-mill-points': 'rspo_mills',
+          'land-use-moratorium-areas': 'idn_forest_moratorium',
+          'conservation-protected-areas': 'wdpa_protected_areas',
+          'conservation-biodiversity-hotspots': 'biodiversity_hotspots',
+          'suitability-soy-layer': 'tree_cover_loss',
+          'suitability-custom-suitability-mapper': 'tree_cover_loss',
+          'suitability-wri-standard-suitability': 'tree_cover_loss',
+          'suitability-conservation-areas': 'idn_conservation_areas',
+          'suitability-elevation': 'idn_elevation',
+          'suitability-slope': 'idn_slope',
+          'suitability-rainfall': 'idn_rainfall',
+          'suitability-soil-drainage': 'idn_soil_drainage',
+          'suitability-soil-idn_soil_depth': 'idn_soil_depth',
+          'suitability-soil-acidity': 'idn_soil_acidity',
+          'suitability-soil-type': 'idn_soil_type'
+
+        },
+
         // The Following Layers are used by the Wizard
 
         customGraphicsLayer: {
