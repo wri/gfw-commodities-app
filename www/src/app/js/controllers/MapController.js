@@ -519,6 +519,27 @@ define([
             layerList.toggleFormElement(key);
         },
 
+        toggleItemInLayerListOff: function() {
+
+          var mapLayer = map.map.getLayer("forestUse_landUse");
+          console.log(mapLayer)
+
+          if (mapLayer.visible === true) {
+            if (mapLayer.visibleLayers.indexOf(0) > -1) {
+              layerList.toggleFormElement('logPerm');
+            }
+            if (mapLayer.visibleLayers.indexOf(2) > -1) {
+              layerList.toggleFormElement('minePerm');
+            }
+            if (mapLayer.visibleLayers.indexOf(1) > -1) {
+              layerList.toggleFormElement('oilPerm');
+            }
+            if (mapLayer.visibleLayers.indexOf(3) > -1) {
+              layerList.toggleFormElement('woodPerm');
+            }
+          }
+        },
+
         updateLayerModalData: function(data) {
             layerModal.setData(data);
         },

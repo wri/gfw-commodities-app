@@ -69,7 +69,7 @@ define([
     userChangedSteps: function () {
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var currentStep = WizardStore.get(KEYS.userStep);
-      
+
       // If they are arriving at this step
       if (selectedAreaOfInterest === 'millPointOption' && currentStep === 2) {
         // Get Data if there is none present
@@ -86,6 +86,8 @@ define([
           if (!layer.visible) {
             topic.publish('showMillPoints');
             topic.publish('toggleItemInLayerList','mill');
+						// topic.publish('showMillPoints');
+            topic.publish('toggleItemInLayerList','gfwMill');
           }
         }
 
@@ -111,12 +113,12 @@ define([
           <div className='mill-list-options back-light-gray relative'>
             <div className={'mill-list-toggle-indicator mill-' + (this.state.showCustomFeaturesList ? 'custom-list' : 'known-list')} />
             <div className={'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? '' : 'active')}
-                  id='selectFromList' 
+                  id='selectFromList'
                   onClick={ this.toggleList }>
               {config.selectFromListButton}
             </div>
             <div className={'relative select-mill-list-button inline-block ' + (this.state.showCustomFeaturesList ? 'active' : '')}
-                  id='selectFromCustom' 
+                  id='selectFromCustom'
                   onClick={ this.toggleList }>
               {config.selectFromCustomListButton}
             </div>
@@ -130,8 +132,8 @@ define([
               </select>
             </div>
             <p className={'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}> {config.listInstructions} </p>
-            <NestedList data={this.state.nestedListData} 
-              click={this._millPointSelected} 
+            <NestedList data={this.state.nestedListData}
+              click={this._millPointSelected}
               placeholder='Search mill points...'
               activeListItemValues={this.state.activeListItemValues}
               isResetting={this.props.isResetting}
@@ -204,7 +206,7 @@ define([
           self.setState({ nestedListData: data, isLoading: false });
         }
       });
-      
+
     },
 
     _millPointSelected: function (target) {
@@ -277,7 +279,7 @@ define([
           });
         }
       }
-      
+
     },
 
     _localReset: function () {

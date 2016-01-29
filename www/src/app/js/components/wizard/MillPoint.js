@@ -69,7 +69,7 @@ define([
     userChangedSteps: function () {
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var currentStep = WizardStore.get(KEYS.userStep);
-      
+
       // If they are arriving at this step
       if (selectedAreaOfInterest === 'millPointOption' && currentStep === 2) {
         // Get Data if there is none present
@@ -86,6 +86,8 @@ define([
           if (!layer.visible) {
             topic.publish('showMillPoints');
             topic.publish('toggleItemInLayerList','mill');
+						// topic.publish('showMillPoints');
+            topic.publish('toggleItemInLayerList','gfwMill');
           }
         }
 
@@ -204,7 +206,7 @@ define([
           self.setState({ nestedListData: data, isLoading: false });
         }
       });
-      
+
     },
 
     _millPointSelected: function (target) {
@@ -277,7 +279,7 @@ define([
           });
         }
       }
-      
+
     },
 
     _localReset: function () {

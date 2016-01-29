@@ -66,11 +66,30 @@ define([
             });
 
             topic.subscribe("setCommercialEntityDefinition", function(entityType) {
-                LayerController.setWizardDynamicLayerDefinition(MapConfig.commercialEntitiesLayer, entityType);
-                // If filter is none, dont zoom to none, above will turn layer off when none is selected
-                if (entityType) {
-                    AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);
+                // LayerController.setWizardDynamicLayerDefinition(MapConfig.commercialEntitiesLayer, entityType);
+
+                // // If filter is none, dont zoom to none, above will turn layer off when none is selected
+                // if (entityType) {
+                //     AnalyzerQuery.zoomToFeatures(AnalyzerConfig.commercialEntity.commodityQuery, entityType);
+                // }
+
+                if (entityType === "Logging concession") {
+                  topic.publish('toggleItemInLayerList', 'logPerm');
+                } else if (entityType === "Oil palm concession") {
+                  topic.publish('toggleItemInLayerList', 'oilPerm');
+                } else if (entityType === "Mining concession") {
+                  topic.publish('toggleItemInLayerList', 'minePerm');
+                } else if (entityType === "Wood fiber plantation") {
+                  topic.publish('toggleItemInLayerList', 'woodPerm');
+                } else if (!entityType) {
+
+                  topic.publish('toggleItemInLayerListOff');
+                  // topic.publish('toggleItemInLayerListOff', 'oilPerm');
+                  // topic.publish('toggleItemInLayerListOff', 'minePerm');
+                  // topic.publish('toggleItemInLayerListOff', 'woodPerm');
+                  //topic.publish('toggleItemInLayerList', 'woodPerm');
                 }
+
                 // Hide the Mill Points layer if its visible
                 var layer = app.map.getLayer(MapConfig.mill.id);
                 if (layer) {
@@ -87,6 +106,9 @@ define([
                 LayerController.setWizardDynamicLayerDefinition(MapConfig.certificationSchemeLayer);
                 // Toggle the wizard layer with this, will need to add a definition to it when the data supports it
                 LayerController.setWizardMillPointsLayerDefinition(MapConfig.mill);
+                LayerController.setWizardMillPointsLayerDefinition(MapConfig.gfwMill);
+
+
             });
 
             // Layer Controller Functions
@@ -148,6 +170,7 @@ define([
             // Map Controller Functions
             topic.subscribe('showInfoPanel', MapController.showInfoPanel);
             topic.subscribe('toggleItemInLayerList', MapController.toggleItemInLayerList);
+            topic.subscribe('toggleItemInLayerListOff', MapController.toggleItemInLayerListOff);
 
             topic.subscribe("centerChange", function(x, y, zoom) {
                 MapController.centerChange(x, y, zoom);

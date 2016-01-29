@@ -82,7 +82,7 @@ define([
             if (layer) {
 
                 if (visibleLayers.length > 0) {
-                    if (layer.visibleLayers.length > 0) {
+                    //if (layer.visibleLayers.length > 0) {
 
                         // for (var i = 0; i < layer.visibleLayers.length; i++) {
                         //     if (visibleLayers.indexOf(layer.visibleLayers[i]) == -1 && layer.visibleLayers[i] != 0) {
@@ -96,7 +96,7 @@ define([
                         //     debugger
                         //     visibleLayers.push(layer.visibleLayers[0]);
                         // }
-                    }
+                    //}
 
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
@@ -209,6 +209,7 @@ define([
                 where;
 
             if (layer) {
+              // debugger
                 if (filter !== undefined) {
                     where = config.whereField + " = '" + filter + "'";
                     layerDefs[config.layerId] = where;
