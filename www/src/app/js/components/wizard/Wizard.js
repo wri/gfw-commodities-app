@@ -180,6 +180,10 @@ define([
             if (layer) {
               layer.clear();
             }
+            var layer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
+            if (layer) {
+              layer.clear();
+            }
             // Hide the Dynamic Layer Associated with the Wizard
             layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
             if (layer) {
@@ -271,9 +275,15 @@ define([
           }
 
           features.forEach(function (feature) {
+            var pointToPush;
             // If the feature is a point, cast as a circle with radius
             if (feature.geometry.type === 'point') {
               feature = GeoHelper.preparePointAsPolygon(feature, pointRadius);
+            }
+
+            if (getMillId(feature)) {
+                pointToPush = GeoHelper.generatePointGraphicFromGeometric(feature.attributes.longitude, feature.attributes.latitude, feature.attributes);
+                console.log(pointToPush);
             }
 
             geometries.push({
@@ -281,6 +291,7 @@ define([
               type: (feature.geometry.radius ? 'circle' : 'polygon'),
               isCustom: feature.attributes.WRI_ID !== undefined,
               label: feature.attributes.WRI_label || undefined,
+              point: pointToPush,
               // Mill Point Specific Fields, Include them as undefined if the values are not present
               millId: getMillId(feature),
               isRSPO: feature.attributes.isRSPO || undefined,

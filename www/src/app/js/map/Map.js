@@ -214,6 +214,7 @@ define([
 
                 // primaryParams,
                 wizardGraphicsLayer,
+                wizardPointGraphicsLayer,
                 self = this;
 
             fireParams = new ImageParameters();
@@ -431,6 +432,10 @@ define([
                 id: MapConfig.wizardGraphicsLayer.id
             });
 
+            wizardPointGraphicsLayer = new GraphicsLayer({
+                id: MapConfig.wizardPointGraphicsLayer.id
+            });
+
             customGraphicsLayer = new GraphicsLayer({
                 id: MapConfig.customGraphicsLayer.id
             });
@@ -473,7 +478,8 @@ define([
                 // Custom Features Layer -- Drawn Features and/or Uploaded Shapefiles
                 // If needs be, seperate these out into multiple Graphics Layers
                 customGraphicsLayer,
-                wizardGraphicsLayer
+                wizardGraphicsLayer,
+                wizardPointGraphicsLayer
             ]);
 
             on.once(app.map, 'layers-add-result', function(response) {

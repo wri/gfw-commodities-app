@@ -38,7 +38,7 @@ define([
 					tabAnimation,
 					wizardWidth;
 
-			wizardWidth = (halfMapWidth >= MIN_WIDTH && halfMapWidth <= MAX_WIDTH) ? halfMapWidth : 
+			wizardWidth = (halfMapWidth >= MIN_WIDTH && halfMapWidth <= MAX_WIDTH) ? halfMapWidth :
 										(halfMapWidth < MIN_WIDTH) ? MIN_WIDTH : MAX_WIDTH;
 
 			// Get original center point before animation and set it after animation complete
@@ -115,12 +115,14 @@ define([
 			// Hide Wizard Related Layers
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).hide();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).hide();
+			app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id).hide();
 			app.map._simpleLegends.concessions.hide();
 		},
 
 		showWizardRelatedLayers: function () {
 			app.map.getLayer(MapConfig.adminUnitsLayer.id).show();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).show();
+			app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id).show();
 		},
 
 		/*
@@ -136,8 +138,8 @@ define([
 					self = this,
 					layer;
 
-					
-						
+
+
 			// Get Graphic, and set the appropriate content
 			switch (type) {
 				case "Logging concession":
@@ -223,7 +225,7 @@ define([
 			function setWizardProps(feature) {
 				// Make the root selection the appropriate one,
 				// for Custom Graphics, it is option 1
-				// for Admin Units, it is option 2 
+				// for Admin Units, it is option 2
 				// for Concessions, it is option 3
 				// for Certified Areas, it is option 4
 				// for Mill Points, it is option 5

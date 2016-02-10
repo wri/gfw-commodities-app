@@ -148,6 +148,9 @@ define([], function() {
             id: "WizardTempGraphics"
         },
 
+        wizardPointGraphicsLayer: {
+            id: "WizardTempPointGraphics"
+        },
 
         // Only Add One of these below that have the id WizardDynamicLayer
         // Only one layer but separate config makes easier to work with in other areas of application

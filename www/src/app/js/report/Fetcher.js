@@ -18,13 +18,14 @@ define([
     "esri/tasks/QueryTask",
     "esri/SpatialReference",
     "esri/geometry/Polygon",
+    "esri/geometry/Point",
     "esri/tasks/GeometryService",
     'esri/geometry/geometryEngine',
     "esri/tasks/AreasAndLengthsParameters",
     "esri/Color",
     "esri/graphic",
     "report/rasterArea"
-], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic, rasterArea) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, Point, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, Graphic, rasterArea) {
     'use strict';
 
     var _fireQueriesToRender = [];
@@ -78,7 +79,7 @@ define([
         },
 
         setupMap: function () {
-
+          console.log()
             var scalebar, graphic, poly, map;
 
             function mapLoaded () {
@@ -96,6 +97,20 @@ define([
                 graphic = new Graphic();
                 graphic.setGeometry(poly);
                 graphic.setSymbol(Symbols.getPolygonSymbol());
+
+                if (report.centerPoints) {
+                  for (var j = 0; j < report.centerPoints.length; j++) {
+                    var pointGraphic = new Graphic();
+
+                    var pointGeom = new Point(report.centerPoints[j].geometry.x, report.centerPoints[j].geometry.y, report.centerPoints[j].geometry.spatialReference);
+
+                    pointGraphic.setGeometry(pointGeom);
+                    pointGraphic.setSymbol(Symbols.getPointSymbol());
+
+                    map.graphics.add(pointGraphic);
+                  }
+                }
+                window.map = map
 
                 map.graphics.add(graphic);
                 map.setExtent(graphic.geometry.getExtent().expand(3), true);

@@ -7,6 +7,7 @@ define([
   "map/Uploader",
   "dojo/dom-class",
   "dojo/_base/array",
+	"dojo/promise/all",
   "analysis/Query",
   "analysis/config",
   "utils/GeoHelper",
@@ -14,7 +15,7 @@ define([
   "analysis/WizardStore",
   "components/wizard/NestedList",
   "components/featureList/FeatureList"
-], function (React, MapConfig, topic, dojoQuery, Uploader, domClass, arrayUtils, AnalyzerQuery, AnalyzerConfig, GeoHelper, CoordinatesModal, WizardStore, NestedList, FeatureList) {
+], function (React, MapConfig, topic, dojoQuery, Uploader, domClass, arrayUtils, all, AnalyzerQuery, AnalyzerConfig, GeoHelper, CoordinatesModal, WizardStore, NestedList, FeatureList) {
 
   var config = AnalyzerConfig.millPoints;
   var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -215,18 +216,101 @@ define([
           selectedFeatures = this.state.selectedCustomFeatures,
           newActiveListItemValues,
           wizardGraphicsLayer,
+					wizardPointGraphicsLayer,
           self = this,
+					millIds = [],
+					millLabels = [],
           removeIndex,
           removeId,
           graphic,
           label;
 
+			wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+			wizardPointGraphicsLayer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
       if (featureType === "group") {
         // Mills dont support group selection
+				// debugger
+				for (var i = 0; i < this.state.nestedListData.length; i++) {
+					if (this.state.nestedListData[i].value === wriId) {
+						for (var j = 0; j < this.state.nestedListData[i].children.length; j++) {
+							millIds.push(AnalyzerQuery.getMillByWriId(this.state.nestedListData[i].children[j].value));
+							millLabels.push(this.state.nestedListData[i].children[j].label);
+						}
+					}
+				}
+				console.log(millLabels)
+
+				all(millIds).then(function (responses) {
+					var ids = [];
+          for (var k = 0; k < responses.length; k++) {
+
+
+						var feature = responses[k];
+
+						// label = target.innerText || target.innerHTML;
+						label = millLabels[k];
+						console.log(label)
+
+            if ( self.state.activeListItemValues.indexOf(feature.attributes.wri_id) != -1 ) {
+              // Remove The Entity Id
+              var valueIndex = self.state.activeListItemValues.indexOf(feature.attributes.wri_id);
+              newActiveListItemValues = self.state.activeListItemValues.slice(0);
+              newActiveListItemValues.splice(valueIndex, 1);
+              self.setState( { activeListItemValues: newActiveListItemValues } );
+              // Id to remove
+              removeId = feature.attributes.OBJECTID;
+              // Remove selected feature from features array
+              arrayUtils.forEach(selectedFeatures, function (graphic, index) {
+                if (removeId === graphic.attributes.OBJECTID) { removeIndex = index; }
+              });
+              selectedFeatures.splice(removeIndex, 1);
+              // Remove the feature from the map
+							arrayUtils.some(wizardGraphicsLayer.graphics, function (graphic) {
+                if (graphic.attributes.OBJECTID === removeId) {
+                  wizardGraphicsLayer.remove(graphic);
+                  return true;
+                }
+                return false;
+              });
+							arrayUtils.some(wizardPointGraphicsLayer.graphics, function (graphic) {
+                if (graphic.attributes.OBJECTID === removeId) {
+                  wizardPointGraphicsLayer.remove(graphic);
+                  return true;
+                }
+                return false;
+              });
+            } else {
+              // Add it to the map and make it the current selection, give it a label
+							ids.push(feature.attributes.wri_id);
+              feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+
+							var pointGraphic = GeoHelper.generatePointGraphicFromGeometric(feature.attributes.longitude, feature.attributes.latitude, feature.attributes);
+              graphic = GeoHelper.preparePointAsPolygon(feature);
+              graphic = GeoHelper.applySelectionSymbolToFeature(graphic);
+              wizardGraphicsLayer.add(graphic);
+							wizardPointGraphicsLayer.add(pointGraphic);
+
+              selectedFeatures.push(graphic);
+            }
+
+					}
+
+					// Add Active Class, Add to array or features, and add label to array of labels
+					newActiveListItemValues = self.state.activeListItemValues.concat(ids);
+					self.setState({ activeListItemValues: newActiveListItemValues });
+
+					// Mark this as your current selection and provide label
+					if (selectedFeatures.length > 0) {
+						WizardStore.set(KEYS.selectedCustomFeatures, selectedFeatures);
+					} else {
+						// This resets the current selection to none
+						WizardStore.set(KEYS.selectedCustomFeatures, []);
+					}
+
+        });
 
       } else if (wriId) {
 
-        wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
         if (wizardGraphicsLayer) {
 	  // AnalyzerQuery.getMillByEntityId(wriId).then(function (feature) {
           AnalyzerQuery.getMillByWriId(wriId).then(function (feature) {
@@ -255,12 +339,22 @@ define([
                 }
                 return false;
               });
+							arrayUtils.some(wizardPointGraphicsLayer.graphics, function (graphic) {
+                if (graphic.attributes.OBJECTID === removeId) {
+                  wizardPointGraphicsLayer.remove(graphic);
+                  return true;
+                }
+                return false;
+              });
+
             } else {
               // Add it to the map and make it the current selection, give it a label
               feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
+							var pointGraphic = GeoHelper.generatePointGraphicFromGeometric(feature.attributes.longitude, feature.attributes.latitude, feature.attributes);
               graphic = GeoHelper.preparePointAsPolygon(feature);
               graphic = GeoHelper.applySelectionSymbolToFeature(graphic);
               wizardGraphicsLayer.add(graphic);
+							wizardPointGraphicsLayer.add(pointGraphic);
               // Add Active Class, Add to array or features, and add label to array of labels
               newActiveListItemValues = self.state.activeListItemValues.concat([wriId]);
               self.setState({ activeListItemValues: newActiveListItemValues });
@@ -285,8 +379,10 @@ define([
     _localReset: function () {
       // Call this to reset the selection list and graphics layer
       var wizLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
+			var wizLayerPoints = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
       WizardStore.set(KEYS.selectedCustomFeatures, []);
       wizLayer.clear();
+			wizLayerPoints.clear();
 
       this.setState({ activeListItemValues: [] });
     }

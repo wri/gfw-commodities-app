@@ -186,6 +186,7 @@ define([
                 sr = new SpatialReference(102100),
                 projectionCallback,
                 polygons,
+                points,
                 failure,
                 poly;
 
@@ -199,25 +200,28 @@ define([
 
             // Parse the geometry from the global payload object
             var areasToAnalyze = JSON.parse(window.payload.geometry);
+            console.log(areasToAnalyze)
 
             // If we have a single polygon, grab the geometry and begin
             // If we have a single circle, convert to polygon and then continue
             if (areasToAnalyze.length === 1) {
-
               var area = areasToAnalyze[0];
 
               if (area.geometry.radius) {
                 poly = new Polygon(sr);
                 poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
+                report.centerPoints = [area.point];
+
 
                 // Save the areas to the report.mills incase they are doing mill point analysis, we will need these
                 area.geometry = report.geometry;
                 report.mills = [area];
               } else if (area.geometry.type === 'polygon') {
                 report.geometry = new Polygon(area.geometry);
-              }
 
+              }
+              console.log(report.centerPoints);
               this.beginAnalysis();
 
             } else {
@@ -225,9 +229,10 @@ define([
               // First I will need to convert circles to polygons since unioning circles/computing histograms
               // has some unexpected outcomes
               polygons = [];
+              points = [];
 
               arrayUtils.forEach(areasToAnalyze, function (feature) {
-
+                points.push(feature.point);
                 // Prototype chain gets broken when stringified, so create a new poly
                 if (feature.geometry.type === 'polygon') {
                     poly = new Polygon(feature.geometry);
@@ -244,6 +249,8 @@ define([
                 }
 
               });
+              report.centerPoints = points;
+              console.log(report.centerPoints);
 
               // Keep a reference of the mills
               report.mills = areasToAnalyze;
