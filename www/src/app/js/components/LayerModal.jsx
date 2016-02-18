@@ -40,7 +40,7 @@ define([
                 }
                 {
                   !this.state.layerInfo.resolution ? null :
-                  this.tableMap(this.state.layerInfo.function, 'RESOLUTION/SCALE')
+                  this.tableMap(this.state.layerInfo.resolution, 'RESOLUTION/SCALE')
                 }
                 {
                   !this.state.layerInfo.geographic_coverage ? null :
