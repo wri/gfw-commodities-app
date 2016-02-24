@@ -43,17 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'region' => 'us-east-1'
       ));
 
-      // $msg = array();
-      // $msg['Source'] = "lcotner@blueraster.com";
-      // //ToAddresses must be an array
-      // $msg['Destination']['ToAddresses'][] = "jhettmansperger@blueraster.com";
-      // $msg['Message']['Subject']['Data'] = "Email from S3 PHP SDK";
-      // $msg['Message']['Subject']['Charset'] = "UTF-8";
-      // $msg['Message']['Body']['Text']['Data'] ="The bodyyy";
-      // $msg['Message']['Body']['Text']['Charset'] = "UTF-8";
-      // $msg['Message']['Body']['Html']['Data'] = "<h3>HTML</h3> <p>Data of email</p>";
-      // $msg['Message']['Body']['Html']['Charset'] = "UTF-8";
-      //
+      $msg = array();
+      $msg['Source'] = "lcotner@blueraster.com";
+      //ToAddresses must be an array
+      $msg['Destination']['ToAddresses'][] = "jhettmansperger@blueraster.com";
+      $msg['Message']['Subject']['Data'] = "Email from S3 PHP SDK";
+      $msg['Message']['Subject']['Charset'] = "UTF-8";
+      $msg['Message']['Body']['Text']['Data'] = "The bodyyy";
+      $msg['Message']['Body']['Text']['Charset'] = "UTF-8";
+      $msg['Message']['Body']['Html']['Data'] = "<h3>HTML</h3> <p>Data of email</p>";
+      $msg['Message']['Body']['Html']['Charset'] = "UTF-8";
+
       // $client->sendEmail($msg);
 
       print_r($urls);
