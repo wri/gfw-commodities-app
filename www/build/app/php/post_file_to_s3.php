@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // $obj->SIGNED_URL = $signedUrl;
 
       // print_r($obj);
-      // print_r({$urls);
+      print_r({$urls);
       // print_r('{URL:' & $urls & ',SIGNED_URL:' & $signedUrl);
 
   } catch (S3Exception $e) {
