@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $msg['Message']['Body']['Html']['Data'] = "<h3>HTML</h3> <p>Data of email</p>";
       $msg['Message']['Body']['Html']['Charset'] = "UTF-8";
 
-      // $client->sendEmail($msg);
+      $client->sendEmail($msg);
 
       print_r($urls);
 
