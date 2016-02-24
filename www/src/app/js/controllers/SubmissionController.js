@@ -49,12 +49,6 @@ define([
         $('#dataInput').css('border-color', '#c0c0c0');
         $('#attributeDataInput').css('border-color', '#c0c0c0');
 
-        var storyNameData = model.storyNameData();
-        var storyCompanyData = model.storyCompanyData();
-        var storyTitleData = model.storyTitleData();
-        var storyEmailData = model.storyEmailData();
-        var storyDetailsData = model.storyDetailsData();
-
         var dataFileName = model.dataFileName();
         var dataFileType = model.dataFileType();
         var attributeFileName = model.attributeFileName();
@@ -91,6 +85,8 @@ define([
         var dataFile = $('#dataInput')[0].files[0];
         var attributeFile = $('#attributeDataInput')[0].files[0];
 
+        console.log('dataFile', dataFile);
+        console.log('attributeFile', attributeFile);
 
         if (dataFile) {
 
@@ -118,11 +114,12 @@ define([
             data: form_data,
             type: 'post',
             success: function(response){
-
+              console.log(response);
               self.uploadToAGOL(response);
 
             },
             error: function(xhr, error){
+              console.log(error);
               $('#loader-wheel-submit').hide();
               $('#loader-background').hide();
               $('body').css('overflow', 'visible');
@@ -171,6 +168,7 @@ define([
     uploadToAGOL: function(response){
 
       var arr = response.split(';');
+      console.log(arr);
 
       var url1 = arr[0];
       var url2;
