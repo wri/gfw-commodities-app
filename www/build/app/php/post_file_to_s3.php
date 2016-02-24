@@ -37,24 +37,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       }
 
-      $client = Aws\Ses\SesClient::factory(array(
-          'key'    => $key,
-          'secret' => $secret,
-          'region' => 'us-east-1'
+      $client = Aws\Ses\SesClient::factory();
+
+      $email_result = $client->sendEmail(array(
+          // Source is required
+          'Source' => 'lcotner@blueraster.com',
+          // Destination is required
+          'Destination' => array(
+              'ToAddresses' => array('jhettmansperger@blueraster.com'),
+              'CcAddresses' => array('lcotner@blueraster.com')
+          ),
+          // Message is required
+          'Message' => array(
+              // Subject is required
+              'Subject' => array(
+                  // Data is required
+                  'Data' => 'Email from S3 PHP SDK',
+                  'Charset' => 'UTF-8',
+              ),
+              // Body is required
+              'Body' => array(
+                  'Text' => array(
+                      // Data is required
+                      'Data' => 'The bodyyy',
+                      'Charset' => 'UTF-8',
+                  ),
+                  'Html' => array(
+                      // Data is required
+                      'Data' => '<h3>HTML</h3> <p>Data of email</p>',
+                      'Charset' => 'UTF-8',
+                  ),
+              ),
+          )
       ));
 
-      $msg = array();
-      $msg['Source'] = "lcotner@blueraster.com";
-      //ToAddresses must be an array
-      $msg['Destination']['ToAddresses'][] = "jhettmansperger@blueraster.com";
-      $msg['Message']['Subject']['Data'] = "Email from S3 PHP SDK";
-      $msg['Message']['Subject']['Charset'] = "UTF-8";
-      $msg['Message']['Body']['Text']['Data'] = "The bodyyy";
-      $msg['Message']['Body']['Text']['Charset'] = "UTF-8";
-      $msg['Message']['Body']['Html']['Data'] = "<h3>HTML</h3> <p>Data of email</p>";
-      $msg['Message']['Body']['Html']['Charset'] = "UTF-8";
+      // $client = Aws\Ses\SesClient::factory(array(
+      //     'key'    => $key,
+      //     'secret' => $secret,
+      //     'region' => 'us-east-1'
+      // ));
 
-      $client->sendEmail($msg);
+      // $msg = array();
+      // $msg['Source'] = "lcotner@blueraster.com";
+      // //ToAddresses must be an array
+      // $msg['Destination']['ToAddresses'][] = "jhettmansperger@blueraster.com";
+      // $msg['Message']['Subject']['Data'] = "Email from S3 PHP SDK";
+      // $msg['Message']['Subject']['Charset'] = "UTF-8";
+      // $msg['Message']['Body']['Text']['Data'] = "The bodyyy";
+      // $msg['Message']['Body']['Text']['Charset'] = "UTF-8";
+      // $msg['Message']['Body']['Html']['Data'] = "<h3>HTML</h3> <p>Data of email</p>";
+      // $msg['Message']['Body']['Html']['Charset'] = "UTF-8";
+      //
+      // $client->sendEmail($msg);
 
       print_r($urls);
 
