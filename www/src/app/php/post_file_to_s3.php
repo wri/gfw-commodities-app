@@ -29,15 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $urls = $urls . ";" . $result['ObjectURL'];
 
-        $signedUrl = $s3->getObjectUrl($bucket, $_FILES['attributeFile']['name'], '+15 minutes');
+        // $signedUrl = $s3->getObjectUrl($bucket, $_FILES['attributeFile']['name'], '+15 minutes');
 
       }
 
-      $obj = new stdClass();
-      $obj->URL = $urls;
-      $obj->SIGNED_URL = $signedUrl;
+      // $obj = new stdClass();
+      // $obj->URL = $urls;
+      // $obj->SIGNED_URL = $signedUrl;
 
-      print_r($obj);
+      // print_r($obj);
       // print_r({$urls);
       // print_r('{URL:' & $urls & ',SIGNED_URL:' & $signedUrl);
 
