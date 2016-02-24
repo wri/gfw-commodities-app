@@ -32,13 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $signedUrl = $s3->getObjectUrl($bucket, $_FILES['attributeFile']['name'], '+15 minutes');
 
       }
+      print_r($urls);
 
       // $obj = new stdClass();
       // $obj->URL = $urls;
       // $obj->SIGNED_URL = $signedUrl;
 
       // print_r($obj);
-      print_r({$urls);
+      // print_r({$urls);
       // print_r('{URL:' & $urls & ',SIGNED_URL:' & $signedUrl);
 
   } catch (S3Exception $e) {
