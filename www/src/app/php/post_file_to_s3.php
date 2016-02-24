@@ -6,9 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $urls = "";
       $bucket=getenv('bucket');
-      $key=getenv('aws_access_key_id');
-      $secret=getenv('aws_secret_access_key');
-
+      // $key=getenv('AWS_ACCESS_KEY_ID');
+      // $secret=getenv('AWS_SECRET_ACCESS_KEY');
 
       if(isset($_FILES['dataFile'])){
 
@@ -37,7 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       }
 
-      $client = Aws\Ses\SesClient::factory();
+      // Create the AWS service builder, providing the path to the config file
+      // $aws = Aws\Common\Aws::factory('/config.php');
+
+      $credentials = new Credentials(getenv('AWS_ACCESS_KEY_ID'), getenv('AWS_SECRET_ACCESS_KEY'));
+
+      $client = Aws\Ses\SesClient::factory(array(
+          'credentials' => $credentials
+      ));
 
       $email_result = $client->sendEmail(array(
           // Source is required
