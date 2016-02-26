@@ -28,22 +28,29 @@ gainLayer = #5952de
 	text-align center
 
 .gfw .app-header
-	background url('images/header_tree_background.jpg') repeat-x scroll center top transparent
+	//background url('images/header_tree_background.jpg') repeat-x scroll center top transparent
 	border-bottom 1px solid #717d80
 	// border-top 5px solid darkGray
 	box-sizing border-box
-	height 210px
 
 .gfw .header
-	height 100%
 	width 100%
+	z-index 300
+
+.gfw .nav-header
+	background rgba(255,255,255,0.8)
+	border-bottom 1px solid #e5e5df
 
 .gfw .header .inner
 	margin 0 auto
 	width 75%
+	text-align right
+	position relative
 
 .gfw .header .outer
 	margin 0 30px
+	text-align right
+	position relative
 
 .gfw .nav-topper
 	font-family 'Fira Sans', 'fira_sans_otregular', Georgia, serif
@@ -456,10 +463,24 @@ gainLayer = #5952de
 	background-position 0 0
 	text-indent -999999px
 	display inline-block
-	position relative
+	position absolute
 	height 100px
 	width 90px
 	z-index 200
+	left 0
+	top 0
+	color transparent !important
+
+a.header-logo:after
+	content: "";
+	display: block;
+	width: 30px;
+	height: 18px;
+	position: absolute;
+	bottom: 7px;
+	right: -1px;
+	background: url(images/beta.png);
+	z-index: 300;
 
 .gfw .beta-logo
 	font-family Arial, sans-serif
@@ -472,11 +493,10 @@ gainLayer = #5952de
 	top 20px
 
 .gfw .nav-link-list
-	margin 20px 145px 0 0
 	display inline-block
 	list-style-type none
-	float right
 	padding 0
+	margin 0 auto
 
 .gfw .app-header .google_translate_element
 	position absolute
@@ -491,10 +511,9 @@ gainLayer = #5952de
 	border-radius(5px)
 	font-family Arial, sans-serif
 	display inline-block
-	font-weight bold
-	padding 6px 8px
+	padding 18px 30px
 	font-size 14px
-	color darkFont
+	color #555
 	margin 0 2px
 
 .gfw .nav-link-list .nav-link:not(.selected)
@@ -528,7 +547,7 @@ gainLayer = #5952de
 	z-index 500
 	opacity 1
 	left 0px
-	top 29px
+	top 52px
 	// top 42px
 	padding 0px
 
