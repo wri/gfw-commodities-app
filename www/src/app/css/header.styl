@@ -29,7 +29,8 @@ gainLayer = #5952de
 
 .gfw .app-header
 	//background url('images/header_tree_background.jpg') repeat-x scroll center top transparent
-	border-bottom 1px solid #717d80
+	//border-bottom 1px solid #717d80
+	//border-bottom 1px solid #e5e5df
 	// border-top 5px solid darkGray
 	box-sizing border-box
 
@@ -39,7 +40,7 @@ gainLayer = #5952de
 
 .gfw .nav-header
 	background rgba(255,255,255,0.8)
-	border-bottom 1px solid #e5e5df
+	//border-bottom 1px solid #e5e5df
 
 .gfw .header .inner
 	margin 0 auto
@@ -62,7 +63,7 @@ gainLayer = #5952de
 
 .gfw .app-header.mapView
 	// height 120px
-	height 135px
+	height 90px
 
 .gfw .app-header.generalView
 	height 105px
@@ -86,13 +87,14 @@ gainLayer = #5952de
 .gfw .app-header.mapView .map-layer-controls
 	position absolute
 	display block
-	right 40px
-	// top 65px
-	top 50px
+	width 100%
+	background rgba(255,255,255,0.8)
+	text-align right
 
 .gfw .app-header .map-layer-controls ul
 	display inline-block
 	list-style-type none
+	margin-bottom 0
 
 .gfw .app-header .layer-list-header,
 .gfw .app-header .filter-list-title
@@ -508,10 +510,10 @@ a.header-logo:after
 	top 20px
 
 .gfw .nav-link-list .nav-link
-	border-radius(5px)
+	//border-radius(5px)
 	font-family Arial, sans-serif
 	display inline-block
-	padding 18px 30px
+	padding 18px 35px
 	font-size 14px
 	color #555
 	margin 0 2px
@@ -520,16 +522,20 @@ a.header-logo:after
 	cursor pointer
 
 .gfw .nav-link-list .nav-link:hover
-	background-color orangeHover
+	//background-color orangeHover
+	border-bottom: 5px solid orangeSelected
+	padding-bottom 13px
+	box-shadow 0 1px 3px rgba(0,0,0,0.25)
 
 #learnMoreItem:hover
 	webkit-border-radius 0
 	border-radius 0
 
 .gfw .nav-link-list .nav-link.selected
-	background-color orangeSelected
+	box-shadow 0 1px 3px rgba(0,0,0,0.25)
 	cursor default
-	color white
+	border-bottom: 5px solid orangeSelected
+	padding-bottom 13px
 
 .gfw .header-title
 	font-family Georgia, serif
@@ -540,7 +546,7 @@ a.header-logo:after
 	padding-top 5px
 
 .gfw .app-header #learn-more-dropdown
-	font-size 12px
+	font-size 14px
 	background-color white
 	position absolute
 	width 100%
@@ -550,6 +556,7 @@ a.header-logo:after
 	top 52px
 	// top 42px
 	padding 0px
+	box-shadow 0 1px 3px rgba(0,0,0,0.25)
 
 .nav-link-more
 	color #333
@@ -558,8 +565,8 @@ a.header-logo:after
 	text-align center
 	padding 3px
 	cursor pointer
-	padding-bottom 10px
-	padding-top 10px
+	padding-bottom 14px
+	padding-top 14px
 
 .nav-link-more:hover
 	background-color rgba(233,131,0,0.15)
