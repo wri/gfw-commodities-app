@@ -23,6 +23,8 @@ company = #5e138a
 gainLayer = #5952de
 /* Layer Filter Colors */
 
+#headerGfw
+	z-index 900!important
 
 .header-title.reset.inner
 	text-align center
@@ -89,7 +91,7 @@ gainLayer = #5952de
 	display block
 	width 100%
 	background rgba(255,255,255,0.8)
-	text-align right
+	text-align center
 
 .gfw .app-header .map-layer-controls ul
 	display inline-block
@@ -462,7 +464,7 @@ gainLayer = #5952de
 
 .gfw .header-logo
 	background url('images/gfwc_logo.jpg') no-repeat center
-	background-position 0 0
+	background-position 0 top
 	text-indent -999999px
 	display inline-block
 	position absolute
@@ -472,6 +474,7 @@ gainLayer = #5952de
 	left 0
 	top 0
 	color transparent !important
+	background-size 85px
 
 a.header-logo:after
 	content: "";
@@ -480,7 +483,7 @@ a.header-logo:after
 	height: 18px;
 	position: absolute;
 	bottom: 7px;
-	right: -1px;
+	right: 0;
 	background: url(images/beta.png);
 	z-index: 300;
 
