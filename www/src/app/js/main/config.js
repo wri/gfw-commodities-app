@@ -3,10 +3,11 @@ define({
     "title": "Global Forest Watch Commodities",
 
     "urls": {
-        "gfw": "http://www.globalforestwatch.org/",
-        "blog": "http://blog.globalforestwatch.org/tag/commodities/",
+        "gfw": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
+        "blog": "http://commodities.globalforestwatch.org/#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs",
         "fires": "http://fires.globalforestwatch.org/#v=home",
-        "SPOTT": "http://www.sustainablepalmoil.org/spott/"
+        "supplierMonitoring": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
+        "SPOTT": "#"
 
 
     },
@@ -21,29 +22,40 @@ define({
     ],
 
     "homeModeOptions": [{
-        "html": "<span class='less-text'>Explore the map</span>",
+        "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
         "eventName": "goToMap",
         "display": true,
         "id": 0,
-        "tooltip": "Explore the Map"
+        "tooltip": "Analysis",
+        "imageBg": "../../app/css/images/Slide-Picture1.png"
     }, {
-        "html": "<span>Check out GFW Fires</span>",
+        "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE GLOBAL</span>\n<span>DATA ON THE GFW</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
         "eventName": "goToFires",
         "display": false,
         "id": 1,
-        "tooltip": "Check out GFW Fires"
+        "tooltip": "Commodities Map",
+        "imageBg": "../../app/css/images/Slide-Picture2.png"
     }, {
-        "html": "Read recent blogs and news about GFW Commodities",
+        "html": '<div class="home-slider-container">\n<h3>ALERTS</h3>\n<h4><span>SIGN UP FOR TREE</span>\n<span>CLEARANCE AND FIRE</span>\n<span>ALERTS FORS AREAS IN</span>\n<span>YOUR SUPPLY CHAIN</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
         "eventName": "goToBlogs",
         "display": false,
         "id": 2,
-        "tooltip": "Commodities News & Blogs"
+        "tooltip": "Alerts",
+        "imageBg": "../../app/css/images/Slide-Picture3.png"
     }, {
-        "html": "Check out ZSL's Transparency Toolkit",
+        "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
         "eventName": "goToZSL",
         "display": false,
         "id": 3,
-        "tooltip": "ZSL Transparency Toolkit"
+        "tooltip": "Supplier Monitoring",
+        "imageBg": "../../app/css/images/Slide-Picture4.png"
+    }, {
+        "html": '<div class="home-slider-container">\n<h3>Explore</h3>\n<h4><span>Explore Commodities</span>\n<span>Data on The</span>\n<span>Interactive Map</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
+        "eventName": "goToZSL",
+        "display": false,
+        "id": 4,
+        "tooltip": "Explore Commodities",
+        "imageBg": "../../app/css/images/Slide-Picture4.png"
     }],
 
     "homeDialog": {
