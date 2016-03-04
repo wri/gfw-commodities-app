@@ -16,19 +16,19 @@ module.exports = function(grunt) {
                   // htaccess file to prevent caching of index.html allowing our cacheBust to work
                   src: ['src/app/php/proxy.php'],
                   dest: 'build/app/php/proxy.php'
-                  }, {
+                }, {
                     // htaccess file to prevent caching of index.html allowing our cacheBust to work
-                      src: ['src/app/php/proxy.config'],
-                      dest: 'build/app/php/proxy.config'
-                  }, {
+                    src: ['src/app/php/proxy.config'],
+                    dest: 'build/app/php/proxy.config'
+                }, {
                       // htaccess file to prevent caching of index.html allowing our cacheBust to work
-                      src: ['src/app/php/proxy.sqlite'],
-                      dest: 'build/app/php/proxy.sqlite'
-                  }, {
+                    src: ['src/app/php/proxy.sqlite'],
+                    dest: 'build/app/php/proxy.sqlite'
+                }, {
                       // htaccess file to prevent caching of index.html allowing our cacheBust to work
-                      src: ['src/app/php/post_file_to_s3.php'],
-                      dest: 'build/app/php/post_file_to_s3.php'
-                  }, {
+                    src: ['src/app/php/post_file_to_s3.php'],
+                    dest: 'build/app/php/post_file_to_s3.php'
+                }, {
                     // htaccess file to prevent caching of index.html allowing our cacheBust to work
                     src: ['src/.htaccess'],
                     dest: 'build/.htaccess',
@@ -88,6 +88,57 @@ module.exports = function(grunt) {
                     // Helper Libraries used at various points in the app
                     src: ['src/app/libs/jquery-ui-custom.min.js'],
                     dest: 'build/app/libs/jquery-ui-custom.min.js',
+                    filter: 'isFile'
+                }, {
+
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/libs/jquery-ui-custom.min.js'],
+                    dest: 'build/app/libs/jquery-ui-custom.min.js',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/join-the-community.svg'],
+                    dest: 'build/app/css/images/join-the-community.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/arrow-down.svg'],
+                    dest: 'build/app/css/images/arrow-down.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/sign-up-for-alerts.svg'],
+                    dest: 'build/app/css/images/sign-up-for-alerts.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/view-monthly-reports-coming-soon.svg'],
+                    dest: 'build/app/css/images/view-monthly-reports-coming-soon.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/map-icons-forest-change.svg'],
+                    dest: 'build/app/css/images/map-icons-forest-change.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/map-icons-forest-cover.svg'],
+                    dest: 'build/app/css/images/map-icons-forest-cover.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/map-icons-forest-use.svg'],
+                    dest: 'build/app/css/images/map-icons-forest-use.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/map-icons-palm-tree.svg'],
+                    dest: 'build/app/css/images/map-icons-palm-tree.svg',
+                    filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['src/app/css/images/map-icons-conservation.svg'],
+                    dest: 'build/app/css/images/map-icons-conservation.svg',
                     filter: 'isFile'
                 }, {
                     // Helper Libraries used at various points in the app
@@ -152,7 +203,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/app',
-                    src: ['**/*.{png,jpg,gif}'],
+                    src: ['**/*.{png,jpg,gif,svg}'],
                     dest: 'build/app'
                 }]
             }
