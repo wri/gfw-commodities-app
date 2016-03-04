@@ -366,6 +366,7 @@ nav.mobile-hide h2 {
   color: #555555;
   background: #fff
   border-radius: 50px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 }
 nav.mobile-hide .box-button {
   display: inline-block;
@@ -490,7 +491,10 @@ nav.mobile-hide .box-button {
   background-position: 0 -180px
 }
 .tooltip-getstarted .img.sign-up-gfw-commodities-newsletters {
-  background-position: 0 -289px
+  background-position: -2px -288px
+  border-radius 0
+  width 36px
+  height 36px
 }
 .tooltip-getstarted .img.learn-about-download {
   background-position: 0 -327px
@@ -553,7 +557,7 @@ nav.mobile-hide .box-button {
   background-size: 92px;
   height: 92px;
   width: 92px;
-  margin: 35px 0 10px 0;
+  margin: 30px 0 10px 0;
   display: inline-block;
   cursor pointer
 }
@@ -563,7 +567,9 @@ nav.mobile-hide .box-button {
 }
 
 .footerWrapper .submitStory .icon {
-  background-image: url(../../app/css/images/view-monthly-reports.svg);
+  background-image: url(../../app/css/images/view-monthly-reports-coming-soon.svg);
+  width: 124px;
+  background-size: 126px 92px;
 }
 
 .footerWrapper .receiveAlerts .icon {
@@ -762,8 +768,23 @@ nav.mobile-hide .box-button {
   height: 57px
 }
 
+@media screen and (max-width: 1350px) {
+  .gfw #app-body .background-container img {
+    height: 570px !important;
+    width: 1350px !important;
+    left: calc(50% - 675px);
+  }
+}
 @media screen and (min-width: 1200px) {
   .arrow-down-container{
     width 1200px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .footerWrapper .footerItem {
+    width: 100%;
+    float: left;
+    height: 90%;
+    background-color: #fff;
   }
 }

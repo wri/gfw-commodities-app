@@ -58,8 +58,9 @@ border-radius()
     z-index: 200;
     position: absolute;
     align: center;
-    right: 5%;
-    bottom 8%
+    right: 3%;
+    bottom 1.5%
+    z-index 300
 }
 
 .homeModeOptionsContainer {
@@ -101,6 +102,8 @@ border-radius()
     transition all 2s
     border-radius 10px
     cursor pointer
+    box-shadow 0 2px 5px rgba(0,0,0,0.25)
+    transform scale(.8)
 }
 
 .homeModeDot[title]:hover:after {
@@ -126,6 +129,7 @@ border-radius()
   //background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
     background-color #fff;
     border 1px solid separatorGray
+    display: none
 
 }
 

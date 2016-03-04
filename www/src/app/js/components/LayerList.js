@@ -63,6 +63,9 @@ define([
 
       return (
         React.createElement("div", {className: "smart-list"}, 
+          React.createElement("div", {className: this.props.title}, 
+              React.createElement("div", {className: "category-icon"})
+          ), 
           React.createElement("div", {className: "filter-list-title"}, this.props.title), 
           React.createElement("div", {className: "layer-line"}), 
           React.createElement("ul", {className: "filter-list"}, 
