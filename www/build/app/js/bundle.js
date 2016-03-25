@@ -11856,7 +11856,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.48',
+                path = './app/templates/' + name + '.html?v=2.5.49',
                 req;
 
             req = new XMLHttpRequest();
