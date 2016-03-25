@@ -9,14 +9,24 @@ define([
 	"utils/Helper",
 	"utils/Delegator",
 	"controllers/ViewController",
+	"esri/urlUtils",
 	// Load Necessary Layout Widgets and Parser Here
   "dijit/layout/ContentPane",
   "dijit/layout/StackContainer"
-], function (parser, AppConfig, esriConfig, arrayUtils, has, Hasher, Helper, Delegator, ViewController) {
+], function (parser, AppConfig, esriConfig, arrayUtils, has, Hasher, Helper, Delegator, ViewController, urlUtils) {
 	'use strict';
 	return {
 
 		init: function () {
+
+			urlUtils.addProxyRule({
+				urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
+				proxyUrl: '/app/php/proxy.php'
+			});
+			urlUtils.addProxyRule({
+				urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
+				proxyUrl: '/app/php/proxy.php'
+			});
 
 			// Add Platform Specific Classes to the body tag
 			var userAgent = navigator.userAgent;

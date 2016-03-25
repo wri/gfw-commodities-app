@@ -11,9 +11,9 @@
                 name: 'js',
                 location: URL + '/js'
             }, {
-                name: 'php',
-                location: URL + '/php'
-            }, {
+            //     name: 'php',
+            //     location: URL + '/php'
+            // }, {
                 name: 'main',
                 location: URL + '/js/main'
             }, {
