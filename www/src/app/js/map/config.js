@@ -8,6 +8,7 @@ define([], function() {
         dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
         dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
         rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
+        globalLandCover = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         dynamicMapServiceUrlLand = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
@@ -299,8 +300,8 @@ define([], function() {
         },
         ldcover: {
             id: 'forestCover_commodities',
-            url: dynamicMapServiceUrlComm,
-            layerId: 11
+            url: globalLandCover,
+            layerId: 4
         },
         ldcoverIndo: {
             id: 'forestCover_commodities',
