@@ -9,7 +9,7 @@ define([
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.49',
+                path = './app/templates/' + name + '.html?v=2.5.50',
                 req;
 
             req = new XMLHttpRequest();
@@ -31,15 +31,15 @@ define([
 
             urlUtils.addProxyRule({
               urlPrefix: "http://54.88.79.102",
-              proxyUrl: "./app/php/proxy.php"
+              proxyUrl: "/app/php/proxy.php"
             });
             urlUtils.addProxyRule({
               urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
-              proxyUrl: './app/php/proxy.php'
+              proxyUrl: '/app/php/proxy.php'
             });
             urlUtils.addProxyRule({
               urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
-              proxyUrl: './app/php/proxy.php'
+              proxyUrl: '/app/php/proxy.php'
             });
             // esri.config.defaults.io.corsEnabledServers.push('54.88.79.102');
             console.log('added proxyUrl!');
