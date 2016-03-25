@@ -11880,6 +11880,14 @@ define('utils/Loader',[
               urlPrefix: "http://54.88.79.102",
               proxyUrl: "./app/php/proxy.php"
             });
+            urlUtils.addProxyRule({
+              urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
+              proxyUrl: './app/php/proxy.php'
+            });
+            urlUtils.addProxyRule({
+              urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
+              proxyUrl: './app/php/proxy.php'
+            });
             // esri.config.defaults.io.corsEnabledServers.push('54.88.79.102');
             console.log('added proxyUrl!');
             var layersRequest = esriRequest({
@@ -14126,7 +14134,6 @@ define('main/Main',[
 	"dojox/mobile/parser",
 	"main/config",
 	"esri/config",
-	"esri/urlUtils",
 	"dojo/_base/array",
 	"dojo/has",
 	// Load in Custom Modules to Aid in initializing the Application
@@ -14137,7 +14144,7 @@ define('main/Main',[
 	// Load Necessary Layout Widgets and Parser Here
   "dijit/layout/ContentPane",
   "dijit/layout/StackContainer"
-], function (parser, AppConfig, esriConfig, urlUtils, arrayUtils, has, Hasher, Helper, Delegator, ViewController) {
+], function (parser, AppConfig, esriConfig, arrayUtils, has, Hasher, Helper, Delegator, ViewController) {
 	'use strict';
 	return {
 
@@ -14180,7 +14187,7 @@ define('main/Main',[
 			// Call remaining setup functions first, then launch the app
 			this.applyConfigurations();
 			this.launchApp();
-			
+
 		},
 
 		applyConfigurations: function () {
@@ -14198,7 +14205,7 @@ define('main/Main',[
 			Helper.enableLayout();
 			// Have the Delegator Start Listening, He will subscribe to all published events and delegate handlers
 			Delegator.startListening();
-			// Initialize View Controller, He controls loading views, this will initialize the header, footer, and get 
+			// Initialize View Controller, He controls loading views, this will initialize the header, footer, and get
 			// the Header to load the default view, if you need to change the view, do it through the header, he will propogate
 			// the event to the ViewController
 			ViewController.init(defaultViewToLoad);
@@ -14207,6 +14214,7 @@ define('main/Main',[
 	};
 
 });
+
 (function () {
   require(["main/Main"],function(Main){
     Main.init();
