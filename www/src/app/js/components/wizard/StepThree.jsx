@@ -1,15 +1,20 @@
 /** @jsx React.DOM */
 define([
-    "react",
-    "analysis/config",
-    "analysis/WizardStore",
-    "components/wizard/WizardCheckbox"
+    'react',
+    'analysis/config',
+    'analysis/WizardStore',
+    'components/wizard/WizardCheckbox'
 ], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
 
-    var config = AnalyzerConfig.stepThree,
-        labelField = AnalyzerConfig.stepTwo.labelField;
+    var config = AnalyzerConfig.stepThree;
+        // labelField = AnalyzerConfig.stepTwo.labelField;
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
+
+    function getCurrentSelectionLabel () {
+      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
+    }
 
     /* Helper Functions */
     function getDefaultState() {
@@ -17,11 +22,6 @@ define([
         completed: false,
         currentSelectionLabel: getCurrentSelectionLabel()
       };
-    }
-
-    function getCurrentSelectionLabel () {
-      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
     }
 
     return React.createClass({
@@ -35,17 +35,15 @@ define([
         },
 
         analysisAreaUpdated: function () {
-            var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+            // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
             this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
         },
 
-        componentDidUpdate: function (prevProps) {
+        componentDidUpdate: function () {
             var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
             var currentStep = WizardStore.get(KEYS.userStep);
-
-            if (selectedAreaOfInterest !== 'millPointOption' &&
-                     prevProps.currentStep === 2 &&
-                     currentStep === 3) {
+            // if (selectedAreaOfInterest !== 'millPointOption' &&
+            if (currentStep === 3) {
                 // Recheck requirements and update state if necessary
                 this._selectionMade();
             }
@@ -69,9 +67,7 @@ define([
             var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
               return feature.geometry.type === 'point';
             });
-            // <div className='coming-soon'>Mill Point Risk Assessment Coming Soon!</div>
-            // <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
-            // <p className='layer-description'>{config.mill.description}</p>
+
             console.log('completed ', this.state.completed);
             return (
               <div className='step select-analysis'>
@@ -145,19 +141,21 @@ define([
 
         /* jshint ignore:end */
 
-        _selectionMade: function(checked) {
+        _selectionMade: function() {
           // console.log(this._checkRequirements)
           var completed = this._checkRequirements();
 
+          let oldCompleted = this.state.completed;
+          if (oldCompleted !== completed) {
             this.setState({ completed: completed });
+          }
         },
 
         _checkRequirements: function() {
             var result = false,
-                nodes = document.querySelectorAll(".select-analysis .wizard-checkbox.active"),
-                selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-                value;
-
+                nodes = document.querySelectorAll('.select-analysis .wizard-checkbox.active');
+                // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+                // value;
 
             // Conditions
             // At least One item must be checked
@@ -180,10 +178,9 @@ define([
         },
 
         _getPayload: function() {
-            var nodes = document.querySelectorAll(".select-analysis .wizard-checkbox"),
+            var nodes = document.querySelectorAll('.select-analysis .wizard-checkbox'),
                 selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
                 payload = {},
-                self = this,
                 value;
 
             Array.prototype.forEach.call(nodes, function(node) {

@@ -1,11 +1,8 @@
 define([
-    "dojo/query",
-    "dojo/dom",
-    "dojo/dom-style",
-    "dojo/dom-class",
-    "models/FooterModel"
-], function(dojoQuery, dom, domStyle, domClass, FooterModel) {
-    'use strict';
+    'dojo/query',
+    'dojo/dom',
+    'dojo/dom-style'
+], function(dojoQuery, dom, domStyle) {
 
     var initialized = false;
 
@@ -19,7 +16,7 @@ define([
 
             // This is most likely the culprit for why gfw-assets must be loaded in the footer after this content
             // is injected
-            dom.byId("app-footer").innerHTML = template + dom.byId("app-footer").innerHTML;
+            dom.byId('app-footer').innerHTML = template + dom.byId('app-footer').innerHTML;
 
             // Inject Header and Footer from GFW, This must be loaded here
             // until the architecture gets cleaned up or else things break
@@ -34,8 +31,8 @@ define([
             s.src = 'https://cdn.rawgit.com/simbiotica/gfw_assets/c821fe8f7c5dc545d78be491074621/js/build/production.js';
 
             s.async = true;
-            s.setAttribute('id', "loader-gfw"); // this is very important
-            s.setAttribute('data-current', ".shape-commodities"); // fire"s" the "s" is necessary
+            s.setAttribute('id', 'loader-gfw'); // this is very important
+            s.setAttribute('data-current', '.shape-commodities'); // fire"s" the "s" is necessary
             h.appendChild(s);
         },
 
