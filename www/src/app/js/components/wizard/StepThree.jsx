@@ -20,6 +20,7 @@ define([
     function getDefaultState() {
       return {
         completed: false,
+        optionsExpanded: false,
         currentSelectionLabel: getCurrentSelectionLabel()
       };
     }
@@ -37,6 +38,11 @@ define([
         analysisAreaUpdated: function () {
             // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
             this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
+        },
+
+        toggleOptions: function () {
+            // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+            this.setState({ optionsExpanded: !this.state.optionsExpanded });
         },
 
         componentDidUpdate: function () {
@@ -91,11 +97,11 @@ define([
                     <p className='layer-description'>{config.mill.description}</p>
 
                     </div>
-                    <div className='step-sub-header'>{config.forestChange.label}</div>
+                    <div className='step-sub-header'>{config.forestChange.label}<span onClick={this.toggleOptions} className='analysis-expander'>{this.state.optionsExpanded ? ' ▼' : ' ►' }</span></div>
                     <p className='layer-description'>{config.forestChange.description}</p>
                   </div>
 
-                  <div className='checkbox-list'>{config.checkboxes.map(this._mapper, this)}</div>
+                  <div className={`checkbox-list ${this.state.optionsExpanded === false ? 'transition-hidden' : ''}`}>{config.checkboxes.map(this._mapper, this)}</div>
 
                 </div>
                 <div className='step-footer'>

@@ -62,7 +62,7 @@ top-border-radius()
 	right 0
 	left 0
 	top 0
-	
+
 .gfw .step .step-footer
 	border-top 1px solid greyBorder
 	position absolute
@@ -106,7 +106,7 @@ top-border-radius()
 	height 50px
 	width 40px
 	right 0
-	
+
 .gfw .wizard-header .button.reset
 	background url('images/reset_symbol.png') no-repeat 10px center
 	padding-left 35px
@@ -157,10 +157,10 @@ top-border-radius()
 .gfw .step .step-one-option-description
 	margin 2px 25px
 	font-size 13px
-	
+
 .gfw .step .step-one-main-description ul
 	padding 0 0 0 25px
-	
+
 .gfw .step .step-one-main-description li
 	list-style disc
 
@@ -264,7 +264,7 @@ top-border-radius()
 	&.active
 		background-color mediumGray !important
 		color #FFF
-		
+
 		.custom-feature-label
 			color #FFFFFF
 
@@ -296,7 +296,7 @@ top-border-radius()
 .gfw .custom-graphics-list-container .drawing-instructions,
 .gfw .custom-graphics-list-container .custom-feature-row
 	padding-left 10px
-	
+
 .gfw .custom-graphics-list-container .custom-feature-row:nth-child(odd)
 	background-color lightGray
 
@@ -313,7 +313,7 @@ top-border-radius()
 	margin-left 5px
 	font-size 14px
 	color #000
-	
+
 .gfw .step-three-top .wizard-checkbox-label
 	font-weight bold
 	font-size 16px
@@ -326,7 +326,7 @@ top-border-radius()
 
 .gfw .wizard-checkbox.active .wizard-checkbox-label
 	color orangeSelected
-	
+
 .gfw .step .list-container
 	position absolute
 	overflow-y auto
@@ -336,9 +336,9 @@ top-border-radius()
 
 .gfw .list-container .wizard-list-item
 	font-size 15px
-	
+
 	&.active
-		color orangeSelected	
+		color orangeSelected
 
 .gfw .list-container .wizard-list-item span
 	border-bottom 1px solid lightGray
@@ -358,7 +358,7 @@ top-border-radius()
 
 .gfw .list-container .wizard-list-child-item > span
 	padding-left 35px
-	
+
 .gfw .list-container .wizard-list-child-item.active-mill
 .gfw .list-container .wizard-list-child-item.active
 	background-color mediumGray
@@ -366,16 +366,16 @@ top-border-radius()
 
 .gfw .admin-unit .list-container
 	top 215px
-	
+
 .gfw .mill-point .list-container
 	top 200px
 
 .gfw .commercial-entity .list-container
 	top 190px
-	
+
 .gfw .certified-area .list-container
 	top 230px
-	
+
 .gfw .mill-point .feature-list
 	margin-left -10px
 
@@ -398,19 +398,38 @@ top-border-radius()
 	margin 0 5px 0 20px
 	font-size 12px
 
+.gfw .select-analysis .analysis-expander
+	cursor pointer
+
 .gfw .select-analysis .step-sub-header
 	margin 10px 0 5px 20px
 	font-weight bold
-	
+
 .gfw .select-analysis .sub-title
 	margin 5px 0
 
 .gfw .wizard-checkbox-container
 	font-size 18px
 	margin 5px 0
-	
+
 .gfw .select-analysis .checkbox-list
 	margin-left 15px
+	visibility visible
+	max-height auto
+	opacity 1
+	transition visibility 0s, opacity 0.5s ease-in-out, max-height 0.5s
+
+.gfw .checkbox-list.transition-hidden
+	visibility hidden
+	opacity 0
+	max-height 0
+
+.gfw .checkbox-list.transition-hidden .wizard-checkbox .custom-check
+	transition visibility 0s, opacity 0.5s ease-in-out
+
+.gfw .checkbox-list .wizard-checkbox-container
+	display inline-block
+	width 220px
 
 .gfw .checkbox-list .wizard-checkbox-container
 	display inline-block
@@ -437,7 +456,7 @@ top-border-radius()
 	width 15px
 	left 5px
 	top 7px
-	
+
 .gfw .select-analysis .coming-soon
 	background rgb(220,220,220) // Incase Browser does not support rgba
 	background rgba(220,220,220, 0.9)
@@ -448,10 +467,10 @@ top-border-radius()
 	right 10px
 	left 0
 	top 0
-	
+
 .point-radius-select
 	width 100px !important
-	
+
 .point-radius-select-container span
 	padding-right 20px
 
@@ -462,14 +481,14 @@ top-border-radius()
 	margin-right 10px
 	text-align center
 	height 35px
-	
+
 .select-mill-list-button
 	transition color 0.5s ease-in-out
 	border-radius(5px)
 	line-height 38px
 	cursor pointer
 	width 50%
-	
+
 .mill-list-toggle-indicator
 	transition all 0.35s ease-in-out
 	border-radius(5px)
@@ -478,12 +497,12 @@ top-border-radius()
 	height 31px
 	width 49%
 	top 2px
-	
+
 .select-mill-list-button.active
 	color white
-	
+
 .mill-list-toggle-indicator.mill-custom-list
 	left 50.5%
-	
+
 .mill-list-toggle-indicator.mill-known-list
 	left 0.5%
