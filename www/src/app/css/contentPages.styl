@@ -1,19 +1,19 @@
 
 .dataView {
-  background-color: #fff;
+	background-color: #fff;
 }
 .content-header {
-  height: auto;
-  width: 100%;
-  background: url("images/header_block.jpg");
-  margin: 40px 0 40px 0;
+	height: auto;
+	width: 100%;
+	background: url("images/header_block.jpg");
+	margin: 40px 0 40px 0;
 }
 .content-header h1 {
 	font-weight: normal;
 	position: relative;
 	color: white;
-    font-family: "fira_sans_otregular";
-    padding: 40px 50px 0 50px;
+		font-family: "fira_sans_otregular";
+		padding: 40px 50px 0 50px;
 }
 .content-header h4 {
 	font-weight: normal;
@@ -56,8 +56,8 @@
 	color: #777;
 	line-height: 33px;
 	font-size: 19px;
-    color: #464052;
-    cursor: pointer;
+		color: #464052;
+		cursor: pointer;
 	margin-bottom: 0px;
 }
 .ac-container label:hover{
@@ -78,8 +78,8 @@
 }
 
 .source_header label {
-    font: bold 12px/60px 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
-    text-transform: uppercase;
+		font: bold 12px/60px 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+		text-transform: uppercase;
 }
 
 
@@ -164,12 +164,12 @@
 	}
 
 .contentPage ul li .content {
-    height: 0;
+		height: 0;
 	overflow:hidden;
 	}
 
 .contentPage ul li .content:target {
-    height:auto;
+		height:auto;
 	border-bottom:1px #efefef solid;
 	}
 
@@ -187,83 +187,116 @@
 
 .contentPage {
 	zoom:1;
-  overflow: visible !important;
+	overflow: visible !important;
 }
 
 .inlineInput
-  color #464052
-  font-size 12.45px
-  padding-bottom 9px
+	color #464052
+	font-size 12.45px
+	padding-bottom 9px
 
 .inlineInput h4
-  font-size initial
-  margin-top 0
+	font-size initial
+	margin-top 0
+
+.submission-modal
+	margin-left -240px
+	width 480px
+  height 250px
+	transition all 0.75s ease-in-out
+	border 2px solid #b2b2b2
+	padding 10px
+	background-color #fff
+	position absolute
+	z-index 1000
+	height auto
+	top 40%
+	left 50%
+	display none
+	&.active
+		display block
+	&.story-name
+		top 800px
+
+.submission-modal-enter-button
+	background-color #e98300
+	border-radius(5px)
+	text-align center
+	padding 5px 15px
+	margin 10px auto
+	cursor pointer
+	display block
+	color #FFF
+	width 45px
+
+.submit-inputs-container input
+	width 125px
 
 .attachInstructions
-  margin-left 25px
+	margin-left 25px
 
 p.attachInstructions.smaller
-  margin-top 0
-  margin-bottom 0
-  margin-left 50px
+	margin-top 0
+	margin-bottom 0
+	margin-left 50px
 
 
 #storyDetailsInput
-  height 40px
+	height 40px
 
 #verifyEmailForStory
-  font-size 12px
-  display none
+	font-size 12px
+	display none
 
 #alignWithMedia
-  position relative
-  top 290px
+	position relative
+	top 290px
 
 #alignWithEmail
-  position relative
-  top 530px
+	position relative
+	top 530px
 
 #submitBox
-  float left
-  width 575px
+	float left
+	width 575px
 
 #submitStory > input
-  float left
-  margin-top 10px
-  margin-bottom 20px
+	float left
+	margin-top 10px
+	margin-bottom 20px
 
 #submitStory > input:hover
-  background-color #789631
-  transition background 0.15s linear
+	background-color #789631
+	transition background 0.15s linear
 
 #contentRightStory
-  float right
-  width 275px
-  text-align left
+	float right
+	width 275px
+	text-align left
 
 .storyHeader
-  color #464052
-  margin-bottom 5px
+	color #464052
+	margin-bottom 5px
 
 .requiredItem
-  color #464052
-  float right
-  position relative
-  margin-top -20px
-  margin-left -30px
-  left -35px
-  font-weight 500
+	color #464052
+	float right
+	position relative
+	margin-top -20px
+	margin-left -30px
+	left -35px
+	font-weight 500
 
 
 
 .storiesInput > input, .storiesInput > textarea
-  width 90%
-  padding 10px
-  padding-bottom 15px
-  border-radius 4px
-  border 1px solid rgba(192, 192, 192, 1)
-  -webkit-background-clip padding-box
-  background-clip padding-box
+	width 90%
+	padding 10px
+	padding-bottom 15px
+	border-radius 4px
+	border 1px solid rgba(192, 192, 192, 1)
+	-webkit-background-clip padding-box
+	background-clip padding-box
 
 .gfw #app-body.methodsView .contentPage,
 .gfw #app-body.submissionView .contentPage,
@@ -295,7 +328,7 @@ p.attachInstructions.smaller
 	padding: 40px 50px 0 50px;
 	font-size: 47px;
 	line-height: 47px;
-    font-family: "fira_sans_otlight";
+		font-family: "fira_sans_otlight";
 }
 
 .contentPage .header-block-desc p{
@@ -363,18 +396,18 @@ p.attachInstructions.smaller
 }
 
 .contentPage .navigation_left a {
-  display: block;
-  line-height: 56px;
-  padding-left: 45px;
-  border-bottom: 1px solid rgb(204, 204, 204);
-  cursor:pointer;
-  font-size: 14px;
-  font-weight: 400;
-  font-family: "fira_sans_otmedium";
-  text-transform: uppercase;
-  text-decoration: none;
-  color: rgb(70, 64, 82);
-  background: rgb(242, 242, 243);
+	display: block;
+	line-height: 56px;
+	padding-left: 45px;
+	border-bottom: 1px solid rgb(204, 204, 204);
+	cursor:pointer;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: "fira_sans_otmedium";
+	text-transform: uppercase;
+	text-decoration: none;
+	color: rgb(70, 64, 82);
+	background: rgb(242, 242, 243);
 }
 
 .contentPage .navigation_left li{
@@ -449,20 +482,20 @@ p.attachInstructions.smaller
 
 	/* From GFW - for Templates */
 .source_category_title {
-  margin-bottom: 10px;
-  font-size: 37px;
-  font-family: "fira_sans_otregular";
-  color: #464052;
+	margin-bottom: 10px;
+	font-size: 37px;
+	font-family: "fira_sans_otregular";
+	color: #464052;
 }
 .source_category_subtitle {
-  margin-bottom: 10px;
-  font-size: 21px;
-  font-family: "fira_sans_otregular";
-  color: #464052;
+	margin-bottom: 10px;
+	font-size: 21px;
+	font-family: "fira_sans_otregular";
+	color: #464052;
 }
 .source_category_description {
-    font: 13px/1.2 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
-    color: #999;
+		font: 13px/1.2 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+		color: #999;
 }
 
 .popupAnalyzeButton {
@@ -487,98 +520,98 @@ p.attachInstructions.smaller
 }
 
 .source_header strong {
-    font: bold 12px/60px 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
-    text-transform: uppercase;
+		font: bold 12px/60px 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+		text-transform: uppercase;
 }
 
 .source_header {
-    border-top: 1px solid #CCC;
-    color: #464052;
-    cursor: pointer;
+		border-top: 1px solid #CCC;
+		color: #464052;
+		cursor: pointer;
 }
 .source_header em {
-    float: right;
-    color: #999;
-    font: italic 13px/60px 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+		float: right;
+		color: #999;
+		font: italic 13px/60px 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
 }
 .static-icons-sprite, .header_block__footer a i, .header_block__footer a i.play, .caret_down, .source-item.expanded .expand_arrow, .expand_arrow, .dropdown_arrow, .arrow_down, .scroll-icon {
-    background: url('images/static-icons.png')  no-repeat scroll 0% 0% transparent;
+		background: url('images/static-icons.png')  no-repeat scroll 0% 0% transparent;
 }
 
 .arrow_down {
-    display: inline-block;
-    height: 10px;
-    width: 8px;
-    margin-left: 15px;
-    background-position: 0px -212px;
+		display: inline-block;
+		height: 10px;
+		width: 8px;
+		margin-left: 15px;
+		background-position: 0px -212px;
 }
 
 .expand_arrow, .dropdown_arrow {
-    display: block;
-    float: right;
-    height: 60px;
-    width: 34px;
-    margin-left: 15px;
-    background-position: 0px -16px;
+		display: block;
+		float: right;
+		height: 60px;
+		width: 34px;
+		margin-left: 15px;
+		background-position: 0px -16px;
 }
 
 
 
 .source_body, .source_coverage_header, .source_coverage {
-    /*display: none;*/
+		/*display: none;*/
 }
 
 .single-source-item, .source_body, .source_coverage {
-    font-size: 15px;
-    // line-height: 1.4;
-    color: #666;
+		font-size: 15px;
+		// line-height: 1.4;
+		color: #666;
 }
 
 .source_download, .source_coverage_download {
-    text-align: right;
-    background: none repeat scroll 0% 0% #F0F5DC;
-    border-top: 1px solid #CCC;
+		text-align: right;
+		background: none repeat scroll 0% 0% #F0F5DC;
+		border-top: 1px solid #CCC;
 }
 
 .source_download a, .source_coverage_download a {
-    display: inline-block;
-    margin: 20px;
-    padding: 0px 15px;
-    font: 14px/30px "fira_sans_otmedium";
-    text-decoration: none;
-    color: #FFF !important;
-    background: none repeat scroll 0% 0% #A5B81A;
-    border-radius: 16px;
+		display: inline-block;
+		margin: 20px;
+		padding: 0px 15px;
+		font: 14px/30px "fira_sans_otmedium";
+		text-decoration: none;
+		color: #FFF !important;
+		background: none repeat scroll 0% 0% #A5B81A;
+		border-radius: 16px;
 }
 
 .source_table {
-    border-top: 1px solid #CCC;
-    margin-bottom: 30px;
+		border-top: 1px solid #CCC;
+		margin-bottom: 30px;
 }
 .sources_row {
-    display: table;
-    width: 100%;
-    margin:0px;
+		display: table;
+		width: 100%;
+		margin:0px;
 }
 .sources_row.even {
-    background: none repeat scroll 0% 0% #F2F2F3;
+		background: none repeat scroll 0% 0% #F2F2F3;
 }
 .sources_row dt {
-    display: table-cell;
-    width: 120px;
-    padding: 10px;
-    border-bottom: 1px solid #CCC;
-    font-weight: 500;
-    font-size: 11px;
-    text-transform: uppercase;
+		display: table-cell;
+		width: 120px;
+		padding: 10px;
+		border-bottom: 1px solid #CCC;
+		font-weight: 500;
+		font-size: 11px;
+		text-transform: uppercase;
 }
 
 .sources_row dd {
-    display: table-cell;
-    padding: 10px 10px 10px 15px;
-    border-left: 1px solid #CCC;
-    border-bottom: 1px solid #CCC;
-    font-size: 13px;
+		display: table-cell;
+		padding: 10px 10px 10px 15px;
+		border-left: 1px solid #CCC;
+		border-bottom: 1px solid #CCC;
+		font-size: 13px;
 }
 
 .source_dropdown {
@@ -616,9 +649,9 @@ p.attachInstructions.smaller
 }
 
 .overview_title, .source_coverage_title {
-    margin: 30px 0px 10px;
-    font: 21px/1.1 "fira_sans_otmedium";
-    color: #463F52;
+		margin: 30px 0px 10px;
+		font: 21px/1.1 "fira_sans_otmedium";
+		color: #463F52;
 }
 
 .source_download_container {
@@ -634,53 +667,53 @@ p.attachInstructions.smaller
 }
 
 .source-item.expanded .source_header {
-    color: #98BD17;
+		color: #98BD17;
 }
 
 .source-item:hover .source_header, .source-item.selected .source_header {
-    color: #98BD17;
+		color: #98BD17;
 }
 
 .source_body .hidden, .source_coverage .hidden {
-    display: none;
+		display: none;
 }
 
 .source_body .read_more, .source_coverage .read_more {
-    padding: 10px 0px;
-    font-size: 14px;
-    text-align: center;
+		padding: 10px 0px;
+		font-size: 14px;
+		text-align: center;
 }
 
 .single-source-item p, .source_body p, .source_coverage p {
-    margin-bottom: 10px;
+		margin-bottom: 10px;
 }
 
 .single-source-item p.credits, .source_body p.credits, .source_coverage p.credits {
-    margin-bottom: 10px;
-    font-size: 12px;
-    color: #AAA;
+		margin-bottom: 10px;
+		font-size: 12px;
+		color: #AAA;
 }
 
 .single-source-item p.credits strong, .source_body p.credits strong, .source_coverage p.credits strong {
-    display: block;
-    font-weight: bold;
-    color: #AAA;
+		display: block;
+		font-weight: bold;
+		color: #AAA;
 }
 
 .single-source-item p.credits a, .source_body p.credits a, .source_coverage p.credits a {
-    color: #AAA !important;
-    text-decoration: underline;
+		color: #AAA !important;
+		text-decoration: underline;
 }
 
 .source_body .bullets li, .source_coverage .bullets li {
-    margin: 0px 0px 10px 0px;
-    padding: 0px 0px 0px 0px;
-    // background: url('images/bullet.png') no-repeat scroll 0px 8px transparent;
-    text-align: center;
+		margin: 0px 0px 10px 0px;
+		padding: 0px 0px 0px 0px;
+		// background: url('images/bullet.png') no-repeat scroll 0px 8px transparent;
+		text-align: center;
 }
 
 .source_coverage_download .source_coverage_title {
-    float: left;
+		float: left;
 }
 
 /* RSPO Source Table Custom */
@@ -763,16 +796,16 @@ p.attachInstructions.smaller
 }
 
 .logo-list a {
-    display: block;
-    margin: 0 auto;
-    width: 88px;
-    position: relative;
-    top: 50%;
-    -webkit-transform: translate(0, -50%);
-    -moz-transform: translate(0, -50%);
-    -ms-transform: translate(0, -50%);
-    -o-transform: translate(0, -50%);
-    transform: translate(0, -50%);
+		display: block;
+		margin: 0 auto;
+		width: 88px;
+		position: relative;
+		top: 50%;
+		-webkit-transform: translate(0, -50%);
+		-moz-transform: translate(0, -50%);
+		-ms-transform: translate(0, -50%);
+		-o-transform: translate(0, -50%);
+		transform: translate(0, -50%);
 }
 /** CSS Copied From GFW **/
 /*
@@ -796,62 +829,62 @@ p.attachInstructions.smaller
 	background: url(../css/images/gfwSpriteSheet_v3.png) no-repeat;
 }
 .logo-list a.genf {
-    height: 31px;
-    width: 110px;
-    background-position: 0 -4854px;;
+		height: 31px;
+		width: 110px;
+		background-position: 0 -4854px;;
 }
 .logo-list a.genf:hover { background-position: 0 -3293px }
 .logo-list a.icf-gob {
-    height: 26px;
-    width: 110px;
-    background-position: 0 -6339px;
+		height: 26px;
+		width: 110px;
+		background-position: 0 -6339px;
 }
 .logo-list a.icf-gob:hover { background-position: 0 -5825px }
 .logo-list a.moises {
-    height: 44px;
-    width: 110px;
-    background-position: 0 -3352px;
+		height: 44px;
+		width: 110px;
+		background-position: 0 -3352px;
 }
 .logo-list a.moises:hover { background-position: 0 -2317px }
 .logo-list a.urthe {
-    height: 23px;
-    width: 110px;
-    background-position: 0 -6267px;
+		height: 23px;
+		width: 110px;
+		background-position: 0 -6267px;
 }
 .logo-list a.urthe:hover { background-position: 0 -4391px }
 .logo-list a.vizzuality {
-    height: 27px;
-    width: 109px;
-    background-position: 0 -2762px;
+		height: 27px;
+		width: 109px;
+		background-position: 0 -2762px;
 }
 .logo-list a.vizzuality:hover { background-position: 0 -2393px }
 
 .logo-list a.bobo {
-    height: 53px;
-    width: 105px;
-    background-position: 0 -3438px;
+		height: 53px;
+		width: 105px;
+		background-position: 0 -3438px;
 }
 .logo-list a.bobo:hover { background-position: 0 -3438px }
 
 .logo-list a.neth {
-    height: 80px;
-    width: 106px;
-    background-position: 0 -5986px;
+		height: 80px;
+		width: 106px;
+		background-position: 0 -5986px;
 }
 .logo-list a.neth:hover { background-position: 0 -5384px }
 
 .logo-list a.tilia {
-    height: 25px;
-    width: 67px;
-    background-position: 0 -6401px;
+		height: 25px;
+		width: 67px;
+		background-position: 0 -6401px;
 }
 .logo-list a.tilia:hover { background-position: 0 -6376px }
 
 .logo-list a.raisg {
 	margin-top: 10px;
-    height: 75px;
-    width: 95px;
-    background-position: 10px -2674px;
+		height: 75px;
+		width: 95px;
+		background-position: 10px -2674px;
 }
 .logo-list a.raisg:hover { background-position: 10px -627px }
 
@@ -970,327 +1003,327 @@ p.attachInstructions.smaller
 }
 
 .logo-list a.wri {
-    height: 32px;
-    width: 95px;
-    background-position: 0 -5066px;
+		height: 32px;
+		width: 95px;
+		background-position: 0 -5066px;
 }
 .logo-list a.wri:hover { background-position: 0 -2300px }
 .logo-list a.google {
-    height: 29px;
-    width: 85px;
-    background-position: 0 -5779px;
+		height: 29px;
+		width: 85px;
+		background-position: 0 -5779px;
 }
 .logo-list a.google:hover { background-position: 0 -1251px }
 .logo-list a.esri {
-    height: 33px;
-    width: 87px;
-    background-position: 0 -5033px;
+		height: 33px;
+		width: 87px;
+		background-position: 0 -5033px;
 }
 .logo-list a.esri:hover { background-position: 0 -2267px }
 .logo-list a.universitymaryland {
-    height: 51px;
-    width: 56px;
-    background-position: 0 -4573px;
+		height: 51px;
+		width: 56px;
+		background-position: 0 -4573px;
 }
 .logo-list a.universitymaryland:hover { background-position: 0 -1400px }
 .logo-list a.unep {
-    height: 57px;
-    width: 49px;
-    background-position: 0 -4277px;
+		height: 57px;
+		width: 49px;
+		background-position: 0 -4277px;
 }
 .logo-list a.unep:hover { background-position: 0 -1740px }
 .logo-list a.imazon {
-    height: 24px;
-    width: 79px;
-    background-position: 0 -6005px;
+		height: 24px;
+		width: 79px;
+		background-position: 0 -6005px;
 }
 .logo-list a.imazon:hover { background-position: 0 -3545px }
 .logo-list a.cfgd {
-    height: 40px;
-    width: 84px;
-    background-position: 0 -4349px;
+		height: 40px;
+		width: 84px;
+		background-position: 0 -4349px;
 }
 .logo-list a.cfgd:hover { background-position: 0 -1797px }
 .logo-list a.osfac {
-    height: 56px;
-    width: 44px;
-    background-position: 0 -4835px;
+		height: 56px;
+		width: 44px;
+		background-position: 0 -4835px;
 }
 .logo-list a.osfac:hover { background-position: 0 -1837px }
 .logo-list a.gfwca {
-    height: 44px;
-    width: 42px;
-    background-position: 0 -5564px;
+		height: 44px;
+		width: 42px;
+		background-position: 0 -5564px;
 }
 .logo-list a.gfwca:hover { background-position: 0 -3899px }
 .logo-list a.scanex {
-    height: 20px;
-    width: 110px;
-    background-position: 0 -5648px;
+		height: 20px;
+		width: 110px;
+		background-position: 0 -5648px;
 }
 .logo-list a.scanex:hover { background-position: 0 -3268px }
 .logo-list a.twrus {
-    height: 28px;
-    width: 110px;
-    background-position: 0 -5314px;
+		height: 28px;
+		width: 110px;
+		background-position: 0 -5314px;
 }
 .logo-list a.twrus:hover { background-position: 0 -3103px }
 .logo-list a.norwegian {
-    height: 46px;
-    width: 110px;
-    background-position: 0 -4676px;
+		height: 46px;
+		width: 110px;
+		background-position: 0 -4676px;
 }
 .logo-list a.norwegian:hover { background-position: 0 -4231px }
 .logo-list a.usaid {
-    height: 64px;
-    width: 80px;
-    background-position: 0 -3768px;
+		height: 64px;
+		width: 80px;
+		background-position: 0 -3768px;
 }
 .logo-list a.usaid:hover { background-position: 0 -1067px }
 .logo-list a.gef {
-    height: 59px;
-    width: 51px;
-    background-position: 0 -4891px;
+		height: 59px;
+		width: 51px;
+		background-position: 0 -4891px;
 }
 .logo-list a.gef:hover { background-position: 0 -2076px }
 .logo-list a.ukaid {
-    height: 47px;
-    width: 43px;
-    background-position: 0 -5708px;
+		height: 47px;
+		width: 43px;
+		background-position: 0 -5708px;
 }
 .logo-list a.ukaid:hover { background-position: 0 -4184px }
 .logo-list a.tilia {
-    height: 25px;
-    width: 67px;
-    background-position: 0 -6251px;
+		height: 25px;
+		width: 67px;
+		background-position: 0 -6251px;
 }
 .logo-list a.tilia:hover { background-position: 0 -6226px }
 .logo-list a.goodall {
-    height: 26px;
-    width: 110px;
-    background-position: 0 -6128px;
+		height: 26px;
+		width: 110px;
+		background-position: 0 -6128px;
 }
 .logo-list a.goodall:hover { background-position: 0 -5098px }
 .logo-list a.cartodb {
-    height: 39px;
-    width: 110px;
-    background-position: 0 -4950px;
+		height: 39px;
+		width: 110px;
+		background-position: 0 -4950px;
 }
 .logo-list a.cartodb:hover { background-position: 0 -2560px }
 
 .logo-list a.blueraster {
-    height: 48px;
-    width: 110px;
-    background-position: 0 -4487px;
+		height: 48px;
+		width: 110px;
+		background-position: 0 -4487px;
 }
 .logo-list a.blueraster:hover { background-position: 0 -2885px }
 .logo-list a.sida {
-    height: 55px;
-    width: 110px;
-    background-position: 0 -3410px;
+		height: 55px;
+		width: 110px;
+		background-position: 0 -3410px;
 }
 .logo-list a.sida:hover { background-position: 0 -2425px }
 .logo-list a.danida {
-    height: 15px;
-    width: 82px;
-    background-position: 0 -5990px;
+		height: 15px;
+		width: 82px;
+		background-position: 0 -5990px;
 }
 .logo-list a.danida:hover { background-position: 0 -4334px }
 .logo-list a.cgiar {
-    height: 43px;
-    width: 124px;
-    background-position: 0 -3502px;
+		height: 43px;
+		width: 124px;
+		background-position: 0 -3502px;
 }
 .logo-list a.cgiar:hover { background-position: 0 -1151px }
 .logo-list a.dutchforeign {
-    height: 80px;
-    width: 106px;
-    background-position: 0 -5836px;
+		height: 80px;
+		width: 106px;
+		background-position: 0 -5836px;
 }
 .logo-list a.dutchforeign:hover { background-position: 0 -5234px }
 .logo-list a.moore {
-    height: 37px;
-    width: 96px;
-    background-position: 0 -3862px;
+		height: 37px;
+		width: 96px;
+		background-position: 0 -3862px;
 }
 .logo-list a.moore:hover { background-position: 0 -1893px }
 .logo-list a.bnpb {
-    height: 64px;
-    width: 50px;
-    background-position: 0 -5916px;
+		height: 64px;
+		width: 50px;
+		background-position: 0 -5916px;
 }
 .logo-list a.bnpb:hover { background-position: 0 -5170px }
 .logo-list a.redd {
-    height: 62px;
-    width: 95px;
-    background-position: 0 -6164px;
+		height: 62px;
+		width: 95px;
+		background-position: 0 -6164px;
 }
 .logo-list a.redd:hover { background-position: 0 -5342px }
 .logo-list a.digitalglobe {
-    height: 38px;
-    width: 120px;
-    background-position: 0 -4535px;
+		height: 38px;
+		width: 120px;
+		background-position: 0 -4535px;
 }
 .logo-list a.digitalglobe:hover { background-position: 0 -3639px }
 .logo-list a.ciat {
-    height: 57px;
-    width: 120px;
-    background-position: 0 -3131px;
+		height: 57px;
+		width: 120px;
+		background-position: 0 -3131px;
 }
 .logo-list a.ciat:hover { background-position: 0 -1194px }
 .logo-list a.ejn {
-    height: 64px;
-    width: 80px;
-    background-position: 0 -4120px;
+		height: 64px;
+		width: 80px;
+		background-position: 0 -4120px;
 }
 .logo-list a.ejn:hover { background-position: 0 -3039px }
 .logo-list a.ioi {
-    height: 10px;
-    width: 110px;
-    background-position: 0 -6154px;
+		height: 10px;
+		width: 110px;
+		background-position: 0 -6154px;
 }
 .logo-list a.ioi:hover { background-position: 0 -5980px }
 .logo-list a.osinfor {
-    height: 80px;
-    width: 86px;
-    background-position: 0 -3188px;
+		height: 80px;
+		width: 86px;
+		background-position: 0 -3188px;
 }
 .logo-list a.osinfor:hover { background-position: 0 -1531px }
 .logo-list a.resolve {
-    height: 28px;
-    width: 110px;
-    background-position: 0 -5808px;
+		height: 28px;
+		width: 110px;
+		background-position: 0 -5808px;
 }
 .logo-list a.resolve:hover { background-position: 0 -4389px }
 .logo-list a.rfuk {
-    height: 37px;
-    width: 110px;
-    background-position: 0 -3943px;
+		height: 37px;
+		width: 110px;
+		background-position: 0 -3943px;
 }
 .logo-list a.rfuk:hover { background-position: 0 -3465px }
 .logo-list a.rm {
-    height: 66px;
-    width: 110px;
-    background-position: 0 -2010px;
+		height: 66px;
+		width: 110px;
+		background-position: 0 -2010px;
 }
 .logo-list a.rm:hover { background-position: 0 -1611px }
 .logo-list a.unilever {
-    height: 80px;
-    width: 88px;
-    background-position: 0 -2480px;
+		height: 80px;
+		width: 88px;
+		background-position: 0 -2480px;
 }
 .logo-list a.unilever:hover { background-position: 0 -1930px }
 .logo-list a.zsl {
-    height: 73px;
-    width: 110px;
-    background-position: 0 -2812px;
+		height: 73px;
+		width: 110px;
+		background-position: 0 -2812px;
 }
 .logo-list a.zsl:hover { background-position: 0 -2739px }
 .logo-list a.clua {
-    height: 26px;
-    width: 110px;
-    background-position: 0 -5144px;
+		height: 26px;
+		width: 110px;
+		background-position: 0 -5144px;
 }
 .logo-list a.clua:hover { background-position: 0 -2399px }
 .logo-list a.mongabay {
-    height: 40px;
-    width: 110px;
-    background-position: 0 -5404px;
+		height: 40px;
+		width: 110px;
+		background-position: 0 -5404px;
 }
 .logo-list a.mongabay:hover { background-position: 0 -5668px }
 .logo-list a.muyissi {
-    height: 80px;
-    width: 80px;
-    background-position: 0 -1451px;
+		height: 80px;
+		width: 80px;
+		background-position: 0 -1451px;
 }
 .logo-list a.muyissi:hover { background-position: 0 -368px }
 .logo-list a.rspo {
-    height: 33px;
-    width: 110px;
-    background-position: 0 -4802px;
+		height: 33px;
+		width: 110px;
+		background-position: 0 -4802px;
 }
 .logo-list a.rspo:hover { background-position: 0 -3677px }
 .logo-list a.unepwcmc {
-    height: 60px;
-    width: 110px;
-    background-position: 0 -2599px;
+		height: 60px;
+		width: 110px;
+		background-position: 0 -2599px;
 }
 .logo-list a.unepwcmc:hover { background-position: 0 -515px }
 .logo-list a.whrc {
-    height: 80px;
-    width: 87px;
-    background-position: 0 -2659px;
+		height: 80px;
+		width: 87px;
+		background-position: 0 -2659px;
 }
 .logo-list a.whrc:hover { background-position: 0 -627px }
 .logo-list a.ewmi {
-    height: 40px;
-    width: 126px;
-    background-position: 0 -5608px;
+		height: 40px;
+		width: 126px;
+		background-position: 0 -5608px;
 }
 .logo-list a.ewmi:hover { background-position: 0 -5524px }
 .logo-list a.opendevcam {
-    height: 70px;
-    width: 70px;
-    background-position: 0 -4417px;
+		height: 70px;
+		width: 70px;
+		background-position: 0 -4417px;
 }
 .logo-list a.opendevcam:hover { background-position: 0 -4050px }
 .logo-list a.inab {
-    height: 80px;
-    width: 106px;
-    background-position: 0 -2135px;
+		height: 80px;
+		width: 106px;
+		background-position: 0 -2135px;
 }
 .logo-list a.inab:hover { background-position: 0 -231px }
 .logo-list a.orbital {
-    height: 70px;
-    width: 101px;
-    background-position: 0 -3569px;
+		height: 70px;
+		width: 101px;
+		background-position: 0 -3569px;
 }
 .logo-list a.orbital:hover { background-position: 0 -2933px }
 .logo-list a.bei {
-    height: 63px;
-    width: 130px;
-    background-position: 0 -1677px;
+		height: 63px;
+		width: 130px;
+		background-position: 0 -1677px;
 }
 .logo-list a.bei:hover { background-position: 0 -1280px }
 .logo-list a.cambridge {
-    height: 52px;
-    width: 130px;
-    background-position: 0 -2215px;
+		height: 52px;
+		width: 130px;
+		background-position: 0 -2215px;
 }
 .logo-list a.cambridge:hover { background-position: 0 -575px }
 .logo-list a.afc {
-    height: 69px;
-    width: 80px;
-    background-position: 0 -3341px;
+		height: 69px;
+		width: 80px;
+		background-position: 0 -3341px;
 }
 .logo-list a.afc:hover { background-position: 0 -836px }
 .logo-list a.airbus {
-    height: 30px;
-    width: 130px;
-    background-position: 0 -3832px;
+		height: 30px;
+		width: 130px;
+		background-position: 0 -3832px;
 }
 .logo-list a.airbus:hover { background-position: 0 -806px }
 .logo-list a.ministiere {
-    height: 67px;
-    width: 70px;
-    background-position: 0 -2332px;
+		height: 67px;
+		width: 70px;
+		background-position: 0 -2332px;
 }
 .logo-list a.ministiere:hover { background-position: 0 -448px }
 .logo-list a.zeroextinction {
-    height: 20px;
-    width: 120px;
-    background-position: 0 -5124px;
+		height: 20px;
+		width: 120px;
+		background-position: 0 -5124px;
 }
 .logo-list a.zeroextinction:hover { background-position: 0 -1131px }
 .logo-list a.bobolink {
-    height: 53px;
-    width: 105px;
-    background-position: 0 -3288px;
+		height: 53px;
+		width: 105px;
+		background-position: 0 -3288px;
 }
 .logo-list a.vizzuality-big {
-    height: 58px;
-    width: 109px;
-    background-position: 0 -3710px;
+		height: 58px;
+		width: 109px;
+		background-position: 0 -3710px;
 }
 .logo-list a.vizzuality-big:hover { background-position: 0 -1009px }
 /** CSS Copied From GFW **/

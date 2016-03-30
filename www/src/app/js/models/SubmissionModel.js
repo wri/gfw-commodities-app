@@ -1,9 +1,10 @@
 /* global define */
 define([
-        "dojo/_base/declare",
-        "knockout"
+        'dojo/_base/declare',
+        'map/config',
+        'knockout'
     ],
-    function(declare, ko) {
+    function(declare, MapConfig, ko) {
 
         var Model = declare(null, {
             constructor: function(el) {
@@ -17,9 +18,15 @@ define([
                 Model.vm.storyDetailsData = ko.observable();
 
                 Model.vm.dataFileName = ko.observable();
-                Model.vm.dataFileType= ko.observable();
+                Model.vm.dataFileType = ko.observable();
                 Model.vm.attributeFileName = ko.observable();
                 Model.vm.attributeFileType = ko.observable();
+
+                // Submission Dialog Items
+                Model.vm.submissionModalHeader = ko.observable(MapConfig.submissionDialog.submissionModalHeader);
+                Model.vm.submissionEnterButton = ko.observable(MapConfig.submissionDialog.submissionEnterButton);
+                Model.vm.submissionPlaceholder = ko.observable(MapConfig.submissionDialog.submissionPlaceholder);
+                // Model.vm.longitudePlaceholder = ko.observable(MapConfig.submissionDialog.longitudePlaceholder);
 
 
                 Model.vm.mediaChange = function(obj, evt) {

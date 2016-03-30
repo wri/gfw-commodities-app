@@ -1,15 +1,15 @@
 define([
-    "dojo/dom",
-    "dojo/query",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "esri/graphic",
-    "esri/request",
-    "utils/NavListController",
-    "models/SubmissionModel"
-], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
-    'use strict';
+    'dojo/dom',
+    'dojo/query',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'map/SubmissionModal',
+    'dijit/registry',
+    'esri/graphic',
+    'esri/request',
+    'utils/NavListController',
+    'models/SubmissionModel'
+], function (dom, query, domClass, domStyle, SubmissionModal, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
 
 	var initialized = false;
   var self;
@@ -19,18 +19,18 @@ define([
 		init: function (template) {
 
 			if (initialized) {
-				registry.byId("stackContainer").selectChild("submissionView");
+				registry.byId('stackContainer').selectChild('submissionView');
 				return;
 			}
       self = this;
 
 			initialized = true;
-			registry.byId("stackContainer").selectChild("submissionView");
-			registry.byId("submissionView").set('content', template);
-      SubmissionModel.initialize("submissionView");
+			registry.byId('stackContainer').selectChild('submissionView');
+			registry.byId('submissionView').set('content', template);
+      SubmissionModel.initialize('submissionView');
 
 
-      // var context = "submission";
+      // var context = 'submission';
       // NavListController.loadNavControl(context);
       // NavListController.loadNavView(context);
 
@@ -46,12 +46,6 @@ define([
         $('#dataInput').css('border-color', '#c0c0c0');
         $('#attributeDataInput').css('border-color', '#c0c0c0');
 
-        var storyNameData = model.storyNameData();
-        var storyCompanyData = model.storyCompanyData();
-        var storyTitleData = model.storyTitleData();
-        var storyEmailData = model.storyEmailData();
-        var storyDetailsData = model.storyDetailsData();
-
         var dataFileName = model.dataFileName();
         var dataFileType = model.dataFileType();
         var attributeFileName = model.attributeFileName();
@@ -60,7 +54,9 @@ define([
 
         if (!model.storyNameData()) {
           $('#storyNameInput').css('border-color', 'red');
-          alert('Please enter your name!');
+          // alert('Please enter your name!');
+          SubmissionModal.addClass('story-name');
+          SubmissionModal.toggle();
           return;
         }
         if (!model.storyCompanyData()) {
@@ -137,7 +133,7 @@ define([
 
       var fileType = evt.target.files[0].type;
 
-      // if (fileType !== "text/csv" && fileType !== "application/zip" && hash[ext] !== 1) {
+      // if (fileType !== 'text/csv' && fileType !== 'application/zip' && hash[ext] !== 1) {
       //   evt.target.value = '';
       //   if (evt.target.value) {
       //     evt.target.type = 'file';
@@ -190,20 +186,20 @@ define([
         }
       ];
 
-      var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
+      var proxyUrl = 'http://commodities-test.herokuapp.com/app/php/proxy.php';
 
       esri.config.defaults.io.proxyUrl = proxyUrl;
       esri.config.defaults.io.alwaysUseProxy = false;
 
-      var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures";
+      var layerUrl = 'http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures';
       var layersRequest = esriRequest({
         url: layerUrl,
         content: {
           'f': 'json',
           features: JSON.stringify(features)
         },
-        handleAs: "json",
-        callbackParamName: "callback"
+        handleAs: 'json',
+        callbackParamName: 'callback'
       },
       {
         usePost: true,
@@ -212,11 +208,11 @@ define([
 
       layersRequest.then(
         function(response) {
-          console.log("Success: ", response);
-          alert("Data successfully submitted!")
+          console.log('Success: ', response);
+          alert('Data successfully submitted!')
       }, function(error) {
-          alert("Data was not successfully submitted, please try again.")
-          console.log("Error: ", error.message);
+          alert('Data was not successfully submitted, please try again.')
+          console.log('Error: ', error.message);
       });
 
 
