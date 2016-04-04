@@ -1,18 +1,17 @@
 define([
-    "dojo/dom",
-    "dojo/query",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dijit/Dialog",
-    "esri/graphic",
-    "esri/request",
-    "esri/geometry/Point",
-    "esri/geometry/Geometry",
-    "utils/NavListController",
-    "models/SubmissionModel"
+    'dojo/dom',
+    'dojo/query',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dijit/Dialog',
+    'esri/graphic',
+    'esri/request',
+    'esri/geometry/Point',
+    'esri/geometry/Geometry',
+    'utils/NavListController',
+    'models/SubmissionModel'
 ], function (dom, query, domClass, domStyle, registry, Dialog, Graphic, esriRequest, Point, Geometry, NavListController, SubmissionModel) {
-    'use strict';
 
 	var initialized = false;
   var self;
@@ -22,15 +21,15 @@ define([
 		init: function (template) {
 
 			if (initialized) {
-				registry.byId("stackContainer").selectChild("submissionView");
+				registry.byId('stackContainer').selectChild('submissionView');
 				return;
 			}
       self = this;
 
 			initialized = true;
-			registry.byId("stackContainer").selectChild("submissionView");
-			registry.byId("submissionView").set('content', template);
-      SubmissionModel.initialize("submissionView");
+			registry.byId('stackContainer').selectChild('submissionView');
+			registry.byId('submissionView').set('content', template);
+      SubmissionModel.initialize('submissionView');
 
 
       // var context = "submission";
@@ -199,20 +198,20 @@ define([
 
       var features = [graphic];
 
-      var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
+      var proxyUrl = 'http://commodities.globalforestwatch.org/app/php/proxy.php';
 
       esri.config.defaults.io.proxyUrl = proxyUrl;
       esri.config.defaults.io.alwaysUseProxy = false;
 
-      var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures";
+      var layerUrl = 'http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures';
       var layersRequest = esriRequest({
         url: layerUrl,
         content: {
           'f': 'json',
           features: JSON.stringify(features)
         },
-        handleAs: "json",
-        callbackParamName: "callback"
+        handleAs: 'json',
+        callbackParamName: 'callback'
       },
       {
         usePost: true,
@@ -220,14 +219,14 @@ define([
       });
 
       layersRequest.then(
-        function(response) {
-          console.log("Success: ", response);
-          $("#storyForm")[0].reset();
+        function(inResponse) {
+          console.log('Success: ', inResponse);
+          $('#storyForm')[0].reset();
           $('#loader-wheel-submit').hide();
           $('#loader-background').hide();
           $('body').css('overflow', 'visible');
 
-          var widget = registry.byId("successDialog");
+          var widget = registry.byId('successDialog');
           if (widget) {
             widget.destroy();
           }
@@ -252,7 +251,7 @@ define([
         $('#loader-background').hide();
         $('body').css('overflow', 'visible');
 
-        var widget = registry.byId("failureDialog");
+        var widget = registry.byId('failureDialog');
         if (widget) {
           widget.destroy();
         }
@@ -267,7 +266,7 @@ define([
 
         dialog.show();
 
-        console.log("Error: ", error.message);
+        console.log('Error: ', error.message);
       });
 
 

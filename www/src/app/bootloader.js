@@ -2,7 +2,7 @@
 (function(win, doc) {
     'use strict';
 
-    var version = "2.5.48",
+    var version = "2.5.49",
         URL = location.pathname.replace(/\/[^/]+$/, "") + 'app',
         dojoConfig = {
             parseOnLoad: false,
