@@ -4,22 +4,24 @@ define([], function() {
     // The dynamicMapServiceUrl is currently being used by the following layers (by key):
     // ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm
     // var dynamicMapServiceUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer",
-    var dynamicMapServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer",
-        dynamicMapServiceUrlForest = "http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer",
-        dynamicMapServiceUrlComm = "http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer",
-        dynamicMapServiceUrlLand = "http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer",
+    var dynamicMapServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
+        dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
+        dynamicMapServiceUrlLand = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         treeCoverGainUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        treeCoverLossUrl = "http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer",
+        treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
-        activeFiresUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
-        treeCoverDensityUrl = "http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer",
-        protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/wdpa_protected_areas_cached/MapServer",
-        protectedAreasHelperUrl = "http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer",
-        mapOverlaysUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer",
-        primaryForestUrl = "http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer",
-        customSuitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
+        activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+        treeCoverDensityUrl = 'http://50.18.182.188:6080/arcgis/rest/services/TreeCover2000/ImageServer',
+        // protectedAreasUrl = "http://gis-gfw.wri.org/arcgis/rest/services/wdpa_protected_areas_cached/MapServer",
+        protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
+        protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
+
+        mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
+        primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
+        customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
         biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/MapServer',
         geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer',
@@ -30,10 +32,10 @@ define([], function() {
 
         mapOptions: {
             basemap: 'gray',
-            centerX: 4,//114,
-            centerY: 5,//3,
-            zoom: 3,//5,
-            sliderPosition: "top-right"
+            centerX: 4, //114,
+            centerY: 5, //3,
+            zoom: 3, //5,
+            sliderPosition: 'top-right'
         },
 
         uploadForm: {
@@ -50,7 +52,7 @@ define([], function() {
 
         uploader: {
             portalUrl: 'http://www.arcgis.com/sharing/rest/content/features/generate',
-            labelField: "WRI_label",
+            labelField: 'WRI_label',
             errors: {
 
             }
@@ -75,7 +77,7 @@ define([], function() {
         // Layers which are not part of the Master Layer UI List Widget (Colored Categories Stripes across top of the map) go below
 
         overlays: {
-            id: "MapOverlaysLayer",
+            id: 'MapOverlaysLayer',
             url: mapOverlaysUrl,
             defaultLayers: [1, 5, 8, 11]
         },
