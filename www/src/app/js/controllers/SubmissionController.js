@@ -1,15 +1,14 @@
 define([
-    "dojo/dom",
-    "dojo/query",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "esri/graphic",
-    "esri/request",
-    "utils/NavListController",
-    "models/SubmissionModel"
+    'dojo/dom',
+    'dojo/query',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'esri/graphic',
+    'esri/request',
+    'utils/NavListController',
+    'models/SubmissionModel'
 ], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
-    'use strict';
 
 	var initialized = false;
   var self;
@@ -19,18 +18,18 @@ define([
 		init: function (template) {
 
 			if (initialized) {
-				registry.byId("stackContainer").selectChild("submissionView");
+				registry.byId('stackContainer').selectChild('submissionView');
 				return;
 			}
       self = this;
 
 			initialized = true;
-			registry.byId("stackContainer").selectChild("submissionView");
-			registry.byId("submissionView").set('content', template);
-      SubmissionModel.initialize("submissionView");
+			registry.byId('stackContainer').selectChild('submissionView');
+			registry.byId('submissionView').set('content', template);
+      SubmissionModel.initialize('submissionView');
 
 
-      // var context = "submission";
+      // var context = 'submission';
       // NavListController.loadNavControl(context);
       // NavListController.loadNavView(context);
 
@@ -46,11 +45,11 @@ define([
         $('#dataInput').css('border-color', '#c0c0c0');
         $('#attributeDataInput').css('border-color', '#c0c0c0');
 
-        var storyNameData = model.storyNameData();
-        var storyCompanyData = model.storyCompanyData();
-        var storyTitleData = model.storyTitleData();
-        var storyEmailData = model.storyEmailData();
-        var storyDetailsData = model.storyDetailsData();
+        // var storyNameData = model.storyNameData();
+        // var storyCompanyData = model.storyCompanyData();
+        // var storyTitleData = model.storyTitleData();
+        // var storyEmailData = model.storyEmailData();
+        // var storyDetailsData = model.storyDetailsData();
 
         var dataFileName = model.dataFileName();
         var dataFileType = model.dataFileType();
@@ -111,16 +110,11 @@ define([
             data: form_data,
             type: 'post',
             success: function(response){
-
               self.uploadToAGOL(response);
-
-
             }
           });
 
         }
-
-
     },
     handleFileChange: function(obj, evt){
       if (evt.target.files.length === 0) {
@@ -137,16 +131,16 @@ define([
 
       var fileType = evt.target.files[0].type;
 
-      // if (fileType !== "text/csv" && fileType !== "application/zip" && hash[ext] !== 1) {
-      //   evt.target.value = '';
-      //   if (evt.target.value) {
-      //     evt.target.type = 'file';
-      //     evt.target.type = 'input';
-      //   }
-      //   alert('You must submit a zipped shapfile or a CSV/XLS!');
-      //
-      //   return;
-      // }
+      if (fileType !== 'text/csv' && fileType !== 'application/zip' && hash[ext] !== 1) {
+        evt.target.value = '';
+        if (evt.target.value) {
+          evt.target.type = 'file';
+          evt.target.type = 'input';
+        }
+        alert('You must submit a zipped shapfile or a CSV/XLS!');
+
+        return;
+      }
       if (evt.target.id === 'dataInput') {
         obj.dataFileName(fileName);
         obj.dataFileType(fileType);
@@ -158,7 +152,6 @@ define([
 
     },
     uploadToAGOL: function(response){
-
 
       var arr = response.split(';');
 
@@ -190,20 +183,20 @@ define([
         }
       ];
 
-      var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
+      var proxyUrl = 'http://commodities-test.herokuapp.com/app/php/proxy.php';
 
       esri.config.defaults.io.proxyUrl = proxyUrl;
       esri.config.defaults.io.alwaysUseProxy = false;
 
-      var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures";
+      var layerUrl = 'http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures';
       var layersRequest = esriRequest({
         url: layerUrl,
         content: {
           'f': 'json',
           features: JSON.stringify(features)
         },
-        handleAs: "json",
-        callbackParamName: "callback"
+        handleAs: 'json',
+        callbackParamName: 'callback'
       },
       {
         usePost: true,
@@ -211,12 +204,12 @@ define([
       });
 
       layersRequest.then(
-        function(response) {
-          console.log("Success: ", response);
-          alert("Data successfully submitted!")
+        function(layersResponse) {
+          console.log('Success: ', layersResponse);
+          alert('Data successfully submitted!');
       }, function(error) {
-          alert("Data was not successfully submitted, please try again.")
-          console.log("Error: ", error.message);
+          alert('Data was not successfully submitted, please try again.');
+          console.log('Error: ', error.message);
       });
 
 
