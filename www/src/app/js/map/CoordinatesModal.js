@@ -8,16 +8,15 @@ define([
   'actions/WizardActions',
   // Dojo Modules
   'dojo/on',
-  'dojo/dom-class',
+  'dojo/dom-class'//,
   // Esri Modules
-  'esri/graphic',
-  'esri/geometry/Point'
-], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, WizardActions, on, domClass, Graphic, Point) {
-  'use strict';
+  // 'esri/graphic',
+  // 'esri/geometry/Point'
+], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, WizardActions, on, domClass) {
 
   var closeHandle;
 
-  var KEYS = AnalysisConfig.STORE_KEYS;
+  // var KEYS = AnalysisConfig.STORE_KEYS;
 
   var CoordsModal = {
 

@@ -9,7 +9,7 @@ define([
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.48',
+                path = './app/templates/' + name + '.html?v=2.5.50',
                 req;
 
             req = new XMLHttpRequest();
@@ -30,9 +30,10 @@ define([
                 // req;
 
             urlUtils.addProxyRule({
-              urlPrefix: "http://54.88.79.102",
-              proxyUrl: "./app/php/proxy.php"
+              urlPrefix: 'http://54.88.79.102',
+              proxyUrl: '/app/php/proxy.php'
             });
+
             // esri.config.defaults.io.corsEnabledServers.push('54.88.79.102');
             console.log('added proxyUrl!');
             var layersRequest = esriRequest({

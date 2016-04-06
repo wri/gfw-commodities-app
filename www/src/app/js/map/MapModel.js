@@ -1,9 +1,9 @@
 /* global define */
 define([
-  "dojo/_base/declare",
-  "main/config",
-  "map/config",
-  "knockout"
+  'dojo/_base/declare',
+  'main/config',
+  'map/config',
+  'knockout'
 ],
 function (declare, AppConfig, MapConfig, ko) {
 

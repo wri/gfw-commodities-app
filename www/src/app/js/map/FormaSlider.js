@@ -1,9 +1,9 @@
 define([
-  "dojo/on",
-  "map/config",
-  "esri/request",
-  "dojo/Deferred",
-  "map/LayerController"
+  'dojo/on',
+  'map/config',
+  'esri/request',
+  'dojo/Deferred',
+  'map/LayerController'
 ], function (on, MapConfig, esriRequest, Deferred, LayerController) {
   // "use strict";
 
@@ -12,9 +12,9 @@ define([
       playButton;
 
   var config = {
-    sliderSelector: "#forma-alert-slider",
-    playHtml: "&#9658;",
-    pauseHtml: "&#x25A0",
+    sliderSelector: '#forma-alert-slider',
+    playHtml: '&#9658;',
+    pauseHtml: '&#x25A0',
     baseYear: 15 // 2015
   };
 
@@ -29,24 +29,26 @@ define([
 
     request = esriRequest({
       url: MapConfig.forma.url,
-      callbackParamName: "callback",
-      content: { f: "json" },
-      handleAs: "json"
+      callbackParamName: 'callback',
+      content: { f: 'json' },
+      handleAs: 'json'
     });
 
     request.then(function (res) {
+
+      console.log('res', res)
       // Labels should be formatted like so: {month|numeric} - {year|two-digit}
-      var min = res.minValues[0],
-          max = res.maxValues[0],
+      var min = res.minValues[0] || 1,
+          max = res.maxValues[0] || 9,
           year;
 
       for (min; min <= max; min++) {
         year = config.baseYear + Math.floor(min / 12);
-        labels.push(min + " - " + year);
+        labels.push(min + ' - ' + year);
       }
 
       deferred.resolve(labels);
-    }, function (err) {
+    }, function () {
       deferred.reject();
     });
 
@@ -60,7 +62,7 @@ define([
       if (formaSlider === undefined) {
         getFormaLabels().then(function (labels) {
           $(config.sliderSelector).ionRangeSlider({
-            type: "double",
+            type: 'double',
             values: labels,
             grid: true,
             hide_min_max: true,
@@ -69,11 +71,11 @@ define([
             onUpdate: self.change
           });
           // Save this instance to a variable ???
-          formaSlider = $(config.sliderSelector).data("ionRangeSlider");
+          formaSlider = $(config.sliderSelector).data('ionRangeSlider');
           // Cache query for play button
-          playButton = $("#formaPlayButton");
+          playButton = $('#formaPlayButton');
           // Attach Events related to this item
-          on(playButton, "click", self.playToggle);
+          on(playButton, 'click', self.playToggle);
         });
       }
     },
@@ -89,7 +91,7 @@ define([
         state.isPlaying = false;
         clearInterval(playInterval);
         playButton.html(config.playHtml);
-      };
+      }
 
       if (state.isPlaying) {
         stopPlaying();

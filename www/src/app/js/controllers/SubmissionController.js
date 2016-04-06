@@ -3,12 +3,13 @@ define([
     'dojo/query',
     'dojo/dom-class',
     'dojo/dom-style',
+    'map/SubmissionModal',
     'dijit/registry',
     'esri/graphic',
     'esri/request',
     'utils/NavListController',
     'models/SubmissionModel'
-], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
+], function (dom, query, domClass, domStyle, SubmissionModal, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
 
 	var initialized = false;
   var self;
@@ -45,12 +46,6 @@ define([
         $('#dataInput').css('border-color', '#c0c0c0');
         $('#attributeDataInput').css('border-color', '#c0c0c0');
 
-        // var storyNameData = model.storyNameData();
-        // var storyCompanyData = model.storyCompanyData();
-        // var storyTitleData = model.storyTitleData();
-        // var storyEmailData = model.storyEmailData();
-        // var storyDetailsData = model.storyDetailsData();
-
         var dataFileName = model.dataFileName();
         var dataFileType = model.dataFileType();
         var attributeFileName = model.attributeFileName();
@@ -59,7 +54,9 @@ define([
 
         if (!model.storyNameData()) {
           $('#storyNameInput').css('border-color', 'red');
-          alert('Please enter your name!');
+          // alert('Please enter your name!');
+          SubmissionModal.addClass('story-name');
+          SubmissionModal.toggle();
           return;
         }
         if (!model.storyCompanyData()) {
@@ -131,16 +128,17 @@ define([
 
       var fileType = evt.target.files[0].type;
 
-      if (fileType !== 'text/csv' && fileType !== 'application/zip' && hash[ext] !== 1) {
-        evt.target.value = '';
-        if (evt.target.value) {
-          evt.target.type = 'file';
-          evt.target.type = 'input';
-        }
-        alert('You must submit a zipped shapfile or a CSV/XLS!');
+      // if (fileType !== 'text/csv' && fileType !== 'application/zip' && hash[ext] !== 1) {
+      //   evt.target.value = '';
+      //   if (evt.target.value) {
+      //     evt.target.type = 'file';
+      //     evt.target.type = 'input';
+      //   }
+      //   alert('You must submit a zipped shapfile or a CSV/XLS!');
+      //
+      //   return;
+      // }
 
-        return;
-      }
       if (evt.target.id === 'dataInput') {
         obj.dataFileName(fileName);
         obj.dataFileType(fileType);
@@ -204,11 +202,11 @@ define([
       });
 
       layersRequest.then(
-        function(layersResponse) {
-          console.log('Success: ', layersResponse);
-          alert('Data successfully submitted!');
+        function(response) {
+          console.log('Success: ', response);
+          alert('Data successfully submitted!')
       }, function(error) {
-          alert('Data was not successfully submitted, please try again.');
+          alert('Data was not successfully submitted, please try again.')
           console.log('Error: ', error.message);
       });
 

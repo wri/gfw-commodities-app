@@ -1,52 +1,51 @@
 /* global window, document, location */
 (function(win, doc) {
-    'use strict';
-    var version = "2.5.48",
-        URL = location.pathname.replace(/\/[^/]+$/, "") + 'app',
+    var version = '2.5.50',
+        URL = location.pathname.replace(/\/[^/]+$/, '') + 'app',
         dojoConfig = {
             parseOnLoad: false,
             isDebug: false,
             async: true,
-            cacheBust: "v=" + version,
+            cacheBust: 'v=' + version,
             packages: [{
-                name: "js",
-                location: URL + "/js"
+                name: 'js',
+                location: URL + '/js'
             }, {
-                name: "php",
-                location: URL + "/php"
+            //     name: 'php',
+            //     location: URL + '/php'
+            // }, {
+                name: 'main',
+                location: URL + '/js/main'
             }, {
-                name: "main",
-                location: URL + "/js/main"
+                name: 'models',
+                location: URL + '/js/models'
             }, {
-                name: "models",
-                location: URL + "/js/models"
+                name: 'utils',
+                location: URL + '/js/utils'
             }, {
-                name: "utils",
-                location: URL + "/js/utils"
+                name: 'report',
+                location: URL + '/js/report'
             }, {
-                name: "report",
-                location: URL + "/js/report"
+                name: 'actions',
+                location: URL + '/js/actions'
             }, {
-                name: "actions",
-                location: URL + "/js/actions"
+                name: 'analysis',
+                location: URL + '/js/analysis'
             }, {
-                name: "analysis",
-                location: URL + "/js/analysis"
+                name: 'templates',
+                location: URL + '/templates'
             }, {
-                name: "templates",
-                location: URL + "/templates"
+                name: 'components',
+                location: URL + '/js/components'
             }, {
-                name: "components",
-                location: URL + "/js/components"
+                name: 'controllers',
+                location: URL + '/js/controllers'
             }, {
-                name: "controllers",
-                location: URL + "/js/controllers"
+                name: 'map',
+                location: URL + '/js/map'
             }, {
-                name: "map",
-                location: URL + "/js/map"
-            }, {
-                name: "libs",
-                location: URL + "/libs"
+                name: 'libs',
+                location: URL + '/libs'
             }],
             aliases: [
                 ['knockout', 'libs/knockout-3.1.0/index'],
@@ -55,7 +54,7 @@
                 ['lodash', 'libs/lodash/lodash.min']
             ],
             deps: [
-                "dojo/domReady!"
+                'dojo/domReady!'
             ],
             callback: function() {
                 require(['js/bundle']);
@@ -88,15 +87,15 @@
 
     var loadStyle = function(src, isCDN) {
         var l = doc.createElement('link'),
-            path = isCDN ? src : src + "?v=" + version,
+            path = isCDN ? src : src + '?v=' + version,
             h = doc.getElementsByTagName('head')[0];
-        l.rel = "stylesheet";
+        l.rel = 'stylesheet';
         l.type = 'text/css';
         l.href = path;
-        l.media = "only x";
+        l.media = 'only x';
         h.appendChild(l);
         setTimeout(function() {
-            l.media = "all";
+            l.media = 'all';
         });
     };
 
@@ -120,7 +119,7 @@
 
     if (win.requestAnimationFrame) {
         win.requestAnimationFrame(loadDependencies);
-    } else if (doc.readyState === "loaded") {
+    } else if (doc.readyState === 'loaded') {
         loadDependencies();
     } else {
         win.onload = loadDependencies;
