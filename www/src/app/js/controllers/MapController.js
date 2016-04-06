@@ -131,7 +131,7 @@ define([
 
                 var forestUse = map.map.getLayer('forestUse_commodities');
 
-                map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
+                // map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
 
 
             });

@@ -21,6 +21,8 @@ define([], function() {
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
+        aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        protusUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
         customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
@@ -234,6 +236,16 @@ define([], function() {
                 [1, 255, 0, 197]
             ],
             toolsNode: 'forma_toolbox'
+        },
+        prodes: {
+            id: 'ProdesAlerts',
+            url: protusUrl,
+            legendLayerId: 3, //todo: what is this, find correct #
+            defaultRange: [1, 15],
+            colormap: [
+                [1, 255, 0, 197]
+            ],
+            toolsNode: 'prodes_toolbox'
         },
         fires: {
             id: 'ActiveFires',
@@ -536,6 +548,15 @@ define([], function() {
                 layerType: 'image',
                 forceUnderline: true,
                 infoDivClass: 'forest-change-forma-alerts'
+            }, {
+                id: 'prodes',
+                title: 'PRODES alerts',
+                // subtitle: '(monthly, 500m, humid tropics)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                forceUnderline: true,
+                infoDivClass: 'forest-change-prodes-alerts'
             }, {
                 id: 'fires',
                 title: 'Active Fires',

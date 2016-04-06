@@ -13,6 +13,7 @@ define([
     "map/MapModel",
     "map/LossSlider",
     "map/FormaSlider",
+    "map/ProdesSlider",
     "map/LayerController",
     "esri/request",
     "esri/TimeExtent",
@@ -20,7 +21,7 @@ define([
     "dijit/form/CheckBox",
     "dijit/layout/ContentPane",
     "dijit/layout/AccordionContainer"
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
 
     'use strict';
 
@@ -196,6 +197,7 @@ define([
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
+            ProdesSlider.init();
         },
 
 

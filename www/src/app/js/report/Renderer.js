@@ -145,6 +145,7 @@ define([
       node.id = config.rootNode;
       node.className = "result-container relative";
       node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+          "<div id='mill-overall-container'></div>" +
           "<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
 
       // Append root to fragment and then fragment to document
@@ -175,7 +176,7 @@ define([
         return;
       }
 
-      area = (area.reduce(function(a,b){return a + b;}) * pixelSize * pixelSize)/10000;
+      area = (area.reduce(function(a,b){return a + b;}) * pixelSize * pixelSize) / 10000;
       areaLabel = number.format(area);
 
       report.areaPromise.then(function(){
@@ -452,7 +453,7 @@ define([
         //  series.push(value);
         // }
 
-        // Account for pixelSize 
+        // Account for pixelSize
         // series.map(mapFunction);
 
         // for (i = 0; i < series.length; i++) {
@@ -851,7 +852,7 @@ define([
         }
         resultContent += "</tr>";
 
-        // Pull the correct values out of the histogram 
+        // Pull the correct values out of the histogram
         counts = response.histograms[0].counts;
 
         for (j = 0; j < lossValues.length; j++) {
@@ -1190,7 +1191,7 @@ define([
       });
 
       // Sort them based on the highest percentage of suitability, strangely highcharts is reversing them
-      // for this particular chart, below puts least suitable on top so when highcharts reverses it, it 
+      // for this particular chart, below puts least suitable on top so when highcharts reverses it, it
       // renders the most suitable on top
       results.sort(function (a, b) {
         if (a.suitable > b.suitable) return 1;
@@ -1438,7 +1439,7 @@ define([
           title;
 
       arrayUtils.forEach(mills, function (mill, index) {
-        // Create Header, if mill_name exits, use that, else, loop over report.mills and find a 
+        // Create Header, if mill_name exits, use that, else, loop over report.mills and find a
         // matching id and use that
         content = "";
 
@@ -1487,7 +1488,7 @@ define([
         @return String - HTML Fragment which is a <tr>
       */
       function generateChildRow(name, data, childClass) {
-        // If child is to be open by default, add open class below if parentClass is defined, 
+        // If child is to be open by default, add open class below if parentClass is defined,
         // so data-row parent open are all in if parentClass is defined
         var rowClass = 'data-row' + (childClass ? ' child ' + childClass : '');
         var frag = "<tr class='" + rowClass + "'><td class='row-name'><span>" + name + "</span></td>";

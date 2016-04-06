@@ -175,6 +175,8 @@ define([
                 legendParams,
                 formaAlertsLayer,
                 formaParams,
+                prodesAlertsLayer,
+                prodesParams,
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -259,6 +261,30 @@ define([
             formaAlertsLayer = new ArcGISImageServiceLayer(MapConfig.forma.url, {
                 imageServiceParameters: formaParams,
                 id: MapConfig.forma.id,
+                visible: false,
+                opacity: 1
+            });
+
+            prodesParams = new ImageServiceParameters();
+            prodesParams.renderingRule = new RasterFunction({
+                "rasterFunction": "Colormap",
+                "rasterFunctionArguments": {
+                    "Colormap": MapConfig.prodes.colormap,
+                    "Raster": {
+                        "rasterFunction": "Remap",
+                        "rasterFunctionArguments": {
+                            "InputRanges": MapConfig.prodes.defaultRange,
+                            "OutputValues": [1],
+                            "AllowUnmatched": false
+                        }
+                    }
+                },
+                "variableName": "Raster"
+            });
+
+            prodesAlertsLayer = new ArcGISImageServiceLayer(MapConfig.prodes.url, {
+                imageServiceParameters: prodesParams,
+                id: MapConfig.prodes.id,
                 visible: false,
                 opacity: 1
             });
@@ -467,6 +493,7 @@ define([
                 bioDiversityLayer,
                 // Forest Change Layers
                 formaAlertsLayer,
+                prodesAlertsLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -503,6 +530,7 @@ define([
 
             firesLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
+            prodesAlertsLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);

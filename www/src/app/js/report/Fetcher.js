@@ -720,7 +720,6 @@ define([
                   if (request.status === 200) {
                     response = JSON.parse(request.response);
                     if (response.mills) {
-
                       // ReportRenderer.renderMillAssessment(response.mills, config);
                       knownDeferred.resolve(response.mills);
                     } else {
@@ -737,7 +736,7 @@ define([
               }, false);
 
               var formData = new FormData();
-              formData.append("mills", knownMills.map(function (mill) { return mill.millId; }).join(','));
+              formData.append('mills', knownMills.map(function (mill) { return mill.millId; }).join(','));
               // Construct the POST Content in HERE for each Mill
               request.send(formData);
 
