@@ -109,54 +109,6 @@ backgroundGray = #464352
   background-position: 0 0;
 }
 
-@font-face {
-  font-family: 'Fira Sans';
-  src: url('fonts/fira-sans.light-webfont.eot');
-  src: url('fonts/fira-sans.light-webfont.eot?#iefix') format('embedded-opentype'),
-          url('fonts/fira-sans.light-webfont.woff2') format('woff2'),
-          url('fonts/fira-sans.light-webfont.woff') format('woff'),
-          url('fonts/fira-sans.light-webfont.ttf') format('truetype'),
-          url('fonts/fira-sans.light-webfont.svg#fira_sanslight') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Fira Sans Ultra Light';
-  src: url('fonts/firasans-ultralight-webfont.eot');
-  src: url('fonts/firasans-ultralight-webfont.eot?#iefix') format('embedded-opentype'),
-          url('fonts/firasans-ultralight-webfont.woff2') format('woff2'),
-          url('fonts/firasans-ultralight-webfont.woff') format('woff'),
-          url('fonts/firasans-ultralight-webfont.ttf') format('truetype'),
-          url('fonts/firasans-ultralight-webfont.svg#webfontregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-
-}
-
-@font-face {
-  font-family: 'fira_sans_otregular';
-  src: url(fonts/firasansot-regular-webfont.eot);
-  src: url(fonts/firasansot-regular-webfont.eot?#iefix) format("embedded-opentype"), url(fonts/firasansot-regular-webfont.woff) format("woff"), url(fonts/firasansot-regular-webfont.ttf) format("truetype"), url(fonts/firasansot-regular-webfont.svg#fira_sans_otregular) format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'fira_sans_otmedium';
-  src: url(fonts/firasansot-medium-webfont.eot);
-  src: url(fonts/firasansot-medium-webfont.eot?#iefix) format("embedded-opentype"), url(fonts/firasansot-medium-webfont.woff) format("woff"), url(fonts/firasansot-medium-webfont.ttf) format("truetype"), url(fonts/firasansot-medium-webfont.svg#fira_sans_otmedium) format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'fira_sans_otlight';
-  src: url(fonts/firasansot-light-webfont.eot);
-  src: url(fonts/firasansot-light-webfont.eot?#iefix) format("embedded-opentype"), url(fonts/firasansot-light-webfont.woff) format("woff"), url(fonts/firasansot-light-webfont.ttf) format("truetype"), url(fonts/firasansot-light-webfont.svg#fira_sans_otmedium) format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
 #footer-share div p {
   float: left;
   color: rgb(255, 255, 255);
@@ -356,21 +308,24 @@ nav.mobile-hide {
   left: calc(50% - 330px);
   z-index 889
 }
+
 nav.mobile-hide h2 {
   padding .5em
   margin 0
-  font-family: 'Fira Sans Ultra Light', 'fira_sans_otregular', Georgia, serif;
+  font-family: 'Fira Sans', Georgia, serif;
   font-weight 300
   font-size 18px
   text-transform uppercase
   color: #555555;
   background: #fff
   border-radius: 50px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
+
 nav.mobile-hide .box-button {
   display: inline-block;
 }
+
 .btn {
   background: #e5e5df;
   position: relative;
@@ -390,10 +345,12 @@ nav.mobile-hide .box-button {
   -o-transition: background 0.15s linear;
   transition: background 0.15s linear
 }
+
 .btn.orange {
   color: white;
   background: orangeSelected;
 }
+
 .btn.huge {
   font-size: 18px;
   text-transform: uppercase;
@@ -401,11 +358,13 @@ nav.mobile-hide .box-button {
   line-height: 40px;
   padding: 0px 20px;
 }
+
 .get-started__button {
   cursor pointer
   font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
   margin-left .3em
 }
+
 .tooltip-getstarted {
   display: none;
   list-style-type: none;
@@ -415,11 +374,13 @@ nav.mobile-hide .box-button {
   bottom: 41px;
   left: 275px;
   padding 0
-  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
+
 .tooltip-getstarted.display {
   display block
 }
+
 .tooltip-getstarted:after {
   content: "";
   display: block;
@@ -438,15 +399,18 @@ nav.mobile-hide .box-button {
   border-bottom: 1px solid #e5e5df;
   border-right: 1px solid #e5e5df;
 }
+
 .tooltip-getstarted li {
   border-top: 1px solid #EAECEF;
   text-align: left;
   line-height .8em
   position relative
 }
+
 .tooltip-getstarted li:hover {
   background: #fafafa;
 }
+
 .tooltip-getstarted li a {
   color: #444 !important;
   text-decoration: none;
@@ -456,9 +420,11 @@ nav.mobile-hide .box-button {
   display: block;
   padding: 15px 15px 15px 60px;
 }
+
 .tooltip-getstarted li a strong {
   color orangeSelected
 }
+
 .tooltip-getstarted i.img {
   background-color red
   width: 35px;
@@ -469,6 +435,7 @@ nav.mobile-hide .box-button {
   left: 15px;
   border-radius: 50%;
 }
+
 .tooltip-getstarted .img.map,
 .tooltip-getstarted .img.alerts,
 .tooltip-getstarted .img.analyze-forest-cover,
@@ -485,48 +452,62 @@ nav.mobile-hide .box-button {
 .tooltip-getstarted .img.tutorial-videos {
   background: url(../../app/css/images/getting-started.png) no-repeat
 }
+
 .tooltip-getstarted .img.map {
   background-position: 0 -105px
 }
+
 .tooltip-getstarted .img.watch-tutorial-videos {
   background-position: 0 -180px
 }
+
 .tooltip-getstarted .img.sign-up-gfw-commodities-newsletters {
   background-position: -2px -288px
   border-radius 0
   width 36px
   height 36px
 }
+
 .tooltip-getstarted .img.learn-about-download {
   background-position: 0 -327px
 }
+
 .tooltip-getstarted .img.sign-up-tree-clearance-fire-alerts {
   background-position: 0 -363px
 }
-.tooltip-getstarted .img.analyze-forest-cover{
+
+.tooltip-getstarted .img.analyze-forest-cover {
   background-position: 0 -398px
 }
+
 .tooltip-getstarted .img.monitor-activity {
   background-position: 0 -431px
 }
+
 .tooltip-getstarted .img.alerts {
   background-position: 0 0
 }
+
 .tooltip-getstarted .img.country {
   background-position: 0 -250px;
 }
+
 .tooltip-getstarted .img.report-story {
   background-position: 0 -35px
 }
+
 .tooltip-getstarted .img.countries-data {
   background-position: 0 -215px
 }
+
 .tooltip-getstarted .img.concessions {
   background-position: 0 -140px
 }
+
 .tooltip-getstarted .img.active-fires {
   background-position: 0 -70px
 }
+
 .arrow-down-container {
   width: 100%;
   position: absolute;
@@ -776,11 +757,13 @@ nav.mobile-hide .box-button {
     left: calc(50% - 675px);
   }
 }
+
 @media screen and (min-width: 1200px) {
-  .arrow-down-container{
+  .arrow-down-container {
     width 1200px;
   }
 }
+
 @media screen and (max-width: 500px) {
   .footerWrapper .footerItem {
     width: 100%;
