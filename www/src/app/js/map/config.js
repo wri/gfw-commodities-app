@@ -562,7 +562,7 @@ define([], function() {
             }, {
                 id: 'prodes',
                 title: 'PRODES alerts',
-                // subtitle: '(monthly, 500m, humid tropics)',
+                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
                 filter: 'forest-change',
                 type: 'radio',
                 layerType: 'image',

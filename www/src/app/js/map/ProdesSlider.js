@@ -1,23 +1,23 @@
 define([
-  "dojo/on",
-  "map/config",
-  "esri/request",
-  "dojo/Deferred",
-  "map/LayerController"
+  'dojo/on',
+  'map/config',
+  'esri/request',
+  'dojo/Deferred',
+  'map/LayerController'
 ], function (on, MapConfig, esriRequest, Deferred, LayerController) {
 
   // TODO: replace all forma's with prodes
-  // "use strict";
+  // 'use strict';
 
   var playInterval,
       prodesSlider,
       playButton;
 
   var config = {
-    sliderSelector: "#prodes-alert-slider",
-    playHtml: "&#9658;",
-    pauseHtml: "&#x25A0",
-    baseYear: 15 // 2015
+    sliderSelector: '#prodes-alert-slider',
+    playHtml: '&#9658;',
+    pauseHtml: '&#x25A0',
+    baseYear: 1999
   };
 
   var state = {
@@ -31,9 +31,9 @@ define([
 
     request = esriRequest({
       url: MapConfig.prodes.url,
-      callbackParamName: "callback",
-      content: { f: "json" },
-      handleAs: "json"
+      callbackParamName: 'callback',
+      content: { f: 'json' },
+      handleAs: 'json'
     });
 
     request.then(function (res) {
@@ -43,12 +43,12 @@ define([
           year;
 
       for (min; min <= max; min++) {
-        year = config.baseYear + Math.floor(min / 12);
-        labels.push(min + " - " + year);
+        year = config.baseYear + min;
+        labels.push(year);
       }
 
       deferred.resolve(labels);
-    }, function (err) {
+    }, function () {
       deferred.reject();
     });
 
@@ -62,7 +62,7 @@ define([
       if (prodesSlider === undefined) {
         getProdesLabels().then(function (labels) {
           $(config.sliderSelector).ionRangeSlider({
-            type: "double",
+            type: 'double',
             values: labels,
             grid: true,
             hide_min_max: true,
@@ -71,11 +71,11 @@ define([
             onUpdate: self.change
           });
           // Save this instance to a variable ???
-          prodesSlider = $(config.sliderSelector).data("ionRangeSlider");
+          prodesSlider = $(config.sliderSelector).data('ionRangeSlider');
           // Cache query for play button
-          playButton = $("#prodesPlayButton");
+          playButton = $('#prodesPlayButton');
           // Attach Events related to this item
-          on(playButton, "click", self.playToggle);
+          on(playButton, 'click', self.playToggle);
         });
       }
     },
@@ -91,7 +91,7 @@ define([
         state.isPlaying = false;
         clearInterval(playInterval);
         playButton.html(config.playHtml);
-      };
+      }
 
       if (state.isPlaying) {
         stopPlaying();

@@ -90,7 +90,6 @@ define([
                 geoCoder,
                 basemapGallery,
                 simpleLegends = {},
-                scalebar,
                 road,
                 settle,
                 poBounds,
