@@ -258,6 +258,28 @@ define([], function() {
             ],
             toolsNode: 'prodes_toolbox'
         },
+        byType: {
+            id: 'byType',
+            url: dynamicMapServiceUrlForest,
+            defaultLayers: [5]//,
+            // legendLayerId: 5,
+            // defaultRange: [1, 15],
+            // colormap: [
+            //     [1, 255, 0, 197]
+            // ],
+            //toolsNode: 'type_toolbox'
+        },
+        bySpecies: {
+            id: 'bySpecies',
+            url: dynamicMapServiceUrlForest,
+            defaultLayers: [8]//,
+            // legendLayerId: 5,
+            // defaultRange: [1, 15],
+            // colormap: [
+            //     [1, 255, 0, 197]
+            // ],
+            //toolsNode: 'species_toolbox'
+        },
         fires: {
             id: 'ActiveFires',
             url: activeFiresUrl,
@@ -568,6 +590,30 @@ define([], function() {
                 layerType: 'image',
                 forceUnderline: true,
                 infoDivClass: 'forest-change-prodes-alerts'
+            }, {
+                id: 'plantations',
+                title: 'Tree plantations',
+                subtitle: '',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'none',
+                children: [{
+                    id: 'byType',
+                    title: 'by type',
+                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-type'
+                }, {
+                    id: 'bySpecies',
+                    title: 'by species',
+                    // subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-species'
+                }]
             }, {
                 id: 'fires',
                 title: 'Active Fires',

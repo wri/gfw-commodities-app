@@ -19,6 +19,17 @@ define([], function() {
         prodesLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
         prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
 
+    // Plantation Type
+    var plantationsTypeBounds = [1, 14],
+        plantationsTypeLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+        plantationsTypeColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
+
+    // Plantation Species
+    var plantionsSpeciesBounds = [1, 14],
+        plantionsSpeciesLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+        plantionsSpeciesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
+
+
     // Tree Cover Density
     var treeCoverLabels = ["31 - 50%", "51 - 74%", "75 - 100%"],
         treeCoverBounds = [1, 3],
@@ -185,6 +196,18 @@ define([], function() {
 
         prodesLayer: {
           rasterId: '$555', //12
+          bounds: prodesBounds,
+          labels: prodesLabels
+        },
+
+        plantationsTypeLayer: {
+          rasterId: '$558',
+          bounds: prodesBounds,
+          labels: prodesLabels
+        },
+
+        plantationsSpeciesLayer: {
+          rasterId: '$557',
           bounds: prodesBounds,
           labels: prodesLabels
         },

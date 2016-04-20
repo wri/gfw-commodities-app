@@ -171,6 +171,10 @@ define([
 
             var firesLayer,
                 fireParams,
+                plantationsTypeLayer,
+                plantationsTypeParams,
+                plantationsSpeciesLayer,
+                plantationsSpeciesParams,
                 legendLayer,
                 legendParams,
                 formaAlertsLayer,
@@ -222,11 +226,33 @@ define([
             fireParams = new ImageParameters();
             fireParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             fireParams.layerIds = MapConfig.fires.defaultLayers;
-            fireParams.format = "png32";
+            fireParams.format = 'png32';
 
             firesLayer = new ArcGISDynamicLayer(MapConfig.fires.url, {
                 imageParameters: fireParams,
                 id: MapConfig.fires.id,
+                visible: false
+            });
+
+            plantationsTypeParams = new ImageParameters();
+            plantationsTypeParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            plantationsTypeParams.layerIds = MapConfig.byType.defaultLayers;
+            plantationsTypeParams.format = 'png32';
+
+            plantationsTypeLayer = new ArcGISDynamicLayer(MapConfig.byType.url, {
+                imageParameters: plantationsTypeParams,
+                id: MapConfig.byType.id,
+                visible: false
+            });
+
+            plantationsSpeciesParams = new ImageParameters();
+            plantationsSpeciesParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            plantationsSpeciesParams.layerIds = MapConfig.bySpecies.defaultLayers;
+            plantationsSpeciesParams.format = 'png32';
+
+            plantationsSpeciesLayer = new ArcGISDynamicLayer(MapConfig.bySpecies.url, {
+                imageParameters: plantationsSpeciesParams,
+                id: MapConfig.bySpecies.id,
                 visible: false
             });
 
@@ -499,6 +525,8 @@ define([
                 gainHelperLayer,
                 // Points Layers
                 firesLayer,
+                plantationsTypeLayer,
+                plantationsSpeciesLayer,
                 // Overlays
                 wizardDynamicLayer,
                 mapOverlaysLayer,
@@ -529,6 +557,8 @@ define([
             });
 
             firesLayer.on('error', this.addLayerError);
+            plantationsTypeLayer.on('error', this.addLayerError);
+            plantationsSpeciesLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
