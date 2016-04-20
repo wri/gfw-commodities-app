@@ -575,6 +575,7 @@ define([], function() {
                 filter: 'forest-change',
                 type: 'radio',
                 layerType: 'dynamic',
+                forceUnderline: true,
                 infoDivClass: 'forest-change-nasa-active-fires'
             },
             // {
