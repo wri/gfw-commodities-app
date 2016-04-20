@@ -25,17 +25,19 @@ define([
     "analysis/WizardStore",
     "components/LayerList",
     "components/LayerModal",
+    "components/AnalysisModal",
     "utils/Loader",
     "map/Uploader",
     "map/CoordinatesModal",
     "utils/Analytics"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, LayerModal, Loader, Uploader, CoordinatesModal, Analytics) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, LayerModal, AnalysisModal, Loader, Uploader, CoordinatesModal, Analytics) {
     'use strict';
 
     var initialized = false,
         mapModel,
         layerList,
         layerModal,
+        analysisModal,
         dataDivLoaded = false,
         layerData,
         map;
@@ -461,6 +463,9 @@ define([
                 map.map.setExtent(graphicsUtils.graphicsExtent(selectedFeatures), true);
               }
             });
+
+            //todo show modal
+            analysisModal.show();
         },
 
         toggleLayerList: function(el) {
@@ -510,6 +515,9 @@ define([
 
             layerModal = new LayerModal({
             }, "layer-modal");
+
+            analysisModal = new AnalysisModal({
+            }, "analysis-modal");
 
             MapControl.generateTimeSliders();
 
