@@ -1678,10 +1678,25 @@ define([
         var smallSwatch = "'><span class='small-swatch'></span>";
         var millName = mill.mill_name ? mill.mill_name : 'Unknown';
 
-        var frag = '<div class="mill-header-single-title"><span class="mill-title">' + millName + '</span><span class="mill-risk-level-single-title medium"><span class="large-swatch"></span>Total Mill Priority Level: <span class="overall-risk">' + mill.priority_level + '</span></span></div>';
-        // var frag = "<table class='single-mill-table-header-v2'>";
-        frag += "<table class='single-mill-table-header-v2'>";
+        var className;
+
+        if (mill.priority_level === 'low') {
+          className = 'low';
+        } else if (mill.priority_level === 'medium low') {
+          className = 'medium-low';
+        } else if (mill.priority_level === 'medium') {
+          className = 'low';
+        } else if (mill.priority_level === 'medium high') {
+          className = 'medium-high';
+        } else {
+          className = 'high';
+        }
+
+        // var frag = '<div class="mill-header-single-title"><span class="mill-title">' + millName + '</span><span class="mill-risk-level-single-title medium"><span class="large-swatch"></span>Total Mill Priority Level: <span class="overall-risk">' + mill.priority_level + '</span></span></div>';
+        var frag = "<table class='single-mill-table-header-v2'>";
+        // frag += "<table class='single-mill-table-header-v2'>";
             // frag += "<tr class='single-mill-header'><th colspan='4'><span class='title'>" + millName + "</span></th><th colspan='4'><span class='title medium overall-risk'>Total Mill Priority Level: " + mill.priority_level + "</span></th></tr>";
+            frag += "<tr class='single-mill-header'><div class='mill-header-single-title'><span class='mill-title'>" + millName + "</span><span class='mill-risk-level-single-title " + className + "'>Total Mill Priority Level: <span class='overall-risk'>" + mill.priority_level + "</span></div></tr>";
 
             frag += "<tr class=''>";
             frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
