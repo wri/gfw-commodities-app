@@ -83,7 +83,6 @@ define([
             var scalebar, graphic, poly, map;
 
             function mapLoaded () {
-
                 map.graphics.clear();
                 map.resize();
 
@@ -196,6 +195,60 @@ define([
                     ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
                 } else {
                     ReportRenderer.renderAsUnavailable('loss', config);
+                }
+                deferred.resolve(true);
+            }
+
+            function failure(error) {
+                var newFailure = function(error){
+                  deferred.resolve(false);
+                }
+                if (error.details) {
+                    if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+                        content.pixelSize = 500;
+                        self._computeHistogram(url, content, success, failure);
+                    } else if (error.details.length === 0) {
+                        var maxDeviation = 10;
+                        content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
+                        self._computeHistogram(url, content, success, newFailure);
+                    } else {
+                        deferred.resolve(false);
+                    }
+                } else {
+                    deferred.resolve(false);
+                }
+            }
+
+            this._computeHistogram(url, content, success, failure);
+
+            return deferred.promise;
+        },
+
+        getProdesResults: function() {
+            this._debug('Fetcher >>> getProdesResults');
+            var deferred = new Deferred(),
+                config = ReportConfig.prodes,
+                url = ReportConfig.imageServiceUrl,
+                rasterId = config.rasterId,
+                content = {
+                    geometryType: 'esriGeometryPolygon',
+                    geometry: JSON.stringify(report.geometry),
+                    mosaicRule: JSON.stringify(config.mosaicRule),
+                    pixelSize: ReportConfig.pixelSize,
+                    f: 'json'
+                },
+                self = this;
+
+            // Create the container for all the result
+            ReportRenderer.renderProdesContainer(config);
+            ReportRenderer.renderCompositionAnalysisLoader(config);
+
+            function success(response) {
+                if (response.histograms.length > 0) {
+                    ReportRenderer.renderProdesData(response.histograms[0].counts, content.pixelSize, config);
+                    ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+                } else {
+                    ReportRenderer.renderAsUnavailable('prodes', config);
                 }
                 deferred.resolve(true);
             }
@@ -540,6 +593,8 @@ define([
 
             config = _.clone(config);
 
+            console.log(report.geometry)
+
             function success(response) {
                 if (response.histograms.length > 0) {
                     ReportRenderer.renderClearanceData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
@@ -552,10 +607,59 @@ define([
                 deferred.resolve(true);
             }
 
-            function failure(err) {
+            function failure(error) {
+              var newFailure = function(error){
                 deferred.resolve(false);
-            }
+              }
+              if (error.details) {
+                  if (error.details[0] === 'Invalid cell size') {
 
+                      var polys = [];
+
+                      // var unionedGeom;
+                      // debugger
+
+                      // var unionedGeom = new Polygon(report.geometry.rings[0], new SpatialReference(54012));
+
+                      // for (var j = 1; j < report.geometry.rings.length; j++) {
+                      //   // var poly = new Polygon(report.geometry.rings[j], new SpatialReference(54012));
+                      //   //
+                      //   // var intersects = geometryEngine.intersects(unionedGeom, poly);
+                      //   // if (intersects === false) {
+                      //   //     unionedGeom = geometryEngine.union([unionedGeom, poly]);
+                      //   // }
+                      //
+                      //
+                      //   // polys.push(poly);
+                      //   polys.concat(report.geometry.rings[j]);
+                      // }
+
+                      arrayUtils.forEach(report.geometry.rings, function (ring) {
+                        if (ring) {
+                          polys = polys.concat(ring);
+                        }
+                      });
+
+                      var poly = new Polygon(polys);
+                      // report.geometry = geometryEngine.simplify(poly);
+                      // report.geometry = geometryEngine.union(polys);
+                      // report.geometry = unionedGeom;
+                      console.log(report.geometry)
+
+                      report.mapGeometry = poly;
+
+                      content.geometry = JSON.stringify(report.geometry);
+
+
+                      self._computeHistogram(url, content, success, newFailure);
+                  } else {
+                      deferred.resolve(false);
+                  }
+              } else {
+                  deferred.resolve(false);
+              }
+                // deferred.resolve(false);
+            }
 
             /*
             * Some layers have special ids that need to be overwritten from the config becuase
@@ -574,6 +678,8 @@ define([
             renderingRule = useSimpleEncoderRule ?
                 encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) :
                 encoder.render(clearanceConfig.rasterId, rasterId);
+
+            // report.geometry.rings = [report.geometry.rings[report.geometry.rings.length - 1]];
             content = {
                 geometryType: 'esriGeometryPolygon',
                 geometry: JSON.stringify(report.geometry),
@@ -581,6 +687,9 @@ define([
                 pixelSize: 500, // FORMA data has a pixel size of 500 so this must be 500 otherwise results will be off
                 f: 'json'
             };
+            console.log('boutaa computte!')
+            // content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, 1000, true, 'miles'));
+            // content.geometry = geometryEngine.simplify(content.geometry);
 
             this._computeHistogram(url, content, success, failure);
 

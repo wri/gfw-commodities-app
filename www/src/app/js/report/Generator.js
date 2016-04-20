@@ -458,6 +458,9 @@ define([
                     case "indonesiaMoratorium":
                         deferreds.push(Fetcher.getIndonesiaMoratoriumResults());
                         break;
+                    case "prodes":
+                        deferreds.push(Fetcher.getProdesResults());
+                        break;
                     default:
                         break;
                 }

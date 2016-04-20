@@ -14,6 +14,10 @@ define([], function() {
     var lossBounds = [1, 14],
         lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014];
 
+    // Prodes
+    var prodesBounds = [1, 14],
+        prodesLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+        prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
 
     // Tree Cover Density
     var treeCoverLabels = ["31 - 50%", "51 - 74%", "75 - 100%"],
@@ -174,13 +178,19 @@ define([], function() {
 
         /* Begin Main Layers for Analyses */
         totalLoss: {
-            rasterId: "$530", //12
+            rasterId: '$530', //12
             bounds: lossBounds,
             labels: lossLabels
         },
 
+        prodesLayer: {
+          rasterId: '$555', //12
+          bounds: prodesBounds,
+          labels: prodesLabels
+        },
+
         clearanceAlerts: {
-            rasterId: "$17"
+            rasterId: '$17'
             // rasterId: "$2"
         },
 
@@ -270,8 +280,7 @@ define([], function() {
             rasterId: "$5",
             bounds: rspoBounds,
             lossBounds: [5, 13],
-            colors: rspoColors,
-
+            colors: rspoColors
         },
 
         primaryForest: {
@@ -355,6 +364,28 @@ define([], function() {
             labels: []
         },
 
+        prodes: {
+            rootNode: "prodes",
+            title: "Prodessss",
+            rasterId: "$555",
+            mosaicRule: {
+                'mosaicMethod': 'esriMosaicLockRaster',
+                'lockRasterIds': [530],
+                'ascending': true,
+                'mosaicOperation': 'MT_FIRST'
+            },
+            lossChart: {
+                title: "Prodess"
+            },
+            compositionAnalysis: {
+                rasterId: 530,
+                histogramSlice: 1
+            },
+            bounds: prodesBounds,
+            color: "#DB6598",
+            labels: []
+        },
+
         legalClass: {
             rootNode: "legalClasses",
             title: "Legal Classifications",
@@ -392,6 +423,29 @@ define([], function() {
             fireKey: 'indonesiaMoratorium',
             compositionAnalysis: {
                 rasterId: 522,
+                histogramSlice: 1
+            }
+        },
+
+        prodes: {
+            rootNode: 'prodes',
+            title: 'Prodes Deforestation',
+            rasterId: '$555',
+            // formaId: "$14",
+            bounds: prodesBounds,
+            labels: prodesLabels,
+            clearanceChart: {
+                title: 'PRODES',
+                type: 'bar'
+            },
+            lossChart: {
+                title: 'PRODES'//,
+                //removeBelowYear: 2001
+            },
+            colors: prodesColors,
+            fireKey: 'prodes',
+            compositionAnalysis: {
+                rasterId: 555,
                 histogramSlice: 1
             }
         },
@@ -526,7 +580,7 @@ define([], function() {
         landCoverGlobal: {
             rootNode: 'globalLandCover',
             title: 'Land Cover - Global',
-            rasterId:  '$544',//'$525',
+            rasterId: '$544', //'$525',
             bounds: lcGlobalBounds,
             labels: lcGlobalLabels,
             clearanceChart: {
@@ -675,6 +729,11 @@ define([], function() {
                 type: 'badge',
                 field: 'moratorium',
                 badgeDesc: 'on indonesia moratorium out of'
+            },
+            prodes: {
+                type: 'badge',
+                field: 'prodes',
+                badgeDesc: 'on Prodess out of'
             }
         }
 

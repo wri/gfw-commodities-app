@@ -63,7 +63,7 @@ define([
 		*/
 		updateSubscribers: function (key) {
 			var callbacks = Callbacks[key];
-			
+
 			if (callbacks) {
 				callbacks.forEach(function (func) {
 					func();

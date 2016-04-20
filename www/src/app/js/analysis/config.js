@@ -162,6 +162,10 @@ define([], function() {
                 label: 'Indonesia Moratorium',
                 value: 'indonesiaMoratorium',
                 noInfoIcon: true
+            }, {
+                label: 'Prodes Alerts',
+                value: 'prodes',
+                noInfoIcon: true
             }],
             suit: {
                 label: 'Oil Palm Suitability',
