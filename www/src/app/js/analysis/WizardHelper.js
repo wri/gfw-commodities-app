@@ -83,7 +83,7 @@ define([
 				setTimeout(function () {
 					wizard = new Wizard({
 						skipIntro: skipIntro
-					}, "wizard");
+					}, 'wizard');
 				}, (duration - 100));
 				// Use duration - 100 to make sure the wizard is defined before the animation completes
 				// and the deferred is resolved
@@ -105,7 +105,7 @@ define([
 				Hasher.setHash('wiz', 'open');
 			}
 
-			return [wizardAnimation,tabAnimation];
+			return [wizardAnimation, tabAnimation];
 		},
 
 		/*

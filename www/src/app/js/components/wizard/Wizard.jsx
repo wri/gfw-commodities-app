@@ -192,7 +192,7 @@ define([
         },
 
         _close: function() {
-            topic.publish("toggleWizard");
+            topic.publish('toggleWizard');
         },
 
         // Function that can be used in the Analyzer.js file to programmatically set which step it is on

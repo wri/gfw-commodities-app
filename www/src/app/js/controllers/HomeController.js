@@ -143,7 +143,7 @@ define([
             initialized = true;
             registry.byId("stackContainer").selectChild("homeView");
             registry.byId("homeView").set('content', template);
-            
+
             HomeModel.initialize("homeView");
             o.startModeAnim();
 
