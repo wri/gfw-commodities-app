@@ -20,14 +20,14 @@ define([], function() {
         prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
 
     // Plantation Type
-    var plantationsTypeBounds = [1, 14],
-        plantationsTypeLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
-        plantationsTypeColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
+    var plantationsTypeBounds = [1, 3],
+        plantationsTypeLabels = ['Clearing/ very young plantation', 'Large industrial plantation', 'Mosaic of medium-sized plantations', 'Mosaic of small-sized plantations'],
+        plantationsTypeColors = ['#874546', '#FEBEBF', '#FEBFE7', '#8ACD6B'];
 
     // Plantation Species
-    var plantionsSpeciesBounds = [1, 14],
-        plantionsSpeciesLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
-        plantionsSpeciesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
+    var plantionsSpeciesBounds = [0, 11],
+        plantionsSpeciesLabels = ["Oil palm", "Oil palm mix", "Fruit", "Fruit mix", "Rubber", "Rubber mix", "Recently cleared", "Unknown", "Wood fiber / timber", "Wood fiber / timber mix", "Other mix", "Other"],
+        plantionsSpeciesColors = ['#FD8081', '#FEBEBF', '#B6D6A1', '#FFFD7E', '#6E4786', '#22C6FC', '#C97FF2', '#B3B3B3', '#7C90F2', '#0A50A5', '#CDCDD2', '#B6D6A1'];
 
 
     // Tree Cover Density
@@ -202,14 +202,14 @@ define([], function() {
 
         plantationsTypeLayer: {
           rasterId: '$558',
-          bounds: prodesBounds,
-          labels: prodesLabels
+          bounds: plantationsTypeBounds,
+          labels: plantationsTypeLabels
         },
 
         plantationsSpeciesLayer: {
           rasterId: '$557',
-          bounds: prodesBounds,
-          labels: prodesLabels
+          bounds: plantionsSpeciesBounds,
+          labels: plantionsSpeciesLabels
         },
 
         clearanceAlerts: {
@@ -365,6 +365,78 @@ define([], function() {
             }
         },
 
+        plantationsType: {
+            rootNode: "plantationsType",
+            title: "Plantations by Type",
+            rasterId: "$558",
+            formaId: "$12",
+            includeFormaIdInRemap: true,
+            rasterRemap: {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": {
+                    "InputRanges": [31, 51, 51, 75, 75, 101],
+                    "OutputValues": [1, 2, 3],
+                    "Raster": "$558",
+                    "AllowUnmatched": false
+                }
+            },
+            bounds: plantationsTypeBounds,
+            labels: plantationsTypeLabels,
+            clearanceChart: {
+                title: "plantationsTypesince Jan 2015",
+                type: "pie"
+            },
+            lossChart: {
+                title: "plantation sTypeeee"
+            },
+            compositionAnalysis: {
+                title: 'plantations Typeee',
+                rasterId: 558//,
+                // histogramSlice: 31
+            },
+            colors: plantationsTypeColors,
+            fireKey: 'plantationsType', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'NplantationsTypeBoundsn 30% detected in this area.'
+            }
+        },
+
+        plantationsSpecies: {
+            rootNode: "plantationsSpecies",
+            title: "Plantations by Species",
+            rasterId: "$557",
+            formaId: "$12",
+            includeFormaIdInRemap: true,
+            rasterRemap: {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": {
+                    "InputRanges": [31, 51, 51, 75, 75, 101],
+                    "OutputValues": [1, 2, 3],
+                    "Raster": "$557",
+                    "AllowUnmatched": false
+                }
+            },
+            bounds: plantationsTypeBounds,
+            labels: plantationsTypeLabels,
+            clearanceChart: {
+                title: "plantationsTypesince Jan 2015",
+                type: "pie"
+            },
+            lossChart: {
+                title: "plantation speciess"
+            },
+            compositionAnalysis: {
+                title: 'plantations Typeee',
+                rasterId: 557//,
+                // histogramSlice: 31
+            },
+            colors: plantationsTypeColors,
+            fireKey: 'plantationsType', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'No Tree Cover Density greater than 30% detected in this area.'
+            }
+        },
+
         treeCoverLoss: {
             rootNode: "treeCoverLoss",
             title: "Tree Cover Loss",
@@ -389,7 +461,7 @@ define([], function() {
 
         prodes: {
             rootNode: "prodes",
-            title: "Prodessss",
+            title: "Prodes Deforestation",
             rasterId: "$555",
             mosaicRule: {
                 'mosaicMethod': 'esriMosaicLockRaster',
@@ -398,7 +470,7 @@ define([], function() {
                 'mosaicOperation': 'MT_FIRST'
             },
             lossChart: {
-                title: "Prodess"
+                title: "Prodes"
             },
             compositionAnalysis: {
                 rasterId: 530,
@@ -450,28 +522,28 @@ define([], function() {
             }
         },
 
-        prodes: {
-            rootNode: 'prodes',
-            title: 'Prodes Deforestation',
-            rasterId: '$555',
-            // formaId: "$14",
-            bounds: prodesBounds,
-            labels: prodesLabels,
-            clearanceChart: {
-                title: 'PRODES',
-                type: 'bar'
-            },
-            lossChart: {
-                title: 'PRODES'//,
-                //removeBelowYear: 2001
-            },
-            colors: prodesColors,
-            fireKey: 'prodes',
-            compositionAnalysis: {
-                rasterId: 555,
-                histogramSlice: 1
-            }
-        },
+        // prodes: {
+        //     rootNode: 'prodes',
+        //     title: 'Prodes Deforestation',
+        //     rasterId: '$555',
+        //     // formaId: "$14",
+        //     bounds: prodesBounds,
+        //     labels: prodesLabels,
+        //     clearanceChart: {
+        //         title: 'PRODES',
+        //         type: 'bar'
+        //     },
+        //     lossChart: {
+        //         title: 'PRODES'//,
+        //         //removeBelowYear: 2001
+        //     },
+        //     colors: prodesColors,
+        //     fireKey: 'prodes',
+        //     compositionAnalysis: {
+        //         rasterId: 555,
+        //         histogramSlice: 1
+        //     }
+        // },
 
         protectedArea: {
             rootNode: "protectedAreas",
@@ -756,7 +828,17 @@ define([], function() {
             prodes: {
                 type: 'badge',
                 field: 'prodes',
-                badgeDesc: 'on Prodess out of'
+                badgeDesc: 'on Prodes out of'
+            },
+            plantationsType: {
+                type: 'badge',
+                field: 'plantationsType',
+                badgeDesc: 'on Plantations Type out of'
+            },
+            plantationsSpecies: {
+                type: 'badge',
+                field: 'plantationsSpecies',
+                badgeDesc: 'on Plantations Species out of'
             }
         }
 
