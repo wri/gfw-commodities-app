@@ -31,35 +31,20 @@ define([
       });
 		},
 
-    // show: function () {
-    //   console.log(ModalWrapper)
-    //   debugger
-    //   ModalWrapper.close();
-    // },
+    close: function () {
+      if (this.state.checked === true) {
+        //todo: add cookie reference and respect it somehow
+      }
+      domClass.add('analysis-modal', 'hidden');
+    },
 
-    /**
-    * Toggle the Upload Panel
-    */
     show: function () {
-      domClass.toggle('analysis-modal', 'hidden');
+      domClass.remove('analysis-modal', 'hidden');
 
-      // if (closeHandle) {
-      //   closeHandle.remove();
-      //   closeHandle = undefined;
-      // } else {
-      //   closeHandle = on.once(document.querySelector('#analysis-modal .close-icon'), 'click', this.toggle);
-      // }
     },
 
     render: function() {
-      // var layerInfo = [];
-      // for (var layer in this.state.layerInfo) {
-      //   layerInfo.push(this.state.layerInfo[layer]);
-      // }
-//<div className='analysis-modal-background' onClick={this.close}></div>
       return (
-
-
         React.createElement("div", {className: "analysis-modal-window"}, 
         React.createElement("div", {className: "tooltipmap"}), 
           React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
