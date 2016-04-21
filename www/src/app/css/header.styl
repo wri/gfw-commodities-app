@@ -23,27 +23,37 @@ company = #5e138a
 gainLayer = #5952de
 /* Layer Filter Colors */
 
+#headerGfw
+	z-index 900!important
 
 .header-title.reset.inner
 	text-align center
 
 .gfw .app-header
-	background url('images/header_tree_background.jpg') repeat-x scroll center top transparent
-	border-bottom 1px solid #717d80
+	//background url('images/header_tree_background.jpg') repeat-x scroll center top transparent
+	//border-bottom 1px solid #717d80
+	//border-bottom 1px solid #e5e5df
 	// border-top 5px solid darkGray
 	box-sizing border-box
-	height 210px
 
 .gfw .header
-	height 100%
 	width 100%
+	z-index 300
+
+.gfw .nav-header
+	background rgba(255,255,255,0.8)
+	//border-bottom 1px solid #e5e5df
 
 .gfw .header .inner
 	margin 0 auto
 	width 75%
+	text-align right
+	position relative
 
 .gfw .header .outer
 	margin 0 30px
+	text-align right
+	position relative
 
 .gfw .nav-topper
 	font-family 'Fira Sans', 'fira_sans_otregular', Georgia, serif
@@ -55,7 +65,7 @@ gainLayer = #5952de
 
 .gfw .app-header.mapView
 	// height 120px
-	height 135px
+	height 90px
 
 .gfw .app-header.generalView
 	height 105px
@@ -79,13 +89,14 @@ gainLayer = #5952de
 .gfw .app-header.mapView .map-layer-controls
 	position absolute
 	display block
-	right 40px
-	// top 65px
-	top 50px
+	width 100%
+	background rgba(255,255,255,0.8)
+	text-align center
 
 .gfw .app-header .map-layer-controls ul
 	display inline-block
 	list-style-type none
+	margin-bottom 0
 
 .gfw .app-header .layer-list-header,
 .gfw .app-header .filter-list-title
@@ -132,7 +143,7 @@ gainLayer = #5952de
 	top 55px
 
 .dj_ie .app-header.mapView .map-layer-controls
-	top 58px
+	top 54px
 
 .dj_webkit .windows_7 .app-header #master-layer-list
 .dj_webkit .windows_8 .app-header #master-layer-list
@@ -141,7 +152,7 @@ gainLayer = #5952de
 
 .gfw .app-header .filter-list-title
 	text-align center
-	margin 15px auto
+	margin 0 auto 10px
 	display block
 
 .gfw .app-header .filter-list
@@ -250,7 +261,7 @@ gainLayer = #5952de
 	display none
 
 .layer-list-item.indented
-	margin-left 20px
+	margin-left 10px
 
 /* Styling in Nested Lists in the Master Layer List */
 
@@ -453,13 +464,28 @@ gainLayer = #5952de
 
 .gfw .header-logo
 	background url('images/gfwc_logo.jpg') no-repeat center
-	background-position 0 0
+	background-position 0 top
 	text-indent -999999px
 	display inline-block
-	position relative
+	position absolute
 	height 100px
 	width 90px
 	z-index 200
+	left 0
+	top 0
+	color transparent !important
+	background-size 85px
+
+a.header-logo:after
+	content: "";
+	display: block;
+	width: 30px;
+	height: 18px;
+	position: absolute;
+	bottom: 7px;
+	right: 0;
+	background: url(images/beta.png);
+	z-index: 300;
 
 .gfw .beta-logo
 	font-family Arial, sans-serif
@@ -472,11 +498,10 @@ gainLayer = #5952de
 	top 20px
 
 .gfw .nav-link-list
-	margin 20px 145px 0 0
 	display inline-block
 	list-style-type none
-	float right
 	padding 0
+	margin 0 auto
 
 .gfw .app-header .google_translate_element
 	position absolute
@@ -488,29 +513,32 @@ gainLayer = #5952de
 	top 20px
 
 .gfw .nav-link-list .nav-link
-	border-radius(5px)
+	//border-radius(5px)
 	font-family Arial, sans-serif
 	display inline-block
-	font-weight bold
-	padding 6px 8px
+	padding 18px 35px
 	font-size 14px
-	color darkFont
+	color #555
 	margin 0 2px
 
 .gfw .nav-link-list .nav-link:not(.selected)
 	cursor pointer
 
 .gfw .nav-link-list .nav-link:hover
-	background-color orangeHover
+	//background-color orangeHover
+	border-bottom: 5px solid orangeSelected
+	padding-bottom 13px
+	box-shadow 0 1px 3px rgba(0,0,0,0.25)
 
 #learnMoreItem:hover
 	webkit-border-radius 0
 	border-radius 0
 
 .gfw .nav-link-list .nav-link.selected
-	background-color orangeSelected
+	box-shadow 0 1px 3px rgba(0,0,0,0.25)
 	cursor default
-	color white
+	border-bottom: 5px solid orangeSelected
+	padding-bottom 13px
 
 .gfw .header-title
 	font-family Georgia, serif
@@ -521,16 +549,17 @@ gainLayer = #5952de
 	padding-top 5px
 
 .gfw .app-header #learn-more-dropdown
-	font-size 12px
+	font-size 14px
 	background-color white
 	position absolute
 	width 100%
 	z-index 500
 	opacity 1
 	left 0px
-	top 29px
+	top 52px
 	// top 42px
 	padding 0px
+	box-shadow 0 1px 3px rgba(0,0,0,0.25)
 
 .nav-link-more
 	color #333
@@ -539,8 +568,8 @@ gainLayer = #5952de
 	text-align center
 	padding 3px
 	cursor pointer
-	padding-bottom 10px
-	padding-top 10px
+	padding-bottom 14px
+	padding-top 14px
 
 .nav-link-more:hover
 	background-color rgba(233,131,0,0.15)

@@ -1,25 +1,25 @@
-
 <div class='homepage'>
 
-	<div class="homeModeOptionsContainer">
-    <div data-bind="foreach:homeModeOptions" class="homeModeOptionsViewerOuter">
-      <div data-bind="css:{dijitHidden:!display,dijitVisible:display},click:$root.modeSelect" class="modeGroup">
-        <div class="modeOption"></div>
-        <div class="modeOptionRing">
-          <div data-bind="html:html" class="modeText"></div>
+    <div class="homeModeOptionsContainer">
+        <div data-bind="foreach:homeModeOptions" class="homeModeOptionsViewerOuter">
+            <div data-bind="css:{dijitHidden:!display,dijitVisible:display},click:$root.modeSelect" class="modeGroup">
+                <div class="modeOption"></div>
+                <div class="modeOptionRing">
+                    <div data-bind="html:html" class="modeText"></div>
+                </div>
+            </div>
+            <!--div.homeModeOptionsViewerInner#homeModeOptionsViewerInner(data-bind="foreach:homeModeOptions")//div.modeOption(data-bind="html:html")
+            -->
         </div>
-      </div>
-      <!--div.homeModeOptionsViewerInner#homeModeOptionsViewerInner(data-bind="foreach:homeModeOptions")//div.modeOption(data-bind="html:html")
-      -->
     </div>
-  </div>
-  <div class="homeModeDotsContainer">
-    <div data-bind="foreach:homeModeOptions" class="homeModeOuter">
-      <div data-bind="css:{activeDot:display},click:$root.dotSelect,attr:{title:tooltip}" class="homeModeDot">&nbsp;</div>
+    <div class="homeModeDotsContainer">
+        <div data-bind="foreach:homeModeOptions" class="homeModeOuter">
+            <div data-bind="css:{activeDot:display},click:$root.dotSelect,attr:{title:tooltip}" class="homeModeDot">
+                &nbsp;</div>
+        </div>
     </div>
-  </div>
+    <div data-bind="foreach:homeModeOptions" id="background-container" class="background-container">
+        <img data-bind="css:{dijitHidden:!display,dijitVisible:display},attr:{src: imageBg}" alt="">
+    </div>
 
-	<div class="background-container">
-		<img src="http://d1ooe4m5rq52vq.cloudfront.net/home-background-from%20AS2014-05-28.jpg" alt="">
-	</div>
 </div>

@@ -63,6 +63,9 @@ define([
 
       return (
         <div className='smart-list'>
+          <div className={this.props.title}>
+              <div className="category-icon" />
+          </div>
           <div className='filter-list-title'>{this.props.title}</div>
           <div className='layer-line' />
           <ul className='filter-list'>

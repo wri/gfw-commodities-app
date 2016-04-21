@@ -85,8 +85,15 @@ define([
               $("#footerSelecter").click(function() {
                 self.addSubscriptionDialog();
               });
+              $('.arrow-down-icon').click( function() {
+                $('html body').animate({
+                  scrollTop: $(".arrow-down-icon").offset().top
+                }, 1500);
+              });
+              $('#get-started__button').click(function () {
+                $('#tooltip-getstarted').toggleClass('display');
+              });
             }, 200);
-
         },
 
         changeNavItemAbout: function(node, context) {

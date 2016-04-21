@@ -1,56 +1,68 @@
 define('main/config',{
 
-    "title": "Global Forest Watch Commodities",
+  "title": "Global Forest Watch Commodities",
 
-    "urls": {
-        "gfw": "http://www.globalforestwatch.org/",
-        "blog": "http://blog.globalforestwatch.org/tag/commodities/",
-        "fires": "http://fires.globalforestwatch.org/#v=home",
-        "SPOTT": "http://www.sustainablepalmoil.org/spott/"
+  "urls": {
+    "gfw": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
+    "blog": "http://commodities.globalforestwatch.org/#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs",
+    "fires": "http://fires.globalforestwatch.org/#v=home",
+    "supplierMonitoring": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
+    "SPOTT": "#"
 
 
-    },
+  },
 
-    "corsEnabledServers": [
-        "https://api-ssl.bitly.com",
-        "http://globalforestwatch.org",
-        "http://firms.modaps.eosdis.nasa.gov",
-        "http://gis-potico.wri.org",
-        "http://gfw-apis.appspot.com",
-        "http://50.18.182.188"
-    ],
+  "corsEnabledServers": [
+    "https://api-ssl.bitly.com",
+    "http://globalforestwatch.org",
+    "http://firms.modaps.eosdis.nasa.gov",
+    "http://gis-potico.wri.org",
+    "http://gfw-apis.appspot.com",
+    "http://50.18.182.188"
+  ],
 
-    "homeModeOptions": [{
-        "html": "<span class='less-text'>Explore the map</span>",
-        "eventName": "goToMap",
-        "display": true,
-        "id": 0,
-        "tooltip": "Explore the Map"
-    }, {
-        "html": "<span>Check out GFW Fires</span>",
-        "eventName": "goToFires",
-        "display": false,
-        "id": 1,
-        "tooltip": "Check out GFW Fires"
-    }, {
-        "html": "Read recent blogs and news about GFW Commodities",
-        "eventName": "goToBlogs",
-        "display": false,
-        "id": 2,
-        "tooltip": "Commodities News & Blogs"
-    }, {
-        "html": "Check out ZSL's Transparency Toolkit",
-        "eventName": "goToZSL",
-        "display": false,
-        "id": 3,
-        "tooltip": "ZSL Transparency Toolkit"
-    }],
+  "homeModeOptions": [{
+    "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE GLOBAL</span>\n<span>DATA ON THE GFW</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
+    "eventName": "goToFires",
+    "display": false,
+    "id": 0,
+    "tooltip": "Commodities Map",
+    "imageBg": "./app/css/images/Slide-Picture2.jpg"
+  }, {
+    "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "eventName": "goToMap",
+    "display": true,
+    "id": 1,
+    "tooltip": "Analysis",
+    "imageBg": "./app/css/images/Slide-Picture1.jpg"
+  }, {
+    "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "eventName": "goToZSL",
+    "display": false,
+    "id": 2,
+    "tooltip": "Supplier Monitoring",
+    "imageBg": "./app/css/images/Slide-Picture4.jpg"
+  }, {
+    "html": '<div class="home-slider-container">\n<h3>ALERTS</h3>\n<h4><span>SIGN UP FOR TREE</span>\n<span>CLEARANCE AND FIRE</span>\n<span>ALERTS FORS AREAS IN</span>\n<span>YOUR SUPPLY CHAIN</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
+    "eventName": "goToBlogs",
+    "display": false,
+    "id": 3,
+    "tooltip": "Alerts",
+    "imageBg": "./app/css/images/Slide-Picture3.jpg"
+  }, {
+    "html": '<div class="home-slider-container">\n<h3>COMMODITIES</h3>\n<h4><span>ANALYZE LAND USE</span>\n<span>CHANGE WITHIN RSPO</span>\n<span>CERTIFIED AREAS</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
+    "eventName": "goToZSL",
+    "display": false,
+    "id": 4,
+    "tooltip": "Explore Commodities",
+    "imageBg": "./app/css/images/Slide-Picture5.jpg"
+  }],
 
-    "homeDialog": {
-        "html": "<p>GFW Commodities is constantly undergoing site enhancements including interface redesigns based on user feedback and the incorporation of new datasets and new tools you asked for.</p>" +
-            "<p>If you'd like to be kept informed of these kinds of updates, please <a href='http://www.wri.org/global-forest-watch-updates-and-newsletter' target='_blank'>join our mailing list</a>.</p>" +
-            "<p>We will <strong>NEVER</strong> sell your email address to anyone, ever. We will only use your email address to send you useful newsletters about updates to the site or request your user feedback. You can unsubscribe at any time.</p>"
-    }
+  "homeDialog": {
+    "html": "<p>GFW Commodities is constantly undergoing site enhancements including interface redesigns based on user feedback and the incorporation of new datasets and new tools you asked for.</p>" +
+    "<p>If you'd like to be kept informed of these kinds of updates, please <a href='http://www.wri.org/global-forest-watch-updates-and-newsletter' target='_blank'>join our mailing list</a>.</p>" +
+    "<p>We will <strong>NEVER</strong> sell your email address to anyone, ever. We will only use your email address to send you useful newsletters about updates to the site or request your user feedback. You can unsubscribe at any time.</p>"
+  }
 
 });
 
@@ -280,6 +292,8 @@ define('map/config',[], function() {
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
+        aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        protusUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
         customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
@@ -331,6 +345,17 @@ define('map/config',[], function() {
             errors: {
                 invalidLatitude: 'You did not enter a valid value for Latitude.',
                 invalidLongitude: 'You did not enter a valid value for Longitude.'
+            }
+        },
+
+        submissionDialog: {
+            submissionModalHeader: 'Enter Point Coordinates',
+            submissionEnterButton: 'Ok',
+            submissionPlaceholder: 'Latitude',
+            // longitudePlaceholder: 'Longitude',
+            errors: {
+                invalidSubmission: 'You did not enter a valid value for Latitude.'
+                // invalidLongitude: 'You did not enter a valid value for Longitude.'
             }
         },
 
@@ -493,6 +518,38 @@ define('map/config',[], function() {
                 [1, 255, 0, 197]
             ],
             toolsNode: 'forma_toolbox'
+        },
+        prodes: {
+            id: 'ProdesAlerts',
+            url: protusUrl,
+            legendLayerId: 3, //todo: what is this, find correct #
+            defaultRange: [1, 15],
+            colormap: [
+                [1, 255, 0, 197]
+            ],
+            toolsNode: 'prodes_toolbox'
+        },
+        byType: {
+            id: 'byType',
+            url: dynamicMapServiceUrlForest,
+            defaultLayers: [5]//,
+            // legendLayerId: 5,
+            // defaultRange: [1, 15],
+            // colormap: [
+            //     [1, 255, 0, 197]
+            // ],
+            //toolsNode: 'type_toolbox'
+        },
+        bySpecies: {
+            id: 'bySpecies',
+            url: dynamicMapServiceUrlForest,
+            defaultLayers: [8]//,
+            // legendLayerId: 5,
+            // defaultRange: [1, 15],
+            // colormap: [
+            //     [1, 255, 0, 197]
+            // ],
+            //toolsNode: 'species_toolbox'
         },
         fires: {
             id: 'ActiveFires',
@@ -796,12 +853,46 @@ define('map/config',[], function() {
                 forceUnderline: true,
                 infoDivClass: 'forest-change-forma-alerts'
             }, {
+                id: 'prodes',
+                title: 'PRODES alerts',
+                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                forceUnderline: true,
+                infoDivClass: 'forest-change-prodes-alerts'
+            }, {
+                id: 'plantations',
+                title: 'Tree plantations',
+                subtitle: '',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'none',
+                children: [{
+                    id: 'byType',
+                    title: 'by type',
+                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-type'
+                }, {
+                    id: 'bySpecies',
+                    title: 'by species',
+                    // subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-species'
+                }]
+            }, {
                 id: 'fires',
                 title: 'Active Fires',
                 subtitle: '(past 7 days, 1km, global; NASA)',
                 filter: 'forest-change',
                 type: 'radio',
                 layerType: 'dynamic',
+                forceUnderline: true,
                 infoDivClass: 'forest-change-nasa-active-fires'
             },
             // {
@@ -2007,7 +2098,7 @@ define('analysis/WizardStore',[
 		*/
 		updateSubscribers: function (key) {
 			var callbacks = Callbacks[key];
-			
+
 			if (callbacks) {
 				callbacks.forEach(function (func) {
 					func();
@@ -2031,11 +2122,11 @@ define('analysis/WizardStore',[
 define('analysis/config',[], function() {
 
     // Variables Used to Track which Area is Selected
-    var customArea = "customAreaOption",
-        adminUnit = "adminUnitOption",
-        commArea = "commercialEntityOption",
-        certArea = "certifiedAreaOption",
-        millPoint = "millPointOption";
+    var customArea = 'customAreaOption',
+        adminUnit = 'adminUnitOption',
+        commArea = 'commercialEntityOption',
+        certArea = 'certifiedAreaOption',
+        millPoint = 'millPointOption';
 
     // URLS - CURRENT IS STAGING, PRODUCTION URL BELOW
     // var adminUnitQueryUrl = 'http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
@@ -2046,33 +2137,33 @@ define('analysis/config',[], function() {
 
     return {
 
-        noNameField: "No Group Information Available",
+        noNameField: 'No Group Information Available',
 
         wizard: {
-            breadcrumbs: ["Select Area", "Refine Area", "Select Analysis"]
-            //breadcrumbs: ["Select Area", "Refine Area", "Select Analysis", "Refine Analysis"]
+            breadcrumbs: ['Select Area', 'Refine Area', 'Select Analysis']
+            //breadcrumbs: ['Select Area', 'Refine Area', 'Select Analysis', 'Refine Analysis']
         },
 
         intro: {
-          beginningText: "Create custom analysis of your area of interest – such as a commodity concession or group of concessions -- considering factors such as:",
+          beginningText: 'Create custom analysis of your area of interest – such as a commodity concession or group of concessions -- considering factors such as:',
           firstList: [
-            "Tree cover change",
-            "Fire activity",
-            "Primary or intact forest areas",
-            "Protected areas",
-            "Legal classification of land"
+            'Tree cover change',
+            'Fire activity',
+            'Primary or intact forest areas',
+            'Protected areas',
+            'Legal classification of land'
           ],
-          secondaryText: "You can also: ",
+          secondaryText: 'You can also: ',
           secondList: [
-            "Upload your own shapefiles for analysis",
-            "Draw an area of interest",
-            "Sign up for alerts for clearance activity"
+            'Upload your own shapefiles for analysis',
+            'Draw an area of interest',
+            'Sign up for alerts for clearance activity'
           ]
         },
 
         stepOne: {
-            title: "Step 1: Select Area of interest",
-            description: "Set the area to analyze using one of the following options.",
+            title: 'Step 1: Select Area of interest',
+            description: 'Set the area to analyze using one of the following options.',
             option1: {
                 'id': customArea,
                 'label': 'Create custom area',
@@ -2101,21 +2192,21 @@ define('analysis/config',[], function() {
         },
 
         stepTwo: {
-            title: "Step 2: Refine area",
+            title: 'Step 2: Refine area',
             customArea: customArea,
             adminUnit: adminUnit,
             commArea: commArea,
             certArea: certArea,
             millPoint: millPoint,
-            currentFeatureText: "Current selection: ",
-            labelField: "WRI_label"
+            currentFeatureText: 'Current selection: ',
+            labelField: 'WRI_label'
         },
 
         stepThree: {
-            title: "Step 3: Select a variable to analyze",
-            description: "Select which types of analysis you would like to perform and then click \"Perform Analysis\".  You must select at least one option.",
-            //description: "Select which type of analysis you would like included in your results and then click \"Next\".",
-            currentFeatureText: "Current selection: ",
+            title: 'Step 3: Select a variable to analyze',
+            description: 'Select which types of analysis you would like to perform and then click \'Perform Analysis\'.  You must select at least one option.',
+            //description: 'Select which type of analysis you would like included in your results and then click \'Next\'.',
+            currentFeatureText: 'Current selection: ',
             millPoint: millPoint,
             customArea: customArea,
             pointRadiusDescription: 'Choose a buffer for your points:',
@@ -2148,8 +2239,9 @@ define('analysis/config',[], function() {
                 value: 'risk'
             },
             checkboxes: [{
-                label: 'Primary Forests',
-                value: 'primForest'
+                label: 'ID Primary Forests',
+                value: 'primForest',
+                checked: true
             }, {
                 label: 'Tree Cover Density',
                 value: 'treeDensity'
@@ -2158,7 +2250,8 @@ define('analysis/config',[], function() {
                 value: 'legal'
             }, {
                 label: 'Protected Areas',
-                value: 'protected'
+                value: 'protected',
+                checked: true
             }, {
                 label: 'Forest Carbon Stocks',
                 value: 'carbon'
@@ -2167,7 +2260,8 @@ define('analysis/config',[], function() {
                 value: 'biomes'
             }, {
                 label: 'Intact Forests',
-                value: 'intact'
+                value: 'intact',
+                checked: true
             }, {
                 label: 'Land Cover - Global',
                 value: 'landCoverGlob'
@@ -2179,13 +2273,19 @@ define('analysis/config',[], function() {
                 value: 'landCoverIndo'
             }, {
                 label: 'Peat Lands',
-                value: 'peat'
+                value: 'peat',
+                checked: true
             }, {
                 label: 'Tree Cover Loss',
-                value: 'treeCoverLoss'
+                value: 'treeCoverLoss',
+                checked: true
             }, {
                 label: 'Indonesia Moratorium',
                 value: 'indonesiaMoratorium',
+                noInfoIcon: true
+            }, {
+                label: 'Prodes Alerts',
+                value: 'prodes',
                 noInfoIcon: true
             }],
             suit: {
@@ -2210,8 +2310,8 @@ define('analysis/config',[], function() {
         },
 
         stepFour: {
-            title: "Step 4: Refine Analysis",
-            description: "Select which data sets you would like to include in your analysis and then click \"Perform Analysis\".  You must select at least one data set.",
+            title: 'Step 4: Refine Analysis',
+            description: 'Select which data sets you would like to include in your analysis and then click \'Perform Analysis\'.  You must select at least one data set.',
             checkboxes: [{
                 label: 'Primary Forests',
                 value: 'primForest'
@@ -2246,8 +2346,8 @@ define('analysis/config',[], function() {
         },
 
         customArea: {
-            instructions: "Select the \"Freehand\" or \"Polygon\" options below to draw an area of interest on the map, or choose \"Upload\" to upload a zipped shapefile of polygons or points or a list of point coordinates to analyze.",
-            instructionsPartTwo: "Select an area from the list below and click \"Next\" to proceed.",
+            instructions: 'Select the \'Freehand\' or \'Polygon\' options below to draw an area of interest on the map, or choose \'Upload\' to upload a zipped shapefile of polygons or points or a list of point coordinates to analyze.',
+            instructionsPartTwo: 'Select an area from the list below and click \'Next\' to proceed.',
             freehandLabel: 'Freehand',
             uploadLabel: 'Upload',
             polyLabel: 'Polygon',
@@ -2257,23 +2357,23 @@ define('analysis/config',[], function() {
                 'The shapefile must be of POLYGON geometry type.',
                 'The shapefile must not exceed 1 Megabyte.'
             ],
-            incorrectFileTypeError: "Your shapefile must be of type .zip, please choose another file.",
-            portalUrl: "http://www.arcgis.com/sharing/rest/content/features/generate"
+            incorrectFileTypeError: 'Your shapefile must be of type .zip, please choose another file.',
+            portalUrl: 'http://www.arcgis.com/sharing/rest/content/features/generate'
         },
 
         adminUnit: {
             instructions: 'Select a country to view it\'s first or second level administrative units:',
-            instructionsPartTwo: "Select a province or district from the list below and click \"Next\" to proceed.",
+            instructionsPartTwo: 'Select a province or district from the list below and click \'Next\' to proceed.',
             countriesQuery: {
                 url: adminUnitQueryUrl + '/7',
-                where: "NAME_0 IS NOT NULL",
-                outFields: ["NAME_0"],
-                orderBy: ["NAME_0"],
-                groupBy: ["NAME_0"],
+                where: 'NAME_0 IS NOT NULL',
+                outFields: ['NAME_0'],
+                orderBy: ['NAME_0'],
+                groupBy: ['NAME_0'],
                 statistic: { // This is necessary to support the groupBy, cannot currently groupBy without statisticsQuery :(
-                    "statisticType": 'count',
-                    "onStatisticField": 'OBJECTID',
-                    "outStatisticFieldName": 'OBJECTID'
+                    'statisticType': 'count',
+                    'onStatisticField': 'OBJECTID',
+                    'outStatisticFieldName': 'OBJECTID'
                 },
                 labelValueField: 'NAME_0' // For label and value in select box
             },
@@ -2295,7 +2395,7 @@ define('analysis/config',[], function() {
 
         commercialEntity: {
             instructions: 'Select a commodity type:',
-            instructionsPartTwo: "Select a concession or group from the list below and click \"Next\" to proceed.",
+            instructionsPartTwo: 'Select a concession or group from the list below and click \'Next\' to proceed.',
             commodityOptions: [{
                 label: 'None',
                 value: 'NONE'
@@ -2330,7 +2430,7 @@ define('analysis/config',[], function() {
         certifiedArea: {
             instructions: 'Select a commodity type:',
             instructionsPartTwo: 'Select a Certification Scheme:',
-            instructionsPartThree: "Select a concession or group from the list below and click \"Next\" to proceed",
+            instructionsPartThree: 'Select a concession or group from the list below and click \'Next\' to proceed',
             commodityOptions: [{
                 label: 'Oil palm concession',
                 value: 'Oil palm concession'
@@ -2362,7 +2462,7 @@ define('analysis/config',[], function() {
         millPoints: {
             instructions: 'Select a method for choosing or creating mill points to analyze.',
             selectInstructions: 'Select a commodity type:',
-            listInstructions: "Select mill(s) from the list below and click \"Next\" to proceed.",
+            listInstructions: 'Select mill(s) from the list below and click \'Next\' to proceed.',
             selectFromListButton: 'Select from List',
             selectFromCustomListButton: 'Select from my features',
             enterCoordinatesButton: 'Enter Coordinates',
@@ -2789,10 +2889,10 @@ t.fragments={};return e};this.createJavaScriptEvaluatorBlock=function(a){return"
 
 /* global define */
 define('map/MapModel',[
-  "dojo/_base/declare",
-  "main/config",
-  "map/config",
-  "knockout"
+  'dojo/_base/declare',
+  'main/config',
+  'map/config',
+  'knockout'
 ],
 function (declare, AppConfig, MapConfig, ko) {
 
@@ -4683,16 +4783,15 @@ define('map/CoordinatesModal',[
   'actions/WizardActions',
   // Dojo Modules
   'dojo/on',
-  'dojo/dom-class',
+  'dojo/dom-class'//,
   // Esri Modules
-  'esri/graphic',
-  'esri/geometry/Point'
-], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, WizardActions, on, domClass, Graphic, Point) {
-  'use strict';
+  // 'esri/graphic',
+  // 'esri/geometry/Point'
+], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, WizardActions, on, domClass) {
 
   var closeHandle;
 
-  var KEYS = AnalysisConfig.STORE_KEYS;
+  // var KEYS = AnalysisConfig.STORE_KEYS;
 
   var CoordsModal = {
 
@@ -6504,6 +6603,7 @@ define('components/wizard/StepThree',[
     function getDefaultState() {
       return {
         completed: false,
+        optionsExpanded: false,
         currentSelectionLabel: getCurrentSelectionLabel()
       };
     }
@@ -6521,6 +6621,11 @@ define('components/wizard/StepThree',[
         analysisAreaUpdated: function () {
             // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
             this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
+        },
+
+        toggleOptions: function () {
+            // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+            this.setState({ optionsExpanded: !this.state.optionsExpanded });
         },
 
         componentDidUpdate: function () {
@@ -6575,11 +6680,11 @@ define('components/wizard/StepThree',[
                     React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                     ), 
-                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label), 
+                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, React.createElement("span", {onClick: this.toggleOptions, className: "analysis-expander"}, this.state.optionsExpanded ? ' ▼' : ' ►')), 
                     React.createElement("p", {className: "layer-description"}, config.forestChange.description)
                   ), 
 
-                  React.createElement("div", {className: "checkbox-list"}, config.checkboxes.map(this._mapper, this))
+                  React.createElement("div", {className: ("checkbox-list " + (this.state.optionsExpanded === false ? 'transition-hidden' : ''))}, config.checkboxes.map(this._mapper, this))
 
                 ), 
                 React.createElement("div", {className: "step-footer"}, 
@@ -7573,11 +7678,11 @@ define('map/LossSlider',[
 });
 
 define('map/FormaSlider',[
-  "dojo/on",
-  "map/config",
-  "esri/request",
-  "dojo/Deferred",
-  "map/LayerController"
+  'dojo/on',
+  'map/config',
+  'esri/request',
+  'dojo/Deferred',
+  'map/LayerController'
 ], function (on, MapConfig, esriRequest, Deferred, LayerController) {
   // "use strict";
 
@@ -7586,9 +7691,9 @@ define('map/FormaSlider',[
       playButton;
 
   var config = {
-    sliderSelector: "#forma-alert-slider",
-    playHtml: "&#9658;",
-    pauseHtml: "&#x25A0",
+    sliderSelector: '#forma-alert-slider',
+    playHtml: '&#9658;',
+    pauseHtml: '&#x25A0',
     baseYear: 15 // 2015
   };
 
@@ -7603,24 +7708,26 @@ define('map/FormaSlider',[
 
     request = esriRequest({
       url: MapConfig.forma.url,
-      callbackParamName: "callback",
-      content: { f: "json" },
-      handleAs: "json"
+      callbackParamName: 'callback',
+      content: { f: 'json' },
+      handleAs: 'json'
     });
 
     request.then(function (res) {
+
+      console.log('res', res)
       // Labels should be formatted like so: {month|numeric} - {year|two-digit}
-      var min = res.minValues[0],
-          max = res.maxValues[0],
+      var min = res.minValues[0] || 1,
+          max = res.maxValues[0] || 9,
           year;
 
       for (min; min <= max; min++) {
         year = config.baseYear + Math.floor(min / 12);
-        labels.push(min + " - " + year);
+        labels.push(min + ' - ' + year);
       }
 
       deferred.resolve(labels);
-    }, function (err) {
+    }, function () {
       deferred.reject();
     });
 
@@ -7634,7 +7741,7 @@ define('map/FormaSlider',[
       if (formaSlider === undefined) {
         getFormaLabels().then(function (labels) {
           $(config.sliderSelector).ionRangeSlider({
-            type: "double",
+            type: 'double',
             values: labels,
             grid: true,
             hide_min_max: true,
@@ -7643,11 +7750,11 @@ define('map/FormaSlider',[
             onUpdate: self.change
           });
           // Save this instance to a variable ???
-          formaSlider = $(config.sliderSelector).data("ionRangeSlider");
+          formaSlider = $(config.sliderSelector).data('ionRangeSlider');
           // Cache query for play button
-          playButton = $("#formaPlayButton");
+          playButton = $('#formaPlayButton');
           // Attach Events related to this item
-          on(playButton, "click", self.playToggle);
+          on(playButton, 'click', self.playToggle);
         });
       }
     },
@@ -7663,7 +7770,7 @@ define('map/FormaSlider',[
         state.isPlaying = false;
         clearInterval(playInterval);
         playButton.html(config.playHtml);
-      };
+      }
 
       if (state.isPlaying) {
         stopPlaying();
@@ -7702,6 +7809,138 @@ define('map/FormaSlider',[
 
 });
 
+define('map/ProdesSlider',[
+  'dojo/on',
+  'map/config',
+  'esri/request',
+  'dojo/Deferred',
+  'map/LayerController'
+], function (on, MapConfig, esriRequest, Deferred, LayerController) {
+
+  // TODO: replace all forma's with prodes
+  // 'use strict';
+
+  var playInterval,
+      prodesSlider,
+      playButton;
+
+  var config = {
+    sliderSelector: '#prodes-alert-slider',
+    playHtml: '&#9658;',
+    pauseHtml: '&#x25A0',
+    baseYear: 1999
+  };
+
+  var state = {
+    isPlaying: false
+  };
+
+  var getProdesLabels = function getProdesLabels () {
+    var deferred = new Deferred(),
+        labels = [],
+        request;
+
+    request = esriRequest({
+      url: MapConfig.prodes.url,
+      callbackParamName: 'callback',
+      content: { f: 'json' },
+      handleAs: 'json'
+    });
+
+    request.then(function (res) {
+      // Labels should be formatted like so: {month|numeric} - {year|two-digit}
+      var min = res.minValues[0],
+          max = res.maxValues[0],
+          year;
+
+      for (min; min <= max; min++) {
+        year = config.baseYear + min;
+        labels.push(year);
+      }
+
+      deferred.resolve(labels);
+    }, function () {
+      deferred.reject();
+    });
+
+    return deferred;
+  };
+
+  var ProdesSlider = {
+
+    init: function () {
+      var self = this;
+      if (prodesSlider === undefined) {
+        getProdesLabels().then(function (labels) {
+          $(config.sliderSelector).ionRangeSlider({
+            type: 'double',
+            values: labels,
+            grid: true,
+            hide_min_max: true,
+            hide_from_to: true,
+            onFinish: self.change,
+            onUpdate: self.change
+          });
+          // Save this instance to a variable ???
+          prodesSlider = $(config.sliderSelector).data('ionRangeSlider');
+          // Cache query for play button
+          playButton = $('#prodesPlayButton');
+          // Attach Events related to this item
+          on(playButton, 'click', self.playToggle);
+        });
+      }
+    },
+
+    change: function (data) {
+      LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.prodes);
+    },
+
+    playToggle: function () {
+      var fromValue, toValue, endValue;
+
+      function stopPlaying() {
+        state.isPlaying = false;
+        clearInterval(playInterval);
+        playButton.html(config.playHtml);
+      }
+
+      if (state.isPlaying) {
+        stopPlaying();
+      } else {
+        // Update some state
+        state.isPlaying = true;
+        endValue = prodesSlider.result.to;
+        // Trigger a change on the layer for the initial value, with both handles starting at the same point
+        prodesSlider.update({ from: prodesSlider.result.from, to: prodesSlider.result.from });
+        // Start the interval
+        playInterval = setInterval(function () {
+          // We will be incrementing the from value to move the slider forward
+          fromValue = prodesSlider.result.from;
+          toValue = prodesSlider.result.to;
+          // Quit if from value is equal to or greater than the to value
+          if (toValue >= endValue) {
+            stopPlaying();
+          } else {
+            // Update the slider
+            prodesSlider.update({
+              from: fromValue,
+              to: ++toValue
+            });
+          }
+
+        }, 1250);
+
+        // Update the button html
+        playButton.html(config.pauseHtml);
+      }
+    }
+
+  };
+
+  return ProdesSlider;
+
+});
+
 define('map/Controls',[
     "dojo/dom",
     "dojo/query",
@@ -7717,6 +7956,7 @@ define('map/Controls',[
     "map/MapModel",
     "map/LossSlider",
     "map/FormaSlider",
+    "map/ProdesSlider",
     "map/LayerController",
     "esri/request",
     "esri/TimeExtent",
@@ -7724,7 +7964,7 @@ define('map/Controls',[
     "dijit/form/CheckBox",
     "dijit/layout/ContentPane",
     "dijit/layout/AccordionContainer"
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
 
     'use strict';
 
@@ -7900,6 +8140,7 @@ define('map/Controls',[
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
+            ProdesSlider.init();
         },
 
 
@@ -8782,7 +9023,7 @@ define('components/wizard/Wizard',[
         },
 
         _close: function() {
-            topic.publish("toggleWizard");
+            topic.publish('toggleWizard');
         },
 
         // Function that can be used in the Analyzer.js file to programmatically set which step it is on
@@ -8999,7 +9240,7 @@ define('analysis/WizardHelper',[
 				setTimeout(function () {
 					wizard = new Wizard({
 						skipIntro: skipIntro
-					}, "wizard");
+					}, 'wizard');
 				}, (duration - 100));
 				// Use duration - 100 to make sure the wizard is defined before the animation completes
 				// and the deferred is resolved
@@ -9021,7 +9262,7 @@ define('analysis/WizardHelper',[
 				Hasher.setHash('wiz', 'open');
 			}
 
-			return [wizardAnimation,tabAnimation];
+			return [wizardAnimation, tabAnimation];
 		},
 
 		/*
@@ -9814,10 +10055,16 @@ define('map/Map',[
 
             var firesLayer,
                 fireParams,
+                plantationsTypeLayer,
+                plantationsTypeParams,
+                plantationsSpeciesLayer,
+                plantationsSpeciesParams,
                 legendLayer,
                 legendParams,
                 formaAlertsLayer,
                 formaParams,
+                prodesAlertsLayer,
+                prodesParams,
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -9863,11 +10110,33 @@ define('map/Map',[
             fireParams = new ImageParameters();
             fireParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             fireParams.layerIds = MapConfig.fires.defaultLayers;
-            fireParams.format = "png32";
+            fireParams.format = 'png32';
 
             firesLayer = new ArcGISDynamicLayer(MapConfig.fires.url, {
                 imageParameters: fireParams,
                 id: MapConfig.fires.id,
+                visible: false
+            });
+
+            plantationsTypeParams = new ImageParameters();
+            plantationsTypeParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            plantationsTypeParams.layerIds = MapConfig.byType.defaultLayers;
+            plantationsTypeParams.format = 'png32';
+
+            plantationsTypeLayer = new ArcGISDynamicLayer(MapConfig.byType.url, {
+                imageParameters: plantationsTypeParams,
+                id: MapConfig.byType.id,
+                visible: false
+            });
+
+            plantationsSpeciesParams = new ImageParameters();
+            plantationsSpeciesParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            plantationsSpeciesParams.layerIds = MapConfig.bySpecies.defaultLayers;
+            plantationsSpeciesParams.format = 'png32';
+
+            plantationsSpeciesLayer = new ArcGISDynamicLayer(MapConfig.bySpecies.url, {
+                imageParameters: plantationsSpeciesParams,
+                id: MapConfig.bySpecies.id,
                 visible: false
             });
 
@@ -9902,6 +10171,30 @@ define('map/Map',[
             formaAlertsLayer = new ArcGISImageServiceLayer(MapConfig.forma.url, {
                 imageServiceParameters: formaParams,
                 id: MapConfig.forma.id,
+                visible: false,
+                opacity: 1
+            });
+
+            prodesParams = new ImageServiceParameters();
+            prodesParams.renderingRule = new RasterFunction({
+                "rasterFunction": "Colormap",
+                "rasterFunctionArguments": {
+                    "Colormap": MapConfig.prodes.colormap,
+                    "Raster": {
+                        "rasterFunction": "Remap",
+                        "rasterFunctionArguments": {
+                            "InputRanges": MapConfig.prodes.defaultRange,
+                            "OutputValues": [1],
+                            "AllowUnmatched": false
+                        }
+                    }
+                },
+                "variableName": "Raster"
+            });
+
+            prodesAlertsLayer = new ArcGISImageServiceLayer(MapConfig.prodes.url, {
+                imageServiceParameters: prodesParams,
+                id: MapConfig.prodes.id,
                 visible: false,
                 opacity: 1
             });
@@ -10110,11 +10403,14 @@ define('map/Map',[
                 bioDiversityLayer,
                 // Forest Change Layers
                 formaAlertsLayer,
+                prodesAlertsLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
                 // Points Layers
                 firesLayer,
+                plantationsTypeLayer,
+                plantationsSpeciesLayer,
                 // Overlays
                 wizardDynamicLayer,
                 mapOverlaysLayer,
@@ -10145,7 +10441,10 @@ define('map/Map',[
             });
 
             firesLayer.on('error', this.addLayerError);
+            plantationsTypeLayer.on('error', this.addLayerError);
+            plantationsSpeciesLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
+            prodesAlertsLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
@@ -11463,6 +11762,9 @@ define('components/LayerList',[
 
       return (
         React.createElement("div", {className: "smart-list"}, 
+          React.createElement("div", {className: this.props.title}, 
+              React.createElement("div", {className: "category-icon"})
+          ), 
           React.createElement("div", {className: "filter-list-title"}, this.props.title), 
           React.createElement("div", {className: "layer-line"}), 
           React.createElement("ul", {className: "filter-list"}, 
@@ -11845,6 +12147,100 @@ define('components/LayerModal',[
 
 });
 
+/** @jsx React.DOM */
+define('components/AnalysisModal',[
+  "react",
+  "components/ModalWrapper",
+  "dojo/cookie",
+  "main/config",
+  'dojo/on',
+  'dojo/dom-class'
+], function (React, ModalWrapper, cookie, MainConfig, on, domClass) {
+
+  // Variables
+  var config = MainConfig.analysisModal;
+  var closeSvg = '<use xlink:href="#shape-close" />';
+  var closeHandle;
+
+  var AnalysisModal = React.createClass({displayName: "AnalysisModal",
+
+    getInitialState: function () {
+      return ({
+        checked: false
+      });
+    },
+
+    // componentWillReceiveProps: function (newProps, oldProps) {
+		// 	this.setState(newProps);
+		// },
+
+    toggleChecked: function () {
+			this.setState({
+        checked: !this.state.checked
+      });
+		},
+
+    close: function () {
+      if (this.state.checked === true) {
+        //todo: add cookie reference and respect it somehow
+      }
+      domClass.add('analysis-modal', 'hidden');
+    },
+
+    show: function () {
+      domClass.remove('analysis-modal', 'hidden');
+
+    },
+
+    render: function() {
+      return (
+        React.createElement("div", {className: "analysis-modal-window"}, 
+        React.createElement("div", {className: "tooltipmap"}), 
+          React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
+            React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
+          ), 
+          React.createElement("div", {className: "modal-wrapper custom-scroll"}, 
+          React.createElement("div", {className: "modal-content"}, 
+            React.createElement("div", {className: "modal-source"}, 
+              React.createElement("h2", {className: "analysis-modal-title"}, "Analysis"), 
+
+              React.createElement("div", {className: "modal-overview"}, 
+                React.createElement("p", null, "Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:"), 
+                React.createElement("ul", null, 
+                  React.createElement("li", null, "Tree cover change"), 
+                  React.createElement("li", null, "Fire activity"), 
+                  React.createElement("li", null, "Primary or intact forest areas"), 
+                  React.createElement("li", null, "Protected areas"), 
+                  React.createElement("li", null, "Legal classification of land")
+                ), 
+                React.createElement("p", null, "You can also:"), 
+                React.createElement("ul", null, 
+                  React.createElement("li", null, "Upload your own shapefiles for analysis"), 
+                  React.createElement("li", null, "Draw an area of interest"), 
+                  React.createElement("li", null, "Sign up for alerts for clearance activity")
+                ), 
+                React.createElement("div", {className: "analysis-modal-hide"}, "Don't show this again", React.createElement("input", {checked: this.state.checked, onChange: this.toggleChecked, type: "checkbox"}))
+              )
+            )
+          )
+        )
+        )
+
+     );
+  }
+
+  /* jshint ignore:end */
+
+  });
+
+  return function (props, el) {
+    /* jshint ignore:start */
+		return React.render(React.createElement(AnalysisModal, React.__spread({},  props)), document.getElementById(el));
+    /* jshint ignore:end */
+	};
+
+});
+
 define('utils/Loader',[
     "dojo/Deferred",
     "esri/urlUtils",
@@ -11954,17 +12350,19 @@ define('controllers/MapController',[
     "analysis/WizardStore",
     "components/LayerList",
     "components/LayerModal",
+    "components/AnalysisModal",
     "utils/Loader",
     "map/Uploader",
     "map/CoordinatesModal",
     "utils/Analytics"
-], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, LayerModal, Loader, Uploader, CoordinatesModal, Analytics) {
+], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, LayerModal, AnalysisModal, Loader, Uploader, CoordinatesModal, Analytics) {
     'use strict';
 
     var initialized = false,
         mapModel,
         layerList,
         layerModal,
+        analysisModal,
         dataDivLoaded = false,
         layerData,
         map;
@@ -12060,8 +12458,9 @@ define('controllers/MapController',[
 
                 var forestUse = map.map.getLayer('forestUse_commodities');
 
-                map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
-
+                if (forestUse) {
+                  map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
+                }
 
             });
 
@@ -12389,6 +12788,9 @@ define('controllers/MapController',[
                 map.map.setExtent(graphicsUtils.graphicsExtent(selectedFeatures), true);
               }
             });
+
+            //todo show modal
+            analysisModal.show();
         },
 
         toggleLayerList: function(el) {
@@ -12438,6 +12840,9 @@ define('controllers/MapController',[
 
             layerModal = new LayerModal({
             }, "layer-modal");
+
+            analysisModal = new AnalysisModal({
+            }, "analysis-modal");
 
             MapControl.generateTimeSliders();
 
@@ -12842,8 +13247,15 @@ define('controllers/Header',[
               $("#footerSelecter").click(function() {
                 self.addSubscriptionDialog();
               });
+              $('.arrow-down-icon').click( function() {
+                $('html body').animate({
+                  scrollTop: $(".arrow-down-icon").offset().top
+                }, 1500);
+              });
+              $('#get-started__button').click(function () {
+                $('#tooltip-getstarted').toggleClass('display');
+              });
             }, 200);
-
         },
 
         changeNavItemAbout: function(node, context) {
@@ -13259,7 +13671,7 @@ define('controllers/HomeController',[
             initialized = true;
             registry.byId("stackContainer").selectChild("homeView");
             registry.byId("homeView").set('content', template);
-            
+
             HomeModel.initialize("homeView");
             o.startModeAnim();
 
@@ -13509,12 +13921,86 @@ define('controllers/PublicationsController',[
 	};
 
 });
+define('map/SubmissionModal',[
+  // My Modules
+  'map/config',
+  'map/Symbols',
+  'utils/GeoHelper',
+  'analysis/config',
+  'analysis/WizardStore',
+  'actions/WizardActions',
+  // Dojo Modules
+  'dojo/on',
+  'dojo/dom-class'//,
+  // Esri Modules
+  // 'esri/graphic',
+  // 'esri/geometry/Point'
+], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, WizardActions, on, domClass) {
+
+  var closeHandle;
+
+  // var KEYS = AnalysisConfig.STORE_KEYS;
+
+  var SubmitModal = {
+
+    /**
+    * Toggle the Panel
+    */
+    toggle: function () {
+      domClass.toggle('submission-modal', 'active');
+
+      if (closeHandle) {
+        closeHandle.remove();
+        closeHandle = undefined;
+      } else {
+        closeHandle = on.once(document.querySelector('#submission-modal .close-icon'), 'click', this.toggle);
+      }
+    },
+
+    /**
+    * Add a class
+    */
+    addClass: function (className) {
+      domClass.add('submission-modal', className);
+    },
+
+    /**
+    * Remove a class
+    */
+    removeClass: function (className) {
+      domClass.remove('submission-modal', className);
+    },
+
+    /**
+    * Force close
+    */
+    close: function () {
+      if (closeHandle) {
+        closeHandle.remove();
+        closeHandle = undefined;
+      }
+      return domClass.remove('submission-modal', 'active');
+    },
+
+    resetForm: function () {
+      document.getElementById('submitModalLatitiude').value = '';
+      document.getElementById('submitModalLongitude').value = '';
+    }
+
+
+  };
+
+  return SubmitModal;
+
+});
+
 /* global define */
 define('models/SubmissionModel',[
-        "dojo/_base/declare",
-        "knockout"
+        'dojo/_base/declare',
+        'map/config',
+        'knockout'
     ],
-    function(declare, ko) {
+    function(declare, MapConfig, ko) {
 
         var Model = declare(null, {
             constructor: function(el) {
@@ -13528,9 +14014,15 @@ define('models/SubmissionModel',[
                 Model.vm.storyDetailsData = ko.observable();
 
                 Model.vm.dataFileName = ko.observable();
-                Model.vm.dataFileType= ko.observable();
+                Model.vm.dataFileType = ko.observable();
                 Model.vm.attributeFileName = ko.observable();
                 Model.vm.attributeFileType = ko.observable();
+
+                // Submission Dialog Items
+                Model.vm.submissionModalHeader = ko.observable(MapConfig.submissionDialog.submissionModalHeader);
+                Model.vm.submissionEnterButton = ko.observable(MapConfig.submissionDialog.submissionEnterButton);
+                Model.vm.submissionPlaceholder = ko.observable(MapConfig.submissionDialog.submissionPlaceholder);
+                // Model.vm.longitudePlaceholder = ko.observable(MapConfig.submissionDialog.longitudePlaceholder);
 
 
                 Model.vm.mediaChange = function(obj, evt) {
@@ -13582,17 +14074,17 @@ define('models/SubmissionModel',[
     });
 
 define('controllers/SubmissionController',[
-    "dojo/dom",
-    "dojo/query",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "esri/graphic",
-    "esri/request",
-    "utils/NavListController",
-    "models/SubmissionModel"
-], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
-    'use strict';
+    'dojo/dom',
+    'dojo/query',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'map/SubmissionModal',
+    'dijit/registry',
+    'esri/graphic',
+    'esri/request',
+    'utils/NavListController',
+    'models/SubmissionModel'
+], function (dom, query, domClass, domStyle, SubmissionModal, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
 
 	var initialized = false;
   var self;
@@ -13602,18 +14094,18 @@ define('controllers/SubmissionController',[
 		init: function (template) {
 
 			if (initialized) {
-				registry.byId("stackContainer").selectChild("submissionView");
+				registry.byId('stackContainer').selectChild('submissionView');
 				return;
 			}
       self = this;
 
 			initialized = true;
-			registry.byId("stackContainer").selectChild("submissionView");
-			registry.byId("submissionView").set('content', template);
-      SubmissionModel.initialize("submissionView");
+			registry.byId('stackContainer').selectChild('submissionView');
+			registry.byId('submissionView').set('content', template);
+      SubmissionModel.initialize('submissionView');
 
 
-      // var context = "submission";
+      // var context = 'submission';
       // NavListController.loadNavControl(context);
       // NavListController.loadNavView(context);
 
@@ -13629,12 +14121,6 @@ define('controllers/SubmissionController',[
         $('#dataInput').css('border-color', '#c0c0c0');
         $('#attributeDataInput').css('border-color', '#c0c0c0');
 
-        var storyNameData = model.storyNameData();
-        var storyCompanyData = model.storyCompanyData();
-        var storyTitleData = model.storyTitleData();
-        var storyEmailData = model.storyEmailData();
-        var storyDetailsData = model.storyDetailsData();
-
         var dataFileName = model.dataFileName();
         var dataFileType = model.dataFileType();
         var attributeFileName = model.attributeFileName();
@@ -13643,7 +14129,9 @@ define('controllers/SubmissionController',[
 
         if (!model.storyNameData()) {
           $('#storyNameInput').css('border-color', 'red');
-          alert('Please enter your name!');
+          // alert('Please enter your name!');
+          SubmissionModal.addClass('story-name');
+          SubmissionModal.toggle();
           return;
         }
         if (!model.storyCompanyData()) {
@@ -13694,16 +14182,11 @@ define('controllers/SubmissionController',[
             data: form_data,
             type: 'post',
             success: function(response){
-
               self.uploadToAGOL(response);
-
-
             }
           });
 
         }
-
-
     },
     handleFileChange: function(obj, evt){
       if (evt.target.files.length === 0) {
@@ -13720,7 +14203,7 @@ define('controllers/SubmissionController',[
 
       var fileType = evt.target.files[0].type;
 
-      // if (fileType !== "text/csv" && fileType !== "application/zip" && hash[ext] !== 1) {
+      // if (fileType !== 'text/csv' && fileType !== 'application/zip' && hash[ext] !== 1) {
       //   evt.target.value = '';
       //   if (evt.target.value) {
       //     evt.target.type = 'file';
@@ -13730,6 +14213,7 @@ define('controllers/SubmissionController',[
       //
       //   return;
       // }
+
       if (evt.target.id === 'dataInput') {
         obj.dataFileName(fileName);
         obj.dataFileType(fileType);
@@ -13741,7 +14225,6 @@ define('controllers/SubmissionController',[
 
     },
     uploadToAGOL: function(response){
-
 
       var arr = response.split(';');
 
@@ -13773,20 +14256,20 @@ define('controllers/SubmissionController',[
         }
       ];
 
-      var proxyUrl = "http://commodities-test.herokuapp.com/app/php/proxy.php";
+      var proxyUrl = 'http://commodities-test.herokuapp.com/app/php/proxy.php';
 
       esri.config.defaults.io.proxyUrl = proxyUrl;
       esri.config.defaults.io.alwaysUseProxy = false;
 
-      var layerUrl = "http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures";
+      var layerUrl = 'http://services.arcgis.com/hBEMHCkbQdfV906F/arcgis/rest/services/data_submission_form/FeatureServer/0/addFeatures';
       var layersRequest = esriRequest({
         url: layerUrl,
         content: {
           'f': 'json',
           features: JSON.stringify(features)
         },
-        handleAs: "json",
-        callbackParamName: "callback"
+        handleAs: 'json',
+        callbackParamName: 'callback'
       },
       {
         usePost: true,
@@ -13795,11 +14278,11 @@ define('controllers/SubmissionController',[
 
       layersRequest.then(
         function(response) {
-          console.log("Success: ", response);
-          alert("Data successfully submitted!")
+          console.log('Success: ', response);
+          alert('Data successfully submitted!')
       }, function(error) {
-          alert("Data was not successfully submitted, please try again.")
-          console.log("Error: ", error.message);
+          alert('Data was not successfully submitted, please try again.')
+          console.log('Error: ', error.message);
       });
 
 

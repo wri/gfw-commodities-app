@@ -34,7 +34,7 @@ border-radius()
 	overflow hidden
 	height 100%
 	width 100%
-    min-height 500px
+    min-height 520px
 }
 
 .gfw #app-body .background-container img {
@@ -55,14 +55,12 @@ border-radius()
 }
 
 .homeModeDotsContainer {
-    margin-top: 370px;
     z-index: 200;
     position: absolute;
-    width: 300px;
-    height: 30px;
     align: center;
-    left: 50%;
-    margin-left: -150px;
+    right: 3%;
+    bottom 1.5%
+    z-index 300
 }
 
 .homeModeOptionsContainer {
@@ -73,20 +71,18 @@ border-radius()
 }
 
 .homeModeOptionsViewerOuter {
-    width 300px
+    width 75%
     height 300px
     z-index 100
     //overflow hidden
     overflow-x auto
     overflow-y hidden
     margin auto
-    margin-top 50px
+    margin-top 9em
     overflow visible
 }
 
 .homeModeOuter {
-    width 300px
-    height 30px
     z-index 100
     //overflow hidden
     overflow-x auto
@@ -94,18 +90,20 @@ border-radius()
     margin auto
     overflow visible
     text-align center
+    transition: all 0.25s
 }
 
 .homeModeDot {
     height 15px
     width 15px
-    margin-left 10px
-    margin-right 10px
+    margin 5px 10px
     display inline-block
     background-color white
     transition all 2s
     border-radius 10px
     cursor pointer
+    box-shadow 0 2px 5px rgba(0,0,0,0.25)
+    transform scale(.8)
 }
 
 .homeModeDot[title]:hover:after {
@@ -113,29 +111,34 @@ border-radius()
   padding: 4px 8px;
   color: #E98300;
   position: absolute;
-  left: 20;
+  right: 0;
   top: 100%;
   z-index: 20;
   white-space: nowrap;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
   -moz-box-shadow: 0px 0px 4px #222;
   -webkit-box-shadow: 0px 0px 4px #222;
   box-shadow: 0px 0px 4px #222;
-  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #cccccc));
-  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+  //background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  //background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #cccccc));
+  //background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  //background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  //background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  //background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+    background-color #fff;
+    border 1px solid separatorGray
+    display: none
 
 }
 
 .homeModeDot.activeDot {
-    background-color #E98300
+    background-color #fff
     transition all 2s
-    border 1px solid white
+    //transition display 1.5s ease
+    opacity: 1;
+    transform: scale(1.2)
 }
 
 .homeModeOptionsViewerOuter .modeGroup {
@@ -149,7 +152,7 @@ border-radius()
 
 .homeModeOptionsViewerOuter .modeOption {
     border-radius 150px
-    background-color #000
+    //background-color #000
     color #FFF
     height 300px
     width 300px
@@ -163,26 +166,67 @@ border-radius()
 }
 
 .homeModeOptionsViewerOuter .modeOptionRing {
-    border-radius 150px
-    
-    height 300px
-    box-shadow 0px 0px 14px 0px #888888
-    width 300px
-    vertical-align middle
-    text-align center
-    position absolute
-    //display inline-block
-    margin auto
-    //border 10px solid #EC1D38
-    border 10px solid #E98300
-    box-sizing border-box
+    //border-radius 150px
+    //
+    //height 300px
+    //box-shadow 0px 0px 14px 0px #888888
+    //width 300px
+    //vertical-align middle
+    //text-align center
+    //position absolute
+    ////display inline-block
+    //margin auto
+    ////border 10px solid #EC1D38
+    //border 10px solid #E98300
+    //box-sizing border-box
 }
 
-.homeModeOptionsViewerOuter .modeGroup .modeText p {
-    font-size 72px
-    color #EC1D38
-    margin-top -50px
-    margin-bottom 0px
+//.homeModeOptionsViewerOuter .modeGroup .modeText p
+    //font-size 72px
+    //color #EC1D38
+    //margin-top -50px
+    //margin-bottom 0px
+
+.home-slider-container {
+    width: 400px;
+    text-align: left;
+}
+
+.home-slider-container h3 {
+    font-size 2.3em
+}
+.home-slider-container h4 {
+    margin 0
+}
+.home-slider-container p {
+    font-size 31px
+    float: left
+    clear: both
+}
+.home-slider-container a {
+    font-size: 0.6em;
+    font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+    text-transform: uppercase;
+    padding: 0.5em 1.5em;
+    background: #5a5a5a;
+    color: #fff !important;
+    clear: both
+}
+.home-slider-container a:hover {
+    background-color orangeSelected
+}
+.home-slider-container h3,
+.home-slider-container span,
+.home-slider-container p {
+    font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+    text-transform: uppercase;
+    line-height 1em
+    color #555
+    text-align left
+    margin 0
+    display: inline-block
+    padding: 3px 10px;
+    background: rgba(255,255,255,0.75);
 }
 
 .homeModeOptionsViewerOuter .modeGroup .modeText {
@@ -190,7 +234,6 @@ border-radius()
     color #CCC
     position absolute
     left 0px
-    top 110px
     right 0px
     vertical-align middle
 }
@@ -209,7 +252,9 @@ border-radius()
 // }
 
 .homeModeOptionsViewerOuter .modeGroup .modeText span {
-    font-size 32px
+    font-size 31px
+    font-family: 'Fira Sans', 'fira_sans_otregular', Georgia, serif;
+    font-weight 300
 }
 
 .homeModeOptionsViewerOuter .modeGroup .modeText span.more-text {
@@ -277,4 +322,16 @@ border-radius()
 
 #signUpAlertsForm .error-messages {
 	color #e50036
+}
+
+.image-box {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    right: 0;
+    background: red;
+}
+.image-box img {
+    width 200px
+    height 200px
 }

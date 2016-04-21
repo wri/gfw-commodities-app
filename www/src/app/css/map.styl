@@ -33,14 +33,17 @@ wizardBlue = #00688B
 	border none
 	position fixed
 	top 195px
-	right 46px !important
+	right 35px !important
+	z-index 5
 
 .gfw .map-container .esriSimpleSlider div
 	background-color #FFF
+	box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 
 .gfw .map-container .esriSimpleSliderIncrementButton, .gfw .map-container .esriSimpleSliderDecrementButton
 	padding 1px
 	border none
+	box-shadow 0 2px 5px rgba(0,0,0,0.25)
 
 .gfw .map-container .esriSimpleSliderIncrementButton
 	margin-bottom 2px
@@ -71,8 +74,9 @@ wizardBlue = #00688B
 	padding 1px
 	height 30px
 	width 30px
-	right 46px
+	right 35px
 	z-index 50
+	box-shadow: 0 2px 5px rgba(0,0,0,0.25);
 
 .gfw .alert-button
 	// display none
@@ -91,15 +95,15 @@ wizardBlue = #00688B
 
 .gfw .locator-widget-button
 	background url('images/locate.png') no-repeat #FFF -1px -35px
-	top 166px
+	top 207px
 
 .gfw .basemap-gallery-button
 	background url('images/basemap.png') no-repeat #FFF -1px -35px
-	top 204px
+	top 241px
 
 .gfw .share-button
 	background url('images/share-icon.png') no-repeat #FFF -2px -35px
-	top 242px
+	top 275px
 
 .gfw .locator-widget-button:hover,
 .gfw .basemap-gallery-button:hover,
@@ -112,11 +116,13 @@ wizardBlue = #00688B
 .gfw .map-container .simpleGeocoder
 	position absolute
 	z-index 50
-	right 50px
-	top 20px
+	right 40px
+	top 60px
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
 
 .gfw .map-container .simpleGeocoder .esriGeocoder
-	border 2px solid mediumGray
+	border 1px solid separatorGray
+	border-radius 0
 
 .gfw .map-container .modal-link
 	position absolute
@@ -127,13 +133,13 @@ wizardBlue = #00688B
 	z-index 48
 
 .gfw .map-container .basemap-linker
-	top 204px
+	top 241px
 
 .gfw .map-container .locator-linker
-	top 166px
+	top 207px
 
 .gfw .map-container .sharing-linker
-	top 242px
+	top 275px
 
 .gfw .map-container .sharing-modal
 	border-radius(5px)
@@ -145,7 +151,8 @@ wizardBlue = #00688B
 	width 200px
 	right 100px
 	z-index 50
-	top 225px
+	top 254px
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
 
 .gfw .map-container .sharing_toolbox
 	margin 9px 0 0 10px
@@ -160,7 +167,8 @@ wizardBlue = #00688B
 	width 300px
 	right 100px
 	z-index 50
-	top 60px
+	top 100px
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
 
 .gfw .maptools-modal .container-header
 	font-family "Arial MT Condensed Bold", Arial, Georgia, sans-serif
@@ -258,7 +266,7 @@ wizardBlue = #00688B
 	bottom 125px
 	z-index 50
 	left 20px
-	top 60px
+	top 90px
 
 .gfw .layer-controls-container > .toolbox
 	box-shadow 0px 0px 6px 1px rgba(0,0,0,0.25)
@@ -268,6 +276,7 @@ wizardBlue = #00688B
 	bottom 35px
 	z-index 50
 	left 50%
+	box-shadow 0px 1px 2px rgba(0,0,0,0.25)
 
 .gfw .layer-controls-container .toolbox_legend
 	position absolute
@@ -495,8 +504,9 @@ wizardBlue = #00688B
 
 .gfw .legend-container
 	font-family Arial, sans-serif
-	border 1px solid mediumGray
-	border-radius(5px 5px 0 0)
+	color #333
+	border 1px solid separatorGray
+	border-radius(0)
 	background-color #fff
 	box-sizing border-box
 	border-bottom none
@@ -507,8 +517,9 @@ wizardBlue = #00688B
 	height 280px
 	width 250px
 	z-index 50
-	right 20px
+	right 35px
 	bottom 0
+	box-shadow 0px 1px 2px rgba(0,0,0,0.25)
 
 .gfw .legend-title
 	background-image url('images/ico-carat-down.png')
@@ -526,7 +537,7 @@ wizardBlue = #00688B
 	background-image url('images/ico-carat-up.png')
 
 .gfw .legend-title span
-	margin-left 5px
+	margin-left 10px
 
 .gfw .legend-content
 	overflow-y auto
@@ -894,6 +905,53 @@ wizardBlue = #00688B
 	float right
 	height 60px
 	width 91px
+
+.category-icon
+	display inline-block
+	margin auto
+	width 28px
+	height 28px
+	margin-top 10px
+	border-radius 50%
+	background-size 20px
+	background-repeat no-repeat
+	background-position center
+
+.smart-list
+	.Forest.Change
+	.Forest.Cover
+	.Forest.Use
+	.Conservation
+	.Production.Suitability
+		text-align center
+		fill #fff
+
+	.Forest.Change
+		.category-icon
+			background-color forestChange
+			background-image url("images/map-icons-forest-change.svg")
+
+	.Forest.Cover
+		.category-icon
+			background-color forestCover
+			background-image url("images/map-icons-forest-cover.svg")
+
+	.Forest.Use
+		.category-icon
+			background-color forestUse
+			background-image url("images/map-icons-forest-use.svg")
+
+	.Conservation
+		.category-icon
+			background-color conservation
+			background-image url("images/map-icons-conservation.svg")
+
+	.Production.Suitability
+		.category-icon
+			background-color agroSuit
+			background-image url("images/map-icons-palm-tree.svg")
+
+
 
 /* For Safari */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
