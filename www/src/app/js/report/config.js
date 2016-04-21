@@ -16,8 +16,8 @@ define([], function() {
 
     // Prodes
     var prodesBounds = [1, 14],
-        prodesLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
-        prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F'];
+        prodesLabels = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+        prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
 
     // Plantation Type
     var plantationsTypeBounds = [1, 3],
@@ -459,27 +459,27 @@ define([], function() {
             labels: []
         },
 
-        prodes: {
-            rootNode: "prodes",
-            title: "Prodes Deforestation",
-            rasterId: "$555",
-            mosaicRule: {
-                'mosaicMethod': 'esriMosaicLockRaster',
-                'lockRasterIds': [530],
-                'ascending': true,
-                'mosaicOperation': 'MT_FIRST'
-            },
-            lossChart: {
-                title: "Prodes"
-            },
-            compositionAnalysis: {
-                rasterId: 530,
-                histogramSlice: 1
-            },
-            bounds: prodesBounds,
-            color: "#DB6598",
-            labels: []
-        },
+        // prodes: {
+        //     rootNode: "prodes",
+        //     title: "Prodes Deforestation",
+        //     rasterId: "$555",
+        //     mosaicRule: {
+        //         'mosaicMethod': 'esriMosaicLockRaster',
+        //         'lockRasterIds': [530],
+        //         'ascending': true,
+        //         'mosaicOperation': 'MT_FIRST'
+        //     },
+        //     lossChart: {
+        //         title: "Prodes"
+        //     },
+        //     compositionAnalysis: {
+        //         rasterId: 530,
+        //         histogramSlice: 1
+        //     },
+        //     bounds: prodesBounds,
+        //     color: "#DB6598",
+        //     labels: []
+        // },
 
         legalClass: {
             rootNode: "legalClasses",
@@ -522,28 +522,34 @@ define([], function() {
             }
         },
 
-        // prodes: {
-        //     rootNode: 'prodes',
-        //     title: 'Prodes Deforestation',
-        //     rasterId: '$555',
-        //     // formaId: "$14",
-        //     bounds: prodesBounds,
-        //     labels: prodesLabels,
-        //     clearanceChart: {
-        //         title: 'PRODES',
-        //         type: 'bar'
-        //     },
-        //     lossChart: {
-        //         title: 'PRODES'//,
-        //         //removeBelowYear: 2001
-        //     },
-        //     colors: prodesColors,
-        //     fireKey: 'prodes',
-        //     compositionAnalysis: {
-        //         rasterId: 555,
-        //         histogramSlice: 1
-        //     }
-        // },
+        prodes: {
+            rootNode: 'prodes',
+            title: 'Prodes Deforestation',
+            rasterId: '$555',
+            // formaId: "$14",
+            bounds: prodesBounds,
+            labels: prodesLabels,
+            mosaicRule: {
+                'mosaicMethod': 'esriMosaicLockRaster',
+                'lockRasterIds': [555],
+                'ascending': true,
+                'mosaicOperation': 'MT_FIRST'
+            },
+            clearanceChart: {
+                title: 'PRODES',
+                type: 'bar'
+            },
+            lossChart: {
+                title: 'PRODES'//,
+                //removeBelowYear: 2001
+            },
+            colors: prodesColors,
+            fireKey: 'prodes',
+            compositionAnalysis: {
+                rasterId: 555,
+                histogramSlice: 1
+            }
+        },
 
         protectedArea: {
             rootNode: "protectedAreas",
