@@ -153,7 +153,6 @@ define([
                   // Hasher.setHash('l', l);
                 }, 1000);
 
-
                 mapModel = MapModel.initialize("map-container");
                 // Render any React Components - These will activate any default or hashed layers
                 // Only use this after the map has been loaded,
@@ -163,16 +162,16 @@ define([
 
                 self.bindUIEvents();
 
-
                 // Register Wizard Store update callbacks
                 self.registerStoreCallbacks();
                 // Check Hash for some defaults and react accordingly
                 var wizardState = Hasher.getHash('wiz');
+
                 if (wizardState !== undefined && wizardState === 'open') {
                     Helper.toggleWizard();
+                } else {
+                  analysisModal.show();
                 }
-
-
 
             });
 
@@ -381,6 +380,7 @@ define([
             });
 
             on(dom.byId("wizard-tab"), "click", function() {
+                analysisModal.close();
                 Helper.toggleWizard();
             });
 
@@ -464,8 +464,6 @@ define([
               }
             });
 
-            //todo show modal
-            analysisModal.show();
         },
 
         toggleLayerList: function(el) {

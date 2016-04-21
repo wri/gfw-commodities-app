@@ -25,6 +25,10 @@ define([
 		// 	this.setState(newProps);
 		// },
 
+    componentDidMount: function () {
+      debugger
+    },
+
     toggleChecked: function () {
 			this.setState({
         checked: !this.state.checked
