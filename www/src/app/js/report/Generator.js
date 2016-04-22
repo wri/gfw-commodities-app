@@ -419,10 +419,11 @@ define([
                     case "carbon":
                         deferreds.push(Fetcher.getCarbonStocksResults());
                         break;
-                    case "plantationsSpecies":
+                    case "plantationsSpeciesLayer":
+                    console.log('innnnn');
                         deferreds.push(Fetcher.getPlantationsSpeciesResults());
                         break;
-                    case "plantationsType":
+                    case "plantationsTypeLayer":
                         deferreds.push(Fetcher.getPlantationsTypeResults());
                         break;
                     case "biomes":

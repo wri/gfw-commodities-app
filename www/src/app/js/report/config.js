@@ -20,23 +20,14 @@ define([], function() {
         prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
 
     // Plantation Type
-    var plantationsTypeBounds = [1, 3],
-        plantationsTypeLabels = ['Clearing/ very young plantation', 'Large industrial plantation', 'Mosaic of medium-sized plantations', 'Mosaic of small-sized plantations'],
-        plantationsTypeColors = ['#874546', '#FEBEBF', '#FEBFE7', '#8ACD6B'];
+    var plantationsTypeBounds = [1, 4],
+        plantationsTypeLabels = ['Large industrial plantation', 'Clearing/ very young plantation', 'Mosaic of medium-sized plantations', 'Mosaic of small-sized plantations'],
+        plantationsTypeColors = ['#FEBEBF', '#874546', '#FEBFE7', '#8ACD6B'];
 
-// Oil palm, Wood Fiber/Timber, Oil Palm Mix, Other, Recently cleared
-//1=5
     // Plantation Species
-    var plantionsSpeciesBounds = [1, 5],
-        plantionsSpeciesLabels = ['Oil palm', 'Wood Fiber/Timber', 'Oil Palm Mix', 'Other', 'Recently cleared'],
-        plantionsSpeciesColors = ['#FD8081', '#FEBEBF', '#B6D6A1', '#FFFD7E', '#6E4786', '#22C6FC'];
-
-
-    // // Plantation Species
-    // var plantionsSpeciesBounds = [0, 11],
-    //     plantionsSpeciesLabels = ["Oil palm", "Oil palm mix", "Fruit", "Fruit mix", "Rubber", "Rubber mix", "Recently cleared", "Unknown", "Wood fiber / timber", "Wood fiber / timber mix", "Other mix", "Other"],
-    //     plantionsSpeciesColors = ['#FD8081', '#FEBEBF', '#B6D6A1', '#FFFD7E', '#6E4786', '#22C6FC', '#C97FF2', '#B3B3B3', '#7C90F2', '#0A50A5', '#CDCDD2', '#B6D6A1'];
-
+    var plantationsSpeciesBounds = [1, 6],
+        plantationsSpeciesLabels = ['Oil palm', 'Wood Fiber/Timber', 'Oil Palm Mix', 'Wood fiber/timber mix', 'Other', 'Recently cleared'],
+        plantationsSpeciesColors = ['#FD8081', '#FEBEBF', '#B6D6A1', '#FFFD7E', '#6E4786', '#22C6FC'];
 
     // Tree Cover Density
     var treeCoverLabels = ["31 - 50%", "51 - 74%", "75 - 100%"],
@@ -216,8 +207,8 @@ define([], function() {
         //
         // plantationsSpeciesLayer: {
         //   rasterId: '$557',
-        //   bounds: plantionsSpeciesBounds,
-        //   labels: plantionsSpeciesLabels
+        //   bounds: plantationsSpeciesBounds,
+        //   labels: plantationsSpeciesLabels
         // },
 
         clearanceAlerts: {
@@ -373,8 +364,8 @@ define([], function() {
             }
         },
 
-        plantationsType: {
-            rootNode: "plantationsType",
+        plantationsTypeLayer: {
+            rootNode: "plantationsTypeLayer",
             title: "Plantations by Type",
             rasterId: "$558",
             formaId: "$12",
@@ -409,8 +400,8 @@ define([], function() {
             }
         },
 
-        plantationsSpecies: {
-            rootNode: "plantationsSpecies",
+        plantationsSpeciesLayer: {
+            rootNode: "plantationsSpeciesLayer",
             title: "Plantations by Species",
             rasterId: "$557",
             formaId: "$12",
@@ -466,28 +457,6 @@ define([], function() {
             color: "#DB6598",
             labels: []
         },
-
-        // prodes: {
-        //     rootNode: "prodes",
-        //     title: "Prodes Deforestation",
-        //     rasterId: "$555",
-        //     mosaicRule: {
-        //         'mosaicMethod': 'esriMosaicLockRaster',
-        //         'lockRasterIds': [530],
-        //         'ascending': true,
-        //         'mosaicOperation': 'MT_FIRST'
-        //     },
-        //     lossChart: {
-        //         title: "Prodes"
-        //     },
-        //     compositionAnalysis: {
-        //         rasterId: 530,
-        //         histogramSlice: 1
-        //     },
-        //     bounds: prodesBounds,
-        //     color: "#DB6598",
-        //     labels: []
-        // },
 
         legalClass: {
             rootNode: "legalClasses",
@@ -619,23 +588,23 @@ define([], function() {
             bounds: plantationsTypeBounds,
             labels: plantationsTypeLabels,
             clearanceChart: {
-                title: "Plantaaations by Typee",
+                title: "Plantations by Type",
                 type: "pie"
             },
             lossChart: {
-                title: "Plantaaations by Typee"
+                title: "Plantations by Type"
             },
-            includeFormaIdInRemap: true,
-            formaId: "$15",
-            rasterRemap: {
-                "rasterFunction": "Remap",
-                "rasterFunctionArguments": { //todo: this, correctly
-                    "InputRanges": [1, 20, 20, 80, 80, 370],
-                    "OutputValues": [0, 1, 2],
-                    "Raster": "$558",
-                    "AllowUnmatched": false
-                }
-            },
+            // includeFormaIdInRemap: true,
+            // formaId: "$15",
+            // rasterRemap: {
+            //     "rasterFunction": "Remap",
+            //     "rasterFunctionArguments": { //todo: this, correctly
+            //         "InputRanges": [1, 20, 20, 80, 80, 370],
+            //         "OutputValues": [0, 1, 2],
+            //         "Raster": "$558",
+            //         "AllowUnmatched": false
+            //     }
+            // },
             colors: plantationsTypeColors,
             fireKey: 'plantationsType' // Key to the Fires Config for items related to this
         },
@@ -644,28 +613,28 @@ define([], function() {
             rootNode: "plantationsSpeciesLayer",
             title: "Plantations by Species",
             rasterId: "$557",
-            bounds: plantionsSpeciesBounds,
-            labels: plantionsSpeciesLabels,
+            bounds: plantationsSpeciesBounds,
+            labels: plantationsSpeciesLabels,
             clearanceChart: {
-                title: "Plantaaations by Species",
+                title: "Plantations by Species",
                 type: "pie"
             },
             lossChart: {
-                title: "Plantaaations by Species"
+                title: "Plantations by Species"
             },
-            includeFormaIdInRemap: true,
-            formaId: "$15",
-            rasterRemap: {
-                "rasterFunction": "Remap",
-                "rasterFunctionArguments": { //todo: this, correctly
-                    "InputRanges": [1, 20, 20, 80, 80, 370],
-                    "OutputValues": [0, 1, 2],
-                    "Raster": "$557",
-                    "AllowUnmatched": false
-                }
-            },
-            colors: plantionsSpeciesColors,
-            fireKey: 'plantionsSpecies' // Key to the Fires Config for items related to this
+            // includeFormaIdInRemap: true,
+            // formaId: "$15",
+            // rasterRemap: {
+            //     "rasterFunction": "Remap",
+            //     "rasterFunctionArguments": { //todo: this, correctly
+            //         "InputRanges": [1, 20, 20, 80, 80, 370],
+            //         "OutputValues": [0, 1, 2],
+            //         "Raster": "$557",
+            //         "AllowUnmatched": false
+            //     }
+            // },
+            colors: plantationsSpeciesColors,
+            fireKey: 'plantationsSpecies' // Key to the Fires Config for items related to this
         },
 
         brazilBiomes: {
@@ -838,7 +807,7 @@ define([], function() {
                 title: 'Active Fires by Forest Carbon Stocks over the past 7 days',
                 badgeDesc: 'on forest carbon stocks out of'
             },
-            plantationsType: {
+            plantationsTypeLayer: {
                 type: 'pie',
                 field: 'plantationsType',
                 labels: plantationsTypeLabels,
@@ -847,12 +816,12 @@ define([], function() {
                 title: 'Active Fires by Plantations (by Type) over the past 7 days',
                 badgeDesc: 'on forest carbon stocks out of'
             },
-            plantionsSpecies: {
+            plantationsSpeciesLayer: {
                 type: 'pie',
-                field: 'plantionsSpecie',
-                labels: plantionsSpeciesLabels,
-                bounds: plantionsSpeciesBounds,
-                colors: plantionsSpeciesColors,
+                field: 'plantationsSpecies',
+                labels: plantationsSpeciesLabels,
+                bounds: plantationsSpeciesBounds,
+                colors: plantationsSpeciesColors,
                 title: 'Active Fires by Plantations (by Species) over the past 7 days',
                 badgeDesc: 'on forest carbon stocks out of'
             },

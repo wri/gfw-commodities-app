@@ -890,6 +890,10 @@ define([
 
         rootNode = item.rootNode;
         config = ReportConfig.fires[item.fireKey];
+        console.log('item.fireKey', item.fireKey)
+        console.log(ReportConfig.fires);
+        console.log('config');
+        console.log(config);
 
         // First IF is Temporary until fires layers are merged and we dont need to query two layers
         if (results.length > 1 && item.fireKey === 'indonesiaMoratorium') {
@@ -902,6 +906,7 @@ define([
         }
 
         if (features.length === 0) {
+
           createBadge(rootNode, 0, 0, config.badgeDesc);
         } else if (config.type === 'pie') {
           chartData = [];
