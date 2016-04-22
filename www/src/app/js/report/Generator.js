@@ -420,7 +420,6 @@ define([
                         deferreds.push(Fetcher.getCarbonStocksResults());
                         break;
                     case "plantationsSpeciesLayer":
-                    console.log('innnnn');
                         deferreds.push(Fetcher.getPlantationsSpeciesResults());
                         break;
                     case "plantationsTypeLayer":

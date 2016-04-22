@@ -381,8 +381,8 @@ define([
 						_fireQueriesToRender.push(config);
 
 						all([
-								this._getTotalLossAnalysis(config),
-								this._getClearanceAlertAnalysis(config)
+								this._getTotalLossAnalysis(config)
+								// this._getClearanceAlertAnalysis(config)
 						]).then(function() {
 								deferred.resolve(true);
 						});
@@ -401,8 +401,8 @@ define([
 						_fireQueriesToRender.push(config);
 
 						all([
-								this._getTotalLossAnalysis(config),
-								this._getClearanceAlertAnalysis(config)
+								this._getTotalLossAnalysis(config)
+								// this._getClearanceAlertAnalysis(config)
 						]).then(function() {
 								deferred.resolve(true);
 						});
@@ -726,7 +726,7 @@ define([
 						renderingRule = useSimpleEncoderRule ?
 								encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) :
 								encoder.render(clearanceConfig.rasterId, rasterId);
-
+						console.log('renderingRule',renderingRule)
 						// report.geometry.rings = [report.geometry.rings[report.geometry.rings.length - 1]];
 						content = {
 								geometryType: 'esriGeometryPolygon',

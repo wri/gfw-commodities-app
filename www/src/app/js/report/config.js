@@ -206,7 +206,7 @@ define([], function() {
         // },
         //
         // plantationsSpeciesLayer: {
-        //   rasterId: '$557',
+        //   rasterId: '$559',
         //   bounds: plantationsSpeciesBounds,
         //   labels: plantationsSpeciesLabels
         // },
@@ -403,7 +403,7 @@ define([], function() {
         // plantationsSpeciesLayer: {
         //     rootNode: "plantationsSpeciesLayer",
         //     title: "Plantations by Species",
-        //     rasterId: "$557",
+        //     rasterId: "$559",
         //     formaId: "$12",
         //     includeFormaIdInRemap: true,
         //     rasterRemap: {
@@ -411,7 +411,7 @@ define([], function() {
         //         "rasterFunctionArguments": {
         //             "InputRanges": [31, 51, 51, 75, 75, 101],
         //             "OutputValues": [1, 2, 3],
-        //             "Raster": "$557",
+        //             "Raster": "$559",
         //             "AllowUnmatched": false
         //         }
         //     },
@@ -426,7 +426,7 @@ define([], function() {
         //     },
         //     compositionAnalysis: {
         //         title: 'plantations Typeee',
-        //         rasterId: 557//,
+        //         rasterId: 559//,
         //         // histogramSlice: 31
         //     },
         //     colors: plantationsTypeColors,
@@ -594,17 +594,8 @@ define([], function() {
             lossChart: {
                 title: "Plantations by Type"
             },
-            // includeFormaIdInRemap: true,
+            // includeFormaIdInRemap: false,
             // formaId: "$15",
-            // rasterRemap: {
-            //     "rasterFunction": "Remap",
-            //     "rasterFunctionArguments": { //todo: this, correctly
-            //         "InputRanges": [1, 20, 20, 80, 80, 370],
-            //         "OutputValues": [0, 1, 2],
-            //         "Raster": "$558",
-            //         "AllowUnmatched": false
-            //     }
-            // },
             colors: plantationsTypeColors,
             fireKey: 'plantationsType' // Key to the Fires Config for items related to this
         },
@@ -612,7 +603,7 @@ define([], function() {
         plantationsSpeciesLayer: {
             rootNode: "plantationsSpeciesLayer",
             title: "Plantations by Species",
-            rasterId: "$557",
+            rasterId: "$559",
             bounds: plantationsSpeciesBounds,
             labels: plantationsSpeciesLabels,
             clearanceChart: {
@@ -622,17 +613,42 @@ define([], function() {
             lossChart: {
                 title: "Plantations by Species"
             },
-            // includeFormaIdInRemap: true,
-            // formaId: "$15",
+            // includeFormaIdInRemap: false,
+            // formaId: "$15", //todo: find the correct ObjectID in http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer
             // rasterRemap: {
             //     "rasterFunction": "Remap",
             //     "rasterFunctionArguments": { //todo: this, correctly
-            //         "InputRanges": [1, 20, 20, 80, 80, 370],
-            //         "OutputValues": [0, 1, 2],
-            //         "Raster": "$557",
+            //         // "InputRanges": [1, 20, 20, 80, 80, 370],
+            //         // "OutputValues": [0, 1, 2],
+            //         "InputRanges": [13, 13, 2, 2, 8, 8, 1, 1, 4, 4, 5, 5],
+            //         "OutputValues": [1, 2, 3, 4, 5, 6],
+            //         "Raster": "$559",
             //         "AllowUnmatched": false
             //     }
             // },
+            // {
+            //   "rasterFunction": "Arithmetic",
+            //   "rasterFunctionArguments": {
+            //       "Raster": {
+            //           "rasterFunction": "Arithmetic",
+            //           "rasterFunctionArguments": {
+            //               "Raster": {
+            //                   "rasterFunction": "Remap",
+            //                   "rasterFunctionArguments": {
+            //                       "InputRanges": [1, 15],
+            //                       "OutputValues": [5],
+            //                       "Raster": "$530",
+            //                       "AllowUnmatched": false
+            //                   }
+            //               },
+            //               "Raster2": "$530",//raster2 is 530 - tc loss
+            //               "Operation": 3
+            //           }
+            //       },
+            //       "Raster2": "$559",
+            //       "Operation": 1
+            //   }
+            // }
             colors: plantationsSpeciesColors,
             fireKey: 'plantationsSpecies' // Key to the Fires Config for items related to this
         },
@@ -653,15 +669,6 @@ define([], function() {
             },
             // includeFormaIdInRemap: true,
             formaId: "$21",
-            // rasterRemap: {
-            //     "rasterFunction": "Remap",
-            //     "rasterFunctionArguments": {
-            //         "InputRanges": [1, 20, 20, 80, 80, 370],
-            //         "OutputValues": [0, 1, 2],
-            //         "Raster": "$524",
-            //         "AllowUnmatched": false
-            //     }
-            // },
             colors: brazilBiomesColors,
             fireKey: 'brazilBiomes' // Key to the Fires Config for items related to this
         },
