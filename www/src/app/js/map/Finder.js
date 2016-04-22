@@ -122,6 +122,16 @@ define([
               deferreds.push(self.identifyBiomesLayer(mapPoint));
             }
 
+            layer = app.map.getLayer(MapConfig.byType.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyPlantationsTypeLayer(mapPoint));
+            }
+
+            layer = app.map.getLayer(MapConfig.bySpecies.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyPlantationsSpeciesLayer(mapPoint));
+            }
+
             layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
             if (layer) {
                 if (layer.visible) {
@@ -169,6 +179,12 @@ define([
                             break;
                         case "WDPA":
                             features = features.concat(self.setWDPATemplates(item.features));
+                            break;
+                        case "byType":
+                            features = features.concat(self.setPlantationsTypeTemplates(item.features));
+                            break;
+                        case "bySpecies":
+                            features = features.concat(self.setPlantationsSpeciesTemplates(item.features));
                             break;
                         // case "Concessions":
                         //     features = features.concat(self.setConcessionTemplates(item.features));
@@ -423,6 +439,112 @@ define([
           return features;
         },
 
+        identifyPlantationsTypeLayer: function (mapPoint) {
+          var deferred = new Deferred(),
+              identifyTask = new IdentifyTask(MapConfig.byType.url),
+              params = new IdentifyParameters();
+
+          params.tolerance = 3;
+          params.returnGeometry = true;
+          params.width = app.map.width;
+          params.height = app.map.height;
+          params.geometry = mapPoint;
+          params.mapExtent = app.map.extent;
+          params.layerIds = [MapConfig.byType.layerId];
+          params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+
+          identifyTask.execute(params, function (results) {
+            if (results.length > 0) {
+              results.forEach(function (featureObj) {
+                featureObj.feature.layer = "byType";
+              });
+
+              deferred.resolve({
+                layer: "byType",
+                features: results
+              });
+
+            } else {
+              deferred.resolve(false);
+            }
+          });
+
+          return deferred;
+        },
+
+        identifyPlantationsSpeciesLayer: function (mapPoint) {
+          var deferred = new Deferred(),
+              identifyTask = new IdentifyTask(MapConfig.bySpecies.url),
+              params = new IdentifyParameters();
+
+          params.tolerance = 3;
+          params.returnGeometry = true;
+          params.width = app.map.width;
+          params.height = app.map.height;
+          params.geometry = mapPoint;
+          params.mapExtent = app.map.extent;
+          params.layerIds = [MapConfig.bySpecies.layerId];
+          console.log(params)
+          params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+
+          identifyTask.execute(params, function (results) {
+            if (results.length > 0) {
+              results.forEach(function (featureObj) {
+                featureObj.feature.layer = "bySpecies";
+              });
+
+              deferred.resolve({
+                layer: "bySpecies",
+                features: results
+              });
+
+            } else {
+              deferred.resolve(false);
+            }
+          });
+
+          return deferred;
+        },
+
+        setPlantationsTypeTemplates: function (featureObjects) {
+          var features = [],
+              content;
+
+          featureObjects.forEach(function (item) {
+            content = MapConfig.bySpecies.infoTemplate.content;
+            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+           "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+           item.value + "' data-type='Plantations by Type' data-id='${objectid}'>" +
+           "Analyze</button>" +
+           "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+           item.value + "' data-type='Plantations by Type' data-id='${objectid}'>" +
+           "Subscribe</button>" +
+           "</div>"));
+            features.push(item.feature);
+          });
+
+          return features;
+        },
+
+        setPlantationsSpeciesTemplates: function (featureObjects) {
+          var features = [],
+              content;
+
+          featureObjects.forEach(function (item) {
+            content = MapConfig.bySpecies.infoTemplate.content;
+            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+           "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+           item.value + "' data-type='Plantations by Species' data-id='${objectid}'>" +
+           "Analyze</button>" +
+           "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+           item.value + "' data-type='Plantations by Species' data-id='${objectid}'>" +
+           "Subscribe</button>" +
+           "</div>"));
+            features.push(item.feature);
+          });
+
+          return features;
+        },
 
         /*
       @param {array} featureObjects - takes an array of feature objects which contain
@@ -527,7 +649,6 @@ define([
                 features = [],
                 self = this;
 
-
             arrayUtils.forEach(featureObjects, function(item) {
                 console.log(item.layerId) // 0,1,2,3
                 if (item.layerId === 0) {
@@ -558,7 +679,7 @@ define([
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
                 } else if (item.layerId === 2) {
-                    
+
                     template = new InfoTemplate(item.feature.attributes.Company,//item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
