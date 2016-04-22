@@ -258,28 +258,6 @@ define([], function() {
             ],
             toolsNode: 'prodes_toolbox'
         },
-        byType: {
-            id: 'byType',
-            url: dynamicMapServiceUrlForest,
-            defaultLayers: [5]//,
-            // legendLayerId: 5,
-            // defaultRange: [1, 15],
-            // colormap: [
-            //     [1, 255, 0, 197]
-            // ],
-            //toolsNode: 'type_toolbox'
-        },
-        bySpecies: {
-            id: 'bySpecies',
-            url: dynamicMapServiceUrlForest,
-            defaultLayers: [8]//,
-            // legendLayerId: 5,
-            // defaultRange: [1, 15],
-            // colormap: [
-            //     [1, 255, 0, 197]
-            // ],
-            //toolsNode: 'species_toolbox'
-        },
         fires: {
             id: 'ActiveFires',
             url: activeFiresUrl,
@@ -325,6 +303,26 @@ define([], function() {
             layerId: 9,
             infoTemplate: {
                 content: '<div>Area: ${area_ha:NumberFormat(places:0)}</div>'
+            }
+        },
+        byType: {
+            id: 'byType',
+            url: dynamicMapServiceUrlForest,
+            layerId: 5,
+            defaultLayers: [5]
+        },
+        bySpecies: {
+            id: 'bySpecies',
+            url: dynamicMapServiceUrlForest,
+            defaultLayers: [8],
+            layerId: 8,
+            infoTemplate: {
+                content: '<table><tr><td>type: </td><td>${type}</td></tr>' +
+                    '<tr><td>country: </td><td>${country}</td></tr>' +
+                    '<tr><td>percent: </td><td>${percent}</td></tr>' +
+                    '<tr><td>type_text: </td><td>${type_text}</td></tr>' +
+                    '<tr><td>area_ha: </td><td>${area_ha}</td></tr>' +
+                    '<tr><td>spec_org: </td><td>${spec_org}</td></tr></table>'
             }
         },
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
@@ -591,30 +589,6 @@ define([], function() {
                 forceUnderline: true,
                 infoDivClass: 'forest-change-prodes-alerts'
             }, {
-                id: 'plantations',
-                title: 'Tree plantations',
-                subtitle: '',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'none',
-                children: [{
-                    id: 'byType',
-                    title: 'by type',
-                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-                    filter: 'forest-change',
-                    type: 'check',
-                    layerType: 'dynamic'//,
-                    // infoDivClass: 'forest-change-plantations-type'
-                }, {
-                    id: 'bySpecies',
-                    title: 'by species',
-                    // subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-                    filter: 'forest-change',
-                    type: 'check',
-                    layerType: 'dynamic'//,
-                    // infoDivClass: 'forest-change-plantations-species'
-                }]
-            }, {
                 id: 'fires',
                 title: 'Active Fires',
                 subtitle: '(past 7 days, 1km, global; NASA)',
@@ -672,6 +646,30 @@ define([], function() {
                 type: 'radio',
                 layerType: 'dynamic',
                 infoDivClass: 'forest-and-land-cover-brazil-biomes'
+            }, {
+                id: 'plantations',
+                title: 'Tree plantations',
+                subtitle: '',
+                filter: 'forest-cover',
+                type: 'radio',
+                layerType: 'none',
+                children: [{
+                    id: 'byType',
+                    title: 'by type',
+                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-cover',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-type'
+                }, {
+                    id: 'bySpecies',
+                    title: 'by species',
+                    // subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-cover',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-species'
+                }]
             }, {
                 id: 'primForest',
                 title: 'Primary Forests',
