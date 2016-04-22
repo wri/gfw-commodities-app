@@ -173,6 +173,16 @@ define([
                   analysisModal.show();
                 }
 
+                // View Controller Events
+                topic.subscribe('changeView', function(newView) {
+                  if (newView !== 'map') {
+                    analysisModal.close();
+                  }
+                });
+                // on.once(map.map, "extent-change", function() {
+                //     o.mapExtentPausable.resume();
+                // });
+
             });
 
             // Set up zoom listener for Protected Areas Layer *and now Gain Layer
@@ -405,7 +415,6 @@ define([
             on(dom.byId('upload-form'), 'change', Uploader.beginUpload.bind(Uploader));
             on(document.querySelector('.coordinates-modal-enter-button'), 'click', CoordinatesModal.savePoint.bind(CoordinatesModal));
 
-
         },
 
         registerStoreCallbacks: function() {
@@ -419,7 +428,6 @@ define([
                 var layer = map.map.getLayer(MapConfig.customGraphicsLayer.id),
                     storeGraphics = WizardStore.get('customFeatures'),
                     graphicsLengthDifference = layer.graphics.length - storeGraphics.length,
-                    graphicsToAdd,
                     addGraphics,
                     removeGraphics;
 
@@ -455,9 +463,7 @@ define([
             });
 
             WizardStore.registerCallback('selectedCustomFeatures', function() {
-              var selectedFeatures = WizardStore.get('selectedCustomFeatures'),
-                  extent;
-
+              var selectedFeatures = WizardStore.get('selectedCustomFeatures');
 
               if (selectedFeatures.length > 0) {
                 map.map.setExtent(graphicsUtils.graphicsExtent(selectedFeatures), true);
@@ -529,7 +535,7 @@ define([
         toggleItemInLayerListOff: function() {
 
           var mapLayer = map.map.getLayer("forestUse_landUse");
-          console.log(mapLayer)
+          console.log(mapLayer);
 
           if (mapLayer.visible === true) {
             if (mapLayer.visibleLayers.indexOf(0) > -1) {
@@ -556,7 +562,7 @@ define([
             if (!initialized) {
                 return; //map not initialized yet
             }
-            var currentExtent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
+            // var currentExtent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
 
             var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
             x = number.round(extent.getCenter().x, 2);
@@ -592,7 +598,7 @@ define([
 
         showInfoPanel: function(infoPanelClass) {//"forest-change-tree-cover-loss"
             var content = '';
-            if (typeof(infoPanelClass) === 'object') {
+            if (typeof (infoPanelClass) === 'object') {
                 content = infoPanelClass;
                 MapControl.createDialogBox(content);
             } else {
