@@ -71,7 +71,7 @@ define([
 			query.outFields = config.outFields;
 			query.orderByFields = config.orderBy;
 
-			function handleResponse(res) {				
+			function handleResponse(res) {
 				if (res.features.length > 0) {
 					data = self._formatData(config, res.features);
 					deferred.resolve(data);
@@ -121,7 +121,7 @@ define([
 		getFeaturesByGroupNameAndCountry: function (config, groupName, countryName) {
 			var deferred = new Deferred(),
 					query = new Query(),
-					self = this;	
+					self = this;
 
 			// Config is analysis/config using items like adminUnit.lowLevelUnitsQuery or commercialEntity.commodityQuery
 			query.where = config.requiredField + " = '" + groupName + "'" + " AND NAME_0 = '" + countryName + "'";
@@ -207,7 +207,7 @@ define([
 					query = new Query(),
 					self = this;
 
-      		query.objectIds = [objectId];
+      query.objectIds = [objectId];
 			query.geometryPrecision = 0;
 			query.returnGeometry = true;
 			query.outFields = ["*"];
@@ -308,7 +308,7 @@ define([
 				}
 			}
 
-			where = (type === 'Mining concession' ? 
+			where = (type === 'Mining concession' ?
 												config.whereField + " = '" + type + "'" :
 												config.whereField + " = '" + type + "'"); // AND " + config.requiredField + " IS NOT NULL");
 
@@ -349,7 +349,7 @@ define([
 		},
 
 		/*
-			@Params: 
+			@Params:
 				config object containing three fields, requiredField (bucket label), labelField (label for children), valueField (value for item)
 				features array
 			@Return

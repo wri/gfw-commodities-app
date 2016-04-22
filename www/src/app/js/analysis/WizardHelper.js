@@ -138,8 +138,6 @@ define([
 					self = this,
 					layer;
 
-
-
 			// Get Graphic, and set the appropriate content
 			switch (type) {
 				case "Logging concession":
@@ -157,6 +155,14 @@ define([
 				case "RSPO Oil palm concession":
 					layer = 4;
 					url = MapConfig.commercialEntitiesLayer.url;
+					break;
+				case "Plantations by Type":
+					layer = 5;
+					url = MapConfig.byType.url;
+					break;
+				case "Plantations by Species": //todo: change URL?
+					layer = 8;
+					url = MapConfig.bySpecies.url;
 					break;
 				case "AdminBoundary":
 					selectedArea = AnalyzerConfig.stepOne.option2.id;
@@ -178,6 +184,8 @@ define([
 					layer = MapConfig.palHelper.layerId;
 					break;
 			}
+
+			console.log(type)
 
 			if (type === "CustomGraphic") {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
