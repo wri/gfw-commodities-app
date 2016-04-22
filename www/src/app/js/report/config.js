@@ -364,77 +364,77 @@ define([], function() {
             }
         },
 
-        plantationsTypeLayer: {
-            rootNode: "plantationsTypeLayer",
-            title: "Plantations by Type",
-            rasterId: "$558",
-            formaId: "$12",
-            includeFormaIdInRemap: true,
-            rasterRemap: {
-                "rasterFunction": "Remap",
-                "rasterFunctionArguments": {
-                    "InputRanges": [31, 51, 51, 75, 75, 101],
-                    "OutputValues": [1, 2, 3],
-                    "Raster": "$558",
-                    "AllowUnmatched": false
-                }
-            },
-            bounds: plantationsTypeBounds,
-            labels: plantationsTypeLabels,
-            clearanceChart: {
-                title: "plantationsTypesince Jan 2015",
-                type: "pie"
-            },
-            lossChart: {
-                title: "plantation sTypeeee"
-            },
-            compositionAnalysis: {
-                title: 'plantations Typeee',
-                rasterId: 558//,
-                // histogramSlice: 31
-            },
-            colors: plantationsTypeColors,
-            fireKey: 'plantationsType', // Key to the Fires Config for items related to this
-            errors: {
-                composition: 'NplantationsTypeBoundsn 30% detected in this area.'
-            }
-        },
-
-        plantationsSpeciesLayer: {
-            rootNode: "plantationsSpeciesLayer",
-            title: "Plantations by Species",
-            rasterId: "$557",
-            formaId: "$12",
-            includeFormaIdInRemap: true,
-            rasterRemap: {
-                "rasterFunction": "Remap",
-                "rasterFunctionArguments": {
-                    "InputRanges": [31, 51, 51, 75, 75, 101],
-                    "OutputValues": [1, 2, 3],
-                    "Raster": "$557",
-                    "AllowUnmatched": false
-                }
-            },
-            bounds: plantationsTypeBounds,
-            labels: plantationsTypeLabels,
-            clearanceChart: {
-                title: "plantationsTypesince Jan 2015",
-                type: "pie"
-            },
-            lossChart: {
-                title: "plantation speciess"
-            },
-            compositionAnalysis: {
-                title: 'plantations Typeee',
-                rasterId: 557//,
-                // histogramSlice: 31
-            },
-            colors: plantationsTypeColors,
-            fireKey: 'plantationsType', // Key to the Fires Config for items related to this
-            errors: {
-                composition: 'No Tree Cover Density greater than 30% detected in this area.'
-            }
-        },
+        // plantationsTypeLayer: {
+        //     rootNode: "plantationsTypeLayer",
+        //     title: "Plantations by Type",
+        //     rasterId: "$558",
+        //     formaId: "$12",
+        //     includeFormaIdInRemap: true,
+        //     rasterRemap: {
+        //         "rasterFunction": "Remap",
+        //         "rasterFunctionArguments": {
+        //             "InputRanges": [31, 51, 51, 75, 75, 101],
+        //             "OutputValues": [1, 2, 3],
+        //             "Raster": "$558",
+        //             "AllowUnmatched": false
+        //         }
+        //     },
+        //     bounds: plantationsTypeBounds,
+        //     labels: plantationsTypeLabels,
+        //     clearanceChart: {
+        //         title: "plantationsTypesince Jan 2015",
+        //         type: "pie"
+        //     },
+        //     lossChart: {
+        //         title: "plantation sTypeeee"
+        //     },
+        //     compositionAnalysis: {
+        //         title: 'plantations Typeee',
+        //         rasterId: 558//,
+        //         // histogramSlice: 31
+        //     },
+        //     colors: plantationsTypeColors,
+        //     fireKey: 'plantationsType', // Key to the Fires Config for items related to this
+        //     errors: {
+        //         composition: 'NplantationsTypeBoundsn 30% detected in this area.'
+        //     }
+        // },
+        //
+        // plantationsSpeciesLayer: {
+        //     rootNode: "plantationsSpeciesLayer",
+        //     title: "Plantations by Species",
+        //     rasterId: "$557",
+        //     formaId: "$12",
+        //     includeFormaIdInRemap: true,
+        //     rasterRemap: {
+        //         "rasterFunction": "Remap",
+        //         "rasterFunctionArguments": {
+        //             "InputRanges": [31, 51, 51, 75, 75, 101],
+        //             "OutputValues": [1, 2, 3],
+        //             "Raster": "$557",
+        //             "AllowUnmatched": false
+        //         }
+        //     },
+        //     bounds: plantationsTypeBounds,
+        //     labels: plantationsTypeLabels,
+        //     clearanceChart: {
+        //         title: "plantationsTypesince Jan 2015",
+        //         type: "pie"
+        //     },
+        //     lossChart: {
+        //         title: "plantation speciess"
+        //     },
+        //     compositionAnalysis: {
+        //         title: 'plantations Typeee',
+        //         rasterId: 557//,
+        //         // histogramSlice: 31
+        //     },
+        //     colors: plantationsTypeColors,
+        //     fireKey: 'plantationsType', // Key to the Fires Config for items related to this
+        //     errors: {
+        //         composition: 'No Tree Cover Density greater than 30% detected in this area.'
+        //     }
+        // },
 
         treeCoverLoss: {
             rootNode: "treeCoverLoss",

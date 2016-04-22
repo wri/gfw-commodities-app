@@ -529,28 +529,6 @@ define('map/config',[], function() {
             ],
             toolsNode: 'prodes_toolbox'
         },
-        byType: {
-            id: 'byType',
-            url: dynamicMapServiceUrlForest,
-            defaultLayers: [5]//,
-            // legendLayerId: 5,
-            // defaultRange: [1, 15],
-            // colormap: [
-            //     [1, 255, 0, 197]
-            // ],
-            //toolsNode: 'type_toolbox'
-        },
-        bySpecies: {
-            id: 'bySpecies',
-            url: dynamicMapServiceUrlForest,
-            defaultLayers: [8]//,
-            // legendLayerId: 5,
-            // defaultRange: [1, 15],
-            // colormap: [
-            //     [1, 255, 0, 197]
-            // ],
-            //toolsNode: 'species_toolbox'
-        },
         fires: {
             id: 'ActiveFires',
             url: activeFiresUrl,
@@ -596,6 +574,26 @@ define('map/config',[], function() {
             layerId: 9,
             infoTemplate: {
                 content: '<div>Area: ${area_ha:NumberFormat(places:0)}</div>'
+            }
+        },
+        byType: {
+            id: 'byType',
+            url: dynamicMapServiceUrlForest,
+            layerId: 5,
+            defaultLayers: [5]
+        },
+        bySpecies: {
+            id: 'bySpecies',
+            url: dynamicMapServiceUrlForest,
+            defaultLayers: [8],
+            layerId: 8,
+            infoTemplate: {
+                content: '<table><tr><td>type: </td><td>${type}</td></tr>' +
+                    '<tr><td>country: </td><td>${country}</td></tr>' +
+                    '<tr><td>percent: </td><td>${percent}</td></tr>' +
+                    '<tr><td>type_text: </td><td>${type_text}</td></tr>' +
+                    '<tr><td>area_ha: </td><td>${area_ha}</td></tr>' +
+                    '<tr><td>spec_org: </td><td>${spec_org}</td></tr></table>'
             }
         },
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
@@ -862,30 +860,6 @@ define('map/config',[], function() {
                 forceUnderline: true,
                 infoDivClass: 'forest-change-prodes-alerts'
             }, {
-                id: 'plantations',
-                title: 'Tree plantations',
-                subtitle: '',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'none',
-                children: [{
-                    id: 'byType',
-                    title: 'by type',
-                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-                    filter: 'forest-change',
-                    type: 'check',
-                    layerType: 'dynamic'//,
-                    // infoDivClass: 'forest-change-plantations-type'
-                }, {
-                    id: 'bySpecies',
-                    title: 'by species',
-                    // subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-                    filter: 'forest-change',
-                    type: 'check',
-                    layerType: 'dynamic'//,
-                    // infoDivClass: 'forest-change-plantations-species'
-                }]
-            }, {
                 id: 'fires',
                 title: 'Active Fires',
                 subtitle: '(past 7 days, 1km, global; NASA)',
@@ -943,6 +917,30 @@ define('map/config',[], function() {
                 type: 'radio',
                 layerType: 'dynamic',
                 infoDivClass: 'forest-and-land-cover-brazil-biomes'
+            }, {
+                id: 'plantations',
+                title: 'Tree plantations',
+                subtitle: '',
+                filter: 'forest-cover',
+                type: 'radio',
+                layerType: 'none',
+                children: [{
+                    id: 'byType',
+                    title: 'by type',
+                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-cover',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-type'
+                }, {
+                    id: 'bySpecies',
+                    title: 'by species',
+                    // subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    filter: 'forest-cover',
+                    type: 'check',
+                    layerType: 'dynamic'//,
+                    // infoDivClass: 'forest-change-plantations-species'
+                }]
             }, {
                 id: 'primForest',
                 title: 'Primary Forests',
@@ -2286,6 +2284,14 @@ define('analysis/config',[], function() {
             }, {
                 label: 'Prodes Alerts',
                 value: 'prodes',
+                noInfoIcon: true
+            }, {
+                label: 'Plantations by Type',
+                value: 'plantationsTypeLayer',
+                noInfoIcon: true
+            }, {
+                label: 'Plantations by Species',
+                value: 'plantationsSpeciesLayer',
                 noInfoIcon: true
             }],
             suit: {
@@ -4072,7 +4078,7 @@ define('analysis/Query',[
 			query.outFields = config.outFields;
 			query.orderByFields = config.orderBy;
 
-			function handleResponse(res) {				
+			function handleResponse(res) {
 				if (res.features.length > 0) {
 					data = self._formatData(config, res.features);
 					deferred.resolve(data);
@@ -4122,7 +4128,7 @@ define('analysis/Query',[
 		getFeaturesByGroupNameAndCountry: function (config, groupName, countryName) {
 			var deferred = new Deferred(),
 					query = new Query(),
-					self = this;	
+					self = this;
 
 			// Config is analysis/config using items like adminUnit.lowLevelUnitsQuery or commercialEntity.commodityQuery
 			query.where = config.requiredField + " = '" + groupName + "'" + " AND NAME_0 = '" + countryName + "'";
@@ -4208,7 +4214,7 @@ define('analysis/Query',[
 					query = new Query(),
 					self = this;
 
-      		query.objectIds = [objectId];
+      query.objectIds = [objectId];
 			query.geometryPrecision = 0;
 			query.returnGeometry = true;
 			query.outFields = ["*"];
@@ -4309,7 +4315,7 @@ define('analysis/Query',[
 				}
 			}
 
-			where = (type === 'Mining concession' ? 
+			where = (type === 'Mining concession' ?
 												config.whereField + " = '" + type + "'" :
 												config.whereField + " = '" + type + "'"); // AND " + config.requiredField + " IS NOT NULL");
 
@@ -4350,7 +4356,7 @@ define('analysis/Query',[
 		},
 
 		/*
-			@Params: 
+			@Params:
 				config object containing three fields, requiredField (bucket label), labelField (label for children), valueField (value for item)
 				features array
 			@Return
@@ -9295,8 +9301,6 @@ define('analysis/WizardHelper',[
 					self = this,
 					layer;
 
-
-
 			// Get Graphic, and set the appropriate content
 			switch (type) {
 				case "Logging concession":
@@ -9314,6 +9318,14 @@ define('analysis/WizardHelper',[
 				case "RSPO Oil palm concession":
 					layer = 4;
 					url = MapConfig.commercialEntitiesLayer.url;
+					break;
+				case "Plantations by Type":
+					layer = 5;
+					url = MapConfig.byType.url;
+					break;
+				case "Plantations by Species": //todo: change URL?
+					layer = 8;
+					url = MapConfig.bySpecies.url;
 					break;
 				case "AdminBoundary":
 					selectedArea = AnalyzerConfig.stepOne.option2.id;
@@ -9335,6 +9347,8 @@ define('analysis/WizardHelper',[
 					layer = MapConfig.palHelper.layerId;
 					break;
 			}
+
+			console.log(type)
 
 			if (type === "CustomGraphic") {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
@@ -10607,6 +10621,16 @@ define('map/Finder',[
               deferreds.push(self.identifyBiomesLayer(mapPoint));
             }
 
+            layer = app.map.getLayer(MapConfig.byType.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyPlantationsTypeLayer(mapPoint));
+            }
+
+            layer = app.map.getLayer(MapConfig.bySpecies.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyPlantationsSpeciesLayer(mapPoint));
+            }
+
             layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
             if (layer) {
                 if (layer.visible) {
@@ -10654,6 +10678,12 @@ define('map/Finder',[
                             break;
                         case "WDPA":
                             features = features.concat(self.setWDPATemplates(item.features));
+                            break;
+                        case "byType":
+                            features = features.concat(self.setPlantationsTypeTemplates(item.features));
+                            break;
+                        case "bySpecies":
+                            features = features.concat(self.setPlantationsSpeciesTemplates(item.features));
                             break;
                         // case "Concessions":
                         //     features = features.concat(self.setConcessionTemplates(item.features));
@@ -10908,6 +10938,112 @@ define('map/Finder',[
           return features;
         },
 
+        identifyPlantationsTypeLayer: function (mapPoint) {
+          var deferred = new Deferred(),
+              identifyTask = new IdentifyTask(MapConfig.byType.url),
+              params = new IdentifyParameters();
+
+          params.tolerance = 3;
+          params.returnGeometry = true;
+          params.width = app.map.width;
+          params.height = app.map.height;
+          params.geometry = mapPoint;
+          params.mapExtent = app.map.extent;
+          params.layerIds = [MapConfig.byType.layerId];
+          params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+
+          identifyTask.execute(params, function (results) {
+            if (results.length > 0) {
+              results.forEach(function (featureObj) {
+                featureObj.feature.layer = "byType";
+              });
+
+              deferred.resolve({
+                layer: "byType",
+                features: results
+              });
+
+            } else {
+              deferred.resolve(false);
+            }
+          });
+
+          return deferred;
+        },
+
+        identifyPlantationsSpeciesLayer: function (mapPoint) {
+          var deferred = new Deferred(),
+              identifyTask = new IdentifyTask(MapConfig.bySpecies.url),
+              params = new IdentifyParameters();
+
+          params.tolerance = 3;
+          params.returnGeometry = true;
+          params.width = app.map.width;
+          params.height = app.map.height;
+          params.geometry = mapPoint;
+          params.mapExtent = app.map.extent;
+          params.layerIds = [MapConfig.bySpecies.layerId];
+          console.log(params)
+          params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+
+          identifyTask.execute(params, function (results) {
+            if (results.length > 0) {
+              results.forEach(function (featureObj) {
+                featureObj.feature.layer = "bySpecies";
+              });
+
+              deferred.resolve({
+                layer: "bySpecies",
+                features: results
+              });
+
+            } else {
+              deferred.resolve(false);
+            }
+          });
+
+          return deferred;
+        },
+
+        setPlantationsTypeTemplates: function (featureObjects) {
+          var features = [],
+              content;
+
+          featureObjects.forEach(function (item) {
+            content = MapConfig.bySpecies.infoTemplate.content;
+            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+           "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+           item.value + "' data-type='Plantations by Type' data-id='${objectid}'>" +
+           "Analyze</button>" +
+           "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+           item.value + "' data-type='Plantations by Type' data-id='${objectid}'>" +
+           "Subscribe</button>" +
+           "</div>"));
+            features.push(item.feature);
+          });
+
+          return features;
+        },
+
+        setPlantationsSpeciesTemplates: function (featureObjects) {
+          var features = [],
+              content;
+
+          featureObjects.forEach(function (item) {
+            content = MapConfig.bySpecies.infoTemplate.content;
+            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+           "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+           item.value + "' data-type='Plantations by Species' data-id='${objectid}'>" +
+           "Analyze</button>" +
+           "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+           item.value + "' data-type='Plantations by Species' data-id='${objectid}'>" +
+           "Subscribe</button>" +
+           "</div>"));
+            features.push(item.feature);
+          });
+
+          return features;
+        },
 
         /*
       @param {array} featureObjects - takes an array of feature objects which contain
@@ -11012,7 +11148,6 @@ define('map/Finder',[
                 features = [],
                 self = this;
 
-
             arrayUtils.forEach(featureObjects, function(item) {
                 console.log(item.layerId) // 0,1,2,3
                 if (item.layerId === 0) {
@@ -11043,7 +11178,7 @@ define('map/Finder',[
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
                 } else if (item.layerId === 2) {
-                    
+
                     template = new InfoTemplate(item.feature.attributes.Company,//item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
@@ -12175,7 +12310,7 @@ define('components/AnalysisModal',[
 		// },
 
     componentDidMount: function () {
-      debugger
+      // debugger todo
     },
 
     toggleChecked: function () {
@@ -12187,13 +12322,18 @@ define('components/AnalysisModal',[
     close: function () {
       if (this.state.checked === true) {
         //todo: add cookie reference and respect it somehow
+        cookie('hideAnalysisModal', this.state.checked, {
+            expires: 31
+        });
       }
       domClass.add('analysis-modal', 'hidden');
     },
 
     show: function () {
-      domClass.remove('analysis-modal', 'hidden');
-
+      var splashScreen = cookie('hideAnalysisModal');
+      if (!splashScreen) {
+        domClass.remove('analysis-modal', 'hidden');
+      }
     },
 
     render: function() {
@@ -12210,7 +12350,7 @@ define('components/AnalysisModal',[
 
               React.createElement("div", {className: "modal-overview"}, 
                 React.createElement("p", null, "Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:"), 
-                React.createElement("ul", null, 
+                React.createElement("ul", {className: "analysis-modal-list"}, 
                   React.createElement("li", null, "Tree cover change"), 
                   React.createElement("li", null, "Fire activity"), 
                   React.createElement("li", null, "Primary or intact forest areas"), 
@@ -12218,7 +12358,7 @@ define('components/AnalysisModal',[
                   React.createElement("li", null, "Legal classification of land")
                 ), 
                 React.createElement("p", null, "You can also:"), 
-                React.createElement("ul", null, 
+                React.createElement("ul", {className: "analysis-modal-list"}, 
                   React.createElement("li", null, "Upload your own shapefiles for analysis"), 
                   React.createElement("li", null, "Draw an area of interest"), 
                   React.createElement("li", null, "Sign up for alerts for clearance activity")
@@ -12256,7 +12396,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.50',
+                path = './app/templates/' + name + '.html?v=2.5.51',
                 req;
 
             req = new XMLHttpRequest();
@@ -12502,6 +12642,16 @@ define('controllers/MapController',[
                   analysisModal.show();
                 }
 
+                // View Controller Events
+                topic.subscribe('changeView', function(newView) {
+                  if (newView !== 'map') {
+                    analysisModal.close();
+                  }
+                });
+                // on.once(map.map, "extent-change", function() {
+                //     o.mapExtentPausable.resume();
+                // });
+
             });
 
             // Set up zoom listener for Protected Areas Layer *and now Gain Layer
@@ -12734,7 +12884,6 @@ define('controllers/MapController',[
             on(dom.byId('upload-form'), 'change', Uploader.beginUpload.bind(Uploader));
             on(document.querySelector('.coordinates-modal-enter-button'), 'click', CoordinatesModal.savePoint.bind(CoordinatesModal));
 
-
         },
 
         registerStoreCallbacks: function() {
@@ -12748,7 +12897,6 @@ define('controllers/MapController',[
                 var layer = map.map.getLayer(MapConfig.customGraphicsLayer.id),
                     storeGraphics = WizardStore.get('customFeatures'),
                     graphicsLengthDifference = layer.graphics.length - storeGraphics.length,
-                    graphicsToAdd,
                     addGraphics,
                     removeGraphics;
 
@@ -12784,9 +12932,7 @@ define('controllers/MapController',[
             });
 
             WizardStore.registerCallback('selectedCustomFeatures', function() {
-              var selectedFeatures = WizardStore.get('selectedCustomFeatures'),
-                  extent;
-
+              var selectedFeatures = WizardStore.get('selectedCustomFeatures');
 
               if (selectedFeatures.length > 0) {
                 map.map.setExtent(graphicsUtils.graphicsExtent(selectedFeatures), true);
@@ -12858,7 +13004,7 @@ define('controllers/MapController',[
         toggleItemInLayerListOff: function() {
 
           var mapLayer = map.map.getLayer("forestUse_landUse");
-          console.log(mapLayer)
+          console.log(mapLayer);
 
           if (mapLayer.visible === true) {
             if (mapLayer.visibleLayers.indexOf(0) > -1) {
@@ -12885,7 +13031,7 @@ define('controllers/MapController',[
             if (!initialized) {
                 return; //map not initialized yet
             }
-            var currentExtent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
+            // var currentExtent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
 
             var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
             x = number.round(extent.getCenter().x, 2);
@@ -12921,7 +13067,7 @@ define('controllers/MapController',[
 
         showInfoPanel: function(infoPanelClass) {//"forest-change-tree-cover-loss"
             var content = '';
-            if (typeof(infoPanelClass) === 'object') {
+            if (typeof (infoPanelClass) === 'object') {
                 content = infoPanelClass;
                 MapControl.createDialogBox(content);
             } else {
