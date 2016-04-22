@@ -24,10 +24,18 @@ define([], function() {
         plantationsTypeLabels = ['Clearing/ very young plantation', 'Large industrial plantation', 'Mosaic of medium-sized plantations', 'Mosaic of small-sized plantations'],
         plantationsTypeColors = ['#874546', '#FEBEBF', '#FEBFE7', '#8ACD6B'];
 
+// Oil palm, Wood Fiber/Timber, Oil Palm Mix, Other, Recently cleared
+//1=5
     // Plantation Species
-    var plantionsSpeciesBounds = [0, 11],
-        plantionsSpeciesLabels = ["Oil palm", "Oil palm mix", "Fruit", "Fruit mix", "Rubber", "Rubber mix", "Recently cleared", "Unknown", "Wood fiber / timber", "Wood fiber / timber mix", "Other mix", "Other"],
-        plantionsSpeciesColors = ['#FD8081', '#FEBEBF', '#B6D6A1', '#FFFD7E', '#6E4786', '#22C6FC', '#C97FF2', '#B3B3B3', '#7C90F2', '#0A50A5', '#CDCDD2', '#B6D6A1'];
+    var plantionsSpeciesBounds = [1, 5],
+        plantionsSpeciesLabels = ['Oil palm', 'Wood Fiber/Timber', 'Oil Palm Mix', 'Other', 'Recently cleared'],
+        plantionsSpeciesColors = ['#FD8081', '#FEBEBF', '#B6D6A1', '#FFFD7E', '#6E4786', '#22C6FC'];
+
+
+    // // Plantation Species
+    // var plantionsSpeciesBounds = [0, 11],
+    //     plantionsSpeciesLabels = ["Oil palm", "Oil palm mix", "Fruit", "Fruit mix", "Rubber", "Rubber mix", "Recently cleared", "Unknown", "Wood fiber / timber", "Wood fiber / timber mix", "Other mix", "Other"],
+    //     plantionsSpeciesColors = ['#FD8081', '#FEBEBF', '#B6D6A1', '#FFFD7E', '#6E4786', '#22C6FC', '#C97FF2', '#B3B3B3', '#7C90F2', '#0A50A5', '#CDCDD2', '#B6D6A1'];
 
 
     // Tree Cover Density
@@ -200,17 +208,17 @@ define([], function() {
           labels: prodesLabels
         },
 
-        plantationsTypeLayer: {
-          rasterId: '$558',
-          bounds: plantationsTypeBounds,
-          labels: plantationsTypeLabels
-        },
-
-        plantationsSpeciesLayer: {
-          rasterId: '$557',
-          bounds: plantionsSpeciesBounds,
-          labels: plantionsSpeciesLabels
-        },
+        // plantationsTypeLayer: {
+        //   rasterId: '$558',
+        //   bounds: plantationsTypeBounds,
+        //   labels: plantationsTypeLabels
+        // },
+        //
+        // plantationsSpeciesLayer: {
+        //   rasterId: '$557',
+        //   bounds: plantionsSpeciesBounds,
+        //   labels: plantionsSpeciesLabels
+        // },
 
         clearanceAlerts: {
             rasterId: '$17'
@@ -604,6 +612,62 @@ define([], function() {
             fireKey: 'carbonStock' // Key to the Fires Config for items related to this
         },
 
+        plantationsTypeLayer: {
+            rootNode: "plantationsTypeLayer",
+            title: "Plantations by Type",
+            rasterId: "$558",
+            bounds: plantationsTypeBounds,
+            labels: plantationsTypeLabels,
+            clearanceChart: {
+                title: "Plantaaations by Typee",
+                type: "pie"
+            },
+            lossChart: {
+                title: "Plantaaations by Typee"
+            },
+            includeFormaIdInRemap: true,
+            formaId: "$15",
+            rasterRemap: {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": { //todo: this, correctly
+                    "InputRanges": [1, 20, 20, 80, 80, 370],
+                    "OutputValues": [0, 1, 2],
+                    "Raster": "$558",
+                    "AllowUnmatched": false
+                }
+            },
+            colors: plantationsTypeColors,
+            fireKey: 'plantationsType' // Key to the Fires Config for items related to this
+        },
+
+        plantationsSpeciesLayer: {
+            rootNode: "plantationsSpeciesLayer",
+            title: "Plantations by Species",
+            rasterId: "$557",
+            bounds: plantionsSpeciesBounds,
+            labels: plantionsSpeciesLabels,
+            clearanceChart: {
+                title: "Plantaaations by Species",
+                type: "pie"
+            },
+            lossChart: {
+                title: "Plantaaations by Species"
+            },
+            includeFormaIdInRemap: true,
+            formaId: "$15",
+            rasterRemap: {
+                "rasterFunction": "Remap",
+                "rasterFunctionArguments": { //todo: this, correctly
+                    "InputRanges": [1, 20, 20, 80, 80, 370],
+                    "OutputValues": [0, 1, 2],
+                    "Raster": "$557",
+                    "AllowUnmatched": false
+                }
+            },
+            colors: plantionsSpeciesColors,
+            fireKey: 'plantionsSpecies' // Key to the Fires Config for items related to this
+        },
+
         brazilBiomes: {
             rootNode: "brazilBiomes",
             title: "Brazil Biomes",
@@ -772,6 +836,24 @@ define([], function() {
                 colors: carbonStockColors,
 
                 title: 'Active Fires by Forest Carbon Stocks over the past 7 days',
+                badgeDesc: 'on forest carbon stocks out of'
+            },
+            plantationsType: {
+                type: 'pie',
+                field: 'plantationsType',
+                labels: plantationsTypeLabels,
+                bounds: plantationsTypeBounds,
+                colors: plantationsTypeColors,
+                title: 'Active Fires by Plantations (by Type) over the past 7 days',
+                badgeDesc: 'on forest carbon stocks out of'
+            },
+            plantionsSpecies: {
+                type: 'pie',
+                field: 'plantionsSpecie',
+                labels: plantionsSpeciesLabels,
+                bounds: plantionsSpeciesBounds,
+                colors: plantionsSpeciesColors,
+                title: 'Active Fires by Plantations (by Species) over the past 7 days',
                 badgeDesc: 'on forest carbon stocks out of'
             },
             brazilBiomes: {

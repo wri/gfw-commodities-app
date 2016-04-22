@@ -419,6 +419,12 @@ define([
                     case "carbon":
                         deferreds.push(Fetcher.getCarbonStocksResults());
                         break;
+                    case "plantationsSpecies":
+                        deferreds.push(Fetcher.getPlantationsSpeciesResults());
+                        break;
+                    case "plantationsType":
+                        deferreds.push(Fetcher.getPlantationsTypeResults());
+                        break;
                     case "biomes":
                         deferreds.push(Fetcher.getBrazilBiomesResults());
                         break;

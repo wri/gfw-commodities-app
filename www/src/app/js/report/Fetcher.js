@@ -370,6 +370,46 @@ define([
 						return deferred.promise;
 				},
 
+        getPlantationsSpeciesResults: function() {
+						this._debug('Fetcher >>> getPlantationsSpeciesResults');
+						var deferred = new Deferred(),
+								config = ReportConfig.plantationsSpeciesLayer;
+								console.dir(config);
+						// Create the container for all the results
+						// Add this config to Fires so the Fires request knows to add data here
+						ReportRenderer.renderContainers(config);
+						_fireQueriesToRender.push(config);
+
+						all([
+								this._getTotalLossAnalysis(config),
+								this._getClearanceAlertAnalysis(config)
+						]).then(function() {
+								deferred.resolve(true);
+						});
+
+						return deferred.promise;
+				},
+
+        getPlantationsTypeResults: function() {
+						this._debug('Fetcher >>> getPlantationsTypeResults');
+						var deferred = new Deferred(),
+								config = ReportConfig.plantationsTypeLayer;
+								console.dir(config);
+						// Create the container for all the results
+						// Add this config to Fires so the Fires request knows to add data here
+						ReportRenderer.renderContainers(config);
+						_fireQueriesToRender.push(config);
+
+						all([
+								this._getTotalLossAnalysis(config),
+								this._getClearanceAlertAnalysis(config)
+						]).then(function() {
+								deferred.resolve(true);
+						});
+
+						return deferred.promise;
+				},
+
 				getBrazilBiomesResults: function() {
 						this._debug('Fetcher >>> getBrazilBiomesResults');
 						var deferred = new Deferred(),
