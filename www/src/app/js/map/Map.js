@@ -181,6 +181,8 @@ define([
                 formaParams,
                 prodesAlertsLayer,
                 prodesParams,
+                gladAlertsLayer,
+                gladParams,
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -290,29 +292,50 @@ define([
                 visible: false,
                 opacity: 1
             });
-
-            prodesParams = new ImageServiceParameters();
-            prodesParams.renderingRule = new RasterFunction({
-                "rasterFunction": "Colormap",
-                "rasterFunctionArguments": {
-                    "Colormap": MapConfig.prodes.colormap,
-                    "Raster": {
-                        "rasterFunction": "Remap",
-                        "rasterFunctionArguments": {
-                            "InputRanges": MapConfig.prodes.defaultRange,
-                            "OutputValues": [1],
-                            "AllowUnmatched": false
-                        }
-                    }
-                },
-                "variableName": "Raster"
-            });
+            //
+            // prodesParams = new ImageServiceParameters();
+            // prodesParams.renderingRule = new RasterFunction({
+          //   'rasterFunction': 'Colormap',
+          //   'rasterFunctionArguments': {
+          //     'Colormap': [
+          //       [1, 255, 102, 153]
+          //     ],
+          //     'Raster': {
+          //       'rasterFunction': 'Local',
+          //       'rasterFunctionArguments': {
+          //         'Operation': 67, //max value; ignores no data
+          //         'Rasters': [{
+          //           'rasterFunction': 'Remap',
+          //           'rasterFunctionArguments': {
+          //             'InputRanges': inputStartRanges,
+          //             'OutputValues': [0, 1, 0],
+          //             'Raster': '$1', //2015
+          //             'AllowUnmatched': false
+          //           }
+          //         }, {
+          //           'rasterFunction': 'Remap',
+          //           'rasterFunctionArguments': {
+          //             'InputRanges': inputEndRanges,
+          //             'OutputValues': [0, 1, 0],
+          //             'Raster': '$2', //2016
+          //             'AllowUnmatched': false
+          //           }
+          //         }]
+          //       }
+          //     }
+          //   }
+          // });
 
             prodesAlertsLayer = new ArcGISImageServiceLayer(MapConfig.prodes.url, {
                 imageServiceParameters: prodesParams,
                 id: MapConfig.prodes.id,
                 visible: false,
                 opacity: 1
+            });
+
+            gladAlertsLayer = new ArcGISImageServiceLayer(MapConfig.gainHelper.url, {
+                id: MapConfig.gladAlerts.id,
+                visible: false
             });
 
             lossParams = new ImageServiceParameters();
@@ -520,6 +543,7 @@ define([
                 // Forest Change Layers
                 formaAlertsLayer,
                 prodesAlertsLayer,
+                gladAlertsLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -561,6 +585,7 @@ define([
             plantationsSpeciesLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
+            gladAlertsLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
