@@ -26,7 +26,7 @@ define([
 		// },
 
     componentDidMount: function () {
-      debugger
+      // debugger todo
     },
 
     toggleChecked: function () {
@@ -38,13 +38,18 @@ define([
     close: function () {
       if (this.state.checked === true) {
         //todo: add cookie reference and respect it somehow
+        cookie('hideAnalysisModal', this.state.checked, {
+            expires: 31
+        });
       }
       domClass.add('analysis-modal', 'hidden');
     },
 
     show: function () {
-      domClass.remove('analysis-modal', 'hidden');
-
+      var splashScreen = cookie('hideAnalysisModal');
+      if (!splashScreen) {
+        domClass.remove('analysis-modal', 'hidden');
+      }
     },
 
     render: function() {
@@ -61,7 +66,7 @@ define([
 
               React.createElement("div", {className: "modal-overview"}, 
                 React.createElement("p", null, "Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:"), 
-                React.createElement("ul", null, 
+                React.createElement("ul", {className: "analysis-modal-list"}, 
                   React.createElement("li", null, "Tree cover change"), 
                   React.createElement("li", null, "Fire activity"), 
                   React.createElement("li", null, "Primary or intact forest areas"), 
@@ -69,7 +74,7 @@ define([
                   React.createElement("li", null, "Legal classification of land")
                 ), 
                 React.createElement("p", null, "You can also:"), 
-                React.createElement("ul", null, 
+                React.createElement("ul", {className: "analysis-modal-list"}, 
                   React.createElement("li", null, "Upload your own shapefiles for analysis"), 
                   React.createElement("li", null, "Draw an area of interest"), 
                   React.createElement("li", null, "Sign up for alerts for clearance activity")

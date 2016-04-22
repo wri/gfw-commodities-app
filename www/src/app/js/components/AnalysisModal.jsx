@@ -26,7 +26,7 @@ define([
 		// },
 
     componentDidMount: function () {
-      debugger
+      // debugger todo
     },
 
     toggleChecked: function () {
@@ -38,13 +38,18 @@ define([
     close: function () {
       if (this.state.checked === true) {
         //todo: add cookie reference and respect it somehow
+        cookie('hideAnalysisModal', this.state.checked, {
+            expires: 31
+        });
       }
       domClass.add('analysis-modal', 'hidden');
     },
 
     show: function () {
-      domClass.remove('analysis-modal', 'hidden');
-
+      var splashScreen = cookie('hideAnalysisModal');
+      if (!splashScreen) {
+        domClass.remove('analysis-modal', 'hidden');
+      }
     },
 
     render: function() {
@@ -61,7 +66,7 @@ define([
 
               <div className='modal-overview'>
                 <p>Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:</p>
-                <ul>
+                <ul className='analysis-modal-list'>
                   <li>Tree cover change</li>
                   <li>Fire activity</li>
                   <li>Primary or intact forest areas</li>
@@ -69,7 +74,7 @@ define([
                   <li>Legal classification of land</li>
                 </ul>
                 <p>You can also:</p>
-                <ul>
+                <ul className='analysis-modal-list'>
                   <li>Upload your own shapefiles for analysis</li>
                   <li>Draw an area of interest</li>
                   <li>Sign up for alerts for clearance activity</li>
