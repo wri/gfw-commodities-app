@@ -278,11 +278,12 @@ define('map/config',[], function() {
     var dynamicMapServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
         dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
         dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
-        rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
+        // rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         globalLandCover = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         dynamicMapServiceUrlLand = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
+        gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
@@ -543,6 +544,16 @@ define('map/config',[], function() {
                     '<tr><td>Acquisition Time: </td><td>${ACQ_TIME}</td></tr></table>'
             }
         },
+        gladAlerts: {
+            id: 'gladAlerts',
+            url: gladAlertsUrl//,
+            // legendLayerId: 3, //todo: what is this, find correct #
+            // defaultRange: [1, 15],
+            // colormap: [
+            //   [1, 255, 102, 153]
+            // ]//,
+            // toolsNode: 'glad_toolbox'
+        },
         tcd: {
             id: 'TreeCoverDensity',
             url: treeCoverDensityUrl,
@@ -613,7 +624,7 @@ define('map/config',[], function() {
             layerId: 1
         },
         ldcover: {
-            id: 'forestCover_commodities',
+            id: 'forestCover_landCover',
             url: globalLandCover,
             layerId: 4
         },
@@ -649,7 +660,7 @@ define('map/config',[], function() {
         },
         rspoPerm: {
             id: 'forestUse_commodities',
-            url: rspoConcessions,
+            url: globalLandCover,
             layerId: 0,
             infoTemplate: {
                 content: '<table>' +
@@ -868,16 +879,25 @@ define('map/config',[], function() {
                 layerType: 'dynamic',
                 forceUnderline: true,
                 infoDivClass: 'forest-change-nasa-active-fires'
-            },
-            // {
-            //     id: 'none_fc',
-            //     title: 'None',
-            //     subtitle: '',
-            //     filter: 'forest-change',
-            //     type: 'radio',
-            //     layerType: 'none'
-            // },
-            {
+            }, {
+                kids: ['gladAlerts'],
+                id: 'treeCoverLossAlerts',
+                title: 'Tree Cover Loss Alerts',
+                subtitle: '(near real-time)',
+                filter: 'forest-change',
+                layerType: 'dynamic'
+            }, {
+                id: 'gladAlerts',
+                title: 'GLAD alerts',
+                subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                visible: true,
+                infoDivClass: 'forest-change-glad-alerts',
+                parent: 'treeCoverLossAlerts',
+                endChild: true
+              }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',
                 subtitle: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',
@@ -7008,6 +7028,7 @@ define('map/LayerController',[
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
+            console.log(layerConfig);
             if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
@@ -8039,7 +8060,7 @@ define('map/Controls',[
                     // title: content.querySelector(".source_title").innerHTML.toUpperCase(),
                     // title: content.querySelector(".source_title").innerHTML,
                     title: content,
-                    style: "height: 600px; width: 600px; overflow-y: auto;",
+                    style: 'height: 600px; width: 600px; overflow-y: auto;',
                     draggable: false,
                     hide: function() {
                         dialog.destroy();
@@ -8057,7 +8078,7 @@ define('map/Controls',[
 
                 dialog.show();
 
-                $('body').on('click',function(e){
+                $('body').on('click', function(e){
                     if (e.target.classList.contains('dijitDialogUnderlay')) {
                         dialog.hide();
                         $('body').off('click');
@@ -8148,8 +8169,6 @@ define('map/Controls',[
             FormaSlider.init();
             ProdesSlider.init();
         },
-
-
 
         // fetchFORMAAlertsLabels: function() {
         //     var deferred = new Deferred(),
@@ -10079,6 +10098,8 @@ define('map/Map',[
                 formaParams,
                 prodesAlertsLayer,
                 prodesParams,
+                gladAlertsLayer,
+                gladParams,
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -10089,6 +10110,7 @@ define('map/Map',[
                 batchParams,
 
                 forestCover_forestCover,
+                forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
@@ -10188,29 +10210,50 @@ define('map/Map',[
                 visible: false,
                 opacity: 1
             });
-
-            prodesParams = new ImageServiceParameters();
-            prodesParams.renderingRule = new RasterFunction({
-                "rasterFunction": "Colormap",
-                "rasterFunctionArguments": {
-                    "Colormap": MapConfig.prodes.colormap,
-                    "Raster": {
-                        "rasterFunction": "Remap",
-                        "rasterFunctionArguments": {
-                            "InputRanges": MapConfig.prodes.defaultRange,
-                            "OutputValues": [1],
-                            "AllowUnmatched": false
-                        }
-                    }
-                },
-                "variableName": "Raster"
-            });
+            //
+            // prodesParams = new ImageServiceParameters();
+            // prodesParams.renderingRule = new RasterFunction({
+          //   'rasterFunction': 'Colormap',
+          //   'rasterFunctionArguments': {
+          //     'Colormap': [
+          //       [1, 255, 102, 153]
+          //     ],
+          //     'Raster': {
+          //       'rasterFunction': 'Local',
+          //       'rasterFunctionArguments': {
+          //         'Operation': 67, //max value; ignores no data
+          //         'Rasters': [{
+          //           'rasterFunction': 'Remap',
+          //           'rasterFunctionArguments': {
+          //             'InputRanges': inputStartRanges,
+          //             'OutputValues': [0, 1, 0],
+          //             'Raster': '$1', //2015
+          //             'AllowUnmatched': false
+          //           }
+          //         }, {
+          //           'rasterFunction': 'Remap',
+          //           'rasterFunctionArguments': {
+          //             'InputRanges': inputEndRanges,
+          //             'OutputValues': [0, 1, 0],
+          //             'Raster': '$2', //2016
+          //             'AllowUnmatched': false
+          //           }
+          //         }]
+          //       }
+          //     }
+          //   }
+          // });
 
             prodesAlertsLayer = new ArcGISImageServiceLayer(MapConfig.prodes.url, {
                 imageServiceParameters: prodesParams,
                 id: MapConfig.prodes.id,
                 visible: false,
                 opacity: 1
+            });
+
+            gladAlertsLayer = new ArcGISImageServiceLayer(MapConfig.gladAlerts.url, {
+                id: MapConfig.gladAlerts.id,
+                visible: false
             });
 
             lossParams = new ImageServiceParameters();
@@ -10265,32 +10308,38 @@ define('map/Map',[
             batchParams = new ImageParameters();
             batchParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             batchParams.layerIds = [];
-            batchParams.format = "png32";
+            batchParams.format = 'png32';
 
 
             forestCover_forestCover = new ArcGISDynamicLayer(MapConfig.ifl.url, {
                 imageParameters: batchParams,
-                id: "forestCover_forestCover",
+                id: 'forestCover_forestCover',
+                visible: false
+            });
+
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
                 visible: false
             });
             forestCover_commodities = new ArcGISDynamicLayer(MapConfig.peat.url, {
                 imageParameters: batchParams,
-                id: "forestCover_commodities",
+                id: 'forestCover_commodities',
                 visible: false
             });
             forestUse_landUse = new ArcGISDynamicLayer(MapConfig.minePerm.url, {
                 imageParameters: batchParams,
-                id: "forestUse_landUse",
+                id: 'forestUse_landUse',
                 visible: false
             });
             forestUse_commodities = new ArcGISDynamicLayer(MapConfig.rspoPerm.url, {
                 imageParameters: batchParams,
-                id: "forestUse_commodities",
+                id: 'forestUse_commodities',
                 visible: false
             });
             production_commodities = new ArcGISDynamicLayer(MapConfig.opsd.url, {
                 imageParameters: batchParams,
-                id: "productionSuitability",
+                id: 'productionSuitability',
                 visible: false
             });
 
@@ -10406,6 +10455,7 @@ define('map/Map',[
                 // commoditiesAggregate,
                 // landUserAggregate,
                 forestCover_forestCover,
+                forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
@@ -10418,6 +10468,7 @@ define('map/Map',[
                 // Forest Change Layers
                 formaAlertsLayer,
                 prodesAlertsLayer,
+                gladAlertsLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -10459,6 +10510,7 @@ define('map/Map',[
             plantationsSpeciesLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
+            gladAlertsLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
@@ -10470,6 +10522,7 @@ define('map/Map',[
             // commoditiesAggregate.on('error', this.addLayerError);
             // landUserAggregate.on('error', this.addLayerError);
             forestCover_forestCover.on('error', this.addLayerError);
+            forestCover_landCover.on('error', this.addLayerError);
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
             forestUse_commodities.on('error', this.addLayerError);
@@ -11765,11 +11818,11 @@ define('components/RadioButton',[
     /* jshint ignore:start */
     render: function () {
       var className = 'layer-list-item ' +
-                      this.props.filter +
-                      (this.state.active ? ' active' : '') +
-											(this.props.parent ? ' indented' : '') +
-                      (this.props.forceUnderline ? ' newList' : '') +
-                      (this.props.visible ? '' : ' hidden');
+        this.props.filter +
+        (this.state.active ? ' active' : '') +
+				(this.props.parent ? ' indented' : '') +
+        (this.props.forceUnderline ? ' newList' : '') +
+        (this.props.visible ? '' : ' hidden');
 
 
       return (
@@ -12396,7 +12449,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.51',
+                path = './app/templates/' + name + '.html?v=2.5.54',
                 req;
 
             req = new XMLHttpRequest();
