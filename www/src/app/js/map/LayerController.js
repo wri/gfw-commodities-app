@@ -151,6 +151,7 @@ define([
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
+            console.log(layerConfig);
             if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;

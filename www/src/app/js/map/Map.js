@@ -193,6 +193,7 @@ define([
                 batchParams,
 
                 forestCover_forestCover,
+                forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
@@ -333,7 +334,7 @@ define([
                 opacity: 1
             });
 
-            gladAlertsLayer = new ArcGISImageServiceLayer(MapConfig.gainHelper.url, {
+            gladAlertsLayer = new ArcGISImageServiceLayer(MapConfig.gladAlerts.url, {
                 id: MapConfig.gladAlerts.id,
                 visible: false
             });
@@ -390,32 +391,38 @@ define([
             batchParams = new ImageParameters();
             batchParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             batchParams.layerIds = [];
-            batchParams.format = "png32";
+            batchParams.format = 'png32';
 
 
             forestCover_forestCover = new ArcGISDynamicLayer(MapConfig.ifl.url, {
                 imageParameters: batchParams,
-                id: "forestCover_forestCover",
+                id: 'forestCover_forestCover',
+                visible: false
+            });
+
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
                 visible: false
             });
             forestCover_commodities = new ArcGISDynamicLayer(MapConfig.peat.url, {
                 imageParameters: batchParams,
-                id: "forestCover_commodities",
+                id: 'forestCover_commodities',
                 visible: false
             });
             forestUse_landUse = new ArcGISDynamicLayer(MapConfig.minePerm.url, {
                 imageParameters: batchParams,
-                id: "forestUse_landUse",
+                id: 'forestUse_landUse',
                 visible: false
             });
             forestUse_commodities = new ArcGISDynamicLayer(MapConfig.rspoPerm.url, {
                 imageParameters: batchParams,
-                id: "forestUse_commodities",
+                id: 'forestUse_commodities',
                 visible: false
             });
             production_commodities = new ArcGISDynamicLayer(MapConfig.opsd.url, {
                 imageParameters: batchParams,
-                id: "productionSuitability",
+                id: 'productionSuitability',
                 visible: false
             });
 
@@ -531,6 +538,7 @@ define([
                 // commoditiesAggregate,
                 // landUserAggregate,
                 forestCover_forestCover,
+                forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
@@ -597,6 +605,7 @@ define([
             // commoditiesAggregate.on('error', this.addLayerError);
             // landUserAggregate.on('error', this.addLayerError);
             forestCover_forestCover.on('error', this.addLayerError);
+            forestCover_landCover.on('error', this.addLayerError);
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
             forestUse_commodities.on('error', this.addLayerError);

@@ -7,7 +7,7 @@ define([], function() {
     var dynamicMapServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
         dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
         dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
-        rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
+        // rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         globalLandCover = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         dynamicMapServiceUrlLand = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
@@ -353,7 +353,7 @@ define([], function() {
             layerId: 1
         },
         ldcover: {
-            id: 'forestCover_commodities',
+            id: 'forestCover_landCover',
             url: globalLandCover,
             layerId: 4
         },
@@ -389,7 +389,7 @@ define([], function() {
         },
         rspoPerm: {
             id: 'forestUse_commodities',
-            url: rspoConcessions,
+            url: globalLandCover,
             layerId: 0,
             infoTemplate: {
                 content: '<table>' +

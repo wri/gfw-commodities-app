@@ -90,7 +90,7 @@ define([
                     // title: content.querySelector(".source_title").innerHTML.toUpperCase(),
                     // title: content.querySelector(".source_title").innerHTML,
                     title: content,
-                    style: "height: 600px; width: 600px; overflow-y: auto;",
+                    style: 'height: 600px; width: 600px; overflow-y: auto;',
                     draggable: false,
                     hide: function() {
                         dialog.destroy();
@@ -108,7 +108,7 @@ define([
 
                 dialog.show();
 
-                $('body').on('click',function(e){
+                $('body').on('click', function(e){
                     if (e.target.classList.contains('dijitDialogUnderlay')) {
                         dialog.hide();
                         $('body').off('click');
@@ -199,8 +199,6 @@ define([
             FormaSlider.init();
             ProdesSlider.init();
         },
-
-
 
         // fetchFORMAAlertsLabels: function() {
         //     var deferred = new Deferred(),
