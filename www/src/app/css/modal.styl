@@ -377,3 +377,42 @@
 .custom-scroll::-webkit-scrollbar-thumb
   background #888
   border-radius 0
+
+.calendar-window .kalendae
+  background white
+  font-size 16px
+  padding 0
+  margin 0
+  width calc(100% - 8px)
+
+.calendar-window .kalendae .k-calendar, .calendar-window .kalendae .k-title, .calendar-window .kalendae .k-header, .calendar-window .kalendae .k-days
+  width 100%
+  font-family 'Fira Sans', Georgia, serif
+
+ .calendar-window .kalendae .k-header
+  margin-bottom 10px
+  border-bottom 1px solid #e5e5df
+
+.calendar-window .kalendae .k-caption
+  font-size 16px
+
+.calendar-window .kalendae .k-header span
+  width 34px
+  font-weight normal
+
+.calendar-window .kalendae .k-days span
+  width 34px
+  border none
+  text-align center
+  padding 5px 3px 5px 3px
+
+.calendar-window .kalendae .k-days span.k-selected, .calendar-window .kalendae .k-days span.k-selected.k-active
+  border none
+  background #eee
+
+.calendar-window .kalendae .k-days span.k-in-month.k-active
+  color #e7002f
+
+.calendar-window .kalendae .k-days span.k-active:hover
+  border none
+  bacground #eee

@@ -174,6 +174,10 @@ define([], function() {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
                 noInfoIcon: true
+            }, {
+                label: 'GLAD Alerts',
+                value: 'gladAlerts',
+                noInfoIcon: true
             }],
             suit: {
                 label: 'Oil Palm Suitability',

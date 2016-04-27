@@ -1,9 +1,8 @@
 define([
-    "dojo/Deferred",
-    "esri/urlUtils",
-    "esri/request"
+    'dojo/Deferred',
+    'esri/urlUtils',
+    'esri/request'
 ], function(Deferred, urlUtils, esriRequest) {
-    'use strict';
 
     return {
 
@@ -19,7 +18,7 @@ define([
                 }
             };
 
-            req.open("GET", path, true);
+            req.open('GET', path, true);
             req.send();
             return deferred.promise;
         },
@@ -38,8 +37,8 @@ define([
             console.log('added proxyUrl!');
             var layersRequest = esriRequest({
                 url: path,
-                handleAs: "json",
-                callbackParamName: "callback"
+                handleAs: 'json',
+                callbackParamName: 'callback'
               }, {
                   usePost: true
               });
@@ -70,7 +69,7 @@ define([
         loadCSS: function(path) {
             var l = doc.createElement('link'),
                 h = doc.getElementsByTagName('head')[0];
-            l.rel = "stylesheet";
+            l.rel = 'stylesheet';
             l.type = 'text/css';
             l.href = path;
             h.appendChild(l);

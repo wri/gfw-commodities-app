@@ -1,12 +1,18 @@
 define([], function() {
 
     var geometryServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
-        clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
+
+        clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
+
         // clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
-        imageServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer",
-        suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
-        firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
-        fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia",
+
+        gladUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer/computeHistograms',
+
+
+        imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        suitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
+        firesQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+        fieldAssessmentUrl = 'http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia',
         clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
         boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';
 
@@ -18,6 +24,12 @@ define([], function() {
     var prodesBounds = [1, 14],
         prodesLabels = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
         prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
+
+    // GLAD
+    var gladBounds = [1, 14],
+        gladLabels = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+        gladColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
+
 
     // Plantation Type
     var plantationsTypeBounds = [1, 4],
@@ -197,6 +209,41 @@ define([], function() {
           rasterId: '$555', //12
           bounds: prodesBounds,
           labels: prodesLabels
+        },
+
+        gladLayer: {
+          rasterId: '$1', //12
+          bounds: gladBounds,
+          labels: gladLabels,
+          clearanceChart: {
+              title: 'Glaaaaad',
+              type: 'pie'
+          },
+          lcHistogram: {
+              renderRule: {
+                'rasterFunction': 'Local',
+                'rasterFunctionArguments': {
+                  'Operation': 67, //max value; ignores no data
+                  'Rasters': [{
+                    'rasterFunction': 'Remap',
+                    'rasterFunctionArguments': {
+                      'InputRanges': [0, 150, 150, 366],
+                      'OutputValues': [0, 1],
+                      'Raster': '$1', //2015
+                      'AllowUnmatched': false
+                    }
+                  }, {
+                    'rasterFunction': 'Remap',
+                    'rasterFunctionArguments': {
+                      'InputRanges': [0, 20, 20, 366],
+                      'OutputValues': [0, 1],
+                      'Raster': '$2', //2016
+                      'AllowUnmatched': false
+                    }
+                  }]
+                }
+              }
+          }
         },
 
         // plantationsTypeLayer: {
@@ -528,18 +575,52 @@ define([], function() {
             }
         },
 
+        glad: {
+            rootNode: 'glad',
+            title: 'GLAD Alerts',
+            rasterId: ['$1', '$2'],
+            url: gladUrl,
+            bounds: gladBounds,
+            labels: gladLabels,
+            // includeFormaIdInRemap: true,
+            // formaId: "$15",
+            'rasterFunction': 'Local',
+            'rasterFunctionArguments': {
+              'Operation': 67, //max value; ignores no data
+              'Rasters': [{
+                'rasterFunction': 'Remap',
+                'rasterFunctionArguments': {
+                  'InputRanges': [0, 150, 150, 366],
+                  'OutputValues': [0, 1],
+                  'Raster': '$1', //2015
+                  'AllowUnmatched': false
+                }
+              }, {
+                'rasterFunction': 'Remap',
+                'rasterFunctionArguments': {
+                  'InputRanges': [0, 20, 20, 366],
+                  'OutputValues': [0, 1],
+                  'Raster': '$2', //2016
+                  'AllowUnmatched': false
+                }
+              }]
+            },
+            colors: gladColors,
+            fireKey: 'glad' // Key to the Fires Config for items related to this
+        },
+
         protectedArea: {
-            rootNode: "protectedAreas",
-            title: "Protected Areas",
-            rasterId: "$10",
+            rootNode: 'protectedAreas',
+            title: 'Protected Areas',
+            rasterId: '$10',
             bounds: protectedAreaBounds,
             labels: protectedAreaLabels,
             clearanceChart: {
-                title: "Clearance Alerts on Protected Areas since Jan 2015",
-                type: "bar"
+                title: 'Clearance Alerts on Protected Areas since Jan 2015',
+                type: 'bar'
             },
             lossChart: {
-                title: "Annual Tree Cover Loss (in hectares) on Protected Areas"
+                title: 'Annual Tree Cover Loss (in hectares) on Protected Areas'
             },
             compositionAnalysis: {
                 rasterId: 10,

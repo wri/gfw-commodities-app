@@ -406,66 +406,70 @@ define([
         */
         _getDeferredsForItems: function(items) {
             var deferreds = [];
+            console.log(items);
 
             arrayUtils.forEach(items, function(item) {
               console.log(item)
                 switch (item) {
-                    case "suit":
+                    case 'suit':
                         deferreds.push(Fetcher._getSuitabilityAnalysis());
                         break;
-                    case "mill":
+                    case 'mill':
                         deferreds.push(Fetcher._getMillPointAnalysis());
                         break;
-                    case "carbon":
+                    case 'carbon':
                         deferreds.push(Fetcher.getCarbonStocksResults());
                         break;
-                    case "plantationsSpeciesLayer":
+                    case 'plantationsSpeciesLayer':
                         deferreds.push(Fetcher.getPlantationsSpeciesResults());
                         break;
-                    case "plantationsTypeLayer":
+                    case 'plantationsTypeLayer':
                         deferreds.push(Fetcher.getPlantationsTypeResults());
                         break;
-                    case "biomes":
+                    case 'biomes':
                         deferreds.push(Fetcher.getBrazilBiomesResults());
                         break;
-                    case "intact":
+                    case 'intact':
                         deferreds.push(Fetcher.getIntactForestResults());
                         break;
-                    case "landCoverGlob":
+                    case 'landCoverGlob':
                         deferreds.push(Fetcher.getLandCoverGlobalResults());
                         break;
-                    case "landCoverAsia":
+                    case 'landCoverAsia':
                         deferreds.push(Fetcher.getLandCoverAsiaResults());
                         break;
-                    case "landCoverIndo":
+                    case 'landCoverIndo':
                         deferreds.push(Fetcher.getLandCoverIndonesiaResults());
                         break;
-                    case "legal":
+                    case 'legal':
                         deferreds.push(Fetcher.getLegalClassResults());
                         break;
-                    case "peat":
+                    case 'peat':
                         deferreds.push(Fetcher.getPeatLandsResults());
                         break;
-                    case "primForest":
+                    case 'primForest':
                         deferreds.push(Fetcher.getPrimaryForestResults());
                         break;
-                    case "protected":
+                    case 'protected':
                         deferreds.push(Fetcher.getProtectedAreaResults());
                         break;
-                    case "rspo":
+                    case 'rspo':
                         deferreds.push(Fetcher.getRSPOResults());
                         break;
-                    case "treeDensity":
+                    case 'treeDensity':
                         deferreds.push(Fetcher.getTreeCoverResults());
                         break;
-                    case "treeCoverLoss":
+                    case 'treeCoverLoss':
                         deferreds.push(Fetcher.getTreeCoverLossResults());
                         break;
-                    case "indonesiaMoratorium":
+                    case 'indonesiaMoratorium':
                         deferreds.push(Fetcher.getIndonesiaMoratoriumResults());
                         break;
-                    case "prodes":
+                    case 'prodes':
                         deferreds.push(Fetcher.getProdesResults());
+                        break;
+                    case 'gladAlerts':
+                        deferreds.push(Fetcher.getGladResults());
                         break;
                     default:
                         break;

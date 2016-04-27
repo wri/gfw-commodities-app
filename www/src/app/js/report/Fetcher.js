@@ -237,7 +237,6 @@ define([
 						var deferred = new Deferred(),
 								config = ReportConfig.prodes,
 								url = ReportConfig.imageServiceUrl,
-								rasterId = config.rasterId,
 								content = {
 										geometryType: 'esriGeometryPolygon',
 										geometry: JSON.stringify(report.geometry),
@@ -369,6 +368,8 @@ define([
 
 						return deferred.promise;
 				},
+
+
 
         getPlantationsSpeciesResults: function() {
 						this._debug('Fetcher >>> getPlantationsSpeciesResults');
@@ -641,8 +642,6 @@ define([
 
 						config = _.clone(config);
 
-						console.log(report.geometry)
-
 						function success(response) {
 								if (response.histograms.length > 0) {
 										ReportRenderer.renderClearanceData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
@@ -656,9 +655,9 @@ define([
 						}
 
 						function failure(error) {
-							var newFailure = function(error){
+							var newFailure = function(){
 								deferred.resolve(false);
-							}
+							};
 							if (error.details) {
 									if (error.details[0] === 'Invalid cell size') {
 
@@ -726,7 +725,7 @@ define([
 						renderingRule = useSimpleEncoderRule ?
 								encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) :
 								encoder.render(clearanceConfig.rasterId, rasterId);
-						console.log('renderingRule',renderingRule)
+						console.log('renderingRule', renderingRule);
 						// report.geometry.rings = [report.geometry.rings[report.geometry.rings.length - 1]];
 						content = {
 								geometryType: 'esriGeometryPolygon',
@@ -738,6 +737,62 @@ define([
 
 						// content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, 1000, true, 'miles'));
 						// content.geometry = geometryEngine.simplify(content.geometry);
+
+						this._computeHistogram(url, content, success, failure);
+
+						return deferred.promise;
+				},
+
+				getGladResults: function(config, useSimpleEncoderRule) {
+						this._debug('Fetcher >>> getGladResults');
+						var deferred = new Deferred(),
+								gladConfig = ReportConfig.gladLayer, //ReportConfig.clearanceAlerts,
+								url = ReportConfig.glad.url,
+								self = this,
+								content,
+								encoder;
+
+								console.log(url);
+
+
+						config = _.clone(config);
+
+						function success(response) {
+							console.log('GLAD success');
+								if (response.histograms.length > 0) {
+										ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
+								} else {
+									console.log('GLAD failurrre');
+										// Add some dummy 0's
+										var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
+										ReportRenderer.renderGladData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
+								}
+								deferred.resolve(true);
+						}
+
+						function failure(error) {
+								if (error.details) {
+										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+												content.pixelSize = 500;
+												self._computeHistogram(url, content, success, failure);
+										} else {
+												deferred.resolve(false);
+										}
+								} else {
+										deferred.resolve(false);
+								}
+						}
+
+						content = {
+								geometryType: 'esriGeometryPolygon',
+								geometry: JSON.stringify(report.geometry),
+								// renderingRule: renderingRule,
+								pixelSize: 30,
+								f: 'json'
+						};
+						console.log('url', url);
+						console.log(content);
+						debugger
 
 						this._computeHistogram(url, content, success, failure);
 

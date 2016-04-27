@@ -164,6 +164,9 @@ define([
 					layer = 8;
 					url = MapConfig.bySpecies.url;
 					break;
+				case "GLAD Alerts": //todo: change URL?
+					url = MapConfig.bySpecies.gladAlerts;
+					break;
 				case "AdminBoundary":
 					selectedArea = AnalyzerConfig.stepOne.option2.id;
 					url = MapConfig.adminUnitsLayer.url;
