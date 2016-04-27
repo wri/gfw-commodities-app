@@ -315,7 +315,7 @@ define([
                 range = [values[0] + 2001, values[1] + 2001];
                 rasterFunction = this.getColormapLossRasterFunction(layerConfig.colormap, range, outRange, densityRange);
                 layer.setRenderingRule(rasterFunction);
-
+                console.log(rasterFunction)
             }
 
         },
@@ -328,26 +328,26 @@ define([
                 range;
 
             if (layer) {
+              console.log(layerConfig.id);
+              // For Forma updates, if its a single range, we need to remap 1 to 0
+              // Values in slider are from a 0 based index, the range starts at 1
+              // so we need to shift the values by 1 to have correct range
+              // Also the rule is [inclusive, exclusive], so if values are 3,3 use 4,4
+              // if they are 3,4 then use 4,6
+              if (layerConfig.id === 'FormaAlerts') {
+                  var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
+                  range = [1, 1, values[0] + 1, finalValue];
+                  outRange = [0, 1];
+              } else if (layerConfig.id === 'gladAlerts') {
+                // debugger
+              } else {
+                  range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
+              }
 
-                // For Forma updates, if its a single range, we need to remap 1 to 0
-                // Values in slider are from a 0 based index, the range starts at 1
-                // so we need to shift the values by 1 to have correct range
-                // Also the rule is [inclusive, exclusive], so if values are 3,3 use 4,4
-                // if they are 3,4 then use 4,6
-                if (layerConfig.id === 'FormaAlerts') {
-                    var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
-                    range = [1, 1, values[0] + 1, finalValue];
-                    outRange = [0, 1];
-                } else {
-                    range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
-                }
-
-                rasterFunction = this.getColormapRasterFunction(layerConfig.colormap, range, outRange);
-                layer.setRenderingRule(rasterFunction);
+              rasterFunction = this.getColormapRasterFunction(layerConfig.colormap, range, outRange);
+              layer.setRenderingRule(rasterFunction);
 
             }
-
-
         },
 
         updateTCDRenderingRule: function (newInputValue) {
@@ -366,8 +366,6 @@ define([
         },
 
         getColormapLossRasterFunction: function(colormap, range, outRange, densityRange) {
-          console.log(range)
-          console.log(densityRange)
             return new RasterFunction({
                 // 'rasterFunction': 'Colormap',
                 // 'rasterFunctionArguments': {
@@ -553,17 +551,18 @@ define([
             var legendLayer = app.map.getLayer(MapConfig.legendLayer.id),
                 densityConf = MapConfig.tcd,
                 formaConf = MapConfig.forma,
+                gladConf = MapConfig.gladAlerts,
                 lossConf = MapConfig.loss,
                 gainConf = MapConfig.gain,
                 primForConf = MapConfig.primForest,
                 suitConf = MapConfig.suit,
-                confItems = [densityConf, formaConf, lossConf, gainConf, primForConf, suitConf],
+                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, primForConf, suitConf],
                 visibleLayers = [],
                 layerOptions = [],
                 layer,
                 self = this;
 
-            // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
+            // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
             // Make sure to set layer drawing options for those values so they do not display
             // over their ImageService counterparts
