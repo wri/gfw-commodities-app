@@ -277,10 +277,13 @@ define([], function() {
             id: 'gladAlerts',
             url: gladAlertsUrl,
             // legendLayerId: 3, //todo: what is this, find correct #
-            // defaultRange: [1, 15],
-            // colormap: [
-            //   [1, 255, 102, 153]
-            // ]//,
+            defaultStartRange: [0, 150, 150, 366],
+            defaultEndRange: [0, 20, 20, 366],
+            colormap: [
+              [1, 255, 102, 153]
+            ],
+            startDate: new window.Kalendae.moment('01/01/2015'),
+            endDate: new window.Kalendae.moment(),
             toolsNode: 'glad_toolbox'
         },
         tcd: {

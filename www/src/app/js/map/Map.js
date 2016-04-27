@@ -334,9 +334,42 @@ define([
                 opacity: 1
             });
 
+            gladParams = new ImageServiceParameters();
+            // gladParams.interpolation = 'RSP_NearestNeighbor';
+            gladParams.renderingRule = new RasterFunction({
+              'rasterFunction': 'Colormap',
+              'rasterFunctionArguments': {
+                'Colormap': MapConfig.gladAlerts.colormap,
+                'Raster': {
+                  'rasterFunction': 'Local',
+                  'rasterFunctionArguments': {
+                    'Operation': 67, //max value; ignores no data
+                    'Rasters': [{
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': MapConfig.gladAlerts.defaultStartRange,
+                        'OutputValues': [0, 1],
+                        'Raster': '$1', //2015
+                        'AllowUnmatched': false
+                      }
+                    }, {
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': MapConfig.gladAlerts.defaultEndRange,
+                        'OutputValues': [0, 1],
+                        'Raster': '$2', //2016
+                        'AllowUnmatched': false
+                      }
+                    }]
+                  }
+                }
+              }
+            });
+
             gladAlertsLayer = new ArcGISImageServiceLayer(MapConfig.gladAlerts.url, {
-                id: MapConfig.gladAlerts.id,
-                visible: false
+              imageServiceParameters: gladParams,
+              id: MapConfig.gladAlerts.id,
+              visible: false
             });
 
             lossParams = new ImageServiceParameters();
