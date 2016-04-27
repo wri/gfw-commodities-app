@@ -49,8 +49,9 @@
             }],
             aliases: [
                 ['knockout', 'libs/knockout-3.1.0/index'],
+                // ['moment', 'libs/moment/min/moment.min'],
+                // ['kalendae', 'libs/kalendae/build/kalendae.standalone.min'],
                 ['react', 'libs/react/react.min'],
-                // ['react', 'libs/react/react'],
                 ['lodash', 'libs/lodash/lodash.min']
             ],
             deps: [
@@ -63,10 +64,15 @@
         src = [
             'http://js.arcgis.com/3.13/',
             'app/libs/jquery-1.7.1.min.js',
+            'app/libs/moment/min/moment.min.js',
+            'app/libs/kalendae/build/kalendae.standalone.js',
             'app/libs/jquery-ui-custom.min.js',
             'app/libs/jQAllRangeSliders-min.js'
         ],
         css = [{
+            src: 'app/libs/kalendae/build/kalendae.css',
+            cdn: false
+        }, {
             src: 'app/css/app.css',
             cdn: false
         }, {

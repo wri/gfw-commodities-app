@@ -1,0 +1,28 @@
+{
+  "name": "kalendae",
+  "version": "0.4.1",
+  "homepage": "https://github.com/matthewhardnack/bower-kalendae",
+  "authors": [
+    "Geremia Taglialatela"
+  ],
+  "main": ["kalendae.standalone.min.js", "kalendae.css"],
+  "description": "A framework agnostic javascript date picker.",
+  "keywords": [
+    "datepicker",
+    "kalendae",
+    "calendar",
+    "purejs"
+  ],
+  "dependencies": {
+    "moment": "2.2.1"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src"
+  ]
+}
