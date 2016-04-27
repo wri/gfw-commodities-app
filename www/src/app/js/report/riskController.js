@@ -21,7 +21,7 @@ define([
 
 
     var services = {
-        commodities: 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer',
+        commodities: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         fires: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
         concessions: 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer/27'
     };

@@ -15,8 +15,8 @@ define([], function() {
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
-        // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
-        formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
+        // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
+        formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         treeCoverDensityUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
@@ -275,13 +275,13 @@ define([], function() {
         },
         gladAlerts: {
             id: 'gladAlerts',
-            url: gladAlertsUrl//,
+            url: gladAlertsUrl,
             // legendLayerId: 3, //todo: what is this, find correct #
             // defaultRange: [1, 15],
             // colormap: [
             //   [1, 255, 102, 153]
             // ]//,
-            // toolsNode: 'glad_toolbox'
+            toolsNode: 'glad_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',
