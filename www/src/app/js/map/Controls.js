@@ -1,33 +1,29 @@
 define([
-    "dojo/dom",
-    "dojo/query",
-    "dojo/Deferred",
-    "dojo/_base/fx",
-    "dojo/_base/array",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dojo/dom-construct",
-    "utils/Hasher",
-    "map/config",
-    "map/MapModel",
-    "map/LossSlider",
-    "map/FormaSlider",
-    "map/ProdesSlider",
-    "map/LayerController",
-    "esri/request",
-    "esri/TimeExtent",
-    "esri/dijit/TimeSlider",
-    "dijit/form/CheckBox",
-    "dijit/layout/ContentPane",
-    "dijit/layout/AccordionContainer"
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
+    'dojo/dom',
+    'dojo/query',
+    'dojo/Deferred',
+    'dojo/_base/fx',
+    'dojo/_base/array',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dojo/dom-construct',
+    'utils/Hasher',
+    'map/config',
+    'map/MapModel',
+    'map/LossSlider',
+    'map/FormaSlider',
+    'map/GladSlider',
+    'map/ProdesSlider',
+    'map/LayerController',
+    'esri/request',
+    'esri/TimeExtent',
+    'esri/dijit/TimeSlider',
+    'dijit/form/CheckBox'
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
 
-    'use strict';
 
-    var jq171 = jQuery.noConflict(),
-        sliderInit = false,
-        sliderInit2 = false;
+    var jq171 = jQuery.noConflict();
 
     return {
 
@@ -49,8 +45,8 @@ define([
         },
 
         hideAllToolboxes: function() {
-            dojoQuery(".gfw .layer-controls-container .toolbox").forEach(function(node) {
-                if (domStyle.get(node, 'display') === "block") {
+            dojoQuery('.gfw .layer-controls-container .toolbox').forEach(function(node) {
+                if (domStyle.get(node, 'display') === 'block') {
                     domStyle.set(node, 'display', 'none');
                 }
             });
@@ -58,9 +54,8 @@ define([
 
         createDialogBox: function(content) {
             require([
-                "dijit/Dialog",
-                "dojo/_base/lang"
-            ], function(Dialog, Lang) {
+                'dijit/Dialog'
+            ], function(Dialog) {
 
                 // var contentClone = Lang.clone(content);
                 //
@@ -118,20 +113,17 @@ define([
             });
         },
 
-        showFiresConfidenceInfo: function(evt) {
-            var _self = this;
+        showFiresConfidenceInfo: function() {
             require([
-                "dijit/Dialog",
-                "dojo/on",
-                "dojo/_base/lang"
-            ], function(Dialog, on, Lang) {
+                'dijit/Dialog'
+            ], function(Dialog) {
                 //Export Dialog
                 //TODO: Move this HTML into one of the template files.
-                var content = "<p>" + MapConfig.firesConfidenceDialog.text + "</p>";
+                var content = '<p>' + MapConfig.firesConfidenceDialog.text + '</p>';
 
                 var dialog = new Dialog({
                     title: MapConfig.firesConfidenceDialog.title.toUpperCase(),
-                    style: "height: 310px; width: 415px; font-size:14px; padding: 5px;",
+                    style: 'height: 310px; width: 415px; font-size:14px; padding: 5px;',
                     draggable: false,
                     hide: function() {
                         dialog.destroy();
@@ -140,7 +132,7 @@ define([
                 dialog.setContent(content);
                 dialog.show();
 
-                $('body').on('click',function(e){
+                $('body').on('click', function(e) {
                     if (e.target.classList.contains('dijitDialogUnderlay')) {
                         dialog.hide();
                         $('body').off('click');
@@ -155,8 +147,8 @@ define([
                 filter = target.dataset ? target.dataset.filter : target.getAttribute('data-filter'),
                 highConfidence;
             // Remove selected class from previous selection
-            dojoQuery(".fires_toolbox .toolbox-list li").forEach(function(node) {
-                domClass.remove(node, "selected");
+            dojoQuery('.fires_toolbox .toolbox-list li').forEach(function(node) {
+                domClass.remove(node, 'selected');
             });
             // Add selected class to new selection
             domClass.add(target, "selected");
@@ -197,6 +189,7 @@ define([
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
+            GladSlider.init();
             ProdesSlider.init();
         },
 
