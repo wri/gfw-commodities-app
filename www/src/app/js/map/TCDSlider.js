@@ -1,10 +1,10 @@
 define([
-  "dojo/on",
-  "map/MapModel",
-  "map/config",
-  "map/LayerController"
+  'dojo/on',
+  'map/MapModel',
+  'map/config',
+  'map/LayerController'
 ], function (on, MapModel, MapConfig, LayerController) {
-  "use strict";
+  'use strict';
 
   var tcdSlider,
       modal;
@@ -14,7 +14,7 @@ define([
     show: function () {
       var self = this;
       if (tcdSlider === undefined) {
-        tcdSlider = $("#tcd-density-slider").ionRangeSlider({
+        tcdSlider = $('#tcd-density-slider').ionRangeSlider({
           type: 'double',
 					values: [0, 10, 15, 20, 25, 30, 50, 75, 100],
           hide_min_max: true,
@@ -30,13 +30,13 @@ define([
       }
 
       // Cache the dom query operation
-      modal = $("#tcd-modal");
-      modal.addClass("active");
-      on.once($("#tcd-modal .close-icon")[0], "click", self.hide);
+      modal = $('#tcd-modal');
+      modal.addClass('active');
+      on.once($('#tcd-modal .close-icon')[0], 'click', self.hide);
     },
 
     hide: function () {
-      if (modal) { modal.removeClass("active"); }
+      if (modal) { modal.removeClass('active'); }
     },
 
     change: function (data) {
