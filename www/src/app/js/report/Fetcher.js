@@ -306,7 +306,7 @@ define([
 				},
 
 				getIndonesiaMoratoriumResults: function () {
-						this._debug('Fetcher >>> getProtectedAreaResults');
+						this._debug('Fetcher >>> getIndonesiaMoratoriumResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.indonesiaMoratorium;
 

@@ -285,9 +285,9 @@ define('map/config',[], function() {
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
-        treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
-        // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
-        formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
+        treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
+        // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
+        formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         treeCoverDensityUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
@@ -546,13 +546,16 @@ define('map/config',[], function() {
         },
         gladAlerts: {
             id: 'gladAlerts',
-            url: gladAlertsUrl//,
+            url: gladAlertsUrl,
             // legendLayerId: 3, //todo: what is this, find correct #
-            // defaultRange: [1, 15],
-            // colormap: [
-            //   [1, 255, 102, 153]
-            // ]//,
-            // toolsNode: 'glad_toolbox'
+            defaultStartRange: [0, 150, 150, 366],
+            defaultEndRange: [0, 20, 20, 366],
+            colormap: [
+              [1, 255, 102, 153]
+            ],
+            startDate: new window.Kalendae.moment('01/01/2015'),
+            endDate: new window.Kalendae.moment(),
+            toolsNode: 'glad_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -863,7 +866,7 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-change-forma-alerts'
             }, {
                 id: 'prodes',
-                title: 'PRODES alerts',
+                title: 'Prodes deforestation',
                 subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
                 filter: 'forest-change',
                 type: 'radio',
@@ -2302,7 +2305,7 @@ define('analysis/config',[], function() {
                 value: 'indonesiaMoratorium',
                 noInfoIcon: true
             }, {
-                label: 'Prodes Alerts',
+                label: 'Prodes deforestation',
                 value: 'prodes',
                 noInfoIcon: true
             }, {
@@ -2312,6 +2315,10 @@ define('analysis/config',[], function() {
             }, {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
+                noInfoIcon: true
+            }, {
+                label: 'GLAD Alerts',
+                value: 'gladAlerts',
                 noInfoIcon: true
             }],
             suit: {
@@ -6616,6 +6623,8 @@ define('components/wizard/StepThree',[
 ], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
 
     var config = AnalyzerConfig.stepThree;
+    var treeClosed = '<use xlink:href="#tree-closed" />';
+    var treeOpen = '<use xlink:href="#tree-open" />';
         // labelField = AnalyzerConfig.stepTwo.labelField;
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -6684,6 +6693,7 @@ define('components/wizard/StepThree',[
             });
 
             console.log('completed ', this.state.completed);
+            //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
             return (
               React.createElement("div", {className: "step select-analysis"}, 
                 React.createElement("div", {className: "step-body"}, 
@@ -6706,7 +6716,13 @@ define('components/wizard/StepThree',[
                     React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                     ), 
-                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, React.createElement("span", {onClick: this.toggleOptions, className: "analysis-expander"}, this.state.optionsExpanded ? ' ▼' : ' ►')), 
+                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
+
+                    
+                      this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}}) :
+                      React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}})
+                    
+                    ), 
                     React.createElement("p", {className: "layer-description"}, config.forestChange.description)
                   ), 
 
@@ -7192,7 +7208,7 @@ define('map/LayerController',[
                 range = [values[0] + 2001, values[1] + 2001];
                 rasterFunction = this.getColormapLossRasterFunction(layerConfig.colormap, range, outRange, densityRange);
                 layer.setRenderingRule(rasterFunction);
-
+                console.log(rasterFunction)
             }
 
         },
@@ -7205,26 +7221,26 @@ define('map/LayerController',[
                 range;
 
             if (layer) {
+              console.log(layerConfig.id);
+              // For Forma updates, if its a single range, we need to remap 1 to 0
+              // Values in slider are from a 0 based index, the range starts at 1
+              // so we need to shift the values by 1 to have correct range
+              // Also the rule is [inclusive, exclusive], so if values are 3,3 use 4,4
+              // if they are 3,4 then use 4,6
+              if (layerConfig.id === 'FormaAlerts') {
+                  var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
+                  range = [1, 1, values[0] + 1, finalValue];
+                  outRange = [0, 1];
+              } else if (layerConfig.id === 'gladAlerts') {
+                // debugger
+              } else {
+                  range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
+              }
 
-                // For Forma updates, if its a single range, we need to remap 1 to 0
-                // Values in slider are from a 0 based index, the range starts at 1
-                // so we need to shift the values by 1 to have correct range
-                // Also the rule is [inclusive, exclusive], so if values are 3,3 use 4,4
-                // if they are 3,4 then use 4,6
-                if (layerConfig.id === 'FormaAlerts') {
-                    var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
-                    range = [1, 1, values[0] + 1, finalValue];
-                    outRange = [0, 1];
-                } else {
-                    range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
-                }
-
-                rasterFunction = this.getColormapRasterFunction(layerConfig.colormap, range, outRange);
-                layer.setRenderingRule(rasterFunction);
+              rasterFunction = this.getColormapRasterFunction(layerConfig.colormap, range, outRange);
+              layer.setRenderingRule(rasterFunction);
 
             }
-
-
         },
 
         updateTCDRenderingRule: function (newInputValue) {
@@ -7243,8 +7259,6 @@ define('map/LayerController',[
         },
 
         getColormapLossRasterFunction: function(colormap, range, outRange, densityRange) {
-          console.log(range)
-          console.log(densityRange)
             return new RasterFunction({
                 // 'rasterFunction': 'Colormap',
                 // 'rasterFunctionArguments': {
@@ -7430,17 +7444,18 @@ define('map/LayerController',[
             var legendLayer = app.map.getLayer(MapConfig.legendLayer.id),
                 densityConf = MapConfig.tcd,
                 formaConf = MapConfig.forma,
+                gladConf = MapConfig.gladAlerts,
                 lossConf = MapConfig.loss,
                 gainConf = MapConfig.gain,
                 primForConf = MapConfig.primForest,
                 suitConf = MapConfig.suit,
-                confItems = [densityConf, formaConf, lossConf, gainConf, primForConf, suitConf],
+                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, primForConf, suitConf],
                 visibleLayers = [],
                 layerOptions = [],
                 layer,
                 self = this;
 
-            // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, and FORMA Alerts visibility,
+            // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
             // Make sure to set layer drawing options for those values so they do not display
             // over their ImageService counterparts
@@ -7741,8 +7756,6 @@ define('map/FormaSlider',[
     });
 
     request.then(function (res) {
-
-      console.log('res', res)
       // Labels should be formatted like so: {month|numeric} - {year|two-digit}
       var min = res.minValues[0] || 1,
           max = res.maxValues[0] || 9,
@@ -7836,6 +7849,174 @@ define('map/FormaSlider',[
 
 });
 
+define('map/GladSlider',[
+  'dojo/on',
+  'map/config',
+  'esri/request',
+  'dojo/Deferred',
+  'map/LayerController'
+], function (on, MapConfig, esriRequest, Deferred, LayerController) {
+  // "use strict";
+
+  var playInterval,
+      gladSlider,
+      playButton;
+
+  var config = {
+    sliderSelector: '#glad-alert-slider',
+    playHtml: '&#9658;',
+    pauseHtml: '&#x25A0',
+    baseYear: 15 // 2015
+  };
+
+  var state = {
+    isPlaying: false
+  };
+
+  var getGladLabels = function getGladLabels () {
+    var deferred = new Deferred(),
+        labels = [],
+        request;
+        // debugger todo: change slider UI somehow
+    request = esriRequest({
+      url: MapConfig.gladAlerts.url,
+      callbackParamName: 'callback',
+      content: { f: 'json' },
+      handleAs: 'json'
+    });
+
+    request.then(function (res) {
+
+      console.log('glad results', res)
+      // Labels should be formatted like so: {month|numeric} - {year|two-digit}
+      var min = res.minValues[0] || 1,
+          max = res.maxValues[0] || 9,
+          year;
+          console.log('min', min)
+          console.log('max', max)
+
+      // for (min; min <= max; min++) {
+      //   year = config.baseYear + Math.floor(min / 12);
+      //   labels.push(min + ' - ' + year);
+      // }
+
+      deferred.resolve(labels);
+    }, function () {
+      deferred.reject();
+    });
+
+    return deferred;
+  };
+
+  var GladSlider = {
+
+    init: function () {
+      var self = this;
+      if (gladSlider === undefined) {
+
+
+        var calendarStart = new Kalendae('gladPlayButtonStart', {
+          months: 1,
+          mode: 'single',
+          selected: MapConfig.gladAlerts.startDate
+        });
+
+        var calendarEnd = new Kalendae('gladPlayButtonEnd', {
+          months: 1,
+          mode: 'single',
+          selected: MapConfig.gladAlerts.endDate
+        });
+        console.log(MapConfig.gladAlerts);
+        // console.log(this)
+        //
+        calendarStart.subscribe('change', function (date) {
+          debugger
+        });
+
+        calendarEnd.subscribe('change', function (date) {
+          debugger
+        });
+
+
+        // getGladLabels().then(function (labels) {
+        //   $(config.sliderSelector).ionRangeSlider({
+        //     type: 'double',
+        //     values: labels,
+        //     // values: [2015, 2016],
+        //     // step: 1,
+        //     prettify_enabled: true,
+        //     prettify: function (num) {
+        //       console.log('num: ', num);
+        //       return '';
+        //     },
+        //     grid: true,
+        //     hide_min_max: true,
+        //     hide_from_to: true,
+        //     onFinish: self.change,
+        //     onUpdate: self.change
+        //   });
+        //
+        //   gladSlider = $(config.sliderSelector).data('ionRangeSlider');
+        //   // Cache query for play button
+        //   playButton = $('#gladPlayButton');
+        //   // Attach Events related to this item
+        //   on(playButton, 'click', self.playToggle);
+        // });
+      }
+    },
+
+    change: function (data) {
+      // debugger
+      console.log(data.from, data.to)
+      LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.gladAlerts);
+    },
+
+    playToggle: function () {
+      var fromValue, toValue, endValue;
+
+      function stopPlaying() {
+        state.isPlaying = false;
+        clearInterval(playInterval);
+        playButton.html(config.playHtml);
+      }
+
+      if (state.isPlaying) {
+        stopPlaying();
+      } else {
+        // Update some state
+        state.isPlaying = true;
+        endValue = gladSlider.result.to;
+        // Trigger a change on the layer for the initial value, with both handles starting at the same point
+        gladSlider.update({ from: gladSlider.result.from, to: gladSlider.result.from });
+        // Start the interval
+        playInterval = setInterval(function () {
+          // We will be incrementing the from value to move the slider forward
+          fromValue = gladSlider.result.from;
+          toValue = gladSlider.result.to;
+          // Quit if from value is equal to or greater than the to value
+          if (toValue >= endValue) {
+            stopPlaying();
+          } else {
+            // Update the slider
+            gladSlider.update({
+              from: fromValue,
+              to: ++toValue
+            });
+          }
+
+        }, 1250);
+
+        // Update the button html
+        playButton.html(config.pauseHtml);
+      }
+    }
+
+  };
+
+  return GladSlider;
+
+});
+
 define('map/ProdesSlider',[
   'dojo/on',
   'map/config',
@@ -7883,6 +8064,7 @@ define('map/ProdesSlider',[
       for (min; min <= max; min++) {
         year = config.baseYear + min;
         labels.push(year);
+        console.log(year);
       }
 
       deferred.resolve(labels);
@@ -7899,10 +8081,12 @@ define('map/ProdesSlider',[
       var self = this;
       if (prodesSlider === undefined) {
         getProdesLabels().then(function (labels) {
+          console.log(labels);
           $(config.sliderSelector).ionRangeSlider({
             type: 'double',
             values: labels,
             grid: true,
+            prettify_enabled: false,
             hide_min_max: true,
             hide_from_to: true,
             onFinish: self.change,
@@ -7969,35 +8153,31 @@ define('map/ProdesSlider',[
 });
 
 define('map/Controls',[
-    "dojo/dom",
-    "dojo/query",
-    "dojo/Deferred",
-    "dojo/_base/fx",
-    "dojo/_base/array",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dojo/dom-construct",
-    "utils/Hasher",
-    "map/config",
-    "map/MapModel",
-    "map/LossSlider",
-    "map/FormaSlider",
-    "map/ProdesSlider",
-    "map/LayerController",
-    "esri/request",
-    "esri/TimeExtent",
-    "esri/dijit/TimeSlider",
-    "dijit/form/CheckBox",
-    "dijit/layout/ContentPane",
-    "dijit/layout/AccordionContainer"
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox, ContentPane, Accordion) {
+    'dojo/dom',
+    'dojo/query',
+    'dojo/Deferred',
+    'dojo/_base/fx',
+    'dojo/_base/array',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dojo/dom-construct',
+    'utils/Hasher',
+    'map/config',
+    'map/MapModel',
+    'map/LossSlider',
+    'map/FormaSlider',
+    'map/GladSlider',
+    'map/ProdesSlider',
+    'map/LayerController',
+    'esri/request',
+    'esri/TimeExtent',
+    'esri/dijit/TimeSlider',
+    'dijit/form/CheckBox'
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
 
-    'use strict';
 
-    var jq171 = jQuery.noConflict(),
-        sliderInit = false,
-        sliderInit2 = false;
+    var jq171 = jQuery.noConflict();
 
     return {
 
@@ -8019,8 +8199,8 @@ define('map/Controls',[
         },
 
         hideAllToolboxes: function() {
-            dojoQuery(".gfw .layer-controls-container .toolbox").forEach(function(node) {
-                if (domStyle.get(node, 'display') === "block") {
+            dojoQuery('.gfw .layer-controls-container .toolbox').forEach(function(node) {
+                if (domStyle.get(node, 'display') === 'block') {
                     domStyle.set(node, 'display', 'none');
                 }
             });
@@ -8028,9 +8208,8 @@ define('map/Controls',[
 
         createDialogBox: function(content) {
             require([
-                "dijit/Dialog",
-                "dojo/_base/lang"
-            ], function(Dialog, Lang) {
+                'dijit/Dialog'
+            ], function(Dialog) {
 
                 // var contentClone = Lang.clone(content);
                 //
@@ -8088,20 +8267,17 @@ define('map/Controls',[
             });
         },
 
-        showFiresConfidenceInfo: function(evt) {
-            var _self = this;
+        showFiresConfidenceInfo: function() {
             require([
-                "dijit/Dialog",
-                "dojo/on",
-                "dojo/_base/lang"
-            ], function(Dialog, on, Lang) {
+                'dijit/Dialog'
+            ], function(Dialog) {
                 //Export Dialog
                 //TODO: Move this HTML into one of the template files.
-                var content = "<p>" + MapConfig.firesConfidenceDialog.text + "</p>";
+                var content = '<p>' + MapConfig.firesConfidenceDialog.text + '</p>';
 
                 var dialog = new Dialog({
                     title: MapConfig.firesConfidenceDialog.title.toUpperCase(),
-                    style: "height: 310px; width: 415px; font-size:14px; padding: 5px;",
+                    style: 'height: 310px; width: 415px; font-size:14px; padding: 5px;',
                     draggable: false,
                     hide: function() {
                         dialog.destroy();
@@ -8110,7 +8286,7 @@ define('map/Controls',[
                 dialog.setContent(content);
                 dialog.show();
 
-                $('body').on('click',function(e){
+                $('body').on('click', function(e) {
                     if (e.target.classList.contains('dijitDialogUnderlay')) {
                         dialog.hide();
                         $('body').off('click');
@@ -8125,8 +8301,8 @@ define('map/Controls',[
                 filter = target.dataset ? target.dataset.filter : target.getAttribute('data-filter'),
                 highConfidence;
             // Remove selected class from previous selection
-            dojoQuery(".fires_toolbox .toolbox-list li").forEach(function(node) {
-                domClass.remove(node, "selected");
+            dojoQuery('.fires_toolbox .toolbox-list li').forEach(function(node) {
+                domClass.remove(node, 'selected');
             });
             // Add selected class to new selection
             domClass.add(target, "selected");
@@ -8167,6 +8343,7 @@ define('map/Controls',[
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
+            GladSlider.init();
             ProdesSlider.init();
         },
 
@@ -9346,6 +9523,9 @@ define('analysis/WizardHelper',[
 					layer = 8;
 					url = MapConfig.bySpecies.url;
 					break;
+				case "GLAD Alerts": //todo: change URL?
+					url = MapConfig.bySpecies.gladAlerts;
+					break;
 				case "AdminBoundary":
 					selectedArea = AnalyzerConfig.stepOne.option2.id;
 					url = MapConfig.adminUnitsLayer.url;
@@ -10251,9 +10431,42 @@ define('map/Map',[
                 opacity: 1
             });
 
+            gladParams = new ImageServiceParameters();
+            // gladParams.interpolation = 'RSP_NearestNeighbor';
+            gladParams.renderingRule = new RasterFunction({
+              'rasterFunction': 'Colormap',
+              'rasterFunctionArguments': {
+                'Colormap': MapConfig.gladAlerts.colormap,
+                'Raster': {
+                  'rasterFunction': 'Local',
+                  'rasterFunctionArguments': {
+                    'Operation': 67, //max value; ignores no data
+                    'Rasters': [{
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': MapConfig.gladAlerts.defaultStartRange,
+                        'OutputValues': [0, 1],
+                        'Raster': '$1', //2015
+                        'AllowUnmatched': false
+                      }
+                    }, {
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': MapConfig.gladAlerts.defaultEndRange,
+                        'OutputValues': [0, 1],
+                        'Raster': '$2', //2016
+                        'AllowUnmatched': false
+                      }
+                    }]
+                  }
+                }
+              }
+            });
+
             gladAlertsLayer = new ArcGISImageServiceLayer(MapConfig.gladAlerts.url, {
-                id: MapConfig.gladAlerts.id,
-                visible: false
+              imageServiceParameters: gladParams,
+              id: MapConfig.gladAlerts.id,
+              visible: false
             });
 
             lossParams = new ImageServiceParameters();
@@ -11531,12 +11744,12 @@ define('map/Finder',[
 
 })(window, document, define);
 define('map/TCDSlider',[
-  "dojo/on",
-  "map/MapModel",
-  "map/config",
-  "map/LayerController"
+  'dojo/on',
+  'map/MapModel',
+  'map/config',
+  'map/LayerController'
 ], function (on, MapModel, MapConfig, LayerController) {
-  "use strict";
+  'use strict';
 
   var tcdSlider,
       modal;
@@ -11546,7 +11759,7 @@ define('map/TCDSlider',[
     show: function () {
       var self = this;
       if (tcdSlider === undefined) {
-        tcdSlider = $("#tcd-density-slider").ionRangeSlider({
+        tcdSlider = $('#tcd-density-slider').ionRangeSlider({
           type: 'double',
 					values: [0, 10, 15, 20, 25, 30, 50, 75, 100],
           hide_min_max: true,
@@ -11562,13 +11775,13 @@ define('map/TCDSlider',[
       }
 
       // Cache the dom query operation
-      modal = $("#tcd-modal");
-      modal.addClass("active");
-      on.once($("#tcd-modal .close-icon")[0], "click", self.hide);
+      modal = $('#tcd-modal');
+      modal.addClass('active');
+      on.once($('#tcd-modal .close-icon')[0], 'click', self.hide);
     },
 
     hide: function () {
-      if (modal) { modal.removeClass("active"); }
+      if (modal) { modal.removeClass('active'); }
     },
 
     change: function (data) {
@@ -12439,17 +12652,16 @@ define('components/AnalysisModal',[
 });
 
 define('utils/Loader',[
-    "dojo/Deferred",
-    "esri/urlUtils",
-    "esri/request"
+    'dojo/Deferred',
+    'esri/urlUtils',
+    'esri/request'
 ], function(Deferred, urlUtils, esriRequest) {
-    'use strict';
 
     return {
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.54',
+                path = './app/templates/' + name + '.html?v=2.5.55',
                 req;
 
             req = new XMLHttpRequest();
@@ -12459,7 +12671,7 @@ define('utils/Loader',[
                 }
             };
 
-            req.open("GET", path, true);
+            req.open('GET', path, true);
             req.send();
             return deferred.promise;
         },
@@ -12478,8 +12690,8 @@ define('utils/Loader',[
             console.log('added proxyUrl!');
             var layersRequest = esriRequest({
                 url: path,
-                handleAs: "json",
-                callbackParamName: "callback"
+                handleAs: 'json',
+                callbackParamName: 'callback'
               }, {
                   usePost: true
               });
@@ -12510,7 +12722,7 @@ define('utils/Loader',[
         loadCSS: function(path) {
             var l = doc.createElement('link'),
                 h = doc.getElementsByTagName('head')[0];
-            l.rel = "stylesheet";
+            l.rel = 'stylesheet';
             l.type = 'text/css';
             l.href = path;
             h.appendChild(l);

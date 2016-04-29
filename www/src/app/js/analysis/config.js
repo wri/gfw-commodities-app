@@ -163,7 +163,7 @@ define([], function() {
                 value: 'indonesiaMoratorium',
                 noInfoIcon: true
             }, {
-                label: 'Prodes Alerts',
+                label: 'Prodes deforestation',
                 value: 'prodes',
                 noInfoIcon: true
             }, {
