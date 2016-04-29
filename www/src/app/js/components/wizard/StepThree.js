@@ -7,6 +7,8 @@ define([
 ], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
 
     var config = AnalyzerConfig.stepThree;
+    var treeClosed = '<use xlink:href="#tree-closed" />';
+    var treeOpen = '<use xlink:href="#tree-open" />';
         // labelField = AnalyzerConfig.stepTwo.labelField;
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -75,6 +77,7 @@ define([
             });
 
             console.log('completed ', this.state.completed);
+            //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
             return (
               React.createElement("div", {className: "step select-analysis"}, 
                 React.createElement("div", {className: "step-body"}, 
@@ -97,7 +100,13 @@ define([
                     React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                     ), 
-                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, React.createElement("span", {onClick: this.toggleOptions, className: "analysis-expander"}, this.state.optionsExpanded ? ' ▼' : ' ►')), 
+                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
+
+                    
+                      this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}}) :
+                      React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}})
+                    
+                    ), 
                     React.createElement("p", {className: "layer-description"}, config.forestChange.description)
                   ), 
 

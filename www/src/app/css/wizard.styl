@@ -401,8 +401,23 @@ top-border-radius()
 	margin 0 5px 0 20px
 	font-size 12px
 
+.gfw .select-analysis svg
+	fill black
+
 .gfw .select-analysis .analysis-expander
 	cursor pointer
+	height 10px
+	width 10px
+	display inline-block
+	margin-left 10px
+	&.open
+		height 11px
+		transform scale(1.5)
+		-webkit-transform scale(1.5)
+	&.closed
+		width 11px
+		transform scale(1.5)
+		-webkit-transform scale(1.5)
 
 .gfw .select-analysis .step-sub-header
 	margin 10px 0 5px 20px

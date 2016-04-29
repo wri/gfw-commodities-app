@@ -7,6 +7,8 @@ define([
 ], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
 
     var config = AnalyzerConfig.stepThree;
+    var treeClosed = '<use xlink:href="#tree-closed" />';
+    var treeOpen = '<use xlink:href="#tree-open" />';
         // labelField = AnalyzerConfig.stepTwo.labelField;
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -75,6 +77,7 @@ define([
             });
 
             console.log('completed ', this.state.completed);
+            //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
             return (
               <div className='step select-analysis'>
                 <div className='step-body'>
@@ -97,7 +100,13 @@ define([
                     <p className='layer-description'>{config.mill.description}</p>
 
                     </div>
-                    <div className='step-sub-header'>{config.forestChange.label}<span onClick={this.toggleOptions} className='analysis-expander'>{this.state.optionsExpanded ? ' ▼' : ' ►' }</span></div>
+                    <div className='step-sub-header'>{config.forestChange.label}
+
+                    {
+                      this.state.optionsExpanded === true ? <svg onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: treeClosed }}/> :
+                      <svg onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: treeOpen }}/>
+                    }
+                    </div>
                     <p className='layer-description'>{config.forestChange.description}</p>
                   </div>
 
