@@ -14,7 +14,7 @@ define([], function() {
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
-        treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear/ImageServer',
+        treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -595,7 +595,7 @@ define([], function() {
                 infoDivClass: 'forest-change-forma-alerts'
             }, {
                 id: 'prodes',
-                title: 'PRODES alerts',
+                title: 'Prodes deforestation',
                 subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
                 filter: 'forest-change',
                 type: 'radio',

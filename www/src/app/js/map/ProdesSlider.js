@@ -45,6 +45,7 @@ define([
       for (min; min <= max; min++) {
         year = config.baseYear + min;
         labels.push(year);
+        console.log(year);
       }
 
       deferred.resolve(labels);
@@ -61,10 +62,12 @@ define([
       var self = this;
       if (prodesSlider === undefined) {
         getProdesLabels().then(function (labels) {
+          console.log(labels);
           $(config.sliderSelector).ionRangeSlider({
             type: 'double',
             values: labels,
             grid: true,
+            prettify_enabled: false,
             hide_min_max: true,
             hide_from_to: true,
             onFinish: self.change,
