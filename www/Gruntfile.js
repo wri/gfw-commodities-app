@@ -90,11 +90,20 @@ module.exports = function(grunt) {
                     dest: 'build/app/libs/jquery-ui-custom.min.js',
                     filter: 'isFile'
                 }, {
-
                     // Helper Libraries used at various points in the app
                     src: ['src/app/libs/jquery-ui-custom.min.js'],
                     dest: 'build/app/libs/jquery-ui-custom.min.js',
                     filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['app/libs/moment/min/moment.min.js'],
+                    dest: 'build/app/libs/moment/min/moment.min.js'//,
+                    //filter: 'isFile'
+                }, {
+                    // Helper Libraries used at various points in the app
+                    src: ['app/libs/kalendae/build/kalendae.standalone.js'],
+                    dest: 'build/app/libs/kalendae/build/kalendae.standalone.js'//,
+                    //filter: 'isFile'
                 }, {
                     // Helper Libraries used at various points in the app
                     src: ['src/app/css/images/join-the-community.svg'],
