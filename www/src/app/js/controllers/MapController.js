@@ -127,11 +127,10 @@ define([
                 }
 
                 var forestUse = map.map.getLayer('forestUse_commodities');
-                console.log(map.map.layerIds.length)
-                console.log(map.map.graphicsLayerIds.length)
 
-                map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
-
+                if (forestUse) {
+                  map.map.reorderLayer(forestUse, map.map.layerIds.length + 1);
+                }
 
             });
 

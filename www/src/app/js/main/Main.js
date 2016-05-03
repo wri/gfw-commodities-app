@@ -19,6 +19,15 @@ define([
 
 		init: function () {
 
+			urlUtils.addProxyRule({
+				urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
+				proxyUrl: '/app/php/proxy.php'
+			});
+			urlUtils.addProxyRule({
+				urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
+				proxyUrl: '/app/php/proxy.php'
+			});
+
 			// Add Platform Specific Classes to the body tag
 			var userAgent = navigator.userAgent;
 			// Regex for pulling the version number out
@@ -56,7 +65,7 @@ define([
 			// Call remaining setup functions first, then launch the app
 			this.applyConfigurations();
 			this.launchApp();
-			
+
 		},
 
 		applyConfigurations: function () {
@@ -74,7 +83,7 @@ define([
 			Helper.enableLayout();
 			// Have the Delegator Start Listening, He will subscribe to all published events and delegate handlers
 			Delegator.startListening();
-			// Initialize View Controller, He controls loading views, this will initialize the header, footer, and get 
+			// Initialize View Controller, He controls loading views, this will initialize the header, footer, and get
 			// the Header to load the default view, if you need to change the view, do it through the header, he will propogate
 			// the event to the ViewController
 			ViewController.init(defaultViewToLoad);

@@ -265,26 +265,35 @@ define([
             });
 
             lossParams = new ImageServiceParameters();
+            lossParams.interpolation = 'RSP_NearestNeighbor';
             lossParams.renderingRule = new RasterFunction({
-                "rasterFunction": "Colormap",
-                "rasterFunctionArguments": {
-                    "Colormap": MapConfig.loss.colormap,
-                    "Raster": {
-                        "rasterFunction": "Remap",
-                        "rasterFunctionArguments": {
-                            "InputRanges": MapConfig.loss.defaultRange,
-                            "OutputValues": [1],
-                            "AllowUnmatched": false
-                        }
-                    }
-                },
-                "variableName": "Raster"
+                // "rasterFunction": "Colormap",
+                // "rasterFunctionArguments": {
+                //     "Colormap": MapConfig.loss.colormap,
+                //     "Raster": {
+                //         "rasterFunction": "Remap",
+                //         "rasterFunctionArguments": {
+                //             "InputRanges": MapConfig.loss.defaultRange,
+                //             "OutputValues": [1],
+                //             "AllowUnmatched": false
+                //         }
+                //     }
+                // },
+                // "variableName": "Raster"
+                'rasterFunction': 'ForestCover_lossyear_density',
+                'rasterFunctionArguments': {
+                    'min_year': MapConfig.loss.defaultRange[0] + 2000,
+                    'max_year': MapConfig.loss.defaultRange[1] + 2000,
+                    'min_density': 30,
+                    'max_density': 100
+                }
             });
 
             lossLayer = new ArcGISImageServiceLayer(MapConfig.loss.url, {
                 imageServiceParameters: lossParams,
                 id: MapConfig.loss.id,
                 visible: false,
+                // interpolation: 'RSP_NearestNeighbor',//INTERPOLATION_NEARESTNEIGHBOR
                 opacity: 1
             });
 
