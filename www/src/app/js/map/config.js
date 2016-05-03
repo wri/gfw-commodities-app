@@ -257,7 +257,7 @@ define([], function() {
         ldcover: {
             id: 'forestCover_landCover', //"forestCover_commodities",
             url: globalLandCover, //dynamicMapServiceUrlComm,
-            layerId: 11
+            layerId: 4 //11
         },
         ldcoverIndo: {
             id: "forestCover_commodities",

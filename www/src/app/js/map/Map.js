@@ -187,6 +187,7 @@ define([
                 batchParams,
 
                 forestCover_forestCover,
+                forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
@@ -324,6 +325,16 @@ define([
                 id: "forestCover_forestCover",
                 visible: false
             });
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
+                visible: false
+            });
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
+                visible: false
+            });
             forestCover_commodities = new ArcGISDynamicLayer(MapConfig.peat.url, {
                 imageParameters: batchParams,
                 id: "forestCover_commodities",
@@ -453,6 +464,7 @@ define([
                 // commoditiesAggregate,
                 // landUserAggregate,
                 forestCover_forestCover,
+                forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
                 forestUse_commodities,
@@ -510,6 +522,7 @@ define([
             // commoditiesAggregate.on('error', this.addLayerError);
             // landUserAggregate.on('error', this.addLayerError);
             forestCover_forestCover.on('error', this.addLayerError);
+            forestCover_landCover.on('error', this.addLayerError);
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
             forestUse_commodities.on('error', this.addLayerError);
