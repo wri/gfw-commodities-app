@@ -3,11 +3,11 @@ define([], function() {
     var geometryServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer",
         // clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2014/ImageServer',
         clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
-        imageServiceUrl = "http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer",
+        imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         suitabilityUrl = "http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer",
         firesQueryUrl = "http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer",
         fieldAssessmentUrl = "http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia",
-        clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis_wm/ImageServer',
+        clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
         boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';
 
     // Totoal Loss
@@ -88,7 +88,7 @@ define([], function() {
         ],
 
         urls: {
-            imageService: 'http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer'
+            imageService: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer'
         },
 
         messages: {

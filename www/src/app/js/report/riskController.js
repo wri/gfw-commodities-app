@@ -13,15 +13,15 @@ define([
 
     var o = {};
     // Polygon Geometry, Area of Geometry, Area Type, RSPO Status, Is it in Indonesia
-    
+
     var eckert = 54012;
     var webmercator = 102100;
     var risk_labels = ['','low','medium','high'];
     config.carbonDensity = {rasterId:"$524"};
 
 
-    var services = { 
-        commodities: "http://gis-gfw.wri.org/arcgis/rest/services/GFW/analysis/ImageServer",
+    var services = {
+        commodities: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         fires: "http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0",
         concessions: "http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer/27"
     };
@@ -39,7 +39,7 @@ define([
     };
 
     // setWMconfig();
-        
+
     o.getRiskByGeometry = function(geometry, area, areaType, rspo, indonesia, riskResults, concessions){
         var featureArea = area;
     //Helper functions
@@ -83,7 +83,7 @@ define([
                 // console.log(breaks,areaType, counts, area, featureArea, riskFactor)
                 return getRiskByBreaks(low,high,riskFactor);
             };
-            
+
         };
 
         var getHighRiskIfPresent = function(results){
@@ -164,11 +164,11 @@ define([
             return sqm;
         };
 
-        var methods = { 
-            histogram: riskRequest.computeHistogram, 
+        var methods = {
+            histogram: riskRequest.computeHistogram,
             query: riskRequest.queryEsri
         };
-        
+
 
         var riskRequst = function(url,method,params){
 
@@ -187,8 +187,8 @@ define([
                 // categories: [
                 //     'umd_loss',
                 //     // 'area_primary',
-                //     'umd_loss_primary', 
-                //     'forma', 
+                //     'umd_loss_primary',
+                //     'forma',
                 //     'forma_primary',
                 //     // 'forma_peat',
                 //     'loss_carbon'/*, 'area_carbon','area_carbon','alerts_carbon'*/],
@@ -223,7 +223,7 @@ define([
 
         var categories = [
 
-                { 
+                {
                     // key: 'loss_carbon',
                     key: 'carbon',
                     category: 'deforestation',
@@ -247,7 +247,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'forma',
                     category: 'deforestation',
                     service: services.commodities,
@@ -263,7 +263,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'forma_carbon',
                     category: 'deforestation',
                     service: services.commodities,
@@ -282,7 +282,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'area_carbon',
                     category: 'deforestation',
                     service: services.commodities,
@@ -297,7 +297,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'area_primary',
                     category: 'deforestation',
                     service: services.commodities,
@@ -316,7 +316,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'forma_primary',
                     category: 'deforestation',
                     service: services.commodities,
@@ -343,7 +343,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'umd_loss',
                     category: 'deforestation',
                     service: services.commodities,
@@ -358,7 +358,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'umd_loss_primary',
                     category: 'deforestation',
                     service: services.commodities,
@@ -391,35 +391,35 @@ define([
                     service: services.fires,
                     request: methods.query,
                     params:{
-                            where: 'BRIGHTNESS>=330 AND CONFIDENCE>=30', 
+                            where: 'BRIGHTNESS>=330 AND CONFIDENCE>=30',
                             geometry: '',
                     },
                     execution: 'executeForCount',
 
                     callback: function(results, deferred){
-                        
+
                         if (results>0){
                             return 3;
                         }
                         return 1;
-                       
+
                     },
                     callbacks: {
                         'radius': function(results, deferred){
-                        
+
                             if (results>0){
                                 return 3;
                             }
                             return 1;
-                           
+
                         },
                         'concession': function(results, deferred){
-                        
+
                             if (results>0){
                                 return 3;
                             }
                             return 1;
-                           
+
                         }
                     }
                 },
@@ -430,16 +430,16 @@ define([
                     service: services.commodities,
                     request: methods.histogram,
                     ind_params:{
-                            renderingRule: remapRule(   
+                            renderingRule: remapRule(
                                                         [0,1, 1,2, 2,3, 3,4, 4,7],
                                                         [1, 0, 1, 0, 1],
                                                         config.legalClass.rasterId
                                                     ),
-                            pixelSize: 100          
+                            pixelSize: 100
                         },
                     params:{
                             renderingRule: lockRaster(config.protectedArea.rasterId),
-                            pixelSize: 100  
+                            pixelSize: 100
                     },
 
                     callbacks: {
@@ -450,7 +450,7 @@ define([
                     ind_callback: getHighRiskIfPresent
                 },
 
-                { 
+                {
                     // key: 'loss_peat_area',
                     key: 'clearance',
                     category: 'peat',
@@ -471,7 +471,7 @@ define([
                     }
                 },
 
-                { 
+                {
                     key: 'alerts',
                     category: 'peat',
                     service: services.commodities,
@@ -489,8 +489,8 @@ define([
                         'concession': getHighRiskIfPresent
                     }
                 },
-            
-                { 
+
+                {
                     key: 'presence',
                     category: 'peat',
                     service: services.commodities,
@@ -500,7 +500,7 @@ define([
                         renderingRule: remapRule([0,1, 1,2],[0,1],config.peatLands.rasterId),
                         pixelSize: 100
                     },
-                    
+
                     callbacks: {
                         'radius': getRiskByAreaBreaks(.9*0.0059,1.1*0.0063),//getRiskByAreaBreaks(0.02,0.05,100),//
                         'concession': getRiskByAreaBreaks(.9*0.0059,1.1*0.0063)//getRiskByAreaBreaks(0.02,0.05,100)//getRiskByAreaBreaks(0.0059,0.0063)
@@ -508,7 +508,7 @@ define([
 
                 }
 
-                
+
         ];
 
         var getCategoryByKey = function(key){
@@ -541,8 +541,8 @@ define([
                     }
                     riskResults[category][key][areaType] = {risk:risk_labels[value]};
                 }
-                
-            }); 
+
+            });
 
 
             clonedPriorities.forEach(function(priority){
@@ -551,7 +551,7 @@ define([
                     return;
                 }
                 // else if(priority.label === 'RSPO'){
-                //     priority.risk = 
+                //     priority.risk =
                 // }
                 var cats = [];
 
@@ -628,7 +628,7 @@ define([
         }
 
 
-        
+
         categories.forEach(function(category){
             var deferred = new Deferred();
             var params = indonesia && category.ind_params? category.ind_params : category.params;
@@ -729,9 +729,9 @@ define([
                 })
             })
 
-            
-           
-            
+
+
+
         });
         return deferred
     }
@@ -787,7 +787,7 @@ define([
         });
 
         });
-        
+
         return deferred
     }
 

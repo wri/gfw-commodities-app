@@ -8,7 +8,6 @@ define([
 
     var config = AnalyzerConfig.stepThree,
         labelField = AnalyzerConfig.stepTwo.labelField;
-
     var KEYS = AnalyzerConfig.STORE_KEYS;
 
     /* Helper Functions */
