@@ -1,7 +1,6 @@
 define([
 	'lodash'
 ], function (_) {
-	'use strict';
 
 	var Callbacks = {};
 	var Store = {};

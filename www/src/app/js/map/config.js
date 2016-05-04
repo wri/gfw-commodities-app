@@ -283,8 +283,8 @@ define([], function() {
               [1, 255, 102, 153]
             ],
             startDate: new window.Kalendae.moment('01/01/2015'),
-            endDate: new window.Kalendae.moment(),
-            toolsNode: 'glad_toolbox'
+            endDate: new window.Kalendae.moment()//,
+            //toolsNode: 'glad_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',

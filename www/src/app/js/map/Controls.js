@@ -166,8 +166,8 @@ define([
                 filter;
 
             // Find the currently active filter
-            element = dojoQuery(".fires_toolbox .toolbox-list li.selected")[0];
-            filter = element.dataset ? element.dataset.filter : element.getAttribute("data-filter");
+            element = dojoQuery('.fires_toolbox .toolbox-list li.selected')[0];
+            filter = element.dataset ? element.dataset.filter : element.getAttribute('data-filter');
 
             LayerController.setFiresLayerDefinition(filter, highConfidence);
 
@@ -189,7 +189,7 @@ define([
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
-            GladSlider.init();
+            // GladSlider.init();
             ProdesSlider.init();
         },
 

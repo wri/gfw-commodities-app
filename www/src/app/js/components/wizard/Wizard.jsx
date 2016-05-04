@@ -1,19 +1,19 @@
 /** @jsx React.DOM */
 define([
-    "react",
-    "analysis/config",
-    "analysis/WizardStore",
-    "components/wizard/StepOne",
-    "components/wizard/StepTwo",
-    "components/wizard/StepThree",
-    "components/wizard/Intro",
+    'react',
+    'analysis/config',
+    'analysis/WizardStore',
+    'components/wizard/StepOne',
+    'components/wizard/StepTwo',
+    'components/wizard/StepThree',
+    'components/wizard/Intro',
     // Other Helpful Modules
-    "dojo/topic",
-    "dojo/_base/array",
-    "map/config",
-    "dojo/_base/lang",
-    "esri/tasks/PrintTask",
-    "map/Controls",
+    'dojo/topic',
+    'dojo/_base/array',
+    'map/config',
+    'dojo/_base/lang',
+    'esri/tasks/PrintTask',
+    'map/Controls',
     'utils/Analytics',
     'utils/GeoHelper'
 ], function (React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, Intro, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, Analytics, GeoHelper) {
@@ -93,20 +93,20 @@ define([
             };
 
             if (this.state.currentStep === 0) {
-                $(".breadcrumbs").hide();
-                $(".gfw .wizard-header").css("height", "-=45px");
-                $(".gfw .wizard-body").css("top", "55px");
-                $(".gfw .wizard-header .button.reset").hide();
+                $('.breadcrumbs').hide();
+                $('.gfw .wizard-header').css('height', '-=45px');
+                $('.gfw .wizard-body').css('top', '55px');
+                $('.gfw .wizard-header .button.reset').hide();
             } else {
-                $(".breadcrumbs").show();
-                $(".gfw .wizard-header").css("height", "+=45px");
-                $(".gfw .wizard-body").css("top", "");
-                $(".gfw .wizard-header .button.reset").show();
-                $(".gfw .wizard-header .button.reset").css("top", "0px");
+                $('.breadcrumbs').show();
+                $('.gfw .wizard-header').css('height', '+=45px');
+                $('.gfw .wizard-body').css('top', '');
+                $('.gfw .wizard-header .button.reset').show();
+                $('.gfw .wizard-header .button.reset').css('top', '0px');
             }
 
             // Hide legend content pane if appropriate
-            if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
+            if (['commercialEntityOption', 'certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
                 topic.publish('hideConcessionsLegend');
             }
 
@@ -155,7 +155,7 @@ define([
 
         // UI Functions that affect internal properties only
         _changeStep: function(synEvent) {
-            var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute("data-index");
+            var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute('data-index');
 
             targetIndex *= 1;
 
@@ -235,7 +235,7 @@ define([
             }
 
             if (win === null || typeof(win) === undefined || win === undefined) {
-                alert("You need to disable your popup blocker for this feature to work.");
+                alert('You need to disable your popup blocker for this feature to work.');
             } else {
                 win.focus();
                 // Some browsers load really fast and are ready before the payload has been set
@@ -271,7 +271,7 @@ define([
                 // id = feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined;
                 id = feature.attributes.wri_id || feature.attributes.WRI_ID || undefined;
 
-            return  areaOfInterest === 'millPointOption' ? id : undefined;
+            return areaOfInterest === 'millPointOption' ? id : undefined;
           }
 
           features.forEach(function (feature) {

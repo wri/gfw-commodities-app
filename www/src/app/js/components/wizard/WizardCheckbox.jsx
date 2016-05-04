@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 define([
-  "react",
-  "dojo/topic"
+  'react',
+  'dojo/topic'
 ], function (React, topic) {
 
   return React.createClass({
@@ -12,6 +12,9 @@ define([
     },
 
     getInitialState: function() {
+      // if (this.props.label === 'Plantations by Type') {
+      //   debugger
+      // }
       return {
         active: this.props.defaultChecked || false
       };
@@ -21,6 +24,24 @@ define([
       if (newProps.isResetting) {
         this.replaceState(this.getInitialState());
       }
+
+      if (newProps.checkedFromPopup === true) {
+        this.setState({
+          active: true
+        });
+      }
+
+      // if (newProps.label === 'Plantations by Type') {
+      //   console.log('plantaaa');
+      //   // if (this.props.defaultChecked !== newProps.defaultChecked) {
+      //   //   console.log('actveeee');
+      //     this.setState({
+      //       active: true
+      //     });
+      //   // } else {
+      //   //   debugger
+      //   // }
+      // }
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -54,49 +75,49 @@ define([
       this.setState({ active: !this.state.active });
     },
 
-    showInfo: function(synEvent) {
+    showInfo: function() {
       switch (this.props.value) {
-        case "peat":
-          this.props.infoDivClass = "forest-and-land-cover-peat-lands";
+        case 'peat':
+          this.props.infoDivClass = 'forest-and-land-cover-peat-lands';
           break;
-        case "treeDensity":
-          this.props.infoDivClass = "forest-and-land-cover-tree-cover-density";
+        case 'treeDensity':
+          this.props.infoDivClass = 'forest-and-land-cover-tree-cover-density';
           break;
-        case "legal":
-          this.props.infoDivClass = "forest-and-land-cover-legal-classifications";
+        case 'legal':
+          this.props.infoDivClass = 'forest-and-land-cover-legal-classifications';
           break;
-        case "protected":
-          this.props.infoDivClass = "conservation-protected-areas";
+        case 'protected':
+          this.props.infoDivClass = 'conservation-protected-areas';
           break;
-        case "carbon":
-          this.props.infoDivClass = "forest-and-land-cover-carbon-stocks";
+        case 'carbon':
+          this.props.infoDivClass = 'forest-and-land-cover-carbon-stocks';
           break;
-        case "intact":
-          this.props.infoDivClass = "forest-and-land-cover-intact-forest-landscape";
+        case 'intact':
+          this.props.infoDivClass = 'forest-and-land-cover-intact-forest-landscape';
           break;
-        case "landCoverGlob":
-          this.props.infoDivClass = "forest-and-land-cover-land-cover-global";
+        case 'landCoverGlob':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-global';
           break;
-        case "primForest":
-          this.props.infoDivClass = "forest-and-land-cover-primary-forest";
+        case 'primForest':
+          this.props.infoDivClass = 'forest-and-land-cover-primary-forest';
           break;
-        case "biomes":
-          this.props.infoDivClass = "forest-and-land-cover-brazil-biomes";
+        case 'biomes':
+          this.props.infoDivClass = 'forest-and-land-cover-brazil-biomes';
           break;
-        case "suit":
-          this.props.infoDivClass = "land-use-oil-palm";
+        case 'suit':
+          this.props.infoDivClass = 'land-use-oil-palm';
           break;
-        case "rspo":
-          this.props.infoDivClass = "land-use-rspo-consessions";
+        case 'rspo':
+          this.props.infoDivClass = 'land-use-rspo-consessions';
           break;
-        case "landCoverIndo":
-          this.props.infoDivClass = "forest-and-land-cover-land-cover-indonesia";
+        case 'landCoverIndo':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-indonesia';
           break;
-        case "landCoverAsia":
-          this.props.infoDivClass = "forest-and-land-cover-land-cover-south-east-asia";
+        case 'landCoverAsia':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-south-east-asia';
           break;
-        case "treeCoverLoss":
-          this.props.infoDivClass = "forest-change-tree-cover-change";
+        case 'treeCoverLoss':
+          this.props.infoDivClass = 'forest-change-tree-cover-change';
           break;
       }
 

@@ -29,202 +29,220 @@ define([
 
     return React.createClass({
 
-        getInitialState: function() {
-            return getDefaultState();
-        },
+      getInitialState: function() {
+        return getDefaultState();
+      },
 
-        componentDidMount: function () {
-            WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
-        },
+      componentDidMount: function () {
+        WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
+      },
 
-        analysisAreaUpdated: function () {
-            // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-            this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
-        },
+      analysisAreaUpdated: function () {
+        // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+        this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
+      },
 
-        toggleOptions: function () {
-            // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-            this.setState({ optionsExpanded: !this.state.optionsExpanded });
-        },
+      toggleOptions: function () { //todo: toggle these open (or not) on analysis via popup!
+        // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+        this.setState({ optionsExpanded: !this.state.optionsExpanded });
+      },
 
-        componentDidUpdate: function () {
-            var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-            var currentStep = WizardStore.get(KEYS.userStep);
-            // if (selectedAreaOfInterest !== 'millPointOption' &&
-            if (currentStep === 3) {
-                // Recheck requirements and update state if necessary
-                this._selectionMade();
-            }
-        },
+      componentDidUpdate: function () {
+        // var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        var currentStep = WizardStore.get(KEYS.userStep);
 
-        componentWillReceiveProps: function(newProps) {
-            if (newProps.isResetting) {
-                this.replaceState(getDefaultState());
-            }
-        },
+        // if (selectedAreaOfInterest !== 'millPointOption' &&
+        if (currentStep === 3) {
+          // Recheck requirements and update state if necessary
+          this._selectionMade();
+        }
+      },
 
-        shouldComponentUpdate: function () {
-          // Should Only Rerender if we are on this step, dont rerender if this is not visible
-          return WizardStore.get(KEYS.userStep) === 3;
-        },
+      componentWillReceiveProps: function(newProps) {
+        if (newProps.isResetting) {
+          this.replaceState(getDefaultState());
+        }
+      },
 
-        /* jshint ignore:start */
-        render: function() {
-            var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-            var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-            var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
-              return feature.geometry.type === 'point';
-            });
+      shouldComponentUpdate: function () {
+        // Should Only Rerender if we are on this step, dont rerender if this is not visible
+        return WizardStore.get(KEYS.userStep) === 3;
+      },
 
-            console.log('completed ', this.state.completed);
-            //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
-            return (
-              React.createElement("div", {className: "step select-analysis"}, 
-                React.createElement("div", {className: "step-body"}, 
-                  React.createElement("div", {className: "step-three-top"}, 
-                    React.createElement("div", {className: "step-title"}, config.title), 
-                    /* Show this Only If Mill Point Analysis is Being Done */
-                    
-                      selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ?
-                        this.createPointContent(hasPoints) :
-                        null, 
-                    
-                    React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.createElement("p", {className: "layer-description"}, config.suit.description), 
-                    React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.createElement("p", {className: "layer-description"}, config.rspo.description), 
-                    React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
-                      style: { 'position': 'relative'}
-                    }, 
-                    React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.createElement("p", {className: "layer-description"}, config.mill.description)
+      /* jshint ignore:start */
+      render: function() {
+        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
+          return feature.geometry.type === 'point';
+        });
 
-                    ), 
-                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
-
-                    
-                      this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}}) :
-                      React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}})
-                    
-                    ), 
-                    React.createElement("p", {className: "layer-description"}, config.forestChange.description)
-                  ), 
-
-                  React.createElement("div", {className: ("checkbox-list " + (this.state.optionsExpanded === false ? 'transition-hidden' : ''))}, config.checkboxes.map(this._mapper, this))
+        console.log('completed ', this.state.completed);
+        console.log('optionsExpanded ', this.state.optionsExpanded);
+        //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
+        return (
+          React.createElement("div", {className: "step select-analysis"}, 
+            React.createElement("div", {className: "step-body"}, 
+              React.createElement("div", {className: "step-three-top"}, 
+                React.createElement("div", {className: "step-title"}, config.title), 
+                /* Show this Only If Mill Point Analysis is Being Done */
+                
+                  selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ?
+                    this.createPointContent(hasPoints) :
+                    null, 
+                
+                React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.suit.description), 
+                React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.rspo.description), 
+                React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
+                  style: { 'position': 'relative'}
+                }, 
+                React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                 ), 
-                React.createElement("div", {className: "step-footer"}, 
-                  React.createElement("div", {className: "selected-analysis-area"}, 
-                    React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
-                    React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
-                  ), 
-                  React.createElement("div", {onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
-                    React.createElement("span", {className: "next-button"}, "Perform Analysis")
-                  )
-                )
+                React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
+
+                
+                  this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}}) :
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}})
+                
+                ), 
+                React.createElement("p", {className: "layer-description"}, config.forestChange.description)
+              ), 
+
+              React.createElement("div", {className: ("checkbox-list " + (this.state.optionsExpanded === false ? 'transition-hidden' : ''))}, config.checkboxes.map(this._mapper, this))
+
+            ), 
+            React.createElement("div", {className: "step-footer"}, 
+              React.createElement("div", {className: "selected-analysis-area"}, 
+                React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
+                React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
+              ), 
+              React.createElement("div", {onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
+                React.createElement("span", {className: "next-button"}, "Perform Analysis")
               )
-            );
-        },
+            )
+          )
+        );
+      },
 
-        _mapper: function(item) {
-            return React.createElement(WizardCheckbox, {label: item.label, value: item.value, change: this._selectionMade, 
-                isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
-                defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
-            );
-        },
+      _mapper: function(item) {
+        var checkedFromPopup = this.checkedOverride(item.label);
 
-        createPointContent: function (hasPoints) {
+        // if (checkedFromPopup === true) {
+        //   item.checked = true;
+        //   // item.override = true;
+        //   console.log(item);
+        // }
 
-          var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
+        return React.createElement(WizardCheckbox, {label: item.label, value: item.value, checkedFromPopup: checkedFromPopup, change: this._selectionMade, 
+          isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
+          defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
+        );
+      },
 
-          var options = config.pointRadiusOptions.map(function (option) {
-            return React.createElement("option", {value: option.value}, option.label);
-          });
+      createPointContent: function (hasPoints) {
 
-          // If it has points, render a select to choose a buffer radius
-          // If it does not have points but it is custom features, user used Create Custom Area and
-          // is analyzing polygons, so show nothing, otherwise, show little description
+        var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
 
-          return (hasPoints ?
-            React.createElement("div", {className: "point-radius-select-container"}, 
-                React.createElement("span", {className: "instructions"}, config.pointRadiusDescription), 
-                React.createElement("select", {ref: "pointRadiusSelect", className: "point-radius-select"}, options)
-            ) :
-              isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer)
-          );
-        },
+        var options = config.pointRadiusOptions.map(function (option) {
+          return React.createElement("option", {value: option.value}, option.label);
+        });
 
-        /* jshint ignore:end */
+        // If it has points, render a select to choose a buffer radius
+        // If it does not have points but it is custom features, user used Create Custom Area and
+        // is analyzing polygons, so show nothing, otherwise, show little description
 
-        _selectionMade: function() {
-          // console.log(this._checkRequirements)
-          var completed = this._checkRequirements();
+        return (hasPoints ?
+          React.createElement("div", {className: "point-radius-select-container"}, 
+              React.createElement("span", {className: "instructions"}, config.pointRadiusDescription), 
+              React.createElement("select", {ref: "pointRadiusSelect", className: "point-radius-select"}, options)
+          ) :
+            isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer)
+        );
+      },
 
-          let oldCompleted = this.state.completed;
-          if (oldCompleted !== completed) {
-            this.setState({ completed: completed });
-          }
-        },
+      /* jshint ignore:end */
 
-        _checkRequirements: function() {
-            var result = false,
-                nodes = document.querySelectorAll('.select-analysis .wizard-checkbox.active');
-                // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-                // value;
+      _selectionMade: function() {
+        // console.log(this._checkRequirements)
+        var completed = this._checkRequirements();
 
-            // Conditions
-            // At least One item must be checked
-            // If more than one item is checked, we pass
-            if (nodes.length > 0) {
-                // if (nodes.length > 1) {
-                result = true;
-                // } else {
-                //     // nodes === 1
-                //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
-                //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-                //     //     // This Fails, result is already false so do nothing
-                //     // } else {
-                //         result = true;
-                //     // }
-                // } // millPoint is back in as a viable Analysis Layer, hence the check removal
-            }
+        let oldCompleted = this.state.completed;
+        if (oldCompleted !== completed) {
+          this.setState({ completed: completed });
+        }
+      },
 
-            return result;
-        },
+      checkedOverride: function(itemLabel) {
+        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        if (selectedAreaOfInterest === itemLabel) {
+          return true;
+        } else {
+          return false;
+        }
+      },
 
-        _getPayload: function() {
-            var nodes = document.querySelectorAll('.select-analysis .wizard-checkbox'),
-                selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-                payload = {},
-                value;
+      _checkRequirements: function() {
+        var result = false,
+          nodes = document.querySelectorAll('.select-analysis .wizard-checkbox.active');
+          // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+          // value;
 
-            Array.prototype.forEach.call(nodes, function(node) {
-                value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
-                if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-                    // Dont add mills unless millPointOption is the selectedArea
-                } else {
-                    payload[value] = (node.className.search('active') > -1);
-                }
-            });
-
-            return payload;
-        },
-
-        _proceed: function() {
-            if (this.state.completed) {
-                var payload = this._getPayload();
-                WizardStore.set(KEYS.analysisSets, payload);
-                // Get the Radius and set it to the store if it exists
-                var pointRadiusSelect = this.refs.pointRadiusSelect;
-                if (pointRadiusSelect) {
-                    var radius = pointRadiusSelect.getDOMNode().value;
-                    WizardStore.set(KEYS.analysisPointRadius, radius);
-                }
-                this.props.callback.performAnalysis();
-            }
+        // Conditions
+        // At least One item must be checked
+        // If more than one item is checked, we pass
+        if (nodes.length > 0) {
+          // if (nodes.length > 1) {
+          result = true;
+          // } else {
+          //     // nodes === 1
+          //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
+          //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
+          //     //     // This Fails, result is already false so do nothing
+          //     // } else {
+          //         result = true;
+          //     // }
+          // } // millPoint is back in as a viable Analysis Layer, hence the check removal
         }
 
+        return result;
+      },
 
+      _getPayload: function() {
+        var nodes = document.querySelectorAll('.select-analysis .wizard-checkbox'),
+          selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+          payload = {},
+          value;
+
+        Array.prototype.forEach.call(nodes, function(node) {
+          value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
+          if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
+            // Dont add mills unless millPointOption is the selectedArea
+          } else {
+            payload[value] = (node.className.search('active') > -1);
+          }
+        });
+
+        return payload;
+      },
+
+      _proceed: function() {
+        if (this.state.completed) {
+          var payload = this._getPayload();
+          WizardStore.set(KEYS.analysisSets, payload);
+          // Get the Radius and set it to the store if it exists
+          var pointRadiusSelect = this.refs.pointRadiusSelect;
+          if (pointRadiusSelect) {
+            var radius = pointRadiusSelect.getDOMNode().value;
+            WizardStore.set(KEYS.analysisPointRadius, radius);
+          }
+          this.props.callback.performAnalysis();
+        }
+      }
     });
 
 });

@@ -512,7 +512,7 @@ define([
 
           featureObjects.forEach(function (item) {
             content = MapConfig.bySpecies.infoTemplate.content;
-            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+            item.feature.setInfoTemplate(new InfoTemplate('Plantations by Type', content +
            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
            item.value + "' data-type='Plantations by Type' data-id='${objectid}'>" +
            "Analyze</button>" +
@@ -532,7 +532,7 @@ define([
 
           featureObjects.forEach(function (item) {
             content = MapConfig.bySpecies.infoTemplate.content;
-            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+            item.feature.setInfoTemplate(new InfoTemplate('Plantations by Species', content +
            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
            item.value + "' data-type='Plantations by Species' data-id='${objectid}'>" +
            "Analyze</button>" +
