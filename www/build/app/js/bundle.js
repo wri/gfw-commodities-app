@@ -554,8 +554,8 @@ define('map/config',[], function() {
               [1, 255, 102, 153]
             ],
             startDate: new window.Kalendae.moment('01/01/2015'),
-            endDate: new window.Kalendae.moment(),
-            toolsNode: 'glad_toolbox'
+            endDate: new window.Kalendae.moment()//,
+            //toolsNode: 'glad_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -2023,7 +2023,6 @@ t.exports={inject:o}},{109:109,13:13,14:14,21:21,23:23,26:26,29:29,3:3,33:33,35:
 define('analysis/WizardStore',[
 	'lodash'
 ], function (_) {
-	'use strict';
 
 	var Callbacks = {};
 	var Store = {};
@@ -6468,8 +6467,8 @@ define('components/wizard/StepTwo',[
 
 /** @jsx React.DOM */
 define('components/wizard/WizardCheckbox',[
-  "react",
-  "dojo/topic"
+  'react',
+  'dojo/topic'
 ], function (React, topic) {
 
   return React.createClass({
@@ -6480,6 +6479,9 @@ define('components/wizard/WizardCheckbox',[
     },
 
     getInitialState: function() {
+      // if (this.props.label === 'Plantations by Type') {
+      //   debugger
+      // }
       return {
         active: this.props.defaultChecked || false
       };
@@ -6489,6 +6491,24 @@ define('components/wizard/WizardCheckbox',[
       if (newProps.isResetting) {
         this.replaceState(this.getInitialState());
       }
+
+      if (newProps.checkedFromPopup === true) {
+        this.setState({
+          active: true
+        });
+      }
+
+      // if (newProps.label === 'Plantations by Type') {
+      //   console.log('plantaaa');
+      //   // if (this.props.defaultChecked !== newProps.defaultChecked) {
+      //   //   console.log('actveeee');
+      //     this.setState({
+      //       active: true
+      //     });
+      //   // } else {
+      //   //   debugger
+      //   // }
+      // }
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -6522,49 +6542,49 @@ define('components/wizard/WizardCheckbox',[
       this.setState({ active: !this.state.active });
     },
 
-    showInfo: function(synEvent) {
+    showInfo: function() {
       switch (this.props.value) {
-        case "peat":
-          this.props.infoDivClass = "forest-and-land-cover-peat-lands";
+        case 'peat':
+          this.props.infoDivClass = 'forest-and-land-cover-peat-lands';
           break;
-        case "treeDensity":
-          this.props.infoDivClass = "forest-and-land-cover-tree-cover-density";
+        case 'treeDensity':
+          this.props.infoDivClass = 'forest-and-land-cover-tree-cover-density';
           break;
-        case "legal":
-          this.props.infoDivClass = "forest-and-land-cover-legal-classifications";
+        case 'legal':
+          this.props.infoDivClass = 'forest-and-land-cover-legal-classifications';
           break;
-        case "protected":
-          this.props.infoDivClass = "conservation-protected-areas";
+        case 'protected':
+          this.props.infoDivClass = 'conservation-protected-areas';
           break;
-        case "carbon":
-          this.props.infoDivClass = "forest-and-land-cover-carbon-stocks";
+        case 'carbon':
+          this.props.infoDivClass = 'forest-and-land-cover-carbon-stocks';
           break;
-        case "intact":
-          this.props.infoDivClass = "forest-and-land-cover-intact-forest-landscape";
+        case 'intact':
+          this.props.infoDivClass = 'forest-and-land-cover-intact-forest-landscape';
           break;
-        case "landCoverGlob":
-          this.props.infoDivClass = "forest-and-land-cover-land-cover-global";
+        case 'landCoverGlob':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-global';
           break;
-        case "primForest":
-          this.props.infoDivClass = "forest-and-land-cover-primary-forest";
+        case 'primForest':
+          this.props.infoDivClass = 'forest-and-land-cover-primary-forest';
           break;
-        case "biomes":
-          this.props.infoDivClass = "forest-and-land-cover-brazil-biomes";
+        case 'biomes':
+          this.props.infoDivClass = 'forest-and-land-cover-brazil-biomes';
           break;
-        case "suit":
-          this.props.infoDivClass = "land-use-oil-palm";
+        case 'suit':
+          this.props.infoDivClass = 'land-use-oil-palm';
           break;
-        case "rspo":
-          this.props.infoDivClass = "land-use-rspo-consessions";
+        case 'rspo':
+          this.props.infoDivClass = 'land-use-rspo-consessions';
           break;
-        case "landCoverIndo":
-          this.props.infoDivClass = "forest-and-land-cover-land-cover-indonesia";
+        case 'landCoverIndo':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-indonesia';
           break;
-        case "landCoverAsia":
-          this.props.infoDivClass = "forest-and-land-cover-land-cover-south-east-asia";
+        case 'landCoverAsia':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-south-east-asia';
           break;
-        case "treeCoverLoss":
-          this.props.infoDivClass = "forest-change-tree-cover-change";
+        case 'treeCoverLoss':
+          this.props.infoDivClass = 'forest-change-tree-cover-change';
           break;
       }
 
@@ -6611,202 +6631,220 @@ define('components/wizard/StepThree',[
 
     return React.createClass({
 
-        getInitialState: function() {
-            return getDefaultState();
-        },
+      getInitialState: function() {
+        return getDefaultState();
+      },
 
-        componentDidMount: function () {
-            WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
-        },
+      componentDidMount: function () {
+        WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
+      },
 
-        analysisAreaUpdated: function () {
-            // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-            this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
-        },
+      analysisAreaUpdated: function () {
+        // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+        this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
+      },
 
-        toggleOptions: function () {
-            // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-            this.setState({ optionsExpanded: !this.state.optionsExpanded });
-        },
+      toggleOptions: function () { //todo: toggle these open (or not) on analysis via popup!
+        // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+        this.setState({ optionsExpanded: !this.state.optionsExpanded });
+      },
 
-        componentDidUpdate: function () {
-            var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-            var currentStep = WizardStore.get(KEYS.userStep);
-            // if (selectedAreaOfInterest !== 'millPointOption' &&
-            if (currentStep === 3) {
-                // Recheck requirements and update state if necessary
-                this._selectionMade();
-            }
-        },
+      componentDidUpdate: function () {
+        // var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        var currentStep = WizardStore.get(KEYS.userStep);
 
-        componentWillReceiveProps: function(newProps) {
-            if (newProps.isResetting) {
-                this.replaceState(getDefaultState());
-            }
-        },
+        // if (selectedAreaOfInterest !== 'millPointOption' &&
+        if (currentStep === 3) {
+          // Recheck requirements and update state if necessary
+          this._selectionMade();
+        }
+      },
 
-        shouldComponentUpdate: function () {
-          // Should Only Rerender if we are on this step, dont rerender if this is not visible
-          return WizardStore.get(KEYS.userStep) === 3;
-        },
+      componentWillReceiveProps: function(newProps) {
+        if (newProps.isResetting) {
+          this.replaceState(getDefaultState());
+        }
+      },
 
-        /* jshint ignore:start */
-        render: function() {
-            var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-            var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-            var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
-              return feature.geometry.type === 'point';
-            });
+      shouldComponentUpdate: function () {
+        // Should Only Rerender if we are on this step, dont rerender if this is not visible
+        return WizardStore.get(KEYS.userStep) === 3;
+      },
 
-            console.log('completed ', this.state.completed);
-            //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
-            return (
-              React.createElement("div", {className: "step select-analysis"}, 
-                React.createElement("div", {className: "step-body"}, 
-                  React.createElement("div", {className: "step-three-top"}, 
-                    React.createElement("div", {className: "step-title"}, config.title), 
-                    /* Show this Only If Mill Point Analysis is Being Done */
-                    
-                      selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ?
-                        this.createPointContent(hasPoints) :
-                        null, 
-                    
-                    React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.createElement("p", {className: "layer-description"}, config.suit.description), 
-                    React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.createElement("p", {className: "layer-description"}, config.rspo.description), 
-                    React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
-                      style: { 'position': 'relative'}
-                    }, 
-                    React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                    React.createElement("p", {className: "layer-description"}, config.mill.description)
+      /* jshint ignore:start */
+      render: function() {
+        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
+          return feature.geometry.type === 'point';
+        });
 
-                    ), 
-                    React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
-
-                    
-                      this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}}) :
-                      React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}})
-                    
-                    ), 
-                    React.createElement("p", {className: "layer-description"}, config.forestChange.description)
-                  ), 
-
-                  React.createElement("div", {className: ("checkbox-list " + (this.state.optionsExpanded === false ? 'transition-hidden' : ''))}, config.checkboxes.map(this._mapper, this))
+        console.log('completed ', this.state.completed);
+        console.log('optionsExpanded ', this.state.optionsExpanded);
+        //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
+        return (
+          React.createElement("div", {className: "step select-analysis"}, 
+            React.createElement("div", {className: "step-body"}, 
+              React.createElement("div", {className: "step-three-top"}, 
+                React.createElement("div", {className: "step-title"}, config.title), 
+                /* Show this Only If Mill Point Analysis is Being Done */
+                
+                  selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ?
+                    this.createPointContent(hasPoints) :
+                    null, 
+                
+                React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.suit.description), 
+                React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.rspo.description), 
+                React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
+                  style: { 'position': 'relative'}
+                }, 
+                React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                 ), 
-                React.createElement("div", {className: "step-footer"}, 
-                  React.createElement("div", {className: "selected-analysis-area"}, 
-                    React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
-                    React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
-                  ), 
-                  React.createElement("div", {onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
-                    React.createElement("span", {className: "next-button"}, "Perform Analysis")
-                  )
-                )
+                React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
+
+                
+                  this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}}) :
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}})
+                
+                ), 
+                React.createElement("p", {className: "layer-description"}, config.forestChange.description)
+              ), 
+
+              React.createElement("div", {className: ("checkbox-list " + (this.state.optionsExpanded === false ? 'transition-hidden' : ''))}, config.checkboxes.map(this._mapper, this))
+
+            ), 
+            React.createElement("div", {className: "step-footer"}, 
+              React.createElement("div", {className: "selected-analysis-area"}, 
+                React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
+                React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
+              ), 
+              React.createElement("div", {onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
+                React.createElement("span", {className: "next-button"}, "Perform Analysis")
               )
-            );
-        },
+            )
+          )
+        );
+      },
 
-        _mapper: function(item) {
-            return React.createElement(WizardCheckbox, {label: item.label, value: item.value, change: this._selectionMade, 
-                isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
-                defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
-            );
-        },
+      _mapper: function(item) {
+        var checkedFromPopup = this.checkedOverride(item.label);
 
-        createPointContent: function (hasPoints) {
+        // if (checkedFromPopup === true) {
+        //   item.checked = true;
+        //   // item.override = true;
+        //   console.log(item);
+        // }
 
-          var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
+        return React.createElement(WizardCheckbox, {label: item.label, value: item.value, checkedFromPopup: checkedFromPopup, change: this._selectionMade, 
+          isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
+          defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
+        );
+      },
 
-          var options = config.pointRadiusOptions.map(function (option) {
-            return React.createElement("option", {value: option.value}, option.label);
-          });
+      createPointContent: function (hasPoints) {
 
-          // If it has points, render a select to choose a buffer radius
-          // If it does not have points but it is custom features, user used Create Custom Area and
-          // is analyzing polygons, so show nothing, otherwise, show little description
+        var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
 
-          return (hasPoints ?
-            React.createElement("div", {className: "point-radius-select-container"}, 
-                React.createElement("span", {className: "instructions"}, config.pointRadiusDescription), 
-                React.createElement("select", {ref: "pointRadiusSelect", className: "point-radius-select"}, options)
-            ) :
-              isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer)
-          );
-        },
+        var options = config.pointRadiusOptions.map(function (option) {
+          return React.createElement("option", {value: option.value}, option.label);
+        });
 
-        /* jshint ignore:end */
+        // If it has points, render a select to choose a buffer radius
+        // If it does not have points but it is custom features, user used Create Custom Area and
+        // is analyzing polygons, so show nothing, otherwise, show little description
 
-        _selectionMade: function() {
-          // console.log(this._checkRequirements)
-          var completed = this._checkRequirements();
+        return (hasPoints ?
+          React.createElement("div", {className: "point-radius-select-container"}, 
+              React.createElement("span", {className: "instructions"}, config.pointRadiusDescription), 
+              React.createElement("select", {ref: "pointRadiusSelect", className: "point-radius-select"}, options)
+          ) :
+            isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer)
+        );
+      },
 
-          let oldCompleted = this.state.completed;
-          if (oldCompleted !== completed) {
-            this.setState({ completed: completed });
-          }
-        },
+      /* jshint ignore:end */
 
-        _checkRequirements: function() {
-            var result = false,
-                nodes = document.querySelectorAll('.select-analysis .wizard-checkbox.active');
-                // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-                // value;
+      _selectionMade: function() {
+        // console.log(this._checkRequirements)
+        var completed = this._checkRequirements();
 
-            // Conditions
-            // At least One item must be checked
-            // If more than one item is checked, we pass
-            if (nodes.length > 0) {
-                // if (nodes.length > 1) {
-                result = true;
-                // } else {
-                //     // nodes === 1
-                //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
-                //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-                //     //     // This Fails, result is already false so do nothing
-                //     // } else {
-                //         result = true;
-                //     // }
-                // } // millPoint is back in as a viable Analysis Layer, hence the check removal
-            }
+        let oldCompleted = this.state.completed;
+        if (oldCompleted !== completed) {
+          this.setState({ completed: completed });
+        }
+      },
 
-            return result;
-        },
+      checkedOverride: function(itemLabel) {
+        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        if (selectedAreaOfInterest === itemLabel) {
+          return true;
+        } else {
+          return false;
+        }
+      },
 
-        _getPayload: function() {
-            var nodes = document.querySelectorAll('.select-analysis .wizard-checkbox'),
-                selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-                payload = {},
-                value;
+      _checkRequirements: function() {
+        var result = false,
+          nodes = document.querySelectorAll('.select-analysis .wizard-checkbox.active');
+          // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+          // value;
 
-            Array.prototype.forEach.call(nodes, function(node) {
-                value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
-                if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-                    // Dont add mills unless millPointOption is the selectedArea
-                } else {
-                    payload[value] = (node.className.search('active') > -1);
-                }
-            });
-
-            return payload;
-        },
-
-        _proceed: function() {
-            if (this.state.completed) {
-                var payload = this._getPayload();
-                WizardStore.set(KEYS.analysisSets, payload);
-                // Get the Radius and set it to the store if it exists
-                var pointRadiusSelect = this.refs.pointRadiusSelect;
-                if (pointRadiusSelect) {
-                    var radius = pointRadiusSelect.getDOMNode().value;
-                    WizardStore.set(KEYS.analysisPointRadius, radius);
-                }
-                this.props.callback.performAnalysis();
-            }
+        // Conditions
+        // At least One item must be checked
+        // If more than one item is checked, we pass
+        if (nodes.length > 0) {
+          // if (nodes.length > 1) {
+          result = true;
+          // } else {
+          //     // nodes === 1
+          //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
+          //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
+          //     //     // This Fails, result is already false so do nothing
+          //     // } else {
+          //         result = true;
+          //     // }
+          // } // millPoint is back in as a viable Analysis Layer, hence the check removal
         }
 
+        return result;
+      },
 
+      _getPayload: function() {
+        var nodes = document.querySelectorAll('.select-analysis .wizard-checkbox'),
+          selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+          payload = {},
+          value;
+
+        Array.prototype.forEach.call(nodes, function(node) {
+          value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
+          if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
+            // Dont add mills unless millPointOption is the selectedArea
+          } else {
+            payload[value] = (node.className.search('active') > -1);
+          }
+        });
+
+        return payload;
+      },
+
+      _proceed: function() {
+        if (this.state.completed) {
+          var payload = this._getPayload();
+          WizardStore.set(KEYS.analysisSets, payload);
+          // Get the Radius and set it to the store if it exists
+          var pointRadiusSelect = this.refs.pointRadiusSelect;
+          if (pointRadiusSelect) {
+            var radius = pointRadiusSelect.getDOMNode().value;
+            WizardStore.set(KEYS.analysisPointRadius, radius);
+          }
+          this.props.callback.performAnalysis();
+        }
+      }
     });
 
 });
@@ -8286,8 +8324,8 @@ define('map/Controls',[
                 filter;
 
             // Find the currently active filter
-            element = dojoQuery(".fires_toolbox .toolbox-list li.selected")[0];
-            filter = element.dataset ? element.dataset.filter : element.getAttribute("data-filter");
+            element = dojoQuery('.fires_toolbox .toolbox-list li.selected')[0];
+            filter = element.dataset ? element.dataset.filter : element.getAttribute('data-filter');
 
             LayerController.setFiresLayerDefinition(filter, highConfidence);
 
@@ -8309,7 +8347,7 @@ define('map/Controls',[
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
-            GladSlider.init();
+            // GladSlider.init();
             ProdesSlider.init();
         },
 
@@ -8999,20 +9037,20 @@ define('map/Controls',[
 
 /** @jsx React.DOM */
 define('components/wizard/Wizard',[
-    "react",
-    "analysis/config",
-    "analysis/WizardStore",
-    "components/wizard/StepOne",
-    "components/wizard/StepTwo",
-    "components/wizard/StepThree",
-    "components/wizard/Intro",
+    'react',
+    'analysis/config',
+    'analysis/WizardStore',
+    'components/wizard/StepOne',
+    'components/wizard/StepTwo',
+    'components/wizard/StepThree',
+    'components/wizard/Intro',
     // Other Helpful Modules
-    "dojo/topic",
-    "dojo/_base/array",
-    "map/config",
-    "dojo/_base/lang",
-    "esri/tasks/PrintTask",
-    "map/Controls",
+    'dojo/topic',
+    'dojo/_base/array',
+    'map/config',
+    'dojo/_base/lang',
+    'esri/tasks/PrintTask',
+    'map/Controls',
     'utils/Analytics',
     'utils/GeoHelper'
 ], function (React, AnalyzerConfig, WizardStore, StepOne, StepTwo, StepThree, Intro, topic, arrayUtils, MapConfig, lang, PrintTask, MapControls, Analytics, GeoHelper) {
@@ -9092,20 +9130,20 @@ define('components/wizard/Wizard',[
             };
 
             if (this.state.currentStep === 0) {
-                $(".breadcrumbs").hide();
-                $(".gfw .wizard-header").css("height", "-=45px");
-                $(".gfw .wizard-body").css("top", "55px");
-                $(".gfw .wizard-header .button.reset").hide();
+                $('.breadcrumbs').hide();
+                $('.gfw .wizard-header').css('height', '-=45px');
+                $('.gfw .wizard-body').css('top', '55px');
+                $('.gfw .wizard-header .button.reset').hide();
             } else {
-                $(".breadcrumbs").show();
-                $(".gfw .wizard-header").css("height", "+=45px");
-                $(".gfw .wizard-body").css("top", "");
-                $(".gfw .wizard-header .button.reset").show();
-                $(".gfw .wizard-header .button.reset").css("top", "0px");
+                $('.breadcrumbs').show();
+                $('.gfw .wizard-header').css('height', '+=45px');
+                $('.gfw .wizard-body').css('top', '');
+                $('.gfw .wizard-header .button.reset').show();
+                $('.gfw .wizard-header .button.reset').css('top', '0px');
             }
 
             // Hide legend content pane if appropriate
-            if (['commercialEntityOption','certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
+            if (['commercialEntityOption', 'certifiedAreaOption'].indexOf(this.state.usersAreaOfInterest) === -1 || this.props.currentStep === 1) {
                 topic.publish('hideConcessionsLegend');
             }
 
@@ -9154,7 +9192,7 @@ define('components/wizard/Wizard',[
 
         // UI Functions that affect internal properties only
         _changeStep: function(synEvent) {
-            var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute("data-index");
+            var targetIndex = synEvent.target.dataset ? synEvent.target.dataset.index : synEvent.target.getAttribute('data-index');
 
             targetIndex *= 1;
 
@@ -9234,7 +9272,7 @@ define('components/wizard/Wizard',[
             }
 
             if (win === null || typeof(win) === undefined || win === undefined) {
-                alert("You need to disable your popup blocker for this feature to work.");
+                alert('You need to disable your popup blocker for this feature to work.');
             } else {
                 win.focus();
                 // Some browsers load really fast and are ready before the payload has been set
@@ -9270,7 +9308,7 @@ define('components/wizard/Wizard',[
                 // id = feature.attributes.Entity_ID || feature.attributes.WRI_ID || undefined;
                 id = feature.attributes.wri_id || feature.attributes.WRI_ID || undefined;
 
-            return  areaOfInterest === 'millPointOption' ? id : undefined;
+            return areaOfInterest === 'millPointOption' ? id : undefined;
           }
 
           features.forEach(function (feature) {
@@ -9324,26 +9362,25 @@ define('components/wizard/Wizard',[
 });
 
 define('analysis/WizardHelper',[
-	"dojo/fx",
-	"dojo/dom",
-	"dojo/_base/fx",
-	"dojo/Deferred",
-	"dojo/dom-class",
-	"dojo/dom-style",
-	"dojo/dom-geometry",
-  "dojo/_base/array",
-	"dojo/topic",
+	'dojo/fx',
+	'dojo/dom',
+	'dojo/_base/fx',
+	'dojo/Deferred',
+	'dojo/dom-class',
+	'dojo/dom-style',
+	'dojo/dom-geometry',
+	'dojo/_base/array',
+	'dojo/topic',
 	// My Modules
-	"map/config",
-	"utils/Hasher",
-  "utils/GeoHelper",
-  "utils/AlertsHelper",
-	"analysis/Query",
-	"analysis/config",
-	"analysis/WizardStore",
-	"components/wizard/Wizard",
+	'map/config',
+	'utils/Hasher',
+	'utils/GeoHelper',
+	'utils/AlertsHelper',
+	'analysis/Query',
+	'analysis/config',
+	'analysis/WizardStore',
+	'components/wizard/Wizard'
 ], function (coreFx, dom, Fx, Deferred, domClass, domStyle, domGeom, arrayUtils, topic, MapConfig, Hasher, GeoHelper, AlertsHelper, AnalyzerQuery, AnalyzerConfig, WizardStore, Wizard) {
-	'use strict';
 
 	var wizard;
 	var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -9351,8 +9388,8 @@ define('analysis/WizardHelper',[
 	return {
 
 		toggleWizard: function (skipIntro) {
-			var mapWidth = domGeom.position(dom.byId("map")).w,
-					wizardContainer = dom.byId("wizard-container"),
+			var mapWidth = domGeom.position(dom.byId('map')).w,
+					wizardContainer = dom.byId('wizard-container'),
 					deferred = new Deferred(),
 					MAX_WIDTH = 460, // 600 - Currently we are forcing the size to be 525 and not responsive
 					MIN_WIDTH = 460, // 450
@@ -9369,12 +9406,12 @@ define('analysis/WizardHelper',[
 			// Get original center point before animation and set it after animation complete
 			orignalCenterPoint = app.map.extent.getCenter();
 
-			if (domClass.contains(wizardContainer, "activated")) {
+			if (domClass.contains(wizardContainer, 'activated')) {
 				domStyle.set('wizard', 'display', 'none');
 				wizardWidth = 0;
 			}
 
-			domClass.toggle(wizardContainer, "activated");
+			domClass.toggle(wizardContainer, 'activated');
 
 			wizardAnimation = Fx.animateProperty({
 				node: wizardContainer,
@@ -9385,19 +9422,19 @@ define('analysis/WizardHelper',[
 			});
 
 			tabAnimation = Fx.animateProperty({
-				node: dom.byId("wizard-tab"),
+				node: dom.byId('wizard-tab'),
 				properties: {
 					// The - 30 is because the text is rotated and position needs to be offset
 					//left: (wizardWidth - 30)
 					opacity: (wizardWidth === 0) ? 1.0 : 0.0
 				},
 				duration: duration,
-        onEnd: function() {
-          if (wizardWidth > 0) {
-            domStyle.set('wizard', 'display', 'block');
-          }
-          deferred.resolve(true);
-        }
+				onEnd: function() {
+					if (wizardWidth > 0) {
+						domStyle.set('wizard', 'display', 'block');
+					}
+					deferred.resolve(true);
+				}
 			});
 
 			// If the Wizard has not been created yet, do so now
@@ -9465,62 +9502,64 @@ define('analysis/WizardHelper',[
 
 			// Get Graphic, and set the appropriate content
 			switch (type) {
-				case "Logging concession":
+				case 'Logging concession':
 					layer = 3;
 					break;
-				case "Mining concession":
+				case 'Mining concession':
 					layer = 2;
 					break;
-				case "Wood fiber plantation":
+				case 'Wood fiber plantation':
 					layer = 0;
 					break;
-				case "Oil palm concession":
+				case 'Oil palm concession':
 					layer = 1;
 					break;
-				case "RSPO Oil palm concession":
+				case 'RSPO Oil palm concession':
 					layer = 4;
 					url = MapConfig.commercialEntitiesLayer.url;
 					break;
-				case "Plantations by Type":
+				case 'Plantations by Type':
 					layer = 5;
 					url = MapConfig.byType.url;
+					selectedArea = 'Plantations by Type';
 					break;
-				case "Plantations by Species": //todo: change URL?
+				case 'Plantations by Species': //todo: change URL?
 					layer = 8;
 					url = MapConfig.bySpecies.url;
+					selectedArea = 'Plantations by Species';
 					break;
-				case "GLAD Alerts": //todo: change URL?
+				case 'GLAD Alerts': //todo: change URL?
 					url = MapConfig.bySpecies.gladAlerts;
 					break;
-				case "AdminBoundary":
+				case 'AdminBoundary':
 					selectedArea = AnalyzerConfig.stepOne.option2.id;
 					url = MapConfig.adminUnitsLayer.url;
 					layer = MapConfig.adminUnitsLayer.layerId;
 					break;
-				case "CertScheme":
+				case 'CertScheme':
 					url = MapConfig.commercialEntitiesLayer.url;
 					layer = MapConfig.commercialEntitiesLayer.layerId;
 					break;
-				case "CustomGraphic":
+				case 'CustomGraphic':
 					selectedArea = AnalyzerConfig.stepOne.option1.id;
 					break;
-				case "MillPoint":
+				case 'MillPoint':
 					selectedArea = AnalyzerConfig.stepOne.option5.id;
 					break;
-				case "WDPA":
+				case 'WDPA':
 					url = MapConfig.palHelper.url;
 					layer = MapConfig.palHelper.layerId;
 					break;
 			}
 
-			console.log(type)
+			console.log(type);
 
-			if (type === "CustomGraphic") {
+			if (type === 'CustomGraphic') {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
 				arrayUtils.some(layer.graphics, function (graphic) {
 					if (graphic.attributes.WRI_ID === parseInt(id)) {
 						if (!self.isOpen()) {
-              	topic.publish('toggleWizard');
+								topic.publish('toggleWizard');
 							setWizardProps(graphic);
 						} else {
 							setWizardProps(graphic);
@@ -9529,28 +9568,28 @@ define('analysis/WizardHelper',[
 					}
 					return false;
 				});
-			} else if (type === "MillPoint") {
-        // AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
+			} else if (type === 'MillPoint') {
+				// AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
 				AnalyzerQuery.getMillByWriId(id).then(function (feature) {
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
-            			topic.publish('toggleWizard');
-            			setWizardProps(feature);
-            			self.addGraphicFromPopup(feature);
-          			} else {
-            			setWizardProps(feature);
-            			self.addGraphicFromPopup(feature);
-          			}
-        		});
-      		} else {
-        // This should catch any generic dynamic layers
-		        AnalyzerQuery.getFeatureById(url + "/" + layer, id).then(function (feature) {
-		        	feature.attributes.WRI_label = label;
-		        	if (!self.isOpen()) {
-			            topic.publish('toggleWizard');
-			            setWizardProps(feature);
-			            self.addGraphicFromPopup(feature);
+									topic.publish('toggleWizard');
+									setWizardProps(feature);
+									self.addGraphicFromPopup(feature);
+								} else {
+									setWizardProps(feature);
+									self.addGraphicFromPopup(feature);
+								}
+						});
+					} else {
+				// This should catch any generic dynamic layers
+						AnalyzerQuery.getFeatureById(url + '/' + layer, id).then(function (feature) {
+							feature.attributes.WRI_label = label;
+							if (!self.isOpen()) {
+									topic.publish('toggleWizard');
+									setWizardProps(feature);
+									self.addGraphicFromPopup(feature);
 					} else {
 						setWizardProps(feature);
 						self.addGraphicFromPopup(feature);
@@ -9568,13 +9607,14 @@ define('analysis/WizardHelper',[
 				// selectedArea set in switch statement above
 				WizardStore.set(KEYS.areaOfInterest, selectedArea);
 				WizardStore.set(KEYS.selectedCustomFeatures, [feature]);
+				console.log(KEYS);
 				// Set to Step 3, the parameter is index based like 0,1,2,3, 3 is the third step
 				// because we inserted a introduction step that is now step 0
 
 				if (wizard === undefined) {
 					wizard = new Wizard({
 						skipIntro: true
-					}, "wizard");
+					}, 'wizard');
 				}
 
 				wizard._externalSetStep(3);
@@ -9592,13 +9632,13 @@ define('analysis/WizardHelper',[
 				// Remove any previous features
 				layer.clear();
 				// Apply selection symbol and then add it
-        feature = GeoHelper.applySelectionSymbolToFeature(feature);
+				feature = GeoHelper.applySelectionSymbolToFeature(feature);
 				layer.add(feature);
 			}
 		},
 
 		isOpen: function () {
-			return domClass.contains("wizard-container", "activated");
+			return domClass.contains('wizard-container', 'activated');
 		}
 
 	};
@@ -11243,7 +11283,7 @@ define('map/Finder',[
 
           featureObjects.forEach(function (item) {
             content = MapConfig.bySpecies.infoTemplate.content;
-            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+            item.feature.setInfoTemplate(new InfoTemplate('Plantations by Type', content +
            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
            item.value + "' data-type='Plantations by Type' data-id='${objectid}'>" +
            "Analyze</button>" +
@@ -11263,7 +11303,7 @@ define('map/Finder',[
 
           featureObjects.forEach(function (item) {
             content = MapConfig.bySpecies.infoTemplate.content;
-            item.feature.setInfoTemplate(new InfoTemplate(item.value, content +
+            item.feature.setInfoTemplate(new InfoTemplate('Plantations by Species', content +
            "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
            item.value + "' data-type='Plantations by Species' data-id='${objectid}'>" +
            "Analyze</button>" +
@@ -12625,7 +12665,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.56',
+                path = './app/templates/' + name + '.html?v=2.5.57',
                 req;
 
             req = new XMLHttpRequest();
