@@ -76,7 +76,7 @@
             src: 'app/css/app.css',
             cdn: false
         }, {
-            src: 'http://js.arcgis.com/3.16/js/esri/css/esri.css',
+            src: 'https://js.arcgis.com/3.16/esri/css/esri.css',
             cdn: true
         }, {
             src: 'http://js.arcgis.com/3.16/js/dojo/dijit/themes/tundra/tundra.css',

@@ -552,9 +552,9 @@ define('map/config',[], function() {
             defaultEndRange: [0, 20, 20, 366],
             colormap: [
               [1, 255, 102, 153]
-            ],
-            startDate: new window.Kalendae.moment('01/01/2015'),
-            endDate: new window.Kalendae.moment()//,
+            ]//,
+            // startDate: new window.Kalendae.moment('01/01/2015'),
+            // endDate: new window.Kalendae.moment()//,
             //toolsNode: 'glad_toolbox'
         },
         tcd: {
