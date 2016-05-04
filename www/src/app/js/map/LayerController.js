@@ -68,10 +68,6 @@ define([
                 status,
                 value;
 
-
-                console.log(conf.id);
-                console.log(layer);
-                debugger
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
