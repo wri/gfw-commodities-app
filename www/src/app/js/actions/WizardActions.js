@@ -84,6 +84,8 @@ define([
     */
     setAreaOfInterest: function (areaId) {
       assert(areaId !== undefined, 'Invalid Parameters for \'WizardActions.setAreaOfInterest\'.');
+      console.log(areaId);
+      // debugger
       Store.set(KEYS.areaOfInterest, areaId);
     }
 

@@ -50,12 +50,12 @@ define([
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var currentStep = WizardStore.get(KEYS.userStep);
       // If the user is arriving at this step and has selected a commoditity type
-      if (selectedAreaOfInterest === 'commercialEntityOption' && 
+      if (selectedAreaOfInterest === 'commercialEntityOption' &&
           this.state.selectedCommodity !== 'NONE' &&
           previousStep === 1 && currentStep === 2) {
 
         topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
-      }      
+      }
 
       previousStep = WizardStore.get(KEYS.userStep);
     },
@@ -137,7 +137,7 @@ define([
           selectedCommodity: value
         });
         return;
-      } 
+      }
 
       this.setState({
         selectedCommodity: value,
@@ -208,7 +208,7 @@ define([
                 // Add it to the map and make it the current selection, give it a label
                 feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
                 graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
-                wizardGraphicsLayer.add(graphic);              
+                wizardGraphicsLayer.add(graphic);
               });
 
               WizardActions.addSelectedFeatures(features);

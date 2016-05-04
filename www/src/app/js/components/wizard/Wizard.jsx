@@ -170,6 +170,7 @@ define([
             this.replaceProps({
                 isResetting: true
             });
+
             // Reset this components state
             WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option3.id, true);
             WizardStore.set(KEYS.selectedCustomFeatures, [], true);

@@ -7,14 +7,14 @@ define([
 ], function (React, AnalyzerConfig, WizardStore, WizardActions) {
 
   // Variables
-  var config = AnalyzerConfig.stepOne, 
+  var config = AnalyzerConfig.stepOne,
       option1 = config.option1,
       option2 = config.option2,
       option3 = config.option3,
       option4 = config.option4,
       option5 = config.option5,
       KEYS = AnalyzerConfig.STORE_KEYS;
-  
+
   // Helper Functions
   function getDefaultState() {
     return {
@@ -32,7 +32,12 @@ define([
 
     componentDidMount: function () {
       // Set the default value in the store
-      WizardActions.setAreaOfInterest(option3.id);
+			var aoi = WizardStore.get(KEYS.areaOfInterest);
+			console.log(aoi);
+			console.log(option3.id);
+			if (!aoi) {
+				WizardActions.setAreaOfInterest(option3.id);
+			}
       // Register a callback to the item of interest
       WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
     },

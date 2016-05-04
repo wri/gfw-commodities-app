@@ -24,7 +24,7 @@ define([
       if (newProps.isResetting) {
         this.replaceState(this.getInitialState());
       }
-
+      console.log(newProps.checkedFromPopup);
       if (newProps.checkedFromPopup === true) {
         this.setState({
           active: true

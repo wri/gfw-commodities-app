@@ -137,6 +137,7 @@ define([
 					self = this,
 					layer;
 
+
 			// Get Graphic, and set the appropriate content
 			switch (type) {
 				case 'Logging concession':
@@ -190,6 +191,7 @@ define([
 			}
 
 			console.log(type);
+			console.log(selectedArea);
 
 			if (type === 'CustomGraphic') {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);

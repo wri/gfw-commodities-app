@@ -4646,6 +4646,8 @@ define('actions/WizardActions',[
     */
     setAreaOfInterest: function (areaId) {
       assert(areaId !== undefined, 'Invalid Parameters for \'WizardActions.setAreaOfInterest\'.');
+      console.log(areaId);
+      // debugger
       Store.set(KEYS.areaOfInterest, areaId);
     }
 
@@ -4662,14 +4664,14 @@ define('components/wizard/StepOne',[
 ], function (React, AnalyzerConfig, WizardStore, WizardActions) {
 
   // Variables
-  var config = AnalyzerConfig.stepOne, 
+  var config = AnalyzerConfig.stepOne,
       option1 = config.option1,
       option2 = config.option2,
       option3 = config.option3,
       option4 = config.option4,
       option5 = config.option5,
       KEYS = AnalyzerConfig.STORE_KEYS;
-  
+
   // Helper Functions
   function getDefaultState() {
     return {
@@ -4687,7 +4689,12 @@ define('components/wizard/StepOne',[
 
     componentDidMount: function () {
       // Set the default value in the store
-      WizardActions.setAreaOfInterest(option3.id);
+			var aoi = WizardStore.get(KEYS.areaOfInterest);
+			console.log(aoi);
+			console.log(option3.id);
+			if (!aoi) {
+				WizardActions.setAreaOfInterest(option3.id);
+			}
       // Register a callback to the item of interest
       WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
     },
@@ -6130,12 +6137,12 @@ define('components/wizard/CommercialEntity',[
       var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
       var currentStep = WizardStore.get(KEYS.userStep);
       // If the user is arriving at this step and has selected a commoditity type
-      if (selectedAreaOfInterest === 'commercialEntityOption' && 
+      if (selectedAreaOfInterest === 'commercialEntityOption' &&
           this.state.selectedCommodity !== 'NONE' &&
           previousStep === 1 && currentStep === 2) {
 
         topic.publish('setCommercialEntityDefinition', this.state.selectedCommodity);
-      }      
+      }
 
       previousStep = WizardStore.get(KEYS.userStep);
     },
@@ -6217,7 +6224,7 @@ define('components/wizard/CommercialEntity',[
           selectedCommodity: value
         });
         return;
-      } 
+      }
 
       this.setState({
         selectedCommodity: value,
@@ -6288,7 +6295,7 @@ define('components/wizard/CommercialEntity',[
                 // Add it to the map and make it the current selection, give it a label
                 feature.attributes[AnalyzerConfig.stepTwo.labelField] = label;
                 graphic = new Graphic(feature.geometry, Symbols.getHighlightPolygonSymbol(), feature.attributes);
-                wizardGraphicsLayer.add(graphic);              
+                wizardGraphicsLayer.add(graphic);
               });
 
               WizardActions.addSelectedFeatures(features);
@@ -6491,7 +6498,7 @@ define('components/wizard/WizardCheckbox',[
       if (newProps.isResetting) {
         this.replaceState(this.getInitialState());
       }
-
+      console.log(newProps.checkedFromPopup);
       if (newProps.checkedFromPopup === true) {
         this.setState({
           active: true
@@ -6679,8 +6686,6 @@ define('components/wizard/StepThree',[
           return feature.geometry.type === 'point';
         });
 
-        console.log('completed ', this.state.completed);
-        console.log('optionsExpanded ', this.state.optionsExpanded);
         //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
         return (
           React.createElement("div", {className: "step select-analysis"}, 
@@ -6733,12 +6738,6 @@ define('components/wizard/StepThree',[
       _mapper: function(item) {
         var checkedFromPopup = this.checkedOverride(item.label);
 
-        // if (checkedFromPopup === true) {
-        //   item.checked = true;
-        //   // item.override = true;
-        //   console.log(item);
-        // }
-
         return React.createElement(WizardCheckbox, {label: item.label, value: item.value, checkedFromPopup: checkedFromPopup, change: this._selectionMade, 
           isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
           defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
@@ -6769,7 +6768,6 @@ define('components/wizard/StepThree',[
       /* jshint ignore:end */
 
       _selectionMade: function() {
-        // console.log(this._checkRequirements)
         var completed = this._checkRequirements();
 
         let oldCompleted = this.state.completed;
@@ -6780,6 +6778,7 @@ define('components/wizard/StepThree',[
 
       checkedOverride: function(itemLabel) {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        console.log(selectedAreaOfInterest);
         // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
         if (selectedAreaOfInterest === itemLabel) {
           return true;
@@ -9207,6 +9206,7 @@ define('components/wizard/Wizard',[
             this.replaceProps({
                 isResetting: true
             });
+
             // Reset this components state
             WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option3.id, true);
             WizardStore.set(KEYS.selectedCustomFeatures, [], true);
@@ -9500,6 +9500,7 @@ define('analysis/WizardHelper',[
 					self = this,
 					layer;
 
+
 			// Get Graphic, and set the appropriate content
 			switch (type) {
 				case 'Logging concession':
@@ -9553,6 +9554,7 @@ define('analysis/WizardHelper',[
 			}
 
 			console.log(type);
+			console.log(selectedArea);
 
 			if (type === 'CustomGraphic') {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
@@ -12665,7 +12667,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.57',
+                path = './app/templates/' + name + '.html?v=2.5.58',
                 req;
 
             req = new XMLHttpRequest();

@@ -77,8 +77,6 @@ define([
           return feature.geometry.type === 'point';
         });
 
-        console.log('completed ', this.state.completed);
-        console.log('optionsExpanded ', this.state.optionsExpanded);
         //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
         return (
           <div className='step select-analysis'>
@@ -131,12 +129,6 @@ define([
       _mapper: function(item) {
         var checkedFromPopup = this.checkedOverride(item.label);
 
-        // if (checkedFromPopup === true) {
-        //   item.checked = true;
-        //   // item.override = true;
-        //   console.log(item);
-        // }
-
         return <WizardCheckbox label={item.label} value={item.value} checkedFromPopup={checkedFromPopup} change={this._selectionMade}
           isResetting={this.props.isResetting} // Pass Down so Components receive the reset command
           defaultChecked={item.checked || false} noInfoIcon={item.noInfoIcon || false}
@@ -167,7 +159,6 @@ define([
       /* jshint ignore:end */
 
       _selectionMade: function() {
-        // console.log(this._checkRequirements)
         var completed = this._checkRequirements();
 
         let oldCompleted = this.state.completed;
@@ -178,6 +169,7 @@ define([
 
       checkedOverride: function(itemLabel) {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        console.log(selectedAreaOfInterest);
         // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
         if (selectedAreaOfInterest === itemLabel) {
           return true;
