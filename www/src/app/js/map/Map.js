@@ -448,7 +448,7 @@ define([
                 id: 'forestUse_landUse',
                 visible: false
             });
-            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.rspoPerm.url, {
+            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.mill.url, {
                 imageParameters: batchParams,
                 id: 'forestUse_commodities',
                 visible: false

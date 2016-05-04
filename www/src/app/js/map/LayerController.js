@@ -68,12 +68,16 @@ define([
                 status,
                 value;
 
-            dojoQuery(".gfw .filter-list ." + queryClass).forEach(function(node) {
-                itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+
+                console.log(conf.id);
+                console.log(layer);
+                debugger
+            dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
+                itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
                 if (itemConf) {
 
-                    if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+                    if (itemConf.id === layer.id && domClass.contains(node, 'active')) {
                         visibleLayers.push(itemConf.layerId);
                     }
                 }

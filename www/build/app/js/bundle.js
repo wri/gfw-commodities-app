@@ -6964,12 +6964,16 @@ define('map/LayerController',[
                 status,
                 value;
 
-            dojoQuery(".gfw .filter-list ." + queryClass).forEach(function(node) {
-                itemLayer = node.dataset ? node.dataset.layer : node.getAttribute("data-layer");
+
+                console.log(conf.id);
+                console.log(layer);
+                debugger
+            dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
+                itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
                 if (itemConf) {
 
-                    if (itemConf.id === layer.id && domClass.contains(node, "active")) {
+                    if (itemConf.id === layer.id && domClass.contains(node, 'active')) {
                         visibleLayers.push(itemConf.layerId);
                     }
                 }
@@ -10553,7 +10557,7 @@ define('map/Map',[
                 id: 'forestUse_landUse',
                 visible: false
             });
-            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.rspoPerm.url, {
+            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.mill.url, {
                 imageParameters: batchParams,
                 id: 'forestUse_commodities',
                 visible: false
@@ -12667,7 +12671,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.58',
+                path = './app/templates/' + name + '.html?v=2.5.59',
                 req;
 
             req = new XMLHttpRequest();
