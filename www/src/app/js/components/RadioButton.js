@@ -1,14 +1,14 @@
 /** @jsx React.DOM */
 define([
-	"react",
-	"knockout",
-	"dojo/topic",
-  "dojo/dom-class",
-	"utils/Hasher",
-	"map/MapModel",
-	"map/TCDSlider",
-	"components/Check",
-  "dijit/form/HorizontalSlider"
+	'react',
+	'knockout',
+	'dojo/topic',
+  'dojo/dom-class',
+	'utils/Hasher',
+	'map/MapModel',
+	'map/TCDSlider',
+	'components/Check',
+  'dijit/form/HorizontalSlider'
 ], function (React, ko, topic, domClass, Hasher, MapModel, TCDSlider, Check, HorizontalSlider) {
 
 	var RadioButton = React.createClass({displayName: "RadioButton",
@@ -23,8 +23,6 @@ define([
 					active = layerArray.indexOf(this.props.id) > -1,
           self = this;
 
-
-
 			if (active) {
 				topic.publish('showLayer', this.props.id);
 				this.setState({
@@ -33,7 +31,7 @@ define([
 			}
 
       // Create the slider if the container exists
-      if (document.getElementById(this.props.id + "_slider") && !this.props.noSlider) {
+      if (document.getElementById(this.props.id + '_slider') && !this.props.noSlider) {
         new HorizontalSlider({
           value: 100,
           minimum: 0,
@@ -44,7 +42,7 @@ define([
           onChange: function (value) {
             topic.publish('changeLayerTransparency', self.props.id, self.props.layerType, value);
           }
-        }, this.props.id + "_slider").startup();
+        }, this.props.id + '_slider').startup();
       }
 
 			if (this.props.id === 'tcd') {
@@ -60,7 +58,7 @@ define([
         }
     },
 
-    showInfo: function (synEvent) {
+    showInfo: function () {
         if(document.getElementsByClassName(this.props.infoDivClass).length){
             topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
         } else {
@@ -91,7 +89,7 @@ define([
             ), 
 						/* If this condition is met, render a layer info icon, else, render nothing */ 
             
-              (this.props.title !== "None" && this.props.id !== "tcc" && !this.props.noSlider) ?
+              (this.props.title !== 'None' && this.props.id !== 'tcc' && !this.props.noSlider) ?
               React.createElement("span", {onClick: this.showInfo, className: "layer-info-icon", dangerouslySetInnerHTML: {__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}}) : null, 
             
             React.createElement("a", {className: "layer-title"}, this.props.title), 
@@ -127,7 +125,7 @@ define([
       item.postCreate = this.props.postCreate;
       item.useRadioCallback = true;
 
-      if (item.type === "radio") {
+      if (item.type === 'radio') {
         return React.createElement(RadioButton, React.__spread({},  item));
       } else {
         return React.createElement(Check, React.__spread({},  item));

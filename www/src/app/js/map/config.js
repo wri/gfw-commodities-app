@@ -670,71 +670,37 @@ define([], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'forest-and-land-cover-brazil-biomes'
             }, {
+                kids: ['byType', 'bySpecies'],
                 id: 'plantations',
                 title: 'Tree plantations',
-                subtitle: '',
+                filter: 'forest-cover',
+                type: 'check',
+                layerType: 'dynamic'
+            }, {
+                id: 'byType',
+                title: 'by type',
                 filter: 'forest-cover',
                 type: 'radio',
-                layerType: 'none',
-                children: [{
-                    id: 'byType',
-                    title: 'by type',
-                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-                    filter: 'forest-cover',
-                    type: 'check',
-                    layerType: 'dynamic'//,
-                    // infoDivClass: 'forest-change-plantations-type'
-                }, {
-                    id: 'bySpecies',
-                    title: 'by species',
-                    // subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
-                    filter: 'forest-cover',
-                    type: 'check',
-                    layerType: 'dynamic'//,
-                    // infoDivClass: 'forest-change-plantations-species'
-                }]
+                layerType: 'dynamic',
+                parent: 'plantations',
+                visible: true
+            }, {
+                id: 'bySpecies',
+                title: 'by species',
+                filter: 'forest-cover',
+                type: 'radio',
+                layerType: 'dynamic',
+                parent: 'plantations',
+                visible: true
             }, {
                 id: 'primForest',
                 title: 'Primary Forests',
                 subtitle: '(2000, 30m, Indonesia)',
                 filter: 'forest-cover',
                 type: 'radio',
+                forceUnderline: true,
                 layerType: 'image',
                 infoDivClass: 'forest-and-land-cover-primary-forest'
-                //  children: [
-                //  {
-                //     id: 'primForest-1',
-                //     title: '2000',
-                //     filter: 'forest-change',
-                //     type: 'radio',
-                //     layerType: 'image',
-                //     noSlider: true
-                //   },
-                //   {
-                //     id: 'primForest-2',
-                //     title: '2005',
-                //     filter: 'forest-change',
-                //     type: 'radio',
-                //     layerType: 'image',
-                //     noSlider: true
-                //   },
-                //   {
-                //     id: 'primForest-3',
-                //     title: '2010',
-                //     filter: 'forest-change',
-                //     type: 'radio',
-                //     layerType: 'image',
-                //     noSlider: true
-                //   },
-                //   {
-                //     id: 'primForest-4',
-                //     title: '2012',
-                //     filter: 'forest-change',
-                //     type: 'radio',
-                //     layerType: 'image',
-                //     noSlider: true
-                //   }
-                // ]
             }, {
                 id: 'ldcover',
                 title: 'Land Cover',

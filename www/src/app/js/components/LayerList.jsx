@@ -80,7 +80,7 @@ define([
       props.handle = this._handle;
       props.postCreate = this._postCreate;
 
-      if (props.type === "radio") {
+      if (props.type === 'radio') {
         return <RadioButton {...props} />;
       } else {
         return <Check {...props} />;
