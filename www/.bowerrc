@@ -1,4 +1,4 @@
 {
-	"directory": "build/app/libs",
+	"directory": "src/app/libs",
 	"json": "bower.json"
 }
