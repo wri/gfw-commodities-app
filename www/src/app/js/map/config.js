@@ -290,7 +290,7 @@ define([], function() {
             }
         },
         rspoPerm: {
-            id: "forestUse_commodities",
+            id: "forestCover_landCover",
             url: globalLandCover, //dynamicMapServiceUrlComm,
             layerId: 0, //4,
             infoTemplate: {
