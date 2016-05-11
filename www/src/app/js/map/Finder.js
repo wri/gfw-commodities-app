@@ -293,12 +293,12 @@ define([
             arrayUtils.forEach(featureObjects, function(item) {
                 content = MapConfig.pal.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-                        item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
-                        "Analyze</button>" +
+                        item.value + "' data-type='WDPA' data-id='${objectid}'>" +
+                        'Analyze</button>' +
                         "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
-                        item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
-                        "Subscribe</button>" +
-                        "</div>";
+                        item.value + "' data-type='WDPA' data-id='${objectid}'>" +
+                        'Subscribe</button>' +
+                        '</div>';
 
                 template = new InfoTemplate(item.value, content);
                 item.feature.setInfoTemplate(template);
@@ -558,7 +558,7 @@ define([
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
                 } else if (item.layerId === 2) {
-                    
+
                     template = new InfoTemplate(item.feature.attributes.Company,//item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
