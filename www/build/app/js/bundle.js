@@ -662,7 +662,7 @@ define('map/config',[], function() {
             }
         },
         rspoPerm: {
-            id: 'forestUse_commodities',
+            id: 'forestCover_landCover',
             url: globalLandCover,
             layerId: 0,
             infoTemplate: {
@@ -11082,10 +11082,10 @@ define('map/Finder',[
             arrayUtils.forEach(featureObjects, function(item) {
                 content = MapConfig.pal.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-                        item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
+                        item.value + "' data-type='WDPA' data-id='${objectid}'>" +
                         "Analyze</button>" +
                         "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
-                        item.value + "' data-type='WDPA' data-id='${OBJECTID}'>" +
+                        item.value + "' data-type='WDPA' data-id='${objectid}'>" +
                         "Subscribe</button>" +
                         "</div>";
 
@@ -12667,7 +12667,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.59',
+                path = './app/templates/' + name + '.html?v=2.5.60',
                 req;
 
             req = new XMLHttpRequest();

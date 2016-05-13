@@ -391,7 +391,7 @@ define([], function() {
             }
         },
         rspoPerm: {
-            id: 'forestUse_commodities',
+            id: 'forestCover_landCover',
             url: globalLandCover,
             layerId: 0,
             infoTemplate: {
