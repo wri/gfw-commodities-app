@@ -277,6 +277,7 @@ define('map/config',[], function() {
     // var dynamicMapServiceUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer',
     var dynamicMapServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
         dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        tropicalCarbonStocks = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
         dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
         // rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         globalLandCover = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
@@ -294,7 +295,7 @@ define('map/config',[], function() {
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
         aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
-        protusUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
+        prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
         customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
@@ -522,7 +523,7 @@ define('map/config',[], function() {
         },
         prodes: {
             id: 'ProdesAlerts',
-            url: protusUrl,
+            url: prodesUrl,
             legendLayerId: 3, //todo: what is this, find correct #
             defaultRange: [1, 15],
             colormap: [
@@ -610,7 +611,7 @@ define('map/config',[], function() {
                     '<tr><td>spec_org: </td><td>${spec_org}</td></tr></table>'
             }
         },
-        /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
+        /***** THE FOLLOWING ARE ALL PART OF DIFFERENT DYNAMIC LAYERS UNDER FORESTCOVER *****/
         ifl: {
             id: 'forestCover_forestCover',
             url: dynamicMapServiceUrlForest,
@@ -622,9 +623,10 @@ define('map/config',[], function() {
             layerId: 22
         },
         tfcs: {
-            id: 'forestCover_forestCover',
-            url: dynamicMapServiceUrlForest,
-            layerId: 1
+            id: 'forestCover_tropical',
+            legendLayerId: 1,
+            url: tropicalCarbonStocks//, //dynamicMapServiceUrlForest,
+            //layerId: 1
         },
         ldcover: {
             id: 'forestCover_landCover',
@@ -646,7 +648,7 @@ define('map/config',[], function() {
             url: dynamicMapServiceUrlComm,
             layerId: 13
         },
-        /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
+        /***** THE PREVIOUS ARE ALL PART OF DIFFERENT DYNAMIC LAYERS UNDER FORESTCOVER *****/
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
         oilPerm: {
             id: 'forestUse_landUse',
@@ -926,7 +928,7 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-and-land-cover-peat-lands'
             }, {
                 id: 'tfcs',
-                title: 'Tropical Carbon Stocks',
+                title: 'Aboveground Biomass Density', //'Tropical Carbon Stocks'
                 subtitle: '(early 2000s, 1km, tropics)',
                 filter: 'forest-cover',
                 type: 'radio',
@@ -4657,10 +4659,10 @@ define('actions/WizardActions',[
 
 /** @jsx React.DOM */
 define('components/wizard/StepOne',[
-	"react",
-  "analysis/config",
-  "analysis/WizardStore",
-  "actions/WizardActions"
+	'react',
+  'analysis/config',
+  'analysis/WizardStore',
+  'actions/WizardActions'
 ], function (React, AnalyzerConfig, WizardStore, WizardActions) {
 
   // Variables
@@ -5513,9 +5515,9 @@ define('components/wizard/AdminUnit',[
       var value = evt.target.value,
           self = this;
 
-      if (value === "NONE") {
+      if (value === 'NONE') {
         // Hide the Layer and clear the list
-        topic.publish("setAdminBoundariesDefinition");
+        topic.publish('setAdminBoundariesDefinition');
         this.setState({
           nestedListData: []
         });
@@ -5526,7 +5528,7 @@ define('components/wizard/AdminUnit',[
         isLoading: true
       });
 
-      topic.publish("setAdminBoundariesDefinition", value);
+      topic.publish('setAdminBoundariesDefinition', value);
 
       AnalyzerQuery.getLowLevelAdminUnitData(value).then(function (data) {
         self.setState({
@@ -5556,7 +5558,7 @@ define('components/wizard/AdminUnit',[
       // Update this for bookkeeping
       previousFeatureType = featureType;
 
-      if (featureType === "group") {
+      if (featureType === 'group') {
 
         activeItems = this.state.activeListGroupValue;
 
@@ -5581,7 +5583,7 @@ define('components/wizard/AdminUnit',[
 
           // Takes URL and group name, group name will always be the targets innerHTML
           var countrySelect = document.getElementById('country-select').value;
-    			console.log(countrySelect)
+
           AnalyzerQuery.getFeaturesByGroupNameAndCountry(config.countryBoundaries, label, countrySelect).then(function (features) {
             if (features && wizardGraphicsLayer) {
               features.forEach(function (feature) {
@@ -8067,7 +8069,6 @@ define('map/ProdesSlider',[
       for (min; min <= max; min++) {
         year = config.baseYear + min;
         labels.push(year);
-        console.log(year);
       }
 
       deferred.resolve(labels);
@@ -8084,7 +8085,6 @@ define('map/ProdesSlider',[
       var self = this;
       if (prodesSlider === undefined) {
         getProdesLabels().then(function (labels) {
-          console.log(labels);
           $(config.sliderSelector).ionRangeSlider({
             type: 'double',
             values: labels,
@@ -9102,6 +9102,12 @@ define('components/wizard/Wizard',[
 
         areaOfInterestUpdated: function () {
             var newAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+            var adminUnitsLayer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
+            if (newAreaOfInterest === 'adminUnitOption' && adminUnitsLayer.visible === false) {
+              adminUnitsLayer.show();
+            } else if (newAreaOfInterest !== 'adminUnitOption') {
+              adminUnitsLayer.hide();
+            }
             this.setState({ usersAreaOfInterest: newAreaOfInterest });
         },
         /* Methods for reacting to store updates above */
@@ -9482,7 +9488,7 @@ define('analysis/WizardHelper',[
 		},
 
 		showWizardRelatedLayers: function () {
-			app.map.getLayer(MapConfig.adminUnitsLayer.id).show();
+			// app.map.getLayer(MapConfig.adminUnitsLayer.id).show();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).show();
 			app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id).show();
 		},
@@ -10298,6 +10304,8 @@ define('map/Map',[
                 batchParams,
 
                 forestCover_forestCover,
+                forestCover_tropical,
+                tropicalParams,
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
@@ -10367,7 +10375,7 @@ define('map/Map',[
             legendParams = new ImageParameters();
             legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             legendParams.layerIds = [];
-            legendParams.format = "png32";
+            legendParams.format = 'png32';
 
             legendLayer = new ArcGISDynamicLayer(MapConfig.legendLayer.url, {
                 imageParameters: legendParams,
@@ -10377,19 +10385,19 @@ define('map/Map',[
 
             formaParams = new ImageServiceParameters();
             formaParams.renderingRule = new RasterFunction({
-                "rasterFunction": "Colormap",
-                "rasterFunctionArguments": {
-                    "Colormap": MapConfig.forma.colormap,
-                    "Raster": {
-                        "rasterFunction": "Remap",
-                        "rasterFunctionArguments": {
-                            "InputRanges": MapConfig.forma.defaultRange,
-                            "OutputValues": [1],
-                            "AllowUnmatched": false
+                'rasterFunction': 'Colormap',
+                'rasterFunctionArguments': {
+                    'Colormap': MapConfig.forma.colormap,
+                    'Raster': {
+                        'rasterFunction': 'Remap',
+                        'rasterFunctionArguments': {
+                            'InputRanges': MapConfig.forma.defaultRange,
+                            'OutputValues': [1],
+                            'AllowUnmatched': false
                         }
                     }
                 },
-                "variableName": "Raster"
+                'variableName': 'Raster'
             });
 
             formaAlertsLayer = new ArcGISImageServiceLayer(MapConfig.forma.url, {
@@ -10398,39 +10406,41 @@ define('map/Map',[
                 visible: false,
                 opacity: 1
             });
-            //
-            // prodesParams = new ImageServiceParameters();
-            // prodesParams.renderingRule = new RasterFunction({
-          //   'rasterFunction': 'Colormap',
-          //   'rasterFunctionArguments': {
-          //     'Colormap': [
-          //       [1, 255, 102, 153]
-          //     ],
-          //     'Raster': {
-          //       'rasterFunction': 'Local',
-          //       'rasterFunctionArguments': {
-          //         'Operation': 67, //max value; ignores no data
-          //         'Rasters': [{
-          //           'rasterFunction': 'Remap',
-          //           'rasterFunctionArguments': {
-          //             'InputRanges': inputStartRanges,
-          //             'OutputValues': [0, 1, 0],
-          //             'Raster': '$1', //2015
-          //             'AllowUnmatched': false
-          //           }
-          //         }, {
-          //           'rasterFunction': 'Remap',
-          //           'rasterFunctionArguments': {
-          //             'InputRanges': inputEndRanges,
-          //             'OutputValues': [0, 1, 0],
-          //             'Raster': '$2', //2016
-          //             'AllowUnmatched': false
-          //           }
-          //         }]
-          //       }
+
+            prodesParams = new ImageServiceParameters();
+            prodesParams.renderingRule = new RasterFunction({
+            'rasterFunction': 'Colormap',
+            'rasterFunctionArguments': {
+              'Colormap': MapConfig.prodes.colormap,
+              'Raster': {
+                'rasterFunction': 'Colormap',
+                'rasterFunctionArguments': {
+                  'Colormap': MapConfig.prodes.colormap,
+                  'Raster': {
+                    'rasterFunction': 'Remap',
+                    'rasterFunctionArguments': {
+                      'InputRanges': MapConfig.prodes.defaultRange,
+                      'OutputValues': [1],
+                      'AllowUnmatched': false
+                    }
+                  }
+                }
+              }
+            }
+          });
+
+          // "rasterFunction": "Colormap",
+          // "rasterFunctionArguments": {
+          //   "Colormap":[[1,255,0,197]],
+          //   "Raster":{
+          //     "rasterFunction":"Remap",
+          //     "rasterFunctionArguments":{
+          //       "InputRanges":[1,14],
+          //       "OutputValues":[1],
+          //       "AllowUnmatched":false
           //     }
           //   }
-          // });
+          // },"variableName":"Raster"}
 
             prodesAlertsLayer = new ArcGISImageServiceLayer(MapConfig.prodes.url, {
                 imageServiceParameters: prodesParams,
@@ -10536,6 +10546,30 @@ define('map/Map',[
                 imageParameters: batchParams,
                 id: 'forestCover_forestCover',
                 visible: false
+            });
+
+            tropicalParams = new ImageServiceParameters();
+            tropicalParams.renderingRule = new RasterFunction({
+                'rasterFunction': 'Stretched'//,
+                // 'rasterFunctionArguments': {
+                //     'Colormap': MapConfig.forma.colormap,
+                //     'Raster': {
+                //         'rasterFunction': 'Remap',
+                //         'rasterFunctionArguments': {
+                //             'InputRanges': MapConfig.forma.defaultRange,
+                //             'OutputValues': [1],
+                //             'AllowUnmatched': false
+                //         }
+                //     }
+                // },
+                // 'variableName': 'Raster'
+            });
+
+            forestCover_tropical = new ArcGISImageServiceLayer(MapConfig.tfcs.url, {
+                imageServiceParameters: tropicalParams,
+                id: MapConfig.tfcs.id,
+                visible: false,
+                opacity: 1
             });
 
             forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
@@ -10676,6 +10710,7 @@ define('map/Map',[
                 // commoditiesAggregate,
                 // landUserAggregate,
                 forestCover_forestCover,
+                forestCover_tropical,
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
@@ -10743,6 +10778,7 @@ define('map/Map',[
             // commoditiesAggregate.on('error', this.addLayerError);
             // landUserAggregate.on('error', this.addLayerError);
             forestCover_forestCover.on('error', this.addLayerError);
+            forestCover_tropical.on('error', this.addLayerError);
             forestCover_landCover.on('error', this.addLayerError);
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
@@ -12667,7 +12703,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.60',
+                path = './app/templates/' + name + '.html?v=2.5.61',
                 req;
 
             req = new XMLHttpRequest();
