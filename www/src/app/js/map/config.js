@@ -6,6 +6,7 @@ define([], function() {
     // var dynamicMapServiceUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer',
     var dynamicMapServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
         dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        tropicalCarbonStocks = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
         dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
         // rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         globalLandCover = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
@@ -23,7 +24,7 @@ define([], function() {
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
         aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
-        protusUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
+        prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
         customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
@@ -251,7 +252,7 @@ define([], function() {
         },
         prodes: {
             id: 'ProdesAlerts',
-            url: protusUrl,
+            url: prodesUrl,
             legendLayerId: 3, //todo: what is this, find correct #
             defaultRange: [1, 15],
             colormap: [
@@ -339,7 +340,7 @@ define([], function() {
                     '<tr><td>spec_org: </td><td>${spec_org}</td></tr></table>'
             }
         },
-        /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
+        /***** THE FOLLOWING ARE ALL PART OF DIFFERENT DYNAMIC LAYERS UNDER FORESTCOVER *****/
         ifl: {
             id: 'forestCover_forestCover',
             url: dynamicMapServiceUrlForest,
@@ -351,9 +352,10 @@ define([], function() {
             layerId: 22
         },
         tfcs: {
-            id: 'forestCover_forestCover',
-            url: dynamicMapServiceUrlForest,
-            layerId: 1
+            id: 'forestCover_tropical',
+            legendLayerId: 1,
+            url: tropicalCarbonStocks//, //dynamicMapServiceUrlForest,
+            //layerId: 1
         },
         ldcover: {
             id: 'forestCover_landCover',
@@ -375,7 +377,7 @@ define([], function() {
             url: dynamicMapServiceUrlComm,
             layerId: 13
         },
-        /***** THE PREVIOUS ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTCOVER *****/
+        /***** THE PREVIOUS ARE ALL PART OF DIFFERENT DYNAMIC LAYERS UNDER FORESTCOVER *****/
         /***** THE FOLLOWING ARE ALL PART OF THE SAME DYNAMIC LAYER UNDER FORESTUSE *****/
         oilPerm: {
             id: 'forestUse_landUse',
@@ -655,7 +657,7 @@ define([], function() {
                 infoDivClass: 'forest-and-land-cover-peat-lands'
             }, {
                 id: 'tfcs',
-                title: 'Tropical Carbon Stocks',
+                title: 'Aboveground Biomass Density', //'Tropical Carbon Stocks'
                 subtitle: '(early 2000s, 1km, tropics)',
                 filter: 'forest-cover',
                 type: 'radio',

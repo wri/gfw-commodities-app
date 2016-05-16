@@ -193,6 +193,8 @@ define([
                 batchParams,
 
                 forestCover_forestCover,
+                forestCover_tropical,
+                tropicalParams,
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
@@ -262,7 +264,7 @@ define([
             legendParams = new ImageParameters();
             legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             legendParams.layerIds = [];
-            legendParams.format = "png32";
+            legendParams.format = 'png32';
 
             legendLayer = new ArcGISDynamicLayer(MapConfig.legendLayer.url, {
                 imageParameters: legendParams,
@@ -272,19 +274,19 @@ define([
 
             formaParams = new ImageServiceParameters();
             formaParams.renderingRule = new RasterFunction({
-                "rasterFunction": "Colormap",
-                "rasterFunctionArguments": {
-                    "Colormap": MapConfig.forma.colormap,
-                    "Raster": {
-                        "rasterFunction": "Remap",
-                        "rasterFunctionArguments": {
-                            "InputRanges": MapConfig.forma.defaultRange,
-                            "OutputValues": [1],
-                            "AllowUnmatched": false
+                'rasterFunction': 'Colormap',
+                'rasterFunctionArguments': {
+                    'Colormap': MapConfig.forma.colormap,
+                    'Raster': {
+                        'rasterFunction': 'Remap',
+                        'rasterFunctionArguments': {
+                            'InputRanges': MapConfig.forma.defaultRange,
+                            'OutputValues': [1],
+                            'AllowUnmatched': false
                         }
                     }
                 },
-                "variableName": "Raster"
+                'variableName': 'Raster'
             });
 
             formaAlertsLayer = new ArcGISImageServiceLayer(MapConfig.forma.url, {
@@ -293,39 +295,41 @@ define([
                 visible: false,
                 opacity: 1
             });
-            //
-            // prodesParams = new ImageServiceParameters();
-            // prodesParams.renderingRule = new RasterFunction({
-          //   'rasterFunction': 'Colormap',
-          //   'rasterFunctionArguments': {
-          //     'Colormap': [
-          //       [1, 255, 102, 153]
-          //     ],
-          //     'Raster': {
-          //       'rasterFunction': 'Local',
-          //       'rasterFunctionArguments': {
-          //         'Operation': 67, //max value; ignores no data
-          //         'Rasters': [{
-          //           'rasterFunction': 'Remap',
-          //           'rasterFunctionArguments': {
-          //             'InputRanges': inputStartRanges,
-          //             'OutputValues': [0, 1, 0],
-          //             'Raster': '$1', //2015
-          //             'AllowUnmatched': false
-          //           }
-          //         }, {
-          //           'rasterFunction': 'Remap',
-          //           'rasterFunctionArguments': {
-          //             'InputRanges': inputEndRanges,
-          //             'OutputValues': [0, 1, 0],
-          //             'Raster': '$2', //2016
-          //             'AllowUnmatched': false
-          //           }
-          //         }]
-          //       }
+
+            prodesParams = new ImageServiceParameters();
+            prodesParams.renderingRule = new RasterFunction({
+            'rasterFunction': 'Colormap',
+            'rasterFunctionArguments': {
+              'Colormap': MapConfig.prodes.colormap,
+              'Raster': {
+                'rasterFunction': 'Colormap',
+                'rasterFunctionArguments': {
+                  'Colormap': MapConfig.prodes.colormap,
+                  'Raster': {
+                    'rasterFunction': 'Remap',
+                    'rasterFunctionArguments': {
+                      'InputRanges': MapConfig.prodes.defaultRange,
+                      'OutputValues': [1],
+                      'AllowUnmatched': false
+                    }
+                  }
+                }
+              }
+            }
+          });
+
+          // "rasterFunction": "Colormap",
+          // "rasterFunctionArguments": {
+          //   "Colormap":[[1,255,0,197]],
+          //   "Raster":{
+          //     "rasterFunction":"Remap",
+          //     "rasterFunctionArguments":{
+          //       "InputRanges":[1,14],
+          //       "OutputValues":[1],
+          //       "AllowUnmatched":false
           //     }
           //   }
-          // });
+          // },"variableName":"Raster"}
 
             prodesAlertsLayer = new ArcGISImageServiceLayer(MapConfig.prodes.url, {
                 imageServiceParameters: prodesParams,
@@ -431,6 +435,30 @@ define([
                 imageParameters: batchParams,
                 id: 'forestCover_forestCover',
                 visible: false
+            });
+
+            tropicalParams = new ImageServiceParameters();
+            tropicalParams.renderingRule = new RasterFunction({
+                'rasterFunction': 'Stretched'//,
+                // 'rasterFunctionArguments': {
+                //     'Colormap': MapConfig.forma.colormap,
+                //     'Raster': {
+                //         'rasterFunction': 'Remap',
+                //         'rasterFunctionArguments': {
+                //             'InputRanges': MapConfig.forma.defaultRange,
+                //             'OutputValues': [1],
+                //             'AllowUnmatched': false
+                //         }
+                //     }
+                // },
+                // 'variableName': 'Raster'
+            });
+
+            forestCover_tropical = new ArcGISImageServiceLayer(MapConfig.tfcs.url, {
+                imageServiceParameters: tropicalParams,
+                id: MapConfig.tfcs.id,
+                visible: false,
+                opacity: 1
             });
 
             forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
@@ -571,6 +599,7 @@ define([
                 // commoditiesAggregate,
                 // landUserAggregate,
                 forestCover_forestCover,
+                forestCover_tropical,
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
@@ -638,6 +667,7 @@ define([
             // commoditiesAggregate.on('error', this.addLayerError);
             // landUserAggregate.on('error', this.addLayerError);
             forestCover_forestCover.on('error', this.addLayerError);
+            forestCover_tropical.on('error', this.addLayerError);
             forestCover_landCover.on('error', this.addLayerError);
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
