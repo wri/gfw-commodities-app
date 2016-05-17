@@ -95,7 +95,11 @@ define([], function() {
         overlays: {
             id: 'MapOverlaysLayer',
             url: mapOverlaysUrl,
-            defaultLayers: [1, 5, 8, 11]
+            defaultLayers: [1, 5, 8, 11],
+            infoTemplate: {
+                content: '<table><tr><td>Name:</td><td>${NAME_1}</td></tr></table>' +
+                    '<tr><td>Type:</td><td>${TYPE_1}</td></tr></table>'
+            }
         },
 
         road: {

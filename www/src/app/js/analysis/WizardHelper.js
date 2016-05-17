@@ -119,7 +119,7 @@ define([
 		},
 
 		showWizardRelatedLayers: function () {
-			app.map.getLayer(MapConfig.adminUnitsLayer.id).show();
+			// app.map.getLayer(MapConfig.adminUnitsLayer.id).show();
 			app.map.getLayer(MapConfig.wizardGraphicsLayer.id).show();
 			app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id).show();
 		},
@@ -151,6 +151,12 @@ define([
 					break;
 				case 'Oil palm concession':
 					layer = 1;
+					break;
+				case 'overlays':
+					// layer = 4;
+					layer = target.getAttribute('data-layer');
+					selectedArea = AnalyzerConfig.stepOne.option2.id;
+					url = MapConfig.overlays.url;
 					break;
 				case 'RSPO Oil palm concession':
 					layer = 4;
