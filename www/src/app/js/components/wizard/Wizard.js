@@ -66,6 +66,12 @@ define([
 
         areaOfInterestUpdated: function () {
             var newAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+            var adminUnitsLayer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
+            if (newAreaOfInterest === 'adminUnitOption' && adminUnitsLayer.visible === false) {
+              adminUnitsLayer.show();
+            } else if (newAreaOfInterest !== 'adminUnitOption') {
+              adminUnitsLayer.hide();
+            }
             this.setState({ usersAreaOfInterest: newAreaOfInterest });
         },
         /* Methods for reacting to store updates above */

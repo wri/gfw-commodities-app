@@ -17,7 +17,7 @@ define([
     // var eckert = 54012;
     var webmercator = 102100;
     var risk_labels = ['', 'low', 'medium', 'high'];
-    config.carbonDensity = {rasterId: '$524'};
+    config.carbonDensity = {rasterId: '$560'};
 
 
     var services = {
@@ -34,7 +34,7 @@ define([
         config.legalClass.rasterId = '$7';
         config.protectedArea.rasterId = '$10';
         config.peatLands.rasterId = '$8';
-        config.carbonDensity.rasterId = '$15';
+        config.carbonDensity.rasterId = '$28';
 
     };
 
@@ -134,7 +134,7 @@ define([
         };
 
         var remapHighCarbonDensity = function(rasterId){
-            return remapRule([1, 20, 20, 369], [0, 1], rasterId);
+            return remapRule([0, 100, 100, 200, 200, 300, 300, 400, 400, 500, 500, 1000], [1, 2, 3, 4, 5, 6], rasterId);
         };
 
         var arithmeticRule = function(raster1, raster2, operation){
@@ -233,8 +233,8 @@ define([
                         renderingRule: arithmeticRule(
                             remapLoss(config.treeCoverLoss.rasterId),
                             remapRule(
-                                [0, 20, 20, 80, 80, 100],
-                                [0, 1, 2],
+                                [0, 100, 100, 200, 200, 300, 300, 400, 400, 500, 500, 1000],
+                                [1, 2, 3, 4, 5, 6],
                                 config.carbonDensity.rasterId
                             ),
                             3

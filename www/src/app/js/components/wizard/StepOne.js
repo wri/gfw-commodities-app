@@ -1,9 +1,9 @@
 /** @jsx React.DOM */
 define([
-	"react",
-  "analysis/config",
-  "analysis/WizardStore",
-  "actions/WizardActions"
+	'react',
+  'analysis/config',
+  'analysis/WizardStore',
+  'actions/WizardActions'
 ], function (React, AnalyzerConfig, WizardStore, WizardActions) {
 
   // Variables

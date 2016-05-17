@@ -366,7 +366,11 @@ define('map/config',[], function() {
         overlays: {
             id: 'MapOverlaysLayer',
             url: mapOverlaysUrl,
-            defaultLayers: [1, 5, 8, 11]
+            defaultLayers: [1, 5, 8, 11],
+            infoTemplate: {
+                content: '<table><tr><td>Name:</td><td>${NAME_1}</td></tr></table>' +
+                    '<tr><td>Type:</td><td>${TYPE_1}</td></tr></table>'
+            }
         },
 
         road: {
@@ -9521,6 +9525,12 @@ define('analysis/WizardHelper',[
 				case 'Oil palm concession':
 					layer = 1;
 					break;
+				case 'overlays':
+					// layer = 4;
+					layer = target.getAttribute('data-layer');
+					selectedArea = AnalyzerConfig.stepOne.option2.id;
+					url = MapConfig.overlays.url;
+					break;
 				case 'RSPO Oil palm concession':
 					layer = 4;
 					url = MapConfig.commercialEntitiesLayer.url;
@@ -10941,6 +10951,11 @@ define('map/Finder',[
               deferreds.push(self.identifyPlantationsSpeciesLayer(mapPoint));
             }
 
+            layer = app.map.getLayer(MapConfig.overlays.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyOverlaysLayer(mapPoint));
+            }
+
             layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
             if (layer) {
                 if (layer.visible) {
@@ -10994,6 +11009,9 @@ define('map/Finder',[
                             break;
                         case "bySpecies":
                             features = features.concat(self.setPlantationsSpeciesTemplates(item.features));
+                            break;
+                        case "overlays":
+                            features = features.concat(self.setOverlaysTemplates(item.features));
                             break;
                         // case "Concessions":
                         //     features = features.concat(self.setConcessionTemplates(item.features));
@@ -11132,10 +11150,42 @@ define('map/Finder',[
             return features;
         },
 
+        setOverlaysTemplates: function(featureObjects) {
+            var template,
+                features = [],
+                // dataLayer,
+                content;
+
+            arrayUtils.forEach(featureObjects, function(item) {
+              // if (item.layerId === 6 || item.layerId === 7) {
+              //   dataLayer = 5;
+              // }
+                content = MapConfig.overlays.infoTemplate.content +
+                        "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-layer=" +
+                        item.layerId + " data-label='" +
+                        item.value + "' data-type='overlays' data-id='${OBJECTID}'>" +
+                        'Analyze</button>' +
+                        "<button id='subscribe-area' class='popupSubscribeButton float-right' data-layer=" +
+                        item.layerId + " data-label='" +
+                        item.value + "' data-type='overlays' data-id='${OBJECTID}'>" +
+                        'Subscribe</button>' +
+                        '</div>';
+
+                template = new InfoTemplate(item.value, content);
+                item.feature.setInfoTemplate(template);
+                features.push(item.feature);
+            });
+            return features;
+        },
+
         identifyforestUseCommodities: function(mapPoint) {
             var deferred = new Deferred(),
                 identifyTask = new IdentifyTask(MapConfig.rspoPerm.url),
                 params = new IdentifyParameters();
+
+            if (app.map.getLayer(MapConfig.rspoPerm.id).visibleLayers.indexOf(0) === -1) {
+              return false; //Layer 0 (RSPO) is the only layer in the service we'll allow an ID task on
+            }
 
             params.tolerance = 3;
             params.returnGeometry = true;
@@ -11143,18 +11193,19 @@ define('map/Finder',[
             params.height = app.map.height;
             params.geometry = mapPoint;
             params.mapExtent = app.map.extent;
-            params.layerIds = app.map.getLayer(MapConfig.rspoPerm.id).visibleLayers;
+            params.layerIds = [0]; //app.map.getLayer(MapConfig.rspoPerm.id).visibleLayers;
+
             params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
             params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
 
             identifyTask.execute(params, function(features) {
                 if (features.length > 0) {
                     features.forEach(function(feature) {
-                        feature.feature.layer = "forestUseCommodities-" + feature.layerId;
+                        feature.feature.layer = 'forestUseCommodities'; //"forestUseCommodities-" + feature.layerId;
                     });
 
                     deferred.resolve({
-                        layer: "forestUseCommodities",
+                        layer: 'forestUseCommodities',
                         features: features
                     });
                 } else {
@@ -11190,6 +11241,42 @@ define('map/Finder',[
 
                     deferred.resolve({
                         layer: "forestUseLandUse",
+                        features: features
+                    });
+                } else {
+                    deferred.resolve(false);
+                }
+            }, function(error) {
+                deferred.resolve(false);
+            });
+
+            return deferred.promise;
+        },
+
+        identifyOverlaysLayer: function(mapPoint) {
+
+            var deferred = new Deferred(),
+                identifyTask = new IdentifyTask(MapConfig.overlays.url),
+                params = new IdentifyParameters();
+
+            params.tolerance = 3;
+            params.returnGeometry = true;
+            params.width = app.map.width;
+            params.height = app.map.height;
+            params.geometry = mapPoint;
+            params.mapExtent = app.map.extent;
+            // params.layerIds = app.map.getLayer(MapConfig.overlays.id).visibleLayers;
+            params.layerIds = [5];
+            params.maxAllowableOffset = Math.floor(app.map.extent.getWidth() / app.map.width);
+
+            identifyTask.execute(params, function(features) {
+                features.forEach(function(feature) {
+                    feature.feature.layer = 'overlays';
+                });
+
+                if (features.length > 0) {
+                    deferred.resolve({
+                        layer: 'overlays',
                         features: features
                     });
                 } else {
@@ -12703,7 +12790,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.61',
+                path = './app/templates/' + name + '.html?v=2.5.62',
                 req;
 
             req = new XMLHttpRequest();

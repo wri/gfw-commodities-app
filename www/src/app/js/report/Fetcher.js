@@ -573,7 +573,7 @@ define([
 						return deferred.promise;
 				},
 
-				 // Main Query Calls Go Here
+				// Main Query Calls Go Here
 
 				_getTotalLossAnalysis: function(config, useSimpleEncoderRule) {
 						this._debug('Fetcher >>> _getTotalLossAnalysis');
@@ -593,6 +593,8 @@ define([
 										f: 'json'
 								},
 								self = this;
+
+								console.log(content);
 
 						function success(response) {
 								if (response.histograms.length > 0) {

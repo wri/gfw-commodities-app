@@ -105,9 +105,9 @@ define([
       var value = evt.target.value,
           self = this;
 
-      if (value === "NONE") {
+      if (value === 'NONE') {
         // Hide the Layer and clear the list
-        topic.publish("setAdminBoundariesDefinition");
+        topic.publish('setAdminBoundariesDefinition');
         this.setState({
           nestedListData: []
         });
@@ -118,7 +118,7 @@ define([
         isLoading: true
       });
 
-      topic.publish("setAdminBoundariesDefinition", value);
+      topic.publish('setAdminBoundariesDefinition', value);
 
       AnalyzerQuery.getLowLevelAdminUnitData(value).then(function (data) {
         self.setState({
@@ -148,7 +148,7 @@ define([
       // Update this for bookkeeping
       previousFeatureType = featureType;
 
-      if (featureType === "group") {
+      if (featureType === 'group') {
 
         activeItems = this.state.activeListGroupValue;
 
@@ -173,7 +173,7 @@ define([
 
           // Takes URL and group name, group name will always be the targets innerHTML
           var countrySelect = document.getElementById('country-select').value;
-    			console.log(countrySelect)
+
           AnalyzerQuery.getFeaturesByGroupNameAndCountry(config.countryBoundaries, label, countrySelect).then(function (features) {
             if (features && wizardGraphicsLayer) {
               features.forEach(function (feature) {
