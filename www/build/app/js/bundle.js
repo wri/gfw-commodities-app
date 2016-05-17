@@ -11503,6 +11503,8 @@ define('map/Finder',[
                     'Subscribe</button>' +
                     '</div>'
                 );
+                item.feature.setInfoTemplate(template);
+                features.push(item.feature);
                 // if (item.layerId === 4) {
                 //     template = new InfoTemplate(item.value,
                 //         MapConfig.rspoPerm.infoTemplate.content +
@@ -12799,7 +12801,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.63',
+                path = './app/templates/' + name + '.html?v=2.5.64',
                 req;
 
             req = new XMLHttpRequest();

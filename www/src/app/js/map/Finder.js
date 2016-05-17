@@ -684,6 +684,8 @@ define([
                     'Subscribe</button>' +
                     '</div>'
                 );
+                item.feature.setInfoTemplate(template);
+                features.push(item.feature);
                 // if (item.layerId === 4) {
                 //     template = new InfoTemplate(item.value,
                 //         MapConfig.rspoPerm.infoTemplate.content +
