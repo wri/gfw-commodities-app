@@ -168,44 +168,44 @@ define([
                     //         feature.feature.layer = item.layer;
                     //     });
                     // }
-                    console.log(item)
-                    console.log(item.layer)
+                    console.log(item);
+                    console.log(item.layer);
 
                     switch (item.layer) {
 
-                        case "Fires":
+                        case 'Fires':
                             features = features.concat(self.setFireTemplates(item.features));
                             break;
-                        case "forestUseCommodities":
+                        case 'forestUseCommodities':
                             features = features.concat(self.setForestUseCommoditiesTemplates(item.features));
                             break;
-                        case "forestUseLandUse":
+                        case 'forestUseLandUse':
                             features = features.concat(self.setForestUseLandUseTemplates(item.features));
                             break;
-                        case "WDPA":
+                        case 'WDPA':
                             features = features.concat(self.setWDPATemplates(item.features));
                             break;
-                        case "byType":
+                        case 'byType':
                             features = features.concat(self.setPlantationsTypeTemplates(item.features));
                             break;
-                        case "bySpecies":
+                        case 'bySpecies':
                             features = features.concat(self.setPlantationsSpeciesTemplates(item.features));
                             break;
-                        case "overlays":
+                        case 'overlays':
                             features = features.concat(self.setOverlaysTemplates(item.features));
                             break;
                         // case "Concessions":
                         //     features = features.concat(self.setConcessionTemplates(item.features));
                         //     break;
-                        case "WizardDynamic":
+                        case 'WizardDynamic':
                             features = features.concat(self.setWizardTemplates(item.features));
                             break;
-                        case "CustomGraphics":
+                        case 'CustomGraphics':
                             // This will only contain a single feature and return a single feature
                             // instead of an array of features
                             features.push(self.setCustomGraphicTemplates(item.feature));
                             break;
-                        case "Biomes":
+                        case 'Biomes':
                             features = features.concat(self.setBiomesTemplates(item.features));
                             break;
                         default: // Do Nothing
@@ -768,7 +768,7 @@ define([
                     features.push(item.feature);
                 } else if (item.layerId === 2) {
 
-                    template = new InfoTemplate(item.feature.attributes.Company,//item.value,
+                    template = new InfoTemplate(item.feature.attributes.Company, //item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
                         item.value + "' data-type='Mining concession' data-id='${OBJECTID}'>" +
@@ -807,7 +807,7 @@ define([
                 layerDefs = [];
 
             // Layer Defs All Possible Layers
-            layerDefs[7] = "1 = 1";
+            layerDefs[7] = '1 = 1';
             layerDefs[13] = layer.layerDefinitions[13];
 
             params.tolerance = 3;

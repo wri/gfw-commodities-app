@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 define([
-  "react",
-  "dojo/dom-class"
+  'react',
+  'dojo/dom-class'
 ], function (React, domClass) {
 
   // Variables

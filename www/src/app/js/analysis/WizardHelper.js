@@ -137,6 +137,7 @@ define([
 					self = this,
 					layer;
 
+			domClass.add('analysis-modal', 'hidden');
 
 			// Get Graphic, and set the appropriate content
 			switch (type) {
