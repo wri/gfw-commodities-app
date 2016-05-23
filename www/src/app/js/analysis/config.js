@@ -132,7 +132,7 @@ define([], function() {
                 value: 'protected',
                 checked: true
             }, {
-                label: 'Forest Carbon Stocks',
+                label: 'Aboveground Biomass Density',
                 value: 'carbon'
             }, {
                 label: 'Brazil Biomes',
@@ -216,7 +216,7 @@ define([], function() {
                 label: 'Protected Areas',
                 value: 'protected'
             }, {
-                label: 'Forest Carbon Stocks',
+                label: 'Aboveground Biomass Density',
                 value: 'carbon'
             }, {
                 label: 'Intact Forests',
