@@ -12,11 +12,9 @@ define([
     },
 
     getInitialState: function() {
-      // if (this.props.label === 'Plantations by Type') {
-      //   debugger
-      // }
       return {
-        active: this.props.defaultChecked || false
+        active: this.props.defaultChecked || false,
+        defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
       };
     },
 
@@ -29,19 +27,11 @@ define([
         this.setState({
           active: true
         });
+      } else if (this.state.defaultOff.indexOf(newProps.value) > -1) {
+        this.setState({
+          active: false
+        });
       }
-
-      // if (newProps.label === 'Plantations by Type') {
-      //   console.log('plantaaa');
-      //   // if (this.props.defaultChecked !== newProps.defaultChecked) {
-      //   //   console.log('actveeee');
-      //     this.setState({
-      //       active: true
-      //     });
-      //   // } else {
-      //   //   debugger
-      //   // }
-      // }
     },
 
     componentDidUpdate: function(prevProps, prevState) {
