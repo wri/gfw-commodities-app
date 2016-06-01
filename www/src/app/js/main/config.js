@@ -22,33 +22,33 @@ define({
   ],
 
   "homeModeOptions": [{
-    "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE GLOBAL</span>\n<span>DATA ON THE GFW</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE THE</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=1.99&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
     "eventName": "goToFires",
     "display": false,
     "id": 0,
     "tooltip": "Commodities Map",
-    "imageBg": "./app/css/images/Slide-Picture2.jpg"
+    "imageBg": "./app/css/images/Slide-Picture1.png"
   }, {
-    "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToMap",
     "display": true,
     "id": 1,
     "tooltip": "Analysis",
-    "imageBg": "./app/css/images/Slide-Picture1.jpg"
+    "imageBg": "./app/css/images/Slide-Picture2.png"
   }, {
-    "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToZSL",
     "display": false,
     "id": 2,
     "tooltip": "Supplier Monitoring",
-    "imageBg": "./app/css/images/Slide-Picture4.jpg"
+    "imageBg": "./app/css/images/Slide-Picture4.png"
   }, {
     "html": '<div class="home-slider-container">\n<h3>ALERTS</h3>\n<h4><span>SIGN UP FOR TREE</span>\n<span>CLEARANCE AND FIRE</span>\n<span>ALERTS FORS AREAS IN</span>\n<span>YOUR SUPPLY CHAIN</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
     "eventName": "goToBlogs",
     "display": false,
     "id": 3,
     "tooltip": "Alerts",
-    "imageBg": "./app/css/images/Slide-Picture3.jpg"
+    "imageBg": "./app/css/images/Slide-Picture3.png"
   }, {
     "html": '<div class="home-slider-container">\n<h3>COMMODITIES</h3>\n<h4><span>ANALYZE LAND USE</span>\n<span>CHANGE WITHIN RSPO</span>\n<span>CERTIFIED AREAS</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
     "eventName": "goToZSL",
