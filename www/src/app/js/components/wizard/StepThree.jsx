@@ -100,7 +100,8 @@ define([
                 <p className='layer-description'>{config.mill.description}</p>
 
                 </div>
-                <div className='step-sub-header'>{config.forestChange.label}
+                <div className='step-sub-header'>
+                <span onClick={this.toggleOptions} className={`forestChange-description ${this.state.optionsExpanded ? 'open' : 'closed'}`}>{config.forestChange.label}</span>
 
                 {
                   this.state.optionsExpanded === true ? <svg onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: treeOpen }}/> :
