@@ -407,10 +407,13 @@ define('map/config',[], function() {
           'forest-change-tree-cover-gain': 'tree_cover_gain',
           'forest-change-forma-alerts': 'forma',
           'forest-change-nasa-active-fires': 'firms_active_fires',
+          'forest-change-prodes-alerts': 'prodes',
+          'forest-change-glad-alerts': 'umd_landsat_alerts',
           'forest-and-land-cover-tree-cover-density': 'tree_cover',
           'forest-and-land-cover-intact-forest-landscape': 'intact_forest_landscapes_change',
           'forest-and-land-cover-peat-lands': 'idn_peat_lands',
-          'forest-and-land-cover-carbon-stocks': 'tropical_forest_carbon_stocks',
+          'forest-and-land-cover-carbon-stocks': 'aboveground_biomass',
+          'forest-and-land-cover-plantations': 'gfw_plantations',
           'forest-and-land-cover-brazil-biomes': 'bra_biomes',
           'forest-and-land-cover-primary-forest': 'idn_primary_forests', //cod_primary_forest
           'forest-and-land-cover-land-cover-global': 'global_landcover',
@@ -977,7 +980,8 @@ define('map/config',[], function() {
                 type: 'radio',
                 layerType: 'dynamic',
                 parent: 'plantations',
-                visible: true
+                visible: true,
+                infoDivClass: 'forest-and-land-cover-plantations'
             }, {
                 id: 'bySpecies',
                 title: 'by species',
@@ -985,7 +989,8 @@ define('map/config',[], function() {
                 type: 'radio',
                 layerType: 'dynamic',
                 parent: 'plantations',
-                visible: true
+                visible: true,
+                infoDivClass: 'forest-and-land-cover-plantations'
             }, {
                 id: 'primForest',
                 title: 'Primary Forests',
@@ -13050,7 +13055,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.66',
+                path = './app/templates/' + name + '.html?v=2.5.67',
                 req;
 
             req = new XMLHttpRequest();
