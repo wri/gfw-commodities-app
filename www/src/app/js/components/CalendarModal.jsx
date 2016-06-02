@@ -2,15 +2,28 @@
 define([
 	'react',
 	'components/CalendarWrapper',
+  'dojo/dom-class',
+  'dojo/topic',
+  'utils/DateHelper',
 	'map/config'
-], function (React, CalendarWrapper, MapConfig) {
+], function (React, CalendarWrapper, domClass, topic, DateHelper, MapConfig) {
 
 	// Variables
 	var calendarConfig = MapConfig.calendars;
 
 	var CalendarModal = React.createClass({
 
+		getInitialState: function() {
+			return {
+				activeCalendar: '',
+        startDate: new window.Kalendae.moment('01/01/2015'),
+        endDate: new window.Kalendae.moment().format('M/D/YYYY')
+			};
+		},
+
 		componentDidMount: function () {
+
+			var self = this;
 
 			calendarConfig.forEach(function(calendar) {
 				var calendar_obj = new window.Kalendae(calendar.domId, {
@@ -26,20 +39,10 @@ define([
 					// },
 					selected: calendar.selectedDate
 				});
+				console.log(self);
 
-				// calendar_obj.subscribe('change', this[calendar.method].bind(this));
+				calendar_obj.subscribe('change', self[calendar.method].bind(self));
 			});
-			// var calendarStart = new Kalendae(calendarConfig.gladStart.domId, {
-			//   months: 1,
-			//   mode: 'single',
-			//   selected: calendarConfig.gladStart.selectedDate
-			// });
-
-			// var calendarEnd = new Kalendae('gladPlayButtonStart', {
-			//   months: 1,
-			//   mode: 'single',
-			//   selected: config.gladAlerts.endDate
-			// });
 
 			// calendarStart.subscribe('change', function (date) {
 			// 	debugger
@@ -52,20 +55,56 @@ define([
 		},
 
 		render: function() {
-			console.log(this.props);
 			return (
 				<CalendarWrapper>
-          {calendarConfig.map(this.itemMapper, this)}
+					<div className='calendar-window'>
+						{calendarConfig.map(this.itemMapper, this)}
+					</div>
 				</CalendarWrapper>
 			);
 		},
 
 		itemMapper: function (item) {
-			console.log(item);
-			//<div className={`modal-content ${item.domClass}${this.state.calendarVisible === item.domId ? '' : ' hidden'}`}>
-			return <div className={`calendar-window ${item.domClass}`}>
-				<div id={item.domId}></div>
+			return <div className={item.domClass}>
+				<div id={item.domId} className={`${this.state.activeCalendar === item.domId ? '' : ' hidden'}`}></div>
 			</div>;
+		},
+
+		setCalendar: function (calendar) {
+			this.setState({
+				activeCalendar: calendar
+			});
+		},
+
+		close: function () {
+			var node = React.findDOMNode(this).parentElement;
+			domClass.add(node, 'hidden');
+		},
+
+		changeGladStart: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButton = $('#gladPlayButtonStartClick');
+      // playButton.html(date);
+      var formattedStart = new Date(date);
+      playButton.html(DateHelper.getDate(formattedStart));
+			this.close();
+      this.setState({
+        startDate: date
+      });
+      topic.publish('updateGladDates', [date, this.state.endDate]);
+		},
+
+		changeGladEnd: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButtonEnd = $('#gladPlayButtonEndClick');
+      // playButtonEnd.html(date);
+      var formattedEnd = new Date(date);
+      playButtonEnd.html(DateHelper.getDate(formattedEnd));
+			this.close();
+      this.setState({
+        endDate: date
+      });
+      topic.publish('updateGladDates', [this.state.startDate, date]);
 		}
 
 		/* jshint ignore:end */

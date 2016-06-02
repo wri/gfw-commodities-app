@@ -64,14 +64,16 @@ define([], function() {
         },
         calendars: [
           {
-            selectedDate: '01/01/2015',
+            selectedDate: new window.Kalendae.moment('01/01/2015'),
             domId: 'gladCalendarStart',
-            domClass: 'glad-calendar'
+            domClass: 'glad-calendar',
+            method: 'changeGladStart'
           },
           {
-            selectedDate: '01/01/2015',
+            selectedDate: new window.Kalendae.moment(),
             domId: 'gladCalendarEnd',
-            domClass: 'glad-calendar'
+            domClass: 'glad-calendar',
+            method: 'changeGladEnd'
           }
         ],
 

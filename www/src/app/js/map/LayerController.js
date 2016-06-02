@@ -204,13 +204,109 @@ define([
             }
         },
 
+        parseDate: function (str) {
+          let mdy = str.split('/');
+          return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+        },
+
+        daydiff: function (first, second) {
+          return Math.round((second - first) / (1000 * 60 * 60 * 24)) + 1;
+        },
+
+        isLeapYear: function (year) {
+          if((year & 3) !== 0) {
+              return false;
+          }
+          return ((year % 100) !== 0 || (year % 400) === 0);
+        },
+
+        updateGladDates: function(clauseArray) {
+          var gladLayer = app.map.getLayer('gladAlerts');
+          // debugger
+
+          var otherDateStart = new Date(clauseArray[0]);
+          var monthStart = otherDateStart.getMonth();
+          var yearStart = otherDateStart.getFullYear();
+          var janOneStart = new Date(yearStart + ' 01 01');
+          var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
+
+          var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
+
+          if (monthStart > 1 && this.isLeapYear(yearStart)) {
+            julianStart++;
+          }
+
+          var otherDateEnd = new Date(clauseArray[1]);
+          var monthEnd = otherDateEnd.getMonth();
+          var yearEnd = otherDateEnd.getFullYear();
+          var janOneEnd = new Date(yearEnd + ' 01 01');
+          var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
+
+          var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
+
+          if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
+            julianEnd++;
+          }
+
+          var inputStartRanges = [];
+          var inputEndRanges = [];
+
+          if (yearStart === 2015 && yearEnd === 2015) {
+            inputStartRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
+            inputEndRanges = [0, 367, 367, 367, 367, 367];
+          } else if (yearStart === 2016 && yearEnd === 2016) {
+            inputStartRanges = [0, 367, 367, 367, 367, 367];
+            inputEndRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
+          } else if (yearStart === 2015 && yearEnd === 2016) {
+            inputStartRanges = [0, julianStart, julianStart, 366, 366, 366];
+            inputEndRanges = [0, 0, 0, julianEnd, julianEnd, 366];
+          } else {
+            return;
+          }
+
+          if (gladLayer) {
+            var rasterF = new RasterFunction({
+              'rasterFunction': 'Colormap',
+              'rasterFunctionArguments': {
+                'Colormap': [
+                  [1, 255, 102, 153]
+                ],
+                'Raster': {
+                  'rasterFunction': 'Local',
+                  'rasterFunctionArguments': {
+                    'Operation': 67, //max value; ignores no data
+                    'Rasters': [{
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': inputStartRanges,
+                        'OutputValues': [0, 1, 0],
+                        'Raster': '$1', //2015
+                        'AllowUnmatched': false
+                      }
+                    }, {
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': inputEndRanges,
+                        'OutputValues': [0, 1, 0],
+                        'Raster': '$2', //2016
+                        'AllowUnmatched': false
+                      }
+                    }]
+                  }
+                }
+              }
+            });
+
+            gladLayer.setRenderingRule(rasterF);
+          }
+        },
+
         setWizardDynamicLayerDefinition: function(config, filter) {
             var layer = app.map.getLayer(config.id),
                 layerDefs = [],
                 where;
 
             if (layer) {
-              // debugger
                 if (filter !== undefined) {
                     where = config.whereField + " = '" + filter + "'";
                     layerDefs[config.layerId] = where;

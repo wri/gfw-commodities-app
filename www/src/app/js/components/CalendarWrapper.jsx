@@ -1,9 +1,8 @@
 define([
 	'react',
 	'components/ModalWrapper',
-  'dojo/dom-class',
-	'map/config'
-], function (React, ModalWrapper, domClass, MapConfig) {
+  'dojo/dom-class'
+], function (React, ModalWrapper, domClass) {
 
   var closeSvg = '<use xlink:href="#shape-close" />';
 

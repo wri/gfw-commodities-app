@@ -3,15 +3,15 @@ define([
   'dojo/dom-class',
   'map/config',
   'esri/request',
+  'utils/DateHelper',
   'dojo/Deferred',
   'components/CalendarModal',
   'map/LayerController'
-], function (on, domClass, MapConfig, esriRequest, Deferred, CalendarModal, LayerController) {
+], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal, LayerController) {
   // "use strict";
 
   var playInterval,
-      gladSlider,
-      playButton;
+      gladSlider;
 
   var config = {
     sliderSelector: '#glad-alert-slider',
@@ -29,33 +29,31 @@ define([
     init: function () {
       var self = this;
       if (gladSlider === undefined) {
-        // debugger
-        // console.log(Kalendae);
-        // debugger
-
 
         var calendarModal = new CalendarModal({
         }, 'calendar-modal');
 
-        playButton = $('#gladPlayButtonStartClick');
+        var playButton = $('#gladPlayButtonStartClick');
+        var startDate = new window.Kalendae.moment('01/01/2015').format('M/D/YYYY');
+        var formattedStart = new Date(startDate);
+        playButton.html(DateHelper.getDate(formattedStart));
+
         on(playButton, 'click', function() {
-          // $('#gladPlayButtonStart').show();
           var node = calendarModal.getDOMNode();
+          calendarModal.setCalendar('gladCalendarStart');
           domClass.remove(node.parentNode, 'hidden');
         });
-        // CalendarModal.show();
-        // var calendarEnd = new Kalendae('gladPlayButtonEnd', {
-        //   months: 1,
-        //   mode: 'single',
-        //   selected: MapConfig.gladAlerts.endDate
-        // });
-        // console.log(MapConfig.gladAlerts);
 
+        var playButtonEnd = $('#gladPlayButtonEndClick');
+        var endDate = new window.Kalendae.moment().format('M/D/YYYY');
+        var formattedEnd = new Date(endDate);
+        playButtonEnd.html(DateHelper.getDate(formattedEnd));
 
-        // calendarEnd.subscribe('change', function (date) {
-        //   debugger
-        // });
-
+        on(playButtonEnd, 'click', function() {
+          var node = calendarModal.getDOMNode();
+          calendarModal.setCalendar('gladCalendarEnd');
+          domClass.remove(node.parentNode, 'hidden');
+        });
 
       }
     },
