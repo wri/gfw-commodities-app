@@ -52,7 +52,7 @@ define([
         var dataFileType = model.dataFileType();
         var attributeFileName = model.attributeFileName();
         var attributeFileType = model.attributeFileType();
-
+        var node;
 
         if (!model.storyNameData()) {
           $('#storyNameInput').css('border-color', 'red');
@@ -60,29 +60,37 @@ define([
           // SubmissionModal.addClass('story-name');
           // SubmissionModal.toggle();
           submitModal.addError('storyName');
-          var node = submitModal.getDOMNode();
+          node = submitModal.getDOMNode();
           domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyCompanyData()) {
           $('#storyCompanyInput').css('border-color', 'red');
-          alert('Please enter your company!');
+          submitModal.addError('storyCompany');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyTitleData()) {
           $('#storyTitleInput').css('border-color', 'red');
-          alert('Please enter your title!');
+          submitModal.addError('storyPosition');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyEmailData()) {
           $('#storyEmailInput').css('border-color', 'red');
-          alert('Please enter your email!');
+          submitModal.addError('storyEmail');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
 
         if (!model.dataFileName()) {
           $('#dataInput').css('border-color', 'red');
-          alert('Please attach your data!');
+          submitModal.addError('storyData');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
 
@@ -113,6 +121,11 @@ define([
             type: 'post',
             success: function(response){
               self.uploadToAGOL(response);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              submitModal.addError('s3Error');
+              node = submitModal.getDOMNode();
+              domClass.remove(node.parentNode, 'hidden');
             }
           });
 
@@ -157,6 +170,7 @@ define([
     uploadToAGOL: function(response){
 
       var arr = response.split(';');
+      var modalNode;
 
       var url1 = arr[0];
       var url2;
@@ -207,11 +221,16 @@ define([
       });
 
       layersRequest.then(
-        function(response) {
-          console.log('Success: ', response);
-          alert('Data successfully submitted!')
+        function(layerResponse) {
+          console.log('Success: ', layerResponse);
+          submitModal.addError('submissionSuccess');
+          modalNode = submitModal.getDOMNode();
+          domClass.remove(modalNode.parentNode, 'hidden');
+          $('#storyForm')[0].reset();
       }, function(error) {
-          alert('Data was not successfully submitted, please try again.')
+          submitModal.addError('layersRequestError');
+          modalNode = submitModal.getDOMNode();
+          domClass.remove(modalNode.parentNode, 'hidden');
           console.log('Error: ', error.message);
       });
 

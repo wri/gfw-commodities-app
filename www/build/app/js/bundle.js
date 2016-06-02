@@ -27,28 +27,28 @@ define('main/config',{
     "display": false,
     "id": 0,
     "tooltip": "Commodities Map",
-    "imageBg": "./app/css/images/Slide-Picture1.png"
+    "imageBg": "./app/css/images/Slide-Picture2.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToMap",
     "display": true,
     "id": 1,
     "tooltip": "Analysis",
-    "imageBg": "./app/css/images/Slide-Picture2.png"
+    "imageBg": "./app/css/images/Slide-Picture1.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToZSL",
     "display": false,
     "id": 2,
     "tooltip": "Supplier Monitoring",
-    "imageBg": "./app/css/images/Slide-Picture4.png"
+    "imageBg": "./app/css/images/Slide-Picture4.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>ALERTS</h3>\n<h4><span>SIGN UP FOR TREE</span>\n<span>CLEARANCE AND FIRE</span>\n<span>ALERTS FORS AREAS IN</span>\n<span>YOUR SUPPLY CHAIN</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
     "eventName": "goToBlogs",
     "display": false,
     "id": 3,
     "tooltip": "Alerts",
-    "imageBg": "./app/css/images/Slide-Picture3.png"
+    "imageBg": "./app/css/images/Slide-Picture3.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>COMMODITIES</h3>\n<h4><span>ANALYZE LAND USE</span>\n<span>CHANGE WITHIN RSPO</span>\n<span>CERTIFIED AREAS</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
     "eventName": "goToZSL",
@@ -363,6 +363,31 @@ define('map/config',[], function() {
             domId: 'storyPosition',
             domClass: 'submision-message',
             message: 'You must submit a position!'
+          },
+          {
+            domId: 'storyEmail',
+            domClass: 'submision-message',
+            message: 'You must submit an email!'
+          },
+          {
+            domId: 'storyData',
+            domClass: 'submision-message',
+            message: 'You must submit data with your story!'
+          },
+          {
+            domId: 's3Error',
+            domClass: 'submision-message',
+            message: 'An error occurred during the data upload.'
+          },
+          {
+            domId: 'layersRequestError',
+            domClass: 'submision-message',
+            message: 'An error occurred during the data upload to ArcGIS Online.'
+          },
+          {
+            domId: 'submissionSuccess',
+            domClass: 'submision-message',
+            message: 'Success! Your data has been uploaded and our team has been notified of your contribution.'
           }
         ],
 
@@ -14994,7 +15019,7 @@ define('controllers/SubmissionController',[
         var dataFileType = model.dataFileType();
         var attributeFileName = model.attributeFileName();
         var attributeFileType = model.attributeFileType();
-
+        var node;
 
         if (!model.storyNameData()) {
           $('#storyNameInput').css('border-color', 'red');
@@ -15002,29 +15027,37 @@ define('controllers/SubmissionController',[
           // SubmissionModal.addClass('story-name');
           // SubmissionModal.toggle();
           submitModal.addError('storyName');
-          var node = submitModal.getDOMNode();
+          node = submitModal.getDOMNode();
           domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyCompanyData()) {
           $('#storyCompanyInput').css('border-color', 'red');
-          alert('Please enter your company!');
+          submitModal.addError('storyCompany');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyTitleData()) {
           $('#storyTitleInput').css('border-color', 'red');
-          alert('Please enter your title!');
+          submitModal.addError('storyPosition');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyEmailData()) {
           $('#storyEmailInput').css('border-color', 'red');
-          alert('Please enter your email!');
+          submitModal.addError('storyEmail');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
 
         if (!model.dataFileName()) {
           $('#dataInput').css('border-color', 'red');
-          alert('Please attach your data!');
+          submitModal.addError('storyData');
+          node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
 
@@ -15055,6 +15088,11 @@ define('controllers/SubmissionController',[
             type: 'post',
             success: function(response){
               self.uploadToAGOL(response);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              submitModal.addError('s3Error');
+              node = submitModal.getDOMNode();
+              domClass.remove(node.parentNode, 'hidden');
             }
           });
 
@@ -15099,6 +15137,7 @@ define('controllers/SubmissionController',[
     uploadToAGOL: function(response){
 
       var arr = response.split(';');
+      var modalNode;
 
       var url1 = arr[0];
       var url2;
@@ -15149,11 +15188,16 @@ define('controllers/SubmissionController',[
       });
 
       layersRequest.then(
-        function(response) {
-          console.log('Success: ', response);
-          alert('Data successfully submitted!')
+        function(layerResponse) {
+          console.log('Success: ', layerResponse);
+          submitModal.addError('submissionSuccess');
+          modalNode = submitModal.getDOMNode();
+          domClass.remove(modalNode.parentNode, 'hidden');
+          $('#storyForm')[0].reset();
       }, function(error) {
-          alert('Data was not successfully submitted, please try again.')
+          submitModal.addError('layersRequestError');
+          modalNode = submitModal.getDOMNode();
+          domClass.remove(modalNode.parentNode, 'hidden');
           console.log('Error: ', error.message);
       });
 

@@ -92,6 +92,31 @@ define([], function() {
             domId: 'storyPosition',
             domClass: 'submision-message',
             message: 'You must submit a position!'
+          },
+          {
+            domId: 'storyEmail',
+            domClass: 'submision-message',
+            message: 'You must submit an email!'
+          },
+          {
+            domId: 'storyData',
+            domClass: 'submision-message',
+            message: 'You must submit data with your story!'
+          },
+          {
+            domId: 's3Error',
+            domClass: 'submision-message',
+            message: 'An error occurred during the data upload.'
+          },
+          {
+            domId: 'layersRequestError',
+            domClass: 'submision-message',
+            message: 'An error occurred during the data upload to ArcGIS Online.'
+          },
+          {
+            domId: 'submissionSuccess',
+            domClass: 'submision-message',
+            message: 'Success! Your data has been uploaded and our team has been notified of your contribution.'
           }
         ],
 
