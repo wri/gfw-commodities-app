@@ -77,6 +77,24 @@ define([], function() {
           }
         ],
 
+        submitMessages: [
+          {
+            domId: 'storyName',
+            domClass: 'submision-message',
+            message: 'You must submit a name!'
+          },
+          {
+            domId: 'storyCompany',
+            domClass: 'submision-message',
+            message: 'You must submit a company!'
+          },
+          {
+            domId: 'storyPosition',
+            domClass: 'submision-message',
+            message: 'You must submit a position!'
+          }
+        ],
+
         tcdModal: {
           label: 'Adjust the minimum canopy density for tree cover and tree cover loss',
           densityValue: 30

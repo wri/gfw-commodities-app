@@ -13,6 +13,7 @@ define([
 
 	var initialized = false;
   var self;
+  var submitModal;
 
 	return {
 
@@ -29,7 +30,7 @@ define([
 			registry.byId('submissionView').set('content', template);
       SubmissionModel.initialize('submissionView');
 
-      var submitModal = new SubmitModal({
+      submitModal = new SubmitModal({
       }, 'submit-modal');
       // var context = 'submission';
       // NavListController.loadNavControl(context);
@@ -56,8 +57,11 @@ define([
         if (!model.storyNameData()) {
           $('#storyNameInput').css('border-color', 'red');
           // alert('Please enter your name!');
-          SubmissionModal.addClass('story-name');
-          SubmissionModal.toggle();
+          // SubmissionModal.addClass('story-name');
+          // SubmissionModal.toggle();
+          submitModal.addError('storyName');
+          var node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyCompanyData()) {
