@@ -3,13 +3,13 @@ define([
     'dojo/query',
     'dojo/dom-class',
     'dojo/dom-style',
-    'map/SubmissionModal',
     'dijit/registry',
     'esri/graphic',
     'esri/request',
+    'components/SubmitModal',
     'utils/NavListController',
     'models/SubmissionModel'
-], function (dom, query, domClass, domStyle, SubmissionModal, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
+], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, SubmitModal, NavListController, SubmissionModel) {
 
 	var initialized = false;
   var self;
@@ -29,7 +29,8 @@ define([
 			registry.byId('submissionView').set('content', template);
       SubmissionModel.initialize('submissionView');
 
-
+      var submitModal = new SubmitModal({
+      }, 'submit-modal');
       // var context = 'submission';
       // NavListController.loadNavControl(context);
       // NavListController.loadNavView(context);
@@ -119,9 +120,9 @@ define([
       }
       var fileName = evt.target.files[0].name;
       var hash = {
-        '.xls'  : 1,
-        '.xlsx' : 1,
-        '.csv'  : 1
+        '.xls': 1,
+        '.xlsx': 1,
+        '.csv': 1
       };
       var re = /\..+$/;
       var ext = fileName.match(re);
