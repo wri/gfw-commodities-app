@@ -348,6 +348,24 @@ define('map/config',[], function() {
           }
         ],
 
+        submitMessages: [
+          {
+            domId: 'storyName',
+            domClass: 'submision-message',
+            message: 'You must submit a name!'
+          },
+          {
+            domId: 'storyCompany',
+            domClass: 'submision-message',
+            message: 'You must submit a company!'
+          },
+          {
+            domId: 'storyPosition',
+            domClass: 'submision-message',
+            message: 'You must submit a position!'
+          }
+        ],
+
         tcdModal: {
           label: 'Adjust the minimum canopy density for tree cover and tree cover loss',
           densityValue: 30
@@ -14727,76 +14745,119 @@ define('controllers/PublicationsController',[
 	};
 
 });
-define('map/SubmissionModal',[
-  // My Modules
-  'map/config',
-  'map/Symbols',
-  'utils/GeoHelper',
-  'analysis/config',
-  'analysis/WizardStore',
-  'actions/WizardActions',
-  // Dojo Modules
-  'dojo/on',
-  'dojo/dom-class'//,
-  // Esri Modules
-  // 'esri/graphic',
-  // 'esri/geometry/Point'
-], function (MapConfig, Symbols, GeoHelper, AnalysisConfig, WizardStore, WizardActions, on, domClass) {
+/** @jsx React.DOM */
+define('components/SubmitWrapper',[
+  'react',
+  'dojo/dom-class'
+], function (React, domClass) {
 
-  var closeHandle;
+  // Variables
+  var closeSvg = '<use xlink:href="#shape-close" />';
 
-  // var KEYS = AnalysisConfig.STORE_KEYS;
+  var SubmitWrapper = React.createClass({displayName: "SubmitWrapper",
 
-  var SubmitModal = {
-
-    /**
-    * Toggle the Panel
-    */
-    toggle: function () {
-      domClass.toggle('submission-modal', 'active');
-
-      if (closeHandle) {
-        closeHandle.remove();
-        closeHandle = undefined;
-      } else {
-        closeHandle = on.once(document.querySelector('#submission-modal .close-icon'), 'click', this.toggle);
-      }
+    close:function () {
+      var node = React.findDOMNode(this).parentElement;
+      domClass.add(node, 'hidden');
     },
 
-    /**
-    * Add a class
-    */
-    addClass: function (className) {
-      domClass.add('submission-modal', className);
-    },
+    /* jshint ignore:start */
+    render: function() {
+      return (
+        React.createElement("div", {className: "modal-container"}, 
+        React.createElement("div", {className: "submit-background", onClick: this.close}), 
+        React.createElement("div", {className: "modal-window"}, 
+          React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
+            React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
+          ), 
+          React.createElement("div", {className: "modal-wrapper custom-scroll"}, 
+            this.props.children
+          )
+        )
+      )
+      );
 
-    /**
-    * Remove a class
-    */
-    removeClass: function (className) {
-      domClass.remove('submission-modal', className);
-    },
-
-    /**
-    * Force close
-    */
-    close: function () {
-      if (closeHandle) {
-        closeHandle.remove();
-        closeHandle = undefined;
-      }
-      return domClass.remove('submission-modal', 'active');
-    },
-
-    resetForm: function () {
-      document.getElementById('submitModalLatitiude').value = '';
-      document.getElementById('submitModalLongitude').value = '';
     }
 
+  });
 
-  };
+  // return function (props, el) {
+  //   /* jshint ignore:start */
+  //   return React.render(<ModalWrapper />, document.getElementById(el));
+  //   /* jshint ignore:end */
+  // };
+  return SubmitWrapper;
 
-  return SubmitModal;
+});
+
+/** @jsx React.DOM */
+define('components/SubmitModal',[
+	'react',
+	'components/SubmitWrapper',
+  'dojo/dom-class',
+  'map/config'
+], function (React, SubmitWrapper, domClass, MapConfig) {
+
+	// Variables
+	var submitConfig = MapConfig.submitMessages;
+
+	var SubmitModal = React.createClass({displayName: "SubmitModal",
+
+		getInitialState: function() {
+			return {
+				activeMessage: ''
+			};
+		},
+
+		render: function() {
+			return (
+				React.createElement(SubmitWrapper, null, 
+					React.createElement("div", {className: "submit-window"}, 
+            submitConfig.map(this.itemMapper, this)
+					)
+				)
+			);
+		},
+
+    itemMapper: function (item) {
+			return React.createElement("div", {className: item.domClass}, 
+				React.createElement("div", {id: item.domId, className: ((this.state.activeMessage === item.domId ? '' : ' hidden'))}, item.message)
+			);
+		},
+
+    // <div id='storyName' className={`${this.state.activeMessage === 'storyName' ? '' : ' hidden'}`}></div>
+    // <div id='storyCompany' className={`${this.state.activeMessage === 'storyCompany' ? '' : ' hidden'}`}></div>
+    // <div id='storyPosition' className={`${this.state.activeMessage === 'storyPosition' ? '' : ' hidden'}`}></div>
+
+		close: function () {
+			var node = React.findDOMNode(this).parentElement;
+			domClass.add(node, 'hidden');
+		},
+
+    addError: function (area) {
+      this.setState({
+        activeMessage: area
+      });
+		},
+
+		changeGladEnd: function (date) {
+      var playButtonEnd = $('#gladPlayButtonEndClick');
+      playButtonEnd.html('aa');
+			this.close();
+      this.setState({
+        endDate: date
+      });
+		}
+
+		/* jshint ignore:end */
+
+	});
+
+	return function (props, el) {
+		/* jshint ignore:start */
+		return React.render(React.createElement(SubmitModal, React.__spread({},  props)), document.getElementById(el));
+		/* jshint ignore:end */
+	};
 
 });
 
@@ -14884,16 +14945,17 @@ define('controllers/SubmissionController',[
     'dojo/query',
     'dojo/dom-class',
     'dojo/dom-style',
-    'map/SubmissionModal',
     'dijit/registry',
     'esri/graphic',
     'esri/request',
+    'components/SubmitModal',
     'utils/NavListController',
     'models/SubmissionModel'
-], function (dom, query, domClass, domStyle, SubmissionModal, registry, Graphic, esriRequest, NavListController, SubmissionModel) {
+], function (dom, query, domClass, domStyle, registry, Graphic, esriRequest, SubmitModal, NavListController, SubmissionModel) {
 
 	var initialized = false;
   var self;
+  var submitModal;
 
 	return {
 
@@ -14910,7 +14972,8 @@ define('controllers/SubmissionController',[
 			registry.byId('submissionView').set('content', template);
       SubmissionModel.initialize('submissionView');
 
-
+      submitModal = new SubmitModal({
+      }, 'submit-modal');
       // var context = 'submission';
       // NavListController.loadNavControl(context);
       // NavListController.loadNavView(context);
@@ -14936,8 +14999,11 @@ define('controllers/SubmissionController',[
         if (!model.storyNameData()) {
           $('#storyNameInput').css('border-color', 'red');
           // alert('Please enter your name!');
-          SubmissionModal.addClass('story-name');
-          SubmissionModal.toggle();
+          // SubmissionModal.addClass('story-name');
+          // SubmissionModal.toggle();
+          submitModal.addError('storyName');
+          var node = submitModal.getDOMNode();
+          domClass.remove(node.parentNode, 'hidden');
           return;
         }
         if (!model.storyCompanyData()) {
@@ -15000,9 +15066,9 @@ define('controllers/SubmissionController',[
       }
       var fileName = evt.target.files[0].name;
       var hash = {
-        '.xls'  : 1,
-        '.xlsx' : 1,
-        '.csv'  : 1
+        '.xls': 1,
+        '.xlsx': 1,
+        '.csv': 1
       };
       var re = /\..+$/;
       var ext = fileName.match(re);
