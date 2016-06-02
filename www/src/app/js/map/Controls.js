@@ -189,7 +189,7 @@ define([
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
-            // GladSlider.init();
+            GladSlider.init();
             ProdesSlider.init();
         },
 

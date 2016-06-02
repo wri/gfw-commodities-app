@@ -65,22 +65,22 @@
             'http://js.arcgis.com/3.16/',
             'app/libs/jquery-1.7.1.min.js',
             // 'app/libs/moment/min/moment.min.js',
-            // 'app/libs/kalendae/build/kalendae.standalone.js',
+            'app/libs/kalendae/build/kalendae.standalone.js',
             'app/libs/jquery-ui-custom.min.js',
             'app/libs/jQAllRangeSliders-min.js'
         ],
         css = [{
-        //     src: 'app/libs/kalendae/build/kalendae.css',
-        //     cdn: false
-        // }, {
+            src: 'app/libs/kalendae/build/kalendae.css',
+            cdn: false
+        }, {
             src: 'app/css/app.css',
             cdn: false
         }, {
             src: 'https://js.arcgis.com/3.16/esri/css/esri.css',
             cdn: true
-        // }, {
-        //     src: 'http://js.arcgis.com/3.16/js/dojo/dijit/themes/tundra/tundra.css',
-        //     cdn: true
+        }, {
+            src: 'https://js.arcgis.com/3.16/dijit/themes/tundra/tundra.css',
+            cdn: true
         }];
 
     var loadScript = function(src, async) {

@@ -100,10 +100,10 @@ define([
 
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
-                    console.log(layer.visibleLayers)
+                    console.log(layer.visibleLayers);
                 } else {
-                    console.log("hiding")
-                    console.log(layer.visibleLayers)
+                    console.log('hiding');
+                    console.log(layer.visibleLayers);
                     layer.hide();
                 }
                 this.refreshLegendWidget();

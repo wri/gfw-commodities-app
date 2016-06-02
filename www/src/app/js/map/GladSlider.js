@@ -62,29 +62,34 @@ define([
     init: function () {
       var self = this;
       if (gladSlider === undefined) {
-
-
+        // debugger
+        // console.log(Kalendae);
+        // debugger
         var calendarStart = new Kalendae('gladPlayButtonStart', {
           months: 1,
           mode: 'single',
           selected: MapConfig.gladAlerts.startDate
         });
 
-        var calendarEnd = new Kalendae('gladPlayButtonEnd', {
-          months: 1,
-          mode: 'single',
-          selected: MapConfig.gladAlerts.endDate
+        playButton = $('#gladPlayButtonStartClick');
+        on(playButton, 'click', function() {
+          $('#gladPlayButtonStart').show();
         });
-        console.log(MapConfig.gladAlerts);
-        // console.log(this)
-        //
+        // var calendarEnd = new Kalendae('gladPlayButtonEnd', {
+        //   months: 1,
+        //   mode: 'single',
+        //   selected: MapConfig.gladAlerts.endDate
+        // });
+        // console.log(MapConfig.gladAlerts);
+        // // console.log(this)
+        // //
         calendarStart.subscribe('change', function (date) {
           debugger
         });
-
-        calendarEnd.subscribe('change', function (date) {
-          debugger
-        });
+        //
+        // calendarEnd.subscribe('change', function (date) {
+        //   debugger
+        // });
 
 
         // getGladLabels().then(function (labels) {

@@ -1,37 +1,36 @@
 define([
-    "dojo/on",
-    "dojo/dom",
-    "dojo/query",
-    "dojo/topic",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dojo/_base/array",
-    "dojo/dom-geometry",
-    "dojo/number",
-    "map/config",
-    "map/Map",
-    "map/Finder",
-    "map/MapModel",
-    "utils/Hasher",
-    "utils/Animator",
-    "utils/Helper",
-    "utils/GeoHelper",
-    "esri/geometry/webMercatorUtils",
-    "esri/geometry/Point",
-    "esri/graphicsUtils",
-    "map/Controls",
-    "map/LayerController",
-    "analysis/WizardStore",
-    "components/LayerList",
-    "components/LayerModal",
-    "components/AnalysisModal",
-    "utils/Loader",
-    "map/Uploader",
-    "map/CoordinatesModal",
-    "utils/Analytics"
+    'dojo/on',
+    'dojo/dom',
+    'dojo/query',
+    'dojo/topic',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dojo/_base/array',
+    'dojo/dom-geometry',
+    'dojo/number',
+    'map/config',
+    'map/Map',
+    'map/Finder',
+    'map/MapModel',
+    'utils/Hasher',
+    'utils/Animator',
+    'utils/Helper',
+    'utils/GeoHelper',
+    'esri/geometry/webMercatorUtils',
+    'esri/geometry/Point',
+    'esri/graphicsUtils',
+    'map/Controls',
+    'map/LayerController',
+    'analysis/WizardStore',
+    'components/LayerList',
+    'components/LayerModal',
+    'components/AnalysisModal',
+    'utils/Loader',
+    'map/Uploader',
+    'map/CoordinatesModal',
+    'utils/Analytics'
 ], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, LayerModal, AnalysisModal, Loader, Uploader, CoordinatesModal, Analytics) {
-    'use strict';
 
     var initialized = false,
         mapModel,
@@ -41,7 +40,7 @@ define([
         dataDivLoaded = false,
         layerData,
         map;
-    var infoDiv = document.createElement("infoDiv");
+    var infoDiv = document.createElement('infoDiv');
 
     return {
 
@@ -153,7 +152,7 @@ define([
                   // Hasher.setHash('l', l);
                 }, 1000);
 
-                mapModel = MapModel.initialize("map-container");
+                mapModel = MapModel.initialize('map-container');
                 // Render any React Components - These will activate any default or hashed layers
                 // Only use this after the map has been loaded,
                 // Also call other functions in renderComponents that build UI elements
