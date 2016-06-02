@@ -113,7 +113,7 @@ define([
 
       return {
           geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
-          type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
+          type: geometryArray.length > 1 ? 'MultiPolygon' : 'Polygon'
       };
     },
 

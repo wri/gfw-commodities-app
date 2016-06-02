@@ -146,14 +146,18 @@ define([
             });
 
             topic.subscribe('updateLayer', function(props) {
-                if (props.layerType === "tiled") {
+                if (props.layerType === 'tiled') {
                     var config = MapConfig[props.id];
                     if (config) {
                         LayerController.toggleLayers(config);
                     }
-                } else if (props.layerType === "dynamic") {
+                } else if (props.layerType === 'dynamic') {
                     LayerController.updateLayer(props);
                 }
+            });
+
+            topic.subscribe('updateGladDates', function(dates) {
+              LayerController.updateGladDates(dates);
             });
 
             topic.subscribe('changeLayerTransparency', function(layerKey, layerType, transparencyValue) {
