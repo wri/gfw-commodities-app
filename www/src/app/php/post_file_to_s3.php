@@ -4,6 +4,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try {
       $s3 = Aws\S3\S3Client::factory();
 
+      $sesClient = Aws\Ses\SesClient::factory(array(
+          'credentials' => array(
+              'key'    => getenv('AWS_ACCESS_KEY_ID'),
+              'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+          ),
+          'region' => 'us-east-1'
+      ));
+
       // $urls = "";
       // $bucket=getenv('bucket');
       // if(isset($_FILES['dataFile'])){
@@ -29,12 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //
       // }
 
-      $credentials = new Credentials(getenv('AWS_ACCESS_KEY_ID'), getenv('AWS_SECRET_ACCESS_KEY'));
-      $client = Aws\Ses\SesClient::factory(array(
-          'credentials' => $credentials
-      ));
-
-      $email_result = $client->sendEmail(array(
+      $email_result = $sesClient->sendEmail(array(
           // Source is required
           'Source' => 'lcotner@blueraster.com',
           // Destination is required
