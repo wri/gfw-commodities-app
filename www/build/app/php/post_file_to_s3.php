@@ -34,40 +34,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'credentials' => $credentials
       ));
 
-      $email_result = $client->sendEmail(array(
-          // Source is required
-          'Source' => 'lcotner@blueraster.com',
-          // Destination is required
-          'Destination' => array(
-              'ToAddresses' => array('jhettmansperger@blueraster.com'),
-              'CcAddresses' => array('lcotner@blueraster.com')
-          ),
-          // Message is required
-          'Message' => array(
-              // Subject is required
-              'Subject' => array(
-                  // Data is required
-                  'Data' => 'Email from S3 PHP SDK',
-                  'Charset' => 'UTF-8',
-              ),
-              // Body is required
-              'Body' => array(
-                  'Text' => array(
-                      // Data is required
-                      'Data' => 'The bodyyy',
-                      'Charset' => 'UTF-8',
-                  ),
-                  'Html' => array(
-                      // Data is required
-                      'Data' => '<h3>HTML</h3> <p>Data of email</p>',
-                      'Charset' => 'UTF-8',
-                  ),
-              ),
-          )
-      ));
+      // $email_result = $client->sendEmail(array(
+      //     // Source is required
+      //     'Source' => 'lcotner@blueraster.com',
+      //     // Destination is required
+      //     'Destination' => array(
+      //         'ToAddresses' => array('jhettmansperger@blueraster.com'),
+      //         'CcAddresses' => array('lcotner@blueraster.com')
+      //     ),
+      //     // Message is required
+      //     'Message' => array(
+      //         // Subject is required
+      //         'Subject' => array(
+      //             // Data is required
+      //             'Data' => 'Email from S3 PHP SDK',
+      //             'Charset' => 'UTF-8',
+      //         ),
+      //         // Body is required
+      //         'Body' => array(
+      //             'Text' => array(
+      //                 // Data is required
+      //                 'Data' => 'The bodyyy',
+      //                 'Charset' => 'UTF-8',
+      //             ),
+      //             'Html' => array(
+      //                 // Data is required
+      //                 'Data' => '<h3>HTML</h3> <p>Data of email</p>',
+      //                 'Charset' => 'UTF-8',
+      //             ),
+      //         ),
+      //     )
+      // ));
 
-      // print_r($credentials);
-      print_r($email_result);
+      print_r($credentials);
+      // print_r($email_result);
       // print_r($urls);
 
   } catch (S3Exception $e) {
