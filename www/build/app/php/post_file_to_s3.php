@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // }
 
       $credentials = new Credentials(getenv('AWS_ACCESS_KEY_ID'), getenv('AWS_SECRET_ACCESS_KEY'));
-      $client = Aws\Ses\SesClient::factory(array(
-          'credentials' => $credentials
-      ));
+      // $client = Aws\Ses\SesClient::factory(array(
+      //     'credentials' => $credentials
+      // ));
 
       // $email_result = $client->sendEmail(array(
       //     // Source is required
