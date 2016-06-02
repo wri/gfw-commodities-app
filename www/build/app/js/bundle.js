@@ -22,33 +22,33 @@ define('main/config',{
   ],
 
   "homeModeOptions": [{
-    "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE GLOBAL</span>\n<span>DATA ON THE GFW</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE THE</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=1.99&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
     "eventName": "goToFires",
     "display": false,
     "id": 0,
     "tooltip": "Commodities Map",
-    "imageBg": "./app/css/images/Slide-Picture2.jpg"
+    "imageBg": "./app/css/images/Slide-Picture1.png"
   }, {
-    "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToMap",
     "display": true,
     "id": 1,
     "tooltip": "Analysis",
-    "imageBg": "./app/css/images/Slide-Picture1.jpg"
+    "imageBg": "./app/css/images/Slide-Picture2.png"
   }, {
-    "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToZSL",
     "display": false,
     "id": 2,
     "tooltip": "Supplier Monitoring",
-    "imageBg": "./app/css/images/Slide-Picture4.jpg"
+    "imageBg": "./app/css/images/Slide-Picture4.png"
   }, {
     "html": '<div class="home-slider-container">\n<h3>ALERTS</h3>\n<h4><span>SIGN UP FOR TREE</span>\n<span>CLEARANCE AND FIRE</span>\n<span>ALERTS FORS AREAS IN</span>\n<span>YOUR SUPPLY CHAIN</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
     "eventName": "goToBlogs",
     "display": false,
     "id": 3,
     "tooltip": "Alerts",
-    "imageBg": "./app/css/images/Slide-Picture3.jpg"
+    "imageBg": "./app/css/images/Slide-Picture3.png"
   }, {
     "html": '<div class="home-slider-container">\n<h3>COMMODITIES</h3>\n<h4><span>ANALYZE LAND USE</span>\n<span>CHANGE WITHIN RSPO</span>\n<span>CERTIFIED AREAS</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
     "eventName": "goToZSL",
@@ -333,6 +333,20 @@ define('map/config',[], function() {
 
             }
         },
+        calendars: [
+          {
+            selectedDate: new window.Kalendae.moment('01/01/2015'),
+            domId: 'gladCalendarStart',
+            domClass: 'glad-calendar',
+            method: 'changeGladStart'
+          },
+          {
+            selectedDate: new window.Kalendae.moment(),
+            domId: 'gladCalendarEnd',
+            domClass: 'glad-calendar',
+            method: 'changeGladEnd'
+          }
+        ],
 
         tcdModal: {
           label: 'Adjust the minimum canopy density for tree cover and tree cover loss',
@@ -557,10 +571,10 @@ define('map/config',[], function() {
             defaultEndRange: [0, 20, 20, 366],
             colormap: [
               [1, 255, 102, 153]
-            ]//,
+            ],
             // startDate: new window.Kalendae.moment('01/01/2015'),
             // endDate: new window.Kalendae.moment()//,
-            //toolsNode: 'glad_toolbox'
+            toolsNode: 'glad_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -862,15 +876,6 @@ define('map/config',[], function() {
                 }]//,
                 // infoDivClass: 'forest-change-tree-cover-change'
             }, {
-                id: 'forma',
-                title: 'FORMA Alerts',
-                subtitle: '(monthly, 500m, humid tropics)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                forceUnderline: true,
-                infoDivClass: 'forest-change-forma-alerts'
-            }, {
                 id: 'prodes',
                 title: 'Prodes deforestation',
                 subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
@@ -905,7 +910,19 @@ define('map/config',[], function() {
                 visible: true,
                 infoDivClass: 'forest-change-glad-alerts',
                 parent: 'treeCoverLossAlerts',
-                endChild: true
+                endChild: false
+              }, {
+                  id: 'forma',
+                  title: 'FORMA Alerts',
+                  subtitle: '(monthly, 500m, humid tropics)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'image',
+                  forceUnderline: true,
+                  visible: true,
+                  infoDivClass: 'forest-change-forma-alerts',
+                  parent: 'treeCoverLossAlerts',
+                  endChild: true
               }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',
@@ -1827,7 +1844,7 @@ define('utils/GeoHelper',[
 
       return {
           geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
-          type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
+          type: geometryArray.length > 1 ? 'MultiPolygon' : 'Polygon'
       };
     },
 
@@ -6492,11 +6509,9 @@ define('components/wizard/WizardCheckbox',[
     },
 
     getInitialState: function() {
-      // if (this.props.label === 'Plantations by Type') {
-      //   debugger
-      // }
       return {
-        active: this.props.defaultChecked || false
+        active: this.props.defaultChecked || false,
+        defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
       };
     },
 
@@ -6509,19 +6524,11 @@ define('components/wizard/WizardCheckbox',[
         this.setState({
           active: true
         });
+      } else if (this.state.defaultOff.indexOf(newProps.value) > -1) {
+        this.setState({
+          active: false
+        });
       }
-
-      // if (newProps.label === 'Plantations by Type') {
-      //   console.log('plantaaa');
-      //   // if (this.props.defaultChecked !== newProps.defaultChecked) {
-      //   //   console.log('actveeee');
-      //     this.setState({
-      //       active: true
-      //     });
-      //   // } else {
-      //   //   debugger
-      //   // }
-      // }
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -6715,7 +6722,8 @@ define('components/wizard/StepThree',[
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                 ), 
-                React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
+                React.createElement("div", {className: "step-sub-header"}, 
+                React.createElement("span", {onClick: this.toggleOptions, className: ("forestChange-description " + (this.state.optionsExpanded ? 'open' : 'closed'))}, config.forestChange.label), 
 
                 
                   this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}}) :
@@ -7002,10 +7010,10 @@ define('map/LayerController',[
 
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
-                    console.log(layer.visibleLayers)
+                    console.log(layer.visibleLayers);
                 } else {
-                    console.log("hiding")
-                    console.log(layer.visibleLayers)
+                    console.log('hiding');
+                    console.log(layer.visibleLayers);
                     layer.hide();
                 }
                 this.refreshLegendWidget();
@@ -7106,13 +7114,109 @@ define('map/LayerController',[
             }
         },
 
+        parseDate: function (str) {
+          let mdy = str.split('/');
+          return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+        },
+
+        daydiff: function (first, second) {
+          return Math.round((second - first) / (1000 * 60 * 60 * 24)) + 1;
+        },
+
+        isLeapYear: function (year) {
+          if((year & 3) !== 0) {
+              return false;
+          }
+          return ((year % 100) !== 0 || (year % 400) === 0);
+        },
+
+        updateGladDates: function(clauseArray) {
+          var gladLayer = app.map.getLayer('gladAlerts');
+          // debugger
+
+          var otherDateStart = new Date(clauseArray[0]);
+          var monthStart = otherDateStart.getMonth();
+          var yearStart = otherDateStart.getFullYear();
+          var janOneStart = new Date(yearStart + ' 01 01');
+          var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
+
+          var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
+
+          if (monthStart > 1 && this.isLeapYear(yearStart)) {
+            julianStart++;
+          }
+
+          var otherDateEnd = new Date(clauseArray[1]);
+          var monthEnd = otherDateEnd.getMonth();
+          var yearEnd = otherDateEnd.getFullYear();
+          var janOneEnd = new Date(yearEnd + ' 01 01');
+          var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
+
+          var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
+
+          if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
+            julianEnd++;
+          }
+
+          var inputStartRanges = [];
+          var inputEndRanges = [];
+
+          if (yearStart === 2015 && yearEnd === 2015) {
+            inputStartRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
+            inputEndRanges = [0, 367, 367, 367, 367, 367];
+          } else if (yearStart === 2016 && yearEnd === 2016) {
+            inputStartRanges = [0, 367, 367, 367, 367, 367];
+            inputEndRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
+          } else if (yearStart === 2015 && yearEnd === 2016) {
+            inputStartRanges = [0, julianStart, julianStart, 366, 366, 366];
+            inputEndRanges = [0, 0, 0, julianEnd, julianEnd, 366];
+          } else {
+            return;
+          }
+
+          if (gladLayer) {
+            var rasterF = new RasterFunction({
+              'rasterFunction': 'Colormap',
+              'rasterFunctionArguments': {
+                'Colormap': [
+                  [1, 255, 102, 153]
+                ],
+                'Raster': {
+                  'rasterFunction': 'Local',
+                  'rasterFunctionArguments': {
+                    'Operation': 67, //max value; ignores no data
+                    'Rasters': [{
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': inputStartRanges,
+                        'OutputValues': [0, 1, 0],
+                        'Raster': '$1', //2015
+                        'AllowUnmatched': false
+                      }
+                    }, {
+                      'rasterFunction': 'Remap',
+                      'rasterFunctionArguments': {
+                        'InputRanges': inputEndRanges,
+                        'OutputValues': [0, 1, 0],
+                        'Raster': '$2', //2016
+                        'AllowUnmatched': false
+                      }
+                    }]
+                  }
+                }
+              }
+            });
+
+            gladLayer.setRenderingRule(rasterF);
+          }
+        },
+
         setWizardDynamicLayerDefinition: function(config, filter) {
             var layer = app.map.getLayer(config.id),
                 layerDefs = [],
                 where;
 
             if (layer) {
-              // debugger
                 if (filter !== undefined) {
                     where = config.whereField + " = '" + filter + "'";
                     layerDefs[config.layerId] = where;
@@ -7858,18 +7962,310 @@ define('map/FormaSlider',[
 
 });
 
+define('utils/DateHelper',[
+], function () {
+
+  return {
+    getDate: function (date) {
+      let whatDay = this.getDayOfWeek(date);
+      let whatMonth = this.getMonth(date);
+      let fullDate = whatDay + ', ' + date.getDate() + ' ' + whatMonth + ' ' + date.getFullYear();
+      return fullDate;
+    },
+    getDayOfWeek: function (date) {
+      let dayOfWeek;
+      switch (date.getDay()) {
+        case 0:
+          dayOfWeek = 'Su';
+          break;
+        case 1:
+          dayOfWeek = 'Mo';
+          break;
+        case 2:
+          dayOfWeek = 'Tu';
+          break;
+        case 3:
+          dayOfWeek = 'We';
+          break;
+        case 4:
+          dayOfWeek = 'Th';
+          break;
+        case 5:
+          dayOfWeek = 'Fr';
+          break;
+        case 6:
+          dayOfWeek = 'Sa';
+          break;
+      }
+      return dayOfWeek;
+    },
+    getMonth: function (date) {
+      let month;
+      switch (date.getMonth()) {
+        case 0:
+          month = 'Jan';
+          break;
+        case 1:
+          month = 'Feb';
+          break;
+        case 2:
+          month = 'March';
+          break;
+        case 3:
+          month = 'April';
+          break;
+        case 4:
+          month = 'May';
+          break;
+        case 5:
+          month = 'June';
+          break;
+        case 6:
+          month = 'July';
+          break;
+        case 7:
+          month = 'August';
+          break;
+        case 8:
+          month = 'Sept';
+          break;
+        case 9:
+          month = 'Oct';
+          break;
+        case 10:
+          month = 'Nov';
+          break;
+        case 11:
+          month = 'Dec';
+          break;
+      }
+      return month;
+    }
+  };
+});
+
+/** @jsx React.DOM */
+define('components/ModalWrapper',[
+  'react',
+  'dojo/dom-class'
+], function (React, domClass) {
+
+  // Variables
+  var closeSvg = '<use xlink:href="#shape-close" />';
+
+  var ModalWrapper = React.createClass({displayName: "ModalWrapper",
+
+    close:function () {
+      var node = React.findDOMNode(this).parentElement;
+      domClass.add(node, 'hidden');
+    },
+
+    /* jshint ignore:start */
+    render: function() {
+      return (
+        React.createElement("div", {className: "modal-container"}, 
+        React.createElement("div", {className: "modal-background", onClick: this.close}), 
+        React.createElement("div", {className: "modal-window"}, 
+          React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
+            React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
+          ), 
+          React.createElement("div", {className: "modal-wrapper custom-scroll has-footer"}, 
+            this.props.children, 
+            React.createElement("div", {className: "modal-footer"}, 
+              React.createElement("div", {className: "m-btncontainer is-center"}, 
+                React.createElement("a", {href: "http://earthenginepartners.appspot.com/science-2013-global-forest", target: "_blank", className: "btn green uppercase download-mobile-link"}, "Learn more or download data")
+              )
+            )
+          )
+        )
+      )
+      );
+
+    }
+
+  });
+
+  // return function (props, el) {
+  //   /* jshint ignore:start */
+  //   return React.render(<ModalWrapper />, document.getElementById(el));
+  //   /* jshint ignore:end */
+  // };
+  return ModalWrapper;
+
+});
+
+define('components/CalendarWrapper',[
+	'react',
+	'components/ModalWrapper',
+  'dojo/dom-class'
+], function (React, ModalWrapper, domClass) {
+
+  var closeSvg = '<use xlink:href="#shape-close" />';
+
+  var CalendarWrapper = React.createClass({displayName: "CalendarWrapper",
+
+    close:function () {
+      var node = React.findDOMNode(this).parentElement;
+      domClass.add(node, 'hidden');
+    },
+
+    render: function() {
+      return (
+        React.createElement("div", {className: "modal-container"}, 
+        React.createElement("div", {className: "calendar-background", onClick: this.close}), 
+        React.createElement("div", {className: "calendar-window"}, 
+          React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
+            React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
+          ), 
+          React.createElement("div", {className: "calendar-wrapper custom-scroll"}, 
+            this.props.children
+          )
+        )
+      )
+      );
+
+    }
+  });
+
+  return CalendarWrapper;
+
+});
+
+/** @jsx React.DOM */
+define('components/CalendarModal',[
+	'react',
+	'components/CalendarWrapper',
+  'dojo/dom-class',
+  'dojo/topic',
+  'utils/DateHelper',
+	'map/config'
+], function (React, CalendarWrapper, domClass, topic, DateHelper, MapConfig) {
+
+	// Variables
+	var calendarConfig = MapConfig.calendars;
+
+	var CalendarModal = React.createClass({displayName: "CalendarModal",
+
+		getInitialState: function() {
+			return {
+				activeCalendar: '',
+        startDate: new window.Kalendae.moment('01/01/2015'),
+        endDate: new window.Kalendae.moment().format('M/D/YYYY')
+			};
+		},
+
+		componentDidMount: function () {
+
+			var self = this;
+
+			calendarConfig.forEach(function(calendar) {
+				var calendar_obj = new window.Kalendae(calendar.domId, {
+					months: 1,
+					mode: 'single',
+					// direction: calendar.direction,
+					// blackout: function (date) {
+					// 	if (date.yearDay() >= calendar.startDate.yearDay()) {
+					// 		return false;
+					// 	} else {
+					// 		return true;
+					// 	}
+					// },
+					selected: calendar.selectedDate
+				});
+				console.log(self);
+
+				calendar_obj.subscribe('change', self[calendar.method].bind(self));
+			});
+
+			// calendarStart.subscribe('change', function (date) {
+			// 	debugger
+			// });
+
+		},
+
+		componentWillReceiveProps: function (newProps, oldProps) {
+			this.setState(newProps);
+		},
+
+		render: function() {
+			return (
+				React.createElement(CalendarWrapper, null, 
+					React.createElement("div", {className: "calendar-window"}, 
+						calendarConfig.map(this.itemMapper, this)
+					)
+				)
+			);
+		},
+
+		itemMapper: function (item) {
+			return React.createElement("div", {className: item.domClass}, 
+				React.createElement("div", {id: item.domId, className: ((this.state.activeCalendar === item.domId ? '' : ' hidden'))})
+			);
+		},
+
+		setCalendar: function (calendar) {
+			this.setState({
+				activeCalendar: calendar
+			});
+		},
+
+		close: function () {
+			var node = React.findDOMNode(this).parentElement;
+			domClass.add(node, 'hidden');
+		},
+
+		changeGladStart: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButton = $('#gladPlayButtonStartClick');
+      // playButton.html(date);
+      var formattedStart = new Date(date);
+      playButton.html(DateHelper.getDate(formattedStart));
+			this.close();
+      this.setState({
+        startDate: date
+      });
+      topic.publish('updateGladDates', [date, this.state.endDate]);
+		},
+
+		changeGladEnd: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButtonEnd = $('#gladPlayButtonEndClick');
+      // playButtonEnd.html(date);
+      var formattedEnd = new Date(date);
+      playButtonEnd.html(DateHelper.getDate(formattedEnd));
+			this.close();
+      this.setState({
+        endDate: date
+      });
+      topic.publish('updateGladDates', [this.state.startDate, date]);
+		}
+
+		/* jshint ignore:end */
+
+	});
+
+	return function (props, el) {
+		/* jshint ignore:start */
+		return React.render(React.createElement(CalendarModal, React.__spread({},  props)), document.getElementById(el));
+		/* jshint ignore:end */
+	};
+
+});
+
 define('map/GladSlider',[
   'dojo/on',
+  'dojo/dom-class',
   'map/config',
   'esri/request',
+  'utils/DateHelper',
   'dojo/Deferred',
+  'components/CalendarModal',
   'map/LayerController'
-], function (on, MapConfig, esriRequest, Deferred, LayerController) {
+], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal, LayerController) {
   // "use strict";
 
   var playInterval,
-      gladSlider,
-      playButton;
+      gladSlider;
 
   var config = {
     sliderSelector: '#glad-alert-slider',
@@ -7882,95 +8278,37 @@ define('map/GladSlider',[
     isPlaying: false
   };
 
-  var getGladLabels = function getGladLabels () {
-    var deferred = new Deferred(),
-        labels = [],
-        request;
-        // debugger todo: change slider UI somehow
-    request = esriRequest({
-      url: MapConfig.gladAlerts.url,
-      callbackParamName: 'callback',
-      content: { f: 'json' },
-      handleAs: 'json'
-    });
-
-    request.then(function (res) {
-
-      console.log('glad results', res)
-      // Labels should be formatted like so: {month|numeric} - {year|two-digit}
-      var min = res.minValues[0] || 1,
-          max = res.maxValues[0] || 9,
-          year;
-          console.log('min', min)
-          console.log('max', max)
-
-      // for (min; min <= max; min++) {
-      //   year = config.baseYear + Math.floor(min / 12);
-      //   labels.push(min + ' - ' + year);
-      // }
-
-      deferred.resolve(labels);
-    }, function () {
-      deferred.reject();
-    });
-
-    return deferred;
-  };
-
   var GladSlider = {
 
     init: function () {
       var self = this;
       if (gladSlider === undefined) {
 
+        var calendarModal = new CalendarModal({
+        }, 'calendar-modal');
 
-        var calendarStart = new Kalendae('gladPlayButtonStart', {
-          months: 1,
-          mode: 'single',
-          selected: MapConfig.gladAlerts.startDate
+        var playButton = $('#gladPlayButtonStartClick');
+        var startDate = new window.Kalendae.moment('01/01/2015').format('M/D/YYYY');
+        var formattedStart = new Date(startDate);
+        playButton.html(DateHelper.getDate(formattedStart));
+
+        on(playButton, 'click', function() {
+          var node = calendarModal.getDOMNode();
+          calendarModal.setCalendar('gladCalendarStart');
+          domClass.remove(node.parentNode, 'hidden');
         });
 
-        var calendarEnd = new Kalendae('gladPlayButtonEnd', {
-          months: 1,
-          mode: 'single',
-          selected: MapConfig.gladAlerts.endDate
-        });
-        console.log(MapConfig.gladAlerts);
-        // console.log(this)
-        //
-        calendarStart.subscribe('change', function (date) {
-          debugger
-        });
+        var playButtonEnd = $('#gladPlayButtonEndClick');
+        var endDate = new window.Kalendae.moment().format('M/D/YYYY');
+        var formattedEnd = new Date(endDate);
+        playButtonEnd.html(DateHelper.getDate(formattedEnd));
 
-        calendarEnd.subscribe('change', function (date) {
-          debugger
+        on(playButtonEnd, 'click', function() {
+          var node = calendarModal.getDOMNode();
+          calendarModal.setCalendar('gladCalendarEnd');
+          domClass.remove(node.parentNode, 'hidden');
         });
 
-
-        // getGladLabels().then(function (labels) {
-        //   $(config.sliderSelector).ionRangeSlider({
-        //     type: 'double',
-        //     values: labels,
-        //     // values: [2015, 2016],
-        //     // step: 1,
-        //     prettify_enabled: true,
-        //     prettify: function (num) {
-        //       console.log('num: ', num);
-        //       return '';
-        //     },
-        //     grid: true,
-        //     hide_min_max: true,
-        //     hide_from_to: true,
-        //     onFinish: self.change,
-        //     onUpdate: self.change
-        //   });
-        //
-        //   gladSlider = $(config.sliderSelector).data('ionRangeSlider');
-        //   // Cache query for play button
-        //   playButton = $('#gladPlayButton');
-        //   // Attach Events related to this item
-        //   on(playButton, 'click', self.playToggle);
-        // });
       }
     },
 
@@ -7978,46 +8316,6 @@ define('map/GladSlider',[
       // debugger
       console.log(data.from, data.to)
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.gladAlerts);
-    },
-
-    playToggle: function () {
-      var fromValue, toValue, endValue;
-
-      function stopPlaying() {
-        state.isPlaying = false;
-        clearInterval(playInterval);
-        playButton.html(config.playHtml);
-      }
-
-      if (state.isPlaying) {
-        stopPlaying();
-      } else {
-        // Update some state
-        state.isPlaying = true;
-        endValue = gladSlider.result.to;
-        // Trigger a change on the layer for the initial value, with both handles starting at the same point
-        gladSlider.update({ from: gladSlider.result.from, to: gladSlider.result.from });
-        // Start the interval
-        playInterval = setInterval(function () {
-          // We will be incrementing the from value to move the slider forward
-          fromValue = gladSlider.result.from;
-          toValue = gladSlider.result.to;
-          // Quit if from value is equal to or greater than the to value
-          if (toValue >= endValue) {
-            stopPlaying();
-          } else {
-            // Update the slider
-            gladSlider.update({
-              from: fromValue,
-              to: ++toValue
-            });
-          }
-
-        }, 1250);
-
-        // Update the button html
-        playButton.html(config.pauseHtml);
-      }
     }
 
   };
@@ -8350,7 +8648,7 @@ define('map/Controls',[
         generateTimeSliders: function() {
             LossSlider.init();
             FormaSlider.init();
-            // GladSlider.init();
+            GladSlider.init();
             ProdesSlider.init();
         },
 
@@ -12512,56 +12810,6 @@ define('components/LayerList',[
 });
 
 /** @jsx React.DOM */
-define('components/ModalWrapper',[
-  'react',
-  'dojo/dom-class'
-], function (React, domClass) {
-
-  // Variables
-  var closeSvg = '<use xlink:href="#shape-close" />';
-
-  var ModalWrapper = React.createClass({displayName: "ModalWrapper",
-
-    close:function () {
-      var node = React.findDOMNode(this).parentElement;
-      domClass.add(node, 'hidden');
-    },
-
-    /* jshint ignore:start */
-    render: function() {
-      return (
-        React.createElement("div", {className: "modal-container"}, 
-        React.createElement("div", {className: "modal-background", onClick: this.close}), 
-        React.createElement("div", {className: "modal-window"}, 
-          React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
-            React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
-          ), 
-          React.createElement("div", {className: "modal-wrapper custom-scroll has-footer"}, 
-            this.props.children, 
-            React.createElement("div", {className: "modal-footer"}, 
-              React.createElement("div", {className: "m-btncontainer is-center"}, 
-                React.createElement("a", {href: "http://earthenginepartners.appspot.com/science-2013-global-forest", target: "_blank", className: "btn green uppercase download-mobile-link"}, "Learn more or download data")
-              )
-            )
-          )
-        )
-      )
-      );
-
-    }
-
-  });
-
-  // return function (props, el) {
-  //   /* jshint ignore:start */
-  //   return React.render(<ModalWrapper />, document.getElementById(el));
-  //   /* jshint ignore:end */
-  // };
-  return ModalWrapper;
-
-});
-
-/** @jsx React.DOM */
 define('components/LayerModal',[
   "react",
   "components/ModalWrapper",
@@ -12802,7 +13050,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.65',
+                path = './app/templates/' + name + '.html?v=2.5.66',
                 req;
 
             req = new XMLHttpRequest();
@@ -12874,39 +13122,38 @@ define('utils/Loader',[
 });
 
 define('controllers/MapController',[
-    "dojo/on",
-    "dojo/dom",
-    "dojo/query",
-    "dojo/topic",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dojo/_base/array",
-    "dojo/dom-geometry",
-    "dojo/number",
-    "map/config",
-    "map/Map",
-    "map/Finder",
-    "map/MapModel",
-    "utils/Hasher",
-    "utils/Animator",
-    "utils/Helper",
-    "utils/GeoHelper",
-    "esri/geometry/webMercatorUtils",
-    "esri/geometry/Point",
-    "esri/graphicsUtils",
-    "map/Controls",
-    "map/LayerController",
-    "analysis/WizardStore",
-    "components/LayerList",
-    "components/LayerModal",
-    "components/AnalysisModal",
-    "utils/Loader",
-    "map/Uploader",
-    "map/CoordinatesModal",
-    "utils/Analytics"
+    'dojo/on',
+    'dojo/dom',
+    'dojo/query',
+    'dojo/topic',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dojo/_base/array',
+    'dojo/dom-geometry',
+    'dojo/number',
+    'map/config',
+    'map/Map',
+    'map/Finder',
+    'map/MapModel',
+    'utils/Hasher',
+    'utils/Animator',
+    'utils/Helper',
+    'utils/GeoHelper',
+    'esri/geometry/webMercatorUtils',
+    'esri/geometry/Point',
+    'esri/graphicsUtils',
+    'map/Controls',
+    'map/LayerController',
+    'analysis/WizardStore',
+    'components/LayerList',
+    'components/LayerModal',
+    'components/AnalysisModal',
+    'utils/Loader',
+    'map/Uploader',
+    'map/CoordinatesModal',
+    'utils/Analytics'
 ], function (on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, domGeom, number, MapConfig, Map, Finder, MapModel, Hasher, Animator, Helper, GeoHelper, webMercatorUtils, Point, graphicsUtils, MapControl, LayerController, WizardStore, LayerList, LayerModal, AnalysisModal, Loader, Uploader, CoordinatesModal, Analytics) {
-    'use strict';
 
     var initialized = false,
         mapModel,
@@ -12916,7 +13163,7 @@ define('controllers/MapController',[
         dataDivLoaded = false,
         layerData,
         map;
-    var infoDiv = document.createElement("infoDiv");
+    var infoDiv = document.createElement('infoDiv');
 
     return {
 
@@ -13028,7 +13275,7 @@ define('controllers/MapController',[
                   // Hasher.setHash('l', l);
                 }, 1000);
 
-                mapModel = MapModel.initialize("map-container");
+                mapModel = MapModel.initialize('map-container');
                 // Render any React Components - These will activate any default or hashed layers
                 // Only use this after the map has been loaded,
                 // Also call other functions in renderComponents that build UI elements
@@ -13153,12 +13400,12 @@ define('controllers/MapController',[
 
             var self = this;
 
-            on(app.map, "mouse-move", function(evt) {
+            on(app.map, 'mouse-move', function(evt) {
                 MapModel.set('currentLatitude', evt.mapPoint.getLatitude().toFixed(4));
                 MapModel.set('currentLongitude', evt.mapPoint.getLongitude().toFixed(4));
             });
 
-            on(app.map, "extent-change", function(e) {
+            on(app.map, 'extent-change', function(e) {
                 var delta = e.delta;
                 var extent = webMercatorUtils.webMercatorToGeographic(e.extent);
                 var levelChange = e.levelChange;
@@ -13174,19 +13421,19 @@ define('controllers/MapController',[
 
             });
 
-            on(dom.byId("locator-widget-button"), "click", function() {
+            on(dom.byId('locator-widget-button'), 'click', function() {
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', false);
                 MapModel.set('showLocatorOptions', !MapModel.get('showLocatorOptions'));
             });
 
-            on(dom.byId("basemap-gallery-button"), "click", function() {
+            on(dom.byId('basemap-gallery-button'), 'click', function() {
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showSharingOptions', false);
                 MapModel.set('showBasemapGallery', !MapModel.get('showBasemapGallery'));
             });
 
-            on(dom.byId("share-button"), "click", function() {
+            on(dom.byId('share-button'), 'click', function() {
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
@@ -13194,11 +13441,11 @@ define('controllers/MapController',[
                 Analytics.sendEvent('Event', 'Share Button', 'User clicked the share button.');
             });
 
-            // on(dom.byId("alert-button"), "click", function() {
+            // on(dom.byId('alert-button'), 'click', function() {
             //     Helper.toggleAlerts();
             // });
 
-            on(dom.byId("dms-search"), "change", function(evt) {
+            on(dom.byId('dms-search'), 'change', function(evt) {
                 var checked = evt.target ? evt.target.checked : evt.srcElement.checked;
                 if (checked) {
                     MapModel.set('showDMSInputs', true);
@@ -13206,7 +13453,7 @@ define('controllers/MapController',[
                 }
             });
 
-            on(dom.byId("lat-long-search"), "change", function(evt) {
+            on(dom.byId('lat-long-search'), 'change', function(evt) {
                 var checked = evt.target ? evt.target.checked : evt.srcElement.checked;
                 if (checked) {
                     MapModel.set('showDMSInputs', false);
@@ -13214,57 +13461,57 @@ define('controllers/MapController',[
                 }
             });
 
-            on(dom.byId("search-option-go-button"), "click", function() {
+            on(dom.byId('search-option-go-button'), 'click', function() {
                 Finder.searchAreaByCoordinates();
             });
 
-            on(dom.byId("clear-search-pins"), "click", function() {
+            on(dom.byId('clear-search-pins'), 'click', function() {
                 map.map.graphics.clear();
                 MapModel.set('showClearPinsOption', false);
             });
 
-            dojoQuery(".map-layer-controls li").forEach(function(node) {
+            dojoQuery('.map-layer-controls li').forEach(function(node) {
                 node.addEventListener('mouseenter', function () {
                   self.toggleLayerList(node);
                 });
             });
 
-            on(dom.byId("master-layer-list"), "mouseleave", function() {
-                domStyle.set("master-layer-list", "opacity", 0.0);
-                domStyle.set("master-layer-list", "left", '-1000px');
+            on(dom.byId('master-layer-list'), 'mouseleave', function() {
+                domStyle.set('master-layer-list', 'opacity', 0.0);
+                domStyle.set('master-layer-list', 'left', '-1000px');
             });
 
-            dojoQuery(".fires_toolbox .toolbox-list li").forEach(function(node) {
-                on(node, "click", MapControl.toggleFiresLayerOptions);
+            dojoQuery('.fires_toolbox .toolbox-list li').forEach(function(node) {
+                on(node, 'click', MapControl.toggleFiresLayerOptions);
             });
 
-            on(dom.byId("high-confidence"), "change", MapControl.toggleFiresConfidenceLevel);
+            on(dom.byId('high-confidence'), 'change', MapControl.toggleFiresConfidenceLevel);
 
-            on(dom.byId("high-confidence-info"), "click", MapControl.showFiresConfidenceInfo);
+            on(dom.byId('high-confidence-info'), 'click', MapControl.showFiresConfidenceInfo);
 
-            dojoQuery(".gfw .overlays-container .overlays-checkbox").forEach(function(node) {
-                on(node, "click", MapControl.toggleOverlays);
+            dojoQuery('.gfw .overlays-container .overlays-checkbox').forEach(function(node) {
+                on(node, 'click', MapControl.toggleOverlays);
             });
 
-            on(dom.byId("legend-title"), "click", function() {
+            on(dom.byId('legend-title'), 'click', function() {
                 MapControl.toggleLegendContainer();
             });
 
-            on(dom.byId("reset-suitability"), "click", function() {
+            on(dom.byId('reset-suitability'), 'click', function() {
                 MapControl.resetSuitabilitySettings();
             });
 
-            on(dom.byId("export-suitability"), "click", function() {
+            on(dom.byId('export-suitability'), 'click', function() {
                 MapControl.exportSuitabilitySettings();
             });
 
-            on(dom.byId("close-suitability"), "click", function() {
+            on(dom.byId('close-suitability'), 'click', function() {
                 // Pass in the key from the MapConfig.LayerUI
                 // for Custom Suitability Layer
                 self.toggleItemInLayerList('suit');
             });
 
-            on(dom.byId("wizard-tab"), "click", function() {
+            on(dom.byId('wizard-tab'), 'click', function() {
                 analysisModal.close();
                 Helper.toggleWizard();
             });
@@ -13356,15 +13603,15 @@ define('controllers/MapController',[
 
             // 200 is the default width of the container, to keep it centered, update containerWidth
             offset = (position.w - containerWidth) / 2;
-            domStyle.set("master-layer-list", "left", (position.x + offset) + "px");
+            domStyle.set('master-layer-list', 'left', (position.x + offset) + 'px');
 
             // Show the Container
-            Animator.fadeIn("master-layer-list", {
+            Animator.fadeIn('master-layer-list', {
                 duration: 100
             });
             // Add the Appropriate Class so the Items display correct color, styling etc.
-            domClass.remove("master-layer-list");
-            domClass.add("master-layer-list", newclass);
+            domClass.remove('master-layer-list');
+            domClass.add('master-layer-list', newclass);
 
             // Update the list, reuse the title from the first anchor tag in the element (el)
             if (layerList) {
@@ -13390,13 +13637,13 @@ define('controllers/MapController',[
 
             layerList = new LayerList({
                 items: MapConfig.layersUI
-            }, "master-layer-list");
+            }, 'master-layer-list');
 
             layerModal = new LayerModal({
-            }, "layer-modal");
+            }, 'layer-modal');
 
             analysisModal = new AnalysisModal({
-            }, "analysis-modal");
+            }, 'analysis-modal');
 
             MapControl.generateTimeSliders();
 
@@ -13409,7 +13656,7 @@ define('controllers/MapController',[
 
         toggleItemInLayerListOff: function() {
 
-          var mapLayer = map.map.getLayer("forestUse_landUse");
+          var mapLayer = map.map.getLayer('forestUse_landUse');
           console.log(mapLayer);
 
           if (mapLayer.visible === true) {
@@ -13456,7 +13703,7 @@ define('controllers/MapController',[
 
 
             var centerChangeByUrl = ((parseFloat(state.x) !== x) || (parseFloat(state.y) !== y) || (parseInt(state.l) !== l));
-            //console.log(centerChangeByUrl + " " + state.y + " " + state.x);
+            //console.log(centerChangeByUrl + ' ' + state.y + " " + state.x);
             if (centerChangeByUrl) {
                 //o.mapExtentPausable.pause();
                 // on.once(map.map, "extent-change", function() {
@@ -15112,14 +15359,18 @@ define('utils/Delegator',[
             });
 
             topic.subscribe('updateLayer', function(props) {
-                if (props.layerType === "tiled") {
+                if (props.layerType === 'tiled') {
                     var config = MapConfig[props.id];
                     if (config) {
                         LayerController.toggleLayers(config);
                     }
-                } else if (props.layerType === "dynamic") {
+                } else if (props.layerType === 'dynamic') {
                     LayerController.updateLayer(props);
                 }
+            });
+
+            topic.subscribe('updateGladDates', function(dates) {
+              LayerController.updateGladDates(dates);
             });
 
             topic.subscribe('changeLayerTransparency', function(layerKey, layerType, transparencyValue) {
