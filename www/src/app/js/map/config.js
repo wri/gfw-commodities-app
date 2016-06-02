@@ -591,15 +591,6 @@ define([], function() {
                 }]//,
                 // infoDivClass: 'forest-change-tree-cover-change'
             }, {
-                id: 'forma',
-                title: 'FORMA Alerts',
-                subtitle: '(monthly, 500m, humid tropics)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                forceUnderline: true,
-                infoDivClass: 'forest-change-forma-alerts'
-            }, {
                 id: 'prodes',
                 title: 'Prodes deforestation',
                 subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
@@ -634,7 +625,19 @@ define([], function() {
                 visible: true,
                 infoDivClass: 'forest-change-glad-alerts',
                 parent: 'treeCoverLossAlerts',
-                endChild: true
+                endChild: false
+              }, {
+                  id: 'forma',
+                  title: 'FORMA Alerts',
+                  subtitle: '(monthly, 500m, humid tropics)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'image',
+                  forceUnderline: true,
+                  visible: true,
+                  infoDivClass: 'forest-change-forma-alerts',
+                  parent: 'treeCoverLossAlerts',
+                  endChild: true
               }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',

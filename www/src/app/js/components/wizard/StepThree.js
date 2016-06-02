@@ -100,7 +100,8 @@ define([
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                 ), 
-                React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
+                React.createElement("div", {className: "step-sub-header"}, 
+                React.createElement("span", {onClick: this.toggleOptions, className: ("forestChange-description " + (this.state.optionsExpanded ? 'open' : 'closed'))}, config.forestChange.label), 
 
                 
                   this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}}) :
