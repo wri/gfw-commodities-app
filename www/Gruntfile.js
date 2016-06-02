@@ -55,6 +55,16 @@ module.exports = function(grunt) {
                     dest: 'build/app/css/images/download-icon.svg',
                     filter: 'isFile'
                 }, {
+                  // CSS used to Support Kalendae
+                    src: ['src/app/libs/kalendae/build/kalendae.standalone.js'],
+                    dest: 'build/app/libs/kalendae/build/kalendae.standalone.js',
+                    filter: 'isFile'
+                }, {
+                    // CSS used to Support Kalendae
+                    src: ['src/app/libs/kalendae/build/kalendae.css'],
+                    dest: 'build/app/libs/kalendae/build/kalendae.css',
+                    filter: 'isFile'
+                }, {
                     // CSS used to Support Ion Range Slider
                     src: ['src/app/libs/ion.rangeslider/css/normalize.min.css'],
                     dest: 'build/app/libs/ion.rangeslider/css/normalize.min.css',
