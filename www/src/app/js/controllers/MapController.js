@@ -277,12 +277,12 @@ define([
 
             var self = this;
 
-            on(app.map, "mouse-move", function(evt) {
+            on(app.map, 'mouse-move', function(evt) {
                 MapModel.set('currentLatitude', evt.mapPoint.getLatitude().toFixed(4));
                 MapModel.set('currentLongitude', evt.mapPoint.getLongitude().toFixed(4));
             });
 
-            on(app.map, "extent-change", function(e) {
+            on(app.map, 'extent-change', function(e) {
                 var delta = e.delta;
                 var extent = webMercatorUtils.webMercatorToGeographic(e.extent);
                 var levelChange = e.levelChange;
@@ -298,19 +298,19 @@ define([
 
             });
 
-            on(dom.byId("locator-widget-button"), "click", function() {
+            on(dom.byId('locator-widget-button'), 'click', function() {
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', false);
                 MapModel.set('showLocatorOptions', !MapModel.get('showLocatorOptions'));
             });
 
-            on(dom.byId("basemap-gallery-button"), "click", function() {
+            on(dom.byId('basemap-gallery-button'), 'click', function() {
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showSharingOptions', false);
                 MapModel.set('showBasemapGallery', !MapModel.get('showBasemapGallery'));
             });
 
-            on(dom.byId("share-button"), "click", function() {
+            on(dom.byId('share-button'), 'click', function() {
                 MapModel.set('showLocatorOptions', false);
                 MapModel.set('showBasemapGallery', false);
                 MapModel.set('showSharingOptions', !MapModel.get('showSharingOptions'));
@@ -318,11 +318,11 @@ define([
                 Analytics.sendEvent('Event', 'Share Button', 'User clicked the share button.');
             });
 
-            // on(dom.byId("alert-button"), "click", function() {
+            // on(dom.byId('alert-button'), 'click', function() {
             //     Helper.toggleAlerts();
             // });
 
-            on(dom.byId("dms-search"), "change", function(evt) {
+            on(dom.byId('dms-search'), 'change', function(evt) {
                 var checked = evt.target ? evt.target.checked : evt.srcElement.checked;
                 if (checked) {
                     MapModel.set('showDMSInputs', true);
@@ -330,7 +330,7 @@ define([
                 }
             });
 
-            on(dom.byId("lat-long-search"), "change", function(evt) {
+            on(dom.byId('lat-long-search'), 'change', function(evt) {
                 var checked = evt.target ? evt.target.checked : evt.srcElement.checked;
                 if (checked) {
                     MapModel.set('showDMSInputs', false);
@@ -338,57 +338,57 @@ define([
                 }
             });
 
-            on(dom.byId("search-option-go-button"), "click", function() {
+            on(dom.byId('search-option-go-button'), 'click', function() {
                 Finder.searchAreaByCoordinates();
             });
 
-            on(dom.byId("clear-search-pins"), "click", function() {
+            on(dom.byId('clear-search-pins'), 'click', function() {
                 map.map.graphics.clear();
                 MapModel.set('showClearPinsOption', false);
             });
 
-            dojoQuery(".map-layer-controls li").forEach(function(node) {
+            dojoQuery('.map-layer-controls li').forEach(function(node) {
                 node.addEventListener('mouseenter', function () {
                   self.toggleLayerList(node);
                 });
             });
 
-            on(dom.byId("master-layer-list"), "mouseleave", function() {
-                domStyle.set("master-layer-list", "opacity", 0.0);
-                domStyle.set("master-layer-list", "left", '-1000px');
+            on(dom.byId('master-layer-list'), 'mouseleave', function() {
+                domStyle.set('master-layer-list', 'opacity', 0.0);
+                domStyle.set('master-layer-list', 'left', '-1000px');
             });
 
-            dojoQuery(".fires_toolbox .toolbox-list li").forEach(function(node) {
-                on(node, "click", MapControl.toggleFiresLayerOptions);
+            dojoQuery('.fires_toolbox .toolbox-list li').forEach(function(node) {
+                on(node, 'click', MapControl.toggleFiresLayerOptions);
             });
 
-            on(dom.byId("high-confidence"), "change", MapControl.toggleFiresConfidenceLevel);
+            on(dom.byId('high-confidence'), 'change', MapControl.toggleFiresConfidenceLevel);
 
-            on(dom.byId("high-confidence-info"), "click", MapControl.showFiresConfidenceInfo);
+            on(dom.byId('high-confidence-info'), 'click', MapControl.showFiresConfidenceInfo);
 
-            dojoQuery(".gfw .overlays-container .overlays-checkbox").forEach(function(node) {
-                on(node, "click", MapControl.toggleOverlays);
+            dojoQuery('.gfw .overlays-container .overlays-checkbox').forEach(function(node) {
+                on(node, 'click', MapControl.toggleOverlays);
             });
 
-            on(dom.byId("legend-title"), "click", function() {
+            on(dom.byId('legend-title'), 'click', function() {
                 MapControl.toggleLegendContainer();
             });
 
-            on(dom.byId("reset-suitability"), "click", function() {
+            on(dom.byId('reset-suitability'), 'click', function() {
                 MapControl.resetSuitabilitySettings();
             });
 
-            on(dom.byId("export-suitability"), "click", function() {
+            on(dom.byId('export-suitability'), 'click', function() {
                 MapControl.exportSuitabilitySettings();
             });
 
-            on(dom.byId("close-suitability"), "click", function() {
+            on(dom.byId('close-suitability'), 'click', function() {
                 // Pass in the key from the MapConfig.LayerUI
                 // for Custom Suitability Layer
                 self.toggleItemInLayerList('suit');
             });
 
-            on(dom.byId("wizard-tab"), "click", function() {
+            on(dom.byId('wizard-tab'), 'click', function() {
                 analysisModal.close();
                 Helper.toggleWizard();
             });
@@ -480,15 +480,15 @@ define([
 
             // 200 is the default width of the container, to keep it centered, update containerWidth
             offset = (position.w - containerWidth) / 2;
-            domStyle.set("master-layer-list", "left", (position.x + offset) + "px");
+            domStyle.set('master-layer-list', 'left', (position.x + offset) + 'px');
 
             // Show the Container
-            Animator.fadeIn("master-layer-list", {
+            Animator.fadeIn('master-layer-list', {
                 duration: 100
             });
             // Add the Appropriate Class so the Items display correct color, styling etc.
-            domClass.remove("master-layer-list");
-            domClass.add("master-layer-list", newclass);
+            domClass.remove('master-layer-list');
+            domClass.add('master-layer-list', newclass);
 
             // Update the list, reuse the title from the first anchor tag in the element (el)
             if (layerList) {
@@ -514,13 +514,13 @@ define([
 
             layerList = new LayerList({
                 items: MapConfig.layersUI
-            }, "master-layer-list");
+            }, 'master-layer-list');
 
             layerModal = new LayerModal({
-            }, "layer-modal");
+            }, 'layer-modal');
 
             analysisModal = new AnalysisModal({
-            }, "analysis-modal");
+            }, 'analysis-modal');
 
             MapControl.generateTimeSliders();
 
@@ -533,7 +533,7 @@ define([
 
         toggleItemInLayerListOff: function() {
 
-          var mapLayer = map.map.getLayer("forestUse_landUse");
+          var mapLayer = map.map.getLayer('forestUse_landUse');
           console.log(mapLayer);
 
           if (mapLayer.visible === true) {
@@ -580,7 +580,7 @@ define([
 
 
             var centerChangeByUrl = ((parseFloat(state.x) !== x) || (parseFloat(state.y) !== y) || (parseInt(state.l) !== l));
-            //console.log(centerChangeByUrl + " " + state.y + " " + state.x);
+            //console.log(centerChangeByUrl + ' ' + state.y + " " + state.x);
             if (centerChangeByUrl) {
                 //o.mapExtentPausable.pause();
                 // on.once(map.map, "extent-change", function() {

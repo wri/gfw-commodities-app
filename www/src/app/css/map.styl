@@ -923,6 +923,81 @@ wizardBlue = #00688B
 	background-repeat no-repeat
 	background-position center
 
+// .calendar-background
+//   background-color rgba(0, 0, 0, 0)
+//   height 100%
+//   width 100%
+// 
+// .calendar-window
+//   transform translate(-50%, -50%)
+//   background-color white
+//   position fixed
+//   height auto
+//   left 520px
+//   top 227px
+//   width 340px
+//   min-height 100px
+//   -webkit-transform translate(-50%, -60%)
+//   -moz-transform translate(-50%, -60%)
+//   -ms-transform translate(-50%, -60%)
+//   -o-transform translate(-50%, -60%)
+//   transform translate(-50%, -60%)
+//   transition all 0s cubic-bezier(0.445, 0.05, 0.55, 0.95)
+//   background white
+//   border none
+//   box-shadow 0px 1px 2px rgba(0,0,0,0.25)
+
+.calendar-window:before, .calendar-window:after
+  content ""
+  position absolute
+  height 20px
+  width calc(100% - 8px)
+  left 0
+
+.calendar-window a
+  word-break break-word
+  word-wrap break-word
+  text-decoration none
+
+.calendar-window .kalendae
+  background white
+  font-size 16px
+  padding 0
+  margin 0
+  width calc(100% - 8px)
+
+.calendar-window .kalendae .k-calendar, .calendar-window .kalendae .k-title, .calendar-window .kalendae .k-header, .calendar-window .kalendae .k-days
+  width 100%
+  font-family Arial, "Helvetica Neue", Helvetica, sans-serif //'Fira Sans', Georgia, serif
+
+ .calendar-window .kalendae .k-header
+  margin-bottom 10px
+  border-bottom 1px solid #e5e5df
+
+.calendar-window .kalendae .k-caption
+  font-size 16px
+
+.calendar-window .kalendae .k-header span
+  width 34px
+  font-weight normal
+
+.calendar-window .kalendae .k-days span
+  width 34px
+  border none
+  text-align center
+  padding 5px 3px 5px 3px
+
+.calendar-window .kalendae .k-days span.k-selected, .calendar-window .kalendae .k-days span.k-selected.k-active
+  border none
+  background #eee
+
+.calendar-window .kalendae .k-days span.k-in-month.k-active
+  color #e7002f
+
+.calendar-window .kalendae .k-days span.k-active:hover
+  border none
+  bacground #eee
+
 .smart-list
 	.Forest.Change
 	.Forest.Cover

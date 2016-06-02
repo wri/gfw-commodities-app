@@ -62,6 +62,18 @@ define([], function() {
 
             }
         },
+        calendars: [
+          {
+            selectedDate: '01/01/2015',
+            domId: 'gladCalendarStart',
+            domClass: 'glad-calendar'
+          },
+          {
+            selectedDate: '01/01/2015',
+            domId: 'gladCalendarEnd',
+            domClass: 'glad-calendar'
+          }
+        ],
 
         tcdModal: {
           label: 'Adjust the minimum canopy density for tree cover and tree cover loss',
