@@ -120,6 +120,7 @@ define([
             data: form_data,
             type: 'post',
             success: function(response){
+              console.log(response);
               self.uploadToAGOL(response);
             },
             error: function (xhr, ajaxOptions, thrownError) {

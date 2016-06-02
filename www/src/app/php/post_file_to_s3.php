@@ -30,6 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $urls = $urls . ";" . $result['ObjectURL'];
 
       }
+
+      // $credentials = new Credentials(getenv('AWS_ACCESS_KEY_ID'), getenv('AWS_SECRET_ACCESS_KEY'));
+      // $client = Aws\Ses\SesClient::factory(array(
+      //     'credentials' => $credentials
+      // ));
+
+      // print_r($credentials);
+
       print_r($urls);
 
   } catch (S3Exception $e) {
