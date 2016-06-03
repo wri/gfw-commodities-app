@@ -105,11 +105,16 @@ define([
           form_data.append('dataFileName', dataFileName);
           form_data.append('dataFileType', dataFileType);
 
+          form_data.append('storyEmail', model.storyEmailData());
+          form_data.append('storyUserName', model.storyNameData());
+
           if (attributeFile) {
             form_data.append('attributeFile', attributeFile);
             form_data.append('attributeFileName', attributeFileName);
             form_data.append('attributeFileType', attributeFileType);
           }
+
+          console.log(form_data);
 
           $.ajax({
             url: 'app/php/post_file_to_s3.php', // point to server-side PHP script
@@ -169,7 +174,6 @@ define([
 
     },
     uploadToAGOL: function(response){
-
       var arr = response.split(';');
       var modalNode;
 

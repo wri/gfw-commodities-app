@@ -12,8 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'region' => 'us-east-1'
       ));
 
-      // $urls = "";
-      // $bucket=getenv('bucket');
+
+
+      $urls = "";
+      $bucket=getenv('bucket');
       // if(isset($_FILES['dataFile'])){
       //
       //   $result = $s3->putObject(array(
@@ -37,40 +39,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //
       // }
 
+      $messageBody = "<p>The file " . $_FILES['dataFile']['name'] . " was uploaded by " . $_POST['storyUserName'] . ".</p><p>They can be reached at <a href='" . $_POST['storyEmail'] . "'>" . $_POST['storyEmail'] . "</a>.</p>";
+
       $email_result = $sesClient->sendEmail(array(
           // Source is required
-          'Source' => 'lcotner@blueraster.com',
+          'Source' => 'lcotner@blueraster.com', //aallegretti@blueraster.com
           // Destination is required
           'Destination' => array(
-              'ToAddresses' => array('jhettmansperger@blueraster.com'),
-              'CcAddresses' => array('lcotner@blueraster.com')
+              //'ToAddresses' => array('jhettmansperger@blueraster.com'),
+              'ToAddresses' => array('lcotner@blueraster.com')
+              // 'CcAddresses' => array('lcotner@blueraster.com')
           ),
           // Message is required
           'Message' => array(
               // Subject is required
               'Subject' => array(
                   // Data is required
-                  'Data' => 'Email from S3 PHP SDK',
+                  'Data' => 'GFW Commodities Data Submission',
                   'Charset' => 'UTF-8',
               ),
               // Body is required
               'Body' => array(
                   'Text' => array(
                       // Data is required
-                      'Data' => 'The bodyyy',
+                      'Data' => 'The body',
                       'Charset' => 'UTF-8',
                   ),
                   'Html' => array(
                       // Data is required
-                      'Data' => '<h3>HTML</h3> <p>Data of email</p>',
+                      'Data' => $messageBody,
                       'Charset' => 'UTF-8',
                   ),
               ),
           )
       ));
 
+      print_r($_POST['dataFileName']);
       // print_r($credentials);
-      print_r($email_result);
+      // print_r($email_result);
       // print_r($urls);
 
   } catch (S3Exception $e) {
