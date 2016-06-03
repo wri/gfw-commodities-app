@@ -812,8 +812,8 @@ define('map/config',[], function() {
 
         biodiversity: {
             id: 'Biodiversity',
-            url: biodiversityUrl,
-            layerId: 0
+            url: globalLandCover,
+            layerId: 2
         },
 
         palHelper: {
@@ -13100,7 +13100,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.69',
+                path = './app/templates/' + name + '.html?v=2.5.70',
                 req;
 
             req = new XMLHttpRequest();

@@ -541,8 +541,8 @@ define([], function() {
 
         biodiversity: {
             id: 'Biodiversity',
-            url: biodiversityUrl,
-            layerId: 0
+            url: globalLandCover,
+            layerId: 2
         },
 
         palHelper: {
