@@ -46,9 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'Source' => 'lcotner@blueraster.com', //aallegretti@blueraster.com
           // Destination is required
           'Destination' => array(
-              //'ToAddresses' => array('jhettmansperger@blueraster.com'),
-              'ToAddresses' => array('lcotner@blueraster.com')
-              // 'CcAddresses' => array('lcotner@blueraster.com')
+              'ToAddresses' => array('psatlof@blueraster.com'),
+              'CcAddresses' => array('lcotner@blueraster.com')
           ),
           // Message is required
           'Message' => array(
