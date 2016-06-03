@@ -17,7 +17,7 @@ define([
 			return {
 				activeCalendar: '',
         startDate: new window.Kalendae.moment('01/01/2015'),
-        endDate: new window.Kalendae.moment().format('M/D/YYYY')
+        endDate: new window.Kalendae.moment()
 			};
 		},
 
@@ -86,12 +86,17 @@ define([
       var playButton = $('#gladPlayButtonStartClick');
       // playButton.html(date);
       var formattedStart = new Date(date);
+
       playButton.html(DateHelper.getDate(formattedStart));
 			this.close();
       this.setState({
         startDate: date
       });
-      topic.publish('updateGladDates', [date, this.state.endDate]);
+			var endDate = this.state.endDate;
+			if (endDate.format) {
+				endDate = endDate.format('M/D/YYYY');
+			}
+      topic.publish('updateGladDates', [date, endDate]);
 		},
 
 		changeGladEnd: function (date) {
@@ -104,7 +109,12 @@ define([
       this.setState({
         endDate: date
       });
-      topic.publish('updateGladDates', [this.state.startDate, date]);
+			var startDate = this.state.startDate;
+			if (startDate.format) {
+				startDate = startDate.format('M/D/YYYY');
+			}
+
+      topic.publish('updateGladDates', [startDate, date]);
 		}
 
 		/* jshint ignore:end */
