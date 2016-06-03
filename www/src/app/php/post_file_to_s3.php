@@ -16,28 +16,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $urls = "";
       $bucket=getenv('bucket');
-      // if(isset($_FILES['dataFile'])){
-      //
-      //   $result = $s3->putObject(array(
-      //       'Bucket'       => $bucket,
-      //       'Key'          => $_FILES['dataFile']['name'],
-      //       'SourceFile'   => $_FILES['dataFile']['tmp_name'],
-      //       'ACL'          => 'public-read'
-      //   ));
-      //   $urls = $urls . $result['ObjectURL'];
-      //
-      // }
-      // if(isset($_FILES['attributeFile'])){
-      //
-      //   $result = $s3->putObject(array(
-      //       'Bucket'       => $bucket,
-      //       'Key'          => $_FILES['attributeFile']['name'],
-      //       'SourceFile'   => $_FILES['attributeFile']['tmp_name'],
-      //       'ACL'          => 'public-read'
-      //   ));
-      //   $urls = $urls . ";" . $result['ObjectURL'];
-      //
-      // }
+      if(isset($_FILES['dataFile'])){
+
+        $result = $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $_FILES['dataFile']['name'],
+            'SourceFile'   => $_FILES['dataFile']['tmp_name'],
+            'ACL'          => 'public-read'
+        ));
+        $urls = $urls . $result['ObjectURL'];
+
+      }
+      if(isset($_FILES['attributeFile'])){
+
+        $result = $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $_FILES['attributeFile']['name'],
+            'SourceFile'   => $_FILES['attributeFile']['tmp_name'],
+            'ACL'          => 'public-read'
+        ));
+        $urls = $urls . ";" . $result['ObjectURL'];
+
+      }
 
       $messageBody = "<p>The file " . $_FILES['dataFile']['name'] . " was uploaded by " . $_POST['storyUserName'] . ".</p><p>They can be reached at <a href='" . $_POST['storyEmail'] . "'>" . $_POST['storyEmail'] . "</a>.</p>";
 
