@@ -49,7 +49,7 @@ define([], function() {
             csvHeader: 'CSV Upload Instructions',
             shapefileInstructions: [
                 'Select a zip file(.zip) containing a shapefile(.shp,.dbf,.prj) from your local file system.',
-                'The shapefile must be in Geographic Coorsinate System (WGS84).',
+                'The shapefile must be in Geographic Coordinate System (WGS84).',
                 'The shapefile must not exceed 1 MB.'
             ],
             csvInstructions: 'Or, select a CSV from your local file system.  The CSV should contain a header row with columns for Name, Latitude, and Longitude.'

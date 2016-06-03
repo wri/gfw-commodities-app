@@ -22,21 +22,21 @@ define('main/config',{
   ],
 
   "homeModeOptions": [{
-    "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE GLOBAL</span>\n<span>DATA ON THE GFW</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE THE</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=1.99&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
     "eventName": "goToFires",
     "display": false,
     "id": 0,
     "tooltip": "Commodities Map",
     "imageBg": "./app/css/images/Slide-Picture2.jpg"
   }, {
-    "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToMap",
     "display": true,
     "id": 1,
     "tooltip": "Analysis",
     "imageBg": "./app/css/images/Slide-Picture1.jpg"
   }, {
-    "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
+    "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
     "eventName": "goToZSL",
     "display": false,
     "id": 2,
@@ -320,7 +320,7 @@ define('map/config',[], function() {
             csvHeader: 'CSV Upload Instructions',
             shapefileInstructions: [
                 'Select a zip file(.zip) containing a shapefile(.shp,.dbf,.prj) from your local file system.',
-                'The shapefile must be in Geographic Coorsinate System (WGS84).',
+                'The shapefile must be in Geographic Coordinate System (WGS84).',
                 'The shapefile must not exceed 1 MB.'
             ],
             csvInstructions: 'Or, select a CSV from your local file system.  The CSV should contain a header row with columns for Name, Latitude, and Longitude.'
@@ -862,15 +862,6 @@ define('map/config',[], function() {
                 }]//,
                 // infoDivClass: 'forest-change-tree-cover-change'
             }, {
-                id: 'forma',
-                title: 'FORMA Alerts',
-                subtitle: '(monthly, 500m, humid tropics)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                forceUnderline: true,
-                infoDivClass: 'forest-change-forma-alerts'
-            }, {
                 id: 'prodes',
                 title: 'Prodes deforestation',
                 subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
@@ -905,7 +896,19 @@ define('map/config',[], function() {
                 visible: true,
                 infoDivClass: 'forest-change-glad-alerts',
                 parent: 'treeCoverLossAlerts',
-                endChild: true
+                endChild: false
+              }, {
+                  id: 'forma',
+                  title: 'FORMA Alerts',
+                  subtitle: '(monthly, 500m, humid tropics)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'image',
+                  forceUnderline: true,
+                  visible: true,
+                  infoDivClass: 'forest-change-forma-alerts',
+                  parent: 'treeCoverLossAlerts',
+                  endChild: true
               }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',
@@ -6492,11 +6495,9 @@ define('components/wizard/WizardCheckbox',[
     },
 
     getInitialState: function() {
-      // if (this.props.label === 'Plantations by Type') {
-      //   debugger
-      // }
       return {
-        active: this.props.defaultChecked || false
+        active: this.props.defaultChecked || false,
+        defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
       };
     },
 
@@ -6509,19 +6510,11 @@ define('components/wizard/WizardCheckbox',[
         this.setState({
           active: true
         });
+      } else if (this.state.defaultOff.indexOf(newProps.value) > -1) {
+        this.setState({
+          active: false
+        });
       }
-
-      // if (newProps.label === 'Plantations by Type') {
-      //   console.log('plantaaa');
-      //   // if (this.props.defaultChecked !== newProps.defaultChecked) {
-      //   //   console.log('actveeee');
-      //     this.setState({
-      //       active: true
-      //     });
-      //   // } else {
-      //   //   debugger
-      //   // }
-      // }
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -6715,7 +6708,8 @@ define('components/wizard/StepThree',[
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                 ), 
-                React.createElement("div", {className: "step-sub-header"}, config.forestChange.label, 
+                React.createElement("div", {className: "step-sub-header"}, 
+                React.createElement("span", {onClick: this.toggleOptions, className: ("forestChange-description " + (this.state.optionsExpanded ? 'open' : 'closed'))}, config.forestChange.label), 
 
                 
                   this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}}) :
