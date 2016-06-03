@@ -613,11 +613,12 @@ define('map/config',[], function() {
             id: 'gladAlerts',
             url: gladAlertsUrl,
             legendLayerId: 7,
-            defaultStartRange: [0, 150, 150, 366],
-            defaultEndRange: [0, 20, 20, 366],
+            defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
+            defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
             colormap: [
               [1, 255, 102, 153]
             ],
+            outputValues: [0, 1, 0],
             // startDate: new window.Kalendae.moment('01/01/2015'),
             // endDate: new window.Kalendae.moment()//,
             toolsNode: 'glad_toolbox'
@@ -7180,13 +7181,14 @@ define('map/LayerController',[
 
         updateGladDates: function(clauseArray) {
           var gladLayer = app.map.getLayer('gladAlerts');
-          // debugger
 
           var otherDateStart = new Date(clauseArray[0]);
           var monthStart = otherDateStart.getMonth();
           var yearStart = otherDateStart.getFullYear();
           var janOneStart = new Date(yearStart + ' 01 01');
           var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
+          console.log(origDateStart);
+          console.log(clauseArray);
 
           var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
 
@@ -7201,6 +7203,7 @@ define('map/LayerController',[
           var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
 
           var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
+          console.log('julianEnd', julianEnd);
 
           if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
             julianEnd++;
@@ -7221,6 +7224,9 @@ define('map/LayerController',[
           } else {
             return;
           }
+
+          console.log(inputStartRanges);
+          console.log(inputEndRanges);
 
           if (gladLayer) {
             var rasterF = new RasterFunction({
@@ -8200,7 +8206,7 @@ define('components/CalendarModal',[
 			return {
 				activeCalendar: '',
         startDate: new window.Kalendae.moment('01/01/2015'),
-        endDate: new window.Kalendae.moment().format('M/D/YYYY')
+        endDate: new window.Kalendae.moment()
 			};
 		},
 
@@ -8269,12 +8275,17 @@ define('components/CalendarModal',[
       var playButton = $('#gladPlayButtonStartClick');
       // playButton.html(date);
       var formattedStart = new Date(date);
+
       playButton.html(DateHelper.getDate(formattedStart));
 			this.close();
       this.setState({
         startDate: date
       });
-      topic.publish('updateGladDates', [date, this.state.endDate]);
+			var endDate = this.state.endDate;
+			if (endDate.format) {
+				endDate = endDate.format('M/D/YYYY');
+			}
+      topic.publish('updateGladDates', [date, endDate]);
 		},
 
 		changeGladEnd: function (date) {
@@ -8287,7 +8298,12 @@ define('components/CalendarModal',[
       this.setState({
         endDate: date
       });
-      topic.publish('updateGladDates', [this.state.startDate, date]);
+			var startDate = this.state.startDate;
+			if (startDate.format) {
+				startDate = startDate.format('M/D/YYYY');
+			}
+
+      topic.publish('updateGladDates', [startDate, date]);
 		}
 
 		/* jshint ignore:end */
@@ -10808,6 +10824,9 @@ define('map/Map',[
                 opacity: 1
             });
 
+            console.log(MapConfig.gladAlerts.defaultStartRange);
+            console.log(MapConfig.gladAlerts.defaultEndRange);
+
             gladParams = new ImageServiceParameters();
             // gladParams.interpolation = 'RSP_NearestNeighbor';
             gladParams.renderingRule = new RasterFunction({
@@ -10822,7 +10841,7 @@ define('map/Map',[
                       'rasterFunction': 'Remap',
                       'rasterFunctionArguments': {
                         'InputRanges': MapConfig.gladAlerts.defaultStartRange,
-                        'OutputValues': [0, 1],
+                        'OutputValues': MapConfig.gladAlerts.outputValues, //[0, 1],
                         'Raster': '$1', //2015
                         'AllowUnmatched': false
                       }
@@ -10830,7 +10849,7 @@ define('map/Map',[
                       'rasterFunction': 'Remap',
                       'rasterFunctionArguments': {
                         'InputRanges': MapConfig.gladAlerts.defaultEndRange,
-                        'OutputValues': [0, 1],
+                        'OutputValues': MapConfig.gladAlerts.outputValues, //[0, 1],
                         'Raster': '$2', //2016
                         'AllowUnmatched': false
                       }
@@ -13100,7 +13119,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.70',
+                path = './app/templates/' + name + '.html?v=2.5.71',
                 req;
 
             req = new XMLHttpRequest();

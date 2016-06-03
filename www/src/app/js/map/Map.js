@@ -338,6 +338,9 @@ define([
                 opacity: 1
             });
 
+            console.log(MapConfig.gladAlerts.defaultStartRange);
+            console.log(MapConfig.gladAlerts.defaultEndRange);
+
             gladParams = new ImageServiceParameters();
             // gladParams.interpolation = 'RSP_NearestNeighbor';
             gladParams.renderingRule = new RasterFunction({
@@ -352,7 +355,7 @@ define([
                       'rasterFunction': 'Remap',
                       'rasterFunctionArguments': {
                         'InputRanges': MapConfig.gladAlerts.defaultStartRange,
-                        'OutputValues': [0, 1],
+                        'OutputValues': MapConfig.gladAlerts.outputValues, //[0, 1],
                         'Raster': '$1', //2015
                         'AllowUnmatched': false
                       }
@@ -360,7 +363,7 @@ define([
                       'rasterFunction': 'Remap',
                       'rasterFunctionArguments': {
                         'InputRanges': MapConfig.gladAlerts.defaultEndRange,
-                        'OutputValues': [0, 1],
+                        'OutputValues': MapConfig.gladAlerts.outputValues, //[0, 1],
                         'Raster': '$2', //2016
                         'AllowUnmatched': false
                       }

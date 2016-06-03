@@ -342,11 +342,12 @@ define([], function() {
             id: 'gladAlerts',
             url: gladAlertsUrl,
             legendLayerId: 7,
-            defaultStartRange: [0, 150, 150, 366],
-            defaultEndRange: [0, 20, 20, 366],
+            defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
+            defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
             colormap: [
               [1, 255, 102, 153]
             ],
+            outputValues: [0, 1, 0],
             // startDate: new window.Kalendae.moment('01/01/2015'),
             // endDate: new window.Kalendae.moment()//,
             toolsNode: 'glad_toolbox'

@@ -222,13 +222,14 @@ define([
 
         updateGladDates: function(clauseArray) {
           var gladLayer = app.map.getLayer('gladAlerts');
-          // debugger
 
           var otherDateStart = new Date(clauseArray[0]);
           var monthStart = otherDateStart.getMonth();
           var yearStart = otherDateStart.getFullYear();
           var janOneStart = new Date(yearStart + ' 01 01');
           var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
+          console.log(origDateStart);
+          console.log(clauseArray);
 
           var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
 
@@ -243,6 +244,7 @@ define([
           var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
 
           var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
+          console.log('julianEnd', julianEnd);
 
           if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
             julianEnd++;
@@ -263,6 +265,9 @@ define([
           } else {
             return;
           }
+
+          console.log(inputStartRanges);
+          console.log(inputEndRanges);
 
           if (gladLayer) {
             var rasterF = new RasterFunction({
