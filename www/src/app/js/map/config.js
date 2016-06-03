@@ -317,7 +317,7 @@ define([], function() {
         prodes: {
             id: 'ProdesAlerts',
             url: prodesUrl,
-            legendLayerId: 3, //todo: what is this, find correct #
+            legendLayerId: 6,
             defaultRange: [1, 15],
             colormap: [
                 [1, 255, 0, 197]
@@ -341,7 +341,7 @@ define([], function() {
         gladAlerts: {
             id: 'gladAlerts',
             url: gladAlertsUrl,
-            // legendLayerId: 3, //todo: what is this, find correct #
+            legendLayerId: 7,
             defaultStartRange: [0, 150, 150, 366],
             defaultEndRange: [0, 20, 20, 366],
             colormap: [
@@ -417,7 +417,7 @@ define([], function() {
         },
         tfcs: {
             id: 'forestCover_tropical',
-            legendLayerId: 1,
+            legendLayerId: 8,
             url: tropicalCarbonStocks//, //dynamicMapServiceUrlForest,
             //layerId: 1
         },

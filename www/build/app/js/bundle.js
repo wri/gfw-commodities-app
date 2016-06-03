@@ -588,7 +588,7 @@ define('map/config',[], function() {
         prodes: {
             id: 'ProdesAlerts',
             url: prodesUrl,
-            legendLayerId: 3, //todo: what is this, find correct #
+            legendLayerId: 6,
             defaultRange: [1, 15],
             colormap: [
                 [1, 255, 0, 197]
@@ -612,7 +612,7 @@ define('map/config',[], function() {
         gladAlerts: {
             id: 'gladAlerts',
             url: gladAlertsUrl,
-            // legendLayerId: 3, //todo: what is this, find correct #
+            legendLayerId: 7,
             defaultStartRange: [0, 150, 150, 366],
             defaultEndRange: [0, 20, 20, 366],
             colormap: [
@@ -688,7 +688,7 @@ define('map/config',[], function() {
         },
         tfcs: {
             id: 'forestCover_tropical',
-            legendLayerId: 1,
+            legendLayerId: 8,
             url: tropicalCarbonStocks//, //dynamicMapServiceUrlForest,
             //layerId: 1
         },
@@ -7608,9 +7608,11 @@ define('map/LayerController',[
                 gladConf = MapConfig.gladAlerts,
                 lossConf = MapConfig.loss,
                 gainConf = MapConfig.gain,
+                prodesConf = MapConfig.prodes,
+                biomassConf = MapConfig.tfcs,
                 primForConf = MapConfig.primForest,
                 suitConf = MapConfig.suit,
-                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, primForConf, suitConf],
+                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, prodesConf, biomassConf, primForConf, suitConf],
                 visibleLayers = [],
                 layerOptions = [],
                 layer,
@@ -13098,7 +13100,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.68',
+                path = './app/templates/' + name + '.html?v=2.5.69',
                 req;
 
             req = new XMLHttpRequest();
