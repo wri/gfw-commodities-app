@@ -173,6 +173,11 @@ define([
 					url = MapConfig.bySpecies.url;
 					selectedArea = 'Plantations by Species';
 					break;
+				case 'Mill Points':
+					layer = 27;
+					url = MapConfig.mill.url;
+					selectedArea = AnalyzerConfig.stepOne.option5.id;
+					break;
 				case 'GLAD Alerts': //todo: change URL?
 					url = MapConfig.bySpecies.gladAlerts;
 					break;
@@ -199,6 +204,7 @@ define([
 
 			console.log(type);
 			console.log(selectedArea);
+			console.log(id);
 
 			if (type === 'CustomGraphic') {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
@@ -214,9 +220,10 @@ define([
 					}
 					return false;
 				});
-			} else if (type === 'MillPoint') {
+			} else if (type === 'Mill Points') {
 				// AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
 				AnalyzerQuery.getMillByWriId(id).then(function (feature) {
+					console.log(feature);
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {

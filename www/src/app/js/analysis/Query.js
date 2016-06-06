@@ -180,10 +180,10 @@ define([
 					query = new Query(),
 					self = this;
 
-			query.where = "wri_id = '" + wriID + "'";
+			query.where = "objectid = '" + wriID + "'";
 			query.geometryPrecision = 2;
 			query.returnGeometry = true;
-			query.outFields = ["*"];
+			query.outFields = ['*'];
 
 			this._query(AnalyzerConfig.millPoints.url, query, function (res) {
 				if (res.features.length === 1) {

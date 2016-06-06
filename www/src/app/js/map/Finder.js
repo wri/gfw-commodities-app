@@ -132,6 +132,11 @@ define([
               deferreds.push(self.identifyPlantationsSpeciesLayer(mapPoint));
             }
 
+            layer = app.map.getLayer(MapConfig.mill.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyMillPoints(mapPoint));
+            }
+
             layer = app.map.getLayer(MapConfig.overlays.id);
             if (layer && layer.visible) {
               deferreds.push(self.identifyOverlaysLayer(mapPoint));
@@ -175,6 +180,9 @@ define([
 
                         case 'Fires':
                             features = features.concat(self.setFireTemplates(item.features));
+                            break;
+                        case 'MillPoints':
+                            features = features.concat(self.setMillPointTemplates(item.features));
                             break;
                         case 'forestUseCommodities':
                             features = features.concat(self.setForestUseCommoditiesTemplates(item.features));
@@ -732,6 +740,29 @@ define([
             return features;
         },
 
+        setMillPointTemplates: function(featureObjects) {
+            var template,
+                features = [];
+
+            arrayUtils.forEach(featureObjects, function(item) {
+                console.log('feature', item);
+                template = new InfoTemplate(item.value,
+                    MapConfig.mill.infoTemplate.content +
+                    "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    'Analyze</button>' +
+                    "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    'Subscribe</button>' +
+                    '</div>'
+                );
+                item.feature.setInfoTemplate(template);
+                features.push(item.feature);
+
+            });
+            return features;
+        },
+
         setForestUseLandUseTemplates: function(featureObjects) {
             var template,
                 features = [],
@@ -883,7 +914,7 @@ define([
                 params = new IdentifyParameters(),
                 layerDefs = [];
 
-            layerDefs[0] = "1 = 1";
+            layerDefs[0] = '1 = 1';
 
             params.tolerance = 3;
             params.returnGeometry = true;
@@ -902,7 +933,7 @@ define([
 
                 if (features.length > 0) {
                     deferred.resolve({
-                        layer: "MillPoints",
+                        layer: 'MillPoints',
                         features: features
                     });
                 } else {
