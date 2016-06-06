@@ -4251,7 +4251,7 @@ define('analysis/Query',[
 					query = new Query(),
 					self = this;
 
-			query.where = "objectid = '" + wriID + "'";
+			query.where = "wri_id = '" + wriID + "'";
 			query.geometryPrecision = 2;
 			query.returnGeometry = true;
 			query.outFields = ['*'];
@@ -4967,7 +4967,7 @@ define('components/wizard/NestedList',[
 			var isGroupActive = this.props.activeListGroupValue !== undefined && this.props.activeListGroupValue == this.props.value,
 					className;
 
-			// Filter not applied  or filter is applied and there are children who match the filter 
+			// Filter not applied  or filter is applied and there are children who match the filter
 			// This means we can't hide the parent or else the children will get hidden as well
 			if (this.props.filter === '' || this._searchChildrenForMatches(this.props.children, this.props.filter)) {
 				className = isGroupActive ? 'active' : '';
@@ -4986,12 +4986,12 @@ define('components/wizard/NestedList',[
 						React.createElement("span", {"data-value": this.props.value, "data-type": "group", onClick: this._click, className: className}, this.props.label)
 					)
 				);
-				
+
 			}
 		},
-		
+
 		_childrenMapper: function (parentActive, item, index) {
-			
+
 			var label = item.label.toLowerCase(), // Filter is lowercase, make the label lowercase for comparison
 					className = 'wizard-list-child-item' + (label.search(this.props.filter) > -1 ? '' : ' hidden');
 
@@ -5083,7 +5083,7 @@ define('components/wizard/NestedList',[
 
 return NestedList;
 
-});          
+});
 
 /** @jsx React.DOM */
 define('components/wizard/MillPoint',[
@@ -5325,7 +5325,6 @@ define('components/wizard/MillPoint',[
 						}
 					}
 				}
-				console.log(millLabels)
 
 				all(millIds).then(function (responses) {
 					var ids = [];
@@ -5336,7 +5335,6 @@ define('components/wizard/MillPoint',[
 
 						// label = target.innerText || target.innerHTML;
 						label = millLabels[k];
-						console.log(label)
 
             if ( self.state.activeListItemValues.indexOf(feature.attributes.wri_id) != -1 ) {
               // Remove The Entity Id
@@ -9939,10 +9937,6 @@ define('analysis/WizardHelper',[
 					break;
 			}
 
-			console.log(type);
-			console.log(selectedArea);
-			console.log(id);
-
 			if (type === 'CustomGraphic') {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
 				arrayUtils.some(layer.graphics, function (graphic) {
@@ -9960,26 +9954,25 @@ define('analysis/WizardHelper',[
 			} else if (type === 'Mill Points') {
 				// AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
 				AnalyzerQuery.getMillByWriId(id).then(function (feature) {
-					console.log(feature);
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
-									topic.publish('toggleWizard');
-									setWizardProps(feature);
-									self.addGraphicFromPopup(feature);
-								} else {
-									setWizardProps(feature);
-									self.addGraphicFromPopup(feature);
-								}
-						});
+						topic.publish('toggleWizard');
+						setWizardProps(feature);
+						self.addGraphicFromPopup(feature);
 					} else {
+						setWizardProps(feature);
+						self.addGraphicFromPopup(feature);
+					}
+				});
+			} else {
 				// This should catch any generic dynamic layers
-						AnalyzerQuery.getFeatureById(url + '/' + layer, id).then(function (feature) {
-							feature.attributes.WRI_label = label;
-							if (!self.isOpen()) {
-									topic.publish('toggleWizard');
-									setWizardProps(feature);
-									self.addGraphicFromPopup(feature);
+				AnalyzerQuery.getFeatureById(url + '/' + layer, id).then(function (feature) {
+					feature.attributes.WRI_label = label;
+					if (!self.isOpen()) {
+							topic.publish('toggleWizard');
+							setWizardProps(feature);
+							self.addGraphicFromPopup(feature);
 					} else {
 						setWizardProps(feature);
 						self.addGraphicFromPopup(feature);
@@ -11955,10 +11948,10 @@ define('map/Finder',[
                 template = new InfoTemplate(item.value,
                     MapConfig.mill.infoTemplate.content +
                     "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    item.value + "' data-type='Mill Points' data-id='${wri_id}'>" +
                     'Analyze</button>' +
                     "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
-                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    item.value + "' data-type='Mill Points' data-id='${wri_id}'>" +
                     'Subscribe</button>' +
                     '</div>'
                 );
@@ -13168,7 +13161,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.73',
+                path = './app/templates/' + name + '.html?v=2.5.74',
                 req;
 
             req = new XMLHttpRequest();
