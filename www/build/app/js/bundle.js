@@ -4251,10 +4251,10 @@ define('analysis/Query',[
 					query = new Query(),
 					self = this;
 
-			query.where = "wri_id = '" + wriID + "'";
+			query.where = "objectid = '" + wriID + "'";
 			query.geometryPrecision = 2;
 			query.returnGeometry = true;
-			query.outFields = ["*"];
+			query.outFields = ['*'];
 
 			this._query(AnalyzerConfig.millPoints.url, query, function (res) {
 				if (res.features.length === 1) {
@@ -9910,6 +9910,11 @@ define('analysis/WizardHelper',[
 					url = MapConfig.bySpecies.url;
 					selectedArea = 'Plantations by Species';
 					break;
+				case 'Mill Points':
+					layer = 27;
+					url = MapConfig.mill.url;
+					selectedArea = AnalyzerConfig.stepOne.option5.id;
+					break;
 				case 'GLAD Alerts': //todo: change URL?
 					url = MapConfig.bySpecies.gladAlerts;
 					break;
@@ -9936,6 +9941,7 @@ define('analysis/WizardHelper',[
 
 			console.log(type);
 			console.log(selectedArea);
+			console.log(id);
 
 			if (type === 'CustomGraphic') {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
@@ -9951,9 +9957,10 @@ define('analysis/WizardHelper',[
 					}
 					return false;
 				});
-			} else if (type === 'MillPoint') {
+			} else if (type === 'Mill Points') {
 				// AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
 				AnalyzerQuery.getMillByWriId(id).then(function (feature) {
+					console.log(feature);
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
@@ -11319,6 +11326,11 @@ define('map/Finder',[
               deferreds.push(self.identifyPlantationsSpeciesLayer(mapPoint));
             }
 
+            layer = app.map.getLayer(MapConfig.mill.id);
+            if (layer && layer.visible) {
+              deferreds.push(self.identifyMillPoints(mapPoint));
+            }
+
             layer = app.map.getLayer(MapConfig.overlays.id);
             if (layer && layer.visible) {
               deferreds.push(self.identifyOverlaysLayer(mapPoint));
@@ -11362,6 +11374,9 @@ define('map/Finder',[
 
                         case 'Fires':
                             features = features.concat(self.setFireTemplates(item.features));
+                            break;
+                        case 'MillPoints':
+                            features = features.concat(self.setMillPointTemplates(item.features));
                             break;
                         case 'forestUseCommodities':
                             features = features.concat(self.setForestUseCommoditiesTemplates(item.features));
@@ -11919,6 +11934,29 @@ define('map/Finder',[
             return features;
         },
 
+        setMillPointTemplates: function(featureObjects) {
+            var template,
+                features = [];
+
+            arrayUtils.forEach(featureObjects, function(item) {
+                console.log('feature', item);
+                template = new InfoTemplate(item.value,
+                    MapConfig.mill.infoTemplate.content +
+                    "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
+                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    'Analyze</button>' +
+                    "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
+                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    'Subscribe</button>' +
+                    '</div>'
+                );
+                item.feature.setInfoTemplate(template);
+                features.push(item.feature);
+
+            });
+            return features;
+        },
+
         setForestUseLandUseTemplates: function(featureObjects) {
             var template,
                 features = [],
@@ -12070,7 +12108,7 @@ define('map/Finder',[
                 params = new IdentifyParameters(),
                 layerDefs = [];
 
-            layerDefs[0] = "1 = 1";
+            layerDefs[0] = '1 = 1';
 
             params.tolerance = 3;
             params.returnGeometry = true;
@@ -12089,7 +12127,7 @@ define('map/Finder',[
 
                 if (features.length > 0) {
                     deferred.resolve({
-                        layer: "MillPoints",
+                        layer: 'MillPoints',
                         features: features
                     });
                 } else {
@@ -13119,7 +13157,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.71',
+                path = './app/templates/' + name + '.html?v=2.5.72',
                 req;
 
             req = new XMLHttpRequest();
