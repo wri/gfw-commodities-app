@@ -180,7 +180,7 @@ define([
 					query = new Query(),
 					self = this;
 
-			query.where = "objectid = '" + wriID + "'";
+			query.where = "wri_id = '" + wriID + "'";
 			query.geometryPrecision = 2;
 			query.returnGeometry = true;
 			query.outFields = ['*'];

@@ -749,10 +749,10 @@ define([
                 template = new InfoTemplate(item.value,
                     MapConfig.mill.infoTemplate.content +
                     "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
-                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    item.value + "' data-type='Mill Points' data-id='${wri_id}'>" +
                     'Analyze</button>' +
                     "<button id='subscribe-area' class='popupSubscribeButton float-right' data-label='" +
-                    item.value + "' data-type='Mill Points' data-id='${objectid}'>" +
+                    item.value + "' data-type='Mill Points' data-id='${wri_id}'>" +
                     'Subscribe</button>' +
                     '</div>'
                 );

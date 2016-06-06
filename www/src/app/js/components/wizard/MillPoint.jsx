@@ -238,7 +238,6 @@ define([
 						}
 					}
 				}
-				console.log(millLabels)
 
 				all(millIds).then(function (responses) {
 					var ids = [];
@@ -249,7 +248,6 @@ define([
 
 						// label = target.innerText || target.innerHTML;
 						label = millLabels[k];
-						console.log(label)
 
             if ( self.state.activeListItemValues.indexOf(feature.attributes.wri_id) != -1 ) {
               // Remove The Entity Id

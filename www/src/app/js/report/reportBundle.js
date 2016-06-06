@@ -47,7 +47,7 @@
     }
     return res;
   };
-  
+
   /*
     @param {number} chunkSize size of each chunk of the returned array
     @return {array} an array or arrays with each array's length being the specified chunk size
@@ -71,41 +71,39 @@
 
     var payloadReceived = false;
 
-    loadScriptAsync('http://code.jquery.com/jquery-1.11.0.min.js', function() {
-      loadScriptAsync('http://code.highcharts.com/highcharts.js', function() {
-        loadScriptAsync('http://code.highcharts.com/modules/exporting.js', function() {
+    loadScriptAsync('http://code.highcharts.com/highcharts.js', function() {
+      loadScriptAsync('http://code.highcharts.com/modules/exporting.js', function() {
 
-          // localStorage is the preferred mechanism, if not supported, get it from window
-          if (localStorage) {
-            window.payload = JSON.parse(localStorage.getItem('payload'));
-            if (window.payload) { payloadReceived = true; }
-          } else if (window.payload) {
+        // localStorage is the preferred mechanism, if not supported, get it from window
+        if (localStorage) {
+          window.payload = JSON.parse(localStorage.getItem('payload'));
+          if (window.payload) { payloadReceived = true; }
+        } else if (window.payload) {
+          payloadReceived = true;
+        }
+
+        // If we have data, lets begin
+        if (payloadReceived) {
+          Generator.init();
+        } else {
+          // Emit a special event from the other window telling me the payload is ready
+          document.addEventListener('PayloadReady', function () {
             payloadReceived = true;
-          }
-
-          // If we have data, lets begin
-          if (payloadReceived) {
-            Generator.init();
-          } else {
-            // Emit a special event from the other window telling me the payload is ready
-            document.addEventListener('PayloadReady', function () {
-              payloadReceived = true;
-            });
-            // Give it 5 seconds and check again, if no data by now, something went wrong
-            // This should take no more then 2 seconds
-            setTimeout(function () {
-              if (payloadReceived && window.payload) {
-                Generator.init();
-              } else {
-                alert("There was an error generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
-              }
-            }, 5000);
-          }
-        });
+          });
+          // Give it 5 seconds and check again, if no data by now, something went wrong
+          // This should take no more then 2 seconds
+          setTimeout(function () {
+            if (payloadReceived && window.payload) {
+              Generator.init();
+            } else {
+              alert("There was an error generating the report at this time.  Please make sure your pop-up blocker is disabled and try again.");
+            }
+          }, 5000);
+        }
       });
     });
 
-  
+
 
   }); // End require
 

@@ -202,10 +202,6 @@ define([
 					break;
 			}
 
-			console.log(type);
-			console.log(selectedArea);
-			console.log(id);
-
 			if (type === 'CustomGraphic') {
 				layer = app.map.getLayer(MapConfig.customGraphicsLayer.id);
 				arrayUtils.some(layer.graphics, function (graphic) {
@@ -223,26 +219,25 @@ define([
 			} else if (type === 'Mill Points') {
 				// AnalyzerQuery.getMillByEntityId(id).then(function (feature) {
 				AnalyzerQuery.getMillByWriId(id).then(function (feature) {
-					console.log(feature);
 					feature.attributes.WRI_label = label;
 					feature = GeoHelper.preparePointAsPolygon(feature);
 					if (!self.isOpen()) {
-									topic.publish('toggleWizard');
-									setWizardProps(feature);
-									self.addGraphicFromPopup(feature);
-								} else {
-									setWizardProps(feature);
-									self.addGraphicFromPopup(feature);
-								}
-						});
+						topic.publish('toggleWizard');
+						setWizardProps(feature);
+						self.addGraphicFromPopup(feature);
 					} else {
+						setWizardProps(feature);
+						self.addGraphicFromPopup(feature);
+					}
+				});
+			} else {
 				// This should catch any generic dynamic layers
-						AnalyzerQuery.getFeatureById(url + '/' + layer, id).then(function (feature) {
-							feature.attributes.WRI_label = label;
-							if (!self.isOpen()) {
-									topic.publish('toggleWizard');
-									setWizardProps(feature);
-									self.addGraphicFromPopup(feature);
+				AnalyzerQuery.getFeatureById(url + '/' + layer, id).then(function (feature) {
+					feature.attributes.WRI_label = label;
+					if (!self.isOpen()) {
+							topic.publish('toggleWizard');
+							setWizardProps(feature);
+							self.addGraphicFromPopup(feature);
 					} else {
 						setWizardProps(feature);
 						self.addGraphicFromPopup(feature);

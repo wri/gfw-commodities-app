@@ -17,7 +17,7 @@ define([
 			var isGroupActive = this.props.activeListGroupValue !== undefined && this.props.activeListGroupValue == this.props.value,
 					className;
 
-			// Filter not applied  or filter is applied and there are children who match the filter 
+			// Filter not applied  or filter is applied and there are children who match the filter
 			// This means we can't hide the parent or else the children will get hidden as well
 			if (this.props.filter === '' || this._searchChildrenForMatches(this.props.children, this.props.filter)) {
 				className = isGroupActive ? 'active' : '';
@@ -36,12 +36,12 @@ define([
 						<span data-value={this.props.value} data-type='group' onClick={this._click} className={className}>{this.props.label}</span>
 					</div>
 				);
-				
+
 			}
 		},
-		
+
 		_childrenMapper: function (parentActive, item, index) {
-			
+
 			var label = item.label.toLowerCase(), // Filter is lowercase, make the label lowercase for comparison
 					className = 'wizard-list-child-item' + (label.search(this.props.filter) > -1 ? '' : ' hidden');
 
@@ -133,4 +133,4 @@ define([
 
 return NestedList;
 
-});          
+});
