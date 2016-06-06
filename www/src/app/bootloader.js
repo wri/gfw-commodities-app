@@ -1,6 +1,6 @@
 /* global window, document, location */
 (function(win, doc) {
-    var version = '2.5.72',
+    var version = '2.5.73',
         URL = location.pathname.replace(/\/[^/]+$/, '') + 'app',
         dojoConfig = {
             parseOnLoad: false,

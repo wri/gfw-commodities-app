@@ -798,7 +798,6 @@ define([
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
                 } else if (item.layerId === 2) {
-
                     template = new InfoTemplate(item.feature.attributes.Company, //item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +

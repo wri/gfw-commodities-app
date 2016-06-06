@@ -9,7 +9,7 @@ define([
     var config = AnalyzerConfig.stepThree;
     var treeClosed = '<use xlink:href="#tree-closed" />';
     var treeOpen = '<use xlink:href="#tree-open" />';
-        // labelField = AnalyzerConfig.stepTwo.labelField;
+    // labelField = AnalyzerConfig.stepTwo.labelField;
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
 

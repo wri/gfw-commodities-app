@@ -64,12 +64,14 @@ define([
                 basemap: this.basemap,
                 center: [this.centerX, this.centerY],
                 sliderPosition: this.sliderPosition,
+                isScrollWheelZoom: true,
                 zoom: this.zoom
             });
 
             self.map.on('load', function() {
                 self.mapLoaded();
                 self.map.resize();
+                self.map.enableScrollWheelZoom();
                 self.emit('map-ready', {});
             });
 
@@ -464,6 +466,16 @@ define([
                 opacity: 1
             });
 
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
+                visible: false
+            });
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
+                visible: false
+            });
             forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
                 imageParameters: batchParams,
                 id: 'forestCover_landCover',

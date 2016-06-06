@@ -6680,7 +6680,7 @@ define('components/wizard/StepThree',[
     var config = AnalyzerConfig.stepThree;
     var treeClosed = '<use xlink:href="#tree-closed" />';
     var treeOpen = '<use xlink:href="#tree-open" />';
-        // labelField = AnalyzerConfig.stepTwo.labelField;
+    // labelField = AnalyzerConfig.stepTwo.labelField;
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
 
@@ -10557,12 +10557,14 @@ define('map/Map',[
                 basemap: this.basemap,
                 center: [this.centerX, this.centerY],
                 sliderPosition: this.sliderPosition,
+                isScrollWheelZoom: true,
                 zoom: this.zoom
             });
 
             self.map.on('load', function() {
                 self.mapLoaded();
                 self.map.resize();
+                self.map.enableScrollWheelZoom();
                 self.emit('map-ready', {});
             });
 
@@ -10957,6 +10959,16 @@ define('map/Map',[
                 opacity: 1
             });
 
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
+                visible: false
+            });
+            forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
+                imageParameters: batchParams,
+                id: 'forestCover_landCover',
+                visible: false
+            });
             forestCover_landCover = new ArcGISDynamicLayer(MapConfig.ldcover.url, {
                 imageParameters: batchParams,
                 id: 'forestCover_landCover',
@@ -11992,7 +12004,6 @@ define('map/Finder',[
                     item.feature.setInfoTemplate(template);
                     features.push(item.feature);
                 } else if (item.layerId === 2) {
-
                     template = new InfoTemplate(item.feature.attributes.Company, //item.value,
                         MapConfig.oilPerm.infoTemplate.content +
                         "<div><button id='popup-analyze-area' class='popupAnalyzeButton' data-label='" +
@@ -13157,7 +13168,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.72',
+                path = './app/templates/' + name + '.html?v=2.5.73',
                 req;
 
             req = new XMLHttpRequest();
@@ -15123,6 +15134,8 @@ define('controllers/SubmissionController',[
         var dataFile = $('#dataInput')[0].files[0];
         var attributeFile = $('#attributeDataInput')[0].files[0];
 
+        console.log('dataFile', dataFile);
+        console.log('attributeFile', attributeFile);
 
         if (dataFile) {
 
@@ -15213,6 +15226,7 @@ define('controllers/SubmissionController',[
       attributes.company = self.model.storyCompanyData();
       attributes.title = self.model.storyTitleData();
       attributes.email = self.model.storyEmailData();
+
       if (self.model.storyDetailsData()) {
           attributes.notes = self.model.storyDetailsData();
       }
@@ -15224,12 +15238,12 @@ define('controllers/SubmissionController',[
       if (url2) {
         attributes.attribute_url = url2;
       }
+      var point = new Point(0, 0); //todo: get this dynamically
+      var graphic = new Graphic();
+      graphic.setAttributes(attributes);
+      graphic.setGeometry(point);
 
-      var features = [
-        {
-          attributes: attributes
-        }
-      ];
+      var features = [graphic];
 
       var proxyUrl = 'http://commodities-test.herokuapp.com/app/php/proxy.php';
 
