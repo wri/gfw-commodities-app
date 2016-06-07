@@ -9,7 +9,7 @@ define([
   "components/wizard/CustomArea",
   "components/wizard/CertifiedArea",
   "components/wizard/CommercialEntity"
-], function (React, AnalyzerConfig, WizardStore, WizardActions, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {  
+], function (React, AnalyzerConfig, WizardStore, WizardActions, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {
   // Variables
   var title = AnalyzerConfig.stepTwo.title,
       // Selection Area Variables
@@ -54,9 +54,9 @@ define([
 
     analysisAreaUpdated: function () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-      
+
       if (currentFeatures.length > 0) {
-        this.setState({ 
+        this.setState({
           completed: true,
           currentSelectionLabel: getCurrentSelectionLabel()
         });
@@ -75,31 +75,31 @@ define([
     render: function () {
       var selectedArea = WizardStore.get(KEYS.areaOfInterest);
       return (
-        React.createElement("div", {className: "step"}, 
-          React.createElement("div", {className: "step-body"}, 
-            React.createElement("div", {className: "step-title"}, title + ' - ' + customTitles[selectedArea]), 
-            React.createElement("div", {className: 's2-tools ' + (selectedArea !== millPoint ? 'hidden' : '')}, 
+        React.createElement("div", {className: "step"},
+          React.createElement("div", {className: "step-body"},
+            React.createElement("div", {className: "step-title"}, title + ' - ' + customTitles[selectedArea]),
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== millPoint ? 'hidden' : '')},
               React.createElement(MillPoint, React.__spread({},  this.props))
-            ), 
-            React.createElement("div", {className: 's2-tools ' + (selectedArea !== adminUnit ? 'hidden' : '')}, 
+            ),
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== adminUnit ? 'hidden' : '')},
               React.createElement(AdminUnit, React.__spread({},  this.props))
-            ), 
-            React.createElement("div", {className: 's2-tools ' + (selectedArea !== customArea ? 'hidden' : '')}, 
+            ),
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== customArea ? 'hidden' : '')},
               React.createElement(CustomArea, React.__spread({},  this.props))
-            ), 
-            React.createElement("div", {className: 's2-tools ' + (selectedArea !== certArea ? 'hidden' : '')}, 
+            ),
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== certArea ? 'hidden' : '')},
               React.createElement(CertifiedArea, React.__spread({},  this.props))
-            ), 
-            React.createElement("div", {className: 's2-tools ' + (selectedArea !== commArea ? 'hidden' : '')}, 
+            ),
+            React.createElement("div", {className: 's2-tools ' + (selectedArea !== commArea ? 'hidden' : '')},
               React.createElement(CommercialEntity, React.__spread({},  this.props))
             )
-          ), 
-          React.createElement("div", {className: "step-footer"}, 
-            React.createElement("div", {className: "selected-analysis-area"}, 
-              React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
+          ),
+          React.createElement("div", {className: "step-footer"},
+            React.createElement("div", {className: "selected-analysis-area"},
+              React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText),
               React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
-            ), 
-            React.createElement("div", {onClick: this.checkRequirements, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
+            ),
+            React.createElement("div", {onClick: this.checkRequirements, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')},
               React.createElement("span", {className: "next-button"}, "Next")
             )
           )
@@ -113,7 +113,7 @@ define([
         WizardActions.proceedToNextStep();
       }
     }
-    
+
   });
 
 });

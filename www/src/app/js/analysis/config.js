@@ -239,6 +239,7 @@ define([], function() {
         customArea: {
             instructions: 'Select the \'Freehand\' or \'Polygon\' options below to draw an area of interest on the map, or choose \'Upload\' to upload a zipped shapefile of polygons or points or a list of point coordinates to analyze.',
             instructionsPartTwo: 'Select an area from the list below and click \'Next\' to proceed.',
+            customCoordLabel: 'Enter Coordinates',
             freehandLabel: 'Freehand',
             uploadLabel: 'Upload',
             polyLabel: 'Polygon',
