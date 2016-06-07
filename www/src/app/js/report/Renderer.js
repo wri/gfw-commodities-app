@@ -1711,7 +1711,7 @@ define([
         // Group Mill Results table if more then one mill
         if(mills.length > 1 && index == 0) {
           // Table header
-          content += "<table class='mill-table-v2'><thead class='mill-table-header-v2'><tr><td class='dark' rowspan='2'></td><td class='dark' rowspan='2'>Overall Priority Level</td><td class='dark' rowspan='2'>Historic Behavior</td><td class='dark' rowspan='2'>Future Potential Loss</td><td class='white span-60' colspan='6'>Environmental Indicators</td></tr>" +
+          content += "<table class='mill-table-v2'><thead class='mill-table-header-v2'><tr><td class='dark' rowspan='2'></td><td class='dark' rowspan='2'>Overall Priority Level</td><td class='dark' rowspan='2'>Historic Loss</td><td class='dark' rowspan='2'>Future Potential Loss</td><td class='white span-60' colspan='6'>Environmental Indicators</td></tr>" +
             "<tr><td class='white'>Tree Cover</td><td class='white'>Primary Forest</td><td class='white'>Peat</td><td class='white'>Protected Areas</td><td class='white'>Carbon</td><td class='white'>Fires</td></tr></thead>";
 
           // Table body
@@ -1833,11 +1833,11 @@ define([
           className = 'high';
         }
 
-        // var frag = '<div class="mill-header-single-title"><span class="mill-title">' + millName + '</span><span class="mill-risk-level-single-title medium"><span class="large-swatch"></span>Total Mill Priority Level: <span class="overall-risk">' + mill.priority_level + '</span></span></div>';
+        // var frag = '<div class="mill-header-single-title"><span class="mill-title">' + millName + '</span><span class="mill-risk-level-single-title medium"><span class="large-swatch"></span>Mill Priority: <span class="overall-risk">' + mill.priority_level + '</span></span></div>';
         var frag = "<table class='single-mill-table-header-v2'>";
         // frag += "<table class='single-mill-table-header-v2'>";
-            // frag += "<tr class='single-mill-header'><th colspan='4'><span class='title'>" + millName + "</span></th><th colspan='4'><span class='title medium overall-risk'>Total Mill Priority Level: " + mill.priority_level + "</span></th></tr>";
-            frag += "<tr class='single-mill-header'><div class='mill-header-single-title'><span class='mill-title'>" + millName + "</span><span class='mill-risk-level-single-title " + className + "'>Total Mill Priority Level: <span class='overall-risk'>" + mill.priority_level + "</span></div></tr>";
+            // frag += "<tr class='single-mill-header'><th colspan='4'><span class='title'>" + millName + "</span></th><th colspan='4'><span class='title medium overall-risk'>Mill Priority: " + mill.priority_level + "</span></th></tr>";
+            frag += "<tr class='single-mill-header'><div class='mill-header-single-title'><span class='mill-title'>Mill Name: " + millName + "</span><span class='mill-risk-level-single-title " + className + "'>Mill Priority: <span class='overall-risk'>" + mill.priority_level + "</span></div></tr>";
 
             frag += "<tr class=''>";
             frag += "<tr><th>Combined Indicator</th><th>Rank </th><th>Combined Indicator</th><th>Rank </th></tr>";
@@ -1858,7 +1858,7 @@ define([
         var smallSwatch = "'><span class='small-swatch'></span>";
 
         var frag  = "<table class='single-mill-table-content-v2'>";
-            frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic behavior: <span class='small-swatch'></span>" + mill.historic_loss + " Risk</th>" +
+            frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic loss: <span class='small-swatch'></span>" + mill.historic_loss + " Risk</th>" +
                     "<th colspan='3' class='" + mill.future_risk + "'>Potential for future loss:  <span class='small-swatch'></span>" + mill.future_risk + " Risk</th></tr>";
             frag += "<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>";
             frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + "</td><td>" + Math.round(mill.tree_cover.loss.amount) +" ha/year</td>" +

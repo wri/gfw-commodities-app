@@ -36,8 +36,8 @@ define([
             // Payload is passed as Global Payload object, grab and make sure its defined before doing anything else
             if (window.payload) {
                 this.addConfigurations();
-                this.addContentAndEvents();
                 this.prepareForAnalysis();
+                this.addContentAndEvents();
             }
         },
 
@@ -57,8 +57,9 @@ define([
         },
 
         addContentAndEvents: function () {
-          // Set the app title
-          this.setTitle(window.payload.title);
+          // Set the app title, if we are analyzing multiple mills, change the name to "Selected mills"
+          var title = report.mills && report.mills.length > 1 ? 'Selected mills' : window.payload.title;
+          this.setTitle(title);
           // Setup events for the header
           this.setupHeader();
           // Create a Dojo Dialog and add it, this will be going away in the future
@@ -248,7 +249,6 @@ define([
 
               });
               report.centerPoints = points;
-              console.log(report.centerPoints);
 
               // Keep a reference of the mills
               report.mills = areasToAnalyze;
