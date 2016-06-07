@@ -205,7 +205,7 @@ define([
         },
 
         parseDate: function (str) {
-          let mdy = str.split('/');
+          var mdy = str.split('/');
           return new Date(mdy[2], mdy[0] - 1, mdy[1]);
         },
 

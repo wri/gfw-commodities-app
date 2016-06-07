@@ -3,13 +3,13 @@ define([
 
   return {
     getDate: function (date) {
-      let whatDay = this.getDayOfWeek(date);
-      let whatMonth = this.getMonth(date);
-      let fullDate = whatDay + ', ' + date.getDate() + ' ' + whatMonth + ' ' + date.getFullYear();
+      var whatDay = this.getDayOfWeek(date);
+      var whatMonth = this.getMonth(date);
+      var fullDate = whatDay + ', ' + date.getDate() + ' ' + whatMonth + ' ' + date.getFullYear();
       return fullDate;
     },
     getDayOfWeek: function (date) {
-      let dayOfWeek;
+      var dayOfWeek;
       switch (date.getDay()) {
         case 0:
           dayOfWeek = 'Su';
@@ -36,7 +36,7 @@ define([
       return dayOfWeek;
     },
     getMonth: function (date) {
-      let month;
+      var month;
       switch (date.getMonth()) {
         case 0:
           month = 'Jan';

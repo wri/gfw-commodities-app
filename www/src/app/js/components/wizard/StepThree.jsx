@@ -160,7 +160,7 @@ define([
       _selectionMade: function() {
         var completed = this._checkRequirements();
 
-        let oldCompleted = this.state.completed;
+        var oldCompleted = this.state.completed;
         if (oldCompleted !== completed) {
           this.setState({ completed: completed });
         }
