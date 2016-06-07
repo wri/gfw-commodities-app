@@ -73,10 +73,9 @@ define([
         console.log("resetForestChange");
         config.checkboxes.forEach(function(checkbox) {
           checkbox.checked = false;
+          console.log(checkbox);
         });
-        console.log("test");
         this.forceUpdate();
-        console.log("after")
       },
 
       /* jshint ignore:start */
@@ -106,9 +105,11 @@ define([
 
 
                 </div>
+                <p className={`reset-forest-change ${optionsExpanded === false ? 'transition-hidden' : ''}`} onClick={this.resetForestChange}>Test</p>
                 <div className={`checkbox-list ${optionsExpanded === false ? 'transition-hidden' : ''}`}>
                 <div>
                   {config.checkboxes.map(this._mapper, this)}
+                  {console.log(this._mapper)};
                 </div>
                 </div>
 
@@ -181,7 +182,6 @@ define([
       },
 
       checkedOverride: function(itemLabel) {
-        debugger;
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         console.log(selectedAreaOfInterest);
         // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
