@@ -69,10 +69,21 @@ define([
         return WizardStore.get(KEYS.userStep) === 3;
       },
 
+      resetForestChange: function() {
+        console.log("resetForestChange");
+        config.checkboxes.forEach(function(checkbox) {
+          checkbox.checked = false;
+        });
+        console.log("test");
+        this.forceUpdate();
+        console.log("after")
+      },
+
       /* jshint ignore:start */
       render: function() {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        var optionsExpanded = this.state.optionsExpanded;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
           return feature.geometry.type === 'point';
         });
@@ -89,6 +100,18 @@ define([
                     this.createPointContent(hasPoints) :
                     null, 
                 
+                React.createElement("div", {className: "relative forestChange-description"}, 
+                React.createElement(WizardCheckbox, {onClick: this.toggleOptions, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
+                React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
+
+
+                ), 
+                React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
+                React.createElement("div", null, 
+                  config.checkboxes.map(this._mapper, this)
+                )
+                ), 
+
                 React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
                 React.createElement("p", {className: "layer-description"}, config.suit.description), 
                 React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
@@ -100,19 +123,8 @@ define([
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                 ), 
-                React.createElement("div", {className: "step-sub-header"}, 
-                React.createElement("span", {onClick: this.toggleOptions, className: ("forestChange-description " + (this.state.optionsExpanded ? 'open' : 'closed'))}, config.forestChange.label), 
-
-                
-                  this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}}) :
-                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}})
-                
-                ), 
                 React.createElement("p", {className: "layer-description"}, config.forestChange.description)
-              ), 
-
-              React.createElement("div", {className: ("checkbox-list " + (this.state.optionsExpanded === false ? 'transition-hidden' : ''))}, config.checkboxes.map(this._mapper, this))
-
+              )
             ), 
             React.createElement("div", {className: "step-footer"}, 
               React.createElement("div", {className: "selected-analysis-area"}, 
@@ -169,6 +181,7 @@ define([
       },
 
       checkedOverride: function(itemLabel) {
+        debugger;
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         console.log(selectedAreaOfInterest);
         // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);

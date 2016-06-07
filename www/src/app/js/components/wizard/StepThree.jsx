@@ -69,10 +69,21 @@ define([
         return WizardStore.get(KEYS.userStep) === 3;
       },
 
+      resetForestChange: function() {
+        console.log("resetForestChange");
+        config.checkboxes.forEach(function(checkbox) {
+          checkbox.checked = false;
+        });
+        console.log("test");
+        this.forceUpdate();
+        console.log("after")
+      },
+
       /* jshint ignore:start */
       render: function() {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        var optionsExpanded = this.state.optionsExpanded;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
           return feature.geometry.type === 'point';
         });
@@ -89,6 +100,18 @@ define([
                     this.createPointContent(hasPoints) :
                     null
                 }
+                <div className='relative forestChange-description'>
+                <WizardCheckbox onClick={this.toggleOptions} change={this._selectionMade} isResetting={this.props.isResetting} label={config.forestChange.label} noInfoIcon={true} />
+                <svg onClick={this.toggleOptions} className={`analysis-expander ${optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: optionsExpanded ? treeOpen : treeClosed }}/>
+
+
+                </div>
+                <div className={`checkbox-list ${optionsExpanded === false ? 'transition-hidden' : ''}`}>
+                <div>
+                  {config.checkboxes.map(this._mapper, this)}
+                </div>
+                </div>
+
                 <WizardCheckbox label={config.suit.label} value={config.suit.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                 <p className='layer-description'>{config.suit.description}</p>
                 <WizardCheckbox label={config.rspo.label} value={config.rspo.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
@@ -100,19 +123,8 @@ define([
                 <p className='layer-description'>{config.mill.description}</p>
 
                 </div>
-                <div className='step-sub-header'>
-                <span onClick={this.toggleOptions} className={`forestChange-description ${this.state.optionsExpanded ? 'open' : 'closed'}`}>{config.forestChange.label}</span>
-
-                {
-                  this.state.optionsExpanded === true ? <svg onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: treeOpen }}/> :
-                  <svg onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: treeClosed }}/>
-                }
-                </div>
                 <p className='layer-description'>{config.forestChange.description}</p>
               </div>
-
-              <div className={`checkbox-list ${this.state.optionsExpanded === false ? 'transition-hidden' : ''}`}>{config.checkboxes.map(this._mapper, this)}</div>
-
             </div>
             <div className='step-footer'>
               <div className='selected-analysis-area'>
@@ -169,6 +181,7 @@ define([
       },
 
       checkedOverride: function(itemLabel) {
+        debugger;
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         console.log(selectedAreaOfInterest);
         // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
