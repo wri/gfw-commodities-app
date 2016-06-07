@@ -53,6 +53,24 @@ define([
     },
 
     render: function() {
+
+      /** Old Modal Overview Content
+      <p>Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:</p>
+      <ul className='analysis-modal-list'>
+        <li>Tree cover change</li>
+        <li>Fire activity</li>
+        <li>Primary or intact forest areas</li>
+        <li>Protected areas</li>
+        <li>Legal classification of land</li>
+      </ul>
+      <p>You can also:</p>
+      <ul className='analysis-modal-list'>
+        <li>Upload your own shapefiles for analysis</li>
+        <li>Draw an area of interest</li>
+        <li>Sign up for alerts for clearance activity</li>
+      </ul>
+      */
+
       return (
         <div className='analysis-modal-window'>
         <div className='tooltipmap'></div>
@@ -65,20 +83,9 @@ define([
               <h2 className='analysis-modal-title'>Analysis</h2>
 
               <div className='modal-overview'>
-                <p>Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:</p>
-                <ul className='analysis-modal-list'>
-                  <li>Tree cover change</li>
-                  <li>Fire activity</li>
-                  <li>Primary or intact forest areas</li>
-                  <li>Protected areas</li>
-                  <li>Legal classification of land</li>
-                </ul>
-                <p>You can also:</p>
-                <ul className='analysis-modal-list'>
-                  <li>Upload your own shapefiles for analysis</li>
-                  <li>Draw an area of interest</li>
-                  <li>Sign up for alerts for clearance activity</li>
-                </ul>
+                <p>
+                  Create custom analysis of your area of interest, such as a commodity concession, a jurisdiction, the sourcing area around a palm mill, or a custom area of your choice.
+                </p>
                 <div className='analysis-modal-hide'>Don't show this again<input checked={this.state.checked} onChange={this.toggleChecked} type='checkbox' /></div>
               </div>
             </div>

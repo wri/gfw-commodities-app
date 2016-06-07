@@ -1757,17 +1757,17 @@ define([
         @param {string} fieldPrefix - prefix for field name in the json to extract data from
         @return String - HTML Fragment which is a <tr>
       */
-      function generateParentRow(name, data, className, fieldPrefix) {
-        var rowClass = 'data-row parent';
-        var frag = "<tr class='" + rowClass + "' data-class='" + className + "'><td class='row-name'>" +
-                   "<span class='toggle-icon'></span><span>" + name + "</span></td>";
-
-        frag += "<td class='" + (data[fieldPrefix + '_concession'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_concession'] || 'N/A') + "</span></td>";
-        frag += "<td class='" + (data[fieldPrefix + '_radius'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_radius'] || 'N/A') + "</span></td>";
-        frag += "</tr>";
-
-        return frag;
-      }
+      // function generateParentRow(name, data, className, fieldPrefix) {
+      //   var rowClass = 'data-row parent';
+      //   var frag = "<tr class='" + rowClass + "' data-class='" + className + "'><td class='row-name'>" +
+      //              "<span class='toggle-icon'></span><span>" + name + "</span></td>";
+      //
+      //   frag += "<td class='" + (data[fieldPrefix + '_concession'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_concession'] || 'N/A') + "</span></td>";
+      //   frag += "<td class='" + (data[fieldPrefix + '_radius'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_radius'] || 'N/A') + "</span></td>";
+      //   frag += "</tr>";
+      //
+      //   return frag;
+      // }
 
       /**
         @param {string} name - Represents Name in table row
@@ -1776,17 +1776,17 @@ define([
           - some json values are nested in objects, if no fieldName is provided, this function assumes thats the case
         @return String - HTML Fragment which is a <tr>
       */
-      function generateBasicRow(name, data, fieldPrefix) {
-        var frag = "<tr class='data-row'><td class='row-name'><span>" + name + "</span></td>";
-        var concession = (fieldPrefix ? data[fieldPrefix + '_concession'] : data.concession.risk);
-        var radius = (fieldPrefix ? data[fieldPrefix + '_radius'] : data.radius.risk);
-
-        frag += "<td class='" + concession + "'><span class='large-swatch'></span><span class='risk-label'>" + concession + "</span></td>";
-        frag += "<td class='" + radius + "'><span class='large-swatch'></span><span class='risk-label'>" + radius + "</span></td>";
-        frag += "</tr>";
-
-        return frag;
-      }
+      // function generateBasicRow(name, data, fieldPrefix) {
+      //   var frag = "<tr class='data-row'><td class='row-name'><span>" + name + "</span></td>";
+      //   var concession = (fieldPrefix ? data[fieldPrefix + '_concession'] : data.concession.risk);
+      //   var radius = (fieldPrefix ? data[fieldPrefix + '_radius'] : data.radius.risk);
+      //
+      //   frag += "<td class='" + concession + "'><span class='large-swatch'></span><span class='risk-label'>" + concession + "</span></td>";
+      //   frag += "<td class='" + radius + "'><span class='large-swatch'></span><span class='risk-label'>" + radius + "</span></td>";
+      //   frag += "</tr>";
+      //
+      //   return frag;
+      // }
 
       /**
         @param {object} mill - Represents segment of response
@@ -1861,18 +1861,18 @@ define([
             frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic behavior: <span class='small-swatch'></span>" + mill.historic_loss + " Risk</th>" +
                     "<th colspan='3' class='" + mill.future_risk + "'>Potential for future loss:  <span class='small-swatch'></span>" + mill.future_risk + " Risk</th></tr>";
             frag += "<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>";
-            frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + "</td><td>" + mill.tree_cover.loss.amount +" ha/year</td>" +
-                    "<td>Tree cover extent</td><td class='" + mill.tree_cover.extent.rank + smallSwatch + mill.tree_cover.extent.rank + "</td><td>" + mill.tree_cover.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on primary forest</td><td class='" + mill.primary_forest.loss.rank + smallSwatch + mill.primary_forest.loss.rank + "</td><td>" + mill.primary_forest.loss.amount + " ha</td>" +
-                    "<td>Area in primary forest</td><td class='" + mill.primary_forest.extent.rank + smallSwatch + mill.primary_forest.extent.rank + "</td><td>" + mill.primary_forest.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on peat</td><td class='" + mill.peat.loss.rank + smallSwatch + mill.peat.loss.rank + "</td><td>" + mill.peat.loss.amount + " ha</td>" +
-                    "<td>Area in peat</td><td class='" + mill.peat.extent.rank + smallSwatch + mill.peat.extent.rank + "</td><td>" + mill.peat.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on protected areas</td><td class='" + mill.protected_areas.loss.rank + smallSwatch + mill.protected_areas.loss.rank + "</td><td>" + mill.protected_areas.loss.amount + " ha</td>" +
-                    "<td>Area in protected areas</td><td class='" + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + "</td><td>" + mill.protected_areas.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Tree cover loss on carbon dense areas</td><td class='" + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + "</td><td>" + mill.carbon.loss.amount.toFixed(3) + " ha</td>" +
-                    "<td>Area of high carbon density</td><td class='" + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + "</td><td>" + mill.carbon.extent.amount + " ha</td></tr>";
-            frag += "<tr><td>Fire activity</td><td class='" + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + "</td><td>" + mill.fire.extent.amount.toFixed(3) + " fires/1000 ha</td>" +
-                    "<td>Rate of fire activity last three years</td><td class='" + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + "</td><td>" + mill.fire.loss.amount + " fires/1000 ha per year</td></tr>";
+            frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + "</td><td>" + Math.round(mill.tree_cover.loss.amount) +" ha/year</td>" +
+                    "<td>Tree cover extent</td><td class='" + mill.tree_cover.extent.rank + smallSwatch + mill.tree_cover.extent.rank + "</td><td>" + Math.round(mill.tree_cover.extent.amount) + " ha/year</td></tr>";
+            frag += "<tr><td>Tree cover loss on primary forest</td><td class='" + mill.primary_forest.loss.rank + smallSwatch + mill.primary_forest.loss.rank + "</td><td>" + Math.round(mill.primary_forest.loss.amount) + " %</td>" +
+                    "<td>Area in primary forest</td><td class='" + mill.primary_forest.extent.rank + smallSwatch + mill.primary_forest.extent.rank + "</td><td>" + Math.round(mill.primary_forest.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Tree cover loss on peat</td><td class='" + mill.peat.loss.rank + smallSwatch + mill.peat.loss.rank + "</td><td>" + Math.round(mill.peat.loss.amount) + " %</td>" +
+                    "<td>Area in peat</td><td class='" + mill.peat.extent.rank + smallSwatch + mill.peat.extent.rank + "</td><td>" + Math.round(mill.peat.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Tree cover loss on protected areas</td><td class='" + mill.protected_areas.loss.rank + smallSwatch + mill.protected_areas.loss.rank + "</td><td>" + Math.round(mill.protected_areas.loss.amount) + " %</td>" +
+                    "<td>Area in protected areas</td><td class='" + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + "</td><td>" + Math.round(mill.protected_areas.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Tree cover loss on carbon dense areas</td><td class='" + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + "</td><td>" + Math.round(mill.carbon.loss.amount) + " %</td>" +
+                    "<td>Area of high carbon density</td><td class='" + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + "</td><td>" + Math.round(mill.carbon.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Fire activity</td><td class='" + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + "</td><td>" + Math.round(mill.fire.extent.amount) + " fires/1000 ha</td>" +
+                    "<td>Rate of fire activity last three years</td><td class='" + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + "</td><td>" + Math.round(mill.fire.loss.amount) + " fires/1000 ha per year</td></tr>";
             frag += "</table>";
 
         return frag;
@@ -1954,8 +1954,10 @@ define([
         msg = "No clearance alerts occured in this area.";
       } else if (type === 'composition') {
         msg = config.errors && config.errors.composition || "No Composition Analysis Data Available for this site.";
+      } else if (type === 'prodes') {
+        msg = 'No data available for this site.';
       } else {
-        msg = "No Mill Point Data Available for this site.";
+        msg = "No data available for this site.";
       }
 
       if (node) {

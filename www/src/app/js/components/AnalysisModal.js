@@ -53,6 +53,24 @@ define([
     },
 
     render: function() {
+
+      /** Old Modal Overview Content
+      <p>Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:</p>
+      <ul className='analysis-modal-list'>
+        <li>Tree cover change</li>
+        <li>Fire activity</li>
+        <li>Primary or intact forest areas</li>
+        <li>Protected areas</li>
+        <li>Legal classification of land</li>
+      </ul>
+      <p>You can also:</p>
+      <ul className='analysis-modal-list'>
+        <li>Upload your own shapefiles for analysis</li>
+        <li>Draw an area of interest</li>
+        <li>Sign up for alerts for clearance activity</li>
+      </ul>
+      */
+
       return (
         React.createElement("div", {className: "analysis-modal-window"}, 
         React.createElement("div", {className: "tooltipmap"}), 
@@ -65,19 +83,8 @@ define([
               React.createElement("h2", {className: "analysis-modal-title"}, "Analysis"), 
 
               React.createElement("div", {className: "modal-overview"}, 
-                React.createElement("p", null, "Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:"), 
-                React.createElement("ul", {className: "analysis-modal-list"}, 
-                  React.createElement("li", null, "Tree cover change"), 
-                  React.createElement("li", null, "Fire activity"), 
-                  React.createElement("li", null, "Primary or intact forest areas"), 
-                  React.createElement("li", null, "Protected areas"), 
-                  React.createElement("li", null, "Legal classification of land")
-                ), 
-                React.createElement("p", null, "You can also:"), 
-                React.createElement("ul", {className: "analysis-modal-list"}, 
-                  React.createElement("li", null, "Upload your own shapefiles for analysis"), 
-                  React.createElement("li", null, "Draw an area of interest"), 
-                  React.createElement("li", null, "Sign up for alerts for clearance activity")
+                React.createElement("p", null, 
+                  "Create custom analysis of your area of interest, such as a commodity concession, a jurisdiction, the sourcing area around a palm mill, or a custom area of your choice."
                 ), 
                 React.createElement("div", {className: "analysis-modal-hide"}, "Don't show this again", React.createElement("input", {checked: this.state.checked, onChange: this.toggleChecked, type: "checkbox"}))
               )

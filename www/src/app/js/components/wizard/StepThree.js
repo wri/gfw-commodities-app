@@ -38,12 +38,10 @@ define([
       },
 
       analysisAreaUpdated: function () {
-        // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
         this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
       },
 
       toggleOptions: function () { //todo: toggle these open (or not) on analysis via popup!
-        // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
         this.setState({ optionsExpanded: !this.state.optionsExpanded });
       },
 

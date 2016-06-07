@@ -13,6 +13,7 @@
     "$": true,
     "brApp": true,
     "define": true,
+    "report": true,
     "require": true,
     "navigator": true,
     "_babelPolyfill": true

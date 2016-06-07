@@ -1,34 +1,35 @@
 define([
-		"lodash",
-		"dojo/number",
-		"dojo/Deferred",
-		"dojo/promise/all",
-		"dojo/_base/array",
+		'lodash',
+		'dojo/number',
+		'dojo/Deferred',
+		'dojo/promise/all',
+		'dojo/_base/array',
 		// My Modules
-		"report/config",
-		"report/Renderer",
-		"report/RiskHelper",
-		"report/Suitability",
-		"map/Symbols",
+		'report/config',
+		'report/Renderer',
+		'report/RiskHelper',
+		'report/Suitability',
+		'map/Symbols',
 		// esri modules
-		"esri/map",
-		"esri/request",
-		"esri/tasks/query",
-		"esri/dijit/Scalebar",
-		"esri/tasks/QueryTask",
-		"esri/SpatialReference",
-		"esri/geometry/Polygon",
-		"esri/geometry/Point",
-		"esri/tasks/GeometryService",
+		'esri/map',
+		'esri/request',
+		'esri/tasks/query',
+		'esri/dijit/Scalebar',
+		'esri/tasks/QueryTask',
+		'esri/SpatialReference',
+		'esri/geometry/Polygon',
+		'esri/geometry/Point',
+		'esri/tasks/GeometryService',
 		'esri/geometry/geometryEngine',
-		"esri/tasks/AreasAndLengthsParameters",
+		'esri/tasks/AreasAndLengthsParameters',
 		'esri/Color',
 		'esri/symbols/SimpleFillSymbol',
 		'esri/symbols/SimpleLineSymbol',
 		'esri/symbols/SimpleMarkerSymbol',
-		"esri/graphic",
-		"report/rasterArea"
-], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, Point, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea) {
+		'esri/graphic',
+		'report/rasterArea',
+		'report/mill-api'
+], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, Point, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
 		'use strict';
 
 		var _fireQueriesToRender = [];
@@ -42,7 +43,7 @@ define([
 								parameters = new AreasAndLengthsParameters(),
 								sr = new SpatialReference(54012),
 								polygon = new Polygon(geometry),
-								errorString = "Not Available",
+								errorString = 'Not Available',
 								area;
 
 						function success(result) {
@@ -58,7 +59,7 @@ define([
 								}
 						}
 
-						function failure(err) {
+						function failure() {
 								deferred.resolve(false);
 						}
 
@@ -82,7 +83,6 @@ define([
 				},
 
 				setupMap: function () {
-					console.log()
 						var scalebar, graphic, poly, map;
 
 						function mapLoaded () {
@@ -105,8 +105,8 @@ define([
 										var pointGraphic = new Graphic();
 
 										var pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 2,
-											new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,0,0]), 1),
-											new Color([0,0,0,0.25]));
+											new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 1),
+											new Color([0, 0, 0, 0.25]));
 
 										var pointGeom = new Point(report.centerPoints[j].geometry.x, report.centerPoints[j].geometry.y, report.centerPoints[j].geometry.spatialReference);
 
@@ -117,7 +117,7 @@ define([
 										map.graphics.add(pointGraphic);
 									}
 								}
-								window.map = map
+								window.map = map;
 
 								map.graphics.add(graphic);
 								map.setExtent(graphic.geometry.getExtent().expand(3), true);
@@ -125,7 +125,7 @@ define([
 
 						map = new Map('print-map', {
 								basemap: 'topo',
-								sliderPosition: "top-right"
+								sliderPosition: 'top-right'
 						});
 
 						if (map.loaded) {
@@ -183,7 +183,6 @@ define([
 						var deferred = new Deferred(),
 								config = ReportConfig.treeCoverLoss,
 								url = ReportConfig.imageServiceUrl,
-								rasterId = config.rasterId,
 								content = {
 										geometryType: 'esriGeometryPolygon',
 										geometry: JSON.stringify(report.geometry),
@@ -208,9 +207,9 @@ define([
 						}
 
 						function failure(error) {
-								var newFailure = function(error){
+								var newFailure = function(){
 									deferred.resolve(false);
-								}
+								};
 								if (error.details) {
 										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
 												content.pixelSize = 500;
@@ -248,12 +247,12 @@ define([
 
 						// Create the container for all the result
 						ReportRenderer.renderProdesContainer(config);
-						ReportRenderer.renderCompositionAnalysisLoader(config);
+						// ReportRenderer.renderCompositionAnalysisLoader(config);
 
 						function success(response) {
 								if (response.histograms.length > 0) {
 										ReportRenderer.renderProdesData(response.histograms[0].counts, content.pixelSize, config);
-										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+										// ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
 								} else {
 										ReportRenderer.renderAsUnavailable('prodes', config);
 								}
@@ -261,9 +260,9 @@ define([
 						}
 
 						function failure(error) {
-								var newFailure = function(error){
+								var newFailure = function(){
 									deferred.resolve(false);
-								}
+								};
 								if (error.details) {
 										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
 												content.pixelSize = 500;
@@ -353,7 +352,6 @@ define([
 						this._debug('Fetcher >>> getCarbonStocksResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.carbonStock;
-								console.dir(config)
 						// Create the container for all the results
 						// Add this config to Fires so the Fires request knows to add data here
 						ReportRenderer.renderContainers(config);
@@ -415,7 +413,6 @@ define([
 						this._debug('Fetcher >>> getBrazilBiomesResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.brazilBiomes;
-								console.dir(config)
 						// Create the container for all the results
 						// Add this config to Fires so the Fires request knows to add data here
 						ReportRenderer.renderContainers(config);
@@ -693,7 +690,6 @@ define([
 											// report.geometry = geometryEngine.simplify(poly);
 											// report.geometry = geometryEngine.union(polys);
 											// report.geometry = unionedGeom;
-											console.log(report.geometry)
 
 											report.mapGeometry = poly;
 
@@ -727,7 +723,6 @@ define([
 						renderingRule = useSimpleEncoderRule ?
 								encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) :
 								encoder.render(clearanceConfig.rasterId, rasterId);
-						console.log('renderingRule', renderingRule);
 						// report.geometry.rings = [report.geometry.rings[report.geometry.rings.length - 1]];
 						content = {
 								geometryType: 'esriGeometryPolygon',
@@ -748,7 +743,7 @@ define([
 				getGladResults: function(config, useSimpleEncoderRule) {
 						this._debug('Fetcher >>> getGladResults');
 						var deferred = new Deferred(),
-								gladConfig = ReportConfig.gladLayer, //ReportConfig.clearanceAlerts,
+								// gladConfig = ReportConfig.gladLayer, //ReportConfig.clearanceAlerts,
 								url = ReportConfig.glad.url,
 								self = this,
 								content,
@@ -760,11 +755,9 @@ define([
 						config = _.clone(config);
 
 						function success(response) {
-							console.log('GLAD success');
 								if (response.histograms.length > 0) {
 										ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
 								} else {
-									console.log('GLAD failurrre');
 										// Add some dummy 0's
 										var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
 										ReportRenderer.renderGladData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
@@ -792,9 +785,6 @@ define([
 								pixelSize: 30,
 								f: 'json'
 						};
-						console.log('url', url);
-						console.log(content);
-						debugger
 
 						this._computeHistogram(url, content, success, failure);
 
@@ -802,24 +792,6 @@ define([
 				},
 
 				_getCompositionAnalysis: function(config) {
-
-						// var simpleRule = {
-						//   "rasterFunction": "Remap",
-						//   "rasterFunctionArguments": {
-						//       "InputRanges": [1, 3],
-						//       "OutputValues": [1],
-						//       "Raster": config.rasterId,
-						//       "AllowUnmatched": false
-						//   }
-						// };
-
-						// var layerConfig = {
-						//   simpleRule: simpleRule
-						// };
-
-						// rasterArea.getArea(report.geometry, layerConfig).then(function (data) {
-
-						// });
 
 						ReportRenderer.renderCompositionAnalysisLoader(config);
 
@@ -893,87 +865,105 @@ define([
 						this._debug('Fetcher >>> _getMillPointAnalysis');
 						var deferred = new Deferred(),
 								config = ReportConfig.millPoints,
-								customDeferred = new Deferred(),
-								knownDeferred = new Deferred(),
-								customMills = [],
-								knownMills = [];
+								requests = [],
+								millPoint;
+								// customDeferred = new Deferred(),
+								// knownDeferred = new Deferred(),
+								// customMills = [],
+								// knownMills = [];
 
 						// Create the container for the results
 						ReportRenderer.renderMillContainer(config);
 
-						// Create two separate lists of mills
+						// Analyze all the mills with the mill-api
 						arrayUtils.forEach(report.mills, function (mill) {
-							if (mill.isCustom) {
-								customMills.push(mill);
-							} else {
-								knownMills.push(mill);
-							}
+							// getMillRisk is an es6 module compiled to es5, it exports a default function which outside an es6 app,
+							// whether it is CJS, AMD, or global, needs to be accessed as getMillRisk.default
+							// It takes an esri Point object and a label, and optionally a radius
+							millPoint = new Point(mill.point.geometry);
+							requests.push(getMillRisk.default(millPoint, mill.label));
 						});
 
-						// if the mill points are from the known mills list, use GFW's API
-						if (knownMills.length > 0) {
-							getKnownMillsResults();
-						} else {
-							knownDeferred.resolve();
-						}
-
-						// If the mill points are custom, use our API, our API requires a bit more pre processing since
-						// the geometry being analyzed is custom and of various sizes
-						if (customMills.length > 0) {
-							getCustomMillsResults();
-						} else {
-							customDeferred.resolve(false);
-						}
-
-						function getKnownMillsResults () {
-							var request = new XMLHttpRequest(), response;
-
-							request.open('POST', config.url, true);
-							request.onreadystatechange = function (res) {
-								if (request.readyState === 4) {
-									if (request.status === 200) {
-										response = JSON.parse(request.response);
-										if (response.mills) {
-											// ReportRenderer.renderMillAssessment(response.mills, config);
-											knownDeferred.resolve(response.mills);
-										} else {
-											knownDeferred.resolve(false);
-										}
-									} else {
-										knownDeferred.resolve(false);
-									}
-								}
-							};
-
-							request.addEventListener('error', function () {
-								knownDeferred.resolve(false);
-							}, false);
-
-							var formData = new FormData();
-							formData.append('mills', knownMills.map(function (mill) { return mill.millId; }).join(','));
-							// Construct the POST Content in HERE for each Mill
-							request.send(formData);
-
-						}
-
-						function getCustomMillsResults () {
-							RiskHelper.prepareFeatures(customMills).then(function (millObjects) {
-								customDeferred.resolve(millObjects);
-							});
-						}
-
-						all([customDeferred, knownDeferred]).then(function (results) {
-							// Merge the Results, then Render them
-							var mills = [];
-							arrayUtils.forEach(results, function (millResult) {
-								if (millResult) {
-									mills = mills.concat(millResult);
-								}
-							});
-
+						all(requests).then(function (mills) {
+							console.log('Mills: ', mills);
 							ReportRenderer.renderMillAssessment(mills, config);
 							deferred.resolve(true);
 						});
+
+						// Create two separate lists of mills
+						// arrayUtils.forEach(report.mills, function (mill) {
+						// 	if (mill.isCustom) {
+						// 		customMills.push(mill);
+						// 	} else {
+						// 		knownMills.push(mill);
+						// 	}
+						// });
+						//
+						// // if the mill points are from the known mills list, use GFW's API
+						// // Currently their API is not working
+						// if (knownMills.length > 0) {
+						// 	getKnownMillsResults();
+						// } else {
+						// 	knownDeferred.resolve();
+						// }
+						//
+						// // If the mill points are custom, use our API, our API requires a bit more pre processing since
+						// // the geometry being analyzed is custom and of various sizes
+						// if (customMills.length > 0) {
+						// 	getCustomMillsResults();
+						// } else {
+						// 	customDeferred.resolve(false);
+						// }
+						//
+						// function getKnownMillsResults () {
+						// 	var request = new XMLHttpRequest(), response;
+						//
+						// 	request.open('POST', config.url, true);
+						// 	request.onreadystatechange = function (res) {
+						// 		if (request.readyState === 4) {
+						// 			if (request.status === 200) {
+						// 				response = JSON.parse(request.response);
+						// 				if (response.mills) {
+						// 					// ReportRenderer.renderMillAssessment(response.mills, config);
+						// 					knownDeferred.resolve(response.mills);
+						// 				} else {
+						// 					knownDeferred.resolve(false);
+						// 				}
+						// 			} else {
+						// 				knownDeferred.resolve(false);
+						// 			}
+						// 		}
+						// 	};
+						//
+						// 	request.addEventListener('error', function () {
+						// 		knownDeferred.resolve(false);
+						// 	}, false);
+						//
+						// 	var formData = new FormData();
+						// 	formData.append('mills', knownMills.map(function (mill) { return mill.millId; }).join(','));
+						// 	// Construct the POST Content in HERE for each Mill
+						// 	request.send(formData);
+						//
+						// }
+						//
+						// function getCustomMillsResults () {
+						// 	RiskHelper.prepareFeatures(customMills).then(function (millObjects) {
+						// 		customDeferred.resolve(millObjects);
+						// 	});
+						// }
+						//
+						// all([customDeferred, knownDeferred]).then(function (results) {
+						// 	// Merge the Results, then Render them
+						// 	var mills = [];
+						// 	arrayUtils.forEach(results, function (millResult) {
+						// 		if (millResult) {
+						// 			mills = mills.concat(millResult);
+						// 		}
+						// 	});
+						//
+							// ReportRenderer.renderMillAssessment(mills, config);
+							// deferred.resolve(true);
+						// });
 
 						return deferred.promise;
 				},
@@ -983,34 +973,31 @@ define([
 						var deferred = new Deferred(),
 								polygon = new Polygon(report.geometry),
 								time = new Date(),
-								dateString = "",
-								errorCount = 0,
-								self = this,
-								defs = [],
+								dateString = '',
 								params2,
 								params1,
 								task2,
 								task1;
 
 						params1 = new Query();
-						task1 = new QueryTask(ReportConfig.fires.url + "/4");
+						task1 = new QueryTask(ReportConfig.fires.url + '/4');
 						params1.geometry = polygon;
 						params1.returnGeometry = false;
-						params1.outFields = ["*"];
-						params1.where = "1 = 1";
+						params1.outFields = ['*'];
+						params1.where = '1 = 1';
 
 
 						// This query is only temporary until moratorium data is added to the main layer above
 						// This needs to be addressed so this code can be removed
-						task2 = new QueryTask("http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0");
+						task2 = new QueryTask('http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
 						params2 = new Query();
 						params2.geometry = polygon;
 						params2.returnGeometry = false;
-						params2.outFields = ["moratorium"];
+						params2.outFields = ['moratorium'];
 						time.setDate(time.getDate() - 8);
-						dateString = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" +
-								time.getDate() + " " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds();
-						params2.where = "ACQ_DATE > date '" + dateString + "'";
+						dateString = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' +
+								time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+						params2.where = 'ACQ_DATE > date \'' + dateString + '\'';
 
 						all([
 								task1.execute(params1),
@@ -1055,7 +1042,7 @@ define([
 								report.clearanceLabels = [];
 								for (var i = res.minValues[0], length = res.maxValues[0]; i <= length; i++) {
 										month = i % 12 === 0 ? 12 : i % 12;
-										report.clearanceLabels.push(month + "-" + (config.baseYearLabel + incrementer));
+										report.clearanceLabels.push(month + '-' + (config.baseYearLabel + incrementer));
 										if (i % 12 === 0) {
 												++incrementer;
 										}
@@ -1079,8 +1066,6 @@ define([
 				},
 
 				_getEncodingFunction: function(arrayA, arrayB, options) {
-
-						var self = this;
 
 						return {
 								A: arrayFromBounds(arrayA),

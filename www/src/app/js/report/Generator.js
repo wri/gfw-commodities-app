@@ -200,7 +200,6 @@ define([
 
             // Parse the geometry from the global payload object
             var areasToAnalyze = JSON.parse(window.payload.geometry);
-            console.log(areasToAnalyze)
 
             // If we have a single polygon, grab the geometry and begin
             // If we have a single circle, convert to polygon and then continue
@@ -221,7 +220,6 @@ define([
                 report.geometry = new Polygon(area.geometry);
 
               }
-              console.log(report.centerPoints);
               this.beginAnalysis();
 
             } else {
@@ -326,8 +324,8 @@ define([
 
             // Get area
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
-            report.areaPromise.then(function (area) {
-              document.getElementById("total-area").innerHTML = area ? area : "Not Available";
+            report.areaPromise.then(function (totalArea) {
+              document.getElementById('total-area').innerHTML = totalArea ? totalArea : 'Not Available';
             });
 
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on
@@ -406,10 +404,8 @@ define([
         */
         _getDeferredsForItems: function(items) {
             var deferreds = [];
-            console.log(items);
 
             arrayUtils.forEach(items, function(item) {
-              console.log(item)
                 switch (item) {
                     case 'suit':
                         deferreds.push(Fetcher._getSuitabilityAnalysis());

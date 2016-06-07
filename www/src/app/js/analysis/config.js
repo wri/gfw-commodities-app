@@ -190,7 +190,7 @@ define([], function() {
                 description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.'
             },
             mill: {
-                label: 'Mill Point Risk Assessment',
+                label: 'PALM Risk Tool',
                 value: 'mill',
                 description: 'Analyze deforestation-related risks for a mill or set of mills.'
             },
