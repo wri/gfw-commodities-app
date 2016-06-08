@@ -880,8 +880,16 @@ define([
 							// getMillRisk is an es6 module compiled to es5, it exports a default function which outside an es6 app,
 							// whether it is CJS, AMD, or global, needs to be accessed as getMillRisk.default
 							// It takes an esri Point object and a label, and optionally a radius
-							millPoint = new Point(mill.point.geometry);
-							requests.push(getMillRisk.default(millPoint, mill.label));
+							if (mill.type === 'circle') {
+								var polygon = new Polygon(mill.geometry);
+								var extent = polygon && polygon.getExtent();
+								millPoint = extent && extent.getCenter();
+							} else {
+								millPoint = new Point(mill.point.geometry);
+							}
+							if (millPoint) {
+								requests.push(getMillRisk.default(millPoint, mill.label));
+							}
 						});
 
 						all(requests).then(function (mills) {
