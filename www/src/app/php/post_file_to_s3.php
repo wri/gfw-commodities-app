@@ -12,17 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'region' => 'us-east-1'
       ));
 
+
+
       $urls = "";
       $bucket=getenv('bucket');
-      // $key=getenv('AWS_ACCESS_KEY_ID');
-      // $secret=getenv('AWS_SECRET_ACCESS_KEY');
-
       if(isset($_FILES['dataFile'])){
 
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $_FILES['dataFile']['name'],
-            'SourceFile'   => $_FILES['dataFile']['tmp_name']
+            'SourceFile'   => $_FILES['dataFile']['tmp_name'],
+            'ACL'          => 'public-read'
         ));
         $urls = $urls . $result['ObjectURL'];
 
@@ -32,12 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $_FILES['attributeFile']['name'],
-            'SourceFile'   => $_FILES['attributeFile']['tmp_name']
+            'SourceFile'   => $_FILES['attributeFile']['tmp_name'],
+            'ACL'          => 'public-read'
         ));
-
         $urls = $urls . ";" . $result['ObjectURL'];
-
-        // $signedUrl = $s3->getObjectUrl($bucket, $_FILES['attributeFile']['name'], '+15 minutes');
 
       }
 
@@ -79,14 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // print_r($credentials);
       // print_r($email_result);
       // print_r($urls);
-
-      // $obj = new stdClass();
-      // $obj->URL = $urls;
-      // $obj->SIGNED_URL = $signedUrl;
-
-      // print_r($obj);
-      // print_r({$urls);
-      // print_r('{URL:' & $urls & ',SIGNED_URL:' & $signedUrl);
 
   } catch (S3Exception $e) {
       echo "ERROR" . $e->getMessage() . "\n";

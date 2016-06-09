@@ -97,8 +97,6 @@ define([
         var dataFile = $('#dataInput')[0].files[0];
         var attributeFile = $('#attributeDataInput')[0].files[0];
 
-        console.log('dataFile', dataFile);
-        console.log('attributeFile', attributeFile);
 
         if (dataFile) {
 
@@ -130,7 +128,7 @@ define([
               console.log(response);
               self.uploadToAGOL(response);
             },
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function () {
               submitModal.addError('s3Error');
               node = submitModal.getDOMNode();
               domClass.remove(node.parentNode, 'hidden');
@@ -189,7 +187,6 @@ define([
       attributes.company = self.model.storyCompanyData();
       attributes.title = self.model.storyTitleData();
       attributes.email = self.model.storyEmailData();
-
       if (self.model.storyDetailsData()) {
           attributes.notes = self.model.storyDetailsData();
       }
@@ -201,14 +198,15 @@ define([
       if (url2) {
         attributes.attribute_url = url2;
       }
-      var point = new Point(0, 0); //todo: get this dynamically
-      var graphic = new Graphic();
-      graphic.setAttributes(attributes);
-      graphic.setGeometry(point);
 
-      var features = [graphic];
+      var features = [
+        {
+          attributes: attributes
+        }
+      ];
 
-      var proxyUrl = 'http://commodities-test.herokuapp.com/app/php/proxy.php';
+      // var proxyUrl = 'http://commodities-test.herokuapp.com/app/php/proxy.php';
+      var proxyUrl = './app/php/proxy.php';
 
       esri.config.defaults.io.proxyUrl = proxyUrl;
       esri.config.defaults.io.alwaysUseProxy = false;

@@ -30,10 +30,10 @@ define([
 
 
                 Model.vm.mediaChange = function(obj, evt) {
-                  require(["controllers/SubmissionController"], function(SubmissionController) {
+                  require(['controllers/SubmissionController'], function(SubmissionController) {
                       SubmissionController.handleFileChange(obj, evt);
                   });
-                }
+                };
 
                 // Model.vm.mediaChange2 = function(obj, evt) {
                 //   require(["controllers/SubmissionController"], function(SubmissionController) {
@@ -41,11 +41,11 @@ define([
                 //   });
                 // }
 
-                Model.vm.dataSubmit = function(obj, evt) {
-                    require(["controllers/SubmissionController"], function(SubmissionController) {
+                Model.vm.dataSubmit = function(obj) {
+                    require(['controllers/SubmissionController'], function(SubmissionController) {
                         SubmissionController.handleDataSubmit(obj);
                     });
-                }
+                };
 
                 // Apply Bindings upon initialization
                 ko.applyBindings(Model.vm, document.getElementById(el));
