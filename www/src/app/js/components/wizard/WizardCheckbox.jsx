@@ -10,39 +10,40 @@ define([
       label: React.PropTypes.string.isRequired,
       value: React.PropTypes.string.isRequired
     },
+    //
+    // getInitialState: function() {
+    //   return {
+    //     active: this.props.defaultChecked || false
+    //     // defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
+    //   };
+    // },
 
-    getInitialState: function() {
-      return {
-        active: this.props.defaultChecked || false,
-        defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
-      };
-    },
+    // componentWillReceiveProps: function(newProps) {
+    //   if (newProps.isResetting) {
+    //     this.replaceState(this.getInitialState());
+    //   }
+    //   console.log(newProps.checkedFromPopup);
+    //   if (newProps.checkedFromPopup === true) {
+    //     this.setState({
+    //       active: true
+    //     });
+    //   }
+    //   // else if (this.state.defaultOff.indexOf(newProps.value) > -1) {
+    //   //   this.setState({
+    //   //     active: false
+    //   //   });
+    //   // }
+    // },
 
-    componentWillReceiveProps: function(newProps) {
-      if (newProps.isResetting) {
-        this.replaceState(this.getInitialState());
-      }
-      console.log(newProps.checkedFromPopup);
-      if (newProps.checkedFromPopup === true) {
-        this.setState({
-          active: true
-        });
-      } else if (this.state.defaultOff.indexOf(newProps.value) > -1) {
-        this.setState({
-          active: false
-        });
-      }
-    },
-
-    componentDidUpdate: function(prevProps, prevState) {
-      if (this.props.change && (prevState.active !== this.state.active)) {
-        this.props.change(this.state.active);
-      }
-    },
+    // componentDidUpdate: function(prevProps, prevState) {
+    //   if (this.props.change && (prevState.active !== this.state.active)) {
+    //     this.props.change(this.props.value);
+    //   }
+    // },
 
     /* jshint ignore:start */
     render: function() {
-      var className = 'wizard-checkbox' + (this.state.active ? ' active' : '');
+      var className = 'wizard-checkbox' + (this.props.checked ? ' active' : '');
 
       return (
         <div className='wizard-checkbox-container'>
@@ -62,7 +63,8 @@ define([
     /* jshint ignore:end */
 
     toggle: function() {
-      this.setState({ active: !this.state.active });
+      this.props.change(this.props.value);
+      // this.setState({ active: !this.state.active });
     },
 
     showInfo: function() {

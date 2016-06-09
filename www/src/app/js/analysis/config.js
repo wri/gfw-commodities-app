@@ -123,33 +123,40 @@ define([], function() {
                 checked: true
             }, {
                 label: 'Tree Cover Density',
-                value: 'treeDensity'
+                value: 'treeDensity',
+                checked: false
             }, {
                 label: 'Legal Classes',
-                value: 'legal'
+                value: 'legal',
+                checked: false
             }, {
                 label: 'Protected Areas',
                 value: 'protected',
                 checked: true
             }, {
                 label: 'Aboveground Biomass Density',
-                value: 'carbon'
+                value: 'carbon',
+                checked: false
             }, {
                 label: 'Brazil Biomes',
-                value: 'biomes'
+                value: 'biomes',
+                checked: false
             }, {
                 label: 'Intact Forests',
                 value: 'intact',
                 checked: true
             }, {
                 label: 'Land Cover - Global',
-                value: 'landCoverGlob'
+                value: 'landCoverGlob',
+                checked: false
             }, {
                 label: 'Land Cover - SE Asia',
-                value: 'landCoverAsia'
+                value: 'landCoverAsia',
+                checked: false
             }, {
                 label: 'Land Cover - Indonesia',
-                value: 'landCoverIndo'
+                value: 'landCoverIndo',
+                checked: false
             }, {
                 label: 'Peat Lands',
                 value: 'peat',
@@ -161,23 +168,28 @@ define([], function() {
             }, {
                 label: 'Indonesia Moratorium',
                 value: 'indonesiaMoratorium',
-                noInfoIcon: true
+                noInfoIcon: true,
+                checked: false
             }, {
                 label: 'Prodes deforestation',
                 value: 'prodes',
-                noInfoIcon: true
+                noInfoIcon: true,
+                checked: false
             }, {
                 label: 'Plantations by Type',
                 value: 'plantationsTypeLayer',
-                noInfoIcon: true
+                noInfoIcon: true,
+                checked: false
             }, {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
-                noInfoIcon: true
+                noInfoIcon: true,
+                checked: false
             }, {
                 label: 'GLAD Alerts',
                 value: 'gladAlerts',
-                noInfoIcon: true
+                noInfoIcon: true,
+                checked: false
             }],
             suit: {
                 label: 'Oil Palm Suitability',
@@ -196,6 +208,7 @@ define([], function() {
             },
             forestChange: {
                 label: 'Forest Change Analysis',
+                value: 'fca',
                 description: 'Analyze tree cover loss and fire activity according to the selected variable(s).'
             }
         },
@@ -382,7 +395,8 @@ define([], function() {
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
             analysisPointRadius: 'analysisPointRadius',
-            alertsDialogActive: 'alertsDialogActive'
+            alertsDialogActive: 'alertsDialogActive',
+            forestChangeCheckbox: 'forestChangeCheckbox'
         }
     };
 

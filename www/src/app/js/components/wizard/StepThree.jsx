@@ -9,9 +9,18 @@ define([
     var config = AnalyzerConfig.stepThree;
     var treeClosed = '<use xlink:href="#tree-closed" />';
     var treeOpen = '<use xlink:href="#tree-open" />';
+    var cacheArray = [];
         // labelField = AnalyzerConfig.stepTwo.labelField;
 
     var KEYS = AnalyzerConfig.STORE_KEYS;
+
+    function getDefaultCheckedState() {
+      return config.checkboxes.filter(function(item) {
+        return item.checked;
+      }).map(function(item) {
+        return item.value;
+      }).concat([config.forestChange.value]);
+    }
 
     function getCurrentSelectionLabel () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
@@ -23,6 +32,8 @@ define([
       return {
         completed: false,
         optionsExpanded: false,
+        forestChangeCategory: true,
+        forestChangeCheckbox: getDefaultCheckedState(),
         currentSelectionLabel: getCurrentSelectionLabel()
       };
     }
@@ -35,6 +46,8 @@ define([
 
       componentDidMount: function () {
         WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
+        // WizardStore.registerCallback(KEYS.forestChangeCheckbox, this.checkboxesUpdated);
+        // WizardStore.set(KEYS.forestChangeCheckbox, this.state.forestChangeCheckbox);
       },
 
       analysisAreaUpdated: function () {
@@ -46,6 +59,11 @@ define([
         // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
         this.setState({ optionsExpanded: !this.state.optionsExpanded });
       },
+
+      // checkboxesUpdated: function () { //todo: toggle these open (or not) on analysis via popup!
+      //   // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+      //   this.setState({ forestChangeCheckbox: WizardStore.get(KEYS.forestChangeCheckbox) });
+      // },
 
       componentDidUpdate: function () {
         // var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
@@ -70,12 +88,7 @@ define([
       },
 
       resetForestChange: function() {
-        console.log("resetForestChange");
-        config.checkboxes.forEach(function(checkbox) {
-          checkbox.checked = false;
-          console.log(checkbox);
-        });
-        this.forceUpdate();
+        this.setState({forestChangeCheckbox: getDefaultCheckedState()});
       },
 
       /* jshint ignore:start */
@@ -83,6 +96,7 @@ define([
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
         var optionsExpanded = this.state.optionsExpanded;
+        var checkedValues = this.state.forestChangeCheckbox;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
           return feature.geometry.type === 'point';
         });
@@ -100,27 +114,26 @@ define([
                     null
                 }
                 <div className='relative forestChange-description'>
-                <WizardCheckbox onClick={this.toggleOptions} change={this._selectionMade} isResetting={this.props.isResetting} label={config.forestChange.label} noInfoIcon={true} />
+                <WizardCheckbox onClick={this.toggleOptions} value={config.forestChange.value} checked={checkedValues.indexOf(config.forestChange.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} label={config.forestChange.label} noInfoIcon={true} />
                 <svg onClick={this.toggleOptions} className={`analysis-expander ${optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: optionsExpanded ? treeOpen : treeClosed }}/>
 
 
                 </div>
-                <p className={`reset-forest-change ${optionsExpanded === false ? 'transition-hidden' : ''}`} onClick={this.resetForestChange}>Test</p>
+                <p className={`reset-forest-change ${optionsExpanded === false ? 'transition-hidden' : ''}`} onClick={this.resetForestChange}>Reset</p>
                 <div className={`checkbox-list ${optionsExpanded === false ? 'transition-hidden' : ''}`}>
                 <div>
                   {config.checkboxes.map(this._mapper, this)}
-                  {console.log(this._mapper)};
                 </div>
                 </div>
 
-                <WizardCheckbox label={config.suit.label} value={config.suit.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                <WizardCheckbox label={config.suit.label} value={config.suit.value} checked={checkedValues.indexOf(config.suit.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                 <p className='layer-description'>{config.suit.description}</p>
-                <WizardCheckbox label={config.rspo.label} value={config.rspo.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                <WizardCheckbox label={config.rspo.label} value={config.rspo.value} checked={checkedValues.indexOf(config.rspo.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                 <p className='layer-description'>{config.rspo.description}</p>
                 <div className={selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden'}
                   style={{ 'position': 'relative' }}
                 >
-                <WizardCheckbox label={config.mill.label} value={config.mill.value} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                <WizardCheckbox label={config.mill.label} value={config.mill.value} checked={checkedValues.indexOf(config.mill.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                 <p className='layer-description'>{config.mill.description}</p>
 
                 </div>
@@ -142,10 +155,16 @@ define([
 
       _mapper: function(item) {
         var checkedFromPopup = this.checkedOverride(item.label);
+        var checkedValues = this.state.forestChangeCheckbox;
 
-        return <WizardCheckbox label={item.label} value={item.value} checkedFromPopup={checkedFromPopup} change={this._selectionMade}
+        return <WizardCheckbox
+          label={item.label}
+          value={item.value}
+          checkedFromPopup={checkedFromPopup}
+          change={this._selectionMade}
           isResetting={this.props.isResetting} // Pass Down so Components receive the reset command
-          defaultChecked={item.checked || false} noInfoIcon={item.noInfoIcon || false}
+          checked={checkedValues.indexOf(item.value) > -1 || checkedFromPopup}
+          noInfoIcon={item.noInfoIcon || false}
         />;
       },
 
@@ -172,13 +191,48 @@ define([
 
       /* jshint ignore:end */
 
-      _selectionMade: function() {
-        var completed = this._checkRequirements();
+      _selectionMade: function(checkboxValue) {
+        var a = this.state.forestChangeCheckbox.slice();
 
+        if(checkboxValue && checkboxValue === config.forestChange.value) {
+          this.toggleFca(a.indexOf(checkboxValue) > -1);
+        } else if(checkboxValue){
+          var index = a.indexOf(checkboxValue);
+
+          if(index > -1) {
+            a.splice(index, 1);
+          } else {
+            a.push(checkboxValue);
+          }
+          this.setState({forestChangeCheckbox: a});
+        }
+        var completed = this._checkRequirements();
         let oldCompleted = this.state.completed;
         if (oldCompleted !== completed) {
           this.setState({ completed: completed });
         }
+      },
+
+      toggleFca: function(currentChecked) {
+        alert(currentChecked);
+        var checkedValues = this.state.forestChangeCheckbox.slice();
+        if(!currentChecked){
+          checkedValues = checkedValues.concat(cacheArray);
+          checkedValues.push(config.forestChange.value);
+        } else {
+          cacheArray = [];
+          config.checkboxes.forEach(function(item) {
+            if(checkedValues.indexOf(item.value) > -1) {
+              cacheArray.push(item.value);
+            }
+          });
+          cacheArray.forEach(function(value) {
+            checkedValues.splice(checkedValues.indexOf(value), 1);
+          });
+          checkedValues.splice(checkedValues.indexOf(config.forestChange.value), 1);
+        }
+        console.log(checkedValues);
+        this.setState({forestChangeCheckbox: checkedValues});
       },
 
       checkedOverride: function(itemLabel) {
