@@ -113,6 +113,7 @@ define([
             form_data.append('attributeFileName', attributeFileName);
             form_data.append('attributeFileType', attributeFileType);
           }
+          console.log(dataFile);
 
           console.log(form_data);
 
