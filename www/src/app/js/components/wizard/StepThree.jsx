@@ -46,8 +46,22 @@ define([
 
       componentDidMount: function () {
         WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
+        WizardStore.registerCallback(KEYS.areaOfInterest, this.AOIupdated);
         // WizardStore.registerCallback(KEYS.forestChangeCheckbox, this.checkboxesUpdated);
         // WizardStore.set(KEYS.forestChangeCheckbox, this.state.forestChangeCheckbox);
+      },
+
+      AOIupdated: function () {
+        var aoi = WizardStore.get(KEYS.areaOfInterest);
+        var checkedValues = this.state.forestChangeCheckbox.slice();
+        config.checkboxes.some(function(checkbox) {
+          if(aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
+            console.log(this);
+            checkedValues.push(checkbox.value);
+            this.setState({forestChangeCheckbox: checkedValues});
+            return true;
+          }
+        }, this);
       },
 
       analysisAreaUpdated: function () {
@@ -154,16 +168,14 @@ define([
       },
 
       _mapper: function(item) {
-        var checkedFromPopup = this.checkedOverride(item.label);
         var checkedValues = this.state.forestChangeCheckbox;
 
         return <WizardCheckbox
           label={item.label}
           value={item.value}
-          checkedFromPopup={checkedFromPopup}
           change={this._selectionMade}
           isResetting={this.props.isResetting} // Pass Down so Components receive the reset command
-          checked={checkedValues.indexOf(item.value) > -1 || checkedFromPopup}
+          checked={checkedValues.indexOf(item.value) > -1}
           noInfoIcon={item.noInfoIcon || false}
         />;
       },
@@ -231,13 +243,11 @@ define([
           });
           checkedValues.splice(checkedValues.indexOf(config.forestChange.value), 1);
         }
-        console.log(checkedValues);
         this.setState({forestChangeCheckbox: checkedValues});
       },
 
       checkedOverride: function(itemLabel) {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-        console.log(selectedAreaOfInterest);
         // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
         if (selectedAreaOfInterest === itemLabel) {
           return true;
