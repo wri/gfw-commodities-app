@@ -9,9 +9,16 @@ define([
     var config = AnalyzerConfig.stepThree;
     var treeClosed = '<use xlink:href="#tree-closed" />';
     var treeOpen = '<use xlink:href="#tree-open" />';
-    // labelField = AnalyzerConfig.stepTwo.labelField;
-
+    var cacheArray = [];
     var KEYS = AnalyzerConfig.STORE_KEYS;
+
+    function getDefaultCheckedState() {
+      return config.checkboxes.filter(function(item) {
+        return item.checked;
+      }).map(function(item) {
+        return item.value;
+      }).concat([config.forestChange.value]);
+    }
 
     function getCurrentSelectionLabel () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
@@ -23,6 +30,8 @@ define([
       return {
         completed: false,
         optionsExpanded: false,
+        forestChangeCategory: true,
+        forestChangeCheckbox: getDefaultCheckedState(),
         currentSelectionLabel: getCurrentSelectionLabel()
       };
     }
@@ -35,6 +44,22 @@ define([
 
       componentDidMount: function () {
         WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
+        WizardStore.registerCallback(KEYS.areaOfInterest, this.AOIupdated);
+        // WizardStore.registerCallback(KEYS.forestChangeCheckbox, this.checkboxesUpdated);
+        // WizardStore.set(KEYS.forestChangeCheckbox, this.state.forestChangeCheckbox);
+      },
+
+      AOIupdated: function () {
+        var aoi = WizardStore.get(KEYS.areaOfInterest);
+        var checkedValues = this.state.forestChangeCheckbox.slice();
+        config.checkboxes.some(function(checkbox) {
+          if(aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
+            console.log(this);
+            checkedValues.push(checkbox.value);
+            this.setState({forestChangeCheckbox: checkedValues});
+            return true;
+          }
+        }, this);
       },
 
       analysisAreaUpdated: function () {
@@ -44,6 +69,11 @@ define([
       toggleOptions: function () { //todo: toggle these open (or not) on analysis via popup!
         this.setState({ optionsExpanded: !this.state.optionsExpanded });
       },
+
+      // checkboxesUpdated: function () { //todo: toggle these open (or not) on analysis via popup!
+      //   // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+      //   this.setState({ forestChangeCheckbox: WizardStore.get(KEYS.forestChangeCheckbox) });
+      // },
 
       componentDidUpdate: function () {
         // var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
@@ -67,10 +97,16 @@ define([
         return WizardStore.get(KEYS.userStep) === 3;
       },
 
+      resetForestChange: function() {
+        this.setState({forestChangeCheckbox: getDefaultCheckedState()});
+      },
+
       /* jshint ignore:start */
       render: function() {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        var optionsExpanded = this.state.optionsExpanded;
+        var checkedValues = this.state.forestChangeCheckbox;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
           return feature.geometry.type === 'point';
         });
@@ -87,30 +123,32 @@ define([
                     this.createPointContent(hasPoints) :
                     null, 
                 
-                React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("div", {className: "relative forestChange-description"}, 
+                React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
+                React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
+
+
+                ), 
+                React.createElement("p", {className: ("reset-forest-change " + (optionsExpanded === false ? 'transition-hidden' : '')), onClick: this.resetForestChange}, "Reset"), 
+                React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
+                React.createElement("div", null, 
+                  config.checkboxes.map(this._mapper, this)
+                )
+                ), 
+
+                React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, checked: checkedValues.indexOf(config.suit.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
                 React.createElement("p", {className: "layer-description"}, config.suit.description), 
-                React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, checked: checkedValues.indexOf(config.rspo.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
                 React.createElement("p", {className: "layer-description"}, config.rspo.description), 
                 React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
                   style: { 'position': 'relative'}
                 }, 
-                React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
 
                 ), 
-                React.createElement("div", {className: "step-sub-header"}, 
-                React.createElement("span", {onClick: this.toggleOptions, className: ("forestChange-description " + (this.state.optionsExpanded ? 'open' : 'closed'))}, config.forestChange.label), 
-
-                
-                  this.state.optionsExpanded === true ? React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeOpen}}) :
-                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (this.state.optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: treeClosed}})
-                
-                ), 
                 React.createElement("p", {className: "layer-description"}, config.forestChange.description)
-              ), 
-
-              React.createElement("div", {className: ("checkbox-list " + (this.state.optionsExpanded === false ? 'transition-hidden' : ''))}, config.checkboxes.map(this._mapper, this))
-
+              )
             ), 
             React.createElement("div", {className: "step-footer"}, 
               React.createElement("div", {className: "selected-analysis-area"}, 
@@ -126,11 +164,15 @@ define([
       },
 
       _mapper: function(item) {
-        var checkedFromPopup = this.checkedOverride(item.label);
+        var checkedValues = this.state.forestChangeCheckbox;
 
-        return React.createElement(WizardCheckbox, {label: item.label, value: item.value, checkedFromPopup: checkedFromPopup, change: this._selectionMade, 
+        return React.createElement(WizardCheckbox, {
+          label: item.label, 
+          value: item.value, 
+          change: this._selectionMade, 
           isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
-          defaultChecked: item.checked || false, noInfoIcon: item.noInfoIcon || false}
+          checked: checkedValues.indexOf(item.value) > -1, 
+          noInfoIcon: item.noInfoIcon || false}
         );
       },
 
@@ -157,18 +199,51 @@ define([
 
       /* jshint ignore:end */
 
-      _selectionMade: function() {
-        var completed = this._checkRequirements();
+      _selectionMade: function(checkboxValue) {
+        var a = this.state.forestChangeCheckbox.slice();
 
-        var oldCompleted = this.state.completed;
+        if(checkboxValue && checkboxValue === config.forestChange.value) {
+          this.toggleFca(a.indexOf(checkboxValue) > -1);
+        } else if(checkboxValue){
+          var index = a.indexOf(checkboxValue);
+
+          if(index > -1) {
+            a.splice(index, 1);
+          } else {
+            a.push(checkboxValue);
+          }
+          this.setState({forestChangeCheckbox: a});
+        }
+        var completed = this._checkRequirements();
+        let oldCompleted = this.state.completed;
         if (oldCompleted !== completed) {
           this.setState({ completed: completed });
         }
       },
 
+      toggleFca: function(currentChecked) {
+        alert(currentChecked);
+        var checkedValues = this.state.forestChangeCheckbox.slice();
+        if(!currentChecked){
+          checkedValues = checkedValues.concat(cacheArray);
+          checkedValues.push(config.forestChange.value);
+        } else {
+          cacheArray = [];
+          config.checkboxes.forEach(function(item) {
+            if(checkedValues.indexOf(item.value) > -1) {
+              cacheArray.push(item.value);
+            }
+          });
+          cacheArray.forEach(function(value) {
+            checkedValues.splice(checkedValues.indexOf(value), 1);
+          });
+          checkedValues.splice(checkedValues.indexOf(config.forestChange.value), 1);
+        }
+        this.setState({forestChangeCheckbox: checkedValues});
+      },
+
       checkedOverride: function(itemLabel) {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-        console.log(selectedAreaOfInterest);
         // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
         if (selectedAreaOfInterest === itemLabel) {
           return true;

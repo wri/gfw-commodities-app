@@ -10,11 +10,12 @@ define([
   "dojo/dom-class",
   "map/config",
   "map/MapModel",
+	"map/CoordinatesModal",
   "map/Uploader",
   "map/Symbols",
   "utils/GeoHelper",
   "components/featureList/FeatureList"
-], function (React, AnalyzerConfig, WizardStore, Graphic, Draw, dom, dojoQuery, domClass, MapConfig, MapModel, Uploader, Symbols, GeoHelper, FeatureList) {
+], function (React, AnalyzerConfig, WizardStore, Graphic, Draw, dom, dojoQuery, domClass, MapConfig, MapModel, CoordinatesModal, Uploader, Symbols, GeoHelper, FeatureList) {
 
   var drawToolbar,
       activeTool;
@@ -72,9 +73,10 @@ define([
         React.createElement("div", {className: "custom-area"}, 
           React.createElement("p", {className: "drawing-instructions"}, " ", AnalyzerConfig.customArea.instructions, " "), 
           React.createElement("div", {className: "drawing-tools"}, 
+						React.createElement("div", {className: "drawing-tool-button", id: "draw-coordinates", "data-label": AnalyzerConfig.customArea.customCoordLabel, onClick: this.drawToolClicked}, AnalyzerConfig.customArea.customCoordLabel), 
             React.createElement("div", {className: "drawing-tool-button", id: "draw-freehand", "data-label": AnalyzerConfig.customArea.freehandLabel, onClick: this._activateToolbar}, AnalyzerConfig.customArea.freehandLabel), 
             React.createElement("div", {className: "drawing-tool-button", id: "draw-polygon", "data-label": AnalyzerConfig.customArea.polyLabel, onClick: this._activateToolbar}, AnalyzerConfig.customArea.polyLabel), 
-            React.createElement("div", {className: "drawing-tool-button", id: "draw-upload", "data-label": AnalyzerConfig.customArea.uploadLabel, onClick: Uploader.toggle.bind(Uploader)}, AnalyzerConfig.customArea.uploadLabel)
+            React.createElement("div", {className: "drawing-tool-button", id: "draw-upload", "data-label": AnalyzerConfig.customArea.uploadLabel, onClick: this.drawToolClicked}, AnalyzerConfig.customArea.uploadLabel)
           ), 
           React.createElement("div", {className: "custom-graphics-list-container"}, 
             React.createElement("p", {className: "drawing-instructions"}, AnalyzerConfig.customArea.instructionsPartTwo), 
@@ -84,6 +86,23 @@ define([
       );
     },
     /* jshint ignore:end */
+
+		drawToolClicked: function (evt) {
+			// Split off the key and save it here as it is the key to which node was clicked
+			var id = evt.target.id;
+
+			switch (id) {
+				case "draw-coordinates":
+					Uploader.close();
+					CoordinatesModal.toggle();
+				break;
+				case "draw-upload":
+					CoordinatesModal.close();
+					Uploader.toggle();
+				break;
+			}
+
+		},
 
     _activateToolbar: function (evt) {
 

@@ -3,13 +3,14 @@ define([
 	"react",
   "analysis/config",
   "analysis/WizardStore",
+	"map/CoordinatesModal",
   "actions/WizardActions",
   "components/wizard/MillPoint",
   "components/wizard/AdminUnit",
   "components/wizard/CustomArea",
   "components/wizard/CertifiedArea",
   "components/wizard/CommercialEntity"
-], function (React, AnalyzerConfig, WizardStore, WizardActions, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {  
+], function (React, AnalyzerConfig, WizardStore, CoordinatesModal, WizardActions, MillPoint, AdminUnit, CustomArea, CertifiedArea, CommercialEntity) {
   // Variables
   var title = AnalyzerConfig.stepTwo.title,
       // Selection Area Variables
@@ -54,9 +55,9 @@ define([
 
     analysisAreaUpdated: function () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-      
+
       if (currentFeatures.length > 0) {
-        this.setState({ 
+        this.setState({
           completed: true,
           currentSelectionLabel: getCurrentSelectionLabel()
         });
@@ -113,7 +114,7 @@ define([
         WizardActions.proceedToNextStep();
       }
     }
-    
+
   });
 
 });
