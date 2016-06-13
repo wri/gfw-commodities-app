@@ -25,6 +25,7 @@ define([], function() {
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
         aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
+        granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
         customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
@@ -178,6 +179,7 @@ define([], function() {
           'forest-change-tree-cover-loss': 'tree_cover_loss',
           'forest-change-tree-cover-gain': 'tree_cover_gain',
           'forest-change-forma-alerts': 'forma',
+          'forest-change-gran-chaco': 'gran_chaco_deforestation',
           'forest-change-nasa-active-fires': 'firms_active_fires',
           'forest-change-prodes-alerts': 'prodes',
           'forest-change-glad-alerts': 'umd_landsat_alerts',
@@ -293,6 +295,11 @@ define([], function() {
         gainHelper: {
             id: 'GainHelper',
             url: treeCoverGainImageUrl
+        },
+        granChaco: {
+            id: 'granChaco',
+            url: granChacoUrl,
+            defaultLayers: [0]
         },
         loss: {
             id: 'Loss',
@@ -670,7 +677,18 @@ define([], function() {
                 forceUnderline: true,
                 infoDivClass: 'forest-change-nasa-active-fires'
             }, {
-                kids: ['gladAlerts'],
+                id: 'granChaco',
+                title: 'Gran Chaco deforestation',
+                subtitle: '(monthly, 30m, Gran Chaco, Guyra)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'dynamic',
+                forceUnderline: true,
+                visible: true,
+                infoDivClass: 'forest-change-gran-chaco',
+                endChild: true
+            }, {
+                kids: ['gladAlerts', 'forma'],
                 id: 'treeCoverLossAlerts',
                 title: 'Tree Cover Loss Alerts',
                 subtitle: '(near real-time)',
@@ -687,19 +705,19 @@ define([], function() {
                 infoDivClass: 'forest-change-glad-alerts',
                 parent: 'treeCoverLossAlerts',
                 endChild: false
-              }, {
-                  id: 'forma',
-                  title: 'FORMA Alerts',
-                  subtitle: '(monthly, 500m, humid tropics)',
-                  filter: 'forest-change',
-                  type: 'radio',
-                  layerType: 'image',
-                  forceUnderline: true,
-                  visible: true,
-                  infoDivClass: 'forest-change-forma-alerts',
-                  parent: 'treeCoverLossAlerts',
-                  endChild: true
-              }, {
+            }, {
+                id: 'forma',
+                title: 'FORMA Alerts',
+                subtitle: '(monthly, 500m, humid tropics)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                forceUnderline: true,
+                visible: true,
+                infoDivClass: 'forest-change-forma-alerts',
+                parent: 'treeCoverLossAlerts',
+                endChild: false
+            }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',
                 subtitle: '(year 2000, 30m global, Hansen/UMD/Google/USGS/NASA)',

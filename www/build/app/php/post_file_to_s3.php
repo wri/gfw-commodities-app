@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $_FILES['dataFile']['name'],
-            'SourceFile'   => $_FILES['dataFile']['tmp_name'],
+            'Body'   => $_FILES['dataFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
         $urls = $urls . $result['ObjectURL'];
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $_FILES['attributeFile']['name'],
-            'SourceFile'   => $_FILES['attributeFile']['tmp_name'],
+            'Body'   => $_FILES['attributeFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
         $urls = $urls . ";" . $result['ObjectURL'];

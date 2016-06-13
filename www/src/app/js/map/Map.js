@@ -173,6 +173,8 @@ define([
 
             var firesLayer,
                 fireParams,
+                granChacoLayer,
+                granChacoParams,
                 plantationsTypeLayer,
                 plantationsTypeParams,
                 plantationsSpeciesLayer,
@@ -238,6 +240,17 @@ define([
             firesLayer = new ArcGISDynamicLayer(MapConfig.fires.url, {
                 imageParameters: fireParams,
                 id: MapConfig.fires.id,
+                visible: false
+            });
+
+            granChacoParams = new ImageParameters();
+            granChacoParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            granChacoParams.layerIds = MapConfig.granChaco.defaultLayers;
+            granChacoParams.format = 'png32';
+
+            granChacoLayer = new ArcGISDynamicLayer(MapConfig.granChaco.url, {
+                imageParameters: granChacoParams,
+                id: MapConfig.granChaco.id,
                 visible: false
             });
 
@@ -632,6 +645,7 @@ define([
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
+                granChacoLayer,
                 // Points Layers
                 firesLayer,
                 plantationsTypeLayer,
@@ -661,11 +675,12 @@ define([
                     return (!item.layer.url ? false : (item.layer.url.search('ImageServer') < 0 && item.layer.id.search('Gain') < 0) && item.layer.id !== MapConfig.adminUnitsLayer.id);
                 });
 
-                registry.byId("legend").refresh(layerInfos);
+                registry.byId('legend').refresh(layerInfos);
 
             });
 
             firesLayer.on('error', this.addLayerError);
+            granChacoLayer.on('error', this.addLayerError);
             plantationsTypeLayer.on('error', this.addLayerError);
             plantationsSpeciesLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
