@@ -97,9 +97,9 @@ define([
         return WizardStore.get(KEYS.userStep) === 3;
       },
 
-      resetForestChange: function() {
-        this.setState({forestChangeCheckbox: getDefaultCheckedState()});
-      },
+      // resetForestChange: function() {
+      //   this.setState({forestChangeCheckbox: getDefaultCheckedState()});
+      // },
 
       /* jshint ignore:start */
       render: function() {
@@ -129,7 +129,6 @@ define([
 
 
                 </div>
-                <p className={`reset-forest-change ${optionsExpanded === false ? 'transition-hidden' : ''}`} onClick={this.resetForestChange}>Reset</p>
                 <div className={`checkbox-list ${optionsExpanded === false ? 'transition-hidden' : ''}`}>
                 <div>
                   {config.checkboxes.map(this._mapper, this)}
@@ -222,7 +221,6 @@ define([
       },
 
       toggleFca: function(currentChecked) {
-        alert(currentChecked);
         var checkedValues = this.state.forestChangeCheckbox.slice();
         if(!currentChecked){
           checkedValues = checkedValues.concat(cacheArray);
