@@ -160,24 +160,19 @@ define([], function() {
                 checked: true
             }, {
                 label: 'Indonesia Moratorium',
-                value: 'indonesiaMoratorium',
-                noInfoIcon: true
+                value: 'indonesiaMoratorium'
             }, {
                 label: 'Prodes deforestation',
-                value: 'prodes',
-                noInfoIcon: true
+                value: 'prodes'
             }, {
                 label: 'Plantations by Type',
-                value: 'plantationsTypeLayer',
-                noInfoIcon: true
+                value: 'plantationsTypeLayer'
             }, {
                 label: 'Plantations by Species',
-                value: 'plantationsSpeciesLayer',
-                noInfoIcon: true
+                value: 'plantationsSpeciesLayer'
             }, {
                 label: 'GLAD Alerts',
-                value: 'gladAlerts',
-                noInfoIcon: true
+                value: 'gladAlerts'
             }],
             suit: {
                 label: 'Oil Palm Suitability',

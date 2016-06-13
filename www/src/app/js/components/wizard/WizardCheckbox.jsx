@@ -66,9 +66,26 @@ define([
     },
 
     showInfo: function() {
+      console.log(this.props.value);
+
       switch (this.props.value) {
         case 'peat':
           this.props.infoDivClass = 'forest-and-land-cover-peat-lands';
+          break;
+        case 'gladAlerts':
+          this.props.infoDivClass = 'forest-change-glad-alerts';
+          break;
+        case 'plantationsTypeLayer':
+          this.props.infoDivClass = 'forest-and-land-cover-plantations';
+          break;
+        case 'plantationsSpeciesLayer':
+          this.props.infoDivClass = 'forest-and-land-cover-plantations';
+          break;
+        case 'indonesiaMoratorium':
+          this.props.infoDivClass = 'land-use-moratorium-areas';
+          break;
+        case 'prodes':
+          this.props.infoDivClass = 'forest-change-prodes-alerts';
           break;
         case 'treeDensity':
           this.props.infoDivClass = 'forest-and-land-cover-tree-cover-density';
