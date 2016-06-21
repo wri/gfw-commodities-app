@@ -856,7 +856,7 @@ define([], function() {
                 filter: 'forest-use',
                 type: 'check',
                 layerType: 'dynamic',
-                infoDivClass: 'land-use-logging',
+                infoDivClass: 'land-use-wood-fiber-plantation',
                 parent: 'newConcessions'
             }, {
                 id: 'minePerm',
@@ -874,7 +874,7 @@ define([], function() {
                 filter: 'forest-use',
                 type: 'check',
                 layerType: 'dynamic',
-                infoDivClass: 'land-use-wood-fiber-plantation',
+                infoDivClass: 'land-use-logging',
                 parent: 'newConcessions',
                 endChild: true
             }, {

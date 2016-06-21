@@ -1134,7 +1134,7 @@ define('map/config',[], function() {
                 filter: 'forest-use',
                 type: 'check',
                 layerType: 'dynamic',
-                infoDivClass: 'land-use-logging',
+                infoDivClass: 'land-use-wood-fiber-plantation',
                 parent: 'newConcessions'
             }, {
                 id: 'minePerm',
@@ -1152,7 +1152,7 @@ define('map/config',[], function() {
                 filter: 'forest-use',
                 type: 'check',
                 layerType: 'dynamic',
-                infoDivClass: 'land-use-wood-fiber-plantation',
+                infoDivClass: 'land-use-logging',
                 parent: 'newConcessions',
                 endChild: true
             }, {
@@ -13328,7 +13328,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.83',
+                path = './app/templates/' + name + '.html?v=2.5.84',
                 req;
 
             req = new XMLHttpRequest();
