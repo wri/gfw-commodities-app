@@ -1,19 +1,7 @@
 /* global window, document, location */
 (function(win, doc) {
-
-    function makePath (base, path) {
-      var position = base.length - 1;
-      return !path ?
-        (base.indexOf('/', position) !== position ? base + '/' : base) :
-        (base.indexOf('/', position) !== position ?
-          base + '/' + path :
-          base + path
-        );
-    }
-
     var version = '2.5.85',
-        // URL = location.pathname.replace(/\/[^/]+$/, '') + 'app',
-        URL = makePath(location.href.replace(/\/[^/]+$/, '/app')),
+        URL = location.pathname.replace(/\/[^/]+$/, '') + 'app',
         dojoConfig = {
             parseOnLoad: false,
             isDebug: false,
