@@ -5,7 +5,7 @@ define('main/config',{
   "urls": {
     "gfw": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
     "blog": "http://commodities.globalforestwatch.org/#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs",
-    "fires": "http://fires.globalforestwatch.org/#v=home",
+    "fires": "http://fires.globalforestwatch.org/map/#activeLayers=activeFires&activeBasemap=topo&x=115&y=0&z=5",
     "supplierMonitoring": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
     "SPOTT": "#"
 
@@ -23,42 +23,42 @@ define('main/config',{
 
   "homeModeOptions": [{
     'html': '<div class="home-slider-container">\n<h3>PALM OIL RISK TOOL</h3>\n<h4><span>NEW GFW COMMODITIES TOOL MEASURES</span>\n<span>DEFORESTATION RISK AROUND PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=-17.62&y=-0.89&l=3&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
-    'eventName': "goToMills",
+    'eventName': "goToWizard",
     'display': false,
     'id': 0,
     'tooltip': "Palm Oil Risk Tool",
     'imageBg': "./app/css/images/Slide-Picture6.jpg"
   },{
     "html": '<div class="home-slider-container">\n<h3>COMMODITIES MAP</h3>\n<h4><span>EXPLORE THE</span>\n<span>COMMODITIES MAP</span></h4>\n<div><a href="./#v=map&x=114.37&y=1.99&l=5&lyrs=tcc%2Closs">More Info</a></div>\n</div>',
-    "eventName": "goToFires",
+    "eventName": "goToMap",
     "display": false,
     "id": 1,
     "tooltip": "Commodities Map",
     "imageBg": "./app/css/images/Slide-Picture2.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>ANALYSIS</h3>\n<h4><span>ANALYZE FOREST COVER</span>\n<span>CHANGE IN A CONCESSION</span>\n<span>OR CUSTOM AREA</span></h4>\n<div><a href="./#v=map&x=104.27&y=1.99&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
-    "eventName": "goToMap",
+    "eventName": "goToAnalysis",
     "display": true,
     "id": 2,
     "tooltip": "Analysis",
     "imageBg": "./app/css/images/Slide-Picture1.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>SUPPLIER MONITORING</h3>\n<h4><span>MONITOR THE</span>\n<span>ACTIVITY NEAR</span>\n<span>PALM OIL MILLS</span></h4>\n<div><a href="./#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open">More Info</a></div>\n</div>',
-    "eventName": "goToZSL",
+    "eventName": "goToSupplier",
     "display": false,
     "id": 3,
     "tooltip": "Supplier Monitoring",
     "imageBg": "./app/css/images/Slide-Picture4.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>ALERTS</h3>\n<h4><span>SIGN UP FOR TREE</span>\n<span>CLEARANCE AND FIRE</span>\n<span>ALERTS FORS AREAS IN</span>\n<span>YOUR SUPPLY CHAIN</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
-    "eventName": "goToBlogs",
+    "eventName": "goToFires",
     "display": false,
     "id": 4,
     "tooltip": "Alerts",
     "imageBg": "./app/css/images/Slide-Picture3.jpg"
   }, {
     "html": '<div class="home-slider-container">\n<h3>COMMODITIES</h3>\n<h4><span>ANALYZE LAND USE</span>\n<span>CHANGE WITHIN RSPO</span>\n<span>CERTIFIED AREAS</span></h4>\n<div><a href="#">More Info</a></div>\n</div>',
-    "eventName": "goToZSL",
+    "eventName": "goToPalm",
     "display": false,
     "id": 5,
     "tooltip": "Explore Commodities",
@@ -7170,6 +7170,11 @@ define('map/LayerController',[
                 status,
                 value;
 
+
+                console.log(props);
+                console.log(layer);
+                
+
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
@@ -13328,7 +13333,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.84',
+                path = './app/templates/' + name + '.html?v=2.5.85',
                 req;
 
             req = new XMLHttpRequest();
@@ -14249,9 +14254,10 @@ define('controllers/Header',[
     "dojo/io-query",
     "dijit/Dialog",
     "utils/Hasher",
+    'utils/Helper',
     "main/config",
     "utils/NavListController"
-], function(on, dom, domStyle, query, hash, domClass, ioQuery, Dialog, Hasher, AppConfig, NavListController) {
+], function(on, dom, domStyle, query, hash, domClass, ioQuery, Dialog, Hasher, Helper, AppConfig, NavListController) {
     'use strict';
 
     var state = 'large', // large, small, or mobile
@@ -14399,10 +14405,25 @@ define('controllers/Header',[
             },
 
         updateView: function(view, isExternal, initialized) {
+          console.log(view);
 
             if (isExternal === "true") {
                 this.redirectPage(view);
                 return;
+            }
+
+            if (view === 'map-wizard') {
+              window.open(window.location.pathname + '#v=map&lyrs=tcc%2Closs%2Cmill%2CgfwMill&x=143.48&y=1.66&l=3&wiz=open', '_self');
+              return;
+            } else if (view === 'map-analysis') {
+              window.open(window.location.pathname + '#v=map&lyrs=oilPerm%2CrspoPerm%2ClogPerm%2CminePerm%2CwoodPerm&x=143.48&y=1.66&l=3&wiz=open', '_self');
+              return;
+            } else if (view === 'map-supplier') {
+              window.open(window.location.pathname + '#v=map&x=104.27&y=1.96&l=5&lyrs=tcc%2Closs%2Cmill%2CgfwMill&wiz=open', '_self');
+              return;
+            } else if (view === 'map-palm') {
+              window.open(window.location.pathname + '#v=map&lyrs=rspoPerm&x=-150.13&y=-1.9&l=3', '_self');
+              return;
             }
 
             query(".header .nav-link.selected").forEach(function(node) {
@@ -14414,7 +14435,38 @@ define('controllers/Header',[
             });
 
             if (initialized) {
+              // if (addOn === 'wizard') {
+              //   window.open('http://commodities.globalforestwatch.org/#v=map&x=143.48&y=1.66&l=3&lyrs=tcc%2Closs%2Cmill%2CgfwMill&wiz=open');
+                // if (app.map) {
+                //   var hash = Hasher.getHash();
+                //   Hasher.setHash('lyrs', 'mill,gfwMill');
+                //   if (wizard && hash.wiz !== 'open') {
+                //     Helper.toggleWizard();
+                //   }
+                // } else {
+                //   Hasher.setHash('lyrs', 'mill,gfwMill');
+                //   Hasher.setHash("wiz", 'open');
+                // }
+                // Hasher.setHash("v", view);
+              // } else if (addOn === 'analysis') {
+              //   window.open('http://commodities.globalforestwatch.org/#v=map&x=143.48&y=1.66&l=3&lyrs=tcc%2Closs%2Cmill%2CgfwMill&wiz=open');
+                // if (app.map) {
+                //   //nope, here we will just open the correct URL in the SAME WINDOW
+                //   var hash = Hasher.getHash();
+                //   //todo: make a way to turn all of these layers on! Once the map is loaded, it does not
+                //   // respect the hash. Also do this for mills above. Maybe publish a topic that we listen
+                //   // to, to turn on all of the correct layers?
+                //   // debugger
+                //   Hasher.setHash('lyrs', 'oilPerm,rspoPerm,logPerm,minePerm,woodPerm');
+                //   if (wizard && hash.wiz !== 'open') {
+                //     Helper.toggleWizard();
+                //   }
+                // } else {
+                //   Hasher.setHash('lyrs', 'oilPerm,rspoPerm,logPerm,minePerm,woodPerm');
+                //   Hasher.setHash("wiz", 'open');
+                // }
                 Hasher.setHash("v", view);
+              // }
             }
 
         },
@@ -14563,6 +14615,7 @@ define('models/HomeModel',[
                 }
                 Model.vm.modeSelect = function(obj, evt) {
                     var eventName = obj.eventName;
+                    console.log(obj);
                     require(["controllers/HomeController"], function(HomeController) {
                         HomeController.handleModeClick(eventName);
                     })
@@ -14763,8 +14816,17 @@ define('controllers/HomeController',[
 
         handleModeClick: function(eventName) {
             require(["controllers/Header"], function(Header) {
+              console.log(eventName);
                 if (eventName == "goToMap") {
                     Header.updateView("map", false, true);
+                } else if (eventName == "goToWizard") {
+                    Header.updateView("map-wizard", false, true);
+                } else if (eventName == "goToAnalysis") {
+                  Header.updateView("map-analysis", false, true);
+                } else if (eventName == "goToSupplier") {
+                  Header.updateView("map-supplier", false, true);
+                } else if (eventName == "goToPalm") {
+                    Header.updateView("map-palm", false, true);
                 } else if (eventName == "goToFires") {
                     Header.updateView("fires", "true", true);
                 } else if (eventName == "goToBlogs") {
