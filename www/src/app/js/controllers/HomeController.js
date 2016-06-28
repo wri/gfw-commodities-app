@@ -156,8 +156,17 @@ define([
 
         handleModeClick: function(eventName) {
             require(["controllers/Header"], function(Header) {
+              console.log(eventName);
                 if (eventName == "goToMap") {
                     Header.updateView("map", false, true);
+                } else if (eventName == "goToWizard") {
+                    Header.updateView("map-wizard", false, true);
+                } else if (eventName == "goToAnalysis") {
+                  Header.updateView("map-analysis", false, true);
+                } else if (eventName == "goToSupplier") {
+                  Header.updateView("map-supplier", false, true);
+                } else if (eventName == "goToPalm") {
+                    Header.updateView("map-palm", false, true);
                 } else if (eventName == "goToFires") {
                     Header.updateView("fires", "true", true);
                 } else if (eventName == "goToBlogs") {

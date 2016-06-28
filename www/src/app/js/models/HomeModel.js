@@ -19,6 +19,7 @@ define([
                 }
                 Model.vm.modeSelect = function(obj, evt) {
                     var eventName = obj.eventName;
+                    console.log(obj);
                     require(["controllers/HomeController"], function(HomeController) {
                         HomeController.handleModeClick(eventName);
                     })

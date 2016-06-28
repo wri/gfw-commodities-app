@@ -8,9 +8,10 @@ define([
     "dojo/io-query",
     "dijit/Dialog",
     "utils/Hasher",
+    'utils/Helper',
     "main/config",
     "utils/NavListController"
-], function(on, dom, domStyle, query, hash, domClass, ioQuery, Dialog, Hasher, AppConfig, NavListController) {
+], function(on, dom, domStyle, query, hash, domClass, ioQuery, Dialog, Hasher, Helper, AppConfig, NavListController) {
     'use strict';
 
     var state = 'large', // large, small, or mobile
@@ -158,10 +159,25 @@ define([
             },
 
         updateView: function(view, isExternal, initialized) {
+          console.log(view);
 
             if (isExternal === "true") {
                 this.redirectPage(view);
                 return;
+            }
+
+            if (view === 'map-wizard') {
+              window.open(window.location.pathname + '#v=map&lyrs=tcc%2Closs%2Cmill%2CgfwMill&x=143.48&y=1.66&l=3&wiz=open', '_self');
+              return;
+            } else if (view === 'map-analysis') {
+              window.open(window.location.pathname + '#v=map&lyrs=oilPerm%2CrspoPerm%2ClogPerm%2CminePerm%2CwoodPerm&x=143.48&y=1.66&l=3&wiz=open', '_self');
+              return;
+            } else if (view === 'map-supplier') {
+              window.open(window.location.pathname + '#v=map&x=104.27&y=1.96&l=5&lyrs=tcc%2Closs%2Cmill%2CgfwMill&wiz=open', '_self');
+              return;
+            } else if (view === 'map-palm') {
+              window.open(window.location.pathname + '#v=map&lyrs=rspoPerm&x=-150.13&y=-1.9&l=3', '_self');
+              return;
             }
 
             query(".header .nav-link.selected").forEach(function(node) {
@@ -173,7 +189,38 @@ define([
             });
 
             if (initialized) {
+              // if (addOn === 'wizard') {
+              //   window.open('http://commodities.globalforestwatch.org/#v=map&x=143.48&y=1.66&l=3&lyrs=tcc%2Closs%2Cmill%2CgfwMill&wiz=open');
+                // if (app.map) {
+                //   var hash = Hasher.getHash();
+                //   Hasher.setHash('lyrs', 'mill,gfwMill');
+                //   if (wizard && hash.wiz !== 'open') {
+                //     Helper.toggleWizard();
+                //   }
+                // } else {
+                //   Hasher.setHash('lyrs', 'mill,gfwMill');
+                //   Hasher.setHash("wiz", 'open');
+                // }
+                // Hasher.setHash("v", view);
+              // } else if (addOn === 'analysis') {
+              //   window.open('http://commodities.globalforestwatch.org/#v=map&x=143.48&y=1.66&l=3&lyrs=tcc%2Closs%2Cmill%2CgfwMill&wiz=open');
+                // if (app.map) {
+                //   //nope, here we will just open the correct URL in the SAME WINDOW
+                //   var hash = Hasher.getHash();
+                //   //todo: make a way to turn all of these layers on! Once the map is loaded, it does not
+                //   // respect the hash. Also do this for mills above. Maybe publish a topic that we listen
+                //   // to, to turn on all of the correct layers?
+                //   // debugger
+                //   Hasher.setHash('lyrs', 'oilPerm,rspoPerm,logPerm,minePerm,woodPerm');
+                //   if (wizard && hash.wiz !== 'open') {
+                //     Helper.toggleWizard();
+                //   }
+                // } else {
+                //   Hasher.setHash('lyrs', 'oilPerm,rspoPerm,logPerm,minePerm,woodPerm');
+                //   Hasher.setHash("wiz", 'open');
+                // }
                 Hasher.setHash("v", view);
+              // }
             }
 
         },
