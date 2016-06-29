@@ -1871,8 +1871,8 @@ define([
                     '<td>Area in protected areas</td><td class="' + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + '</td><td>' + Math.round(mill.protected_areas.extent.amount) + '% of total area comprised of protected areas</td></tr>';
             frag += '<tr><td>Tree cover loss on carbon dense areas</td><td class="' + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + '</td><td>' + Math.round(mill.carbon.loss.amount) + ' ha of carbon dense area lost</td>' +
                     '<td>Area of high carbon density</td><td class="' + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + '</td><td>' + Math.round(mill.carbon.extent.amount) + '% of total area comprised of carbon dense areas</td></tr>';
-            frag += '<tr><td>Fire activity</td><td class="' + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + '</td><td>' + mill.fire.extent.amount.toFixed(6) + ' fires/ha/year</td>' +
-                    '<td>Rate of fire activity last two years</td><td class="' + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + '</td><td>' + mill.fire.loss.amount.toFixed(6) + ' fires/ha/year</td></tr>';
+            frag += '<tr><td>Fire activity</td><td class="' + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + '</td><td>' + mill.fire.extent.amount.toFixed(5) + ' fires/ha/year</td>' +
+                    '<td>Rate of fire activity last two years</td><td class="' + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + '</td><td>' + mill.fire.loss.amount.toFixed(5) + ' fires/ha/year</td></tr>';
             frag += '</table>';
 
         return frag;
