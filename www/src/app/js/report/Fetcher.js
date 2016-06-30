@@ -104,8 +104,8 @@ define([
 									for (var j = 0; j < report.centerPoints.length; j++) {
 										var pointGraphic = new Graphic();
 
-										var pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 2,
-											new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 1),
+										var pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_X, 5,
+											new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
 											new Color([0, 0, 0, 0.25]));
 
 										var pointGeom = new Point(report.centerPoints[j].geometry.x, report.centerPoints[j].geometry.y, report.centerPoints[j].geometry.spatialReference);
