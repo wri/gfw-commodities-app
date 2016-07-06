@@ -406,6 +406,8 @@ define([
             var deferreds = [];
 
             arrayUtils.forEach(items, function(item) {
+
+              console.log(item);
                 switch (item) {
                     case 'suit':
                         deferreds.push(Fetcher._getSuitabilityAnalysis());
@@ -463,6 +465,9 @@ define([
                         break;
                     case 'prodes':
                         deferreds.push(Fetcher.getProdesResults());
+                        break;
+                    case 'guira':
+                        deferreds.push(Fetcher.getGuiraResults());
                         break;
                     case 'gladAlerts':
                         deferreds.push(Fetcher.getGladResults());

@@ -284,6 +284,59 @@ define([
 						return deferred.promise;
 				},
 
+				getGuiraResults: function() {
+						this._debug('Fetcher >>> getGuiraResults');
+						var deferred = new Deferred(),
+								config = ReportConfig.guira,
+								url = ReportConfig.imageServiceUrl,
+								content = {
+										geometryType: 'esriGeometryPolygon',
+										geometry: JSON.stringify(report.geometry),
+										mosaicRule: JSON.stringify(config.mosaicRule),
+										pixelSize: ReportConfig.pixelSize,
+										f: 'json'
+								},
+								self = this;
+
+						// Create the container for all the result
+						ReportRenderer.renderGuiraContainer(config);
+						// ReportRenderer.renderCompositionAnalysisLoader(config);
+
+						function success(response) {
+								if (response.histograms.length > 0) {
+										ReportRenderer.renderGuiraData(response.histograms[0].counts, content.pixelSize, config);
+										// ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+								} else {
+										ReportRenderer.renderAsUnavailable('guira', config);
+								}
+								deferred.resolve(true);
+						}
+
+						function failure(error) {
+								var newFailure = function(){
+									deferred.resolve(false);
+								};
+								if (error.details) {
+										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+												content.pixelSize = 500;
+												self._computeHistogram(url, content, success, failure);
+										} else if (error.details.length === 0) {
+												var maxDeviation = 10;
+												content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
+												self._computeHistogram(url, content, success, newFailure);
+										} else {
+												deferred.resolve(false);
+										}
+								} else {
+										deferred.resolve(false);
+								}
+						}
+
+						this._computeHistogram(url, content, success, failure);
+
+						return deferred.promise;
+				},
+
 				getLegalClassResults: function() {
 						this._debug('Fetcher >>> getLegalClassResults');
 						var deferred = new Deferred(),

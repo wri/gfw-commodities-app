@@ -8,7 +8,6 @@ define([], function() {
 
         gladUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer/computeHistograms',
 
-
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         suitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         firesQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -24,6 +23,11 @@ define([], function() {
     var prodesBounds = [1, 14],
         prodesLabels = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
         prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
+
+    // Guira
+    var guiraBounds = [1, 14],
+        guiraLabels = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+        guiraColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
 
     // GLAD
     var gladBounds = [1, 14],
@@ -205,15 +209,21 @@ define([], function() {
 
         /* Begin Main Layers for Analyses */
         totalLoss: {
-            rasterId: '$530', //12
+            rasterId: '$530',
             bounds: lossBounds,
             labels: lossLabels
         },
 
         prodesLayer: {
-          rasterId: '$555', //12
+          rasterId: '$555',
           bounds: prodesBounds,
           labels: prodesLabels
+        },
+
+        guiraLayer: {
+          rasterId: '$556',
+          bounds: guiraBounds,
+          labels: guiraLabels
         },
 
         gladLayer: {
@@ -574,6 +584,35 @@ define([], function() {
             },
             colors: prodesColors,
             fireKey: 'prodes',
+            compositionAnalysis: {
+                rasterId: 555,
+                histogramSlice: 1
+            }
+        },
+
+        guira: {
+            rootNode: 'guira',
+            title: 'Guira Alerts',
+            rasterId: '$556',
+            // formaId: '$14',
+            bounds: guiraBounds,
+            labels: guiraLabels,
+            mosaicRule: {
+                'mosaicMethod': 'esriMosaicLockRaster',
+                'lockRasterIds': [556],
+                'ascending': true,
+                'mosaicOperation': 'MT_FIRST'
+            },
+            clearanceChart: {
+                title: 'GUIRA',
+                type: 'bar'
+            },
+            lossChart: {
+                title: 'GUIRA'//,
+                //removeBelowYear: 2001
+            },
+            colors: guiraColors,
+            fireKey: 'guira',
             compositionAnalysis: {
                 rasterId: 555,
                 histogramSlice: 1
