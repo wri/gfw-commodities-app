@@ -89,6 +89,9 @@ define([
         case 'prodes':
           this.props.infoDivClass = 'forest-change-prodes-alerts';
           break;
+        case 'guiraAlerts':
+          this.props.infoDivClass = 'forest-change-gran-chaco';
+          break;
         case 'treeDensity':
           this.props.infoDivClass = 'forest-and-land-cover-tree-cover-density';
           break;
@@ -129,6 +132,7 @@ define([
           this.props.infoDivClass = 'forest-change-tree-cover-change';
           break;
       }
+      console.log(this.props.infoDivClass);
 
       if (document.getElementsByClassName(this.props.infoDivClass).length) {
         topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
