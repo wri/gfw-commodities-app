@@ -2389,6 +2389,10 @@ define('analysis/config',[], function() {
                 label: 'GLAD Alerts',
                 value: 'gladAlerts',
                 checked: false
+            }, {
+                label: 'Guira Alerts',
+                value: 'guiraAlerts',
+                checked: false
             }],
             suit: {
                 label: 'Oil Palm Suitability',
@@ -6688,6 +6692,9 @@ define('components/wizard/WizardCheckbox',[
         case 'prodes':
           this.props.infoDivClass = 'forest-change-prodes-alerts';
           break;
+        case 'guiraAlerts':
+          this.props.infoDivClass = 'forest-change-gran-chaco';
+          break;
         case 'treeDensity':
           this.props.infoDivClass = 'forest-and-land-cover-tree-cover-density';
           break;
@@ -6728,6 +6735,7 @@ define('components/wizard/WizardCheckbox',[
           this.props.infoDivClass = 'forest-change-tree-cover-change';
           break;
       }
+      console.log(this.props.infoDivClass);
 
       if (document.getElementsByClassName(this.props.infoDivClass).length) {
         topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
@@ -6867,11 +6875,10 @@ define('components/wizard/StepThree',[
                     null, 
                 
                 React.createElement("div", {className: "relative forestChange-description"}, 
-                React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
-                React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
-
-
+                  React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
                 ), 
+                React.createElement("p", {className: "layer-description"}, config.forestChange.description), 
                 React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
                 React.createElement("div", null, 
                   config.checkboxes.map(this._mapper, this)
@@ -6887,9 +6894,7 @@ define('components/wizard/StepThree',[
                 }, 
                 React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
-
-                ), 
-                React.createElement("p", {className: "layer-description"}, config.forestChange.description)
+                )
               )
             ), 
             React.createElement("div", {className: "step-footer"}, 
@@ -13333,7 +13338,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.86',
+                path = './app/templates/' + name + '.html?v=2.5.88',
                 req;
 
             req = new XMLHttpRequest();
