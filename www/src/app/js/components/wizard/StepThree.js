@@ -124,11 +124,10 @@ define([
                     null, 
                 
                 React.createElement("div", {className: "relative forestChange-description"}, 
-                React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
-                React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
-
-
+                  React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
                 ), 
+                React.createElement("p", {className: "layer-description"}, config.forestChange.description), 
                 React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
                 React.createElement("div", null, 
                   config.checkboxes.map(this._mapper, this)
@@ -144,9 +143,7 @@ define([
                 }, 
                 React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
-
-                ), 
-                React.createElement("p", {className: "layer-description"}, config.forestChange.description)
+                )
               )
             ), 
             React.createElement("div", {className: "step-footer"}, 

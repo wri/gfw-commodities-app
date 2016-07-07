@@ -1,32 +1,31 @@
 define([
-    "dojo/on",
-    "dojo/dom",
-    "dojo/query",
-    "esri/config",
-    "dojo/request/xhr",
-    "dojo/Deferred",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dojo/promise/all",
-    "dojo/_base/array",
-    "dijit/Dialog",
-    "dojox/validate/web",
-    "esri/geometry/Point",
-    "esri/geometry/Polygon",
-    "esri/SpatialReference",
-    "esri/tasks/GeometryService",
+    'dojo/on',
+    'dojo/dom',
+    'dojo/query',
+    'esri/config',
+    'dojo/request/xhr',
+    'dojo/Deferred',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dojo/promise/all',
+    'dojo/_base/array',
+    'dijit/Dialog',
+    'dojox/validate/web',
+    'esri/geometry/Point',
+    'esri/geometry/Polygon',
+    'esri/SpatialReference',
+    'esri/tasks/GeometryService',
     'esri/geometry/geometryEngine',
-    "esri/geometry/webMercatorUtils",
-    "utils/Analytics",
+    'esri/geometry/webMercatorUtils',
+    'utils/Analytics',
     // Local Modules from report folder
-    "report/config",
-    "report/Fetcher",
-    "report/CSVExporter",
+    'report/config',
+    'report/Fetcher',
+    'report/CSVExporter',
     // Temp
     'esri/units',
     'esri/geometry/Circle'
 ], function (on, dom, dojoQuery, esriConfig, xhr, Deferred, domClass, domStyle, all, arrayUtils, Dialog, validate, Point, Polygon, SpatialReference, GeometryService, geometryEngine, webMercatorUtils, Analytics, Config, Fetcher, CSVExporter, Units, Circle) {
-    'use strict';
 
     window.report = {};
 
@@ -50,7 +49,7 @@ define([
             // Set defaults for Highcharts
             Highcharts.setOptions({
               chart: {
-                style: { fontFamily: "'Fira Sans', 'fira_sans_otregular', Georgia, serif" }
+                style: { fontFamily: "Fira Sans', 'fira_sans_otregular', Georgia, serif" }
               }
             });
 
@@ -466,9 +465,9 @@ define([
                     case 'prodes':
                         deferreds.push(Fetcher.getProdesResults());
                         break;
-                    case 'guira':
-                        deferreds.push(Fetcher.getGuiraResults());
-                        break;
+                    // case 'guira':
+                    //     deferreds.push(Fetcher.getGuiraResults());
+                    //     break;
                     case 'gladAlerts':
                         deferreds.push(Fetcher.getGladResults());
                         break;

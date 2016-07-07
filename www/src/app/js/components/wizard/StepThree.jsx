@@ -124,11 +124,10 @@ define([
                     null
                 }
                 <div className='relative forestChange-description'>
-                <WizardCheckbox onClick={this.toggleOptions} value={config.forestChange.value} checked={checkedValues.indexOf(config.forestChange.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} label={config.forestChange.label} noInfoIcon={true} />
-                <svg onClick={this.toggleOptions} className={`analysis-expander ${optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: optionsExpanded ? treeOpen : treeClosed }}/>
-
-
+                  <WizardCheckbox onClick={this.toggleOptions} value={config.forestChange.value} checked={checkedValues.indexOf(config.forestChange.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} label={config.forestChange.label} noInfoIcon={true} />
+                  <svg onClick={this.toggleOptions} className={`analysis-expander ${optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: optionsExpanded ? treeOpen : treeClosed }}/>
                 </div>
+                <p className='layer-description'>{config.forestChange.description}</p>
                 <div className={`checkbox-list ${optionsExpanded === false ? 'transition-hidden' : ''}`}>
                 <div>
                   {config.checkboxes.map(this._mapper, this)}
@@ -144,9 +143,7 @@ define([
                 >
                 <WizardCheckbox label={config.mill.label} value={config.mill.value} checked={checkedValues.indexOf(config.mill.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                 <p className='layer-description'>{config.mill.description}</p>
-
                 </div>
-                <p className='layer-description'>{config.forestChange.description}</p>
               </div>
             </div>
             <div className='step-footer'>
