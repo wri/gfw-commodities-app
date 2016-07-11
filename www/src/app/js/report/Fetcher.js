@@ -796,16 +796,13 @@ define([
 				getGladResults: function(config, useSimpleEncoderRule) {
 						this._debug('Fetcher >>> getGladResults');
 						var deferred = new Deferred(),
-								// gladConfig = ReportConfig.gladLayer, //ReportConfig.clearanceAlerts,
-								url = ReportConfig.glad.url,
+								gladConfig = ReportConfig.glad, //ReportConfig.clearanceAlerts,
+								url = gladConfig.url,
 								self = this,
 								content,
 								encoder;
 
-								console.log(url);
-
-
-						config = _.clone(config);
+						config = _.clone(gladConfig);
 
 						function success(response) {
 								if (response.histograms.length > 0) {
@@ -834,7 +831,7 @@ define([
 						content = {
 								geometryType: 'esriGeometryPolygon',
 								geometry: JSON.stringify(report.geometry),
-								// renderingRule: renderingRule,
+								renderingRule: JSON.stringify(config.renderingRule),
 								pixelSize: 30,
 								f: 'json'
 						};

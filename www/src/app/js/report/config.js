@@ -622,32 +622,34 @@ define([], function() {
         glad: {
             rootNode: 'glad',
             title: 'GLAD Alerts',
-            rasterId: ['$1', '$2'],
+            rasterId: ['$6', '$4'],
             url: gladUrl,
             bounds: gladBounds,
             labels: gladLabels,
             // includeFormaIdInRemap: true,
             // formaId: '$15',
-            'rasterFunction': 'Local',
-            'rasterFunctionArguments': {
-              'Operation': 67, //max value; ignores no data
-              'Rasters': [{
-                'rasterFunction': 'Remap',
-                'rasterFunctionArguments': {
-                  'InputRanges': [0, 150, 150, 366],
-                  'OutputValues': [0, 1],
-                  'Raster': '$1', //2015
-                  'AllowUnmatched': false
-                }
-              }, {
-                'rasterFunction': 'Remap',
-                'rasterFunctionArguments': {
-                  'InputRanges': [0, 20, 20, 366],
-                  'OutputValues': [0, 1],
-                  'Raster': '$2', //2016
-                  'AllowUnmatched': false
-                }
-              }]
+            renderingRule: {
+              'rasterFunction': 'Local',
+              'rasterFunctionArguments': {
+                'Operation': 67, //max value; ignores no data
+                'Rasters': [{
+                  'rasterFunction': 'Remap',
+                  'rasterFunctionArguments': {
+                    'InputRanges': [0, 150, 150, 366],
+                    'OutputValues': [0, 1],
+                    'Raster': '$6', //2015
+                    'AllowUnmatched': false
+                  }
+                }, {
+                  'rasterFunction': 'Remap',
+                  'rasterFunctionArguments': {
+                    'InputRanges': [0, 20, 20, 366],
+                    'OutputValues': [0, 1],
+                    'Raster': '$4', //2016
+                    'AllowUnmatched': false
+                  }
+                }]
+              }
             },
             colors: gladColors,
             fireKey: 'glad' // Key to the Fires Config for items related to this

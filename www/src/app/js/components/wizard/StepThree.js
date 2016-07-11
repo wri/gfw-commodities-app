@@ -22,7 +22,7 @@ define([
 
     function getCurrentSelectionLabel () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
+      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label; }).join(',') : 'none');
     }
 
     /* Helper Functions */
