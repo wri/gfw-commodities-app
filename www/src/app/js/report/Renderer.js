@@ -186,11 +186,14 @@ define([
     renderMillContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
-          map = document.getElementById('print-map');
+          map = document.getElementById('print-map'),
+          downloadButton;
 
+      // Set up markup for the download button
+      downloadButton = "<button id='mill-download' class='mill-download-button' title='Download csv'></button>";
       node.id = config.rootNode;
-      node.className = "result-container relative";
-      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+      node.className = 'result-container relative';
+      node.innerHTML = "<div class='title'>" + config.title + downloadButton + '</div>' +
           "<div id='mill-overall-container'></div>" +
           "<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
 
@@ -835,7 +838,7 @@ define([
     },
 
     renderGladData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
-      //todo: We are not passing in a config!! 
+      //todo: We are not passing in a config!!
       debugger
       //todo: We are not passing in a config!!
       var yLabels = config.labels,
@@ -1863,51 +1866,13 @@ define([
       }
 
       /**
-        @param {string} name - Represents Name in table row
-        @param {object} data - Represents segment of response
-        @param {string} parentClass - class of parent and child
-        @param {string} fieldPrefix - prefix for field name in the json to extract data from
-        @return String - HTML Fragment which is a <tr>
-      */
-      // function generateParentRow(name, data, className, fieldPrefix) {
-      //   var rowClass = 'data-row parent';
-      //   var frag = "<tr class='" + rowClass + "' data-class='" + className + "'><td class='row-name'>" +
-      //              "<span class='toggle-icon'></span><span>" + name + "</span></td>";
-      //
-      //   frag += "<td class='" + (data[fieldPrefix + '_concession'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_concession'] || 'N/A') + "</span></td>";
-      //   frag += "<td class='" + (data[fieldPrefix + '_radius'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_radius'] || 'N/A') + "</span></td>";
-      //   frag += "</tr>";
-      //
-      //   return frag;
-      // }
-
-      /**
-        @param {string} name - Represents Name in table row
-        @param {object} data - Represents segment of response
-        @param {string} fieldPrefix - field prefix in the json to extract data from
-          - some json values are nested in objects, if no fieldName is provided, this function assumes thats the case
-        @return String - HTML Fragment which is a <tr>
-      */
-      // function generateBasicRow(name, data, fieldPrefix) {
-      //   var frag = "<tr class='data-row'><td class='row-name'><span>" + name + "</span></td>";
-      //   var concession = (fieldPrefix ? data[fieldPrefix + '_concession'] : data.concession.risk);
-      //   var radius = (fieldPrefix ? data[fieldPrefix + '_radius'] : data.radius.risk);
-      //
-      //   frag += "<td class='" + concession + "'><span class='large-swatch'></span><span class='risk-label'>" + concession + "</span></td>";
-      //   frag += "<td class='" + radius + "'><span class='large-swatch'></span><span class='risk-label'>" + radius + "</span></td>";
-      //   frag += "</tr>";
-      //
-      //   return frag;
-      // }
-
-      /**
         @param {object} mill - Represents segment of response
         @return String - HTML Fragment which is <tr>
       */
       function generateGroupMillRow(mill) {
         var smallSwatch = "'><span class='small-swatch'></span>";
 
-        var frag  = "<tr class='data-row'>";
+        var frag = "<tr class='data-row'>";
             frag += "<td class='mill_name'><span>" + mill.mill_name + "</span></td>";
             frag += "<td class='" + mill.priority_level + smallSwatch + mill.priority_level + "</td>";
             frag += "<td class='" + mill.historic_loss + smallSwatch + mill.historic_loss + "</td>";
@@ -1983,8 +1948,8 @@ define([
                     '<td>Area in protected areas</td><td class="' + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + '</td><td>' + Math.round(mill.protected_areas.extent.amount) + '%</td></tr>';
             frag += '<tr><td>Tree cover loss on carbon dense areas</td><td class="' + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + '</td><td>' + Math.round(mill.carbon.loss.amount) + ' ha</td>' +
                     '<td>Area of high carbon density</td><td class="' + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + '</td><td>' + Math.round(mill.carbon.extent.amount) + '%</td></tr>';
-            frag += '<tr><td>Fire activity</td><td class="' + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + '</td><td>' + mill.fire.extent.amount.toFixed(5) + ' fires/ha/year</td>' +
-                    '<td>Rate of fire activity last two years</td><td class="' + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + '</td><td>' + mill.fire.loss.amount.toFixed(5) + ' fires/ha/year</td></tr>';
+            frag += '<tr><td>Fire activity</td><td class="' + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + '</td><td>' + mill.fire.loss.amount.toFixed(5) + ' fires/ha/year</td>' +
+                    '<td>Rate of fire activity last two years</td><td class="' + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + '</td><td>' + mill.fire.extent.amount.toFixed(5) + ' fires/ha/year</td></tr>';
             frag += '</table>';
 
         return frag;
@@ -2024,8 +1989,14 @@ define([
       }
 
       // Set up Click Listeners to give table custom toggling functionality and show information on info classes
+      // as well as download for CSV
       $(".mill-table-container tr.parent").click(toggleChildren);
       $(".mill-table-container .info-icon").click(this.showMillPointInfo);
+      $('#mill-download').click(function () {
+        // Pass in the mills and an array of descriptors for the CSV format
+        var csvData = CSVExporter.prepareMillAnalysis(mills, ReportConfig.millCSVDescriptor);
+        CSVExporter.exportCSV(csvData);
+      });
 
       // Hide children by default
       $('.mill-table-container .data-row.child').toggle();

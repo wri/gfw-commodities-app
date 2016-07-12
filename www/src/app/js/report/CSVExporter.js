@@ -1,30 +1,30 @@
 define([
+	'dojo/number',
 	'dojo/_base/array'
-], function (arrayUtils) {
-	'use strict';
+], function (number, arrayUtils) {
 
 	/**
 	* Take some data and encode it into base64 format, see comments in function
 	*/
 	function encodeToBase64 (data) {
 		//  discuss at: http://phpjs.org/functions/base64_encode/
-	  //  original by: Tyler Akins (http://rumkin.com)
-	  //  improved by: Bayron Guevara
-	  //  improved by: Thunder.m
-	  //  improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-	  //  improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-	  //  improved by: Rafał Kukawski (http://kukawski.pl)
-	  //  bugfixed by: Pellentesque Malesuada
-	  //   example 1: base64_encode('Kevin van Zonneveld');
-	  //   returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
-	  //   example 2: base64_encode('a');
-	  //   returns 2: 'YQ=='
-	  var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-	  var o1, o2, o3, h1, h2, h3, h4, bits, 
-	  		i = 0,
-		    ac = 0,
-		    enc = '',
-		    tmp_arr = [];
+		//  original by: Tyler Akins (http://rumkin.com)
+		//  improved by: Bayron Guevara
+		//  improved by: Thunder.m
+		//  improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+		//  improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+		//  improved by: Rafał Kukawski (http://kukawski.pl)
+		//  bugfixed by: Pellentesque Malesuada
+		//   example 1: base64_encode('Kevin van Zonneveld');
+		//   returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
+		//   example 2: base64_encode('a');
+		//   returns 2: 'YQ=='
+		var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+		var o1, o2, o3, h1, h2, h3, h4, bits,
+				i = 0,
+				ac = 0,
+				enc = '',
+				tmp_arr = [];
 
 		if (!data) {
 			return data;
@@ -33,18 +33,18 @@ define([
 		do {
 			// Pack three octets into four hexets
 			o1 = data.charCodeAt(i++);
-	    o2 = data.charCodeAt(i++);
-	    o3 = data.charCodeAt(i++);
+			o2 = data.charCodeAt(i++);
+			o3 = data.charCodeAt(i++);
 
-	    bits = o1 << 16 | o2 << 8 | o3;
+			bits = o1 << 16 | o2 << 8 | o3;
 
-	    h1 = bits >> 18 & 0x3f;
-	    h2 = bits >> 12 & 0x3f;
-	    h3 = bits >> 6 & 0x3f;
-	    h4 = bits & 0x3f;
+			h1 = bits >> 18 & 0x3f;
+			h2 = bits >> 12 & 0x3f;
+			h3 = bits >> 6 & 0x3f;
+			h4 = bits & 0x3f;
 
-	    // Use hexets to index into b64 and append result to encoded string
-	    tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+			// Use hexets to index into b64 and append result to encoded string
+			tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
 
 		} while (i < data.length);
 
@@ -240,6 +240,50 @@ define([
 
 	}
 
+	/**
+	* Takes Mill API Results and formats them into a CSV file
+	* @param {object[]} mills - Array of mills from the response
+	* @param {object[]} descriptors - Array of labels and infos
+	* @param {string} - descriptors[n].label - Column header to be used in CSV output
+	* @param {object} - descriptors[n].info - Info object containing info for parsing and formatting
+	* @param {string} - descriptors[n].info.path - Path to data, e.g 'fire.risk' finds value in - { fire: { risk: 'value' }}
+	* @param {number} - descriptors[n].info.precision - Precision for formatting the number
+	* @return {string} results - Array of strings, each string represents one line in the CSV file
+	*/
+	function prepareMillAnalysis (mills, descriptors) {
+		var lineEnding = '\r\n',
+				unavailable = 'N/A',
+				results = [],
+				row;
+
+		// Helper function to parse object at path, 12 = getValueForPath('a.b', {a: { b: 12}});
+		// Info should have path and optionally a precision value
+		// precision means data is expected to be a number and tells how many places it should round to
+		function formatValueAtPath (info, item) {
+			var keys = info.path.split('.');
+			var result = keys.every(function (key) {
+				if (item[key] !== undefined) {
+					item = item[key];
+					return true;
+				}
+			});
+			// Format value here if necessary, check precision against undefined as precision can be 0 which is falsy
+			return result ? (
+				info.precision !== undefined ? number.round(item, info.precision) : item
+			) : unavailable;
+		}
+		// Create the column headings by pushing in the labels to results
+		row = descriptors.map(function (descriptor) { return descriptor.label; });
+		// Push the row in to the results after each operation
+		results.push(row.join(','));
+		// Now grab the values
+		mills.forEach(function (mill) {
+			row = descriptors.map(function (descriptor) { return formatValueAtPath(descriptor.info, mill); });
+			results.push(row.join(','));
+		});
+		return results.join(lineEnding);
+	}
+
 	var Exporter = {
 
 		exportCSV: function (exportData) {
@@ -275,7 +319,8 @@ define([
 		exportSuitabilityByLegalClass: exportSuitabilityByLegalClass,
 		exportSuitabilityStatistics: exportSuitabilityStatistics,
 		exportCompositionAnalysis: exportCompositionAnalysis,
-		exportSimpleChartAnalysis: exportSimpleChartAnalysis
+		exportSimpleChartAnalysis: exportSimpleChartAnalysis,
+		prepareMillAnalysis: prepareMillAnalysis
 
 	};
 
