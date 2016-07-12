@@ -828,6 +828,13 @@ define([
 								}
 						}
 
+						encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
+						// rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId;
+						// renderingRule = useSimpleEncoderRule ?
+						// 		encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) :
+						// 		encoder.render(clearanceConfig.rasterId, rasterId);
+
+
 						content = {
 								geometryType: 'esriGeometryPolygon',
 								geometry: JSON.stringify(report.geometry),

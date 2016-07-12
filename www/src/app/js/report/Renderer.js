@@ -839,11 +839,16 @@ define([
 
     renderGladData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
       //todo: We are not passing in a config!!
-      debugger
+
+      console.log(ReportConfig.gladLayer);
+      // var lossConfig = ReportConfig.totalLoss,
+      // gladLayer
+
       //todo: We are not passing in a config!!
       var yLabels = config.labels,
           yMapValues = arrayFromBounds(config.bounds),
-          xMapValues = arrayFromBounds(report.gladLayer),
+          xMapValues = arrayFromBounds(ReportConfig.gladLayer.bounds),
+          // xMapValues = arrayFromBounds(report.gladLayer),
           // mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
           data = [],
@@ -851,12 +856,13 @@ define([
           value,
           i, j;
 
+          // debugger
 
       // Config eventually needs to be updated as this is no longer a pie chart
       // Pie chart code and config are staying this way until client approves
       // Will still need the if else, the else section constructs a series with only one value
 
-      if (config.clearanceChart.type === 'pie') {
+      if (ReportConfig.gladLayer.clearanceChart.type === 'pie') {
 
         // Format data for line chart
         for (i = 0; i < yMapValues.length; i++) {
@@ -889,7 +895,7 @@ define([
           },
           colors: config.colors,
           title: {
-            text: config.clearanceChart.title
+            text: ReportConfig.gladLayer.clearanceChart.title
           },
           xAxis: {
             categories: report.clearanceLabels
@@ -917,7 +923,9 @@ define([
           // Pad the array with 0's for all remaining years if data is missing
           if (series.length !== xMapValues.length) {
             for (var index = 0; index < xMapValues.length; index++) {
-              if (series[index] === undefined) series[index] = 0;
+              if (series[index] === undefined) {
+                series[index] = 0;
+              }
             }
           }
 
