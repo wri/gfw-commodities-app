@@ -181,15 +181,17 @@ define([], function() {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
                 checked: false
-            }, {
-                label: 'GLAD Alerts',
-                value: 'gladAlerts',
-                checked: false
-            }, {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
-                checked: false
-            }],
+            // }, {
+            //     label: 'GLAD Alerts',
+            //     value: 'gladAlerts',
+            //     checked: false
+          }
+          // , {
+          //       label: 'Guira Alerts',
+          //       value: 'guiraAlerts',
+          //       checked: false
+          //   }
+          ],
             suit: {
                 label: 'Oil Palm Suitability',
                 value: 'suit',

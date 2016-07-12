@@ -2385,15 +2385,17 @@ define('analysis/config',[], function() {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
                 checked: false
-            }, {
-                label: 'GLAD Alerts',
-                value: 'gladAlerts',
-                checked: false
-            }, {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
-                checked: false
-            }],
+            // }, {
+            //     label: 'GLAD Alerts',
+            //     value: 'gladAlerts',
+            //     checked: false
+          }
+          // , {
+          //       label: 'Guira Alerts',
+          //       value: 'guiraAlerts',
+          //       checked: false
+          //   }
+          ],
             suit: {
                 label: 'Oil Palm Suitability',
                 value: 'suit',
@@ -6513,16 +6515,16 @@ define('components/wizard/StepTwo',[
   customTitles[commArea] = 'Commercial entity';
 
   // Helper Functions
+	function getCurrentSelectionLabel () {
+    var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+    return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label; }).join(',') : 'none');
+  }
+
   function getDefaultState() {
     return {
       completed: false,
       currentSelectionLabel: getCurrentSelectionLabel()
     };
-  }
-
-  function getCurrentSelectionLabel () {
-    var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-    return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
   }
 
 	return React.createClass({
@@ -6773,7 +6775,7 @@ define('components/wizard/StepThree',[
 
     function getCurrentSelectionLabel () {
       var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label;}).join(',') : 'none');
+      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label; }).join(',') : 'none');
     }
 
     /* Helper Functions */
@@ -13338,7 +13340,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.89',
+                path = './app/templates/' + name + '.html?v=2.5.90',
                 req;
 
             req = new XMLHttpRequest();
