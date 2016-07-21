@@ -135,6 +135,13 @@ define([
       // Set default once because React doesn't update defaultValue
       pbVal = pbVal || pbId1 + pbId2;
 
+      // <div className='margin__bottom'>
+      //   <label className='vertical-middle'>
+      //     <input id={formaId} className='vertical-middle' type='checkbox' onChange={this._formChange} checked={this.state.forma} />
+      //     {TEXT.forma}
+      //   </label>
+      // </div>
+
       return (
         <div className='alerts-dialog'>
           <div className='close-icon' onClick={this._close}></div>
@@ -153,12 +160,7 @@ define([
                   {TEXT.requiredLabels.alerts}
                 </div>
               </div>
-              <div className='margin__bottom'>
-                <label className='vertical-middle'>
-                  <input id={formaId} className='vertical-middle' type='checkbox' onChange={this._formChange} checked={this.state.forma} />
-                  {TEXT.forma}
-                </label>
-              </div>
+
               <div className=''>
                 <label className='margin--small__bottom vertical-middle'>
                   <input id={firesId} className='vertical-middle' type='checkbox' onChange={this._formChange} checked={this.state.fires} />
@@ -205,7 +207,7 @@ define([
 
     _formChange: function (event) {
       var state = {
-        forma: dom.byId(formaId).checked,
+        // forma: dom.byId(formaId).checked,
         fires: dom.byId(firesId).checked,
         subscriptionName: dom.byId(subscriptionNameId).value,
         email: dom.byId(emailId).value
@@ -308,15 +310,16 @@ define([
       }
 
       GeoHelper.union(polygons).then(function (unionedPolygon) {
-        if (this.state.forma === true) {
-          subscriptions.push(this._subscribeToForma(GeoHelper.convertGeometryToGeometric(unionedPolygon), this.state.subscriptionName.trim(), this.state.email.trim()));
-        }
+        // if (this.state.forma === true) {
+        //   subscriptions.push(this._subscribeToForma(GeoHelper.convertGeometryToGeometric(unionedPolygon), this.state.subscriptionName.trim(), this.state.email.trim()));
+        // }
         if (this.state.fires === true) {
           subscriptions.push(this._subscribeToFires(unionedPolygon, this.state.subscriptionName.trim(), this.state.email.trim()));
         }
 
         all(subscriptions).then(function (responses) {
-          alert(responses.join('\n'));
+          // alert(responses.join('\n'));
+          console.log(responses.join('\n'));
         });
       }.bind(this));
 
