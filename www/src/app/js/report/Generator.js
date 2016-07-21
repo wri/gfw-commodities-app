@@ -207,11 +207,17 @@ define([
               var area = areasToAnalyze[0];
 
               if (area.geometry.radius) {
+                console.log('got dat radius!');
                 poly = new Polygon(sr);
                 poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
-                report.centerPoints = [area.point];
-
+                if (area.point.geometry.x) {
+                  report.centerPoints = [area.point];
+                } else {
+                  report.centerPoints = [{
+                    geometry: area.geometry.center
+                  }];
+                }
 
                 // Save the areas to the report.mills incase they are doing mill point analysis, we will need these
                 area.geometry = report.geometry;
@@ -465,9 +471,10 @@ define([
                     case 'prodes':
                         deferreds.push(Fetcher.getProdesResults());
                         break;
-                    // case 'guira':
-                    //     deferreds.push(Fetcher.getGuiraResults());
-                    //     break;
+                    case 'guiraAlerts':
+                    console.log('ooj');
+                        deferreds.push(Fetcher.getGuiraResults());
+                        break;
                     // case 'gladAlerts':
                     //     deferreds.push(Fetcher.getGladResults());
                     //     break;

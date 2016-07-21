@@ -30,7 +30,6 @@ define([
 		'report/rasterArea',
 		'report/mill-api'
 ], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, Point, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
-		'use strict';
 
 		var _fireQueriesToRender = [];
 
@@ -101,12 +100,13 @@ define([
 								graphic.setSymbol(Symbols.getPolygonSymbol());
 
 								if (report.centerPoints) {
+									console.log(report.centerPoints);
 									for (var j = 0; j < report.centerPoints.length; j++) {
 										var pointGraphic = new Graphic();
 
-										var pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_X, 5,
+										var pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 5,
 											new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
-											new Color([0, 0, 0, 0.25]));
+											new Color([255, 0, 0, 1]));
 
 										var pointGeom = new Point(report.centerPoints[j].geometry.x, report.centerPoints[j].geometry.y, report.centerPoints[j].geometry.spatialReference);
 
