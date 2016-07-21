@@ -198,7 +198,7 @@ define([
                 dialog = new Dialog({
                     id: 'splashDialog',
                     title: 'Welcome to GFW Commodities Analyzer',
-                    style: 'width: 550px;',
+                    style: 'width: 510px;',
                     content: AppConfig.homeDialog.html + checkboxContent
                 });
                 dialog.show();
