@@ -2390,11 +2390,11 @@ define('analysis/config',[], function() {
             //     value: 'gladAlerts',
             //     checked: false
           }
-          // , {
-          //       label: 'Guira Alerts',
-          //       value: 'guiraAlerts',
-          //       checked: false
-          //   }
+          , {
+                label: 'Guira Alerts',
+                value: 'guiraAlerts',
+                checked: false
+            }
           ],
             suit: {
                 label: 'Oil Palm Suitability',
@@ -3905,6 +3905,13 @@ define('components/alertsDialog/alertsDialog',[
       // Set default once because React doesn't update defaultValue
       pbVal = pbVal || pbId1 + pbId2;
 
+      // <div className='margin__bottom'>
+      //   <label className='vertical-middle'>
+      //     <input id={formaId} className='vertical-middle' type='checkbox' onChange={this._formChange} checked={this.state.forma} />
+      //     {TEXT.forma}
+      //   </label>
+      // </div>
+
       return (
         React.createElement("div", {className: "alerts-dialog"}, 
           React.createElement("div", {className: "close-icon", onClick: this._close}), 
@@ -3923,12 +3930,7 @@ define('components/alertsDialog/alertsDialog',[
                   TEXT.requiredLabels.alerts
                 )
               ), 
-              React.createElement("div", {className: "margin__bottom"}, 
-                React.createElement("label", {className: "vertical-middle"}, 
-                  React.createElement("input", {id: formaId, className: "vertical-middle", type: "checkbox", onChange: this._formChange, checked: this.state.forma}), 
-                  TEXT.forma
-                )
-              ), 
+
               React.createElement("div", {className: ""}, 
                 React.createElement("label", {className: "margin--small__bottom vertical-middle"}, 
                   React.createElement("input", {id: firesId, className: "vertical-middle", type: "checkbox", onChange: this._formChange, checked: this.state.fires}), 
@@ -3975,7 +3977,7 @@ define('components/alertsDialog/alertsDialog',[
 
     _formChange: function (event) {
       var state = {
-        forma: dom.byId(formaId).checked,
+        // forma: dom.byId(formaId).checked,
         fires: dom.byId(firesId).checked,
         subscriptionName: dom.byId(subscriptionNameId).value,
         email: dom.byId(emailId).value
@@ -4078,15 +4080,16 @@ define('components/alertsDialog/alertsDialog',[
       }
 
       GeoHelper.union(polygons).then(function (unionedPolygon) {
-        if (this.state.forma === true) {
-          subscriptions.push(this._subscribeToForma(GeoHelper.convertGeometryToGeometric(unionedPolygon), this.state.subscriptionName.trim(), this.state.email.trim()));
-        }
+        // if (this.state.forma === true) {
+        //   subscriptions.push(this._subscribeToForma(GeoHelper.convertGeometryToGeometric(unionedPolygon), this.state.subscriptionName.trim(), this.state.email.trim()));
+        // }
         if (this.state.fires === true) {
           subscriptions.push(this._subscribeToFires(unionedPolygon, this.state.subscriptionName.trim(), this.state.email.trim()));
         }
 
         all(subscriptions).then(function (responses) {
-          alert(responses.join('\n'));
+          // alert(responses.join('\n'));
+          console.log(responses.join('\n'));
         });
       }.bind(this));
 
@@ -4598,7 +4601,7 @@ define('utils/AlertsHelper',[
 
   _toggle = function () {
     WizardStore.set(KEYS.selectedCustomFeatures, []);
-    return !_isOpen ? _animate(460) : _animate(0);
+    return !_isOpen ? _animate(510) : _animate(0);
   }
 
   _getFeatureFromPopup = function (event) {
@@ -4660,7 +4663,7 @@ define('utils/AlertsHelper',[
       self._getFeatureFromPopup(event).then(function (response) {
 
         if (response) {
-          
+
           WizardStore.set(KEYS.alertsDialogActive, true);
           WizardStore.set(KEYS.selectedCustomFeatures, isCustomGraphic ? [response] : []);
           WizardStore.set(KEYS.selectedPresetFeature, isCustomGraphic ? null : response);
@@ -9920,8 +9923,8 @@ define('analysis/WizardHelper',[
 			var mapWidth = domGeom.position(dom.byId('map')).w,
 					wizardContainer = dom.byId('wizard-container'),
 					deferred = new Deferred(),
-					MAX_WIDTH = 460, // 600 - Currently we are forcing the size to be 525 and not responsive
-					MIN_WIDTH = 460, // 450
+					MAX_WIDTH = 550, // 600 - Currently we are forcing the size to be 525 and not responsive
+					MIN_WIDTH = 550, // 450
 					halfMapWidth = mapWidth / 2,
 					orignalCenterPoint,
 					duration = 500,
@@ -10201,7 +10204,7 @@ define('utils/Helper',[
   var _mapContainer,
       _getMapAnimation,
       ANIMATION_DURATION = 500,
-      WIZARD_WIDTH = 460,
+      WIZARD_WIDTH = 510,
       self = this;
 
   _getMapAnimation = function (leftAnimationValue, resize, originalCenterPoint) {
@@ -14866,7 +14869,7 @@ define('controllers/HomeController',[
                 dialog = new Dialog({
                     id: 'splashDialog',
                     title: 'Welcome to GFW Commodities Analyzer',
-                    style: 'width: 550px;',
+                    style: 'width: 510px;',
                     content: AppConfig.homeDialog.html + checkboxContent
                 });
                 dialog.show();
