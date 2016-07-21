@@ -52,7 +52,7 @@ define([
 
   _toggle = function () {
     WizardStore.set(KEYS.selectedCustomFeatures, []);
-    return !_isOpen ? _animate(460) : _animate(0);
+    return !_isOpen ? _animate(510) : _animate(0);
   }
 
   _getFeatureFromPopup = function (event) {
@@ -114,7 +114,7 @@ define([
       self._getFeatureFromPopup(event).then(function (response) {
 
         if (response) {
-          
+
           WizardStore.set(KEYS.alertsDialogActive, true);
           WizardStore.set(KEYS.selectedCustomFeatures, isCustomGraphic ? [response] : []);
           WizardStore.set(KEYS.selectedPresetFeature, isCustomGraphic ? null : response);

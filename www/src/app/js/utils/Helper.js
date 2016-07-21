@@ -14,7 +14,7 @@ define([
   var _mapContainer,
       _getMapAnimation,
       ANIMATION_DURATION = 500,
-      WIZARD_WIDTH = 460,
+      WIZARD_WIDTH = 510,
       self = this;
 
   _getMapAnimation = function (leftAnimationValue, resize, originalCenterPoint) {
