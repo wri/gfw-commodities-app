@@ -108,7 +108,12 @@ define([
 											new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 2),
 											new Color([255, 0, 0, 1]));
 
-										var pointGeom = new Point(report.centerPoints[j].geometry.x, report.centerPoints[j].geometry.y, report.centerPoints[j].geometry.spatialReference);
+										var pointGeom;
+										if (report.centerPoints[j].geometry.x) {
+											pointGeom = new Point(report.centerPoints[j].geometry.x, report.centerPoints[j].geometry.y, report.centerPoints[j].geometry.spatialReference);
+										} else if (report.centerPoints[j].geometry.center.x) {
+											pointGeom = new Point(report.centerPoints[j].geometry.center.x, report.centerPoints[j].geometry.center.y, report.centerPoints[j].geometry.center.spatialReference);
+										}
 
 										pointGraphic.setGeometry(pointGeom);
 										// pointGraphic.setSymbol(Symbols.getPointSymbol());
