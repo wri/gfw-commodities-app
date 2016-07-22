@@ -6,6 +6,7 @@ define([
   "analysis/Query",
   "analysis/config",
   "utils/GeoHelper",
+	"utils/Analytics",
   "analysis/WizardStore",
   "actions/WizardActions",
   "components/wizard/NestedList",
@@ -13,7 +14,7 @@ define([
   "dojo/topic",
   "dojo/query",
   "esri/graphic"
-], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, WizardActions, NestedList, topic, query, Graphic) {
+], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, GeoHelper, Analytics, WizardStore, WizardActions, NestedList, topic, query, Graphic) {
 
   var config = AnalyzerConfig.commercialEntity;
   var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -101,11 +102,11 @@ define([
       return (
         React.createElement("div", {className: "commercial-entity"}, 
           React.createElement("p", {className: "instructions"}, " ", config.instructions, " "), 
-          React.createElement("select", {className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
+          React.createElement("select", {ref: "commoditySelect", className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
             config.commodityOptions.map(this._selectMapper, this)
           ), 
           React.createElement("span", {className: 'loading' + (this.state.isLoading ? '' : ' hidden')}), 
-          React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length> 0 ? '' : ' hidden')}, 
+          React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, 
             config.instructionsPartTwo
           ), 
           React.createElement(NestedList, {
@@ -152,13 +153,18 @@ define([
           isLoading: false
         });
       });
+
+			// Send off Analytics
+			if (value !== 'NONE') {
+				Analytics.sendEvent('Analysis', 'Commodity Type', value);
+			}
     },
 
     _commodityClicked: function (target) {
       var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
           objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
-          selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
+          // selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
           label = target.innerText || target.innerHTML,
           self = this,
           graphic;
@@ -258,6 +264,14 @@ define([
         } // End else
 
       } // End else if
+
+			var select = this.refs.commoditySelect;
+			var value = select && select.props && select.props.value;
+			//- Send Analytics
+			if (value && value !== 'NONE') {
+				//- e.g. Analysis, Oil palm concession, PT. Astra Agro Lestari
+				Analytics.sendEvent('Analysis', value, label);
+			}
 
     }// End __commodityClicked
 

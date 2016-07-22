@@ -2,9 +2,10 @@
 define([
 	'react',
   'analysis/config',
+	'utils/Analytics',
   'analysis/WizardStore',
   'actions/WizardActions'
-], function (React, AnalyzerConfig, WizardStore, WizardActions) {
+], function (React, AnalyzerConfig, Analytics, WizardStore, WizardActions) {
 
   // Variables
   var config = AnalyzerConfig.stepOne,
@@ -23,6 +24,21 @@ define([
       previousAreaOfInterest: undefined
     };
   }
+
+	function getAOILabel (aoi) {
+		switch (aoi) {
+			case option1.id:
+				return option1.label;
+			case option2.id:
+				return option2.label;
+			case option3.id:
+				return option3.label;
+			case option4.id:
+				return option4.label;
+			case option5.id:
+				return option5.label;
+		}
+	}
 
 	return React.createClass({
 
@@ -115,6 +131,9 @@ define([
     proceed: function () {
       this.resetSelectedFeatures();
       WizardActions.proceedToNextStep();
+			//- Send Analytics
+			var aoi = WizardStore.get(KEYS.areaOfInterest);
+			Analytics.sendEvent('Analysis', 'Area', getAOILabel(aoi));
     }
 
   });

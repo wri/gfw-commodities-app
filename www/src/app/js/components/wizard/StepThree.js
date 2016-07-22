@@ -302,6 +302,7 @@ define([
             WizardStore.set(KEYS.analysisPointRadius, radius);
           }
           this.props.callback.performAnalysis();
+          //- Send off analytics for Commercial Entity If they picked that.
         }
       }
     });
