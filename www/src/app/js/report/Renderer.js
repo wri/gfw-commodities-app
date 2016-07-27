@@ -105,29 +105,6 @@ define([
     /*
       @param {object} config
     */
-    renderGuiraDataContainer: function (config) {
-      var fragment = document.createDocumentFragment(),
-          node = document.createElement('div'),
-          map = document.getElementById('print-map');
-
-      node.id = config.rootNode;
-      node.className = "result-container";
-      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
-          "<div class='result-block guira'>" +
-            "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
-            "<div class='left-panel'>" +
-              "<div class='guira-chart' id='" + config.rootNode + "_guira'><div class='loader-wheel'>guira</div></div>" +
-            "</div>" +
-          "</div>";
-
-      // Append root to fragment and then fragment to document
-      fragment.appendChild(node);
-      document.getElementById('report-results-section').insertBefore(fragment, map);
-    },
-
-    /*
-      @param {object} config
-    */
     renderRSPOContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
@@ -186,14 +163,11 @@ define([
     renderMillContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
-          map = document.getElementById('print-map'),
-          downloadButton;
+          map = document.getElementById('print-map');
 
-      // Set up markup for the download button
-      downloadButton = "<button id='mill-download' class='mill-download-button' title='Download csv'></button>";
       node.id = config.rootNode;
-      node.className = 'result-container relative';
-      node.innerHTML = "<div class='title'>" + config.title + downloadButton + '</div>' +
+      node.className = "result-container relative";
+      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
           "<div id='mill-overall-container'></div>" +
           "<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
 
@@ -554,92 +528,6 @@ define([
 
     },
 
-    /*
-      @param {array} histogramData
-      @param {number} pixelSize
-      @param {object} config
-    */
-    renderGuiraData: function (histogramData, pixelSize, config) {
-
-      var guiraConfig = ReportConfig.guiraLayer,
-          yLabels = config.labels,
-          xLabels = guiraConfig.labels,
-          mapFunction = function(item){return (item * pixelSize * pixelSize) / 10000; },
-          series = [],
-          colors = [];
-
-      series.push({
-        'name': yLabels[0],
-        'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
-      });
-      colors.push(config.color);
-
-      // Show All 0's if no data is present
-      if (series[0].data.length !== xLabels.length) {
-        for (var index = 0; index < xLabels.length; index++) {
-          if (series[0].data[index] === undefined) series[0].data[index] = 0;
-        }
-      }
-
-
-      $("#" + config.rootNode + '_guira').highcharts({
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: null,
-          type: 'bar',
-          events: {
-            load: function () {
-              // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
-              // this.setSize(300, 400);
-            }
-          }
-        },
-        exporting: {
-          buttons: {
-            contextButton: { enabled: false },
-            exportButton: {
-              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-              symbol: exportButtonImagePath
-            }
-          }
-        },
-        colors: colors,
-        title: {
-          text: config.lossChart.title
-        },
-        xAxis: {
-          categories: xLabels,
-          maxPadding: 0.35,
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          stackLabels: {
-            enabled: true
-          },
-          title: {
-            text: null
-          }
-        },
-        legend: {
-          enabled: false,
-          verticalAlign: 'bottom'
-        },
-        plotOptions: {
-          series: {
-            stacking: 'normal'
-          }
-        },
-        series: series,
-        credits: {
-          enabled: false
-        }
-      });
-
-    },
-
 
     /*
       @param {array} histogramData
@@ -838,17 +726,9 @@ define([
     },
 
     renderGladData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
-      //todo: We are not passing in a config!!
-
-      console.log(ReportConfig.gladLayer);
-      // var lossConfig = ReportConfig.totalLoss,
-      // gladLayer
-
-      //todo: We are not passing in a config!!
       var yLabels = config.labels,
           yMapValues = arrayFromBounds(config.bounds),
-          xMapValues = arrayFromBounds(ReportConfig.gladLayer.bounds),
-          // xMapValues = arrayFromBounds(report.gladLayer),
+          xMapValues = arrayFromBounds(report.gladLayer),
           // mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
           data = [],
@@ -856,13 +736,12 @@ define([
           value,
           i, j;
 
-          // debugger
 
       // Config eventually needs to be updated as this is no longer a pie chart
       // Pie chart code and config are staying this way until client approves
       // Will still need the if else, the else section constructs a series with only one value
 
-      if (ReportConfig.gladLayer.clearanceChart.type === 'pie') {
+      if (config.clearanceChart.type === 'pie') {
 
         // Format data for line chart
         for (i = 0; i < yMapValues.length; i++) {
@@ -895,7 +774,7 @@ define([
           },
           colors: config.colors,
           title: {
-            text: ReportConfig.gladLayer.clearanceChart.title
+            text: config.clearanceChart.title
           },
           xAxis: {
             categories: report.clearanceLabels
@@ -923,9 +802,7 @@ define([
           // Pad the array with 0's for all remaining years if data is missing
           if (series.length !== xMapValues.length) {
             for (var index = 0; index < xMapValues.length; index++) {
-              if (series[index] === undefined) {
-                series[index] = 0;
-              }
+              if (series[index] === undefined) series[index] = 0;
             }
           }
 
@@ -1808,13 +1685,13 @@ define([
     renderMillAssessment: function (mills, config) {
 
       var millTables = [],
-          content = '',
+          content = "",
           title;
 
       arrayUtils.forEach(mills, function (mill, index) {
         // Create Header, if mill_name exits, use that, else, loop over report.mills and find a
         // matching id and use that
-        content = '';
+        content = "";
 
         if (mill.mill_name) {
           title = mill.mill_name;
@@ -1832,7 +1709,7 @@ define([
         }
 
         // Group Mill Results table if more then one mill
-        if(mills.length > 1 && index === 0) {
+        if(mills.length > 1 && index == 0) {
           // Table header
           content += "<table class='mill-table-v2'><thead class='mill-table-header-v2'><tr><td class='dark' rowspan='2'></td><td class='dark' rowspan='2'>Overall Priority Level</td><td class='dark' rowspan='2'>Historic Loss</td><td class='dark' rowspan='2'>Future Potential Loss</td><td class='white span-60' colspan='6'>Environmental Indicators</td></tr>" +
             "<tr><td class='white'>Tree Cover</td><td class='white'>Primary Forest</td><td class='white'>Peat</td><td class='white'>Protected Areas</td><td class='white'>Carbon</td><td class='white'>Fires</td></tr></thead>";
@@ -1874,13 +1751,51 @@ define([
       }
 
       /**
+        @param {string} name - Represents Name in table row
+        @param {object} data - Represents segment of response
+        @param {string} parentClass - class of parent and child
+        @param {string} fieldPrefix - prefix for field name in the json to extract data from
+        @return String - HTML Fragment which is a <tr>
+      */
+      // function generateParentRow(name, data, className, fieldPrefix) {
+      //   var rowClass = 'data-row parent';
+      //   var frag = "<tr class='" + rowClass + "' data-class='" + className + "'><td class='row-name'>" +
+      //              "<span class='toggle-icon'></span><span>" + name + "</span></td>";
+      //
+      //   frag += "<td class='" + (data[fieldPrefix + '_concession'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_concession'] || 'N/A') + "</span></td>";
+      //   frag += "<td class='" + (data[fieldPrefix + '_radius'] || 'N/A') + "'><span class='large-swatch'></span><span class='risk-label'>" + (data[fieldPrefix + '_radius'] || 'N/A') + "</span></td>";
+      //   frag += "</tr>";
+      //
+      //   return frag;
+      // }
+
+      /**
+        @param {string} name - Represents Name in table row
+        @param {object} data - Represents segment of response
+        @param {string} fieldPrefix - field prefix in the json to extract data from
+          - some json values are nested in objects, if no fieldName is provided, this function assumes thats the case
+        @return String - HTML Fragment which is a <tr>
+      */
+      // function generateBasicRow(name, data, fieldPrefix) {
+      //   var frag = "<tr class='data-row'><td class='row-name'><span>" + name + "</span></td>";
+      //   var concession = (fieldPrefix ? data[fieldPrefix + '_concession'] : data.concession.risk);
+      //   var radius = (fieldPrefix ? data[fieldPrefix + '_radius'] : data.radius.risk);
+      //
+      //   frag += "<td class='" + concession + "'><span class='large-swatch'></span><span class='risk-label'>" + concession + "</span></td>";
+      //   frag += "<td class='" + radius + "'><span class='large-swatch'></span><span class='risk-label'>" + radius + "</span></td>";
+      //   frag += "</tr>";
+      //
+      //   return frag;
+      // }
+
+      /**
         @param {object} mill - Represents segment of response
         @return String - HTML Fragment which is <tr>
       */
       function generateGroupMillRow(mill) {
         var smallSwatch = "'><span class='small-swatch'></span>";
 
-        var frag = "<tr class='data-row'>";
+        var frag  = "<tr class='data-row'>";
             frag += "<td class='mill_name'><span>" + mill.mill_name + "</span></td>";
             frag += "<td class='" + mill.priority_level + smallSwatch + mill.priority_level + "</td>";
             frag += "<td class='" + mill.historic_loss + smallSwatch + mill.historic_loss + "</td>";
@@ -1940,25 +1855,25 @@ define([
        @return String - HTML Fragment which is <table>
       */
       function generateSingleMillTableBottom(mill) {
-        var smallSwatch = '"><span class="small-swatch"></span>';
+        var smallSwatch = "'><span class='small-swatch'></span>";
 
-        var frag = '<table class="single-mill-table-content-v2">';
-            frag += '<thead><tr><th colspan="3" class="' + mill.historic_loss + '">Historic loss: <span class="small-swatch"></span>' + mill.historic_loss + ' Risk</th>' +
-                    '<th colspan="3" class="' + mill.future_risk + '">Potential for future loss:  <span class="small-swatch"></span>' + mill.future_risk + ' Risk</th></tr>';
-            frag += '<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>';
-            frag += '<tr><td>Rate of tree cover loss</td><td class="' + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + '</td><td>' + Math.round(mill.tree_cover.loss.amount) + ' ha/year</td>' +
-                    '<td>Rate of tree cover loss</td><td class="' + mill.tree_cover.extent.rank + smallSwatch + mill.tree_cover.extent.rank + '</td><td>' + Math.round(mill.tree_cover.extent.amount) + ' ha/year</td></tr>';
-            frag += '<tr><td>Tree cover loss on primary forest</td><td class="' + mill.primary_forest.loss.rank + smallSwatch + mill.primary_forest.loss.rank + '</td><td>' + Math.round(mill.primary_forest.loss.amount) + ' ha</td>' +
-                    '<td>Area in primary forest</td><td class="' + mill.primary_forest.extent.rank + smallSwatch + mill.primary_forest.extent.rank + '</td><td>' + Math.round(mill.primary_forest.extent.amount) + '%</td></tr>';
-            frag += '<tr><td>Tree cover loss on peat</td><td class="' + mill.peat.loss.rank + smallSwatch + mill.peat.loss.rank + '</td><td>' + Math.round(mill.peat.loss.amount) + ' ha</td>' +
-                    '<td>Area in peat</td><td class="' + mill.peat.extent.rank + smallSwatch + mill.peat.extent.rank + '</td><td>' + Math.round(mill.peat.extent.amount) + '%</td></tr>';
-            frag += '<tr><td>Tree cover loss on protected areas</td><td class="' + mill.protected_areas.loss.rank + smallSwatch + mill.protected_areas.loss.rank + '</td><td>' + Math.round(mill.protected_areas.loss.amount) + ' ha</td>' +
-                    '<td>Area in protected areas</td><td class="' + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + '</td><td>' + Math.round(mill.protected_areas.extent.amount) + '%</td></tr>';
-            frag += '<tr><td>Tree cover loss on carbon dense areas</td><td class="' + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + '</td><td>' + Math.round(mill.carbon.loss.amount) + ' ha</td>' +
-                    '<td>Area of high carbon density</td><td class="' + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + '</td><td>' + Math.round(mill.carbon.extent.amount) + '%</td></tr>';
-            frag += '<tr><td>Fire activity</td><td class="' + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + '</td><td>' + mill.fire.loss.amount.toFixed(5) + ' fires/ha/year</td>' +
-                    '<td>Rate of fire activity last two years</td><td class="' + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + '</td><td>' + mill.fire.extent.amount.toFixed(5) + ' fires/ha/year</td></tr>';
-            frag += '</table>';
+        var frag  = "<table class='single-mill-table-content-v2'>";
+            frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic loss: <span class='small-swatch'></span>" + mill.historic_loss + " Risk</th>" +
+                    "<th colspan='3' class='" + mill.future_risk + "'>Potential for future loss:  <span class='small-swatch'></span>" + mill.future_risk + " Risk</th></tr>";
+            frag += "<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>";
+            frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + "</td><td>" + Math.round(mill.tree_cover.loss.amount) +" ha/year</td>" +
+                    "<td>Rate of tree cover loss</td><td class='" + mill.tree_cover.extent.rank + smallSwatch + mill.tree_cover.extent.rank + "</td><td>" + Math.round(mill.tree_cover.extent.amount) + " ha/year</td></tr>";
+            frag += "<tr><td>Tree cover loss on primary forest</td><td class='" + mill.primary_forest.loss.rank + smallSwatch + mill.primary_forest.loss.rank + "</td><td>" + Math.round(mill.primary_forest.loss.amount) + " %</td>" +
+                    "<td>Area in primary forest</td><td class='" + mill.primary_forest.extent.rank + smallSwatch + mill.primary_forest.extent.rank + "</td><td>" + Math.round(mill.primary_forest.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Tree cover loss on peat</td><td class='" + mill.peat.loss.rank + smallSwatch + mill.peat.loss.rank + "</td><td>" + Math.round(mill.peat.loss.amount) + " %</td>" +
+                    "<td>Area in peat</td><td class='" + mill.peat.extent.rank + smallSwatch + mill.peat.extent.rank + "</td><td>" + Math.round(mill.peat.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Tree cover loss on protected areas</td><td class='" + mill.protected_areas.loss.rank + smallSwatch + mill.protected_areas.loss.rank + "</td><td>" + Math.round(mill.protected_areas.loss.amount) + " %</td>" +
+                    "<td>Area in protected areas</td><td class='" + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + "</td><td>" + Math.round(mill.protected_areas.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Tree cover loss on carbon dense areas</td><td class='" + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + "</td><td>" + Math.round(mill.carbon.loss.amount) + " %</td>" +
+                    "<td>Area of high carbon density</td><td class='" + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + "</td><td>" + Math.round(mill.carbon.extent.amount) + " %</td></tr>";
+            frag += "<tr><td>Fire activity</td><td class='" + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + "</td><td>" + Math.round(mill.fire.extent.amount) + " fires/1000 ha</td>" +
+                    "<td>Rate of fire activity last two years</td><td class='" + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + "</td><td>" + Math.round(mill.fire.loss.amount) + " fires/1000 ha per year</td></tr>";
+            frag += "</table>";
 
         return frag;
       }
@@ -1997,14 +1912,8 @@ define([
       }
 
       // Set up Click Listeners to give table custom toggling functionality and show information on info classes
-      // as well as download for CSV
       $(".mill-table-container tr.parent").click(toggleChildren);
       $(".mill-table-container .info-icon").click(this.showMillPointInfo);
-      $('#mill-download').click(function () {
-        // Pass in the mills and an array of descriptors for the CSV format
-        var csvData = CSVExporter.prepareMillAnalysis(mills, ReportConfig.millCSVDescriptor);
-        CSVExporter.exportCSV(csvData);
-      });
 
       // Hide children by default
       $('.mill-table-container .data-row.child').toggle();

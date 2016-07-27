@@ -488,10 +488,10 @@ define([
                     case 'prodes':
                         deferreds.push(Fetcher.getProdesResults());
                         break;
-                    case 'guiraAlerts':
-                    console.log('ooj');
-                        deferreds.push(Fetcher.getGuiraResults());
-                        break;
+                    // case 'guiraAlerts':
+                    // console.log('ooj');
+                    //     deferreds.push(Fetcher.getGuiraResults());
+                    //     break;
                     // case 'gladAlerts':
                     //     deferreds.push(Fetcher.getGladResults());
                     //     break;
