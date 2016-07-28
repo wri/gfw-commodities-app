@@ -1855,25 +1855,25 @@ define([
        @return String - HTML Fragment which is <table>
       */
       function generateSingleMillTableBottom(mill) {
-        var smallSwatch = "'><span class='small-swatch'></span>";
+        var smallSwatch = '"><span class="small-swatch"></span>';
 
-        var frag  = "<table class='single-mill-table-content-v2'>";
-            frag += "<thead><tr><th colspan='3' class='" + mill.historic_loss + "'>Historic loss: <span class='small-swatch'></span>" + mill.historic_loss + " Risk</th>" +
-                    "<th colspan='3' class='" + mill.future_risk + "'>Potential for future loss:  <span class='small-swatch'></span>" + mill.future_risk + " Risk</th></tr>";
-            frag += "<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>";
-            frag += "<tr><td>Rate of tree cover loss</td><td class='" + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + "</td><td>" + Math.round(mill.tree_cover.loss.amount) +" ha/year</td>" +
-                    "<td>Rate of tree cover loss</td><td class='" + mill.tree_cover.extent.rank + smallSwatch + mill.tree_cover.extent.rank + "</td><td>" + Math.round(mill.tree_cover.extent.amount) + " ha/year</td></tr>";
-            frag += "<tr><td>Tree cover loss on primary forest</td><td class='" + mill.primary_forest.loss.rank + smallSwatch + mill.primary_forest.loss.rank + "</td><td>" + Math.round(mill.primary_forest.loss.amount) + " %</td>" +
-                    "<td>Area in primary forest</td><td class='" + mill.primary_forest.extent.rank + smallSwatch + mill.primary_forest.extent.rank + "</td><td>" + Math.round(mill.primary_forest.extent.amount) + " %</td></tr>";
-            frag += "<tr><td>Tree cover loss on peat</td><td class='" + mill.peat.loss.rank + smallSwatch + mill.peat.loss.rank + "</td><td>" + Math.round(mill.peat.loss.amount) + " %</td>" +
-                    "<td>Area in peat</td><td class='" + mill.peat.extent.rank + smallSwatch + mill.peat.extent.rank + "</td><td>" + Math.round(mill.peat.extent.amount) + " %</td></tr>";
-            frag += "<tr><td>Tree cover loss on protected areas</td><td class='" + mill.protected_areas.loss.rank + smallSwatch + mill.protected_areas.loss.rank + "</td><td>" + Math.round(mill.protected_areas.loss.amount) + " %</td>" +
-                    "<td>Area in protected areas</td><td class='" + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + "</td><td>" + Math.round(mill.protected_areas.extent.amount) + " %</td></tr>";
-            frag += "<tr><td>Tree cover loss on carbon dense areas</td><td class='" + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + "</td><td>" + Math.round(mill.carbon.loss.amount) + " %</td>" +
-                    "<td>Area of high carbon density</td><td class='" + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + "</td><td>" + Math.round(mill.carbon.extent.amount) + " %</td></tr>";
-            frag += "<tr><td>Fire activity</td><td class='" + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + "</td><td>" + Math.round(mill.fire.extent.amount) + " fires/1000 ha</td>" +
-                    "<td>Rate of fire activity last two years</td><td class='" + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + "</td><td>" + Math.round(mill.fire.loss.amount) + " fires/1000 ha per year</td></tr>";
-            frag += "</table>";
+        var frag = '<table class="single-mill-table-content-v2">';
+            frag += '<thead><tr><th colspan="3" class="' + mill.historic_loss + '">Historic loss: <span class="small-swatch"></span>' + mill.historic_loss + ' Risk</th>' +
+                    '<th colspan="3" class="' + mill.future_risk + '">Potential for future loss:  <span class="small-swatch"></span>' + mill.future_risk + ' Risk</th></tr>';
+            frag += '<tr><td>Indicator</td><td>Rank</td><td>Amount</td><td>Indicator</td><td>Rank</td><td>Amount</td></tr></thead>';
+            frag += '<tr><td>Rate of tree cover loss</td><td class="' + mill.tree_cover.loss.rank + smallSwatch + mill.tree_cover.loss.rank + '</td><td>' + Math.round(mill.tree_cover.loss.amount) + ' ha/year</td>' +
+                    '<td>Rate of tree cover loss</td><td class="' + mill.tree_cover.extent.rank + smallSwatch + mill.tree_cover.extent.rank + '</td><td>' + Math.round(mill.tree_cover.extent.amount) + ' ha/year</td></tr>';
+            frag += '<tr><td>Tree cover loss on primary forest</td><td class="' + mill.primary_forest.loss.rank + smallSwatch + mill.primary_forest.loss.rank + '</td><td>' + Math.round(mill.primary_forest.loss.amount) + ' ha</td>' +
+                    '<td>Area in primary forest</td><td class="' + mill.primary_forest.extent.rank + smallSwatch + mill.primary_forest.extent.rank + '</td><td>' + Math.round(mill.primary_forest.extent.amount) + '%</td></tr>';
+            frag += '<tr><td>Tree cover loss on peat</td><td class="' + mill.peat.loss.rank + smallSwatch + mill.peat.loss.rank + '</td><td>' + Math.round(mill.peat.loss.amount) + ' ha</td>' +
+                    '<td>Area in peat</td><td class="' + mill.peat.extent.rank + smallSwatch + mill.peat.extent.rank + '</td><td>' + Math.round(mill.peat.extent.amount) + '%</td></tr>';
+            frag += '<tr><td>Tree cover loss on protected areas</td><td class="' + mill.protected_areas.loss.rank + smallSwatch + mill.protected_areas.loss.rank + '</td><td>' + Math.round(mill.protected_areas.loss.amount) + ' ha</td>' +
+                    '<td>Area in protected areas</td><td class="' + mill.protected_areas.extent.rank + smallSwatch + mill.protected_areas.extent.rank + '</td><td>' + Math.round(mill.protected_areas.extent.amount) + '%</td></tr>';
+            frag += '<tr><td>Tree cover loss on carbon dense areas</td><td class="' + mill.carbon.loss.rank + smallSwatch + mill.carbon.loss.rank + '</td><td>' + Math.round(mill.carbon.loss.amount) + ' ha</td>' +
+                    '<td>Area of high carbon density</td><td class="' + mill.carbon.extent.rank + smallSwatch + mill.carbon.extent.rank + '</td><td>' + Math.round(mill.carbon.extent.amount) + '%</td></tr>';
+            frag += '<tr><td>Fire activity</td><td class="' + mill.fire.loss.rank + smallSwatch + mill.fire.loss.rank + '</td><td>' + mill.fire.loss.amount.toFixed(5) + ' fires/ha/year</td>' +
+                    '<td>Rate of fire activity last two years</td><td class="' + mill.fire.extent.rank + smallSwatch + mill.fire.extent.rank + '</td><td>' + mill.fire.extent.amount.toFixed(5) + ' fires/ha/year</td></tr>';
+            frag += '</table>';
 
         return frag;
       }
