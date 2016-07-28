@@ -473,24 +473,24 @@ define('map/config',[], function() {
           'forest-and-land-cover-land-cover-south-east-asia': 'khm_economic_land_concession',
           'forest-and-land-cover-legal-classifications': 'idn_conservation_areas',
           'land-use-oil-palm': 'gfw_oil_palm',
-          'land-use-rspo-consessions': 'tree_cover_loss',
+          'land-use-rspo-consessions': 'rspo_oil_palm',
           'land-use-logging': 'gfw_logging',
           'land-use-mining': 'gfw_mining',
           'land-use-wood-fiber-plantation': 'gfw_wood_fiber',
-          'land-use-mill-points': 'oil_palm_mills',
-          'land-use-gfw-mill-points': 'rspo_mills',
+          'land-use-mill-points': 'rspo_mills',
+          'land-use-gfw-mill-points': 'oil_palm_mills',
           'land-use-moratorium-areas': 'idn_forest_moratorium',
           'conservation-protected-areas': 'wdpa_protected_areas',
           'conservation-biodiversity-hotspots': 'biodiversity_hotspots',
           'suitability-soy-layer': 'tree_cover_loss',
           'suitability-custom-suitability-mapper': 'tree_cover_loss',
-          'suitability-wri-standard-suitability': 'tree_cover_loss',
+          'suitability-wri-standard-suitability': 'idn_suitability',
           'suitability-conservation-areas': 'idn_conservation_areas',
           'suitability-elevation': 'idn_elevation',
           'suitability-slope': 'idn_slope',
           'suitability-rainfall': 'idn_rainfall',
           'suitability-soil-drainage': 'idn_soil_drainage',
-          'suitability-soil-idn_soil_depth': 'idn_soil_depth',
+          'suitability-soil-depth': 'idn_soil_depth',
           'suitability-soil-acidity': 'idn_soil_acidity',
           'suitability-soil-type': 'idn_soil_type'
 
@@ -2389,11 +2389,10 @@ define('analysis/config',[], function() {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
             //     checked: false
-          }
-          , {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
-                checked: false
+          // }, {
+          //       label: 'Guira Alerts',
+          //       value: 'guiraAlerts',
+          //       checked: false
             }
           ],
             suit: {
@@ -13343,7 +13342,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.90',
+                path = './app/templates/' + name + '.html?v=2.5.93',
                 req;
 
             req = new XMLHttpRequest();

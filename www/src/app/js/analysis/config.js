@@ -185,12 +185,11 @@ define([], function() {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
             //     checked: false
-          }
-          // , {
+          // }, {
           //       label: 'Guira Alerts',
           //       value: 'guiraAlerts',
           //       checked: false
-          //   }
+            }
           ],
             suit: {
                 label: 'Oil Palm Suitability',
