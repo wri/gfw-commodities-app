@@ -1,1 +1,10 @@
-<svg id="callout_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 585.9 548.6"><style>.st0{fill:#fff}</style><path class="st0" d="M164.6 0L0 292.6h82.3L0 438.9h288.2l-68.8-79.8v-64.2l70.6-62.2L164.6 0zM109.7 475.4h109.7v73.1H109.7v-73.1zM296.5 352.6l109.2 104.5 180.2-184.9-51.7-51.7-131.9 130-57.9-60.3-47.9 62.4z"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="callout_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 585.9 548.6" style="enable-background:new 0 0 585.9 548.6;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+</style>
+<path class="st0" d="M164.6,0L0,292.6h82.3L0,438.9h288.2l-68.8-79.8v-64.2l70.6-62.2L164.6,0L164.6,0z"/>
+<path class="st0" d="M109.7,475.4h109.7v73.1H109.7V475.4z"/>
+<path class="st0" d="M296.5,352.6l109.2,104.5l180.2-184.9l-51.7-51.7l-131.9,130l-57.9-60.3L296.5,352.6L296.5,352.6z"/>
+</svg>

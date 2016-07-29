@@ -1,1 +1,13 @@
-<svg id="callout_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 585.1 621.7"><style>.fill{fill:#fff}</style><path class="fill" d="M292.6 109.7L146.3 329.1h73.1l-73.1 109.7h292.6l-73.1-109.7h73.1L292.6 109.7zM256 475.4h73.1v73.1H256v-73.1zM0 0v146.3h36.6V36.6h109.7V0H0zM438.9 0v36.6h109.7v109.7h36.6V0H438.9zM438.9 585.1v36.6h146.3V475.4h-36.6v109.7H438.9zM0 621.7h146.3v-36.6H36.6V475.4H0v146.3z"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="callout_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 585.1 621.7" style="enable-background:new 0 0 585.1 621.7;" xml:space="preserve">
+<style type="text/css">
+	.fill{fill:#fff;}
+</style>
+<path class="fill" d="M292.6,109.7L146.3,329.1h73.1l-73.1,109.7h292.6l-73.1-109.7h73.1L292.6,109.7L292.6,109.7z"/>
+<path class="fill" d="M256,475.4h73.1v73.1H256V475.4L256,475.4z"/>
+<path class="fill" d="M0,0v146.3h36.6V36.6h109.7V0L0,0L0,0z"/>
+<path class="fill" d="M438.9,0v36.6h109.7v109.7h36.6V0L438.9,0L438.9,0z"/>
+<path class="fill" d="M438.9,585.1v36.6h146.3V475.4h-36.6v109.7L438.9,585.1L438.9,585.1z"/>
+<path class="fill" d="M0,621.7h146.3v-36.6H36.6V475.4H0L0,621.7L0,621.7z"/>
+</svg>
