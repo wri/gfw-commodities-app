@@ -163,11 +163,13 @@ define([
     renderMillContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
-          map = document.getElementById('print-map');
+          map = document.getElementById('print-map'),
+          downloadButton;
 
+      downloadButton = "<button id='mill-download' class='mill-download-button' title='Download csv'></button>";
       node.id = config.rootNode;
       node.className = "result-container relative";
-      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+      node.innerHTML = "<div class='title'>" + config.title + downloadButton + "</div>" +
           "<div id='mill-overall-container'></div>" +
           "<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
 
@@ -1914,6 +1916,11 @@ define([
       // Set up Click Listeners to give table custom toggling functionality and show information on info classes
       $(".mill-table-container tr.parent").click(toggleChildren);
       $(".mill-table-container .info-icon").click(this.showMillPointInfo);
+      $('#mill-download').click(function () {
+        // Pass in the mills and an array of descriptors for the CSV format
+        var csvData = CSVExporter.prepareMillAnalysis(mills, ReportConfig.millCSVDescriptor);
+        CSVExporter.exportCSV(csvData);
+      });
 
       // Hide children by default
       $('.mill-table-container .data-row.child').toggle();
