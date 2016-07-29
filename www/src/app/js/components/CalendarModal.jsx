@@ -5,8 +5,9 @@ define([
   'dojo/dom-class',
   'dojo/topic',
   'utils/DateHelper',
+	'utils/Analytics',
 	'map/config'
-], function (React, CalendarWrapper, domClass, topic, DateHelper, MapConfig) {
+], function (React, CalendarWrapper, domClass, topic, DateHelper, Analytics, MapConfig) {
 
 	// Variables
 	var calendarConfig = MapConfig.calendars;
@@ -39,8 +40,6 @@ define([
 					// },
 					selected: calendar.selectedDate
 				});
-				console.log(self);
-
 				calendar_obj.subscribe('change', self[calendar.method].bind(self));
 			});
 
@@ -97,6 +96,7 @@ define([
 				endDate = endDate.format('M/D/YYYY');
 			}
       topic.publish('updateGladDates', [date, endDate]);
+			Analytics.sendEvent('Event', 'Glad Timeline', 'Change start date');
 		},
 
 		changeGladEnd: function (date) {
@@ -115,6 +115,7 @@ define([
 			}
 
       topic.publish('updateGladDates', [startDate, date]);
+			Analytics.sendEvent('Event', 'Glad Timeline', 'Change end date');
 		}
 
 		/* jshint ignore:end */

@@ -1,8 +1,9 @@
 define([
   "dojo/on",
   "map/config",
+  "utils/Analytics",
   "map/LayerController"
-], function (on, MapConfig, LayerController) {
+], function (on, MapConfig, Analytics, LayerController) {
   "use strict";
 
   var playInterval,
@@ -19,7 +20,9 @@ define([
   };
 
   var state = {
-    isPlaying: false
+    isPlaying: false,
+    from: 0,
+    to: config.values.length - 1
   };
 
   var LossSliderController = {
@@ -61,6 +64,17 @@ define([
       }
 
       LayerController.updateLossImageServiceRasterFunction([data.from, data.to], MapConfig.loss, densityRange);
+      //- Determine which handle changed and emit the appropriate event
+      if (!state.isPlaying) {
+        if (data.from !== state.from) {
+          Analytics.sendEvent('Event', 'Loss Timeline', 'Change start date');
+        } else {
+          Analytics.sendEvent('Event', 'Loss Timeline', 'Change end date');
+        }
+      }
+      //- Update the state value
+      state.from = data.from;
+      state.to = data.to;
     },
 
     playToggle: function () {
@@ -102,7 +116,7 @@ define([
         playButton.html(config.pauseHtml);
       }
 
-
+      Analytics.sendEvent('Event', 'Loss Timeline', 'Play');
     }
 
   };

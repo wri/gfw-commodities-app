@@ -184,13 +184,15 @@ define([
         // If it does not have points but it is custom features, user used Create Custom Area and
         // is analyzing polygons, so show nothing, otherwise, show little description
 
-        return (hasPoints ?
-          <div className='point-radius-select-container'>
-              <span className='instructions'>{config.pointRadiusDescription}</span>
-              <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
-          </div> :
-            isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
-        );
+        return (!hasPoints && isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>);
+
+        // return (hasPoints ?
+        //   <div className='point-radius-select-container'>
+        //       <span className='instructions'>{config.pointRadiusDescription}</span>
+        //       <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
+        //   </div> :
+        //     isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
+        // );
       },
 
       /* jshint ignore:end */
@@ -296,12 +298,13 @@ define([
           var payload = this._getPayload();
           WizardStore.set(KEYS.analysisSets, payload);
           // Get the Radius and set it to the store if it exists
-          var pointRadiusSelect = this.refs.pointRadiusSelect;
-          if (pointRadiusSelect) {
-            var radius = pointRadiusSelect.getDOMNode().value;
-            WizardStore.set(KEYS.analysisPointRadius, radius);
-          }
+          // var pointRadiusSelect = this.refs.pointRadiusSelect;
+          // if (pointRadiusSelect) {
+          //   var radius = pointRadiusSelect.getDOMNode().value;
+          //   WizardStore.set(KEYS.analysisPointRadius, radius);
+          // }
           this.props.callback.performAnalysis();
+          //- Send off analytics for Commercial Entity If they picked that.
         }
       }
     });

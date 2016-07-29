@@ -3,8 +3,9 @@ define([
   'map/config',
   'esri/request',
   'dojo/Deferred',
+  'utils/Analytics',
   'map/LayerController'
-], function (on, MapConfig, esriRequest, Deferred, LayerController) {
+], function (on, MapConfig, esriRequest, Deferred, Analytics, LayerController) {
   // "use strict";
 
   var playInterval,
@@ -19,7 +20,9 @@ define([
   };
 
   var state = {
-    isPlaying: false
+    isPlaying: false,
+    from: 0,
+    to: 0
   };
 
   var getFormaLabels = function getFormaLabels () {
@@ -74,12 +77,25 @@ define([
           playButton = $('#formaPlayButton');
           // Attach Events related to this item
           on(playButton, 'click', self.playToggle);
+          //- set the state for change tracking
+          state.to = labels.length - 1;
         });
       }
     },
 
     change: function (data) {
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.forma);
+      //- Determine which handle changed and emit the appropriate event
+      if (!state.isPlaying) {
+        if (data.from !== state.from) {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change start date');
+        } else {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change end date');
+        }
+      }
+      //- Update the state value
+      state.from = data.from;
+      state.to = data.to;
     },
 
     playToggle: function () {
@@ -120,6 +136,8 @@ define([
         // Update the button html
         playButton.html(config.pauseHtml);
       }
+
+      Analytics.sendEvent('Event', 'Forma Timeline', 'Play');
     }
 
   };

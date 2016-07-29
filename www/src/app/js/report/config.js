@@ -1014,117 +1014,123 @@ define([], function() {
           { label: 'Mill Name', info: {
             path: 'mill_name'
           }},
-          { label: 'Longitude', info: {
-            path: '' // Not yet present in the API
+          { label: 'latitude', info: {
+            path: 'latitude'
           }},
-          { label: 'Latitude', info: {
-            path: '' // Not yet present in the API
+          { label: 'longitude', info: {
+            path: 'longitude'
           }},
-          { label: 'Overall Priority Level', info: {
+          { label: 'priority_risk', info: {
             path: 'priority_level'
           }},
+          { label: 'total_historic_risk', info: {
+            path: 'historic_loss'
+          }},
+          { label: 'total_future_risk', info: {
+            path: 'future_risk'
+          }},
           // Combined values
-          { label: 'Tree Cover Loss Combined', info: {
+          { label: 'combined_tree_loss_risk', info: {
             path: 'tree_cover.risk'
           }},
-          { label: 'Primary Forest Combined', info: {
+          { label: 'combined_primary_forest_risk', info: {
             path: 'primary_forest.risk'
           }},
-          { label: 'Peat Combined', info: {
+          { label: 'combined_peat_risk', info: {
             path: 'peat.risk'
           }},
-          { label: 'Protected Areas Combined', info: {
+          { label: 'combined_protected_risk', info: {
             path: 'protected_areas.risk'
           }},
-          { label: 'Carbon Combined', info: {
+          { label: 'combined_carbon_dense_area_risk', info: {
             path: 'carbon.risk'
           }},
-          { label: 'Fires Combined', info: {
+          { label: 'combined_fires_risk', info: {
             path: 'fire.risk'
           }},
           // Historic data
-          { label: 'Tree Cover Loss Historic Risk', info: {
+          { label: 'historic_tree_loss_risk', info: {
             path: 'tree_cover.loss.rank'
           }},
-          { label: 'Tree Cover Loss Historic Value (ha)', info: {
+          { label: 'historic_tree_loss_value (ha/year)', info: {
             path: 'tree_cover.loss.amount',
             precision: 0
           }},
-          { label: 'Primary Forest Historic Risk', info: {
+          { label: 'historic_primary_forest_risk', info: {
             path: 'primary_forest.loss.rank'
           }},
-          { label: 'Primary Forest Historic Value (ha)', info: {
+          { label: 'historic_primary_forest_value (ha)', info: {
             path: 'primary_forest.loss.amount',
             precision: 0
           }},
-          { label: 'Peat Historic Risk', info: {
+          { label: 'historic_peat_risk', info: {
             path: 'peat.loss.rank'
           }},
-          { label: 'Peat Historic Value (ha)', info: {
+          { label: 'historic_peat_value (ha)', info: {
             path: 'peat.loss.amount',
             precision: 0
           }},
-          { label: 'Protected Areas Historic Risk', info: {
+          { label: 'historic_protected_risk', info: {
             path: 'protected_areas.loss.rank'
           }},
-          { label: 'Protected Areas Historic Value (ha)', info: {
+          { label: 'historic_protected_value (ha)', info: {
             path: 'protected_areas.loss.amount',
             precision: 0
           }},
-          { label: 'Carbon Historic Risk', info: {
+          { label: 'historic_carbon_dense_area_risk', info: {
             path: 'carbon.loss.rank'
           }},
-          { label: 'Carbon Historic Value (ha)', info: {
+          { label: 'historic_carbon_dense_area_value (ha)', info: {
             path: 'carbon.loss.amount',
             precision: 0
           }},
-          { label: 'Fires Historic Risk', info: {
+          { label: 'historic_fires_risk', info: {
             path: 'fire.loss.rank'
           }},
-          { label: 'Fires Historic Value (fires/ha/year)', info: {
+          { label: 'historic_fires_value (fires/ha/year)', info: {
             path: 'fire.loss.amount',
             precision: 5
           }},
           // Future data
-          { label: 'Tree Cover Loss Future Risk', info: {
+          { label: 'future_tree_loss_risk', info: {
             path: 'tree_cover.extent.rank'
           }},
-          { label: 'Tree Cover Loss Future Value (ha)', info: {
+          { label: 'future_tree_loss_value (ha/year)', info: {
             path: 'tree_cover.extent.amount',
             precision: 0
           }},
-          { label: 'Primary Forest Future Risk', info: {
+          { label: 'future_primary_forest_risk', info: {
             path: 'primary_forest.extent.rank'
           }},
-          { label: 'Primary Forest Future Value (% of area)', info: {
+          { label: 'future_primary_forest_value (%)', info: {
             path: 'primary_forest.extent.amount',
             precision: 0
           }},
-          { label: 'Peat Future Risk', info: {
+          { label: 'future_peat_risk', info: {
             path: 'peat.extent.rank'
           }},
-          { label: 'Peat Future Value (% of area)', info: {
+          { label: 'future_peat_value (%)', info: {
             path: 'peat.extent.amount',
             precision: 0
           }},
-          { label: 'Protected Areas Future Risk', info: {
+          { label: 'future_protected_risk', info: {
             path: 'protected_areas.extent.rank'
           }},
-          { label: 'Protected Areas Future Value (% of area)', info: {
+          { label: 'future_protected_value (%)', info: {
             path: 'protected_areas.extent.amount',
             precision: 0
           }},
-          { label: 'Carbon Future Risk', info: {
+          { label: 'future_carbon_dense_area_risk', info: {
             path: 'carbon.extent.rank'
           }},
-          { label: 'Carbon Future Value (% of area)', info: {
+          { label: 'future_high_carbon_value (%)', info: {
             path: 'carbon.extent.amount',
             precision: 0
           }},
-          { label: 'Fires Future Risk', info: {
+          { label: 'future_fires_risk', info: {
             path: 'fire.extent.rank'
           }},
-          { label: 'Fires Future Value (fires/ha/year)', info: {
+          { label: 'future_fires_value (fires/ha/year)', info: {
             path: 'fire.extent.amount',
             precision: 5
           }}

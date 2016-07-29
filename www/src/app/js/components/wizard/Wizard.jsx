@@ -257,6 +257,15 @@ define([
             // Emit Event for Analytics
             Analytics.sendEvent('Event', 'Perform Analysis', 'User clicked perfrom analysis.');
 
+            //- Create a list of types selected
+            var checkboxes = AnalyzerConfig.stepThree.checkboxes;
+            var types = checkboxes.filter(function (checkbox) {
+              return datasets[checkbox.value];
+            }).map(function (checkbox) { return checkbox.label; });
+            //- Send Event for all types selected
+            types.forEach(function (type) {
+              Analytics.sendEvent('Analysis', 'Type of Analysis', type);
+            });
         },
 
         _prepareGeometry: function(features) {
