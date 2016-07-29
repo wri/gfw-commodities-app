@@ -4774,9 +4774,10 @@ define('actions/WizardActions',[
 define('components/wizard/StepOne',[
 	'react',
   'analysis/config',
+	'utils/Analytics',
   'analysis/WizardStore',
   'actions/WizardActions'
-], function (React, AnalyzerConfig, WizardStore, WizardActions) {
+], function (React, AnalyzerConfig, Analytics, WizardStore, WizardActions) {
 
   // Variables
   var config = AnalyzerConfig.stepOne,
@@ -4795,6 +4796,21 @@ define('components/wizard/StepOne',[
       previousAreaOfInterest: undefined
     };
   }
+
+	function getAOILabel (aoi) {
+		switch (aoi) {
+			case option1.id:
+				return option1.label;
+			case option2.id:
+				return option2.label;
+			case option3.id:
+				return option3.label;
+			case option4.id:
+				return option4.label;
+			case option5.id:
+				return option5.label;
+		}
+	}
 
 	return React.createClass({
 
@@ -4887,6 +4903,9 @@ define('components/wizard/StepOne',[
     proceed: function () {
       this.resetSelectedFeatures();
       WizardActions.proceedToNextStep();
+			//- Send Analytics
+			var aoi = WizardStore.get(KEYS.areaOfInterest);
+			Analytics.sendEvent('Analysis', 'Area', getAOILabel(aoi));
     }
 
   });
@@ -6225,6 +6244,7 @@ define('components/wizard/CommercialEntity',[
   "analysis/Query",
   "analysis/config",
   "utils/GeoHelper",
+	"utils/Analytics",
   "analysis/WizardStore",
   "actions/WizardActions",
   "components/wizard/NestedList",
@@ -6232,7 +6252,7 @@ define('components/wizard/CommercialEntity',[
   "dojo/topic",
   "dojo/query",
   "esri/graphic"
-], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, GeoHelper, WizardStore, WizardActions, NestedList, topic, query, Graphic) {
+], function (React, MapConfig, Symbols, AnalyzerQuery, AnalyzerConfig, GeoHelper, Analytics, WizardStore, WizardActions, NestedList, topic, query, Graphic) {
 
   var config = AnalyzerConfig.commercialEntity;
   var KEYS = AnalyzerConfig.STORE_KEYS;
@@ -6320,11 +6340,11 @@ define('components/wizard/CommercialEntity',[
       return (
         React.createElement("div", {className: "commercial-entity"}, 
           React.createElement("p", {className: "instructions"}, " ", config.instructions, " "), 
-          React.createElement("select", {className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
+          React.createElement("select", {ref: "commoditySelect", className: "commodity-type-select", value: this.state.selectedCommodity, onChange: this._loadFeatures}, 
             config.commodityOptions.map(this._selectMapper, this)
           ), 
           React.createElement("span", {className: 'loading' + (this.state.isLoading ? '' : ' hidden')}), 
-          React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length> 0 ? '' : ' hidden')}, 
+          React.createElement("p", {className: 'instructions' + (this.state.nestedListData.length > 0 ? '' : ' hidden')}, 
             config.instructionsPartTwo
           ), 
           React.createElement(NestedList, {
@@ -6371,13 +6391,18 @@ define('components/wizard/CommercialEntity',[
           isLoading: false
         });
       });
+
+			// Send off Analytics
+			if (value !== 'NONE') {
+				Analytics.sendEvent('Analysis', 'Commodity Type', value);
+			}
     },
 
     _commodityClicked: function (target) {
       var wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id),
           objectId = parseInt(target.getAttribute('data-value')),
           featureType = target.getAttribute('data-type'),
-          selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
+          // selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures),
           label = target.innerText || target.innerHTML,
           self = this,
           graphic;
@@ -6477,6 +6502,14 @@ define('components/wizard/CommercialEntity',[
         } // End else
 
       } // End else if
+
+			var select = this.refs.commoditySelect;
+			var value = select && select.props && select.props.value;
+			//- Send Analytics
+			if (value && value !== 'NONE') {
+				//- e.g. Analysis, Oil palm concession, PT. Astra Agro Lestari
+				Analytics.sendEvent('Analysis', value, label);
+			}
 
     }// End __commodityClicked
 
@@ -7057,6 +7090,7 @@ define('components/wizard/StepThree',[
             WizardStore.set(KEYS.analysisPointRadius, radius);
           }
           this.props.callback.performAnalysis();
+          //- Send off analytics for Commercial Entity If they picked that.
         }
       }
     });
@@ -7935,8 +7969,9 @@ define('map/LayerController',[
 define('map/LossSlider',[
   "dojo/on",
   "map/config",
+  "utils/Analytics",
   "map/LayerController"
-], function (on, MapConfig, LayerController) {
+], function (on, MapConfig, Analytics, LayerController) {
   "use strict";
 
   var playInterval,
@@ -7953,7 +7988,9 @@ define('map/LossSlider',[
   };
 
   var state = {
-    isPlaying: false
+    isPlaying: false,
+    from: 0,
+    to: config.values.length - 1
   };
 
   var LossSliderController = {
@@ -7995,6 +8032,17 @@ define('map/LossSlider',[
       }
 
       LayerController.updateLossImageServiceRasterFunction([data.from, data.to], MapConfig.loss, densityRange);
+      //- Determine which handle changed and emit the appropriate event
+      if (!state.isPlaying) {
+        if (data.from !== state.from) {
+          Analytics.sendEvent('Event', 'Loss Timeline', 'Change start date');
+        } else {
+          Analytics.sendEvent('Event', 'Loss Timeline', 'Change end date');
+        }
+      }
+      //- Update the state value
+      state.from = data.from;
+      state.to = data.to;
     },
 
     playToggle: function () {
@@ -8036,7 +8084,7 @@ define('map/LossSlider',[
         playButton.html(config.pauseHtml);
       }
 
-
+      Analytics.sendEvent('Event', 'Loss Timeline', 'Play');
     }
 
   };
@@ -8050,8 +8098,9 @@ define('map/FormaSlider',[
   'map/config',
   'esri/request',
   'dojo/Deferred',
+  'utils/Analytics',
   'map/LayerController'
-], function (on, MapConfig, esriRequest, Deferred, LayerController) {
+], function (on, MapConfig, esriRequest, Deferred, Analytics, LayerController) {
   // "use strict";
 
   var playInterval,
@@ -8066,7 +8115,9 @@ define('map/FormaSlider',[
   };
 
   var state = {
-    isPlaying: false
+    isPlaying: false,
+    from: 0,
+    to: 0
   };
 
   var getFormaLabels = function getFormaLabels () {
@@ -8121,12 +8172,25 @@ define('map/FormaSlider',[
           playButton = $('#formaPlayButton');
           // Attach Events related to this item
           on(playButton, 'click', self.playToggle);
+          //- set the state for change tracking
+          state.to = labels.length - 1;
         });
       }
     },
 
     change: function (data) {
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.forma);
+      //- Determine which handle changed and emit the appropriate event
+      if (!state.isPlaying) {
+        if (data.from !== state.from) {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change start date');
+        } else {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change end date');
+        }
+      }
+      //- Update the state value
+      state.from = data.from;
+      state.to = data.to;
     },
 
     playToggle: function () {
@@ -8167,6 +8231,8 @@ define('map/FormaSlider',[
         // Update the button html
         playButton.html(config.pauseHtml);
       }
+
+      Analytics.sendEvent('Event', 'Forma Timeline', 'Play');
     }
 
   };
@@ -8351,8 +8417,9 @@ define('components/CalendarModal',[
   'dojo/dom-class',
   'dojo/topic',
   'utils/DateHelper',
+	'utils/Analytics',
 	'map/config'
-], function (React, CalendarWrapper, domClass, topic, DateHelper, MapConfig) {
+], function (React, CalendarWrapper, domClass, topic, DateHelper, Analytics, MapConfig) {
 
 	// Variables
 	var calendarConfig = MapConfig.calendars;
@@ -8385,8 +8452,6 @@ define('components/CalendarModal',[
 					// },
 					selected: calendar.selectedDate
 				});
-				console.log(self);
-
 				calendar_obj.subscribe('change', self[calendar.method].bind(self));
 			});
 
@@ -8443,6 +8508,7 @@ define('components/CalendarModal',[
 				endDate = endDate.format('M/D/YYYY');
 			}
       topic.publish('updateGladDates', [date, endDate]);
+			Analytics.sendEvent('Event', 'Glad Timeline', 'Change start date');
 		},
 
 		changeGladEnd: function (date) {
@@ -8461,6 +8527,7 @@ define('components/CalendarModal',[
 			}
 
       topic.publish('updateGladDates', [startDate, date]);
+			Analytics.sendEvent('Event', 'Glad Timeline', 'Change end date');
 		}
 
 		/* jshint ignore:end */
@@ -8552,8 +8619,9 @@ define('map/ProdesSlider',[
   'map/config',
   'esri/request',
   'dojo/Deferred',
+  'utils/Analytics',
   'map/LayerController'
-], function (on, MapConfig, esriRequest, Deferred, LayerController) {
+], function (on, MapConfig, esriRequest, Deferred, Analytics, LayerController) {
 
   // TODO: replace all forma's with prodes
   // 'use strict';
@@ -8570,7 +8638,9 @@ define('map/ProdesSlider',[
   };
 
   var state = {
-    isPlaying: false
+    isPlaying: false,
+    from: 0,
+    to: 0
   };
 
   var getProdesLabels = function getProdesLabels () {
@@ -8626,12 +8696,25 @@ define('map/ProdesSlider',[
           playButton = $('#prodesPlayButton');
           // Attach Events related to this item
           on(playButton, 'click', self.playToggle);
+          //- set the state for change tracking
+          state.to = labels.length - 1;
         });
       }
     },
 
     change: function (data) {
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.prodes);
+      //- Determine which handle changed and emit the appropriate event
+      if (!state.isPlaying) {
+        if (data.from !== state.from) {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change start date');
+        } else {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change end date');
+        }
+      }
+      //- Update the state value
+      state.from = data.from;
+      state.to = data.to;
     },
 
     playToggle: function () {
@@ -8672,6 +8755,7 @@ define('map/ProdesSlider',[
         // Update the button html
         playButton.html(config.pauseHtml);
       }
+      Analytics.sendEvent('Event', 'Prodes Timeline', 'Play');
     }
 
   };
@@ -9818,6 +9902,15 @@ define('components/wizard/Wizard',[
             // Emit Event for Analytics
             Analytics.sendEvent('Event', 'Perform Analysis', 'User clicked perfrom analysis.');
 
+            //- Create a list of types selected
+            var checkboxes = AnalyzerConfig.stepThree.checkboxes;
+            var types = checkboxes.filter(function (checkbox) {
+              return datasets[checkbox.value];
+            }).map(function (checkbox) { return checkbox.label; });
+            //- Send Event for all types selected
+            types.forEach(function (type) {
+              Analytics.sendEvent('Analysis', 'Type of Analysis', type);
+            });
         },
 
         _prepareGeometry: function(features) {
@@ -13342,7 +13435,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.93',
+                path = './app/templates/' + name + '.html?v=2.5.94',
                 req;
 
             req = new XMLHttpRequest();
