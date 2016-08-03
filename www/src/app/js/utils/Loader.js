@@ -8,7 +8,7 @@ define([
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.93',
+                path = './app/templates/' + name + '.html?v=2.4.3',
                 req;
 
             req = new XMLHttpRequest();
@@ -34,7 +34,6 @@ define([
             });
 
             // esri.config.defaults.io.corsEnabledServers.push('54.88.79.102');
-            console.log('added proxyUrl!');
             var layersRequest = esriRequest({
                 url: path,
                 handleAs: 'json',
