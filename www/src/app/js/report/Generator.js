@@ -428,8 +428,6 @@ define([
             var deferreds = [];
 
             arrayUtils.forEach(items, function(item) {
-
-              console.log(item);
                 switch (item) {
                     case 'suit':
                         deferreds.push(Fetcher._getSuitabilityAnalysis());
