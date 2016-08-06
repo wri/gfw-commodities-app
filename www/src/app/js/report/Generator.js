@@ -208,7 +208,6 @@ define([
               var area = areasToAnalyze[0];
 
               if (area.geometry.radius) {
-                console.log('got dat radius!');
                 poly = new Polygon(sr);
                 poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
@@ -236,7 +235,6 @@ define([
               polygons = [];
               points = [];
               report.centerPoints = [];
-              console.log('ooh');
               arrayUtils.forEach(areasToAnalyze, function (feature) {
                 points.push(feature.point);
                 // Prototype chain gets broken when stringified, so create a new poly
@@ -246,9 +244,7 @@ define([
                 }
 
                 if (feature.geometry.center) {
-                  console.log(feature.geometry.center);
                   var featureClone = _.clone(feature);
-                  console.log(featureClone);
                   report.centerPoints.push(featureClone);
                   poly = new Polygon(sr);
                   poly.addRing(feature.geometry.rings[feature.geometry.rings.length - 1]);
@@ -257,19 +253,6 @@ define([
                   // The geometry was stringified when saved, this breaks the prototype chain
                   feature.geometry = poly;
                 }
-
-                // console.log(feature);
-                // // if (feature.geometry.x) {
-                // //   report.centerPoints.push(feature);
-                // // }
-                // if (feature.geometry.center) {
-                //   report.centerPoints.push(feature.geometry);
-                //   console.log('yyy');
-                // } else {
-                //   report.centerPoints.push({
-                //     geometry: feature.geometry.getCentroid()
-                //   });
-                // }
               });
 
               // Keep a reference of the mills
@@ -487,7 +470,6 @@ define([
                         deferreds.push(Fetcher.getProdesResults());
                         break;
                     // case 'guiraAlerts':
-                    // console.log('ooj');
                     //     deferreds.push(Fetcher.getGuiraResults());
                     //     break;
                     // case 'gladAlerts':
