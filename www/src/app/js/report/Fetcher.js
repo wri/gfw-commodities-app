@@ -928,6 +928,8 @@ define([
 						var deferred = new Deferred(),
 								config = ReportConfig.millPoints,
 								requests = [],
+								results = [],
+								currentMill,
 								millPoint;
 								// customDeferred = new Deferred(),
 								// knownDeferred = new Deferred(),
@@ -950,89 +952,27 @@ define([
 								millPoint = new Point(mill.point.geometry);
 							}
 							if (millPoint) {
-								requests.push(getMillRisk.default(millPoint, mill.label));
+								requests.push({ point: millPoint, name: mill.label});
 							}
 						});
 
-						all(requests).then(function (mills) {
-							console.log('Mills: ', mills);
-							ReportRenderer.renderMillAssessment(mills, config);
-							deferred.resolve(true);
-						});
+						function handleResponse (mill) {
+							results.push(mill);
+							currentMill = requests.pop();
+							if (currentMill) {
+								getMillRisk.default(currentMill.point, currentMill.name).then(handleResponse);
+							} else {
+								ReportRenderer.renderMillAssessment(results, config);
+								deferred.resolve(true);
+							}
+						}
 
-						// Create two separate lists of mills
-						// arrayUtils.forEach(report.mills, function (mill) {
-						// 	if (mill.isCustom) {
-						// 		customMills.push(mill);
-						// 	} else {
-						// 		knownMills.push(mill);
-						// 	}
-						// });
-						//
-						// // if the mill points are from the known mills list, use GFW's API
-						// // Currently their API is not working
-						// if (knownMills.length > 0) {
-						// 	getKnownMillsResults();
-						// } else {
-						// 	knownDeferred.resolve();
-						// }
-						//
-						// // If the mill points are custom, use our API, our API requires a bit more pre processing since
-						// // the geometry being analyzed is custom and of various sizes
-						// if (customMills.length > 0) {
-						// 	getCustomMillsResults();
-						// } else {
-						// 	customDeferred.resolve(false);
-						// }
-						//
-						// function getKnownMillsResults () {
-						// 	var request = new XMLHttpRequest(), response;
-						//
-						// 	request.open('POST', config.url, true);
-						// 	request.onreadystatechange = function (res) {
-						// 		if (request.readyState === 4) {
-						// 			if (request.status === 200) {
-						// 				response = JSON.parse(request.response);
-						// 				if (response.mills) {
-						// 					// ReportRenderer.renderMillAssessment(response.mills, config);
-						// 					knownDeferred.resolve(response.mills);
-						// 				} else {
-						// 					knownDeferred.resolve(false);
-						// 				}
-						// 			} else {
-						// 				knownDeferred.resolve(false);
-						// 			}
-						// 		}
-						// 	};
-						//
-						// 	request.addEventListener('error', function () {
-						// 		knownDeferred.resolve(false);
-						// 	}, false);
-						//
-						// 	var formData = new FormData();
-						// 	formData.append('mills', knownMills.map(function (mill) { return mill.millId; }).join(','));
-						// 	// Construct the POST Content in HERE for each Mill
-						// 	request.send(formData);
-						//
-						// }
-						//
-						// function getCustomMillsResults () {
-						// 	RiskHelper.prepareFeatures(customMills).then(function (millObjects) {
-						// 		customDeferred.resolve(millObjects);
-						// 	});
-						// }
-						//
-						// all([customDeferred, knownDeferred]).then(function (results) {
-						// 	// Merge the Results, then Render them
-						// 	var mills = [];
-						// 	arrayUtils.forEach(results, function (millResult) {
-						// 		if (millResult) {
-						// 			mills = mills.concat(millResult);
-						// 		}
-						// 	});
-						//
-							// ReportRenderer.renderMillAssessment(mills, config);
-							// deferred.resolve(true);
+						currentMill = requests.pop();
+						getMillRisk.default(currentMill.point, currentMill.name).then(handleResponse);
+
+						// all(requests).then(function (mills) {
+						// 	ReportRenderer.renderMillAssessment(mills, config);
+						// 	deferred.resolve(true);
 						// });
 
 						return deferred.promise;
