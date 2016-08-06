@@ -100,7 +100,6 @@ define([
 								graphic.setSymbol(Symbols.getPolygonSymbol());
 
 								if (report.centerPoints) {
-									console.log(report.centerPoints);
 									for (var j = 0; j < report.centerPoints.length; j++) {
 										var pointGraphic = new Graphic();
 
@@ -648,8 +647,6 @@ define([
 										f: 'json'
 								},
 								self = this;
-
-								console.log(content);
 
 						function success(response) {
 								if (response.histograms.length > 0) {
