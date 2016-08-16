@@ -17,10 +17,12 @@ define([
                 Model.vm.storyEmailData = ko.observable();
                 Model.vm.storyDetailsData = ko.observable();
 
-                Model.vm.dataFileName = ko.observable();
-                Model.vm.dataFileType = ko.observable();
-                Model.vm.attributeFileName = ko.observable();
-                Model.vm.attributeFileType = ko.observable();
+                Model.vm.concessionFileName = ko.observable();
+                Model.vm.concessionFileType = ko.observable();
+                Model.vm.facilityFileName = ko.observable();
+                Model.vm.facilityFileType = ko.observable();
+                Model.vm.otherFileName = ko.observable();
+                Model.vm.otherFileType = ko.observable();
 
                 // Submission Dialog Items
                 Model.vm.submissionModalHeader = ko.observable(MapConfig.submissionDialog.submissionModalHeader);

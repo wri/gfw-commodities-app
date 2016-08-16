@@ -78,7 +78,7 @@
 
                 <div class="storiesInput inlineInput"><h4>Please attach your data</h4>
                   <p class="attachInstructions">*For concessions or plantations, only data in a shapefile format (zipped) will be accepted.</p><p class="attachInstructions">*For processing facilities, data may be uploaded as a CSV or XLS</p>
-                  <input id='dataInput' type="file" data-bind="event: {change: mediaChange}"  />
+                  <input id='concessionInput' type="file" data-bind="event: {change: mediaChange}" multiple />
                 </div>
                 <div class="storiesInput inlineInput"><h4>Please attach a table of the attribute data</h4>
                   <p class="attachInstructions">*Only data in a xls or csv format will be accepted</p>
@@ -94,7 +94,8 @@
                   <p class="attachInstructions smaller">Area (hectares)</p>
                   <p class="attachInstructions smaller">RSPO certification assessment date (if applicable)</p>
                   <p class="attachInstructions smaller">RSPO certificate number (if applicable)</p>
-                  <input id='attributeDataInput' type="file" data-bind="event: {change: mediaChange}" style='margin-top: 20px;' />
+                  <input id='facilityInput' type="file" data-bind="event: {change: mediaChange}" style='margin-top: 20px;' />
+                  <input id='otherInput' type="file" data-bind="event: {change: mediaChange}" style='margin-top: 20px;' />
                 </div>
 
 

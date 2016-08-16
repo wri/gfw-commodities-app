@@ -14,33 +14,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ));
 
 
-
       $urls = "";
       $bucket=getenv('bucket');
-      if(isset($_FILES['dataFile'])){
+      if(isset($_FILES['concessionFile'])){
 
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
-            'Key'          => $_FILES['dataFile']['name'],
-            'Body'   => $_FILES['dataFile']['tmp_name'],
+            'Key'          => $_FILES['concessionFile']['name'],
+            'Body'   => $_FILES['concessionFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
         $urls = $urls . $result['ObjectURL'];
-
       }
-      if(isset($_FILES['attributeFile'])){
+      if(isset($_FILES['facilityFile'])){
 
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
-            'Key'          => $_FILES['attributeFile']['name'],
-            'Body'   => $_FILES['attributeFile']['tmp_name'],
+            'Key'          => $_FILES['facilityFile']['name'],
+            'Body'   => $_FILES['facilityFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
         $urls = $urls . ";" . $result['ObjectURL'];
+      }
+      if(isset($_FILES['otherFile'])){
 
+        $result = $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $_FILES['otherFile']['name'],
+            'Body'   => $_FILES['otherFile']['tmp_name'],
+            'ACL'          => 'public-read'
+        ));
+        $urls = $urls . ";" . $result['ObjectURL'];
       }
 
-      $messageBody = "<p>The file " . $_FILES['dataFile']['name'] . " was uploaded by " . $_POST['storyUserName'] . ".</p><p>They can be reached at <a href='" . $_POST['storyEmail'] . "'>" . $_POST['storyEmail'] . "</a>.</p>";
+      $messageBody = "<p>The file " . $_FILES['concessionFile']['name'] . " was uploaded by " . $_POST['storyUserName'] . ".</p><p>They can be reached at <a href='" . $_POST['storyEmail'] . "'>" . $_POST['storyEmail'] . "</a>.</p>";
 
       $email_result = $sesClient->sendEmail(array(
           // Source is required
@@ -74,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           )
       ));
 
-      print_r($_POST['dataFileName']);
+      print_r($_POST['concessionFileName']);
       // print_r($credentials);
       // print_r($email_result);
       // print_r($urls);
