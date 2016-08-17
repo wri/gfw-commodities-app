@@ -122,6 +122,8 @@ define([
           }
 
           form_data.append('storyEmail', model.storyEmailData());
+          form_data.append('storyTitle', model.storyTitleData());
+          form_data.append('storyCompany', model.storyCompanyData());
           form_data.append('storyUserName', model.storyNameData());
 
           var d = new Date();

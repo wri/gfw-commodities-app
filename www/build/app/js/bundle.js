@@ -13437,7 +13437,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.4',
+                path = './app/templates/' + name + '.html?v=2.4.5',
                 req;
 
             req = new XMLHttpRequest();
@@ -15487,6 +15487,7 @@ define('controllers/SubmissionController',[
           }
 
           form_data.append('storyEmail', model.storyEmailData());
+          form_data.append('storyTitle', model.storyTitleData());
           form_data.append('storyCompany', model.storyCompanyData());
           form_data.append('storyUserName', model.storyNameData());
 

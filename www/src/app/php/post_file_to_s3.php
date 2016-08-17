@@ -9,53 +9,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               'key'    => getenv('AWS_ACCESS_KEY_ID'),
               'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
           ),
-          // 'version' => 'latest',
           'region' => 'us-east-1',
       ));
 
-
-      $urls = "";
+      $messageBody = "";
       $bucket=getenv('bucket');
       if(isset($_FILES['concessionFile'])){
 
+        $concessionFileName = $_POST['storyCompany'] . "/concessions/" . $_FILES['concessionFile']['name'] . "_" . $_POST['datestring'];
+        // 'Key'          => $_FILES['concessionFile']['name'],
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
-            'Key'          => $_FILES['concessionFile']['name'],
+            'Key'          => $concessionFileName,
             'Body'   => $_FILES['concessionFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
-        $urls = $urls . $result['ObjectURL'];
+
+        $concessionInfo = $concessionFileName . '_info.txt';
+        $concessionBody = $_POST['storyUserName'] . "\r\n" . $_POST['storyCompany'] . "\r\n" . $_POST['storyTitle'] . "\r\n" . $_POST['storyEmail'];
+
+        $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $concessionInfo,
+            'Body'         => $concessionBody,
+            'ACL'          => 'public-read'
+        ));
+
+        $messageBody = $messageBody . "<p>The file <a href='" . $result['ObjectURL'] . "'>" . $_FILES['concessionFile']['name'] . "</a>"  . " was uploaded by " . $_POST['storyUserName'] . ".</p>";
       }
       if(isset($_FILES['facilityFile'])){
 
+        $facilityFileName = $_POST['storyCompany'] . "/facilities/" . $_FILES['facilityFile']['name'] . "_" . $_POST['datestring'];
+
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
-            'Key'          => $_FILES['facilityFile']['name'],
+            'Key'          => $facilityFileName,
             'Body'   => $_FILES['facilityFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
-        $urls = $urls . ";" . $result['ObjectURL'];
+
+        // $facilityInfo = $facilityFileName . '_info.txt';
+        // $facilityBody = $_POST['storyUserName'] . "\r\n" . $_POST['storyCompany'] . "\r\n" . $_POST['storyTitle'] . "\r\n" . $_POST['storyEmail'];
+        //
+        // $s3->putObject(array(
+        //     'Bucket'       => $bucket,
+        //     'Key'          => $facilityInfo,
+        //     'Body'         => $facilityBody
+        //     'ACL'          => 'public-read'
+        // ));
+
+        $messageBody = $messageBody . "<p>The file <a href='" . $result['ObjectURL'] . "'>" . $_FILES['facilityFile']['name'] . "</a>"  . " was uploaded by " . $_POST['storyUserName'] . ".</p>";
       }
       if(isset($_FILES['otherFile'])){
 
+        $otherFileName = $_POST['storyCompany'] . "/other/" . $_FILES['otherFile']['name'] . "_" . $_POST['datestring'];
+
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
-            'Key'          => $_FILES['otherFile']['name'],
+            'Key'          => $otherFileName,
             'Body'   => $_FILES['otherFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
-        $urls = $urls . ";" . $result['ObjectURL'];
+
+        // $otherInfo = $otherFileName . '_info.txt';
+        // $otherBody = $_POST['storyUserName'] . "\r\n" . $_POST['storyCompany'] . "\r\n" . $_POST['storyTitle'] . "\r\n" . $_POST['storyEmail'];
+        //
+        // $s3->putObject(array(
+        //     'Bucket'       => $bucket,
+        //     'Key'          => $otherInfo,
+        //     'Body'         => $otherBody,
+        //     'ACL'          => 'public-read'
+        // ));
+
+        $messageBody = $messageBody . "<p>The file <a href='" . $result['ObjectURL'] . "'>" . $_FILES['otherFile']['name'] . "</a>"  . " was uploaded by " . $_POST['storyUserName'] . ".</p>";
       }
 
-      $messageBody = "<p>The file " . $_FILES['concessionFile']['name'] . " was uploaded by " . $_POST['storyUserName'] . ".</p><p>They can be reached at <a href='" . $_POST['storyEmail'] . "'>" . $_POST['storyEmail'] . "</a>.</p>";
+      $messageBody = $messageBody . "<p>They can be reached at <a href='mailto:" . $_POST['storyEmail'] . "'>" . $_POST['storyEmail'] . "</a>.</p>";
+      // $messageBody = "<p>The file <a href='" . $_FILES['concessionFile']['name'] . "'>" . $_FILES['concessionFile']['name'] . "</a>"  . " was uploaded by " . $_POST['storyUserName'] . ".</p><p>They can be reached at <a href='mailto:" . $_POST['storyEmail'] . "'>" . $_POST['storyEmail'] . "</a>.</p>";
 
       $email_result = $sesClient->sendEmail(array(
           // Source is required
-          'Source' => 'lcotner@blueraster.com', //aallegretti@blueraster.com
+          'Source' => 'lcotner@blueraster.com', //todo: change to WRI_data_something
           // Destination is required
           'Destination' => array(
-              'ToAddresses' => array('psatlof@blueraster.com'),
-              'CcAddresses' => array('lcotner@blueraster.com')
+              'ToAddresses' => array('psatlof@blueraster.com'), //ssargent@wri.org
+              'CcAddresses' => array('lcotner@blueraster.com') //caroline.winchester@wri.org
           ),
           // Message is required
           'Message' => array(
@@ -81,10 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           )
       ));
 
-      print_r($_POST['concessionFileName']);
-      // print_r($credentials);
-      // print_r($email_result);
-      // print_r($urls);
+      print_r($messageBody);
 
   } catch (S3Exception $e) {
       echo "ERROR" . $e->getMessage() . "\n";
@@ -93,6 +128,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
   echo("Sorry, you're not allowed to do this.");
 }
-
 
 ?>
