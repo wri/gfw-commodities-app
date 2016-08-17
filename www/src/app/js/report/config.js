@@ -221,7 +221,7 @@ define([], function() {
         },
 
         guiraLayer: {
-          rasterId: '$556',
+          rasterId: '$565',
           bounds: guiraBounds,
           labels: guiraLabels
         },
@@ -593,10 +593,10 @@ define([], function() {
         guira: {
             rootNode: 'guira',
             title: 'Guira Alerts',
-            rasterId: '$556',
+            rasterId: '$565',
             mosaicRule: {
                 'mosaicMethod': 'esriMosaicLockRaster',
-                'lockRasterIds': [556],
+                'lockRasterIds': [565],
                 'ascending': true,
                 'mosaicOperation': 'MT_FIRST'
             },
@@ -605,7 +605,7 @@ define([], function() {
             },
             fireKey: 'guira',
             compositionAnalysis: {
-                rasterId: 556,
+                rasterId: 565,
                 histogramSlice: 1
             },
             bounds: guiraBounds,
