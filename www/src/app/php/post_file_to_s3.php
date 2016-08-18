@@ -16,12 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $bucket=getenv('bucket');
       if(isset($_FILES['concessionFile'])){
 
-        $concessionFileName = $_POST['storyCompany'] . "/concessions/" . $_FILES['concessionFile']['name'] . "_" . $_POST['datestring'];
-        // 'Key'          => $_FILES['concessionFile']['name'],
+        // $file = new SplFileInfo($_FILES['concessionFile']['name']);
+        // $extension = $file->getExtension();
+        // $pure_name = $file->getBasename('.' . $extension);
+
+        // todo: our filenames are incorrect: we need to remove the .shp or .** from our $_FILES[..]['name']
+        // and append it at the end, somehow keeping the file type correct
+
+        // $concessionFileName = rename($_FILES['concessionFile']['name'], 'lucas.csv');
+        // $concessionFileName = rename($_FILES['concessionFile']['name'], $_POST['storyCompany'] . "/concessions/" . $pure_name . "_" . $_POST['datestring'] . "." . $extension);
+        // $concessionFileName = $_POST['storyCompany'] . "/concessions/" . $pure_name . "_" . $_POST['datestring'] . "." . $extension;
+
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
-            'Key'          => $concessionFileName,
-            'Body'   => $_FILES['concessionFile']['tmp_name'],
+            'Key'          => $_FILES['concessionFile'],
+            // 'Body'   => $_FILES['concessionFile']['tmp_name'],
+            'SourceFile'   => $_FILES['concessionFile']['name'],
             'ACL'          => 'public-read'
         ));
 
@@ -54,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $facilityInfo,
-            'Body'         => $facilityBody
+            'Body'         => $facilityBody,
             'ACL'          => 'public-read'
         ));
 
@@ -89,11 +99,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $email_result = $sesClient->sendEmail(array(
           // Source is required
-          'Source' => 'lcotner@blueraster.com', //todo: change to WRI_data_something
+          'Source' => 'data@wri.org', //todo: change to WRI_data_something
           // Destination is required
           'Destination' => array(
-              'ToAddresses' => array('psatlof@blueraster.com'), //ssargent@wri.org
-              'CcAddresses' => array('lcotner@blueraster.com') //caroline.winchester@wri.org
+              'ToAddresses' => array('lcotner@blueraster.com')//, //ssargent@wri.org
+              // 'CcAddresses' => array('lcotner@blueraster.com') //caroline.winchester@wri.org
           ),
           // Message is required
           'Message' => array(

@@ -15474,6 +15474,7 @@ define('controllers/SubmissionController',[
             form_data.append('concessionFile', concessionFile);
             form_data.append('concessionFileName', concessionFileName);
             form_data.append('concessionFileType', concessionFileType);
+            console.log(concessionFile);
           }
           if (facilityFile) {
             form_data.append('facilityFile', facilityFile);

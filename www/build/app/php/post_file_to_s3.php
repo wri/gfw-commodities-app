@@ -16,12 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $bucket=getenv('bucket');
       if(isset($_FILES['concessionFile'])){
 
-        $concessionFileName = $_POST['storyCompany'] . "/concessions/" . $_FILES['concessionFile']['name'] . "_" . $_POST['datestring'];
-        // 'Key'          => $_FILES['concessionFile']['name'],
+        $file = new SplFileInfo($_FILES['concessionFile']['name']);
+        $extension = $file->getExtension();
+        $pure_name = $file->getBasename('.' . $extension);
+
+        $concessionFileName = $_POST['storyCompany'] . "/concessions/" . $pure_name . "_" . $_POST['datestring'] . "." . $extension;
+
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $concessionFileName,
-            'Body'   => $_FILES['concessionFile']['tmp_name'],
+            'SourceFile'   => $_FILES['concessionFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
 
@@ -39,12 +43,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       if(isset($_FILES['facilityFile'])){
 
-        $facilityFileName = $_POST['storyCompany'] . "/facilities/" . $_FILES['facilityFile']['name'] . "_" . $_POST['datestring'];
+        $file = new SplFileInfo($_FILES['facilityFile']['name']);
+        $extension = $file->getExtension();
+        $pure_name = $file->getBasename('.' . $extension);
+
+        $facilityFileName = $_POST['storyCompany'] . "/facilities/" . $pure_name . "_" . $_POST['datestring'] . "." . $extension;
 
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $facilityFileName,
-            'Body'   => $_FILES['facilityFile']['tmp_name'],
+            'SourceFile'   => $_FILES['facilityFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
 
@@ -54,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $facilityInfo,
-            'Body'         => $facilityBody
+            'Body'         => $facilityBody,
             'ACL'          => 'public-read'
         ));
 
@@ -62,12 +70,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       if(isset($_FILES['otherFile'])){
 
-        $otherFileName = $_POST['storyCompany'] . "/other/" . $_FILES['otherFile']['name'] . "_" . $_POST['datestring'];
+        $file = new SplFileInfo($_FILES['otherFile']['name']);
+        $extension = $file->getExtension();
+        $pure_name = $file->getBasename('.' . $extension);
+
+        $otherFileName = $_POST['storyCompany'] . "/smallholders/" . $pure_name . "_" . $_POST['datestring'] . "." . $extension;
 
         $result = $s3->putObject(array(
             'Bucket'       => $bucket,
             'Key'          => $otherFileName,
-            'Body'   => $_FILES['otherFile']['tmp_name'],
+            'SourceFile'   => $_FILES['otherFile']['tmp_name'],
             'ACL'          => 'public-read'
         ));
 
@@ -89,11 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $email_result = $sesClient->sendEmail(array(
           // Source is required
-          'Source' => 'lcotner@blueraster.com', //todo: change to WRI_data_something
+          'Source' => 'data@wri.org', //todo: change to WRI_data_something
           // Destination is required
           'Destination' => array(
-              'ToAddresses' => array('psatlof@blueraster.com'), //ssargent@wri.org
-              'CcAddresses' => array('lcotner@blueraster.com') //caroline.winchester@wri.org
+              'ToAddresses' => array('lcotner@blueraster.com')//, //ssargent@wri.org
+              // 'CcAddresses' => array('lcotner@blueraster.com') //caroline.winchester@wri.org
           ),
           // Message is required
           'Message' => array(
