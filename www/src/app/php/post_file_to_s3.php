@@ -48,15 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ACL'          => 'public-read'
         ));
 
-        // $facilityInfo = $facilityFileName . '_info.txt';
-        // $facilityBody = $_POST['storyUserName'] . "\r\n" . $_POST['storyCompany'] . "\r\n" . $_POST['storyTitle'] . "\r\n" . $_POST['storyEmail'];
-        //
-        // $s3->putObject(array(
-        //     'Bucket'       => $bucket,
-        //     'Key'          => $facilityInfo,
-        //     'Body'         => $facilityBody
-        //     'ACL'          => 'public-read'
-        // ));
+        $facilityInfo = $facilityFileName . '_info.txt';
+        $facilityBody = $_POST['storyUserName'] . "\r\n" . $_POST['storyCompany'] . "\r\n" . $_POST['storyTitle'] . "\r\n" . $_POST['storyEmail'];
+
+        $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $facilityInfo,
+            'Body'         => $facilityBody
+            'ACL'          => 'public-read'
+        ));
 
         $messageBody = $messageBody . "<p>The file <a href='" . $result['ObjectURL'] . "'>" . $_FILES['facilityFile']['name'] . "</a>"  . " was uploaded by " . $_POST['storyUserName'] . ".</p>";
       }
@@ -71,15 +71,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'ACL'          => 'public-read'
         ));
 
-        // $otherInfo = $otherFileName . '_info.txt';
-        // $otherBody = $_POST['storyUserName'] . "\r\n" . $_POST['storyCompany'] . "\r\n" . $_POST['storyTitle'] . "\r\n" . $_POST['storyEmail'];
-        //
-        // $s3->putObject(array(
-        //     'Bucket'       => $bucket,
-        //     'Key'          => $otherInfo,
-        //     'Body'         => $otherBody,
-        //     'ACL'          => 'public-read'
-        // ));
+        $otherInfo = $otherFileName . '_info.txt';
+        $otherBody = $_POST['storyUserName'] . "\r\n" . $_POST['storyCompany'] . "\r\n" . $_POST['storyTitle'] . "\r\n" . $_POST['storyEmail'];
+
+        $s3->putObject(array(
+            'Bucket'       => $bucket,
+            'Key'          => $otherInfo,
+            'Body'         => $otherBody,
+            'ACL'          => 'public-read'
+        ));
 
         $messageBody = $messageBody . "<p>The file <a href='" . $result['ObjectURL'] . "'>" . $_FILES['otherFile']['name'] . "</a>"  . " was uploaded by " . $_POST['storyUserName'] . ".</p>";
       }
