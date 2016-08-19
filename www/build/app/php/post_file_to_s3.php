@@ -104,8 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'Source' => 'data@wri.org', //todo: change to WRI_data_something
           // Destination is required
           'Destination' => array(
-              'ToAddresses' => array('lcotner@blueraster.com')//, //ssargent@wri.org
-              // 'CcAddresses' => array('lcotner@blueraster.com') //caroline.winchester@wri.org
+              'ToAddresses' => array('ssargent@wri.org'),
+              'CcAddresses' => array('caroline.winchester@wri.org')
           ),
           // Message is required
           'Message' => array(
