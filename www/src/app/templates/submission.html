@@ -78,7 +78,7 @@
                   <table class="concession-boundaries submission-table">
                     <tbody>
                       <th class="submission-green">
-                        Field Name in ArcGIS
+                        Field Name
                       </th>
                       <th class="submission-green">
                         Type
@@ -93,7 +93,7 @@
                         <td class='arc-field'>Commodity</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Commodity type (e.g. palm oil, soy, cocoa, etc.)</td>
+                        <td>Commodity type (e.g. palm oil, soy, cocoa)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>GroupName</td>
@@ -105,7 +105,7 @@
                         <td class='arc-field'>CompanyName</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Subsidary/Management Unit Name</td>
+                        <td>Company/Subsidary/Management Unit Name</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>PlantationName</td>
@@ -120,10 +120,10 @@
                         <td>Site Name</td>
                       </tr>
                       <tr>
-                        <td class='arc-field'>MillName</td>
+                        <td class='arc-field'>FacilityName</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Assoiciated mill name</td>
+                        <td>Assoiciated processing facility name (e.g. name of mill, silo)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>Type</td>
@@ -147,13 +147,13 @@
                         <td class='arc-field'>Area_ha</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Area (hectares)</td>
+                        <td>Area in hectares</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>RSPOCertified</td>
                         <td>Text</td>
                         <td>True/False</td>
-                        <td>True means this plantation is RSPO certified</td>
+                        <td>True means this plantation is RSPO certified (if applicable)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>Certified_date</td>
@@ -194,7 +194,7 @@
                         <td class='arc-field'>Commodity</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Commodity type (e.g. palm oil, soy, cocoa, etc.)</td>
+                        <td>Commodity type (e.g. palm oil, soy, cocoa)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>GroupName</td>
@@ -203,10 +203,10 @@
                         <td>Group Name or RSPO Membership Name</td>
                       </tr>
                       <tr>
-                        <td class='arc-field'>CompName</td>
+                        <td class='arc-field'>CompanyName</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Subsidary/Management Unit Name</td>
+                        <td>Company/Subsidary/Management Unit Name</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>SiteName</td>
@@ -215,31 +215,31 @@
                         <td>Site Name</td>
                       </tr>
                       <tr>
-                        <td class='arc-field'>MillName</td>
+                        <td class='arc-field'>FacilityName</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Assoiciated mill name</td>
+                        <td>Processing facility name (e.g. name of palm oil mill, soy silo)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>Country</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Country for the mill</td>
+                        <td>Country processing facility is located in</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>PercentCover</td>
                         <td>Short Integer</td>
                         <td></td>
-                        <td>Provide the percent of milling operations that the dataset
+                        <td>Provide the percent of processing facility operations that the dataset
                           represents. Put 100 if the dataset you have disclosed constitutes
-                          100% of your company's milling operations.
+                          100% of your company's facility operations.
                         </td>
                       </tr>
                       <tr>
                         <td class='arc-field'>RSPOCertified</td>
                         <td>Text</td>
                         <td>True/False</td>
-                        <td>True means this plantation is RSPO certified</td>
+                        <td>True means this plantation is RSPO certified (if applicable)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>Certified_date</td>
@@ -278,7 +278,13 @@
                         <td class='arc-field'>Commodity</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Commodity type (e.g. palm oil, soy, cocoa, etc.)</td>
+                        <td>Commodity type (e.g. palm oil, soy, cocoa)</td>
+                      </tr>
+                      <tr>
+                        <td class='arc-field'>SmallholderType</td>
+                        <td>Text</td>
+                        <td></td>
+                        <td>Smallholder type (e.g. scheme/associated, independent)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>Number</td>
@@ -290,34 +296,34 @@
                         <td class='arc-field'>Country</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Country for the mill</td>
+                        <td>Country smallholders are located in</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>Area_ha</td>
-                        <td>Text</td>
+                        <td>Float</td>
                         <td></td>
-                        <td>Area (hectares)</td>
+                        <td>Area of smallholder production in hectares</td>
                       </tr>
                       <tr>
-                        <td class='arc-field'>MillName</td>
+                        <td class='arc-field'>FacilityName</td>
                         <td>Text</td>
                         <td></td>
-                        <td>Assoiciated mill name</td>
+                        <td>Assoiciated processing facility name (e.g. name of palm oil mill, soy silo)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>PercentCover</td>
                         <td>Short Integer</td>
                         <td></td>
-                        <td>Provide the percent of milling operations that the dataset
+                        <td>Provide the percent of smallholder boundaries that the dataset
                           represents. Put 100 if the dataset you have disclosed constitutes
-                          100% of your company's milling operations.
+                          100% of your company's smallholder boundaries.
                         </td>
                       </tr>
                       <tr>
                         <td class='arc-field'>RSPOCertified</td>
                         <td>Text</td>
                         <td>True/False</td>
-                        <td>True means this plantation is RSPO certified</td>
+                        <td>True means smallholder farms are RSPO certified (if applicable)</td>
                       </tr>
                       <tr>
                         <td class='arc-field'>Certified_date</td>
