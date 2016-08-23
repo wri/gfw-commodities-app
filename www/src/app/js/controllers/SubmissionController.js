@@ -96,9 +96,7 @@ define([
           domClass.remove(node.parentNode, 'hidden');
           return;
         }
-        // var ll = $('#concessionInput')[0].files;
-        // console.log(ll);
-        // debugger
+
         var concessionFile = $('#concessionInput')[0].files[0];
         var facilityFile = $('#facilityInput')[0].files[0];
         var otherFile = $('#otherInput')[0].files[0];
@@ -109,7 +107,6 @@ define([
             form_data.append('concessionFile', concessionFile);
             form_data.append('concessionFileName', concessionFileName);
             form_data.append('concessionFileType', concessionFileType);
-            console.log(concessionFile);
           }
           if (facilityFile) {
             form_data.append('facilityFile', facilityFile);
@@ -140,8 +137,7 @@ define([
             processData: false,
             data: form_data,
             type: 'post',
-            success: function(response){
-              console.log(response);
+            success: function(){
               // self.uploadToAGOL(response);
             },
             error: function () {
@@ -246,19 +242,16 @@ define([
       });
 
       layersRequest.then(
-        function(layerResponse) {
-          console.log('Success: ', layerResponse);
+        function() {
           submitModal.addError('submissionSuccess');
           modalNode = submitModal.getDOMNode();
           domClass.remove(modalNode.parentNode, 'hidden');
           $('#storyForm')[0].reset();
-      }, function(error) {
+      }, function() {
           submitModal.addError('layersRequestError');
           modalNode = submitModal.getDOMNode();
           domClass.remove(modalNode.parentNode, 'hidden');
-          console.log('Error: ', error.message);
       });
-
 
     }
 

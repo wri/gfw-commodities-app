@@ -469,9 +469,9 @@ define([
                     case 'prodes':
                         deferreds.push(Fetcher.getProdesResults());
                         break;
-                    case 'guiraAlerts':
-                        deferreds.push(Fetcher.getGuiraResults());
-                        break;
+                    // case 'guiraAlerts':
+                    //     deferreds.push(Fetcher.getGuiraResults());
+                    //     break;
                     // case 'gladAlerts':
                     //     deferreds.push(Fetcher.getGladResults());
                     //     break;
