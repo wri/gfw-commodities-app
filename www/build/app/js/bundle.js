@@ -2389,10 +2389,10 @@ define('analysis/config',[], function() {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
             //     checked: false
-          // }, {
-          //       label: 'Guira Alerts',
-          //       value: 'guiraAlerts',
-          //       checked: false
+            }, {
+                label: 'Guira Alerts',
+                value: 'guiraAlerts',
+                checked: false
             }
           ],
             suit: {
@@ -13437,7 +13437,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.4',
+                path = './app/templates/' + name + '.html?v=2.4.7',
                 req;
 
             req = new XMLHttpRequest();
@@ -15301,10 +15301,12 @@ define('models/SubmissionModel',[
                 Model.vm.storyEmailData = ko.observable();
                 Model.vm.storyDetailsData = ko.observable();
 
-                Model.vm.dataFileName = ko.observable();
-                Model.vm.dataFileType = ko.observable();
-                Model.vm.attributeFileName = ko.observable();
-                Model.vm.attributeFileType = ko.observable();
+                Model.vm.concessionFileName = ko.observable();
+                Model.vm.concessionFileType = ko.observable();
+                Model.vm.facilityFileName = ko.observable();
+                Model.vm.facilityFileType = ko.observable();
+                Model.vm.otherFileName = ko.observable();
+                Model.vm.otherFileType = ko.observable();
 
                 // Submission Dialog Items
                 Model.vm.submissionModalHeader = ko.observable(MapConfig.submissionDialog.submissionModalHeader);
@@ -15408,13 +15410,16 @@ define('controllers/SubmissionController',[
         $('#storyTitleInput').css('border-color', '#@c0c0c0');
         $('#storyEmailInput').css('border-color', '#c0c0c0');
 
-        $('#dataInput').css('border-color', '#c0c0c0');
-        $('#attributeDataInput').css('border-color', '#c0c0c0');
+        $('#concessionInput').css('border-color', '#c0c0c0');
+        $('#facilityInput').css('border-color', '#c0c0c0');
+        $('#otherInput').css('border-color', '#c0c0c0');
 
-        var dataFileName = model.dataFileName();
-        var dataFileType = model.dataFileType();
-        var attributeFileName = model.attributeFileName();
-        var attributeFileType = model.attributeFileType();
+        var concessionFileName = model.concessionFileName();
+        var concessionFileType = model.concessionFileType();
+        var facilityFileName = model.facilityFileName();
+        var facilityFileType = model.facilityFileType();
+        var otherFileName = model.otherFileName();
+        var otherFileType = model.otherFileType();
         var node;
 
         if (!model.storyNameData()) {
@@ -15449,36 +15454,45 @@ define('controllers/SubmissionController',[
           return;
         }
 
-        if (!model.dataFileName()) {
-          $('#dataInput').css('border-color', 'red');
+        if (!model.concessionFileName()) {
+          $('#concessionInput').css('border-color', 'red');
           submitModal.addError('storyData');
           node = submitModal.getDOMNode();
           domClass.remove(node.parentNode, 'hidden');
           return;
         }
 
-        var dataFile = $('#dataInput')[0].files[0];
-        var attributeFile = $('#attributeDataInput')[0].files[0];
+        var concessionFile = $('#concessionInput')[0].files[0];
+        var facilityFile = $('#facilityInput')[0].files[0];
+        var otherFile = $('#otherInput')[0].files[0];
 
-
-        if (dataFile) {
-
+        if (concessionFile || facilityFile || otherFile) {
           var form_data = new FormData();
-          form_data.append('dataFile', dataFile);
-          form_data.append('dataFileName', dataFileName);
-          form_data.append('dataFileType', dataFileType);
+          if (concessionFile) {
+            form_data.append('concessionFile', concessionFile);
+            form_data.append('concessionFileName', concessionFileName);
+            form_data.append('concessionFileType', concessionFileType);
+          }
+          if (facilityFile) {
+            form_data.append('facilityFile', facilityFile);
+            form_data.append('facilityFileName', facilityFileName);
+            form_data.append('facilityFileType', facilityFileType);
+          }
+          if (otherFile) {
+            form_data.append('otherFile', otherFile);
+            form_data.append('otherFileName', otherFileName);
+            form_data.append('otherFileType', otherFileType);
+          }
 
           form_data.append('storyEmail', model.storyEmailData());
+          form_data.append('storyTitle', model.storyTitleData());
+          form_data.append('storyCompany', model.storyCompanyData());
           form_data.append('storyUserName', model.storyNameData());
 
-          if (attributeFile) {
-            form_data.append('attributeFile', attributeFile);
-            form_data.append('attributeFileName', attributeFileName);
-            form_data.append('attributeFileType', attributeFileType);
-          }
-          console.log(dataFile);
+          var d = new Date();
+          var datestring = d.getDate() + '_' + (d.getMonth() + 1) + '_' + d.getFullYear();
 
-          console.log(form_data);
+          form_data.append('datestring', datestring);
 
           $.ajax({
             url: 'app/php/post_file_to_s3.php', // point to server-side PHP script
@@ -15488,9 +15502,8 @@ define('controllers/SubmissionController',[
             processData: false,
             data: form_data,
             type: 'post',
-            success: function(response){
-              console.log(response);
-              self.uploadToAGOL(response);
+            success: function(){
+              // self.uploadToAGOL(response);
             },
             error: function () {
               submitModal.addError('s3Error');
@@ -15527,12 +15540,15 @@ define('controllers/SubmissionController',[
       //   return;
       // }
 
-      if (evt.target.id === 'dataInput') {
-        obj.dataFileName(fileName);
-        obj.dataFileType(fileType);
-      } else if (evt.target.id === 'attributeDataInput') {
-        obj.attributeFileName(fileName);
-        obj.attributeFileType(fileType);
+      if (evt.target.id === 'concessionInput') {
+        obj.concessionFileName(fileName);
+        obj.concessionFileType(fileType);
+      } else if (evt.target.id === 'facilityInput') {
+        obj.facilityFileName(fileName);
+        obj.facilityFileType(fileType);
+      } else if (evt.target.id === 'otherInput') {
+        obj.facilityFileName(fileName);
+        obj.facilityFileType(fileType);
       }
 
 
@@ -15555,8 +15571,8 @@ define('controllers/SubmissionController',[
           attributes.notes = self.model.storyDetailsData();
       }
       attributes.data_file_name = self.model.dataFileName();
-      if (self.model.attributeFileName()) {
-          attributes.att_file_name = self.model.attributeFileName();
+      if (self.model.facilityFileName()) {
+          attributes.att_file_name = self.model.facilityFileName();
       }
       attributes.data_url = url1;
       if (url2) {
@@ -15591,19 +15607,16 @@ define('controllers/SubmissionController',[
       });
 
       layersRequest.then(
-        function(layerResponse) {
-          console.log('Success: ', layerResponse);
+        function() {
           submitModal.addError('submissionSuccess');
           modalNode = submitModal.getDOMNode();
           domClass.remove(modalNode.parentNode, 'hidden');
           $('#storyForm')[0].reset();
-      }, function(error) {
+      }, function() {
           submitModal.addError('layersRequestError');
           modalNode = submitModal.getDOMNode();
           domClass.remove(modalNode.parentNode, 'hidden');
-          console.log('Error: ', error.message);
       });
-
 
     }
 
