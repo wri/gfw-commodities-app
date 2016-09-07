@@ -29,7 +29,7 @@ define([
     function getDefaultState() {
       return {
         completed: false,
-        optionsExpanded: false,
+        optionsExpanded: true,
         forestChangeCategory: true,
         forestChangeCheckbox: getDefaultCheckedState(),
         currentSelectionLabel: getCurrentSelectionLabel()
@@ -126,12 +126,13 @@ define([
                 <div className='relative forestChange-description'>
                   <WizardCheckbox onClick={this.toggleOptions} value={config.forestChange.value} checked={checkedValues.indexOf(config.forestChange.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} label={config.forestChange.label} noInfoIcon={true} />
                   <svg onClick={this.toggleOptions} className={`analysis-expander ${optionsExpanded ? 'open' : 'closed'}`} dangerouslySetInnerHTML={{ __html: optionsExpanded ? treeOpen : treeClosed }}/>
+                  <p className='forest-options-text layer-description'>Choose layers here</p>
                 </div>
                 <p className='layer-description'>{config.forestChange.description}</p>
                 <div className={`checkbox-list ${optionsExpanded === false ? 'transition-hidden' : ''}`}>
-                <div>
-                  {config.checkboxes.map(this._mapper, this)}
-                </div>
+                  <div>
+                    {config.checkboxes.map(this._mapper, this)}
+                  </div>
                 </div>
 
                 <WizardCheckbox label={config.suit.label} value={config.suit.value} checked={checkedValues.indexOf(config.suit.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />

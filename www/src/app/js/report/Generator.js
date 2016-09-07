@@ -104,16 +104,16 @@ define([
 
           dialog.setContent(content);
 
-          on(dom.byId("subscribeToAlerts"), 'click', function() {
-            dialog.show();
-          });
-
-          on(dom.byId("subscribe-now"), 'click', function() {
-            // Show loading Wheel
-            // It will be removed when there is an error or on complete
-            dom.byId('form-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
-            self.subscribeToAlerts();
-          });
+          // on(dom.byId("subscribeToAlerts"), 'click', function() {
+          //   dialog.show();
+          // });
+          //
+          // on(dom.byId("subscribe-now"), 'click', function() {
+          //   // Show loading Wheel
+          //   // It will be removed when there is an error or on complete
+          //   dom.byId('form-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
+          //   self.subscribeToAlerts();
+          // });
 
         },
 
