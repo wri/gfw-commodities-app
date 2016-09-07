@@ -36,7 +36,7 @@
 				height: 28px;
 				width: 32px;
 				right: 10px;
-				top: 50px;
+				top: 10px;
 			}
 			.print-button.disabled {
 				background: url(app/css/images/print-icon.png) no-repeat -1px 0px;
@@ -53,12 +53,12 @@
 				cursor: pointer;
 				height: 21px;
 				width: 20px;
-			}</style><link rel="icon" type="image/png" href="app/css/images/favicon.png"><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script></head><body class="gfw tundra"><header class="relative"><div id="title"></div><div id="subscribeToAlerts" class="subscribe-alerts">Subscribe to Alerts</div><div class="total-area"><span id="total-area-info-icon" class="info-icon"></span> <span>Total Calculated Area (ha):</span> <span id="total-area" class="total-area-value"><div class="loader-wheel area"></div></span></div><div id="print" class="print-button disabled"></div></header><section id="report-results-section" class="report-body"><div class="print-map-container" id="print-map"></div></section><div id="total-area-info-popup" class="total-area-info-popup hidden"><div class="popup-title"><span class="popup-title-label">Total Calculated Area</span> <span id="total-area-close-info-icon" class="close-info-icon"></span></div><div class="popup-content">Area calculated from data available in GFW Commodities. For individual concession calculated area, see data limitations (link to data page on concessions). For company group calculated area, the total area is calculated from the concessions included within GFW Commodities only, and may not represent the total amount of land owned, permitted for development, or permitted for exploration by this group. A group may own additional land areas not yet publicly disclosed and available for display within GFW Commodities, and these areas are thus not included in the total calculated area.</div></div><div id="warning-popup" class="warning-popup hidden"><div class="popup-title"><span class="popup-title-label">Warning</span> <span id="warning-popup-close-icon" class="close-info-icon"></span></div><div id="warning-popup-content" class="popup-content"></div></div><script>var path = location.pathname.replace(/\/[^/]+$/, "") + '/app';
+			}</style><link rel="icon" type="image/png" href="app/css/images/favicon.png"><script src="http://code.jquery.com/jquery-1.11.0.min.js"></script></head><body class="gfw tundra"><header class="relative"><div id="title"></div><div class="total-area"><span id="total-area-info-icon" class="info-icon"></span> <span>Total Calculated Area (ha):</span> <span id="total-area" class="total-area-value"><div class="loader-wheel area"></div></span></div><div id="print" class="print-button disabled"></div></header><section id="report-results-section" class="report-body"><div class="print-map-container" id="print-map"></div></section><div id="total-area-info-popup" class="total-area-info-popup hidden"><div class="popup-title"><span class="popup-title-label">Total Calculated Area</span> <span id="total-area-close-info-icon" class="close-info-icon"></span></div><div class="popup-content">Area calculated from data available in GFW Commodities. For individual concession calculated area, see data limitations (link to data page on concessions). For company group calculated area, the total area is calculated from the concessions included within GFW Commodities only, and may not represent the total amount of land owned, permitted for development, or permitted for exploration by this group. A group may own additional land areas not yet publicly disclosed and available for display within GFW Commodities, and these areas are thus not included in the total calculated area.</div></div><div id="warning-popup" class="warning-popup hidden"><div class="popup-title"><span class="popup-title-label">Warning</span> <span id="warning-popup-close-icon" class="close-info-icon"></span></div><div id="warning-popup-content" class="popup-content"></div></div><script>var path = location.pathname.replace(/\/[^/]+$/, "") + '/app';
 			var dojoConfig = {
 				async: true,
 				isDebug: false,
 				parseOnLoad: false,
-				cacheBust: "v=2.4.7",
+				cacheBust: "v=2.4.8",
 				packages: [
 					{ name: 'libs', location: path + '/libs' },
 					{ name: 'map', location: path + '/js/map' },

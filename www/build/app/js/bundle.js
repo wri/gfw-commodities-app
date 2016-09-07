@@ -2324,7 +2324,7 @@ define('analysis/config',[], function() {
             checkboxes: [{
                 label: 'ID Primary Forests',
                 value: 'primForest',
-                checked: true
+                checked: false
             }, {
                 label: 'Tree Cover Density',
                 value: 'treeDensity',
@@ -2364,7 +2364,7 @@ define('analysis/config',[], function() {
             }, {
                 label: 'Peat Lands',
                 value: 'peat',
-                checked: true
+                checked: false
             }, {
                 label: 'Tree Cover Loss',
                 value: 'treeCoverLoss',
@@ -3588,12 +3588,12 @@ define('components/alertsForm/AlertsForm',[
           // Header
           React.DOM.div({className: 'alerts-form__header'},
             React.DOM.div({className: 'alerts-form__header__title inline-block fill__long border-box padding__long vertical-middle'}, TEXT.title),
-            React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
+            React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'},
               React.DOM.img({'className': 'vertical-middle', 'src': 'app/css/images/close_symbol.png'})
             )
           ),
           // Body
-          React.DOM.div({className: 'alerts-form__body'}, 
+          React.DOM.div({className: 'alerts-form__body'},
             // Tools
             React.DOM.div({'className':'padding__wide padding__top'},
               React.DOM.div({'className':'margin__bottom'}, AlertsConfig.customArea.instructions),
@@ -3607,10 +3607,10 @@ define('components/alertsForm/AlertsForm',[
             new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures})
           ),
           // Footer
-          React.DOM.div({className:'alerts-form__footer'}, 
-            React.DOM.div({className:'inline-block padding__left'}, TEXT.selection),
-            React.DOM.div({className:'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title:currentSelectionLabel}, currentSelectionLabel),
-            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts, disabled:(this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
+          React.DOM.div({className: 'alerts-form__footer'},
+          React.DOM.div({className: 'inline-block padding__left'}, TEXT.selection),
+          React.DOM.div({className: 'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title: currentSelectionLabel}, currentSelectionLabel)
+            // React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts, disabled:(this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
           )
         )
       );
@@ -3672,9 +3672,9 @@ define('components/alertsForm/AlertsForm',[
       });
     },
 
-    _subscribeToAlerts: function () {
-      WizardStore.set(KEYS.alertsDialogActive, !WizardStore.get(KEYS.alertsDialogActive));
-    }
+    // _subscribeToAlerts: function () {
+    //   WizardStore.set(KEYS.alertsDialogActive, !WizardStore.get(KEYS.alertsDialogActive));
+    // }
   });
 
   return function (props, el) {
@@ -3696,7 +3696,7 @@ define('components/alertsDialog/config',[
       fires: 'alerts-fires',
       buffer: 'alerts-buffer',
       email: 'alerts-email',
-      subscription: 'alerts-subscription',
+      subscription: 'alerts-subscription'
     },
     TEXT: {
       title: 'Subscribe to Alerts',
@@ -3711,11 +3711,11 @@ define('components/alertsDialog/config',[
       bufferLabel: 'Point data selected - buffer area(s) required.',
       bufferOptionsLabel: 'Buffer radius:',
       bufferOptions: [
-        ['50','50km'],
-        ['40','40km'],
-        ['30','30km'],
-        ['20','20km'],
-        ['10','10km']
+        ['50', '50km'],
+        ['40', '40km'],
+        ['30', '30km'],
+        ['20', '20km'],
+        ['10', '10km']
       ],
       messagesLabel: 'Please fill in the following:\n',
       messages: {
@@ -3764,7 +3764,7 @@ define('components/alertsDialog/config',[
         }
       }
     }
-  }
+  };
 });
 
 /** @jsx React.DOM */
@@ -6817,7 +6817,7 @@ define('components/wizard/StepThree',[
     function getDefaultState() {
       return {
         completed: false,
-        optionsExpanded: false,
+        optionsExpanded: true,
         forestChangeCategory: true,
         forestChangeCheckbox: getDefaultCheckedState(),
         currentSelectionLabel: getCurrentSelectionLabel()
@@ -6913,13 +6913,14 @@ define('components/wizard/StepThree',[
                 
                 React.createElement("div", {className: "relative forestChange-description"}, 
                   React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
-                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}}), 
+                  React.createElement("p", {className: "forest-options-text layer-description"}, "Choose layers here")
                 ), 
                 React.createElement("p", {className: "layer-description"}, config.forestChange.description), 
                 React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
-                React.createElement("div", null, 
-                  config.checkboxes.map(this._mapper, this)
-                )
+                  React.createElement("div", null, 
+                    config.checkboxes.map(this._mapper, this)
+                  )
                 ), 
 
                 React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, checked: checkedValues.indexOf(config.suit.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
@@ -13437,7 +13438,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.7',
+                path = './app/templates/' + name + '.html?v=2.4.8',
                 req;
 
             req = new XMLHttpRequest();
