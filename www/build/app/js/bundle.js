@@ -956,7 +956,7 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-change-nasa-active-fires'
             }, {
                 id: 'granChaco',
-                title: 'Gran Chaco deforestation',
+                title: 'Gran Chaco deforestation (Guyra Paraguay)',
                 subtitle: '(monthly, 30m, Gran Chaco, Guyra)',
                 filter: 'forest-change',
                 type: 'radio',
@@ -2390,8 +2390,8 @@ define('analysis/config',[], function() {
             //     value: 'gladAlerts',
             //     checked: false
             }, {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
+                label: 'Gran Chaco deforestation (Guyra Paraguay)',
+                value: 'guyraAlerts',
                 checked: false
             }
           ],
@@ -6729,7 +6729,7 @@ define('components/wizard/WizardCheckbox',[
         case 'prodes':
           this.props.infoDivClass = 'forest-change-prodes-alerts';
           break;
-        case 'guiraAlerts':
+        case 'guyraAlerts':
           this.props.infoDivClass = 'forest-change-gran-chaco';
           break;
         case 'treeDensity':
@@ -13438,7 +13438,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.9',
+                path = './app/templates/' + name + '.html?v=2.4.10',
                 req;
 
             req = new XMLHttpRequest();

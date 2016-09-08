@@ -24,10 +24,10 @@ define([], function() {
         prodesLabels = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
         prodesColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
 
-    // Guira
-    var guiraBounds = [1, 5],
-        guiraLabels = [2011, 2012, 2013, 2014, 2015]; // 9/2011 - 10/2015
-        // guiraColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
+    // Guyra
+    var guyraBounds = [1, 5],
+        guyraLabels = [2011, 2012, 2013, 2014, 2015]; // 9/2011 - 10/2015
+        // guyraColors = ['#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#25941F', '#209F1F', '#459F1F', '#279F1F', '#257F1F', '#269F1F', '#459F1F', '#253F1F', '#25941F', '#25941F'];
 
     // GLAD
     var gladBounds = [1, 14],
@@ -220,10 +220,10 @@ define([], function() {
           labels: prodesLabels
         },
 
-        guiraLayer: {
+        guyraLayer: {
           rasterId: '$565',
-          bounds: guiraBounds,
-          labels: guiraLabels
+          bounds: guyraBounds,
+          labels: guyraLabels
         },
 
         gladLayer: {
@@ -590,9 +590,9 @@ define([], function() {
             }
         },
 
-        guira: {
-            rootNode: 'guira',
-            title: 'Guira Alerts',
+        guyra: {
+            rootNode: 'guyra',
+            title: 'Gran Chaco deforestation',
             rasterId: '$565',
             mosaicRule: {
                 'mosaicMethod': 'esriMosaicLockRaster',
@@ -601,16 +601,16 @@ define([], function() {
                 'mosaicOperation': 'MT_FIRST'
             },
             lossChart: {
-                title: 'Guira Loss (in hectares)'
+                title: 'Guyra Loss (in hectares)'
             },
-            fireKey: 'guira',
+            fireKey: 'guyra',
             compositionAnalysis: {
                 rasterId: 565,
                 histogramSlice: 1
             },
-            bounds: guiraBounds,
+            bounds: guyraBounds,
             color: '#DB6598',
-            labels: guiraLabels
+            labels: guyraLabels
         },
 
         glad: {

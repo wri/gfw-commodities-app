@@ -105,7 +105,7 @@ define([
     /*
       @param {object} config
     */
-    renderGuiraContainer: function (config) {
+    renderGuyraContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
           map = document.getElementById('print-map');
@@ -113,10 +113,10 @@ define([
       node.id = config.rootNode;
       node.className = "result-container";
       node.innerHTML = "<div class='title'>" + config.title + "</div>" +
-          "<div class='result-block guira'>" +
-            "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
-            "<div class='left-panel'>" +
-              "<div class='guira-chart' id='" + config.rootNode + "_guira'><div class='loader-wheel'>guira</div></div>" +
+          "<div class='result-block guyra'>" +
+            // "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
+            "<div>" +
+              "<div class='guyra-chart' id='" + config.rootNode + "_guyra'><div class='loader-wheel'>guyra</div></div>" +
             "</div>" +
           "</div>";
 
@@ -558,24 +558,23 @@ define([
       @param {number} pixelSize
       @param {object} config
     */
-    renderGuiraData: function (histogramData, pixelSize, config) {
+    renderGuyraData: function (histogramData, pixelSize, config) {
 
-      var guiraConfig = ReportConfig.guiraLayer,
+      var guyraConfig = ReportConfig.guyraLayer,
           yLabels = config.labels,
-          xLabels = guiraConfig.labels,
+          xLabels = guyraConfig.labels,
           mapFunction = function(item){return (item * pixelSize * pixelSize) / 10000; },
           series = [],
           colors = [];
 
       var data = histogramData.slice(1).map(mapFunction);
 
-      console.log(data);
       var baseMonth = 9;
       data.forEach(function (value, index) {
-        series.push([new Date('2011', index + baseMonth, 0).getTime(), value]);
+        //- index represents the month after the base month, so first value is for september, 2nd for October, etc.
+        //- the - 1 is because the months are indexed base, new Date('2016', 9, 1) yields October, not September
+        series.push([new Date('2011', (index + baseMonth - 1), 1).getTime(), value]);
       });
-      console.log(series);
-      // debugger
       // series.push({
       //   'name': yLabels[0],
       //   'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
@@ -591,14 +590,8 @@ define([
       //   }
       // }
 
-      // var data = options.data;
-      // var name = options.name;
-
-      var el = $('#' + config.rootNode + '_guira');
-
-      $('#' + config.rootNode + '_guira').highcharts({
+      $('#' + config.rootNode + '_guyra').highcharts({
         chart: {
-          // renderTo: el,
           zoomType: 'x',
           resetZoomButton: {
             position: {
@@ -607,33 +600,41 @@ define([
             }
           }
         },
-        title: { text: null },
-        xAxis: { type: 'datetime' },
-        credits: { enabled: false },
-        yAxis: { title: { text: null }, min: 0 },
-        plotOptions: {
-          area: {
-            threshold: null,
-            lineWidth: 1,
-            states: { hover: { lineWidth: 1 } },
-            fillColor: {
-              linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-              stops: [[0, 'rgba(220,102,153, 1)'], [1, 'rgba(220,102,153, 0)']]
+        exporting: {
+          buttons: {
+            contextButton: { enabled: false },
+            exportButton: {
+              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+              symbol: exportButtonImagePath
             }
+          }
+        },
+        title: { text: null },
+        xAxis: {
+          type: 'datetime'
+        },
+        credits: { enabled: false },
+        yAxis: { title: { text: 'hectares' }, min: 0 },
+        plotOptions: {
+          column: {
+            color: config.color
           }
         },
         tooltip: {
           dateTimeLabelFormats: { hour: '%b' }
         },
+        legend: {
+          enabled: false
+        },
         series: [{
-          type: 'area',
-          name: 'Guira',
+          type: 'column',
+          name: config.title,
           data: series
         }]
       });
 
 
-      // $('#' + config.rootNode + '_guira').highcharts({
+      // $('#' + config.rootNode + '_guyra').highcharts({
       //   chart: {
       //     plotBackgroundColor: null,
       //     plotBorderWidth: null,
