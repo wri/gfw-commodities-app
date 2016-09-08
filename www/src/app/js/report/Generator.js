@@ -492,7 +492,7 @@ define([
 
             // Set up the text for the messages
             messages.invalidEmail = 'You must provide a valid email in the form.';
-            messages.noSelection = 'You must select at least one checkbox from the form.';
+            messages.noSelection = 'You must select a checkbox from the form.';
             messages.formaSuccess = 'Thank you for subscribing to Forma Alerts.  You should receive a confirmation email soon.';
             messages.formaFail = 'There was an error with your request to subscribe to Forma alerts.  Please try again later.';
             messages.fireSuccess = 'Thank you for subscribing to Fires Alerts.  You should receive a confirmation email soon.';
