@@ -589,6 +589,11 @@ define([
       //     }
       //   }
       // }
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
 
       $('#' + config.rootNode + '_guyra').highcharts({
         chart: {
@@ -621,7 +626,11 @@ define([
           }
         },
         tooltip: {
-          dateTimeLabelFormats: { hour: '%b' }
+          dateTimeLabelFormats: { hour: '%B, %Y' }
+          // formatter: function () {
+          //   var date
+          //       return 'The value for <b>%b</b> is <b>' + this.x + '</b>';
+          //   }
         },
         legend: {
           enabled: false
@@ -629,66 +638,12 @@ define([
         series: [{
           type: 'column',
           name: config.title,
-          data: series
+          data: series,
+          tooltip: {
+            valueSuffix: ' ha'
+          }
         }]
       });
-
-
-      // $('#' + config.rootNode + '_guyra').highcharts({
-      //   chart: {
-      //     plotBackgroundColor: null,
-      //     plotBorderWidth: null,
-      //     plotShadow: null,
-      //     type: 'bar',
-      //     events: {
-      //       load: function () {
-      //         // $('#' + config.tclChart.container + ' .highcharts-legend').appendTo('#' + config.tclChart.container + '-legend');
-      //         // this.setSize(300, 400);
-      //       }
-      //     }
-      //   },
-      //   exporting: {
-      //     buttons: {
-      //       contextButton: { enabled: false },
-      //       exportButton: {
-      //         menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-      //         symbol: exportButtonImagePath
-      //       }
-      //     }
-      //   },
-      //   colors: colors,
-      //   title: {
-      //     text: config.lossChart.title
-      //   },
-      //   xAxis: {
-      //     categories: xLabels,
-      //     maxPadding: 0.35,
-      //     title: {
-      //       text: null
-      //     }
-      //   },
-      //   yAxis: {
-      //     stackLabels: {
-      //       enabled: true
-      //     },
-      //     title: {
-      //       text: null
-      //     }
-      //   },
-      //   legend: {
-      //     enabled: false,
-      //     verticalAlign: 'bottom'
-      //   },
-      //   plotOptions: {
-      //     series: {
-      //       stacking: 'normal'
-      //     }
-      //   },
-      //   series: series,
-      //   credits: {
-      //     enabled: false
-      //   }
-      // });
 
     },
 
