@@ -592,7 +592,7 @@ define([], function() {
 
         guyra: {
             rootNode: 'guyra',
-            title: 'Gran Chaco deforestation',
+            title: 'Gran Chaco deforestation (Asociación Guyra Paraguay)',
             rasterId: '$565',
             mosaicRule: {
                 'mosaicMethod': 'esriMosaicLockRaster',
