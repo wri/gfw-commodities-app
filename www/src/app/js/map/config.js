@@ -299,7 +299,8 @@ define([], function() {
         granChaco: {
             id: 'granChaco',
             url: granChacoUrl,
-            defaultLayers: [0]
+            defaultLayers: [0],
+            toolsNode: 'guyra_toolbox'
         },
         loss: {
             id: 'Loss',
@@ -678,7 +679,7 @@ define([], function() {
                 infoDivClass: 'forest-change-nasa-active-fires'
             }, {
                 id: 'granChaco',
-                title: 'Gran Chaco deforestation',
+                title: 'Gran Chaco deforestation (Guyra Paraguay)',
                 subtitle: '(monthly, 30m, Gran Chaco, Guyra)',
                 filter: 'forest-change',
                 type: 'radio',

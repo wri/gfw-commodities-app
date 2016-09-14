@@ -18,9 +18,10 @@ define([
 
   // Helper Functions
   function getDefaultState() {
+
     return {
       completed: true,
-      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option3.id,
+      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option1.id,
       previousAreaOfInterest: undefined
     };
   }
@@ -50,9 +51,9 @@ define([
       // Set the default value in the store
 			var aoi = WizardStore.get(KEYS.areaOfInterest);
 			console.log(aoi);
-			console.log(option3.id);
+
 			if (!aoi) {
-				WizardActions.setAreaOfInterest(option3.id);
+				WizardActions.setAreaOfInterest(option1.id);
 			}
       // Register a callback to the item of interest
       WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);

@@ -178,7 +178,7 @@ define([
             });
 
             // Reset this components state
-            WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option3.id, true);
+            WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option1.id, true);
             WizardStore.set(KEYS.selectedCustomFeatures, [], true);
             WizardStore.set(KEYS.userStep, 0, true);
             this.replaceState(getDefaultState());

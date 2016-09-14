@@ -95,7 +95,6 @@ define([
               }),
               self = this,
               content = "<div class='subscription-content'>" +
-                "<div class='checkbox-container'><label><input id='forma_check' type='checkbox' value='clearance' />Monthly Clearance Alerts</label></div>" +
                 "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fire Alerts</label></div>" +
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
@@ -111,7 +110,6 @@ define([
           on(dom.byId("subscribe-now"), 'click', function() {
             // Show loading Wheel
             // It will be removed when there is an error or on complete
-            dom.byId('form-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
             self.subscribeToAlerts();
           });
 
@@ -469,8 +467,8 @@ define([
                     case 'prodes':
                         deferreds.push(Fetcher.getProdesResults());
                         break;
-                    case 'guiraAlerts':
-                        deferreds.push(Fetcher.getGuiraResults());
+                    case 'guyraAlerts':
+                        deferreds.push(Fetcher.getGuyraResults());
                         break;
                     // case 'gladAlerts':
                     //     deferreds.push(Fetcher.getGladResults());
@@ -487,14 +485,14 @@ define([
         subscribeToAlerts: function() {
             var geoJson = this.convertGeometryToGeometric(report.geometry),
                 emailAddr = dom.byId('user-email').value,
-                formaCheck = dom.byId('forma_check').checked,
+                // formaCheck = dom.byId('forma_check').checked,
                 firesCheck = dom.byId('fires_check').checked,
                 errorMessages = [],
                 messages = {};
 
             // Set up the text for the messages
             messages.invalidEmail = 'You must provide a valid email in the form.';
-            messages.noSelection = 'You must select at least one checkbox from the form.';
+            messages.noSelection = 'You must select a checkbox from the form.';
             messages.formaSuccess = 'Thank you for subscribing to Forma Alerts.  You should receive a confirmation email soon.';
             messages.formaFail = 'There was an error with your request to subscribe to Forma alerts.  Please try again later.';
             messages.fireSuccess = 'Thank you for subscribing to Fires Alerts.  You should receive a confirmation email soon.';
@@ -504,48 +502,50 @@ define([
                 errorMessages.push(messages.invalidEmail);
             }
 
-            if (!formaCheck && !firesCheck) {
+            if (!firesCheck) {
                 errorMessages.push(messages.noSelection);
             }
 
             if (errorMessages.length > 0) {
                 alert('Please fill in the following:\n' + errorMessages.join('\n'));
+                return;
             } else {
+              dom.byId('form-response').innerHTML = "<div class='loader-wheel subscribe'>subscribing</div>";
                 // If both are checked, request both and show the appropriate responses
-                if (formaCheck && firesCheck) {
-                    var responses = [];
-                    all([
-                        this.subscribeToForma(geoJson, emailAddr),
-                        this.subscribeToFires(report.geometry, emailAddr)
-                    ]).then(function(results) {
-                        // Check the results and inform the user of the results
-                        if (results[0]) {
-                            responses.push(messages.formaSuccess);
-                        } else {
-                            responses.push(messages.formaFail);
-                        }
-
-                        if (results[1]) {
-                            responses.push(messages.fireSuccess);
-                        } else {
-                            responses.push(messages.fireFail);
-                        }
-
-                        dom.byId('form-response').innerHTML = responses.join('<br />');
-
-                    });
-
-                    // Else if just forma alerts are checked, subscribe to those and show the correct responses
-                } else if (formaCheck) {
-                    this.subscribeToForma(geoJson, emailAddr).then(function(res) {
-                        if (res) {
-                            dom.byId('form-response').innerHTML = messages.formaSuccess;
-                        } else {
-                            dom.byId('form-response').innerHTML = messages.formaFail;
-                        }
-                    });
-                    // Else if just fires alerts are checked, subscribe to those and show the correct responses
-                } else if (firesCheck) {
+                // if (formaCheck && firesCheck) {
+                //     var responses = [];
+                //     all([
+                //         this.subscribeToForma(geoJson, emailAddr),
+                //         this.subscribeToFires(report.geometry, emailAddr)
+                //     ]).then(function(results) {
+                //         // Check the results and inform the user of the results
+                //         if (results[0]) {
+                //             responses.push(messages.formaSuccess);
+                //         } else {
+                //             responses.push(messages.formaFail);
+                //         }
+                //
+                //         if (results[1]) {
+                //             responses.push(messages.fireSuccess);
+                //         } else {
+                //             responses.push(messages.fireFail);
+                //         }
+                //
+                //         dom.byId('form-response').innerHTML = responses.join('<br />');
+                //
+                //     });
+                //
+                //     // Else if just forma alerts are checked, subscribe to those and show the correct responses
+                // } else if (formaCheck) {
+                //     this.subscribeToForma(geoJson, emailAddr).then(function(res) {
+                //         if (res) {
+                //             dom.byId('form-response').innerHTML = messages.formaSuccess;
+                //         } else {
+                //             dom.byId('form-response').innerHTML = messages.formaFail;
+                //         }
+                //     });
+                //     // Else if just fires alerts are checked, subscribe to those and show the correct responses
+                // } else if (firesCheck) {
                     this.subscribeToFires(report.geometry, emailAddr).then(function(res) {
                         if (res) {
                             dom.byId('form-response').innerHTML = messages.fireSuccess;
@@ -553,7 +553,7 @@ define([
                             dom.byId('form-response').innerHTML = messages.fireFail;
                         }
                     });
-                }
+                // }
 
             }
 

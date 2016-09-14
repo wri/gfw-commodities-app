@@ -120,7 +120,7 @@ define([], function() {
             checkboxes: [{
                 label: 'ID Primary Forests',
                 value: 'primForest',
-                checked: true
+                checked: false
             }, {
                 label: 'Tree Cover Density',
                 value: 'treeDensity',
@@ -160,7 +160,7 @@ define([], function() {
             }, {
                 label: 'Peat Lands',
                 value: 'peat',
-                checked: true
+                checked: false
             }, {
                 label: 'Tree Cover Loss',
                 value: 'treeCoverLoss',
@@ -186,8 +186,8 @@ define([], function() {
             //     value: 'gladAlerts',
             //     checked: false
             }, {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
+                label: 'Gran Chaco deforestation (Guyra Paraguay)',
+                value: 'guyraAlerts',
                 checked: false
             }
           ],

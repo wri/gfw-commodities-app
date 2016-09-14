@@ -577,7 +577,8 @@ define('map/config',[], function() {
         granChaco: {
             id: 'granChaco',
             url: granChacoUrl,
-            defaultLayers: [0]
+            defaultLayers: [0],
+            toolsNode: 'guyra_toolbox'
         },
         loss: {
             id: 'Loss',
@@ -956,7 +957,7 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-change-nasa-active-fires'
             }, {
                 id: 'granChaco',
-                title: 'Gran Chaco deforestation',
+                title: 'Gran Chaco deforestation (Guyra Paraguay)',
                 subtitle: '(monthly, 30m, Gran Chaco, Guyra)',
                 filter: 'forest-change',
                 type: 'radio',
@@ -2324,7 +2325,7 @@ define('analysis/config',[], function() {
             checkboxes: [{
                 label: 'ID Primary Forests',
                 value: 'primForest',
-                checked: true
+                checked: false
             }, {
                 label: 'Tree Cover Density',
                 value: 'treeDensity',
@@ -2364,7 +2365,7 @@ define('analysis/config',[], function() {
             }, {
                 label: 'Peat Lands',
                 value: 'peat',
-                checked: true
+                checked: false
             }, {
                 label: 'Tree Cover Loss',
                 value: 'treeCoverLoss',
@@ -2390,8 +2391,8 @@ define('analysis/config',[], function() {
             //     value: 'gladAlerts',
             //     checked: false
             }, {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
+                label: 'Gran Chaco deforestation (Guyra Paraguay)',
+                value: 'guyraAlerts',
                 checked: false
             }
           ],
@@ -3588,12 +3589,12 @@ define('components/alertsForm/AlertsForm',[
           // Header
           React.DOM.div({className: 'alerts-form__header'},
             React.DOM.div({className: 'alerts-form__header__title inline-block fill__long border-box padding__long vertical-middle'}, TEXT.title),
-            React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
+            React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'},
               React.DOM.img({'className': 'vertical-middle', 'src': 'app/css/images/close_symbol.png'})
             )
           ),
           // Body
-          React.DOM.div({className: 'alerts-form__body'}, 
+          React.DOM.div({className: 'alerts-form__body'},
             // Tools
             React.DOM.div({'className':'padding__wide padding__top'},
               React.DOM.div({'className':'margin__bottom'}, AlertsConfig.customArea.instructions),
@@ -3607,10 +3608,10 @@ define('components/alertsForm/AlertsForm',[
             new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures})
           ),
           // Footer
-          React.DOM.div({className:'alerts-form__footer'}, 
-            React.DOM.div({className:'inline-block padding__left'}, TEXT.selection),
-            React.DOM.div({className:'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title:currentSelectionLabel}, currentSelectionLabel),
-            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts, disabled:(this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
+          React.DOM.div({className: 'alerts-form__footer'},
+          React.DOM.div({className: 'inline-block padding__left'}, TEXT.selection),
+          React.DOM.div({className: 'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title: currentSelectionLabel}, currentSelectionLabel),
+          React.DOM.button({className: 'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick: this._subscribeToAlerts, disabled: (this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
           )
         )
       );
@@ -3696,7 +3697,7 @@ define('components/alertsDialog/config',[
       fires: 'alerts-fires',
       buffer: 'alerts-buffer',
       email: 'alerts-email',
-      subscription: 'alerts-subscription',
+      subscription: 'alerts-subscription'
     },
     TEXT: {
       title: 'Subscribe to Alerts',
@@ -3711,11 +3712,11 @@ define('components/alertsDialog/config',[
       bufferLabel: 'Point data selected - buffer area(s) required.',
       bufferOptionsLabel: 'Buffer radius:',
       bufferOptions: [
-        ['50','50km'],
-        ['40','40km'],
-        ['30','30km'],
-        ['20','20km'],
-        ['10','10km']
+        ['50', '50km'],
+        ['40', '40km'],
+        ['30', '30km'],
+        ['20', '20km'],
+        ['10', '10km']
       ],
       messagesLabel: 'Please fill in the following:\n',
       messages: {
@@ -3764,7 +3765,7 @@ define('components/alertsDialog/config',[
         }
       }
     }
-  }
+  };
 });
 
 /** @jsx React.DOM */
@@ -4790,9 +4791,10 @@ define('components/wizard/StepOne',[
 
   // Helper Functions
   function getDefaultState() {
+
     return {
       completed: true,
-      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option3.id,
+      selectedOption: WizardStore.get(KEYS.areaOfInterest) || option1.id,
       previousAreaOfInterest: undefined
     };
   }
@@ -4822,9 +4824,9 @@ define('components/wizard/StepOne',[
       // Set the default value in the store
 			var aoi = WizardStore.get(KEYS.areaOfInterest);
 			console.log(aoi);
-			console.log(option3.id);
+
 			if (!aoi) {
-				WizardActions.setAreaOfInterest(option3.id);
+				WizardActions.setAreaOfInterest(option1.id);
 			}
       // Register a callback to the item of interest
       WizardStore.registerCallback(KEYS.areaOfInterest, this.areaOfInterestUpdated);
@@ -6729,7 +6731,7 @@ define('components/wizard/WizardCheckbox',[
         case 'prodes':
           this.props.infoDivClass = 'forest-change-prodes-alerts';
           break;
-        case 'guiraAlerts':
+        case 'guyraAlerts':
           this.props.infoDivClass = 'forest-change-gran-chaco';
           break;
         case 'treeDensity':
@@ -6817,7 +6819,7 @@ define('components/wizard/StepThree',[
     function getDefaultState() {
       return {
         completed: false,
-        optionsExpanded: false,
+        optionsExpanded: true,
         forestChangeCategory: true,
         forestChangeCheckbox: getDefaultCheckedState(),
         currentSelectionLabel: getCurrentSelectionLabel()
@@ -6913,13 +6915,14 @@ define('components/wizard/StepThree',[
                 
                 React.createElement("div", {className: "relative forestChange-description"}, 
                   React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
-                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}}), 
+                  React.createElement("p", {className: "forest-options-text layer-description"}, "Choose layers here")
                 ), 
                 React.createElement("p", {className: "layer-description"}, config.forestChange.description), 
                 React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
-                React.createElement("div", null, 
-                  config.checkboxes.map(this._mapper, this)
-                )
+                  React.createElement("div", null, 
+                    config.checkboxes.map(this._mapper, this)
+                  )
                 ), 
 
                 React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, checked: checkedValues.indexOf(config.suit.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
@@ -7215,11 +7218,6 @@ define('map/LayerController',[
                 status,
                 value;
 
-
-                console.log(props);
-                console.log(layer);
-                
-
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
@@ -7234,28 +7232,9 @@ define('map/LayerController',[
             if (layer) {
 
                 if (visibleLayers.length > 0) {
-                    //if (layer.visibleLayers.length > 0) {
-
-                        // for (var i = 0; i < layer.visibleLayers.length; i++) {
-                        //     if (visibleLayers.indexOf(layer.visibleLayers[i]) == -1 && layer.visibleLayers[i] != 0) {
-                        //         console.log(layer.visibleLayers[i]);
-                        //         debugger
-                        //         visibleLayers.push(layer.visibleLayers[i]);
-                        //     }
-                        // }
-
-                        // if (visibleLayers.indexOf(layer.visibleLayers[0]) == -1) {
-                        //     debugger
-                        //     visibleLayers.push(layer.visibleLayers[0]);
-                        // }
-                    //}
-
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
-                    console.log(layer.visibleLayers);
                 } else {
-                    console.log('hiding');
-                    console.log(layer.visibleLayers);
                     layer.hide();
                 }
                 this.refreshLegendWidget();
@@ -7303,7 +7282,6 @@ define('map/LayerController',[
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
-            console.log(layerConfig);
             if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
@@ -7372,6 +7350,17 @@ define('map/LayerController',[
           return ((year % 100) !== 0 || (year % 400) === 0);
         },
 
+        updateGuyraDates: function(clauseArray) {
+          var start = clauseArray[0];
+          var end = clauseArray[1];
+
+          var guyraLayer = app.map.getLayer('granChaco');
+          var layerDefs = [];
+          var where = "date >= '" + start.toDateString() + "' AND date <= '" + end.toDateString() + "'";
+          layerDefs[0] = where;
+          guyraLayer.setLayerDefinitions(layerDefs);
+        },
+
         updateGladDates: function(clauseArray) {
           var gladLayer = app.map.getLayer('gladAlerts');
 
@@ -7380,8 +7369,6 @@ define('map/LayerController',[
           var yearStart = otherDateStart.getFullYear();
           var janOneStart = new Date(yearStart + ' 01 01');
           var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
-          console.log(origDateStart);
-          console.log(clauseArray);
 
           var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
 
@@ -7396,7 +7383,6 @@ define('map/LayerController',[
           var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
 
           var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
-          console.log('julianEnd', julianEnd);
 
           if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
             julianEnd++;
@@ -7417,9 +7403,6 @@ define('map/LayerController',[
           } else {
             return;
           }
-
-          console.log(inputStartRanges);
-          console.log(inputEndRanges);
 
           if (gladLayer) {
             var rasterF = new RasterFunction({
@@ -7568,7 +7551,6 @@ define('map/LayerController',[
                 range = [values[0] + 2001, values[1] + 2001];
                 rasterFunction = this.getColormapLossRasterFunction(layerConfig.colormap, range, outRange, densityRange);
                 layer.setRenderingRule(rasterFunction);
-                console.log(rasterFunction)
             }
 
         },
@@ -7581,7 +7563,6 @@ define('map/LayerController',[
                 range;
 
             if (layer) {
-              console.log(layerConfig.id);
               // For Forma updates, if its a single range, we need to remap 1 to 0
               // Values in slider are from a 0 based index, the range starts at 1
               // so we need to shift the values by 1 to have correct range
@@ -8766,6 +8747,168 @@ define('map/ProdesSlider',[
 
 });
 
+define('map/GuyraSlider',[
+  'dojo/on',
+  'map/config',
+  'esri/tasks/query',
+  'esri/tasks/QueryTask',
+  'dojo/Deferred',
+  'utils/Analytics',
+  'map/LayerController'
+], function (on, MapConfig, Query, QueryTask, Deferred, Analytics, LayerController) {
+
+  var playInterval,
+      guyraSlider,
+      playButton;
+
+  var config = {
+    sliderSelector: '#guyra-alert-slider',
+    playHtml: '&#9658;',
+    pauseHtml: '&#x25A0',
+    baseYear: 1999
+  };
+
+  var state = {
+    isPlaying: false,
+    from: 0,
+    to: 0
+  };
+
+  var getGuyraLabels = function getGuyraLabels () {
+    var deferred = new Deferred(),
+        query, queryTask;
+
+    query = new Query();
+    query.returnGeometry = false;
+    query.outFields = ['date'];
+    query.returnDistinctValues = true;
+    query.where = '1=1';
+
+    queryTask = new QueryTask(MapConfig.granChaco.url + '/' + MapConfig.granChaco.defaultLayers[0]);
+
+    queryTask.execute(query, function(res) {
+      var labels = [], date, month, year;
+
+      res.features.sort(function(a, b){
+        return new Date(b.attributes.date) - new Date(a.attributes.date);
+      });
+
+      res.features.reverse();
+
+      // var max = new Date(res.features[0].attributes.date);
+      // var min = new Date(res.features[res.features.length - 1].attributes.date);
+
+      for (var j = 0; j < res.features.length; j++) {
+        date = new Date(res.features[j].attributes.date);
+        year = date.getFullYear().toString().substr(2, 2);
+        month = ('0' + (date.getMonth() + 1)).slice(-2);
+        labels.push(month + '-' + year);
+
+      }
+      deferred.resolve(labels);
+
+    });
+
+    return deferred;
+  };
+
+  var GuyraSlider = {
+
+    init: function () {
+      var self = this;
+      if (guyraSlider === undefined) {
+        getGuyraLabels().then(function (labels) {
+          $(config.sliderSelector).ionRangeSlider({
+            type: 'double',
+            values: labels,
+            grid: true,
+            prettify_enabled: false,
+            hide_min_max: true,
+            hide_from_to: true,
+            onFinish: self.change,
+            onUpdate: self.change
+          });
+          // Save this instance to a variable ???
+          guyraSlider = $(config.sliderSelector).data('ionRangeSlider');
+          // Cache query for play button
+          playButton = $('#guyraPlayButton');
+          // Attach Events related to this item
+          on(playButton, 'click', self.playToggle);
+          //- set the state for change tracking
+          state.to = labels.length - 1;
+        });
+      }
+    },
+
+    change: function (data) {
+
+      var fromData = data.from_value.split('-');
+      var toData = data.to_value.split('-');
+
+      var fromDate = new Date(fromData[0] + '/1/20' + fromData[1]);
+      var toDate = new Date(toData[0] + '/1/20' + toData[1]);
+
+      LayerController.updateGuyraDates([fromDate, toDate]);
+      //- Determine which handle changed and emit the appropriate event
+      if (!state.isPlaying) {
+        if (data.from !== state.from) {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change start date');
+        } else {
+          Analytics.sendEvent('Event', 'Forma Timeline', 'Change end date');
+        }
+      }
+      //- Update the state value
+      state.from = fromDate;
+      state.to = toDate;
+    },
+
+    playToggle: function () {
+      var fromValue, toValue, endValue;
+
+      function stopPlaying() {
+        state.isPlaying = false;
+        clearInterval(playInterval);
+        playButton.html(config.playHtml);
+      }
+
+      if (state.isPlaying) {
+        stopPlaying();
+      } else {
+        // Update some state
+        state.isPlaying = true;
+        endValue = guyraSlider.result.to;
+        // Trigger a change on the layer for the initial value, with both handles starting at the same point
+        guyraSlider.update({ from: guyraSlider.result.from, to: guyraSlider.result.from });
+        // Start the interval
+        playInterval = setInterval(function () {
+          // We will be incrementing the from value to move the slider forward
+          fromValue = guyraSlider.result.from;
+          toValue = guyraSlider.result.to;
+          // Quit if from value is equal to or greater than the to value
+          if (toValue >= endValue) {
+            stopPlaying();
+          } else {
+            // Update the slider
+            guyraSlider.update({
+              from: fromValue,
+              to: ++toValue
+            });
+          }
+
+        }, 1000);
+
+        // Update the button html
+        playButton.html(config.pauseHtml);
+      }
+      Analytics.sendEvent('Event', 'Guyra Timeline', 'Play');
+    }
+
+  };
+
+  return GuyraSlider;
+
+});
+
 define('map/Controls',[
     'dojo/dom',
     'dojo/query',
@@ -8783,12 +8926,13 @@ define('map/Controls',[
     'map/FormaSlider',
     'map/GladSlider',
     'map/ProdesSlider',
+    'map/GuyraSlider',
     'map/LayerController',
     'esri/request',
     'esri/TimeExtent',
     'esri/dijit/TimeSlider',
     'dijit/form/CheckBox'
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, GuyraSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
 
 
     var jq171 = jQuery.noConflict();
@@ -8959,6 +9103,7 @@ define('map/Controls',[
             FormaSlider.init();
             GladSlider.init();
             ProdesSlider.init();
+            GuyraSlider.init();
         },
 
         // fetchFORMAAlertsLabels: function() {
@@ -9362,52 +9507,14 @@ define('map/Controls',[
                 f: "json",
                 pixelType: 'UNKNOWN'
             };
-            //console.log("params", params);
-
             var exporter = function(url, content) {
                 console.log("exporter() :: url = ", url);
                 window.open(url, "geoTiffWin");
                 callback("");
-                /*
-                var layersRequest = request({
-                    url: url,
-                    content: content,
-                    handleAs: "json",
-                    callbackParamName: "callback"
-                });
-                layersRequest.then(
-                    function (response) {
-                        console.log(response);
-                        window.open(response.href, "geoTiffWin");
-                        callback("");
-                    }, function (error) {
-                        console.log("Error: ", error.message);
-                        callback(error.message);
-                    });
-                /**/
-                /*
-                $.ajax({
-                    url: url,
-                    //data: myData,
-                    type: 'GET',
-                    crossDomain: true,
-                    dataType: 'jsonp',
-                     success: function() {
-                         alert("Success");
-                         callback("");
-                     },
-                     error: function(jqXHR, errorMessage) {
-                         alert('Failed!');
-                         console.log("ERROR: ", errorMessage);
-                         callback(errorMessage);
-                     } //,
-                    // beforeSend: setHeader
-                });
-                */
             };
 
             var layerID = MapConfig.suit.id;
-            //console.log(" :: layerID = " + layerID);
+
             app.map.getLayer(layerID).getImageUrl(app.map.extent, width, height, exporter, params);
             /*
             var _self = this;
@@ -9825,7 +9932,7 @@ define('components/wizard/Wizard',[
             });
 
             // Reset this components state
-            WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option3.id, true);
+            WizardStore.set(KEYS.areaOfInterest, AnalyzerConfig.stepOne.option1.id, true);
             WizardStore.set(KEYS.selectedCustomFeatures, [], true);
             WizardStore.set(KEYS.userStep, 0, true);
             this.replaceState(getDefaultState());
@@ -13437,7 +13544,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.7',
+                path = './app/templates/' + name + '.html?v=2.4.12',
                 req;
 
             req = new XMLHttpRequest();

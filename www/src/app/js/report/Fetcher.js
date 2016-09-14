@@ -288,10 +288,10 @@ define([
 						return deferred.promise;
 				},
 
-				getGuiraResults: function() {
-						this._debug('Fetcher >>> getGuiraResults');
+				getGuyraResults: function() {
+						this._debug('Fetcher >>> getGuyraResults');
 						var deferred = new Deferred(),
-								config = ReportConfig.guira,
+								config = ReportConfig.guyra,
 								url = ReportConfig.imageServiceUrl,
 								content = {
 										geometryType: 'esriGeometryPolygon',
@@ -303,15 +303,15 @@ define([
 								self = this;
 
 						// Create the container for all the result
-						ReportRenderer.renderGuiraContainer(config);
+						ReportRenderer.renderGuyraContainer(config);
 						// ReportRenderer.renderCompositionAnalysisLoader(config);
 
 						function success(response) {
 								if (response.histograms.length > 0) {
-										ReportRenderer.renderGuiraData(response.histograms[0].counts, content.pixelSize, config);
+										ReportRenderer.renderGuyraData(response.histograms[0].counts, content.pixelSize, config);
 										// ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
 								} else {
-										ReportRenderer.renderAsUnavailable('guira', config);
+										ReportRenderer.renderAsUnavailable('guyra', config);
 								}
 								deferred.resolve(true);
 						}

@@ -29,7 +29,7 @@ define([
     function getDefaultState() {
       return {
         completed: false,
-        optionsExpanded: false,
+        optionsExpanded: true,
         forestChangeCategory: true,
         forestChangeCheckbox: getDefaultCheckedState(),
         currentSelectionLabel: getCurrentSelectionLabel()
@@ -125,13 +125,14 @@ define([
                 
                 React.createElement("div", {className: "relative forestChange-description"}, 
                   React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
-                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}})
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}}), 
+                  React.createElement("p", {className: "forest-options-text layer-description"}, "Choose layers here")
                 ), 
                 React.createElement("p", {className: "layer-description"}, config.forestChange.description), 
                 React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
-                React.createElement("div", null, 
-                  config.checkboxes.map(this._mapper, this)
-                )
+                  React.createElement("div", null, 
+                    config.checkboxes.map(this._mapper, this)
+                  )
                 ), 
 
                 React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, checked: checkedValues.indexOf(config.suit.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
