@@ -147,7 +147,7 @@ define([
             });
           }
 
-        }, 1250);
+        }, 1000);
 
         // Update the button html
         playButton.html(config.pauseHtml);
