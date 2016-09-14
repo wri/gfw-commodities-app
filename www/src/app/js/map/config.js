@@ -299,7 +299,8 @@ define([], function() {
         granChaco: {
             id: 'granChaco',
             url: granChacoUrl,
-            defaultLayers: [0]
+            defaultLayers: [0],
+            toolsNode: 'guyra_toolbox'
         },
         loss: {
             id: 'Loss',

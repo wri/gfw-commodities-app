@@ -15,12 +15,13 @@ define([
     'map/FormaSlider',
     'map/GladSlider',
     'map/ProdesSlider',
+    'map/GuyraSlider',
     'map/LayerController',
     'esri/request',
     'esri/TimeExtent',
     'esri/dijit/TimeSlider',
     'dijit/form/CheckBox'
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, GuyraSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
 
 
     var jq171 = jQuery.noConflict();
@@ -191,6 +192,7 @@ define([
             FormaSlider.init();
             GladSlider.init();
             ProdesSlider.init();
+            GuyraSlider.init();
         },
 
         // fetchFORMAAlertsLabels: function() {

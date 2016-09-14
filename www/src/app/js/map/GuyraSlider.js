@@ -1,21 +1,19 @@
 define([
   'dojo/on',
   'map/config',
-  'esri/request',
+  'esri/tasks/query',
+  'esri/tasks/QueryTask',
   'dojo/Deferred',
   'utils/Analytics',
   'map/LayerController'
-], function (on, MapConfig, esriRequest, Deferred, Analytics, LayerController) {
-
-  // TODO: replace all forma's with prodes
-  // 'use strict';
+], function (on, MapConfig, Query, QueryTask, Deferred, Analytics, LayerController) {
 
   var playInterval,
-      prodesSlider,
+      guyraSlider,
       playButton;
 
   var config = {
-    sliderSelector: '#prodes-alert-slider',
+    sliderSelector: '#guyra-alert-slider',
     playHtml: '&#9658;',
     pauseHtml: '&#x25A0',
     baseYear: 1999
@@ -27,44 +25,51 @@ define([
     to: 0
   };
 
-  var getProdesLabels = function getProdesLabels () {
+  var getGuyraLabels = function getGuyraLabels () {
     var deferred = new Deferred(),
-        labels = [],
-        request;
+        query, queryTask;
 
-    request = esriRequest({
-      url: MapConfig.prodes.url,
-      callbackParamName: 'callback',
-      content: { f: 'json' },
-      handleAs: 'json'
-    });
+    query = new Query();
+    query.returnGeometry = false;
+    query.outFields = ['date'];
+    query.returnDistinctValues = true;
+    query.where = '1=1';
 
-    request.then(function (res) {
-      console.log('res', res);
-      // Labels should be formatted like so: {month|numeric} - {year|two-digit}
-      var min = res.minValues[0],
-          max = res.maxValues[0],
-          year;
+    queryTask = new QueryTask(MapConfig.granChaco.url + '/' + MapConfig.granChaco.defaultLayers[0]);
 
-      for (min; min <= max; min++) {
-        year = config.baseYear + min;
-        labels.push(year);
+    queryTask.execute(query, function(res) {
+      var labels = [], date, month, year;
+
+      res.features.sort(function(a, b){
+        return new Date(b.attributes.date) - new Date(a.attributes.date);
+      });
+
+      res.features.reverse();
+
+      // var max = new Date(res.features[0].attributes.date);
+      // var min = new Date(res.features[res.features.length - 1].attributes.date);
+
+      for (var j = 0; j < res.features.length; j++) {
+        date = new Date(res.features[j].attributes.date);
+        year = date.getFullYear().toString().substr(2, 2);
+        month = ('0' + (date.getMonth() + 1)).slice(-2);
+        labels.push(month + '-' + year);
+
       }
-
       deferred.resolve(labels);
-    }, function () {
-      deferred.reject();
+
     });
 
     return deferred;
   };
 
-  var ProdesSlider = {
+  var GuyraSlider = {
 
     init: function () {
       var self = this;
-      if (prodesSlider === undefined) {
-        getProdesLabels().then(function (labels) {
+      if (guyraSlider === undefined) {
+        getGuyraLabels().then(function (labels) {
+          console.log(labels);
           $(config.sliderSelector).ionRangeSlider({
             type: 'double',
             values: labels,
@@ -76,9 +81,9 @@ define([
             onUpdate: self.change
           });
           // Save this instance to a variable ???
-          prodesSlider = $(config.sliderSelector).data('ionRangeSlider');
+          guyraSlider = $(config.sliderSelector).data('ionRangeSlider');
           // Cache query for play button
-          playButton = $('#prodesPlayButton');
+          playButton = $('#guyraPlayButton');
           // Attach Events related to this item
           on(playButton, 'click', self.playToggle);
           //- set the state for change tracking
@@ -88,7 +93,14 @@ define([
     },
 
     change: function (data) {
-      LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.prodes);
+
+      var fromData = data.from_value.split('-');
+      var toData = data.to_value.split('-');
+
+      var fromDate = new Date(fromData[0] + '/1/20' + fromData[1]);
+      var toDate = new Date(toData[0] + '/1/20' + toData[1]);
+
+      LayerController.updateGuyraDates([fromDate, toDate]);
       //- Determine which handle changed and emit the appropriate event
       if (!state.isPlaying) {
         if (data.from !== state.from) {
@@ -98,8 +110,8 @@ define([
         }
       }
       //- Update the state value
-      state.from = data.from;
-      state.to = data.to;
+      state.from = fromDate;
+      state.to = toDate;
     },
 
     playToggle: function () {
@@ -116,20 +128,20 @@ define([
       } else {
         // Update some state
         state.isPlaying = true;
-        endValue = prodesSlider.result.to;
+        endValue = guyraSlider.result.to;
         // Trigger a change on the layer for the initial value, with both handles starting at the same point
-        prodesSlider.update({ from: prodesSlider.result.from, to: prodesSlider.result.from });
+        guyraSlider.update({ from: guyraSlider.result.from, to: guyraSlider.result.from });
         // Start the interval
         playInterval = setInterval(function () {
           // We will be incrementing the from value to move the slider forward
-          fromValue = prodesSlider.result.from;
-          toValue = prodesSlider.result.to;
+          fromValue = guyraSlider.result.from;
+          toValue = guyraSlider.result.to;
           // Quit if from value is equal to or greater than the to value
           if (toValue >= endValue) {
             stopPlaying();
           } else {
             // Update the slider
-            prodesSlider.update({
+            guyraSlider.update({
               from: fromValue,
               to: ++toValue
             });
@@ -140,11 +152,11 @@ define([
         // Update the button html
         playButton.html(config.pauseHtml);
       }
-      Analytics.sendEvent('Event', 'Prodes Timeline', 'Play');
+      Analytics.sendEvent('Event', 'Guyra Timeline', 'Play');
     }
 
   };
 
-  return ProdesSlider;
+  return GuyraSlider;
 
 });

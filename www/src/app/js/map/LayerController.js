@@ -71,7 +71,7 @@ define([
 
                 console.log(props);
                 console.log(layer);
-                
+
 
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
@@ -87,28 +87,9 @@ define([
             if (layer) {
 
                 if (visibleLayers.length > 0) {
-                    //if (layer.visibleLayers.length > 0) {
-
-                        // for (var i = 0; i < layer.visibleLayers.length; i++) {
-                        //     if (visibleLayers.indexOf(layer.visibleLayers[i]) == -1 && layer.visibleLayers[i] != 0) {
-                        //         console.log(layer.visibleLayers[i]);
-                        //         debugger
-                        //         visibleLayers.push(layer.visibleLayers[i]);
-                        //     }
-                        // }
-
-                        // if (visibleLayers.indexOf(layer.visibleLayers[0]) == -1) {
-                        //     debugger
-                        //     visibleLayers.push(layer.visibleLayers[0]);
-                        // }
-                    //}
-
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
-                    console.log(layer.visibleLayers);
                 } else {
-                    console.log('hiding');
-                    console.log(layer.visibleLayers);
                     layer.hide();
                 }
                 this.refreshLegendWidget();
@@ -223,6 +204,20 @@ define([
               return false;
           }
           return ((year % 100) !== 0 || (year % 400) === 0);
+        },
+
+        updateGuyraDates: function(clauseArray) {
+          var start = clauseArray[0];
+          var end = clauseArray[1];
+
+          var guyraLayer = app.map.getLayer('granChaco');
+          var layerDefs = [];
+          var where = "date >= '" + start.toDateString() + "' AND date <= '" + end.toDateString() + "'";
+          console.log(where);
+          layerDefs[0] = where;
+          guyraLayer.setLayerDefinitions(layerDefs);
+          console.log(guyraLayer);
+
         },
 
         updateGladDates: function(clauseArray) {
