@@ -7218,11 +7218,6 @@ define('map/LayerController',[
                 status,
                 value;
 
-
-                console.log(props);
-                console.log(layer);
-
-
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
@@ -7287,7 +7282,6 @@ define('map/LayerController',[
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
-            console.log(layerConfig);
             if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
@@ -7363,11 +7357,8 @@ define('map/LayerController',[
           var guyraLayer = app.map.getLayer('granChaco');
           var layerDefs = [];
           var where = "date >= '" + start.toDateString() + "' AND date <= '" + end.toDateString() + "'";
-          console.log(where);
           layerDefs[0] = where;
           guyraLayer.setLayerDefinitions(layerDefs);
-          console.log(guyraLayer);
-
         },
 
         updateGladDates: function(clauseArray) {
@@ -7378,8 +7369,6 @@ define('map/LayerController',[
           var yearStart = otherDateStart.getFullYear();
           var janOneStart = new Date(yearStart + ' 01 01');
           var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
-          console.log(origDateStart);
-          console.log(clauseArray);
 
           var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
 
@@ -7394,7 +7383,6 @@ define('map/LayerController',[
           var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
 
           var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
-          console.log('julianEnd', julianEnd);
 
           if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
             julianEnd++;
@@ -7415,9 +7403,6 @@ define('map/LayerController',[
           } else {
             return;
           }
-
-          console.log(inputStartRanges);
-          console.log(inputEndRanges);
 
           if (gladLayer) {
             var rasterF = new RasterFunction({
@@ -7566,7 +7551,6 @@ define('map/LayerController',[
                 range = [values[0] + 2001, values[1] + 2001];
                 rasterFunction = this.getColormapLossRasterFunction(layerConfig.colormap, range, outRange, densityRange);
                 layer.setRenderingRule(rasterFunction);
-                console.log(rasterFunction)
             }
 
         },
@@ -7579,7 +7563,6 @@ define('map/LayerController',[
                 range;
 
             if (layer) {
-              console.log(layerConfig.id);
               // For Forma updates, if its a single range, we need to remap 1 to 0
               // Values in slider are from a 0 based index, the range starts at 1
               // so we need to shift the values by 1 to have correct range
@@ -8656,7 +8639,6 @@ define('map/ProdesSlider',[
     });
 
     request.then(function (res) {
-      console.log('res', res);
       // Labels should be formatted like so: {month|numeric} - {year|two-digit}
       var min = res.minValues[0],
           max = res.maxValues[0],
@@ -8836,7 +8818,6 @@ define('map/GuyraSlider',[
       var self = this;
       if (guyraSlider === undefined) {
         getGuyraLabels().then(function (labels) {
-          console.log(labels);
           $(config.sliderSelector).ionRangeSlider({
             type: 'double',
             values: labels,
@@ -9526,52 +9507,14 @@ define('map/Controls',[
                 f: "json",
                 pixelType: 'UNKNOWN'
             };
-            //console.log("params", params);
-
             var exporter = function(url, content) {
                 console.log("exporter() :: url = ", url);
                 window.open(url, "geoTiffWin");
                 callback("");
-                /*
-                var layersRequest = request({
-                    url: url,
-                    content: content,
-                    handleAs: "json",
-                    callbackParamName: "callback"
-                });
-                layersRequest.then(
-                    function (response) {
-                        console.log(response);
-                        window.open(response.href, "geoTiffWin");
-                        callback("");
-                    }, function (error) {
-                        console.log("Error: ", error.message);
-                        callback(error.message);
-                    });
-                /**/
-                /*
-                $.ajax({
-                    url: url,
-                    //data: myData,
-                    type: 'GET',
-                    crossDomain: true,
-                    dataType: 'jsonp',
-                     success: function() {
-                         alert("Success");
-                         callback("");
-                     },
-                     error: function(jqXHR, errorMessage) {
-                         alert('Failed!');
-                         console.log("ERROR: ", errorMessage);
-                         callback(errorMessage);
-                     } //,
-                    // beforeSend: setHeader
-                });
-                */
             };
 
             var layerID = MapConfig.suit.id;
-            //console.log(" :: layerID = " + layerID);
+
             app.map.getLayer(layerID).getImageUrl(app.map.extent, width, height, exporter, params);
             /*
             var _self = this;

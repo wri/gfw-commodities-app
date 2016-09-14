@@ -69,7 +69,6 @@ define([
       var self = this;
       if (guyraSlider === undefined) {
         getGuyraLabels().then(function (labels) {
-          console.log(labels);
           $(config.sliderSelector).ionRangeSlider({
             type: 'double',
             values: labels,

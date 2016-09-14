@@ -40,7 +40,6 @@ define([
     });
 
     request.then(function (res) {
-      console.log('res', res);
       // Labels should be formatted like so: {month|numeric} - {year|two-digit}
       var min = res.minValues[0],
           max = res.maxValues[0],

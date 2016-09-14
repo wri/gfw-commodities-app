@@ -596,52 +596,14 @@ define([
                 f: "json",
                 pixelType: 'UNKNOWN'
             };
-            //console.log("params", params);
-
             var exporter = function(url, content) {
                 console.log("exporter() :: url = ", url);
                 window.open(url, "geoTiffWin");
                 callback("");
-                /*
-                var layersRequest = request({
-                    url: url,
-                    content: content,
-                    handleAs: "json",
-                    callbackParamName: "callback"
-                });
-                layersRequest.then(
-                    function (response) {
-                        console.log(response);
-                        window.open(response.href, "geoTiffWin");
-                        callback("");
-                    }, function (error) {
-                        console.log("Error: ", error.message);
-                        callback(error.message);
-                    });
-                /**/
-                /*
-                $.ajax({
-                    url: url,
-                    //data: myData,
-                    type: 'GET',
-                    crossDomain: true,
-                    dataType: 'jsonp',
-                     success: function() {
-                         alert("Success");
-                         callback("");
-                     },
-                     error: function(jqXHR, errorMessage) {
-                         alert('Failed!');
-                         console.log("ERROR: ", errorMessage);
-                         callback(errorMessage);
-                     } //,
-                    // beforeSend: setHeader
-                });
-                */
             };
 
             var layerID = MapConfig.suit.id;
-            //console.log(" :: layerID = " + layerID);
+
             app.map.getLayer(layerID).getImageUrl(app.map.extent, width, height, exporter, params);
             /*
             var _self = this;

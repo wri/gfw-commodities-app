@@ -68,11 +68,6 @@ define([
                 status,
                 value;
 
-
-                console.log(props);
-                console.log(layer);
-
-
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
@@ -137,7 +132,6 @@ define([
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
-            console.log(layerConfig);
             if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
@@ -213,11 +207,8 @@ define([
           var guyraLayer = app.map.getLayer('granChaco');
           var layerDefs = [];
           var where = "date >= '" + start.toDateString() + "' AND date <= '" + end.toDateString() + "'";
-          console.log(where);
           layerDefs[0] = where;
           guyraLayer.setLayerDefinitions(layerDefs);
-          console.log(guyraLayer);
-
         },
 
         updateGladDates: function(clauseArray) {
@@ -228,8 +219,6 @@ define([
           var yearStart = otherDateStart.getFullYear();
           var janOneStart = new Date(yearStart + ' 01 01');
           var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
-          console.log(origDateStart);
-          console.log(clauseArray);
 
           var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
 
@@ -244,7 +233,6 @@ define([
           var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
 
           var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
-          console.log('julianEnd', julianEnd);
 
           if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
             julianEnd++;
@@ -265,9 +253,6 @@ define([
           } else {
             return;
           }
-
-          console.log(inputStartRanges);
-          console.log(inputEndRanges);
 
           if (gladLayer) {
             var rasterF = new RasterFunction({
@@ -416,7 +401,6 @@ define([
                 range = [values[0] + 2001, values[1] + 2001];
                 rasterFunction = this.getColormapLossRasterFunction(layerConfig.colormap, range, outRange, densityRange);
                 layer.setRenderingRule(rasterFunction);
-                console.log(rasterFunction)
             }
 
         },
@@ -429,7 +413,6 @@ define([
                 range;
 
             if (layer) {
-              console.log(layerConfig.id);
               // For Forma updates, if its a single range, we need to remap 1 to 0
               // Values in slider are from a 0 based index, the range starts at 1
               // so we need to shift the values by 1 to have correct range
