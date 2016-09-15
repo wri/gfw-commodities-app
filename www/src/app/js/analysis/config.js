@@ -185,10 +185,10 @@ define([], function() {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
             //     checked: false
-            }, {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
-                checked: false
+            // }, {
+            //     label: 'Guira Alerts',
+            //     value: 'guiraAlerts',
+            //     checked: false
             }
           ],
             suit: {

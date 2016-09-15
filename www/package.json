@@ -1,6 +1,6 @@
 {
   "name": "Global-Forest-Watch-Commodities",
-  "version": "2.4.4",
+  "version": "2.4.8",
   "homepage": "http://commodities.globalforestwatch.org/",
   "scripts": {
     "start": "npm run jsx:watch & npm run stylus:watch",

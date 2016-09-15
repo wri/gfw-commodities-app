@@ -2389,10 +2389,10 @@ define('analysis/config',[], function() {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
             //     checked: false
-            }, {
-                label: 'Guira Alerts',
-                value: 'guiraAlerts',
-                checked: false
+            // }, {
+            //     label: 'Guira Alerts',
+            //     value: 'guiraAlerts',
+            //     checked: false
             }
           ],
             suit: {
@@ -13437,7 +13437,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.7',
+                path = './app/templates/' + name + '.html?v=2.4.8',
                 req;
 
             req = new XMLHttpRequest();
