@@ -567,77 +567,127 @@ define([
           series = [],
           colors = [];
 
-      series.push({
-        'name': yLabels[0],
-        'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+      var data = histogramData.slice(1).map(mapFunction);
+
+      console.log(data);
+      var baseMonth = 9;
+      data.forEach(function (value, index) {
+        series.push([new Date('2011', index + baseMonth, 0).getTime(), value]);
       });
+      console.log(series);
+      // debugger
+      // series.push({
+      //   'name': yLabels[0],
+      //   'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+      // });
       colors.push(config.color);
 
-      // Show All 0's if no data is present
-      if (series[0].data.length !== xLabels.length) {
-        for (var index = 0; index < xLabels.length; index++) {
-          if (series[0].data[index] === undefined) {
-            series[0].data[index] = 0;
-          }
-        }
-      }
+      // // Show All 0's if no data is present
+      // if (series[0].data.length !== xLabels.length) {
+      //   for (var index = 0; index < xLabels.length; index++) {
+      //     if (series[0].data[index] === undefined) {
+      //       series[0].data[index] = 0;
+      //     }
+      //   }
+      // }
 
+      // var data = options.data;
+      // var name = options.name;
+
+      var el = $('#' + config.rootNode + '_guira');
 
       $('#' + config.rootNode + '_guira').highcharts({
         chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: null,
-          type: 'bar',
-          events: {
-            load: function () {
-              // $('#' + config.tclChart.container + ' .highcharts-legend').appendTo('#' + config.tclChart.container + '-legend');
-              // this.setSize(300, 400);
+          // renderTo: el,
+          zoomType: 'x',
+          resetZoomButton: {
+            position: {
+              align: 'left',
+              y: 0
             }
           }
         },
-        exporting: {
-          buttons: {
-            contextButton: { enabled: false },
-            exportButton: {
-              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-              symbol: exportButtonImagePath
-            }
-          }
-        },
-        colors: colors,
-        title: {
-          text: config.lossChart.title
-        },
-        xAxis: {
-          categories: xLabels,
-          maxPadding: 0.35,
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          stackLabels: {
-            enabled: true
-          },
-          title: {
-            text: null
-          }
-        },
-        legend: {
-          enabled: false,
-          verticalAlign: 'bottom'
-        },
+        title: { text: null },
+        xAxis: { type: 'datetime' },
+        credits: { enabled: false },
+        yAxis: { title: { text: null }, min: 0 },
         plotOptions: {
-          series: {
-            stacking: 'normal'
+          area: {
+            threshold: null,
+            lineWidth: 1,
+            states: { hover: { lineWidth: 1 } },
+            fillColor: {
+              linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+              stops: [[0, 'rgba(220,102,153, 1)'], [1, 'rgba(220,102,153, 0)']]
+            }
           }
         },
-        series: series,
-        credits: {
-          enabled: false
-        }
+        tooltip: {
+          dateTimeLabelFormats: { hour: '%b' }
+        },
+        series: [{
+          type: 'area',
+          name: 'Guira',
+          data: series
+        }]
       });
+
+
+      // $('#' + config.rootNode + '_guira').highcharts({
+      //   chart: {
+      //     plotBackgroundColor: null,
+      //     plotBorderWidth: null,
+      //     plotShadow: null,
+      //     type: 'bar',
+      //     events: {
+      //       load: function () {
+      //         // $('#' + config.tclChart.container + ' .highcharts-legend').appendTo('#' + config.tclChart.container + '-legend');
+      //         // this.setSize(300, 400);
+      //       }
+      //     }
+      //   },
+      //   exporting: {
+      //     buttons: {
+      //       contextButton: { enabled: false },
+      //       exportButton: {
+      //         menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+      //         symbol: exportButtonImagePath
+      //       }
+      //     }
+      //   },
+      //   colors: colors,
+      //   title: {
+      //     text: config.lossChart.title
+      //   },
+      //   xAxis: {
+      //     categories: xLabels,
+      //     maxPadding: 0.35,
+      //     title: {
+      //       text: null
+      //     }
+      //   },
+      //   yAxis: {
+      //     stackLabels: {
+      //       enabled: true
+      //     },
+      //     title: {
+      //       text: null
+      //     }
+      //   },
+      //   legend: {
+      //     enabled: false,
+      //     verticalAlign: 'bottom'
+      //   },
+      //   plotOptions: {
+      //     series: {
+      //       stacking: 'normal'
+      //     }
+      //   },
+      //   series: series,
+      //   credits: {
+      //     enabled: false
+      //   }
+      // });
 
     },
 
