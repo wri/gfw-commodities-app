@@ -68,11 +68,6 @@ define([
                 status,
                 value;
 
-
-                console.log(props);
-                console.log(layer);
-                
-
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
@@ -87,28 +82,9 @@ define([
             if (layer) {
 
                 if (visibleLayers.length > 0) {
-                    //if (layer.visibleLayers.length > 0) {
-
-                        // for (var i = 0; i < layer.visibleLayers.length; i++) {
-                        //     if (visibleLayers.indexOf(layer.visibleLayers[i]) == -1 && layer.visibleLayers[i] != 0) {
-                        //         console.log(layer.visibleLayers[i]);
-                        //         debugger
-                        //         visibleLayers.push(layer.visibleLayers[i]);
-                        //     }
-                        // }
-
-                        // if (visibleLayers.indexOf(layer.visibleLayers[0]) == -1) {
-                        //     debugger
-                        //     visibleLayers.push(layer.visibleLayers[0]);
-                        // }
-                    //}
-
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
-                    console.log(layer.visibleLayers);
                 } else {
-                    console.log('hiding');
-                    console.log(layer.visibleLayers);
                     layer.hide();
                 }
                 this.refreshLegendWidget();
@@ -156,7 +132,6 @@ define([
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
-            console.log(layerConfig);
             if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
@@ -225,6 +200,17 @@ define([
           return ((year % 100) !== 0 || (year % 400) === 0);
         },
 
+        updateGuyraDates: function(clauseArray) {
+          var start = clauseArray[0];
+          var end = clauseArray[1];
+
+          var guyraLayer = app.map.getLayer('granChaco');
+          var layerDefs = [];
+          var where = "date >= '" + start.toDateString() + "' AND date <= '" + end.toDateString() + "'";
+          layerDefs[0] = where;
+          guyraLayer.setLayerDefinitions(layerDefs);
+        },
+
         updateGladDates: function(clauseArray) {
           var gladLayer = app.map.getLayer('gladAlerts');
 
@@ -233,8 +219,6 @@ define([
           var yearStart = otherDateStart.getFullYear();
           var janOneStart = new Date(yearStart + ' 01 01');
           var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
-          console.log(origDateStart);
-          console.log(clauseArray);
 
           var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
 
@@ -249,7 +233,6 @@ define([
           var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
 
           var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
-          console.log('julianEnd', julianEnd);
 
           if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
             julianEnd++;
@@ -270,9 +253,6 @@ define([
           } else {
             return;
           }
-
-          console.log(inputStartRanges);
-          console.log(inputEndRanges);
 
           if (gladLayer) {
             var rasterF = new RasterFunction({
@@ -421,7 +401,6 @@ define([
                 range = [values[0] + 2001, values[1] + 2001];
                 rasterFunction = this.getColormapLossRasterFunction(layerConfig.colormap, range, outRange, densityRange);
                 layer.setRenderingRule(rasterFunction);
-                console.log(rasterFunction)
             }
 
         },
@@ -434,7 +413,6 @@ define([
                 range;
 
             if (layer) {
-              console.log(layerConfig.id);
               // For Forma updates, if its a single range, we need to remap 1 to 0
               // Values in slider are from a 0 based index, the range starts at 1
               // so we need to shift the values by 1 to have correct range

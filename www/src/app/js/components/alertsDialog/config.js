@@ -12,7 +12,7 @@ define([
       fires: 'alerts-fires',
       buffer: 'alerts-buffer',
       email: 'alerts-email',
-      subscription: 'alerts-subscription',
+      subscription: 'alerts-subscription'
     },
     TEXT: {
       title: 'Subscribe to Alerts',
@@ -27,11 +27,11 @@ define([
       bufferLabel: 'Point data selected - buffer area(s) required.',
       bufferOptionsLabel: 'Buffer radius:',
       bufferOptions: [
-        ['50','50km'],
-        ['40','40km'],
-        ['30','30km'],
-        ['20','20km'],
-        ['10','10km']
+        ['50', '50km'],
+        ['40', '40km'],
+        ['30', '30km'],
+        ['20', '20km'],
+        ['10', '10km']
       ],
       messagesLabel: 'Please fill in the following:\n',
       messages: {
@@ -80,5 +80,5 @@ define([
         }
       }
     }
-  }
+  };
 });

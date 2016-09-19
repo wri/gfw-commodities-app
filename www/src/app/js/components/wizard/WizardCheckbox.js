@@ -89,7 +89,7 @@ define([
         case 'prodes':
           this.props.infoDivClass = 'forest-change-prodes-alerts';
           break;
-        case 'guiraAlerts':
+        case 'guyraAlerts':
           this.props.infoDivClass = 'forest-change-gran-chaco';
           break;
         case 'treeDensity':

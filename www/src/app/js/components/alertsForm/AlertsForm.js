@@ -78,12 +78,12 @@ define([
           // Header
           React.DOM.div({className: 'alerts-form__header'},
             React.DOM.div({className: 'alerts-form__header__title inline-block fill__long border-box padding__long vertical-middle'}, TEXT.title),
-            React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'}, 
+            React.DOM.button({'onClick': this._toggle, className: 'alerts-form__header__exit back-white absolute no-top no-right no-padding fill__long pointer'},
               React.DOM.img({'className': 'vertical-middle', 'src': 'app/css/images/close_symbol.png'})
             )
           ),
           // Body
-          React.DOM.div({className: 'alerts-form__body'}, 
+          React.DOM.div({className: 'alerts-form__body'},
             // Tools
             React.DOM.div({'className':'padding__wide padding__top'},
               React.DOM.div({'className':'margin__bottom'}, AlertsConfig.customArea.instructions),
@@ -97,10 +97,10 @@ define([
             new FeatureList({'features': this.state.features, 'selectedFeatures': this.state.selectedFeatures})
           ),
           // Footer
-          React.DOM.div({className:'alerts-form__footer'}, 
-            React.DOM.div({className:'inline-block padding__left'}, TEXT.selection),
-            React.DOM.div({className:'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title:currentSelectionLabel}, currentSelectionLabel),
-            React.DOM.button({className:'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick:this._subscribeToAlerts, disabled:(this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
+          React.DOM.div({className: 'alerts-form__footer'},
+          React.DOM.div({className: 'inline-block padding__left'}, TEXT.selection),
+          React.DOM.div({className: 'alerts-form__footer__selection absolute inline-block padding__wide text-gold ellipsis border-box', title: currentSelectionLabel}, currentSelectionLabel),
+          React.DOM.button({className: 'text-white back-orange no-border fill__long pointer absolute no-right no-top', onClick: this._subscribeToAlerts, disabled: (this.state.selectedFeatures.length === 0)}, TEXT.subscribe)
           )
         )
       );
