@@ -98,10 +98,16 @@ define([], function() {
         peatLandsBounds = [0, 1],
         peatLandsColors = ['#161D9C'];
 
+    // Soy
+    var soyBounds = [1, 14],
+        soyLabels = ['Soyyy'],
+        soyColors = ['#25941F'];
 
-  var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Secondary forest', 'Primary forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Swamp', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice'],
-      lcGlobalBounds = [1, 11],
-      lcGlobalColors = ['#E0A828', '#8BFB3B', '#D4FEC0', '#76B276', '#B98D5A', '#FFFEC1', '#689AA7', '#FCB7CB', '#D3CE63', '#77B5FC', '#FFFFFF'];
+
+
+    var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Secondary forest', 'Primary forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Swamp', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice'],
+        lcGlobalBounds = [1, 11],
+        lcGlobalColors = ['#E0A828', '#8BFB3B', '#D4FEC0', '#76B276', '#B98D5A', '#FFFEC1', '#689AA7', '#FCB7CB', '#D3CE63', '#77B5FC', '#FFFFFF'];
 
 
     // var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Open broadleaved forest', 'Closed broadleaved forest', 'Open needleleaved forest', 'Closed needleleaved forest', 'Open mixed forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Flooded forest', 'Wetland', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice', 'No data'],
@@ -813,7 +819,58 @@ define([], function() {
             colors: peatLandsColors,
             fireKey: 'peatLands', // Key to the Fires Config for items related to this
             errors: {
-                composition: 'Np peat land detected in this area according to indonesia peat data.'
+                composition: 'No peat land detected in this area according to indonesia peat data.'
+            }
+        },
+
+        soy: {
+            rootNode: 'soy',
+            title: 'Soy',
+            rasterId: '$566',
+            bounds: soyBounds,
+            labels: soyLabels,
+            clearanceChart: {
+                title: 'Clearance Alerts on Soy Lands since Jan 2015',
+                type: 'bar'
+            },
+            lcHistogram: {
+                renderRule: {
+                  rasterFunction: 'Arithmetic',
+                  rasterFunctionArguments: {
+                    Raster: {
+                        rasterFunction: 'Remap',
+                        rasterFunctionArguments: {
+                            InputRanges: [0, 30, 30, 101],
+                            OutputValues: [0, 1],
+                            Raster: '$520',
+                            AllowUnmatched: false
+                        }
+                    },
+                    Raster2: {
+                        rasterFunction: 'Arithmetic',
+                        rasterFunctionArguments: {
+                            Raster: '$530',
+                            Raster2: '$9',
+                            Operation: 3
+                        },
+                        outputPixelType: 'U8'
+                    },
+                    Operation: 3
+                }
+              }
+            },
+            lossChart: {
+                title: 'Annual Tree Cover Loss (in hectares) on Soy Lands',
+                removeBelowYear: 2002
+            },
+            compositionAnalysis: {
+                rasterId: 566,
+                histogramSlice: 1
+            },
+            colors: soyColors,
+            fireKey: 'soy', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'No soy land detected in this area according to indonesia soy data.'
             }
         },
 
@@ -952,6 +1009,11 @@ define([], function() {
                 badgeDesc: 'on intact forest landscapes out of'
             },
             peatLands: {
+                type: 'badge',
+                field: 'soy',
+                badgeDesc: 'on soy lands out of'
+            },
+            soy: {
                 type: 'badge',
                 field: 'peat',
                 badgeDesc: 'on peat lands out of'

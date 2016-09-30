@@ -424,8 +424,6 @@ define([
 						return deferred.promise;
 				},
 
-
-
         getPlantationsSpeciesResults: function() {
 						this._debug('Fetcher >>> getPlantationsSpeciesResults');
 						var deferred = new Deferred(),
@@ -586,6 +584,76 @@ define([
 						});
 
 						return deferred.promise;
+				},
+
+				getSoyResults: function() {
+						this._debug('Fetcher >>> getSoyResults');
+						var deferred = new Deferred(),
+								config = ReportConfig.soy,
+								url = ReportConfig.imageServiceUrl,
+								encoder = this._getEncodingFunction(config.soyBounds, config.bounds),
+								renderingRule = encoder.render(ReportConfig.soy.rasterId, config.soy),
+								content = {
+										geometryType: 'esriGeometryPolygon',
+										geometry: JSON.stringify(report.geometry),
+										renderingRule: renderingRule,
+										pixelSize: ReportConfig.pixelSize,
+										f: 'json'
+								},
+								self = this;
+
+						// Create the container for all the result
+						ReportRenderer.renderSoyContainer(config);
+						// ReportRenderer.renderCompositionAnalysisLoader(config);
+
+						function success(response) {
+								if (response.histograms.length > 0) {
+										ReportRenderer.renderSoyData(response.histograms[0].counts, content.pixelSize, config);
+										// ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+								} else {
+										ReportRenderer.renderAsUnavailable('soy', config);
+								}
+								deferred.resolve(true);
+						}
+
+						function failure(error) {
+								var newFailure = function(){
+									deferred.resolve(false);
+								};
+								if (error.details) {
+										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+												content.pixelSize = 500;
+												self._computeHistogram(url, content, success, failure);
+										} else if (error.details.length === 0) {
+												var maxDeviation = 10;
+												content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
+												self._computeHistogram(url, content, success, newFailure);
+										} else {
+												deferred.resolve(false);
+										}
+								} else {
+										deferred.resolve(false);
+								}
+						}
+
+						this._computeHistogram(url, content, success, failure);
+
+						return deferred.promise;
+
+						// // Create the container for all the results
+						// // Add this config to Fires so the Fires request knows to add data here
+						// ReportRenderer.renderContainers(config);
+						// _fireQueriesToRender.push(config);
+						//
+						// // true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
+						// all([
+						// 		this._getTotalLossAnalysis(config, true),
+						// 		this._getClearanceAlertAnalysis(config, true)
+						// ]).then(function() {
+						// 		deferred.resolve(true);
+						// });
+						//
+						// return deferred.promise;
 				},
 
 				getRSPOResults: function() {

@@ -446,6 +446,10 @@ define([
                     case 'peat':
                         deferreds.push(Fetcher.getPeatLandsResults());
                         break;
+                    case 'soy':
+                    console.log('soyy');
+                        deferreds.push(Fetcher.getSoyResults());
+                        break;
                     case 'primForest':
                         deferreds.push(Fetcher.getPrimaryForestResults());
                         break;

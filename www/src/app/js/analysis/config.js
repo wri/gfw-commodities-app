@@ -181,6 +181,10 @@ define([], function() {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
                 checked: false
+            }, {
+                label: 'Soy Lands',
+                value: 'soy',
+                checked: false
             // }, {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
@@ -246,6 +250,9 @@ define([], function() {
             }, {
                 label: 'Peat Lands',
                 value: 'peat'
+            }, {
+                label: 'Soy Lands',
+                value: 'soy'
             }]
         },
 

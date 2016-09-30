@@ -105,6 +105,29 @@ define([
     /*
       @param {object} config
     */
+    renderSoyContainer: function (config) {
+      var fragment = document.createDocumentFragment(),
+          node = document.createElement('div'),
+          map = document.getElementById('print-map');
+
+      node.id = config.rootNode;
+      node.className = "result-container";
+      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+          "<div class='result-block soy'>" +
+            "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
+            "<div class='left-panel'>" +
+              "<div class='soy-chart' id='" + config.rootNode + "_soy'><div class='loader-wheel'>prodes</div></div>" +
+            "</div>" +
+          "</div>";
+
+      // Append root to fragment and then fragment to document
+      fragment.appendChild(node);
+      document.getElementById('report-results-section').insertBefore(fragment, map);
+    },
+
+    /*
+      @param {object} config
+    */
     renderGuyraContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
@@ -494,8 +517,94 @@ define([
         }
       }
 
-
       $("#" + config.rootNode + '_prodes').highcharts({
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: null,
+          type: 'bar',
+          events: {
+            load: function () {
+              // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
+              // this.setSize(300, 400);
+            }
+          }
+        },
+        exporting: {
+          buttons: {
+            contextButton: { enabled: false },
+            exportButton: {
+              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+              symbol: exportButtonImagePath
+            }
+          }
+        },
+        colors: colors,
+        title: {
+          text: config.lossChart.title
+        },
+        xAxis: {
+          categories: xLabels,
+          maxPadding: 0.35,
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          stackLabels: {
+            enabled: true
+          },
+          title: {
+            text: null
+          }
+        },
+        legend: {
+          enabled: false,
+          verticalAlign: 'bottom'
+        },
+        plotOptions: {
+          series: {
+            stacking: 'normal'
+          }
+        },
+        series: series,
+        credits: {
+          enabled: false
+        }
+      });
+
+    },
+
+    /*
+      @param {array} histogramData
+      @param {number} pixelSize
+      @param {object} config
+    */
+    renderSoyData: function (histogramData, pixelSize, config) {
+
+      var soyConfig = ReportConfig.soy,
+          yLabels = config.labels,
+          xLabels = soyConfig.labels,
+          mapFunction = function(item){return (item * pixelSize * pixelSize) / 10000; },
+          series = [],
+          colors = [];
+
+      series.push({
+        'name': yLabels[0],
+        'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+      });
+      colors.push(config.color);
+
+      // Show All 0's if no data is present
+      if (series[0].data.length !== xLabels.length) {
+        for (var index = 0; index < xLabels.length; index++) {
+          if (series[0].data[index] === undefined) {
+            series[0].data[index] = 0;
+          }
+        }
+      }
+
+      $('#' + config.rootNode + '_soy').highcharts({
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
