@@ -221,10 +221,23 @@ define([
 
             labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
+            var lossLayer = app.map.getLayer('Loss');
+						var minDensity;
+            if (lossLayer.renderingRule) {
+              minDensity = lossLayer.renderingRule.functionArguments.min_density;
+            }
+
+            // var soyGeom;
+            // console.log(datasets);
+            // debugger
+            // // if () { //if we have the soy toggle ON, then we are going to add the Soy layer to the report map
+            // //
+            // // }
 
             payload = {
                 geometry: geometry,
                 datasets: datasets,
+                minDensity: minDensity,
                 //types: self.state.analysisTypes,
                 title: self.state.analysisArea.map(function (feature) {return feature.attributes.WRI_label;}).join(','),
                 suitability: {

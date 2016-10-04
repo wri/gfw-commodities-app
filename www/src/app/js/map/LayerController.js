@@ -1,24 +1,24 @@
 define([
 
-    "map/config",
-    "map/MapModel",
-    "dojo/on",
-    "dojo/dom",
-    "dojo/query",
-    "dojo/topic",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dojo/_base/array",
-    "utils/Hasher",
-    "utils/Analytics",
-    "esri/InfoTemplate",
-    "esri/graphic",
-    "esri/graphicsUtils",
-    "esri/tasks/query",
-    "esri/tasks/QueryTask",
-    "esri/layers/RasterFunction",
-    "esri/layers/LayerDrawingOptions"
+    'map/config',
+    'map/MapModel',
+    'dojo/on',
+    'dojo/dom',
+    'dojo/query',
+    'dojo/topic',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dojo/_base/array',
+    'utils/Hasher',
+    'utils/Analytics',
+    'esri/InfoTemplate',
+    'esri/graphic',
+    'esri/graphicsUtils',
+    'esri/tasks/query',
+    'esri/tasks/QueryTask',
+    'esri/layers/RasterFunction',
+    'esri/layers/LayerDrawingOptions'
 ], function (MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, Analytics, InfoTemplate, Graphic, graphicsUtils, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
     return {

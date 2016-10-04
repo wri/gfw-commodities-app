@@ -1,8 +1,11 @@
 /** @jsx React.DOM */
 define([
   'react',
+  'knockout',
+  'map/TCDSlider',
+  'map/MapModel',
   'dojo/topic'
-], function (React, topic) {
+], function (React, ko, TCDSlider, MapModel, topic) {
 
   return React.createClass({
 
@@ -10,13 +13,14 @@ define([
       label: React.PropTypes.string.isRequired,
       value: React.PropTypes.string.isRequired
     },
-    //
-    // getInitialState: function() {
-    //   return {
-    //     active: this.props.defaultChecked || false
-    //     // defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
-    //   };
-    // },
+    componentDidMount: function () {
+
+			if (this.props.value === 'soy') {
+				console.log(MapModel.get('model'));
+        this.model = MapModel.get('model');
+			}
+
+    },
 
     // componentWillReceiveProps: function(newProps) {
     //   if (newProps.isResetting) {
@@ -45,6 +49,12 @@ define([
     render: function() {
       var className = 'wizard-checkbox' + (this.props.checked ? ' active' : '');
 
+      var tcdDensityValue;
+
+      if (this.props.value === 'soy' && this.model) {
+        tcdDensityValue = this.model.tcdDensityValue();
+      } //todo: we need to re-render this every time we change the density slider!
+
       return (
         React.createElement("div", {className: "wizard-checkbox-container"}, 
           React.createElement("div", {className: className, "data-value": this.props.value}, 
@@ -56,7 +66,14 @@ define([
               this.props.noInfoIcon ? null :
               React.createElement("span", {onClick: this.showInfo, className: "layer-info-icon", dangerouslySetInnerHTML: {__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}})
             
-          )
+          ), 
+          
+            this.props.checked && this.props.value === 'soy' ?
+            React.createElement("span", null, 
+            React.createElement("span", {className: "tcd-percentage-label"}, "Displaying at "), 
+            React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
+            React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
+          
         )
       );
     },
@@ -64,7 +81,14 @@ define([
 
     toggle: function() {
       this.props.change(this.props.value);
+      if (this.props.value === 'soy') {
+        TCDSlider.hide();
+      }
       // this.setState({ active: !this.state.active });
+    },
+
+    showSoySlider: function() {
+      TCDSlider.show();
     },
 
     showInfo: function() {
