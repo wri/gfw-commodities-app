@@ -95,6 +95,14 @@ define([
 
 								// Simplify this as multiparts and others may not display properly
 								poly = new Polygon(report.mapGeometry);
+								if (report.datasets.soy) { //todo: Here is where we can just add some soy data somehow
+									// debugger
+									var soyPoly = new Polygon(report.mapGeometry);
+									var soyGraphic = new Graphic();
+									soyGraphic.setGeometry(soyPoly);
+									soyGraphic.setSymbol(Symbols.getPolygonSymbol());
+									map.graphics.add(soyGraphic);
+								}
 								graphic = new Graphic();
 								graphic.setGeometry(poly);
 								graphic.setSymbol(Symbols.getPolygonSymbol());
@@ -588,19 +596,31 @@ define([
 
 				getSoyResults: function() {
 						this._debug('Fetcher >>> getSoyResults');
+
 						var deferred = new Deferred(),
 								config = ReportConfig.soy,
-								url = ReportConfig.imageServiceUrl,
-								encoder = this._getEncodingFunction(config.soyBounds, config.bounds),
-								renderingRule = encoder.render(ReportConfig.soy.rasterId, config.soy),
-								content = {
+								self = this,
+								url = ReportConfig.imageServiceUrl;
+								// encoder = this._getEncodingFunction(config.soyBounds, config.bounds),
+								// renderingRule = encoder.render(ReportConfig.soy.rasterId, config.soy),
+								var renderConfig = config.renderingRule;
+
+
+								if (report.minDensity) {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 100];
+								}
+
+								var renderingRule = JSON.stringify(renderConfig);
+								console.log(renderingRule);
+
+								var content = {
 										geometryType: 'esriGeometryPolygon',
 										geometry: JSON.stringify(report.geometry),
+										// renderingRule: renderingRule,
 										renderingRule: renderingRule,
 										pixelSize: ReportConfig.pixelSize,
 										f: 'json'
-								},
-								self = this;
+								};
 
 						// Create the container for all the result
 						ReportRenderer.renderSoyContainer(config);

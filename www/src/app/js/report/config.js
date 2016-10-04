@@ -100,15 +100,12 @@ define([], function() {
 
     // Soy
     var soyBounds = [1, 14],
-        soyLabels = ['Soyyy'],
-        soyColors = ['#25941F'];
-
-
+        soyLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+        soyColors = ['#d89827', '#26fc79', '#b1e3fc', '#fdffb6', '#000', '#d89827', '#5fa965', '#161D9C', '#eeb368', '#c7ffb6', '#fca0bf', '#538996', '#745b37', '#65a2f8'];
 
     var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Secondary forest', 'Primary forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Swamp', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice'],
         lcGlobalBounds = [1, 11],
         lcGlobalColors = ['#E0A828', '#8BFB3B', '#D4FEC0', '#76B276', '#B98D5A', '#FFFEC1', '#689AA7', '#FCB7CB', '#D3CE63', '#77B5FC', '#FFFFFF'];
-
 
     // var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Open broadleaved forest', 'Closed broadleaved forest', 'Open needleleaved forest', 'Closed needleleaved forest', 'Open mixed forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Flooded forest', 'Wetland', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice', 'No data'],
     //     lcGlobalBounds = [1, 16],
@@ -266,18 +263,6 @@ define([], function() {
               }
           }
         },
-
-        // plantationsTypeLayer: {
-        //   rasterId: '$558',
-        //   bounds: plantationsTypeBounds,
-        //   labels: plantationsTypeLabels
-        // },
-        //
-        // plantationsSpeciesLayer: {
-        //   rasterId: '$559',
-        //   bounds: plantationsSpeciesBounds,
-        //   labels: plantationsSpeciesLabels
-        // },
 
         clearanceAlerts: {
             rasterId: '$17'
@@ -833,32 +818,87 @@ define([], function() {
                 title: 'Clearance Alerts on Soy Lands since Jan 2015',
                 type: 'bar'
             },
-            lcHistogram: {
-                renderRule: {
-                  rasterFunction: 'Arithmetic',
-                  rasterFunctionArguments: {
-                    Raster: {
-                        rasterFunction: 'Remap',
-                        rasterFunctionArguments: {
-                            InputRanges: [0, 30, 30, 101],
-                            OutputValues: [0, 1],
-                            Raster: '$520',
-                            AllowUnmatched: false
-                        }
+
+            renderingRule: {
+              rasterFunction: 'Arithmetic',
+              // rasterFunction: 'Local',
+              rasterFunctionArguments: {
+                Operation: 3,
+                Raster: {
+                    rasterFunction: 'Remap',
+                    rasterFunctionArguments: {
+                        InputRanges: [0, 30, 30, 101],
+                        OutputValues: [0, 1],
+                        Raster: '$520',
+                        AllowUnmatched: false
+                    }
+                },
+                Raster2: {
+                    rasterFunction: 'Arithmetic',
+                    rasterFunctionArguments: {
+                        Raster: '$530',
+                        Raster2: '$566',
+                        Operation: 3
                     },
-                    Raster2: {
-                        rasterFunction: 'Arithmetic',
-                        rasterFunctionArguments: {
-                            Raster: '$530',
-                            Raster2: '$9',
-                            Operation: 3
-                        },
-                        outputPixelType: 'U8'
-                    },
-                    Operation: 3
+                    outputPixelType: 'U8'
                 }
-              }
-            },
+            }
+          },
+            //   'rasterFunction': 'Local',
+            //   'rasterFunctionArguments': {
+            //     'Operation': 67, //max value; ignores no data
+            //     'Rasters': [{
+            //       'rasterFunction': 'Remap',
+            //       'rasterFunctionArguments': {
+            //         'InputRanges': [0, 150, 150, 366],
+            //         'OutputValues': [0, 1],
+            //         'Raster': '$6', //2015
+            //         'AllowUnmatched': false
+            //       }
+            //     }, {
+            //       'rasterFunction': 'Remap',
+            //       'rasterFunctionArguments': {
+            //         'InputRanges': [0, 20, 20, 366],
+            //         'OutputValues': [0, 1],
+            //         'Raster': '$4', //2016
+            //         'AllowUnmatched': false
+            //       }
+            //     }]
+            //   }
+            // },
+
+            // lcHistogram: {
+            //     renderRule: {
+            //       rasterFunction: 'Arithmetic',
+            //       rasterFunctionArguments: {
+            //         Raster: {
+            //           // 'rasterFunctionArguments': {
+            //           //     'min_year': range[0], //2001 ?
+            //           //     'max_year': range[1], //2014 ?
+            //           //     'min_density': densityRange[0], //15 or 30 or 45
+            //           //     'max_density': densityRange[1] //100
+            //           // }
+            //             rasterFunction: 'Remap',
+            //             rasterFunctionArguments: {
+            //                 InputRanges: [0, 30, 30, 101],
+            //                 OutputValues: [0, 1],
+            //                 Raster: '$520',
+            //                 AllowUnmatched: false
+            //             }
+            //         },
+            //         Raster2: {
+            //             rasterFunction: 'Arithmetic',
+            //             rasterFunctionArguments: {
+            //                 Raster: '$530',
+            //                 Raster2: '$9',
+            //                 Operation: 3
+            //             },
+            //             outputPixelType: 'U8'
+            //         },
+            //         Operation: 3
+            //     }
+            //   }
+            // },
             lossChart: {
                 title: 'Annual Tree Cover Loss (in hectares) on Soy Lands',
                 removeBelowYear: 2002

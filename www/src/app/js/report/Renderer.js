@@ -587,13 +587,12 @@ define([
           xLabels = soyConfig.labels,
           mapFunction = function(item){return (item * pixelSize * pixelSize) / 10000; },
           series = [],
-          colors = [];
+          colors = soyConfig.colors;
 
       series.push({
         'name': yLabels[0],
         'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
       });
-      colors.push(config.color);
 
       // Show All 0's if no data is present
       if (series[0].data.length !== xLabels.length) {
