@@ -4,6 +4,8 @@ define([
 		'dojo/Deferred',
 		'dojo/promise/all',
 		'dojo/_base/array',
+		'dojo/dom',
+		'dojo/dom-construct',
 		// My Modules
 		'report/config',
 		'report/Renderer',
@@ -15,10 +17,12 @@ define([
 		'esri/request',
 		'esri/tasks/query',
 		'esri/dijit/Scalebar',
+		'esri/dijit/Legend',
 		'esri/tasks/QueryTask',
 		'esri/SpatialReference',
 		'esri/geometry/Polygon',
 		'esri/geometry/Point',
+		'esri/layers/FeatureLayer',
 		'esri/tasks/GeometryService',
 		'esri/geometry/geometryEngine',
 		'esri/tasks/AreasAndLengthsParameters',
@@ -29,7 +33,7 @@ define([
 		'esri/graphic',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, Point, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -96,12 +100,32 @@ define([
 								// Simplify this as multiparts and others may not display properly
 								poly = new Polygon(report.mapGeometry);
 								if (report.datasets.soy) { //todo: Here is where we can just add some soy data somehow
-									// debugger
-									var soyPoly = new Polygon(report.mapGeometry);
-									var soyGraphic = new Graphic();
-									soyGraphic.setGeometry(soyPoly);
-									soyGraphic.setSymbol(Symbols.getPolygonSymbol());
-									map.graphics.add(soyGraphic);
+
+									var soyLayer = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
+										// defaultDefinitionExpression: '1=0',//"name = 'Cerrado'",
+										visible: true
+									});
+
+									soyLayer.setDefinitionExpression("name = 'Cerrado'");
+
+									map.addLayer(soyLayer);
+
+									var printNode = domConstruct.create('div', {
+										id: 'print-legend'
+									}, dom.byId('print-map'));
+
+									var legend = new Legend({
+											map: map,
+											autoUpdate: true,
+											respectCurrentMapScale: true
+									}, 'print-legend');
+									legend.startup();
+
+									// var soyPoly = new Polygon(report.mapGeometry);
+									// var soyGraphic = new Graphic();
+									// soyGraphic.setGeometry(soyPoly);
+									// soyGraphic.setSymbol(Symbols.getPolygonSymbol());
+									// map.graphics.add(soyGraphic);
 								}
 								graphic = new Graphic();
 								graphic.setGeometry(poly);
