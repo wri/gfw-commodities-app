@@ -227,9 +227,9 @@ define([
 
 			wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
 			wizardPointGraphicsLayer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
-      if (featureType === "group") {
+      if (featureType === 'group') {
         // Mills dont support group selection
-				// debugger
+
 				for (var i = 0; i < this.state.nestedListData.length; i++) {
 					if (this.state.nestedListData[i].value === wriId) {
 						for (var j = 0; j < this.state.nestedListData[i].children.length; j++) {

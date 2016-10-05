@@ -43,10 +43,6 @@ define([
 				calendar_obj.subscribe('change', self[calendar.method].bind(self));
 			});
 
-			// calendarStart.subscribe('change', function (date) {
-			// 	debugger
-			// });
-
 		},
 
 		componentWillReceiveProps: function (newProps, oldProps) {

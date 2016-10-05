@@ -227,13 +227,6 @@ define([
               minDensity = lossLayer.renderingRule.functionArguments.min_density;
             }
 
-            // var soyGeom;
-            // console.log(datasets);
-            // debugger
-            // // if () { //if we have the soy toggle ON, then we are going to add the Soy layer to the report map
-            // //
-            // // }
-
             payload = {
                 geometry: geometry,
                 datasets: datasets,

@@ -15,23 +15,22 @@ define([
                 //console.log(AppConfig.homeModeOptions);
 
                 Model.vm.dataSubmit = function(obj, evt) {
-                    debugger
-                }
+                  console.log('dataSubmit');
+                };
                 Model.vm.modeSelect = function(obj, evt) {
                     var eventName = obj.eventName;
                     console.log(obj);
-                    require(["controllers/HomeController"], function(HomeController) {
+                    require(['controllers/HomeController'], function(HomeController) {
                         HomeController.handleModeClick(eventName);
-                    })
-                }
+                    });
+                };
                 Model.vm.dotSelect = function(obj, evt) {
                     //var eventName = obj.eventName;
                     //var id = obj.id;
-                    //debugger;
-                    require(["controllers/HomeController"], function(HomeController) {
+                    require(['controllers/HomeController'], function(HomeController) {
                         HomeController.handleDotClick(obj);
-                    })
-                }
+                    });
+                };
                 // Apply Bindings upon initialization
                 ko.applyBindings(Model.vm, document.getElementById(el));
 

@@ -3,7 +3,6 @@ define([
   'analysis/config',
   'analysis/WizardStore'
 ], function (assert, AnalyzerConfig, Store) {
-  'use strict';
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
 
@@ -84,8 +83,6 @@ define([
     */
     setAreaOfInterest: function (areaId) {
       assert(areaId !== undefined, 'Invalid Parameters for \'WizardActions.setAreaOfInterest\'.');
-      console.log(areaId);
-      // debugger
       Store.set(KEYS.areaOfInterest, areaId);
     }
 
