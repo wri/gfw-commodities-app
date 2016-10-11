@@ -7,8 +7,9 @@ define([
   "dojo/dom",
   "dojo/dom-style",
   "report/CSVExporter",
+  "esri/geometry/geometryEngine",
   "utils/Analytics"
-], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle, CSVExporter, Analytics) {
+], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle, CSVExporter, geometryEngine, Analytics) {
   'use strict';
 
   // Container IDS for charts and tables are as Follows
@@ -111,14 +112,15 @@ define([
           map = document.getElementById('print-map');
 
       node.id = config.rootNode;
-      node.className = "result-container";
-      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+      node.className = 'result-container';
+      node.innerHTML = "<div class='title'>" + config.title + '</div>' +
           "<div class='result-block soy'>" +
             "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
             "<div class='left-panel'>" +
-              "<div class='soy-chart' id='" + config.rootNode + "_soy'><div class='loader-wheel'>prodes</div></div>" +
-            "</div>" +
-          "</div>";
+              "<div class='soy-chart' id='" + config.rootNode + "_soy'><div class='loader-wheel'>soy</div></div>" +
+            '</div>' +
+          '</div>' +
+          "<div id='soy-recentness' class='soy-recentness'></div>";
 
       // Append root to fragment and then fragment to document
       fragment.appendChild(node);
@@ -580,7 +582,7 @@ define([
       @param {number} pixelSize
       @param {object} config
     */
-    renderSoyData: function (histogramData, pixelSize, config) {
+    renderSoyData: function (histogramData, pixelSize, config, soyGeom) {
 
       var soyConfig = ReportConfig.soy,
           yLabels = config.labels,
@@ -658,6 +660,22 @@ define([
           enabled: false
         }
       });
+
+      var soyD = series[0].data;
+
+      var soyNumerator = 0;
+
+      for (var i = 1; i < 15; i++) {
+        soyNumerator += (soyD[i - 1] * i);
+      }
+      console.log('soyNumerator', soyNumerator);
+      console.log(soyGeom);
+      var soyHectares = geometryEngine.geodesicArea(soyGeom, 'hectares');
+      console.log('soyHectares', soyHectares);
+      var soyDenominator = 14 * soyHectares; //todo: find 'Ha of soy' and multiply by 14
+      var soyRecentness = soyNumerator / soyDenominator;
+      dom.byId('soy-recentness').innerHTML = 'Weighted avg of "Recency" in Soy: ' + soyRecentness;
+
 
     },
 

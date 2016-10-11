@@ -126,6 +126,7 @@ define([
 									// soyGraphic.setGeometry(soyPoly);
 									// soyGraphic.setSymbol(Symbols.getPolygonSymbol());
 									// map.graphics.add(soyGraphic);
+
 								}
 								graphic = new Graphic();
 								graphic.setGeometry(poly);
@@ -646,13 +647,15 @@ define([
 										f: 'json'
 								};
 
+								self.soyGeom = report.geometry;
+
 						// Create the container for all the result
 						ReportRenderer.renderSoyContainer(config);
 						// ReportRenderer.renderCompositionAnalysisLoader(config);
 
 						function success(response) {
 								if (response.histograms.length > 0) {
-										ReportRenderer.renderSoyData(response.histograms[0].counts, content.pixelSize, config);
+										ReportRenderer.renderSoyData(response.histograms[0].counts, content.pixelSize, config, self.soyGeom);
 										// ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
 								} else {
 										ReportRenderer.renderAsUnavailable('soy', config);
