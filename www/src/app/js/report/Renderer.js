@@ -113,14 +113,16 @@ define([
 
       node.id = config.rootNode;
       node.className = 'result-container';
-      node.innerHTML = "<div class='title'>" + config.title + '</div>' +
+      node.innerHTML = "<div id='soy-area' class='soy-area'></div>" +
+      "<div id='soy-percentage' class='soy-percentage'></div>" +
+      "<div id='soy-recentness' class='soy-recentness'></div>" +
+      "<div class='title'>" + config.title + '</div>' +
           "<div class='result-block soy'>" +
             "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
             "<div class='left-panel'>" +
               "<div class='soy-chart' id='" + config.rootNode + "_soy'><div class='loader-wheel'>soy</div></div>" +
             '</div>' +
-          '</div>' +
-          "<div id='soy-recentness' class='soy-recentness'></div>";
+          '</div>';
 
       // Append root to fragment and then fragment to document
       fragment.appendChild(node);
@@ -672,9 +674,16 @@ define([
       console.log(soyGeom);
       var soyHectares = geometryEngine.geodesicArea(soyGeom, 'hectares');
       console.log('soyHectares', soyHectares);
+
+      //soy-area
+      dom.byId('soy-area').innerHTML = 'Total area of soy production in selected area: <strong>' + soyHectares + ' Ha</strong>';
+
+      dom.byId('soy-percentage').innerHTML = 'Percentage of total area converted prior to 2001: <strong>' + soyHectares + ' Ha</strong>';
+
+      //soy-percentage
       var soyDenominator = 14 * soyHectares; //todo: find 'Ha of soy' and multiply by 14
       var soyRecentness = soyNumerator / soyDenominator;
-      dom.byId('soy-recentness').innerHTML = 'Weighted avg of "Recency" in Soy: ' + soyRecentness;
+      dom.byId('soy-recentness').innerHTML = 'Weighted avg of "Recency" in Soy: <strong>' + soyRecentness + '</strong>';
 
 
     },
