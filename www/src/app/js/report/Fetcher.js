@@ -23,6 +23,7 @@ define([
 		'esri/geometry/Polygon',
 		'esri/geometry/Point',
 		'esri/layers/FeatureLayer',
+		'esri/layers/ArcGISDynamicMapServiceLayer',
 		'esri/tasks/GeometryService',
 		'esri/geometry/geometryEngine',
 		'esri/tasks/AreasAndLengthsParameters',
@@ -33,7 +34,7 @@ define([
 		'esri/graphic',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -99,14 +100,27 @@ define([
 
 								// Simplify this as multiparts and others may not display properly
 								poly = new Polygon(report.mapGeometry);
-								if (report.datasets.soy) { //todo: Here is where we can just add some soy data somehow
+								if (report.datasets.soy) {
 
-									var soyLayer = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
+									var brazilBiomes = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
 										// defaultDefinitionExpression: '1=0',//"name = 'Cerrado'",
+										opacity: .5,
 										visible: true
 									});
 
-									soyLayer.setDefinitionExpression("name = 'Cerrado'");
+									brazilBiomes.setDefinitionExpression("name = 'Cerrado'");
+
+									map.addLayer(brazilBiomes);
+
+									// var soyLayer = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer/0', {
+									// 	visible: true
+									// });
+
+									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
+										visible: true,
+										id: 'soy',
+										visibleLayers: [0]
+									});
 
 									map.addLayer(soyLayer);
 
