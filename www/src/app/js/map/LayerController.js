@@ -517,7 +517,7 @@ define([
                     settings.computeBinaryRaster[5].values = value;
                     break;
                 case 'rainfall-slider':
-                    settings.computeBinaryRaster[6].values = parseInt(value[0]) + "," + parseInt(value[1]);
+                    settings.computeBinaryRaster[6].values = parseInt(value[0]) + ',' + parseInt(value[1]);
                     break;
                 case 'soil-drainage-slider':
                     settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1], [99]);
@@ -535,7 +535,7 @@ define([
                     dojoQuery('#environmental-criteria .suitable-checkbox input:checked').forEach(function(node) {
                         activeCheckboxes.push(node.value);
                     });
-                    settings.computeBinaryRaster[0].values = activeCheckboxes.join(",");
+                    settings.computeBinaryRaster[0].values = activeCheckboxes.join(',');
                     break;
                 case 'soil-type-checkbox':
                     // Need to include default values to represent unknown values
@@ -546,7 +546,7 @@ define([
                         activeCheckboxes.push(node.value);
                     });
                     //console.log("****************** soil type checkboxes: " + activeCheckboxes.toString());
-                    settings.computeBinaryRaster[10].values = activeCheckboxes.join(",");
+                    settings.computeBinaryRaster[10].values = activeCheckboxes.join(',');
                     break;
             }
 
@@ -646,7 +646,7 @@ define([
                 visibleLayers = [],
                 layerOptions = [],
                 layer,
-                self = this;
+                ldos;
 
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
@@ -675,18 +675,18 @@ define([
             } else {
                 legendLayer.hide();
             }
-            registry.byId("legend").refresh();
+            registry.byId('legend').refresh();
         },
 
         changeLayerTransparency: function(layerConfig, layerType, transparency) {
             switch (layerType) {
-                case "image":
+                case 'image':
                     this.setLayerOpacity(layerConfig, transparency);
                     break;
-                case "dynamic":
+                case 'dynamic':
                     this.setDynamicLayerTransparency(layerConfig, transparency);
                     break;
-                case "tiled":
+                case 'tiled':
                     this.setLayerOpacity(layerConfig, transparency);
                     break;
             }
@@ -791,7 +791,7 @@ define([
             if (extraValues) {
                 result = result.concat(extraValues);
             }
-            return result.join(",");
+            return result.join(',');
         }
 
     };

@@ -398,6 +398,9 @@ wizardBlue = #00688B
 	margin-left -500px
 	height 60px
 	width 900px
+	&.compressed
+		width 600px
+		margin-left -400px
 
 .gfw .toolbox .toolbox-inner
 	text-align center
@@ -1053,6 +1056,24 @@ wizardBlue = #00688B
 			background-image url("images/map-icons-palm-tree.svg")
 
 
+@media screen and (max-width: 1400px) {
+  .gfw .layer-controls-container .treecover_change_toolbox.compressed {
+		margin-left: -300px;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+  .gfw .layer-controls-container .treecover_change_toolbox.compressed {
+		width: 540px;
+		margin-left: -250px;
+	}
+}
+
+@media screen and (max-width: 1100px) {
+  .gfw .layer-controls-container .treecover_change_toolbox.compressed {
+		display: none !important;
+	}
+}
 
 /* For Safari */
 @media screen and (-webkit-min-device-pixel-ratio:0) {

@@ -113,10 +113,7 @@ define([
 
       node.id = config.rootNode;
       node.className = 'result-container';
-      node.innerHTML = "<div id='soy-area' class='soy-area'></div>" +
-      "<div id='soy-percentage' class='soy-percentage'></div>" +
-      "<div id='soy-recentness' class='soy-recentness'></div>" +
-      "<div class='title'>" + config.title + '</div>' +
+      node.innerHTML = "<div class='title'>" + config.title + '</div>' +
           "<div class='result-block soy'>" +
             "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
             "<div class='left-panel'>" +
@@ -138,14 +135,14 @@ define([
           map = document.getElementById('print-map');
 
       node.id = config.rootNode;
-      node.className = "result-container";
-      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+      node.className = 'result-container';
+      node.innerHTML = "<div class='title'>" + config.title + '</div>' +
           "<div class='result-block guyra'>" +
             // "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
-            "<div>" +
+            '<div>' +
               "<div class='guyra-chart' id='" + config.rootNode + "_guyra'><div class='loader-wheel'>guyra</div></div>" +
-            "</div>" +
-          "</div>";
+            '</div>' +
+          '</div>';
 
       // Append root to fragment and then fragment to document
       fragment.appendChild(node);
@@ -251,20 +248,44 @@ define([
         return;
       }
 
-      area = (area.reduce(function(a,b){return a + b;}) * pixelSize * pixelSize) / 10000;
+      area = (area.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
       areaLabel = number.format(area);
 
       report.areaPromise.then(function(){
+        percentage = number.format((area / report.area) * 100, {places: 0});
 
-        percentage = number.format((area/report.area)*100, {places: 0});
+        node.className = 'composition-analysis-container';
 
-        node.className = "composition-analysis-container";
-        node.innerHTML =  "<div>Total " + title + " in selected area: " + areaLabel + " ha</div>" +
-                          "<div>Percent of total area comprised of " + title + ": " + percentage + "%</div>";
+        if (config.rootNode === 'soy') {
+
+          var soyD = histogramData.slice(1);
+          console.log(histogramData);
+
+          var soyNumerator = 0;
+
+          for (var i = 1; i < 15; i++) {
+            soyNumerator += (soyD[i - 1] * i);
+          }
+
+          var soyHectares = area;
+
+          var soyDenominator = 14 * soyHectares;
+          var soyRecentness = soyNumerator / soyDenominator;
+
+          soyRecentness = number.format(soyRecentness);
+
+          node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
+                            '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>' +
+                            "<div class='soy-recentness'>Weighted avg of 'Recency' in Soy: <strong>" + soyRecentness + '</strong></div>';
+
+        } else {
+          node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
+                            '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
+        }
 
         // Append root to fragment and then fragment to document
         fragment.appendChild(node);
-        dest.innerHTML = "";
+        dest.innerHTML = '';
         dest.appendChild(fragment);
 
       });
@@ -663,28 +684,31 @@ define([
         }
       });
 
-      var soyD = series[0].data;
-
-      var soyNumerator = 0;
-
-      for (var i = 1; i < 15; i++) {
-        soyNumerator += (soyD[i - 1] * i);
-      }
-      console.log('soyNumerator', soyNumerator);
-      console.log(soyGeom);
-      var soyHectares = geometryEngine.geodesicArea(soyGeom, 'hectares');
-      console.log('soyHectares', soyHectares);
-
-      //soy-area
-      dom.byId('soy-area').innerHTML = 'Total area of soy production in selected area: <strong>' + soyHectares + ' Ha</strong>';
-
-      dom.byId('soy-percentage').innerHTML = 'Percentage of total area converted prior to 2001: <strong>' + soyHectares + ' Ha</strong>';
-
-      //soy-percentage
-      var soyDenominator = 14 * soyHectares; //todo: find 'Ha of soy' and multiply by 14
-      var soyRecentness = soyNumerator / soyDenominator;
-      dom.byId('soy-recentness').innerHTML = 'Weighted avg of "Recency" in Soy: <strong>' + soyRecentness + '</strong>';
-
+      // var soyD = series[0].data;
+      //
+      // var soyNumerator = 0;
+      //
+      // for (var i = 1; i < 15; i++) {
+      //   soyNumerator += (soyD[i - 1] * i);
+      // }
+      // console.log('soyNumerator', soyNumerator);
+      // console.log(soyGeom);
+      // var soyHectares = geometryEngine.geodesicArea(soyGeom, 'hectares');
+      // console.log('soyHectares', soyHectares);
+      //
+      // //"<div id='soy-recentness' class='soy-recentness'></div>" +
+      //
+      //
+      // //soy-area
+      // dom.byId('soy-area').innerHTML = 'Total area of soy production in selected area: <strong>' + soyHectares + ' Ha</strong>';
+      //
+      // dom.byId('soy-percentage').innerHTML = 'Percentage of total area converted prior to 2001: <strong>' + soyHectares + ' Ha</strong>';
+      //
+      // //soy-percentage
+      // var soyDenominator = 14 * soyHectares; //todo: find 'Ha of soy' and multiply by 14
+      // var soyRecentness = soyNumerator / soyDenominator;
+      // debugger
+      // dom.byId('soy-recentness').innerHTML = 'Weighted avg of "Recency" in Soy: <strong>' + soyRecentness + '</strong>';
 
     },
 

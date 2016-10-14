@@ -23,7 +23,7 @@ define([], function() {
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
@@ -325,12 +325,17 @@ define([], function() {
         prodes: {
             id: 'ProdesAlerts',
             url: prodesUrl,
-            legendLayerId: 6,
+            legendLayerId: 0,
             defaultRange: [1, 15],
             colormap: [
                 [1, 255, 0, 197]
             ],
             toolsNode: 'prodes_toolbox'
+        },
+        soy: {
+            id: 'soy',
+            url: soyLayerUrl,
+            defaultLayers: [0]
         },
         fires: {
             id: 'ActiveFires',
@@ -659,16 +664,24 @@ define([], function() {
                     infoDivClass: 'forest-change-tree-cover-gain'
                 }]//,
                 // infoDivClass: 'forest-change-tree-cover-change'
-            }, {
-                id: 'prodes',
-                title: 'Prodes deforestation',
-                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                forceUnderline: true,
-                infoDivClass: 'forest-change-prodes-alerts'
-            }, {
+              }, {
+                  id: 'prodes',
+                  title: 'Prodes deforestation',
+                  subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'image',
+                  infoDivClass: 'forest-change-prodes-alerts'
+              }, {
+                  id: 'soy',
+                  title: 'Soy layer',
+                  subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'dynamic',
+                  forceUnderline: true,
+                  infoDivClass: 'forest-change-soy'
+              }, {
                 id: 'fires',
                 title: 'Active Fires',
                 subtitle: '(past 7 days, 1km, global; NASA)',

@@ -656,7 +656,7 @@ define([
 						function success(response) {
 								if (response.histograms.length > 0) {
 										ReportRenderer.renderSoyData(response.histograms[0].counts, content.pixelSize, config, self.soyGeom);
-										// ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
 								} else {
 										ReportRenderer.renderAsUnavailable('soy', config);
 								}
