@@ -274,8 +274,18 @@ define([
 
           soyRecentness = number.format(soyRecentness);
 
+          var noData = histogramData[0];
+          var soyPercentage = noData / report.area;
+
+          console.log('soyPercentage', soyPercentage);
+          console.log('noData', noData);
+          console.log('reportArea', report.area);
+
+          soyPercentage = soyPercentage * 100;
+          soyPercentage = number.format(soyPercentage);
+
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
-                            '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>' +
+                            '<div>Percent of total area comprised of ' + title + ': ' + soyPercentage + '%</div>' +
                             "<div class='soy-recentness'>Weighted avg of 'Recency' in Soy: <strong>" + soyRecentness + '</strong></div>';
                             //what is nothing? what is JUST soy? what is soy + tree cover loss?
                             //we care about JUST SOY: soy w/o any tree cover loss

@@ -113,7 +113,7 @@ define([
 
 									brazilBiomes.setDefinitionExpression("name = 'Cerrado'");
 
-									map.addLayer(brazilBiomes);
+									// map.addLayer(brazilBiomes);
 
 									// var soyLayer = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer/0', {
 									// 	visible: true
@@ -122,6 +122,7 @@ define([
 									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
 										visible: true,
 										id: 'soy',
+										opacity: .5,
 										visibleLayers: [0]
 									});
 

@@ -673,15 +673,6 @@ define([], function() {
                   layerType: 'image',
                   infoDivClass: 'forest-change-prodes-alerts'
               }, {
-                  id: 'soy',
-                  title: 'Soy layer',
-                  subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
-                  filter: 'forest-change',
-                  type: 'radio',
-                  layerType: 'dynamic',
-                  forceUnderline: true,
-                  infoDivClass: 'forest-change-soy'
-              }, {
                 id: 'fires',
                 title: 'Active Fires',
                 subtitle: '(past 7 days, 1km, global; NASA)',
@@ -891,6 +882,15 @@ define([], function() {
                 infoDivClass: 'land-use-logging',
                 parent: 'newConcessions',
                 endChild: true
+            }, {
+                id: 'soy',
+                title: 'Soy layer',
+                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
+                filter: 'forest-use',
+                type: 'check',
+                layerType: 'dynamic',
+                forceUnderline: true,
+                infoDivClass: 'forest-change-soy'
             }, {
                 kids: ['mill', 'gfwMill'],
                 id: 'newInfrastructure',

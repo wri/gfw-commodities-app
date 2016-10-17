@@ -819,9 +819,17 @@ define([], function() {
                 type: 'bar'
             },
 
+            // renderingRule: { //todo: use this if we dont want tree cover density in our soy % equation!
+            //     "rasterFunction": "Arithmetic",
+            //     "rasterFunctionArguments": {
+            //         "Raster": "$530",
+            //         "Raster2": "$566",
+            //         "Operation": 3
+            //     }
+            // }
+
             renderingRule: {
               rasterFunction: 'Arithmetic',
-              // rasterFunction: 'Local',
               rasterFunctionArguments: {
                 Operation: 3,
                 Raster: {
@@ -844,61 +852,7 @@ define([], function() {
                 }
             }
           },
-            //   'rasterFunction': 'Local',
-            //   'rasterFunctionArguments': {
-            //     'Operation': 67, //max value; ignores no data
-            //     'Rasters': [{
-            //       'rasterFunction': 'Remap',
-            //       'rasterFunctionArguments': {
-            //         'InputRanges': [0, 150, 150, 366],
-            //         'OutputValues': [0, 1],
-            //         'Raster': '$6', //2015
-            //         'AllowUnmatched': false
-            //       }
-            //     }, {
-            //       'rasterFunction': 'Remap',
-            //       'rasterFunctionArguments': {
-            //         'InputRanges': [0, 20, 20, 366],
-            //         'OutputValues': [0, 1],
-            //         'Raster': '$4', //2016
-            //         'AllowUnmatched': false
-            //       }
-            //     }]
-            //   }
-            // },
 
-            // lcHistogram: {
-            //     renderRule: {
-            //       rasterFunction: 'Arithmetic',
-            //       rasterFunctionArguments: {
-            //         Raster: {
-            //           // 'rasterFunctionArguments': {
-            //           //     'min_year': range[0], //2001 ?
-            //           //     'max_year': range[1], //2014 ?
-            //           //     'min_density': densityRange[0], //15 or 30 or 45
-            //           //     'max_density': densityRange[1] //100
-            //           // }
-            //             rasterFunction: 'Remap',
-            //             rasterFunctionArguments: {
-            //                 InputRanges: [0, 30, 30, 101],
-            //                 OutputValues: [0, 1],
-            //                 Raster: '$520',
-            //                 AllowUnmatched: false
-            //             }
-            //         },
-            //         Raster2: {
-            //             rasterFunction: 'Arithmetic',
-            //             rasterFunctionArguments: {
-            //                 Raster: '$530',
-            //                 Raster2: '$9',
-            //                 Operation: 3
-            //             },
-            //             outputPixelType: 'U8'
-            //         },
-            //         Operation: 3
-            //     }
-            //   }
-            // },
             lossChart: {
                 title: 'Annual Tree Cover Loss (in hectares) on Soy Lands',
                 removeBelowYear: 2002
