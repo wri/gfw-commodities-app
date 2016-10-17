@@ -277,7 +277,8 @@ define([
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>' +
                             "<div class='soy-recentness'>Weighted avg of 'Recency' in Soy: <strong>" + soyRecentness + '</strong></div>';
-
+                            //what is nothing? what is JUST soy? what is soy + tree cover loss?
+                            //we care about JUST SOY: soy w/o any tree cover loss
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
@@ -683,32 +684,6 @@ define([
           enabled: false
         }
       });
-
-      // var soyD = series[0].data;
-      //
-      // var soyNumerator = 0;
-      //
-      // for (var i = 1; i < 15; i++) {
-      //   soyNumerator += (soyD[i - 1] * i);
-      // }
-      // console.log('soyNumerator', soyNumerator);
-      // console.log(soyGeom);
-      // var soyHectares = geometryEngine.geodesicArea(soyGeom, 'hectares');
-      // console.log('soyHectares', soyHectares);
-      //
-      // //"<div id='soy-recentness' class='soy-recentness'></div>" +
-      //
-      //
-      // //soy-area
-      // dom.byId('soy-area').innerHTML = 'Total area of soy production in selected area: <strong>' + soyHectares + ' Ha</strong>';
-      //
-      // dom.byId('soy-percentage').innerHTML = 'Percentage of total area converted prior to 2001: <strong>' + soyHectares + ' Ha</strong>';
-      //
-      // //soy-percentage
-      // var soyDenominator = 14 * soyHectares; //todo: find 'Ha of soy' and multiply by 14
-      // var soyRecentness = soyNumerator / soyDenominator;
-      // debugger
-      // dom.byId('soy-recentness').innerHTML = 'Weighted avg of "Recency" in Soy: <strong>' + soyRecentness + '</strong>';
 
     },
 

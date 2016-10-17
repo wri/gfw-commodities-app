@@ -203,7 +203,7 @@ define([], function() {
             rspo: {
                 label: 'RSPO Land Use Change Analysis',
                 value: 'rspo',
-                description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.'
+                description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.<p>Additional text</p>'
             },
             mill: {
                 label: 'PALM Risk Tool',

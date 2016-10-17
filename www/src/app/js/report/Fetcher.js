@@ -102,6 +102,9 @@ define([
 								poly = new Polygon(report.mapGeometry);
 								if (report.datasets.soy) {
 
+									//TODO: Also adda 'soyByYear' layer to the map that they will give us: needs a legend
+									// because each year is a different color!
+
 									var brazilBiomes = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
 										// defaultDefinitionExpression: '1=0',//"name = 'Cerrado'",
 										opacity: .5,

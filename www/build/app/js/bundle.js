@@ -301,7 +301,7 @@ define('map/config',[], function() {
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
@@ -603,12 +603,17 @@ define('map/config',[], function() {
         prodes: {
             id: 'ProdesAlerts',
             url: prodesUrl,
-            legendLayerId: 6,
+            legendLayerId: 0,
             defaultRange: [1, 15],
             colormap: [
                 [1, 255, 0, 197]
             ],
             toolsNode: 'prodes_toolbox'
+        },
+        soy: {
+            id: 'soy',
+            url: soyLayerUrl,
+            defaultLayers: [0]
         },
         fires: {
             id: 'ActiveFires',
@@ -937,16 +942,24 @@ define('map/config',[], function() {
                     infoDivClass: 'forest-change-tree-cover-gain'
                 }]//,
                 // infoDivClass: 'forest-change-tree-cover-change'
-            }, {
-                id: 'prodes',
-                title: 'Prodes deforestation',
-                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                forceUnderline: true,
-                infoDivClass: 'forest-change-prodes-alerts'
-            }, {
+              }, {
+                  id: 'prodes',
+                  title: 'Prodes deforestation',
+                  subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'image',
+                  infoDivClass: 'forest-change-prodes-alerts'
+              }, {
+                  id: 'soy',
+                  title: 'Soy layer',
+                  subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'dynamic',
+                  forceUnderline: true,
+                  infoDivClass: 'forest-change-soy'
+              }, {
                 id: 'fires',
                 title: 'Active Fires',
                 subtitle: '(past 7 days, 1km, global; NASA)',
@@ -2386,6 +2399,10 @@ define('analysis/config',[], function() {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
                 checked: false
+            }, {
+                label: 'Soy Lands',
+                value: 'soy',
+                checked: false
             // }, {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
@@ -2404,7 +2421,7 @@ define('analysis/config',[], function() {
             rspo: {
                 label: 'RSPO Land Use Change Analysis',
                 value: 'rspo',
-                description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.'
+                description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.<p>Additional text</p>'
             },
             mill: {
                 label: 'PALM Risk Tool',
@@ -2451,6 +2468,9 @@ define('analysis/config',[], function() {
             }, {
                 label: 'Peat Lands',
                 value: 'peat'
+            }, {
+                label: 'Soy Lands',
+                value: 'soy'
             }]
         },
 
@@ -4681,7 +4701,6 @@ define('actions/WizardActions',[
   'analysis/config',
   'analysis/WizardStore'
 ], function (assert, AnalyzerConfig, Store) {
-  'use strict';
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
 
@@ -4762,8 +4781,6 @@ define('actions/WizardActions',[
     */
     setAreaOfInterest: function (areaId) {
       assert(areaId !== undefined, 'Invalid Parameters for \'WizardActions.setAreaOfInterest\'.');
-      console.log(areaId);
-      // debugger
       Store.set(KEYS.areaOfInterest, areaId);
     }
 
@@ -5378,9 +5395,9 @@ define('components/wizard/MillPoint',[
 
 			wizardGraphicsLayer = app.map.getLayer(MapConfig.wizardGraphicsLayer.id);
 			wizardPointGraphicsLayer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
-      if (featureType === "group") {
+      if (featureType === 'group') {
         // Mills dont support group selection
-				// debugger
+
 				for (var i = 0; i < this.state.nestedListData.length; i++) {
 					if (this.state.nestedListData[i].value === wriId) {
 						for (var j = 0; j < this.state.nestedListData[i].children.length; j++) {
@@ -6640,535 +6657,27 @@ define('components/wizard/StepTwo',[
 
 });
 
-/** @jsx React.DOM */
-define('components/wizard/WizardCheckbox',[
-  'react',
-  'dojo/topic'
-], function (React, topic) {
-
-  return React.createClass({
-
-    propTypes: {
-      label: React.PropTypes.string.isRequired,
-      value: React.PropTypes.string.isRequired
-    },
-    //
-    // getInitialState: function() {
-    //   return {
-    //     active: this.props.defaultChecked || false
-    //     // defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
-    //   };
-    // },
-
-    // componentWillReceiveProps: function(newProps) {
-    //   if (newProps.isResetting) {
-    //     this.replaceState(this.getInitialState());
-    //   }
-    //   console.log(newProps.checkedFromPopup);
-    //   if (newProps.checkedFromPopup === true) {
-    //     this.setState({
-    //       active: true
-    //     });
-    //   }
-    //   // else if (this.state.defaultOff.indexOf(newProps.value) > -1) {
-    //   //   this.setState({
-    //   //     active: false
-    //   //   });
-    //   // }
-    // },
-
-    // componentDidUpdate: function(prevProps, prevState) {
-    //   if (this.props.change && (prevState.active !== this.state.active)) {
-    //     this.props.change(this.props.value);
-    //   }
-    // },
-
-    /* jshint ignore:start */
-    render: function() {
-      var className = 'wizard-checkbox' + (this.props.checked ? ' active' : '');
-
-      return (
-        React.createElement("div", {className: "wizard-checkbox-container"}, 
-          React.createElement("div", {className: className, "data-value": this.props.value}, 
-            React.createElement("span", {className: "custom-check", onClick: this.toggle}, 
-              React.createElement("span", null)
-            ), 
-            React.createElement("a", {className: "wizard-checkbox-label", onClick: this.toggle}, this.props.label), 
-            
-              this.props.noInfoIcon ? null :
-              React.createElement("span", {onClick: this.showInfo, className: "layer-info-icon", dangerouslySetInnerHTML: {__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}})
-            
-          )
-        )
-      );
-    },
-    /* jshint ignore:end */
-
-    toggle: function() {
-      this.props.change(this.props.value);
-      // this.setState({ active: !this.state.active });
-    },
-
-    showInfo: function() {
-      console.log(this.props.value);
-
-      switch (this.props.value) {
-        case 'peat':
-          this.props.infoDivClass = 'forest-and-land-cover-peat-lands';
-          break;
-        case 'gladAlerts':
-          this.props.infoDivClass = 'forest-change-glad-alerts';
-          break;
-        case 'plantationsTypeLayer':
-          this.props.infoDivClass = 'forest-and-land-cover-plantations';
-          break;
-        case 'plantationsSpeciesLayer':
-          this.props.infoDivClass = 'forest-and-land-cover-plantations';
-          break;
-        case 'indonesiaMoratorium':
-          this.props.infoDivClass = 'land-use-moratorium-areas';
-          break;
-        case 'prodes':
-          this.props.infoDivClass = 'forest-change-prodes-alerts';
-          break;
-        case 'guyraAlerts':
-          this.props.infoDivClass = 'forest-change-gran-chaco';
-          break;
-        case 'treeDensity':
-          this.props.infoDivClass = 'forest-and-land-cover-tree-cover-density';
-          break;
-        case 'legal':
-          this.props.infoDivClass = 'forest-and-land-cover-legal-classifications';
-          break;
-        case 'protected':
-          this.props.infoDivClass = 'conservation-protected-areas';
-          break;
-        case 'carbon':
-          this.props.infoDivClass = 'forest-and-land-cover-carbon-stocks';
-          break;
-        case 'intact':
-          this.props.infoDivClass = 'forest-and-land-cover-intact-forest-landscape';
-          break;
-        case 'landCoverGlob':
-          this.props.infoDivClass = 'forest-and-land-cover-land-cover-global';
-          break;
-        case 'primForest':
-          this.props.infoDivClass = 'forest-and-land-cover-primary-forest';
-          break;
-        case 'biomes':
-          this.props.infoDivClass = 'forest-and-land-cover-brazil-biomes';
-          break;
-        case 'suit':
-          this.props.infoDivClass = 'land-use-oil-palm';
-          break;
-        case 'rspo':
-          this.props.infoDivClass = 'land-use-rspo-consessions';
-          break;
-        case 'landCoverIndo':
-          this.props.infoDivClass = 'forest-and-land-cover-land-cover-indonesia';
-          break;
-        case 'landCoverAsia':
-          this.props.infoDivClass = 'forest-and-land-cover-land-cover-south-east-asia';
-          break;
-        case 'treeCoverLoss':
-          this.props.infoDivClass = 'forest-change-tree-cover-change';
-          break;
-      }
-      console.log(this.props.infoDivClass);
-
-      if (document.getElementsByClassName(this.props.infoDivClass).length) {
-        topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
-      } else {
-        topic.publish('showInfoPanel', this.props.infoDivClass);
-      }
-
-    }
-
-  });
-
-});
-
-/** @jsx React.DOM */
-define('components/wizard/StepThree',[
-    'react',
-    'analysis/config',
-    'analysis/WizardStore',
-    'components/wizard/WizardCheckbox'
-], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
-
-    var config = AnalyzerConfig.stepThree;
-    var treeClosed = '<use xlink:href="#tree-closed" />';
-    var treeOpen = '<use xlink:href="#tree-open" />';
-    var cacheArray = [];
-    var KEYS = AnalyzerConfig.STORE_KEYS;
-
-    function getDefaultCheckedState() {
-      return config.checkboxes.filter(function(item) {
-        return item.checked;
-      }).map(function(item) {
-        return item.value;
-      }).concat([config.forestChange.value]);
-    }
-
-    function getCurrentSelectionLabel () {
-      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label; }).join(',') : 'none');
-    }
-
-    /* Helper Functions */
-    function getDefaultState() {
-      return {
-        completed: false,
-        optionsExpanded: true,
-        forestChangeCategory: true,
-        forestChangeCheckbox: getDefaultCheckedState(),
-        currentSelectionLabel: getCurrentSelectionLabel()
-      };
-    }
-
-    return React.createClass({
-
-      getInitialState: function() {
-        return getDefaultState();
-      },
-
-      componentDidMount: function () {
-        WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
-        WizardStore.registerCallback(KEYS.areaOfInterest, this.AOIupdated);
-        // WizardStore.registerCallback(KEYS.forestChangeCheckbox, this.checkboxesUpdated);
-        // WizardStore.set(KEYS.forestChangeCheckbox, this.state.forestChangeCheckbox);
-      },
-
-      AOIupdated: function () {
-        var aoi = WizardStore.get(KEYS.areaOfInterest);
-        var checkedValues = this.state.forestChangeCheckbox.slice();
-        config.checkboxes.some(function(checkbox) {
-          if(aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
-            console.log(this);
-            checkedValues.push(checkbox.value);
-            this.setState({forestChangeCheckbox: checkedValues});
-            return true;
-          }
-        }, this);
-      },
-
-      analysisAreaUpdated: function () {
-        this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
-      },
-
-      toggleOptions: function () { //todo: toggle these open (or not) on analysis via popup!
-        this.setState({ optionsExpanded: !this.state.optionsExpanded });
-      },
-
-      // checkboxesUpdated: function () { //todo: toggle these open (or not) on analysis via popup!
-      //   // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
-      //   this.setState({ forestChangeCheckbox: WizardStore.get(KEYS.forestChangeCheckbox) });
-      // },
-
-      componentDidUpdate: function () {
-        // var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-        var currentStep = WizardStore.get(KEYS.userStep);
-
-        // if (selectedAreaOfInterest !== 'millPointOption' &&
-        if (currentStep === 3) {
-          // Recheck requirements and update state if necessary
-          this._selectionMade();
-        }
-      },
-
-      componentWillReceiveProps: function(newProps) {
-        if (newProps.isResetting) {
-          this.replaceState(getDefaultState());
-        }
-      },
-
-      shouldComponentUpdate: function () {
-        // Should Only Rerender if we are on this step, dont rerender if this is not visible
-        return WizardStore.get(KEYS.userStep) === 3;
-      },
-
-      // resetForestChange: function() {
-      //   this.setState({forestChangeCheckbox: getDefaultCheckedState()});
-      // },
-
-      /* jshint ignore:start */
-      render: function() {
-        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-        var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-        var optionsExpanded = this.state.optionsExpanded;
-        var checkedValues = this.state.forestChangeCheckbox;
-        var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
-          return feature.geometry.type === 'point';
-        });
-
-        //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
-        return (
-          React.createElement("div", {className: "step select-analysis"}, 
-            React.createElement("div", {className: "step-body"}, 
-              React.createElement("div", {className: "step-three-top"}, 
-                React.createElement("div", {className: "step-title"}, config.title), 
-                /* Show this Only If Mill Point Analysis is Being Done */
-                
-                  selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ?
-                    this.createPointContent(hasPoints) :
-                    null, 
-                
-                React.createElement("div", {className: "relative forestChange-description"}, 
-                  React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
-                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}}), 
-                  React.createElement("p", {className: "forest-options-text layer-description"}, "Choose layers here")
-                ), 
-                React.createElement("p", {className: "layer-description"}, config.forestChange.description), 
-                React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
-                  React.createElement("div", null, 
-                    config.checkboxes.map(this._mapper, this)
-                  )
-                ), 
-
-                React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, checked: checkedValues.indexOf(config.suit.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                React.createElement("p", {className: "layer-description"}, config.suit.description), 
-                React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, checked: checkedValues.indexOf(config.rspo.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                React.createElement("p", {className: "layer-description"}, config.rspo.description), 
-                React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
-                  style: { 'position': 'relative'}
-                }, 
-                React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                React.createElement("p", {className: "layer-description"}, config.mill.description)
-                )
-              )
-            ), 
-            React.createElement("div", {className: "step-footer"}, 
-              React.createElement("div", {className: "selected-analysis-area"}, 
-                React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
-                React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
-              ), 
-              React.createElement("div", {onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
-                React.createElement("span", {className: "next-button"}, "Perform Analysis")
-              )
-            )
-          )
-        );
-      },
-
-      _mapper: function(item) {
-        var checkedValues = this.state.forestChangeCheckbox;
-
-        return React.createElement(WizardCheckbox, {
-          label: item.label, 
-          value: item.value, 
-          change: this._selectionMade, 
-          isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
-          checked: checkedValues.indexOf(item.value) > -1, 
-          noInfoIcon: item.noInfoIcon || false}
-        );
-      },
-
-      createPointContent: function (hasPoints) {
-
-        var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
-
-        var options = config.pointRadiusOptions.map(function (option) {
-          return React.createElement("option", {value: option.value}, option.label);
-        });
-
-        // If it has points, render a select to choose a buffer radius
-        // If it does not have points but it is custom features, user used Create Custom Area and
-        // is analyzing polygons, so show nothing, otherwise, show little description
-
-        return (!hasPoints && isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer));
-
-        // return (hasPoints ?
-        //   <div className='point-radius-select-container'>
-        //       <span className='instructions'>{config.pointRadiusDescription}</span>
-        //       <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
-        //   </div> :
-        //     isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
-        // );
-      },
-
-      /* jshint ignore:end */
-
-      _selectionMade: function(checkboxValue) {
-        var a = this.state.forestChangeCheckbox.slice();
-
-        if(checkboxValue && checkboxValue === config.forestChange.value) {
-          this.toggleFca(a.indexOf(checkboxValue) > -1);
-        } else if(checkboxValue){
-          var index = a.indexOf(checkboxValue);
-
-          if(index > -1) {
-            a.splice(index, 1);
-          } else {
-            a.push(checkboxValue);
-          }
-          this.setState({forestChangeCheckbox: a});
-        }
-        var completed = this._checkRequirements();
-        let oldCompleted = this.state.completed;
-        if (oldCompleted !== completed) {
-          this.setState({ completed: completed });
-        }
-      },
-
-      toggleFca: function(currentChecked) {
-        var checkedValues = this.state.forestChangeCheckbox.slice();
-        if(!currentChecked){
-          checkedValues = checkedValues.concat(cacheArray);
-          checkedValues.push(config.forestChange.value);
-        } else {
-          cacheArray = [];
-          config.checkboxes.forEach(function(item) {
-            if(checkedValues.indexOf(item.value) > -1) {
-              cacheArray.push(item.value);
-            }
-          });
-          cacheArray.forEach(function(value) {
-            checkedValues.splice(checkedValues.indexOf(value), 1);
-          });
-          checkedValues.splice(checkedValues.indexOf(config.forestChange.value), 1);
-        }
-        this.setState({forestChangeCheckbox: checkedValues});
-      },
-
-      checkedOverride: function(itemLabel) {
-        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
-        // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-        if (selectedAreaOfInterest === itemLabel) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-
-      _checkRequirements: function() {
-        var result = false,
-          nodes = document.querySelectorAll('.select-analysis .wizard-checkbox.active');
-          // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-          // value;
-
-        // Conditions
-        // At least One item must be checked
-        // If more than one item is checked, we pass
-        if (nodes.length > 0) {
-          // if (nodes.length > 1) {
-          result = true;
-          // } else {
-          //     // nodes === 1
-          //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
-          //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-          //     //     // This Fails, result is already false so do nothing
-          //     // } else {
-          //         result = true;
-          //     // }
-          // } // millPoint is back in as a viable Analysis Layer, hence the check removal
-        }
-
-        return result;
-      },
-
-      _getPayload: function() {
-        var nodes = document.querySelectorAll('.select-analysis .wizard-checkbox'),
-          selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-          payload = {},
-          value;
-
-        Array.prototype.forEach.call(nodes, function(node) {
-          value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
-          if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-            // Dont add mills unless millPointOption is the selectedArea
-          } else {
-            payload[value] = (node.className.search('active') > -1);
-          }
-        });
-
-        return payload;
-      },
-
-      _proceed: function() {
-        if (this.state.completed) {
-          var payload = this._getPayload();
-          WizardStore.set(KEYS.analysisSets, payload);
-          // Get the Radius and set it to the store if it exists
-          // var pointRadiusSelect = this.refs.pointRadiusSelect;
-          // if (pointRadiusSelect) {
-          //   var radius = pointRadiusSelect.getDOMNode().value;
-          //   WizardStore.set(KEYS.analysisPointRadius, radius);
-          // }
-          this.props.callback.performAnalysis();
-          //- Send off analytics for Commercial Entity If they picked that.
-        }
-      }
-    });
-
-});
-
-/** @jsx React.DOM */
-define('components/wizard/Intro',[
-  "react",
-  "analysis/config",
-  "actions/WizardActions"
-], function (React, AnalyzerConfig, WizardActions) {
-
-  // Variables
-  var config = AnalyzerConfig.intro;
-
-  return React.createClass({
-    /* jshint ignore:start */
-    render: function() {
-      return (
-        React.createElement("div", {className: "step"}, 
-          React.createElement("div", {className: "step-body"}, 
-            React.createElement("div", {className: "step-title"}, config.title), 
-            React.createElement("div", {className: "step-one-main-description"}, 
-              React.createElement("p", null, config.beginningText), 
-              React.createElement("ul", null, 
-                config.firstList.map(this._listMapper)
-              ), 
-              React.createElement("p", null, config.secondaryText), 
-              React.createElement("ul", null, 
-                config.secondList.map(this._listMapper)
-              )
-            )
-          ), 
-          React.createElement("div", {className: "step-footer"}, 
-            React.createElement("div", {className: "next-button-container", onClick: WizardActions.proceedToNextStep}, 
-              React.createElement("div", {className: "next-button"}, "Next")
-            )
-          )
-        )
-      );
-    },
-
-    _listMapper: function (item) {
-        return React.createElement("li", null, item);
-    }
-    /* jshint ignore:end */
-
-  });
-
-});
-
 define('map/LayerController',[
 
-    "map/config",
-    "map/MapModel",
-    "dojo/on",
-    "dojo/dom",
-    "dojo/query",
-    "dojo/topic",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dojo/_base/array",
-    "utils/Hasher",
-    "utils/Analytics",
-    "esri/InfoTemplate",
-    "esri/graphic",
-    "esri/graphicsUtils",
-    "esri/tasks/query",
-    "esri/tasks/QueryTask",
-    "esri/layers/RasterFunction",
-    "esri/layers/LayerDrawingOptions"
+    'map/config',
+    'map/MapModel',
+    'dojo/on',
+    'dojo/dom',
+    'dojo/query',
+    'dojo/topic',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dojo/_base/array',
+    'utils/Hasher',
+    'utils/Analytics',
+    'esri/InfoTemplate',
+    'esri/graphic',
+    'esri/graphicsUtils',
+    'esri/tasks/query',
+    'esri/tasks/QueryTask',
+    'esri/layers/RasterFunction',
+    'esri/layers/LayerDrawingOptions'
 ], function (MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, Analytics, InfoTemplate, Graphic, graphicsUtils, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
     return {
@@ -7667,7 +7176,7 @@ define('map/LayerController',[
                     settings.computeBinaryRaster[5].values = value;
                     break;
                 case 'rainfall-slider':
-                    settings.computeBinaryRaster[6].values = parseInt(value[0]) + "," + parseInt(value[1]);
+                    settings.computeBinaryRaster[6].values = parseInt(value[0]) + ',' + parseInt(value[1]);
                     break;
                 case 'soil-drainage-slider':
                     settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1], [99]);
@@ -7685,7 +7194,7 @@ define('map/LayerController',[
                     dojoQuery('#environmental-criteria .suitable-checkbox input:checked').forEach(function(node) {
                         activeCheckboxes.push(node.value);
                     });
-                    settings.computeBinaryRaster[0].values = activeCheckboxes.join(",");
+                    settings.computeBinaryRaster[0].values = activeCheckboxes.join(',');
                     break;
                 case 'soil-type-checkbox':
                     // Need to include default values to represent unknown values
@@ -7696,7 +7205,7 @@ define('map/LayerController',[
                         activeCheckboxes.push(node.value);
                     });
                     //console.log("****************** soil type checkboxes: " + activeCheckboxes.toString());
-                    settings.computeBinaryRaster[10].values = activeCheckboxes.join(",");
+                    settings.computeBinaryRaster[10].values = activeCheckboxes.join(',');
                     break;
             }
 
@@ -7796,7 +7305,7 @@ define('map/LayerController',[
                 visibleLayers = [],
                 layerOptions = [],
                 layer,
-                self = this;
+                ldos;
 
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
@@ -7825,18 +7334,18 @@ define('map/LayerController',[
             } else {
                 legendLayer.hide();
             }
-            registry.byId("legend").refresh();
+            registry.byId('legend').refresh();
         },
 
         changeLayerTransparency: function(layerConfig, layerType, transparency) {
             switch (layerType) {
-                case "image":
+                case 'image':
                     this.setLayerOpacity(layerConfig, transparency);
                     break;
-                case "dynamic":
+                case 'dynamic':
                     this.setDynamicLayerTransparency(layerConfig, transparency);
                     break;
-                case "tiled":
+                case 'tiled':
                     this.setLayerOpacity(layerConfig, transparency);
                     break;
             }
@@ -7941,11 +7450,605 @@ define('map/LayerController',[
             if (extraValues) {
                 result = result.concat(extraValues);
             }
-            return result.join(",");
+            return result.join(',');
         }
 
     };
 
+
+});
+
+define('map/TCDSlider',[
+  'dojo/on',
+  'map/MapModel',
+  'map/config',
+  'map/LayerController'
+], function (on, MapModel, MapConfig, LayerController) {
+  'use strict';
+
+  var tcdSlider,
+      modal;
+
+  var TCDSliderController = {
+
+    show: function () {
+      var self = this;
+      if (tcdSlider === undefined) {
+        tcdSlider = $('#tcd-density-slider').ionRangeSlider({
+          type: 'double',
+					values: [0, 10, 15, 20, 25, 30, 50, 75, 100],
+          hide_min_max: true,
+					from_min: 1,
+					from_max: 7,
+          to_fixed: true,
+          grid: true,
+          grid_snap: true,
+					from: 5,
+					onFinish: self.change,
+          prettify: function (value) { return value + '%'; }
+				});
+      }
+
+      // Cache the dom query operation
+      modal = $('#tcd-modal');
+      modal.addClass('active');
+      on.once($('#tcd-modal .close-icon')[0], 'click', self.hide);
+    },
+
+    hide: function () {
+      if (modal) { modal.removeClass('active'); }
+    },
+
+    change: function (data) {
+      var value = data.from_value;
+      if (value) {
+        // Update the Value in the Model
+        MapModel.set('tcdDensityValue', data.from_value);
+        LayerController.updateTCDRenderingRule(data.from_value);
+
+        var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
+        var densityRange = [data.from_value, data.to_value];
+        var from = treeCoverLoss.renderingRule.functionArguments.min_year - 2001;
+        var to = treeCoverLoss.renderingRule.functionArguments.max_year - 2001;
+        LayerController.updateLossImageServiceRasterFunction([from, to], MapConfig.loss, densityRange);
+      }
+    }
+
+  };
+
+  return TCDSliderController;
+
+});
+
+/** @jsx React.DOM */
+define('components/wizard/WizardCheckbox',[
+  'react',
+  'knockout',
+  'map/TCDSlider',
+  'map/MapModel',
+  'dojo/topic'
+], function (React, ko, TCDSlider, MapModel, topic) {
+
+  return React.createClass({
+
+    propTypes: {
+      label: React.PropTypes.string.isRequired,
+      value: React.PropTypes.string.isRequired
+    },
+    componentDidMount: function () {
+
+			if (this.props.value === 'soy') {
+				console.log(MapModel.get('model'));
+        this.model = MapModel.get('model');
+			}
+
+    },
+
+    // componentWillReceiveProps: function(newProps) {
+    //   if (newProps.isResetting) {
+    //     this.replaceState(this.getInitialState());
+    //   }
+    //   console.log(newProps.checkedFromPopup);
+    //   if (newProps.checkedFromPopup === true) {
+    //     this.setState({
+    //       active: true
+    //     });
+    //   }
+    //   // else if (this.state.defaultOff.indexOf(newProps.value) > -1) {
+    //   //   this.setState({
+    //   //     active: false
+    //   //   });
+    //   // }
+    // },
+
+    // componentDidUpdate: function(prevProps, prevState) {
+    //   if (this.props.change && (prevState.active !== this.state.active)) {
+    //     this.props.change(this.props.value);
+    //   }
+    // },
+
+    /* jshint ignore:start */
+    render: function() {
+      var className = 'wizard-checkbox' + (this.props.checked ? ' active' : '');
+
+      var tcdDensityValue;
+
+      if (this.props.value === 'soy' && this.model) {
+        tcdDensityValue = this.model.tcdDensityValue();
+      } //todo: we need to re-render this every time we change the density slider!
+
+      return (
+        React.createElement("div", {className: "wizard-checkbox-container"}, 
+          React.createElement("div", {className: className, "data-value": this.props.value}, 
+            React.createElement("span", {className: "custom-check", onClick: this.toggle}, 
+              React.createElement("span", null)
+            ), 
+            React.createElement("a", {className: "wizard-checkbox-label", onClick: this.toggle}, this.props.label), 
+            
+              this.props.noInfoIcon ? null :
+              React.createElement("span", {onClick: this.showInfo, className: "layer-info-icon", dangerouslySetInnerHTML: {__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}})
+            
+          ), 
+          
+            this.props.checked && this.props.value === 'soy' ?
+            React.createElement("span", null, 
+            React.createElement("span", {className: "tcd-percentage-label"}, "Displaying at "), 
+            React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
+            React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
+          
+        )
+      );
+    },
+    /* jshint ignore:end */
+
+    toggle: function() {
+      this.props.change(this.props.value);
+      if (this.props.value === 'soy') {
+        TCDSlider.hide();
+      }
+      // this.setState({ active: !this.state.active });
+    },
+
+    showSoySlider: function() {
+      TCDSlider.show();
+    },
+
+    showInfo: function() {
+      console.log(this.props.value);
+
+      switch (this.props.value) {
+        case 'peat':
+          this.props.infoDivClass = 'forest-and-land-cover-peat-lands';
+          break;
+        case 'gladAlerts':
+          this.props.infoDivClass = 'forest-change-glad-alerts';
+          break;
+        case 'plantationsTypeLayer':
+          this.props.infoDivClass = 'forest-and-land-cover-plantations';
+          break;
+        case 'plantationsSpeciesLayer':
+          this.props.infoDivClass = 'forest-and-land-cover-plantations';
+          break;
+        case 'indonesiaMoratorium':
+          this.props.infoDivClass = 'land-use-moratorium-areas';
+          break;
+        case 'prodes':
+          this.props.infoDivClass = 'forest-change-prodes-alerts';
+          break;
+        case 'guyraAlerts':
+          this.props.infoDivClass = 'forest-change-gran-chaco';
+          break;
+        case 'treeDensity':
+          this.props.infoDivClass = 'forest-and-land-cover-tree-cover-density';
+          break;
+        case 'legal':
+          this.props.infoDivClass = 'forest-and-land-cover-legal-classifications';
+          break;
+        case 'protected':
+          this.props.infoDivClass = 'conservation-protected-areas';
+          break;
+        case 'carbon':
+          this.props.infoDivClass = 'forest-and-land-cover-carbon-stocks';
+          break;
+        case 'intact':
+          this.props.infoDivClass = 'forest-and-land-cover-intact-forest-landscape';
+          break;
+        case 'landCoverGlob':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-global';
+          break;
+        case 'primForest':
+          this.props.infoDivClass = 'forest-and-land-cover-primary-forest';
+          break;
+        case 'biomes':
+          this.props.infoDivClass = 'forest-and-land-cover-brazil-biomes';
+          break;
+        case 'suit':
+          this.props.infoDivClass = 'land-use-oil-palm';
+          break;
+        case 'rspo':
+          this.props.infoDivClass = 'land-use-rspo-consessions';
+          break;
+        case 'landCoverIndo':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-indonesia';
+          break;
+        case 'landCoverAsia':
+          this.props.infoDivClass = 'forest-and-land-cover-land-cover-south-east-asia';
+          break;
+        case 'treeCoverLoss':
+          this.props.infoDivClass = 'forest-change-tree-cover-change';
+          break;
+      }
+      console.log(this.props.infoDivClass);
+
+      if (document.getElementsByClassName(this.props.infoDivClass).length) {
+        topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+      } else {
+        topic.publish('showInfoPanel', this.props.infoDivClass);
+      }
+
+    }
+
+  });
+
+});
+
+/** @jsx React.DOM */
+define('components/wizard/StepThree',[
+    'react',
+    'analysis/config',
+    'analysis/WizardStore',
+    'components/wizard/WizardCheckbox'
+], function (React, AnalyzerConfig, WizardStore, WizardCheckbox) {
+
+    var config = AnalyzerConfig.stepThree;
+    var treeClosed = '<use xlink:href="#tree-closed" />';
+    var treeOpen = '<use xlink:href="#tree-open" />';
+    var cacheArray = [];
+    var KEYS = AnalyzerConfig.STORE_KEYS;
+
+    function getDefaultCheckedState() {
+      return config.checkboxes.filter(function(item) {
+        return item.checked;
+      }).map(function(item) {
+        return item.value;
+      }).concat([config.forestChange.value]);
+    }
+
+    function getCurrentSelectionLabel () {
+      var currentFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+      return (currentFeatures.length > 0 ? currentFeatures.map(function (feature) {return feature.attributes.WRI_label; }).join(',') : 'none');
+    }
+
+    /* Helper Functions */
+    function getDefaultState() {
+      return {
+        completed: false,
+        optionsExpanded: true,
+        forestChangeCategory: true,
+        forestChangeCheckbox: getDefaultCheckedState(),
+        currentSelectionLabel: getCurrentSelectionLabel()
+      };
+    }
+
+    return React.createClass({
+
+      getInitialState: function() {
+        return getDefaultState();
+      },
+
+      componentDidMount: function () {
+        WizardStore.registerCallback(KEYS.selectedCustomFeatures, this.analysisAreaUpdated);
+        WizardStore.registerCallback(KEYS.areaOfInterest, this.AOIupdated);
+        // WizardStore.registerCallback(KEYS.forestChangeCheckbox, this.checkboxesUpdated);
+        // WizardStore.set(KEYS.forestChangeCheckbox, this.state.forestChangeCheckbox);
+      },
+
+      AOIupdated: function () {
+        var aoi = WizardStore.get(KEYS.areaOfInterest);
+        var checkedValues = this.state.forestChangeCheckbox.slice();
+        config.checkboxes.some(function(checkbox) {
+          if(aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
+            console.log(this);
+            checkedValues.push(checkbox.value);
+            this.setState({forestChangeCheckbox: checkedValues});
+            return true;
+          }
+        }, this);
+      },
+
+      analysisAreaUpdated: function () {
+        this.setState({ currentSelectionLabel: getCurrentSelectionLabel() });
+      },
+
+      toggleOptions: function () { //todo: toggle these open (or not) on analysis via popup!
+        this.setState({ optionsExpanded: !this.state.optionsExpanded });
+      },
+
+      // checkboxesUpdated: function () { //todo: toggle these open (or not) on analysis via popup!
+      //   // var analysisArea = WizardStore.get(KEYS.selectedCustomFeatures);
+      //   this.setState({ forestChangeCheckbox: WizardStore.get(KEYS.forestChangeCheckbox) });
+      // },
+
+      componentDidUpdate: function () {
+        // var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        var currentStep = WizardStore.get(KEYS.userStep);
+
+        // if (selectedAreaOfInterest !== 'millPointOption' &&
+        if (currentStep === 3) {
+          // Recheck requirements and update state if necessary
+          this._selectionMade();
+        }
+      },
+
+      componentWillReceiveProps: function(newProps) {
+        if (newProps.isResetting) {
+          this.replaceState(getDefaultState());
+        }
+      },
+
+      shouldComponentUpdate: function () {
+        // Should Only Rerender if we are on this step, dont rerender if this is not visible
+        return WizardStore.get(KEYS.userStep) === 3;
+      },
+
+      // resetForestChange: function() {
+      //   this.setState({forestChangeCheckbox: getDefaultCheckedState()});
+      // },
+
+      /* jshint ignore:start */
+      render: function() {
+        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        var optionsExpanded = this.state.optionsExpanded;
+        var checkedValues = this.state.forestChangeCheckbox;
+        var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
+          return feature.geometry.type === 'point';
+        });
+
+        //<span onClick={this.toggleOptions} className={`analysis-expander ${this.state.optionsExpanded ? 'open' : 'closed'}`}></span>
+        return (
+          React.createElement("div", {className: "step select-analysis"}, 
+            React.createElement("div", {className: "step-body"}, 
+              React.createElement("div", {className: "step-three-top"}, 
+                React.createElement("div", {className: "step-title"}, config.title), 
+                /* Show this Only If Mill Point Analysis is Being Done */
+                
+                  selectedAreaOfInterest === config.millPoint || selectedAreaOfInterest === config.customArea ?
+                    this.createPointContent(hasPoints) :
+                    null, 
+                
+                React.createElement("div", {className: "relative forestChange-description"}, 
+                  React.createElement(WizardCheckbox, {onClick: this.toggleOptions, value: config.forestChange.value, checked: checkedValues.indexOf(config.forestChange.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, label: config.forestChange.label, noInfoIcon: true}), 
+                  React.createElement("svg", {onClick: this.toggleOptions, className: ("analysis-expander " + (optionsExpanded ? 'open' : 'closed')), dangerouslySetInnerHTML: { __html: optionsExpanded ? treeOpen : treeClosed}}), 
+                  React.createElement("p", {className: "forest-options-text layer-description"}, "Choose layers here")
+                ), 
+                React.createElement("p", {className: "layer-description"}, config.forestChange.description), 
+                React.createElement("div", {className: ("checkbox-list " + (optionsExpanded === false ? 'transition-hidden' : ''))}, 
+                  React.createElement("div", null, 
+                    config.checkboxes.map(this._mapper, this)
+                  )
+                ), 
+
+                React.createElement(WizardCheckbox, {label: config.suit.label, value: config.suit.value, checked: checkedValues.indexOf(config.suit.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.suit.description), 
+                React.createElement(WizardCheckbox, {label: config.rspo.label, value: config.rspo.value, checked: checkedValues.indexOf(config.rspo.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.rspo.description), 
+                React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
+                  style: { 'position': 'relative'}
+                }, 
+                React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                React.createElement("p", {className: "layer-description"}, config.mill.description)
+                )
+              )
+            ), 
+            React.createElement("div", {className: "step-footer"}, 
+              React.createElement("div", {className: "selected-analysis-area"}, 
+                React.createElement("div", {className: "current-selection-label"}, AnalyzerConfig.stepTwo.currentFeatureText), 
+                React.createElement("div", {className: "current-selection", title: this.state.currentSelectionLabel}, this.state.currentSelectionLabel)
+              ), 
+              React.createElement("div", {onClick: this._proceed, className: 'next-button-container ' + (this.state.completed ? '' : 'disabled')}, 
+                React.createElement("span", {className: "next-button"}, "Perform Analysis")
+              )
+            )
+          )
+        );
+      },
+
+      _mapper: function(item) {
+        var checkedValues = this.state.forestChangeCheckbox;
+
+        return React.createElement(WizardCheckbox, {
+          label: item.label, 
+          value: item.value, 
+          change: this._selectionMade, 
+          isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
+          checked: checkedValues.indexOf(item.value) > -1, 
+          noInfoIcon: item.noInfoIcon || false}
+        );
+      },
+
+      createPointContent: function (hasPoints) {
+
+        var isCustomArea = WizardStore.get(KEYS.areaOfInterest) === config.customArea;
+
+        var options = config.pointRadiusOptions.map(function (option) {
+          return React.createElement("option", {value: option.value}, option.label);
+        });
+
+        // If it has points, render a select to choose a buffer radius
+        // If it does not have points but it is custom features, user used Create Custom Area and
+        // is analyzing polygons, so show nothing, otherwise, show little description
+
+        return (!hasPoints && isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer));
+
+        // return (hasPoints ?
+        //   <div className='point-radius-select-container'>
+        //       <span className='instructions'>{config.pointRadiusDescription}</span>
+        //       <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
+        //   </div> :
+        //     isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
+        // );
+      },
+
+      /* jshint ignore:end */
+
+      _selectionMade: function(checkboxValue) {
+        var a = this.state.forestChangeCheckbox.slice();
+
+        if(checkboxValue && checkboxValue === config.forestChange.value) {
+          this.toggleFca(a.indexOf(checkboxValue) > -1);
+        } else if(checkboxValue){
+          var index = a.indexOf(checkboxValue);
+
+          if(index > -1) {
+            a.splice(index, 1);
+          } else {
+            a.push(checkboxValue);
+          }
+          this.setState({forestChangeCheckbox: a});
+        }
+        var completed = this._checkRequirements();
+        let oldCompleted = this.state.completed;
+        if (oldCompleted !== completed) {
+          this.setState({ completed: completed });
+        }
+      },
+
+      toggleFca: function(currentChecked) {
+        var checkedValues = this.state.forestChangeCheckbox.slice();
+        if(!currentChecked){
+          checkedValues = checkedValues.concat(cacheArray);
+          checkedValues.push(config.forestChange.value);
+        } else {
+          cacheArray = [];
+          config.checkboxes.forEach(function(item) {
+            if(checkedValues.indexOf(item.value) > -1) {
+              cacheArray.push(item.value);
+            }
+          });
+          cacheArray.forEach(function(value) {
+            checkedValues.splice(checkedValues.indexOf(value), 1);
+          });
+          checkedValues.splice(checkedValues.indexOf(config.forestChange.value), 1);
+        }
+        this.setState({forestChangeCheckbox: checkedValues});
+      },
+
+      checkedOverride: function(itemLabel) {
+        var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
+        // var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        if (selectedAreaOfInterest === itemLabel) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+
+      _checkRequirements: function() {
+        var result = false,
+          nodes = document.querySelectorAll('.select-analysis .wizard-checkbox.active');
+          // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+          // value;
+
+        // Conditions
+        // At least One item must be checked
+        // If more than one item is checked, we pass
+        if (nodes.length > 0) {
+          // if (nodes.length > 1) {
+          result = true;
+          // } else {
+          //     // nodes === 1
+          //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
+          //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
+          //     //     // This Fails, result is already false so do nothing
+          //     // } else {
+          //         result = true;
+          //     // }
+          // } // millPoint is back in as a viable Analysis Layer, hence the check removal
+        }
+
+        return result;
+      },
+
+      _getPayload: function() {
+        var nodes = document.querySelectorAll('.select-analysis .wizard-checkbox'),
+          selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
+          payload = {},
+          value;
+
+        Array.prototype.forEach.call(nodes, function(node) {
+          value = node.dataset ? node.dataset.value : node.getAttribute('data-value');
+          if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
+            // Dont add mills unless millPointOption is the selectedArea
+          } else {
+            payload[value] = (node.className.search('active') > -1);
+          }
+        });
+
+        return payload;
+      },
+
+      _proceed: function() {
+        if (this.state.completed) {
+          var payload = this._getPayload();
+          WizardStore.set(KEYS.analysisSets, payload);
+          // Get the Radius and set it to the store if it exists
+          // var pointRadiusSelect = this.refs.pointRadiusSelect;
+          // if (pointRadiusSelect) {
+          //   var radius = pointRadiusSelect.getDOMNode().value;
+          //   WizardStore.set(KEYS.analysisPointRadius, radius);
+          // }
+          this.props.callback.performAnalysis();
+          //- Send off analytics for Commercial Entity If they picked that.
+        }
+      }
+    });
+
+});
+
+/** @jsx React.DOM */
+define('components/wizard/Intro',[
+  "react",
+  "analysis/config",
+  "actions/WizardActions"
+], function (React, AnalyzerConfig, WizardActions) {
+
+  // Variables
+  var config = AnalyzerConfig.intro;
+
+  return React.createClass({
+    /* jshint ignore:start */
+    render: function() {
+      return (
+        React.createElement("div", {className: "step"}, 
+          React.createElement("div", {className: "step-body"}, 
+            React.createElement("div", {className: "step-title"}, config.title), 
+            React.createElement("div", {className: "step-one-main-description"}, 
+              React.createElement("p", null, config.beginningText), 
+              React.createElement("ul", null, 
+                config.firstList.map(this._listMapper)
+              ), 
+              React.createElement("p", null, config.secondaryText), 
+              React.createElement("ul", null, 
+                config.secondList.map(this._listMapper)
+              )
+            )
+          ), 
+          React.createElement("div", {className: "step-footer"}, 
+            React.createElement("div", {className: "next-button-container", onClick: WizardActions.proceedToNextStep}, 
+              React.createElement("div", {className: "next-button"}, "Next")
+            )
+          )
+        )
+      );
+    },
+
+    _listMapper: function (item) {
+        return React.createElement("li", null, item);
+    }
+    /* jshint ignore:end */
+
+  });
 
 });
 
@@ -8438,10 +8541,6 @@ define('components/CalendarModal',[
 				calendar_obj.subscribe('change', self[calendar.method].bind(self));
 			});
 
-			// calendarStart.subscribe('change', function (date) {
-			// 	debugger
-			// });
-
 		},
 
 		componentWillReceiveProps: function (newProps, oldProps) {
@@ -8586,8 +8685,7 @@ define('map/GladSlider',[
     },
 
     change: function (data) {
-      // debugger
-      console.log(data.from, data.to)
+      console.log(data.from, data.to);
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.gladAlerts);
     }
 
@@ -9975,10 +10073,16 @@ define('components/wizard/Wizard',[
 
             labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
+            var lossLayer = app.map.getLayer('Loss');
+						var minDensity;
+            if (lossLayer.renderingRule) {
+              minDensity = lossLayer.renderingRule.functionArguments.min_density;
+            }
 
             payload = {
                 geometry: geometry,
                 datasets: datasets,
+                minDensity: minDensity,
                 //types: self.state.analysisTypes,
                 title: self.state.analysisArea.map(function (feature) {return feature.attributes.WRI_label;}).join(','),
                 suitability: {
@@ -10195,8 +10299,10 @@ define('analysis/WizardHelper',[
 
 			// Add this variable to the url to share the status of this drawer
 			if (wizardWidth === 0) {
+				domClass.remove('treecover_change_toolbox', 'compressed');
 				Hasher.removeKey('wiz');
 			} else {
+				domClass.add('treecover_change_toolbox', 'compressed');
 				Hasher.setHash('wiz', 'open');
 			}
 
@@ -11026,6 +11132,8 @@ define('map/Map',[
                 plantationsTypeParams,
                 plantationsSpeciesLayer,
                 plantationsSpeciesParams,
+                soyLayer,
+                soyParams,
                 legendLayer,
                 legendParams,
                 formaAlertsLayer,
@@ -11120,6 +11228,17 @@ define('map/Map',[
             plantationsSpeciesLayer = new ArcGISDynamicLayer(MapConfig.bySpecies.url, {
                 imageParameters: plantationsSpeciesParams,
                 id: MapConfig.bySpecies.id,
+                visible: false
+            });
+
+            soyParams = new ImageParameters();
+            soyParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            soyParams.layerIds = MapConfig.soy.defaultLayers;
+            soyParams.format = 'png32';
+
+            soyLayer = new ArcGISDynamicLayer(MapConfig.soy.url, {
+                imageParameters: soyParams,
+                id: MapConfig.soy.id,
                 visible: false
             });
 
@@ -11493,6 +11612,7 @@ define('map/Map',[
                 gainLayer,
                 gainHelperLayer,
                 granChacoLayer,
+                soyLayer,
                 // Points Layers
                 firesLayer,
                 plantationsTypeLayer,
@@ -11530,6 +11650,7 @@ define('map/Map',[
             granChacoLayer.on('error', this.addLayerError);
             plantationsTypeLayer.on('error', this.addLayerError);
             plantationsSpeciesLayer.on('error', this.addLayerError);
+            soyLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
@@ -12671,68 +12792,6 @@ define('map/Finder',[
 	}
 
 })(window, document, define);
-define('map/TCDSlider',[
-  'dojo/on',
-  'map/MapModel',
-  'map/config',
-  'map/LayerController'
-], function (on, MapModel, MapConfig, LayerController) {
-  'use strict';
-
-  var tcdSlider,
-      modal;
-
-  var TCDSliderController = {
-
-    show: function () {
-      var self = this;
-      if (tcdSlider === undefined) {
-        tcdSlider = $('#tcd-density-slider').ionRangeSlider({
-          type: 'double',
-					values: [0, 10, 15, 20, 25, 30, 50, 75, 100],
-          hide_min_max: true,
-					from_min: 1,
-					from_max: 7,
-          to_fixed: true,
-          grid: true,
-          grid_snap: true,
-					from: 5,
-					onFinish: self.change,
-          prettify: function (value) { return value + '%'; }
-				});
-      }
-
-      // Cache the dom query operation
-      modal = $('#tcd-modal');
-      modal.addClass('active');
-      on.once($('#tcd-modal .close-icon')[0], 'click', self.hide);
-    },
-
-    hide: function () {
-      if (modal) { modal.removeClass('active'); }
-    },
-
-    change: function (data) {
-      var value = data.from_value;
-      if (value) {
-        // Update the Value in the Model
-        MapModel.set('tcdDensityValue', data.from_value);
-        LayerController.updateTCDRenderingRule(data.from_value);
-
-        var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
-        var densityRange = [data.from_value, data.to_value];
-        var from = treeCoverLoss.renderingRule.functionArguments.min_year - 2001;
-        var to = treeCoverLoss.renderingRule.functionArguments.max_year - 2001;
-        LayerController.updateLossImageServiceRasterFunction([from, to], MapConfig.loss, densityRange);
-      }
-    }
-
-  };
-
-  return TCDSliderController;
-
-});
-
 /** @jsx React.DOM */
 define('components/Check',[
 	'react',
@@ -13451,10 +13510,6 @@ define('components/AnalysisModal',[
 		// 	this.setState(newProps);
 		// },
 
-    componentDidMount: function () {
-      // debugger todo
-    },
-
     toggleChecked: function () {
 			this.setState({
         checked: !this.state.checked
@@ -13544,7 +13599,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.12',
+                path = './app/templates/' + name + '.html?v=2.4.13',
                 req;
 
             req = new XMLHttpRequest();
@@ -13591,7 +13646,6 @@ define('utils/Loader',[
             // req = new XMLHttpRequest();
             // req.onreadystatechange = function() {
             //     if (req.readyState === 4 && req.status === 200) {
-            //       debugger
             //         deferred.resolve(req);
             //     }
             // };
@@ -14330,7 +14384,6 @@ define('utils/NavListController',[
 
         loadNavView: function (context){
 
-          // debugger
             var state = ioQuery.queryToObject(hash());
             var needsDefaults = true;
             var activeNode;
@@ -14822,23 +14875,22 @@ define('models/HomeModel',[
                 //console.log(AppConfig.homeModeOptions);
 
                 Model.vm.dataSubmit = function(obj, evt) {
-                    debugger
-                }
+                  console.log('dataSubmit');
+                };
                 Model.vm.modeSelect = function(obj, evt) {
                     var eventName = obj.eventName;
                     console.log(obj);
-                    require(["controllers/HomeController"], function(HomeController) {
+                    require(['controllers/HomeController'], function(HomeController) {
                         HomeController.handleModeClick(eventName);
-                    })
-                }
+                    });
+                };
                 Model.vm.dotSelect = function(obj, evt) {
                     //var eventName = obj.eventName;
                     //var id = obj.id;
-                    //debugger;
-                    require(["controllers/HomeController"], function(HomeController) {
+                    require(['controllers/HomeController'], function(HomeController) {
                         HomeController.handleDotClick(obj);
-                    })
-                }
+                    });
+                };
                 // Apply Bindings upon initialization
                 ko.applyBindings(Model.vm, document.getElementById(el));
 
@@ -15091,15 +15143,14 @@ define('controllers/HomeController',[
 });
 
 define('controllers/AboutController',[
-	"dojo/dom",
-    "dojo/query",
-    "dojo/dom-class",
-    "dojo/dom-style",
-	"dijit/registry",
-	"utils/Hasher",
-    "utils/NavListController"
+	'dojo/dom',
+    'dojo/query',
+    'dojo/dom-class',
+    'dojo/dom-style',
+	'dijit/registry',
+	'utils/Hasher',
+    'utils/NavListController'
 ], function (dom, query, domClass, domStyle, registry, Hasher, NavListController) {
-	'use strict';
 
 	var initialized = false;
 
@@ -15108,19 +15159,18 @@ define('controllers/AboutController',[
 		init: function (template) {
 
 			if (initialized) {
-				registry.byId("stackContainer").selectChild("aboutView");
+				registry.byId('stackContainer').selectChild('aboutView');
 				return;
 			}
 
 			initialized = true;
-			registry.byId("stackContainer").selectChild("aboutView");
-			registry.byId("aboutView").set('content', template);
+			registry.byId('stackContainer').selectChild('aboutView');
+			registry.byId('aboutView').set('content', template);
 
-            var context = "about";
+            var context = 'about';
 
             // Hasher.setHash("n", "videos");
 
-            // debugger
 
             NavListController.loadNavControl(context);
             // if (newContext) {
