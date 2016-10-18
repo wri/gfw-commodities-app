@@ -666,16 +666,19 @@ define([
                 }
             });
 
-            if (visibleLayers.length > 0) {
-                legendLayer.setVisibleLayers(visibleLayers);
-                legendLayer.setLayerDrawingOptions(layerOptions);
-                if (!legendLayer.visible) {
-                    legendLayer.show();
-                }
-            } else {
-                legendLayer.hide();
+            if (legendLayer) {
+              if (visibleLayers.length > 0) {
+                  legendLayer.setVisibleLayers(visibleLayers);
+                  legendLayer.setLayerDrawingOptions(layerOptions);
+                  if (!legendLayer.visible) {
+                      legendLayer.show();
+                  }
+              } else {
+                  legendLayer.hide();
+              }
+              registry.byId('legend').refresh();
             }
-            registry.byId('legend').refresh();
+
         },
 
         changeLayerTransparency: function(layerConfig, layerType, transparency) {

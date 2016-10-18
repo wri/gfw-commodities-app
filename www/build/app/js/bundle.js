@@ -1107,7 +1107,7 @@ define('map/config',[], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'forest-and-land-cover-legal-classifications'
             }, {
-                kids: ['oilPerm', 'rspoPerm', 'woodPerm', 'minePerm', 'logPerm'],
+                kids: ['oilPerm', 'rspoPerm', 'woodPerm', 'minePerm', 'logPerm', 'soy'],
                 id: 'newConcessions',
                 title: 'Concessions',
                 filter: 'forest-use',
@@ -1168,6 +1168,7 @@ define('map/config',[], function() {
                 type: 'check',
                 layerType: 'dynamic',
                 forceUnderline: true,
+                parent: 'newConcessions',
                 infoDivClass: 'forest-change-soy'
             }, {
                 kids: ['mill', 'gfwMill'],
@@ -7325,16 +7326,19 @@ define('map/LayerController',[
                 }
             });
 
-            if (visibleLayers.length > 0) {
-                legendLayer.setVisibleLayers(visibleLayers);
-                legendLayer.setLayerDrawingOptions(layerOptions);
-                if (!legendLayer.visible) {
-                    legendLayer.show();
-                }
-            } else {
-                legendLayer.hide();
+            if (legendLayer) {
+              if (visibleLayers.length > 0) {
+                  legendLayer.setVisibleLayers(visibleLayers);
+                  legendLayer.setLayerDrawingOptions(layerOptions);
+                  if (!legendLayer.visible) {
+                      legendLayer.show();
+                  }
+              } else {
+                  legendLayer.hide();
+              }
+              registry.byId('legend').refresh();
             }
-            registry.byId('legend').refresh();
+
         },
 
         changeLayerTransparency: function(layerConfig, layerType, transparency) {
@@ -13599,7 +13603,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.15',
+                path = './app/templates/' + name + '.html?v=2.4.16',
                 req;
 
             req = new XMLHttpRequest();

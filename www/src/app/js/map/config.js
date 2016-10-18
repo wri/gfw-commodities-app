@@ -829,7 +829,7 @@ define([], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'forest-and-land-cover-legal-classifications'
             }, {
-                kids: ['oilPerm', 'rspoPerm', 'woodPerm', 'minePerm', 'logPerm'],
+                kids: ['oilPerm', 'rspoPerm', 'woodPerm', 'minePerm', 'logPerm', 'soy'],
                 id: 'newConcessions',
                 title: 'Concessions',
                 filter: 'forest-use',
@@ -890,6 +890,7 @@ define([], function() {
                 type: 'check',
                 layerType: 'dynamic',
                 forceUnderline: true,
+                parent: 'newConcessions',
                 infoDivClass: 'forest-change-soy'
             }, {
                 kids: ['mill', 'gfwMill'],
