@@ -7591,7 +7591,7 @@ define('components/wizard/WizardCheckbox',[
           ), 
           
             this.props.checked && this.props.value === 'soy' ?
-            React.createElement("span", null, 
+            React.createElement("span", {className: "tcd-percentage-holder"}, 
             React.createElement("span", {className: "tcd-percentage-label"}, "Displaying at "), 
             React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
             React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
@@ -13599,7 +13599,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.13',
+                path = './app/templates/' + name + '.html?v=2.4.14',
                 req;
 
             req = new XMLHttpRequest();
@@ -13646,6 +13646,7 @@ define('utils/Loader',[
             // req = new XMLHttpRequest();
             // req.onreadystatechange = function() {
             //     if (req.readyState === 4 && req.status === 200) {
+            //       debugger
             //         deferred.resolve(req);
             //     }
             // };

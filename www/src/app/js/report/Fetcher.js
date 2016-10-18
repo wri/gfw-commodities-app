@@ -31,10 +31,13 @@ define([
 		'esri/symbols/SimpleFillSymbol',
 		'esri/symbols/SimpleLineSymbol',
 		'esri/symbols/SimpleMarkerSymbol',
+		'esri/layers/RasterFunction',
+		'esri/layers/ImageParameters',
+		'esri/layers/ArcGISImageServiceLayer',
 		'esri/graphic',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, Graphic, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -105,19 +108,69 @@ define([
 									//TODO: Also adda 'soyByYear' layer to the map that they will give us: needs a legend
 									// because each year is a different color!
 
-									var brazilBiomes = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
-										// defaultDefinitionExpression: '1=0',//"name = 'Cerrado'",
-										opacity: .5,
-										visible: true
-									});
-
-									brazilBiomes.setDefinitionExpression("name = 'Cerrado'");
+									// var brazilBiomes = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
+									// 	opacity: .5,
+									// 	visible: true
+									// });
+									//
+									// brazilBiomes.setDefinitionExpression("name = 'Cerrado'");
 
 									// map.addLayer(brazilBiomes);
 
-									// var soyLayer = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer/0', {
-									// 	visible: true
-									// });
+									var soyParams = new ImageParameters();
+									soyParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+									soyParams.format = 'png32';
+
+									var rFunction;
+
+									switch (report.minDensity) {
+										case 10:
+											rFunction = 'soy11.rft';
+											break;
+										case 15:
+											rFunction = 'soy16.rft';
+											break;
+										case 20:
+											rFunction = 'soy21.rft';
+											break;
+										case 25:
+											rFunction = 'soy26.rft';
+											break;
+										case 30:
+											rFunction = 'soy31.rft';
+											break;
+										case 50:
+											rFunction = 'soy51.rft';
+											break;
+										case 75:
+											rFunction = 'soy76.rft';
+											break;
+										default:
+											rFunction = 'soy31.rft';
+									}
+
+									soyParams.renderingRule = new RasterFunction({
+											'rasterFunction': rFunction//,
+											// 'rasterFunctionArguments': {
+											// 		'Colormap': MapConfig.forma.colormap,
+											// 		'Raster': {
+											// 				'rasterFunction': 'Remap',
+											// 				'rasterFunctionArguments': {
+											// 						'InputRanges': MapConfig.forma.defaultRange,
+											// 						'OutputValues': [1],
+											// 						'AllowUnmatched': false
+											// 				}
+											// 		}
+											// },
+											// 'variableName': 'Raster'
+									});
+
+									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
+											imageParameters: soyParams,
+											id: 'soyImageLayer',
+											visible: true
+									});
+									map.addLayer(soyImageLayer);
 
 									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
 										visible: true,
@@ -139,13 +192,8 @@ define([
 									}, 'print-legend');
 									legend.startup();
 
-									// var soyPoly = new Polygon(report.mapGeometry);
-									// var soyGraphic = new Graphic();
-									// soyGraphic.setGeometry(soyPoly);
-									// soyGraphic.setSymbol(Symbols.getPolygonSymbol());
-									// map.graphics.add(soyGraphic);
-
 								}
+
 								graphic = new Graphic();
 								graphic.setGeometry(poly);
 								graphic.setSymbol(Symbols.getPolygonSymbol());
@@ -475,7 +523,7 @@ define([
 						return deferred.promise;
 				},
 
-        getPlantationsSpeciesResults: function() {
+				getPlantationsSpeciesResults: function() {
 						this._debug('Fetcher >>> getPlantationsSpeciesResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.plantationsSpeciesLayer;
@@ -495,7 +543,7 @@ define([
 						return deferred.promise;
 				},
 
-        getPlantationsTypeResults: function() {
+				getPlantationsTypeResults: function() {
 						this._debug('Fetcher >>> getPlantationsTypeResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.plantationsTypeLayer;

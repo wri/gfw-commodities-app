@@ -8,7 +8,7 @@ define([
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.13',
+                path = './app/templates/' + name + '.html?v=2.4.14',
                 req;
 
             req = new XMLHttpRequest();
@@ -55,6 +55,7 @@ define([
             // req = new XMLHttpRequest();
             // req.onreadystatechange = function() {
             //     if (req.readyState === 4 && req.status === 200) {
+            //       debugger
             //         deferred.resolve(req);
             //     }
             // };

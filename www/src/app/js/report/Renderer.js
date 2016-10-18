@@ -285,7 +285,7 @@ define([
           soyPercentage = number.format(soyPercentage);
 
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
-                            '<div>Percent of total area comprised of ' + title + ': ' + soyPercentage + '%</div>' +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + '%</div>' +
                             "<div class='soy-recentness'>Weighted avg of 'Recency' in Soy: <strong>" + soyRecentness + '</strong></div>';
                             //what is nothing? what is JUST soy? what is soy + tree cover loss?
                             //we care about JUST SOY: soy w/o any tree cover loss
