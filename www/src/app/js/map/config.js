@@ -335,7 +335,8 @@ define([], function() {
         soy: {
             id: 'soy',
             url: soyLayerUrl,
-            defaultLayers: [0]
+            defaultLayers: [0],
+            legendLayerId: 23
         },
         fires: {
             id: 'ActiveFires',

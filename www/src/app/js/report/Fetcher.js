@@ -34,10 +34,12 @@ define([
 		'esri/layers/RasterFunction',
 		'esri/layers/ImageParameters',
 		'esri/layers/ArcGISImageServiceLayer',
+		'esri/layers/ArcGISDynamicMapServiceLayer',
+		'esri/layers/LayerDrawingOptions',
 		'esri/graphic',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -105,16 +107,13 @@ define([
 								poly = new Polygon(report.mapGeometry);
 								if (report.datasets.soy) {
 
-									//TODO: Also adda 'soyByYear' layer to the map that they will give us: needs a legend
-									// because each year is a different color!
-
 									// var brazilBiomes = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
 									// 	opacity: .5,
 									// 	visible: true
 									// });
 									//
 									// brazilBiomes.setDefinitionExpression("name = 'Cerrado'");
-
+									//
 									// map.addLayer(brazilBiomes);
 
 									var soyParams = new ImageParameters();
@@ -181,16 +180,43 @@ define([
 									});
 									map.addLayer(soyImageLayer);
 
-									// var printNode = domConstruct.create('div', {
-									// 	id: 'print-legend'
-									// }, dom.byId('print-map'));
+									var legendParams = new ImageParameters();
+									legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+									legendParams.layerIds = [23];
+									legendParams.format = 'png32';
 
-									// var legend = new Legend({
-									// 		map: map,
-									// 		autoUpdate: true,
-									// 		respectCurrentMapScale: true
-									// }, 'print-legend');
-									// legend.startup();
+									var legendLayer = new ArcGISDynamicLayer('http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer', {
+											imageParameters: legendParams,
+											id: 'legendLayer',
+											visible: true
+									});
+
+									// var ldos = new LayerDrawingOptions();
+									// ldos.transparency = 100;
+									// var layerOptions = [], visibleLayers = [];
+									// layerOptions[23] = ldos;
+									// visibleLayers.push(23);
+									//
+									// legendLayer.setVisibleLayers(visibleLayers);
+									// legendLayer.setLayerDrawingOptions(layerOptions);
+
+									map.addLayer(legendLayer);
+
+									var layerInfos = [{
+										layer: legendLayer
+									}];
+
+									var printNode = domConstruct.create('div', {
+										id: 'print-legend'
+									}, dom.byId('print-map'));
+
+									var legend = new Legend({
+											map: map,
+											// autoUpdate: true,
+											layerInfos: layerInfos,
+											respectCurrentMapScale: true
+									}, 'print-legend');
+									legend.startup();
 
 								}
 

@@ -613,7 +613,8 @@ define('map/config',[], function() {
         soy: {
             id: 'soy',
             url: soyLayerUrl,
-            defaultLayers: [0]
+            defaultLayers: [0],
+            legendLayerId: 23
         },
         fires: {
             id: 'ActiveFires',
@@ -13603,7 +13604,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.16',
+                path = './app/templates/' + name + '.html?v=2.4.17',
                 req;
 
             req = new XMLHttpRequest();
