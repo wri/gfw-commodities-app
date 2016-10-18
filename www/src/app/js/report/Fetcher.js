@@ -150,7 +150,7 @@ define([
 									}
 
 									soyParams.renderingRule = new RasterFunction({
-											'rasterFunction': rFunction//,
+											'rasterFunction': rFunction //Colormap,
 											// 'rasterFunctionArguments': {
 											// 		'Colormap': MapConfig.forma.colormap,
 											// 		'Raster': {
@@ -165,6 +165,15 @@ define([
 											// 'variableName': 'Raster'
 									});
 
+									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
+										visible: false,
+										id: 'soy',
+										opacity: .2,
+										visibleLayers: [0]
+									});
+
+									map.addLayer(soyLayer);
+
 									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
 											imageParameters: soyParams,
 											id: 'soyImageLayer',
@@ -172,25 +181,16 @@ define([
 									});
 									map.addLayer(soyImageLayer);
 
-									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
-										visible: true,
-										id: 'soy',
-										opacity: .5,
-										visibleLayers: [0]
-									});
+									// var printNode = domConstruct.create('div', {
+									// 	id: 'print-legend'
+									// }, dom.byId('print-map'));
 
-									map.addLayer(soyLayer);
-
-									var printNode = domConstruct.create('div', {
-										id: 'print-legend'
-									}, dom.byId('print-map'));
-
-									var legend = new Legend({
-											map: map,
-											autoUpdate: true,
-											respectCurrentMapScale: true
-									}, 'print-legend');
-									legend.startup();
+									// var legend = new Legend({
+									// 		map: map,
+									// 		autoUpdate: true,
+									// 		respectCurrentMapScale: true
+									// }, 'print-legend');
+									// legend.startup();
 
 								}
 
