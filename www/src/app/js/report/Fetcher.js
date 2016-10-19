@@ -164,14 +164,14 @@ define([
 											// 'variableName': 'Raster'
 									});
 
-									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
-										visible: false,
-										id: 'soy',
-										opacity: .2,
-										visibleLayers: [0]
-									});
-
-									map.addLayer(soyLayer);
+									// var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
+									// 	visible: false,
+									// 	id: 'soy',
+									// 	opacity: .2,
+									// 	visibleLayers: [0]
+									// });
+									//
+									// map.addLayer(soyLayer);
 
 									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
 											imageParameters: soyParams,
