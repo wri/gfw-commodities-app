@@ -100,9 +100,15 @@ define([
 			// Add this variable to the url to share the status of this drawer
 			if (wizardWidth === 0) {
 				domClass.remove('treecover_change_toolbox', 'compressed');
+				domClass.remove('prodes_toolbox', 'compressed');
+				domClass.remove('forma_toolbox', 'compressed');
+				domClass.remove('guyra_toolbox', 'compressed');
 				Hasher.removeKey('wiz');
 			} else {
 				domClass.add('treecover_change_toolbox', 'compressed');
+				domClass.add('prodes_toolbox', 'compressed');
+				domClass.add('forma_toolbox', 'compressed');
+				domClass.add('guyra_toolbox', 'compressed');
 				Hasher.setHash('wiz', 'open');
 			}
 
