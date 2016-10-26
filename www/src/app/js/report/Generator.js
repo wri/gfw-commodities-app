@@ -222,8 +222,12 @@ define([
             // If we have a single circle, convert to polygon and then continue
             if (areasToAnalyze.length === 1) {
               var area = areasToAnalyze[0];
-
-              if (area.geometry.radius) {
+              if (area.geometry.center && !area.point) {
+                report.geometry = new Polygon(area.geometry);
+                report.centerPoints = [{
+                  geometry: area.geometry.center
+                }];
+              } else if (area.geometry.radius) {
                 poly = new Polygon(sr);
                 poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
@@ -240,7 +244,6 @@ define([
                 report.mills = [area];
               } else if (area.geometry.type === 'polygon') {
                 report.geometry = new Polygon(area.geometry);
-
               }
               this.beginAnalysis();
 
