@@ -2423,7 +2423,7 @@ define('analysis/config',[], function() {
             rspo: {
                 label: 'RSPO Land Use Change Analysis',
                 value: 'rspo',
-                description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.<p>Additional text</p>'
+                description: 'Analyze tree cover loss according to the RSPO compensation procedure and New Planting Procedure guidelines.'
             },
             mill: {
                 label: 'PALM Risk Tool',
@@ -7841,9 +7841,10 @@ define('components/wizard/StepThree',[
                 React.createElement("div", {className: selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden', 
                   style: { 'position': 'relative'}
                 }, 
-                React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
-                React.createElement("p", {className: "layer-description"}, config.mill.description)
-                )
+                  React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
+                  React.createElement("p", {className: "layer-description"}, config.mill.description)
+                ), 
+                React.createElement("p", {className: "layer-description palm-risk"}, React.createElement("a", {href: "http://www.wri.org/publication/palmriskmethodology", target: "_blank"}, "Click here"), " to see the PALM Risk Assessment Methodology technical note")
               )
             ), 
             React.createElement("div", {className: "step-footer"}, 
@@ -10305,9 +10306,15 @@ define('analysis/WizardHelper',[
 			// Add this variable to the url to share the status of this drawer
 			if (wizardWidth === 0) {
 				domClass.remove('treecover_change_toolbox', 'compressed');
+				domClass.remove('prodes_toolbox', 'compressed');
+				domClass.remove('forma_toolbox', 'compressed');
+				domClass.remove('guyra_toolbox', 'compressed');
 				Hasher.removeKey('wiz');
 			} else {
 				domClass.add('treecover_change_toolbox', 'compressed');
+				domClass.add('prodes_toolbox', 'compressed');
+				domClass.add('forma_toolbox', 'compressed');
+				domClass.add('guyra_toolbox', 'compressed');
 				Hasher.setHash('wiz', 'open');
 			}
 
