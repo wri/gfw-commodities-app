@@ -740,6 +740,8 @@ define([
                 });
             }
 
+            console.log(layerOptions);
+
             layer.setLayerDrawingOptions(layerOptions);
 
         },

@@ -23,7 +23,7 @@ define([], function() {
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer',
+        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
@@ -335,8 +335,9 @@ define([], function() {
         soy: {
             id: 'soy',
             url: soyLayerUrl,
-            defaultLayers: [0],
-            legendLayerId: 23
+            defaultLayers: [4],
+            legendLayerId: 23,
+            layerId: 4
         },
         fires: {
             id: 'ActiveFires',

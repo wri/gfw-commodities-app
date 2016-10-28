@@ -301,7 +301,7 @@ define('map/config',[], function() {
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer',
+        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
@@ -613,8 +613,9 @@ define('map/config',[], function() {
         soy: {
             id: 'soy',
             url: soyLayerUrl,
-            defaultLayers: [0],
-            legendLayerId: 23
+            defaultLayers: [4],
+            legendLayerId: 23,
+            layerId: 4
         },
         fires: {
             id: 'ActiveFires',
@@ -7401,6 +7402,8 @@ define('map/LayerController',[
                 });
             }
 
+            console.log(layerOptions);
+
             layer.setLayerDrawingOptions(layerOptions);
 
         },
@@ -11881,8 +11884,6 @@ define('map/Finder',[
                     //         feature.feature.layer = item.layer;
                     //     });
                     // }
-                    console.log(item);
-                    console.log(item.layer);
 
                     switch (item.layer) {
 
@@ -13611,7 +13612,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.17',
+                path = './app/templates/' + name + '.html?v=2.4.18',
                 req;
 
             req = new XMLHttpRequest();

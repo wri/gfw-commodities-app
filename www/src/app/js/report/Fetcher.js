@@ -124,61 +124,54 @@ define([
 
 									switch (report.minDensity) {
 										case 10:
-											rFunction = 'soy11.rft';
+											rFunction = 'soy11';
 											break;
 										case 15:
-											rFunction = 'soy16.rft';
+											rFunction = 'soy16';
 											break;
 										case 20:
-											rFunction = 'soy21.rft';
+											rFunction = 'soy21';
 											break;
 										case 25:
-											rFunction = 'soy26.rft';
+											rFunction = 'soy26';
 											break;
 										case 30:
-											rFunction = 'soy31.rft';
+											rFunction = 'soy31';
 											break;
 										case 50:
-											rFunction = 'soy51.rft';
+											rFunction = 'soy51';
 											break;
 										case 75:
-											rFunction = 'soy76.rft';
+											rFunction = 'soy76';
 											break;
 										default:
-											rFunction = 'soy31.rft';
+											rFunction = 'soy31';
 									}
 
-									soyParams.renderingRule = new RasterFunction({
-											'rasterFunction': rFunction //Colormap,
-											// 'rasterFunctionArguments': {
-											// 		'Colormap': MapConfig.forma.colormap,
-											// 		'Raster': {
-											// 				'rasterFunction': 'Remap',
-											// 				'rasterFunctionArguments': {
-											// 						'InputRanges': MapConfig.forma.defaultRange,
-											// 						'OutputValues': [1],
-											// 						'AllowUnmatched': false
-											// 				}
-											// 		}
-											// },
-											// 'variableName': 'Raster'
+									var soyRenderingRule = new RasterFunction();
+									soyRenderingRule.functionName = rFunction;
+									// soyRenderingRule.functionArguments = {
+									// 	'Raster': '$$'  //apply Remap to the image service
+									// };
+
+									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer', {
+										visible: true,
+										id: 'soy',
+										opacity: .4,
+										visibleLayers: [4]
 									});
 
-									// var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/Soy/Soy_1314_Final/MapServer', {
-									// 	visible: false,
-									// 	id: 'soy',
-									// 	opacity: .2,
-									// 	visibleLayers: [0]
-									// });
-									//
-									// map.addLayer(soyLayer);
+									map.addLayer(soyLayer);
 
 									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
 											imageParameters: soyParams,
 											id: 'soyImageLayer',
 											visible: true
 									});
+									soyImageLayer.setRenderingRule(soyRenderingRule);
 									map.addLayer(soyImageLayer);
+
+									console.log('soyImageLayer', soyImageLayer);
 
 									var legendParams = new ImageParameters();
 									legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
