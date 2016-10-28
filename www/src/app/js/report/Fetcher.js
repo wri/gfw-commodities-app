@@ -154,8 +154,14 @@ define([
 									// 	'Raster': '$$'  //apply Remap to the image service
 									// };
 
+									var soyDynamicParams = new ImageParameters();
+									soyDynamicParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+									soyDynamicParams.layerIds = [4];
+									// soyDynamicParams.format = 'png32';
+
 									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer', {
 										visible: true,
+										imageParameters: soyDynamicParams,
 										id: 'soy',
 										opacity: .4,
 										visibleLayers: [4]
