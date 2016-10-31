@@ -2619,6 +2619,7 @@ define('analysis/config',[], function() {
             removedCustomFeatures: 'removedCustomFeatures',
             selectedCustomFeatures: 'selectedCustomFeatures',
             selectedPresetFeature: 'selectedPresetFeature',
+            currentTreeCoverDensity: 'currentTreeCoverDensity',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
@@ -3079,7 +3080,7 @@ function (declare, AppConfig, MapConfig, ko) {
   });
 
   Model.get = function (item) {
-    return item === "model" ? Model.vm : Model.vm[item]();
+    return item === 'model' ? Model.vm : Model.vm[item]();
   };
 
   Model.set = function (item, value) {
@@ -4766,6 +4767,14 @@ define('actions/WizardActions',[
     },
 
     /**
+    * Clear the selected features list
+    */
+    setTreeCoverDensity: function (density) {
+      console.log(density);
+      Store.set(KEYS.currentTreeCoverDensity, density);
+    },
+
+    /**
     * Move on to the next step in the wizard
     */
     proceedToNextStep: function () {
@@ -4843,7 +4852,6 @@ define('components/wizard/StepOne',[
     componentDidMount: function () {
       // Set the default value in the store
 			var aoi = WizardStore.get(KEYS.areaOfInterest);
-			console.log(aoi);
 
 			if (!aoi) {
 				WizardActions.setAreaOfInterest(option1.id);
@@ -7470,12 +7478,15 @@ define('map/TCDSlider',[
   'dojo/on',
   'map/MapModel',
   'map/config',
-  'map/LayerController'
-], function (on, MapModel, MapConfig, LayerController) {
+  'map/LayerController',
+  'actions/WizardActions',
+  'analysis/config'
+], function (on, MapModel, MapConfig, LayerController, WizardActions, AnalyzerConfig) {
   'use strict';
 
   var tcdSlider,
-      modal;
+      modal,
+      KEYS = AnalyzerConfig.STORE_KEYS;
 
   var TCDSliderController = {
 
@@ -7514,6 +7525,10 @@ define('map/TCDSlider',[
         MapModel.set('tcdDensityValue', data.from_value);
         LayerController.updateTCDRenderingRule(data.from_value);
 
+        // Update value in Wizard
+
+        WizardActions.setTreeCoverDensity(data.from_value);
+
         var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
         var densityRange = [data.from_value, data.to_value];
         var from = treeCoverLoss.renderingRule.functionArguments.min_year - 2001;
@@ -7534,8 +7549,12 @@ define('components/wizard/WizardCheckbox',[
   'knockout',
   'map/TCDSlider',
   'map/MapModel',
+  'analysis/config',
+  'analysis/WizardStore',
   'dojo/topic'
-], function (React, ko, TCDSlider, MapModel, topic) {
+], function (React, ko, TCDSlider, MapModel, AnalyzerConfig, WizardStore, topic) {
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   return React.createClass({
 
@@ -7546,10 +7565,20 @@ define('components/wizard/WizardCheckbox',[
     componentDidMount: function () {
 
 			if (this.props.value === 'soy') {
-				console.log(MapModel.get('model'));
         this.model = MapModel.get('model');
 			}
 
+      WizardStore.registerCallback(KEYS.currentTreeCoverDensity, this.tcdUpdated);
+
+    },
+
+
+    tcdUpdated: function () {
+      var aoi = WizardStore.get(KEYS.currentTreeCoverDensity);
+      if (this.props.value === 'soy') {
+        console.log(aoi);
+        this.setState(this.state);
+      }
     },
 
     // componentWillReceiveProps: function(newProps) {
@@ -7583,7 +7612,7 @@ define('components/wizard/WizardCheckbox',[
 
       if (this.props.value === 'soy' && this.model) {
         tcdDensityValue = this.model.tcdDensityValue();
-      } //todo: we need to re-render this every time we change the density slider!
+      }
 
       return (
         React.createElement("div", {className: "wizard-checkbox-container"}, 
@@ -7622,7 +7651,6 @@ define('components/wizard/WizardCheckbox',[
     },
 
     showInfo: function() {
-      console.log(this.props.value);
 
       switch (this.props.value) {
         case 'peat':
@@ -7686,7 +7714,6 @@ define('components/wizard/WizardCheckbox',[
           this.props.infoDivClass = 'forest-change-tree-cover-change';
           break;
       }
-      console.log(this.props.infoDivClass);
 
       if (document.getElementsByClassName(this.props.infoDivClass).length) {
         topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
@@ -7755,8 +7782,7 @@ define('components/wizard/StepThree',[
         var aoi = WizardStore.get(KEYS.areaOfInterest);
         var checkedValues = this.state.forestChangeCheckbox.slice();
         config.checkboxes.some(function(checkbox) {
-          if(aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
-            console.log(this);
+          if (aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
             checkedValues.push(checkbox.value);
             this.setState({forestChangeCheckbox: checkedValues});
             return true;
@@ -7807,6 +7833,10 @@ define('components/wizard/StepThree',[
       render: function() {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        if (!selectedFeatures) {
+          console.log(WizardStore);
+          debugger
+        }
         var optionsExpanded = this.state.optionsExpanded;
         var checkedValues = this.state.forestChangeCheckbox;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
@@ -10156,6 +10186,7 @@ define('components/wizard/Wizard',[
 
             return areaOfInterest === 'millPointOption' ? id : undefined;
           }
+          console.log(features);
 
           features.forEach(function (feature) {
             var pointToPush;
