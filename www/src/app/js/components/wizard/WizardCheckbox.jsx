@@ -4,8 +4,12 @@ define([
   'knockout',
   'map/TCDSlider',
   'map/MapModel',
+  'analysis/config',
+  'analysis/WizardStore',
   'dojo/topic'
-], function (React, ko, TCDSlider, MapModel, topic) {
+], function (React, ko, TCDSlider, MapModel, AnalyzerConfig, WizardStore, topic) {
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   return React.createClass({
 
@@ -16,10 +20,20 @@ define([
     componentDidMount: function () {
 
 			if (this.props.value === 'soy') {
-				console.log(MapModel.get('model'));
         this.model = MapModel.get('model');
 			}
 
+      WizardStore.registerCallback(KEYS.currentTreeCoverDensity, this.tcdUpdated);
+
+    },
+
+
+    tcdUpdated: function () {
+      var aoi = WizardStore.get(KEYS.currentTreeCoverDensity);
+      if (this.props.value === 'soy') {
+        console.log(aoi);
+        this.setState(this.state);
+      }
     },
 
     // componentWillReceiveProps: function(newProps) {
@@ -53,7 +67,7 @@ define([
 
       if (this.props.value === 'soy' && this.model) {
         tcdDensityValue = this.model.tcdDensityValue();
-      } //todo: we need to re-render this every time we change the density slider!
+      }
 
       return (
         <div className='wizard-checkbox-container'>
@@ -92,7 +106,6 @@ define([
     },
 
     showInfo: function() {
-      console.log(this.props.value);
 
       switch (this.props.value) {
         case 'peat':
@@ -156,7 +169,6 @@ define([
           this.props.infoDivClass = 'forest-change-tree-cover-change';
           break;
       }
-      console.log(this.props.infoDivClass);
 
       if (document.getElementsByClassName(this.props.infoDivClass).length) {
         topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);

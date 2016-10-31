@@ -295,6 +295,7 @@ define([
 
             return areaOfInterest === 'millPointOption' ? id : undefined;
           }
+          console.log(features);
 
           features.forEach(function (feature) {
             var pointToPush;

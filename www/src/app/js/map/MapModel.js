@@ -56,7 +56,7 @@ function (declare, AppConfig, MapConfig, ko) {
   });
 
   Model.get = function (item) {
-    return item === "model" ? Model.vm : Model.vm[item]();
+    return item === 'model' ? Model.vm : Model.vm[item]();
   };
 
   Model.set = function (item, value) {

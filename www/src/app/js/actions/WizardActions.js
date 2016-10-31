@@ -65,6 +65,14 @@ define([
     },
 
     /**
+    * Clear the selected features list
+    */
+    setTreeCoverDensity: function (density) {
+      console.log(density);
+      Store.set(KEYS.currentTreeCoverDensity, density);
+    },
+
+    /**
     * Move on to the next step in the wizard
     */
     proceedToNextStep: function () {

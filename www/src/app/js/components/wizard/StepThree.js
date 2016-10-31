@@ -53,8 +53,7 @@ define([
         var aoi = WizardStore.get(KEYS.areaOfInterest);
         var checkedValues = this.state.forestChangeCheckbox.slice();
         config.checkboxes.some(function(checkbox) {
-          if(aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
-            console.log(this);
+          if (aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
             checkedValues.push(checkbox.value);
             this.setState({forestChangeCheckbox: checkedValues});
             return true;
@@ -105,6 +104,10 @@ define([
       render: function() {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+        if (!selectedFeatures) {
+          console.log(WizardStore);
+          debugger
+        }
         var optionsExpanded = this.state.optionsExpanded;
         var checkedValues = this.state.forestChangeCheckbox;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {

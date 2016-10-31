@@ -50,7 +50,6 @@ define([
     componentDidMount: function () {
       // Set the default value in the store
 			var aoi = WizardStore.get(KEYS.areaOfInterest);
-			console.log(aoi);
 
 			if (!aoi) {
 				WizardActions.setAreaOfInterest(option1.id);
