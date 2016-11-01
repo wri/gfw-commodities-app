@@ -745,6 +745,10 @@ define([
 						// ReportRenderer.renderCompositionAnalysisLoader(config);
 
 						function success(response) {
+							console.log(response.histograms);
+							// TODO: Our computeHistogram call to the analysis ImageServer is responding w/ an array length of
+							// only 3, where before we had ~16; each year of data and the noData value. Since we need to count
+							// every year of data up for their 'Recency' formula, this is breaking that calculation.
 								if (response.histograms.length > 0) {
 										ReportRenderer.renderSoyData(response.histograms[0].counts, content.pixelSize, config, self.soyGeom);
 										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);

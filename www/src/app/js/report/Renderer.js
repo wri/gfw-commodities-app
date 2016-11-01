@@ -215,8 +215,8 @@ define([
 
       downloadButton = "<button id='mill-download' class='mill-download-button' title='Download csv'></button>";
       node.id = config.rootNode;
-      node.className = "result-container relative";
-      node.innerHTML = "<div class='title'>" + config.title + downloadButton + "</div>" +
+      node.className = 'result-container relative';
+      node.innerHTML = "<div class='title'>" + config.title + downloadButton + '</div>' +
           "<div id='mill-overall-container'></div>" +
           "<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
 
@@ -260,6 +260,7 @@ define([
 
           var soyD = histogramData.slice(1);
           console.log(histogramData);
+          console.log('soyD', soyD);
 
           var soyNumerator = 0;
 
@@ -276,8 +277,10 @@ define([
 
           var noData = histogramData[0];
           var soyPercentage = noData / report.area;
+          console.log('soyHectares', soyHectares);
+          console.log('soyNumerator', soyNumerator);
+          console.log('soyRecentness', soyRecentness);
 
-          console.log('soyPercentage', soyPercentage);
           console.log('noData', noData);
           console.log('reportArea', report.area);
 
@@ -287,8 +290,6 @@ define([
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of area converted prior to 2001: ' + soyPercentage + '%</div>' +
                             "<div class='soy-recentness'>Weighted avg of 'Recency' in Soy: <strong>" + soyRecentness + '</strong></div>';
-                            //what is nothing? what is JUST soy? what is soy + tree cover loss?
-                            //we care about JUST SOY: soy w/o any tree cover loss
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
