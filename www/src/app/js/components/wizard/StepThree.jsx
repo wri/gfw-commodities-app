@@ -145,6 +145,7 @@ define([
                 <WizardCheckbox label={config.mill.label} value={config.mill.value} checked={checkedValues.indexOf(config.mill.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
                 <p className='layer-description'>{config.mill.description}</p>
                 </div>
+                <p className='layer-description palm-risk'><a href='http://www.wri.org/publication/palmriskmethodology' target='_blank'>Click here</a> to see the PALM Risk Assessment Methodology technical note</p>
               </div>
             </div>
             <div className='step-footer'>
