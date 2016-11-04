@@ -483,6 +483,7 @@ define('map/config',[], function() {
           'conservation-protected-areas': 'wdpa_protected_areas',
           'conservation-biodiversity-hotspots': 'biodiversity_hotspots',
           'suitability-soy-layer': 'tree_cover_loss',
+          'forest-change-soy': 'agrosatelite_cerrado_soy_layer_1314',
           'suitability-custom-suitability-mapper': 'tree_cover_loss',
           'suitability-wri-standard-suitability': 'idn_suitability',
           'suitability-conservation-areas': 'idn_conservation_areas',
