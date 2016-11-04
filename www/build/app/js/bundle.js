@@ -6934,7 +6934,8 @@ define('components/wizard/StepThree',[
                 }, 
                 React.createElement(WizardCheckbox, {label: config.mill.label, value: config.mill.value, checked: checkedValues.indexOf(config.mill.value) > -1, change: this._selectionMade, isResetting: this.props.isResetting, noInfoIcon: true}), 
                 React.createElement("p", {className: "layer-description"}, config.mill.description)
-                )
+                ), 
+                React.createElement("p", {className: "layer-description palm-risk"}, React.createElement("a", {href: "http://www.wri.org/publication/palmriskmethodology", target: "_blank"}, "Click here"), " to see the PALM Risk Assessment Methodology technical note")
               )
             ), 
             React.createElement("div", {className: "step-footer"}, 
@@ -10195,8 +10196,16 @@ define('analysis/WizardHelper',[
 
 			// Add this variable to the url to share the status of this drawer
 			if (wizardWidth === 0) {
+				domClass.remove('treecover_change_toolbox', 'compressed');
+				domClass.remove('prodes_toolbox', 'compressed');
+				domClass.remove('forma_toolbox', 'compressed');
+				domClass.remove('guyra_toolbox', 'compressed');
 				Hasher.removeKey('wiz');
 			} else {
+				domClass.add('treecover_change_toolbox', 'compressed');
+				domClass.add('prodes_toolbox', 'compressed');
+				domClass.add('forma_toolbox', 'compressed');
+				domClass.add('guyra_toolbox', 'compressed');
 				Hasher.setHash('wiz', 'open');
 			}
 
@@ -13544,7 +13553,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.13',
+                path = './app/templates/' + name + '.html?v=2.4.14',
                 req;
 
             req = new XMLHttpRequest();
