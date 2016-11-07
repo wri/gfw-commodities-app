@@ -272,7 +272,7 @@ define([
                 style: 'width: 300px; text-align: center;'
             });
             var self = this;
-            var content = '<p>To sign up for tree clearance or fire alerts go to the <span id="goToMapFromDialog">Map</span>, turn on a data layer from the Forest Use or Conservation drop-down tabs, select an area on the map, and click "Subscribe".</p>';
+            var content = '<p>To sign up for fire alerts go to the <span id="goToMapFromDialog">Map</span>, turn on a data layer from the Forest Use or Conservation drop-down tabs, select an area on the map, and click "Subscribe".</p>';
 
             this.dialog2.setContent(content);
 

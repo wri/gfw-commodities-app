@@ -85,7 +85,7 @@ define([
           
             this.props.checked && this.props.value === 'soy' ?
             React.createElement("span", {className: "tcd-percentage-holder"}, 
-            React.createElement("span", {className: "tcd-percentage-label"}, "Analyzing at "), 
+            React.createElement("span", {className: "tcd-percentage-label"}, "Analyze at "), 
             React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
             React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
           

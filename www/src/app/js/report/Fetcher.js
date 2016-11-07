@@ -100,7 +100,8 @@ define([
 
 								scalebar = new Scalebar({
 										map: map,
-										scalebarUnit: 'metric'
+										scalebarUnit: 'metric',
+										attachTo: 'bottom-center'
 								});
 
 								// Simplify this as multiparts and others may not display properly
@@ -203,6 +204,8 @@ define([
 
 									var layerInfos = [{
 										layer: legendLayer
+									}, {
+										layer: soyLayer
 									}];
 
 									var printNode = domConstruct.create('div', {
