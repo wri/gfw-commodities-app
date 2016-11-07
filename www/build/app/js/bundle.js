@@ -1136,6 +1136,16 @@ define('map/config',[], function() {
                 infoDivClass: 'land-use-rspo-consessions',
                 parent: 'newConcessions'
             }, {
+                id: 'soy',
+                title: 'Soy layer',
+                subtitle: '(Brazil Cerrado, 2013/2014 crop, 30m, Agrosatélite)',
+                filter: 'forest-use',
+                type: 'check',
+                layerType: 'dynamic',
+                forceUnderline: true,
+                parent: 'newConcessions',
+                infoDivClass: 'forest-change-soy'
+            }, {
                 id: 'logPerm',
                 title: 'Wood Fiber',
                 subtitle: '(varies, select countries)',
@@ -1163,16 +1173,6 @@ define('map/config',[], function() {
                 infoDivClass: 'land-use-logging',
                 parent: 'newConcessions',
                 endChild: true
-            }, {
-                id: 'soy',
-                title: 'Soy layer',
-                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
-                filter: 'forest-use',
-                type: 'check',
-                layerType: 'dynamic',
-                forceUnderline: true,
-                parent: 'newConcessions',
-                infoDivClass: 'forest-change-soy'
             }, {
                 kids: ['mill', 'gfwMill'],
                 id: 'newInfrastructure',
@@ -2404,7 +2404,7 @@ define('analysis/config',[], function() {
                 value: 'plantationsSpeciesLayer',
                 checked: false
             }, {
-                label: 'Soy Lands',
+                label: 'Soy on Tree Cover Loss',
                 value: 'soy',
                 checked: false
             // }, {
@@ -2473,7 +2473,7 @@ define('analysis/config',[], function() {
                 label: 'Peat Lands',
                 value: 'peat'
             }, {
-                label: 'Soy Lands',
+                label: 'Soy on Tree Cover Loss',
                 value: 'soy'
             }]
         },
@@ -7630,7 +7630,7 @@ define('components/wizard/WizardCheckbox',[
           
             this.props.checked && this.props.value === 'soy' ?
             React.createElement("span", {className: "tcd-percentage-holder"}, 
-            React.createElement("span", {className: "tcd-percentage-label"}, "Displaying at "), 
+            React.createElement("span", {className: "tcd-percentage-label"}, "Analyzing at "), 
             React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
             React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
           
@@ -13644,7 +13644,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.19',
+                path = './app/templates/' + name + '.html?v=2.4.20',
                 req;
 
             req = new XMLHttpRequest();
