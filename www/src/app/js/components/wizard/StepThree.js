@@ -216,7 +216,7 @@ define([
         }
 
         var completed = this._checkRequirements();
-        let oldCompleted = this.state.completed;
+        var oldCompleted = this.state.completed;
         if (oldCompleted !== completed) {
           this.setState({ completed: completed });
         }
@@ -255,24 +255,12 @@ define([
       _checkRequirements: function() {
         var result = false,
           nodes = $('.select-analysis .wizard-checkbox.active');
-          // selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest),
-          // value;
 
         // Conditions
         // At least One item must be checked
         // If more than one item is checked, we pass
         if (nodes.length > 0) {
-          // if (nodes.length > 1) {
           result = true;
-          // } else {
-          //     // nodes === 1
-          //     value = nodes[0].dataset ? nodes[0].dataset.value : nodes[0].getAttribute('data-value');
-          //     // if (selectedAreaOfInterest !== 'millPointOption' && value === 'mill') {
-          //     //     // This Fails, result is already false so do nothing
-          //     // } else {
-          //         result = true;
-          //     // }
-          // } // millPoint is back in as a viable Analysis Layer, hence the check removal
         }
 
         return result;
