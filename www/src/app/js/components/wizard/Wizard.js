@@ -261,7 +261,7 @@ define([
             }
 
             // Emit Event for Analytics
-            Analytics.sendEvent('Event', 'Perform Analysis', 'User clicked perfrom analysis.');
+            Analytics.sendEvent('Event', 'Perform Analysis', 'User clicked perform analysis.');
 
             //- Create a list of types selected
             var checkboxes = AnalyzerConfig.stepThree.checkboxes;

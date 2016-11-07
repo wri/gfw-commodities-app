@@ -6,8 +6,9 @@ define([
   'map/MapModel',
   'analysis/config',
   'analysis/WizardStore',
-  'dojo/topic'
-], function (React, ko, TCDSlider, MapModel, AnalyzerConfig, WizardStore, topic) {
+  'dojo/topic',
+  'utils/Analytics'
+], function (React, ko, TCDSlider, MapModel, AnalyzerConfig, WizardStore, topic, Analytics) {
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
 
@@ -98,7 +99,8 @@ define([
       if (this.props.value === 'soy') {
         TCDSlider.hide();
       }
-      // this.setState({ active: !this.state.active });
+      // Emit Event for Analytics
+      Analytics.sendEvent('Event', 'Analysis Toggle', 'User toggled analysis for the ' + this.props.value + 'layer.');
     },
 
     showSoySlider: function() {
