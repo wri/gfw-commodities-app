@@ -214,11 +214,11 @@ define([
           }
           this.setState({forestChangeCheckbox: a});
         }
-        var completed = this._checkRequirements();
-        let oldCompleted = this.state.completed;
-        if (oldCompleted !== completed) {
-          this.setState({ completed: completed });
-        }
+        // var completed = this._checkRequirements();
+        // let oldCompleted = this.state.completed;
+        // if (oldCompleted !== completed) {
+        //   this.setState({ completed: completed });
+        // }
       },
 
       toggleFca: function(currentChecked) {
