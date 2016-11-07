@@ -84,7 +84,7 @@ define([
           {
             this.props.checked && this.props.value === 'soy' ?
             <span className='tcd-percentage-holder'>
-            <span className='tcd-percentage-label'>Displaying at </span>
+            <span className='tcd-percentage-label'>Analyzing at </span>
             <span className='tcd-percentage-button' onClick={this.showSoySlider}>{tcdDensityValue}</span>
             <span className='tcd-percentage-label'> density</span></span> : null
           }

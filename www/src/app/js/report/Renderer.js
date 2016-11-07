@@ -262,6 +262,7 @@ define([
           console.log(histogramData);
           console.log('soyD', soyD);
 
+
           var soyNumerator = 0;
 
           for (var i = 1; i < 15; i++) {
@@ -273,7 +274,7 @@ define([
           var soyDenominator = 14 * soyHectares;
           var soyRecentness = soyNumerator / soyDenominator;
 
-          soyRecentness = number.format(soyRecentness);
+          soyRecentness = soyRecentness.toFixed(2);
 
           var noData = histogramData[0];
           var soyPercentage = noData / report.area;
@@ -285,11 +286,11 @@ define([
           console.log('reportArea', report.area);
 
           soyPercentage = soyPercentage * 100;
-          soyPercentage = number.format(soyPercentage);
+          soyPercentage = Math.round(soyPercentage);
 
-          node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
+          node.innerHTML = '<div>Tree canopy density: ' + report.minDensity + '<div> Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of area converted prior to 2001: ' + soyPercentage + '%</div>' +
-                            "<div class='soy-recentness'>Weighted avg of 'Recency' in Soy: <strong>" + soyRecentness + '</strong></div>';
+                            "<div class='soy-recentness'>Recent Loss Index: <strong>" + soyRecentness + '</strong></div>';
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';

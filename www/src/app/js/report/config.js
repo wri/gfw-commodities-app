@@ -810,7 +810,7 @@ define([], function() {
 
         soy: {
             rootNode: 'soy',
-            title: 'Soy',
+            title: 'Soy on Tree Cover Loss',
             rasterId: '$566',
             bounds: soyBounds,
             labels: soyLabels,
@@ -854,7 +854,7 @@ define([], function() {
           },
 
             lossChart: {
-                title: 'Annual Tree Cover Loss (in hectares) on Soy Lands',
+                title: '2013-2014 Cerrado Soy (in hectares) on 2001 – 2013 Annual Tree Cover Loss',
                 removeBelowYear: 2002
             },
             compositionAnalysis: {

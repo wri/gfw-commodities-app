@@ -182,7 +182,7 @@ define([], function() {
                 value: 'plantationsSpeciesLayer',
                 checked: false
             }, {
-                label: 'Soy Lands',
+                label: 'Soy on Tree Cover Loss',
                 value: 'soy',
                 checked: false
             // }, {
@@ -251,7 +251,7 @@ define([], function() {
                 label: 'Peat Lands',
                 value: 'peat'
             }, {
-                label: 'Soy Lands',
+                label: 'Soy on Tree Cover Loss',
                 value: 'soy'
             }]
         },

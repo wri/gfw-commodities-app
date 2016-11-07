@@ -858,6 +858,16 @@ define([], function() {
                 infoDivClass: 'land-use-rspo-consessions',
                 parent: 'newConcessions'
             }, {
+                id: 'soy',
+                title: 'Soy layer',
+                subtitle: '(Brazil Cerrado, 2013/2014 crop, 30m, Agrosatélite)',
+                filter: 'forest-use',
+                type: 'check',
+                layerType: 'dynamic',
+                forceUnderline: true,
+                parent: 'newConcessions',
+                infoDivClass: 'forest-change-soy'
+            }, {
                 id: 'logPerm',
                 title: 'Wood Fiber',
                 subtitle: '(varies, select countries)',
@@ -885,16 +895,6 @@ define([], function() {
                 infoDivClass: 'land-use-logging',
                 parent: 'newConcessions',
                 endChild: true
-            }, {
-                id: 'soy',
-                title: 'Soy layer',
-                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
-                filter: 'forest-use',
-                type: 'check',
-                layerType: 'dynamic',
-                forceUnderline: true,
-                parent: 'newConcessions',
-                infoDivClass: 'forest-change-soy'
             }, {
                 kids: ['mill', 'gfwMill'],
                 id: 'newInfrastructure',
