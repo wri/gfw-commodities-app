@@ -65,13 +65,13 @@ define([], function() {
         },
         calendars: [
           {
-            selectedDate: new window.Kalendae.moment('01/01/2015'),
+            selectedDate: '01/01/2015', //new window.Kalendae.moment('01/01/2015'),
             domId: 'gladCalendarStart',
             domClass: 'glad-calendar',
             method: 'changeGladStart'
           },
           {
-            selectedDate: new window.Kalendae.moment(),
+            // selectedDate: '', //new window.Kalendae.moment(),
             domId: 'gladCalendarEnd',
             domClass: 'glad-calendar',
             method: 'changeGladEnd'
@@ -364,8 +364,6 @@ define([], function() {
               [1, 255, 102, 153]
             ],
             outputValues: [0, 1, 0],
-            // startDate: new window.Kalendae.moment('01/01/2015'),
-            // endDate: new window.Kalendae.moment()//,
             toolsNode: 'glad_toolbox'
         },
         tcd: {

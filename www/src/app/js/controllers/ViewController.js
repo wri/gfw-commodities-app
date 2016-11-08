@@ -27,6 +27,8 @@ define([
             // Initialize Header, Footer, and defaultView
             self.load('header', function(template) {
                 Header.init(template);
+                console.log('init');
+                console.log(defaultView);
                 // second parameter signifies the view is not external, always false in this case
                 Header.updateView(defaultView, false);
                 self.load(defaultView);
