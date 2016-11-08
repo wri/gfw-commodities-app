@@ -203,9 +203,9 @@ define([
 									map.addLayer(legendLayer);
 
 									var layerInfos = [{
-										layer: legendLayer
-									}, {
 										layer: soyLayer
+									}, {
+										layer: legendLayer
 									}];
 
 									var printNode = domConstruct.create('div', {
@@ -251,7 +251,7 @@ define([
 								window.map = map;
 
 								map.graphics.add(graphic);
-								map.setExtent(graphic.geometry.getExtent().expand(3), true);
+								map.setExtent(graphic.geometry.getExtent().expand(1), true);
 						}
 
 						map = new Map('print-map', {

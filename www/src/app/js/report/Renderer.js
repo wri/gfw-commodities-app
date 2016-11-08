@@ -288,9 +288,9 @@ define([
           soyPercentage = soyPercentage * 100;
           soyPercentage = Math.round(soyPercentage);
 
-          node.innerHTML = '<div>Tree canopy density: ' + report.minDensity + '<div> Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
-                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + '%</div>' +
-                            "<div class='soy-recentness'>Recent Loss Index: <strong>" + soyRecentness + '</strong></div>';
+          node.innerHTML = '<div><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total ' + title + ' in selected area: ' + areaLabel + " ha <i><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>What's this?</a></i></div>" +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <i><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>What's this?</a></i></div>" +
+                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <i><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>What's this?</a></i></div>";
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';

@@ -854,7 +854,7 @@ define([], function() {
           },
 
             lossChart: {
-                title: '2013-2014 Cerrado Soy (in hectares) on 2001 – 2013 Annual Tree Cover Loss',
+                title: '2013-2014 Cerrado Soy (in hectares) on <br>2001–2013 Annual Tree Cover Loss',
                 removeBelowYear: 2002
             },
             compositionAnalysis: {
