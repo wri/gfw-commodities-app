@@ -857,7 +857,7 @@ define([], function() {
                 parent: 'newConcessions'
             }, {
                 id: 'soy',
-                title: 'Soy layer',
+                title: 'Soy in Cerrado Biome',
                 subtitle: '(Brazil Cerrado, 2013/2014 crop, 30m, Agrosatélite)',
                 filter: 'forest-use',
                 type: 'check',

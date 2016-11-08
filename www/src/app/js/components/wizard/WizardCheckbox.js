@@ -108,6 +108,7 @@ define([
     },
 
     showInfo: function() {
+      console.log(this.props.value);
 
       switch (this.props.value) {
         case 'peat':
@@ -169,6 +170,9 @@ define([
           break;
         case 'treeCoverLoss':
           this.props.infoDivClass = 'forest-change-tree-cover-change';
+          break;
+        case 'soy':
+          this.props.infoDivClass = 'forest-change-soy';
           break;
       }
 
