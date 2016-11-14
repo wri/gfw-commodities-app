@@ -288,6 +288,7 @@ define([
                 id: MapConfig.soy.id,
                 visible: false
             });
+            console.log('soyLayer', soyLayer);
 
             legendParams = new ImageParameters();
             legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;

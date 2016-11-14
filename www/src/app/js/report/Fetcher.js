@@ -160,12 +160,12 @@ define([
 									soyDynamicParams.layerIds = [4];
 									// soyDynamicParams.format = 'png32';
 
-									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer', {
+									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/cached/soy_cached/MapServer', {
 										visible: true,
 										imageParameters: soyDynamicParams,
 										id: 'soy',
 										opacity: .4,
-										visibleLayers: [4]
+										visibleLayers: [0]
 									});
 
 									map.addLayer(soyLayer);
@@ -203,7 +203,8 @@ define([
 									map.addLayer(legendLayer);
 
 									var layerInfos = [{
-										layer: soyLayer
+										layer: soyLayer,
+										title: 'luke'
 									}, {
 										layer: legendLayer
 									}];
@@ -219,6 +220,8 @@ define([
 											respectCurrentMapScale: true
 									}, 'print-legend');
 									legend.startup();
+
+									legend.refresh([{layer: soyLayer, title: 'Homeland Security'}]);
 
 								}
 
