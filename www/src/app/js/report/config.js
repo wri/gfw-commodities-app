@@ -99,9 +99,9 @@ define([], function() {
         peatLandsColors = ['#161D9C'];
 
     // Soy
-    var soyBounds = [1, 14],
-        soyLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
-        soyColors = ['#d89827', '#26fc79', '#b1e3fc', '#fdffb6', '#000', '#d89827', '#5fa965', '#161D9C', '#eeb368', '#c7ffb6', '#fca0bf', '#538996', '#745b37', '#65a2f8'];
+    var soyBounds = [1, 13],
+        soyLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013],
+        soyColors = ['#d89827', '#26fc79', '#b1e3fc', '#fdffb6', '#000', '#d89827', '#5fa965', '#161D9C', '#eeb368', '#c7ffb6', '#fca0bf', '#538996', '#745b37'];
 
     var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Secondary forest', 'Primary forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Swamp', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice'],
         lcGlobalBounds = [1, 11],
@@ -864,7 +864,7 @@ define([], function() {
             colors: soyColors,
             fireKey: 'soy', // Key to the Fires Config for items related to this
             errors: {
-                composition: 'No soy land detected in this area according to indonesia soy data.'
+                composition: 'No Soy on Tree Cover Loss detected in this area.'
             }
         },
 

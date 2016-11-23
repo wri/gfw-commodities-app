@@ -180,16 +180,18 @@ define([
 
 									console.log('soyImageLayer', soyImageLayer);
 
-									var legendParams = new ImageParameters();
-									legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-									legendParams.layerIds = [23];
-									legendParams.format = 'png32';
+									$('#print-map-legend-soy').removeClass('hidden');
 
-									var legendLayer = new ArcGISDynamicLayer('http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer', {
-											imageParameters: legendParams,
-											id: 'legendLayer',
-											visible: true
-									});
+									// var legendParams = new ImageParameters();
+									// legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+									// legendParams.layerIds = [23];
+									// legendParams.format = 'png32';
+									//
+									// var legendLayer = new ArcGISDynamicLayer('http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer', {
+									// 		imageParameters: legendParams,
+									// 		id: 'legendLayer',
+									// 		visible: true
+									// });
 
 									// var ldos = new LayerDrawingOptions();
 									// ldos.transparency = 100;
@@ -200,28 +202,28 @@ define([
 									// legendLayer.setVisibleLayers(visibleLayers);
 									// legendLayer.setLayerDrawingOptions(layerOptions);
 
-									map.addLayer(legendLayer);
-
-									var layerInfos = [{
-										layer: soyLayer,
-										title: 'luke'
-									}, {
-										layer: legendLayer
-									}];
-
-									var printNode = domConstruct.create('div', {
-										id: 'print-legend'
-									}, dom.byId('print-map'));
-
-									var legend = new Legend({
-											map: map,
-											// autoUpdate: true,
-											layerInfos: layerInfos,
-											respectCurrentMapScale: true
-									}, 'print-legend');
-									legend.startup();
-
-									legend.refresh([{layer: soyLayer, title: 'Homeland Security'}]);
+									// map.addLayer(legendLayer);
+									//
+									// var layerInfos = [{
+									// 	layer: soyLayer,
+									// 	title: 'luke'
+									// }, {
+									// 	layer: legendLayer
+									// }];
+									//
+									// var printNode = domConstruct.create('div', {
+									// 	id: 'print-legend'
+									// }, dom.byId('print-map'));
+									//
+									// var legend = new Legend({
+									// 		map: map,
+									// 		// autoUpdate: true,
+									// 		layerInfos: layerInfos,
+									// 		respectCurrentMapScale: true
+									// }, 'print-legend');
+									// legend.startup();
+									//
+									// legend.refresh([{layer: soyLayer, title: 'Homeland Security'}]);
 
 								}
 
@@ -751,7 +753,6 @@ define([
 						// ReportRenderer.renderCompositionAnalysisLoader(config);
 
 						function success(response) {
-							console.log(response.histograms);
 							// TODO: Our computeHistogram call to the analysis ImageServer is responding w/ an array length of
 							// only 3, where before we had ~16; each year of data and the noData value. Since we need to count
 							// every year of data up for their 'Recency' formula, this is breaking that calculation.

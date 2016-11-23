@@ -257,15 +257,13 @@ define([
         node.className = 'composition-analysis-container';
 
         if (config.rootNode === 'soy') {
-
           var soyD = histogramData.slice(1);
           console.log(histogramData);
           console.log('soyD', soyD);
 
-
           var soyNumerator = 0;
 
-          for (var i = 1; i < 15; i++) {
+          for (var i = 1; i < 14; i++) {
             soyNumerator += (soyD[i - 1] * i);
           }
 
@@ -288,9 +286,9 @@ define([
           soyPercentage = soyPercentage * 100;
           soyPercentage = Math.round(soyPercentage);
 
-          node.innerHTML = '<div><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total ' + title + ' in selected area: ' + areaLabel + " ha <i><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>What's this?</a></i></div>" +
-                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <i><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>What's this?</a></i></div>" +
-                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <i><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>What's this?</a></i></div>";
+          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total ' + title + ' in selected area: ' + areaLabel + " ha <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>?</a></span></div>" +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>?</a></span></div>" +
+                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>?</a></span></div>";
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
