@@ -264,7 +264,9 @@ define([
           var soyNumerator = 0;
 
           for (var i = 1; i < 14; i++) {
-            soyNumerator += (soyD[i - 1] * i);
+            if (soyD[i - 1] !== 0) {
+              soyNumerator += (soyD[i - 1] * i);
+            }
           }
 
           var soyHectares = area;
