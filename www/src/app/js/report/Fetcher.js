@@ -157,7 +157,7 @@ define([
 
 									var soyDynamicParams = new ImageParameters();
 									soyDynamicParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-									soyDynamicParams.layerIds = [4];
+									soyDynamicParams.layerIds = [0];
 									// soyDynamicParams.format = 'png32';
 
 									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/cached/soy_cached/MapServer', {
@@ -169,6 +169,20 @@ define([
 									});
 
 									map.addLayer(soyLayer);
+
+									var soyCloseParams = new ImageParameters();
+									soyCloseParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+									soyCloseParams.layerIds = [4];
+
+									var soyCloseUp = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer', {
+										visible: true,
+										imageParameters: soyCloseParams,
+										id: 'soy-close-up',
+										opacity: .4,
+										visibleLayers: [4]
+									});
+									console.log('soyCloseUp', soyCloseUp);
+									map.addLayer(soyCloseUp);
 
 									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
 											imageParameters: soyParams,
@@ -735,7 +749,6 @@ define([
 								}
 
 								var renderingRule = JSON.stringify(renderConfig);
-								console.log(renderingRule);
 
 								var content = {
 										geometryType: 'esriGeometryPolygon',

@@ -258,13 +258,13 @@ define([
 
         if (config.rootNode === 'soy') {
           var soyD = histogramData.slice(1);
-          console.log(histogramData);
+          // console.log(histogramData);
           console.log('soyD', soyD);
 
           var soyNumerator = 0;
 
           for (var i = 1; i < 14; i++) {
-            if (soyD[i - 1] !== 0) {
+            if (soyD[i - 1]) {
               soyNumerator += (soyD[i - 1] * i);
             }
           }
@@ -278,19 +278,19 @@ define([
 
           var noData = histogramData[0];
           var soyPercentage = noData / report.area;
-          console.log('soyHectares', soyHectares);
+          // console.log('soyHectares', soyHectares);
           console.log('soyNumerator', soyNumerator);
           console.log('soyRecentness', soyRecentness);
 
-          console.log('noData', noData);
-          console.log('reportArea', report.area);
+          // console.log('noData', noData);
+          // console.log('reportArea', report.area);
 
           soyPercentage = soyPercentage * 100;
           soyPercentage = Math.round(soyPercentage);
 
-          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total ' + title + ' in selected area: ' + areaLabel + " ha <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>?</a></span></div>" +
-                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>?</a></span></div>" +
-                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'>?</a></span></div>";
+          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' + areaLabel + " ha <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>" +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "%<span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>" +
+                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>";
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
