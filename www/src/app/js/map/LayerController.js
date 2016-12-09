@@ -82,10 +82,24 @@ define([
             if (layer) {
 
                 if (visibleLayers.length > 0) {
+                  if (conf.id === 'soy') {
+                     var soyCloseUp = app.map.getLayer('soyCloseUp');
+                     var closeUpConfig = MapConfig['soyCloseUp'];
+
+                     var zoom = app.map.getZoom();
+                     if (zoom > 10) {
+                       soyCloseUp.setVisibleLayers([closeUpConfig.defaultLayers[0]]);
+                       soyCloseUp.show();
+                     }
+                   }
                     layer.setVisibleLayers(visibleLayers);
                     layer.show();
                 } else {
                     layer.hide();
+                    if (conf.id === 'soy') {
+                      var soyCloseUp = app.map.getLayer('soyCloseUp');
+                      soyCloseUp.hide();
+                    }
                 }
                 this.refreshLegendWidget();
             }
@@ -572,10 +586,13 @@ define([
             var protectedAreaConfig = MapConfig.pal,
                 protectedAreaHelperConfig = MapConfig.palHelper,
                 gainLayerConfig = MapConfig.gain,
-                gainHelperConfig = MapConfig.gainHelper;
+                gainHelperConfig = MapConfig.gainHelper,
+                soyLayerConfig = MapConfig.soy,
+                soyCloseUpConfig = MapConfig.soyCloseUp;
 
             this.toggleZoomDependentLayer(evt, protectedAreaConfig, protectedAreaHelperConfig, 6);
             this.toggleZoomDependentLayer(evt, gainLayerConfig, gainHelperConfig, 13);
+            this.toggleZoomDependentLayer(evt, soyLayerConfig, soyCloseUpConfig, 10);
         },
 
         toggleZoomDependentLayer: function(evt, tiledConfig, helperConfig, level) {
@@ -595,6 +612,9 @@ define([
             }
 
             if (app.map.getLevel() > level) {
+                if (helperConfig.layerId) {
+                  helperLayer.setVisibleLayers([helperConfig.layerId]);
+                }
                 helperLayer.show();
                 mainLayer.hide();
             } else {
