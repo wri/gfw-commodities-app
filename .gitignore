@@ -13,3 +13,4 @@ www/src/app/css/*.css
 *.swp
 .htaccess
 reference
+/vendor/
