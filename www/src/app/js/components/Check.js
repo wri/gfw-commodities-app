@@ -29,7 +29,7 @@ define([
 			if (active) {
 				this.setState({ active: active });
 
-				if (this.props.useRadioCallback || this.props.id === 'suit') {
+				if (this.props.useRadioCallback || this.props.id === 'suit' || this.props.id === 'soy') {
 					topic.publish('toggleLayer', this.props.id);
 				} else {
 					// Call these functions on the next animation frame to give React time

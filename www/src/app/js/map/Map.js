@@ -180,7 +180,6 @@ define([
                 plantationsSpeciesLayer,
                 plantationsSpeciesParams,
                 soyLayer,
-                soyCloseUp,
                 soyParams,
                 legendLayer,
                 legendParams,
@@ -284,14 +283,9 @@ define([
             soyParams.layerIds = MapConfig.soy.defaultLayers;
             soyParams.format = 'png32';
 
-            soyLayer = new ArcGISDynamicLayer(MapConfig.soy.url, {
-                imageParameters: soyParams,
+            soyLayer = new ArcGISImageServiceLayer(MapConfig.soy.url, {
+                // imageParameters: soyParams,
                 id: MapConfig.soy.id,
-                visible: false
-            });
-            soyCloseUp = new ArcGISDynamicLayer(MapConfig.soyCloseUp.url, {
-                imageParameters: soyParams,
-                id: MapConfig.soyCloseUp.id,
                 visible: false
             });
 
@@ -666,7 +660,6 @@ define([
                 gainHelperLayer,
                 granChacoLayer,
                 soyLayer,
-                soyCloseUp,
                 // Points Layers
                 firesLayer,
                 plantationsTypeLayer,
@@ -705,7 +698,6 @@ define([
             plantationsTypeLayer.on('error', this.addLayerError);
             plantationsSpeciesLayer.on('error', this.addLayerError);
             soyLayer.on('error', this.addLayerError);
-            soyCloseUp.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
