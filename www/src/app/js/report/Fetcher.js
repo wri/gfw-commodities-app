@@ -106,16 +106,8 @@ define([
 
 								// Simplify this as multiparts and others may not display properly
 								poly = new Polygon(report.mapGeometry);
-								if (report.datasets.soy) {
 
-									// var brazilBiomes = new FeatureLayer('http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer/9', {
-									// 	opacity: .5,
-									// 	visible: true
-									// });
-									//
-									// brazilBiomes.setDefinitionExpression("name = 'Cerrado'");
-									//
-									// map.addLayer(brazilBiomes);
+								if (report.datasets.soy) {
 
 									var soyParams = new ImageParameters();
 									soyParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
@@ -151,38 +143,15 @@ define([
 
 									var soyRenderingRule = new RasterFunction();
 									soyRenderingRule.functionName = rFunction;
-									// soyRenderingRule.functionArguments = {
-									// 	'Raster': '$$'  //apply Remap to the image service
-									// };
 
-									var soyDynamicParams = new ImageParameters();
-									soyDynamicParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-									soyDynamicParams.layerIds = [0];
-									// soyDynamicParams.format = 'png32';
-
-									var soyLayer = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/cached/soy_cached/MapServer', {
-										visible: true,
-										imageParameters: soyDynamicParams,
-										id: 'soy',
-										opacity: .4,
-										visibleLayers: [0]
+									var soyVizLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer', {
+											imageParameters: soyParams,
+											id: 'soyVizLayer',
+											opacity: .4,
+											visible: true
 									});
 
-									map.addLayer(soyLayer);
-
-									var soyCloseParams = new ImageParameters();
-									soyCloseParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-									soyCloseParams.layerIds = [4];
-
-									var soyCloseUp = new ArcGISDynamicMapServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer', {
-										visible: true,
-										imageParameters: soyCloseParams,
-										id: 'soy-close-up',
-										opacity: .4,
-										visibleLayers: [4]
-									});
-									console.log('soyCloseUp', soyCloseUp);
-									map.addLayer(soyCloseUp);
+									map.addLayer(soyVizLayer);
 
 									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
 											imageParameters: soyParams,
@@ -192,52 +161,7 @@ define([
 									soyImageLayer.setRenderingRule(soyRenderingRule);
 									map.addLayer(soyImageLayer);
 
-									console.log('soyImageLayer', soyImageLayer);
-
-									$('#print-map-legend-soy').removeClass('hidden');
-
-									// var legendParams = new ImageParameters();
-									// legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
-									// legendParams.layerIds = [23];
-									// legendParams.format = 'png32';
-									//
-									// var legendLayer = new ArcGISDynamicLayer('http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer', {
-									// 		imageParameters: legendParams,
-									// 		id: 'legendLayer',
-									// 		visible: true
-									// });
-
-									// var ldos = new LayerDrawingOptions();
-									// ldos.transparency = 100;
-									// var layerOptions = [], visibleLayers = [];
-									// layerOptions[23] = ldos;
-									// visibleLayers.push(23);
-									//
-									// legendLayer.setVisibleLayers(visibleLayers);
-									// legendLayer.setLayerDrawingOptions(layerOptions);
-
-									// map.addLayer(legendLayer);
-									//
-									// var layerInfos = [{
-									// 	layer: soyLayer,
-									// 	title: 'luke'
-									// }, {
-									// 	layer: legendLayer
-									// }];
-									//
-									// var printNode = domConstruct.create('div', {
-									// 	id: 'print-legend'
-									// }, dom.byId('print-map'));
-									//
-									// var legend = new Legend({
-									// 		map: map,
-									// 		// autoUpdate: true,
-									// 		layerInfos: layerInfos,
-									// 		respectCurrentMapScale: true
-									// }, 'print-legend');
-									// legend.startup();
-									//
-									// legend.refresh([{layer: soyLayer, title: 'Homeland Security'}]);
+									$('#print-map-legend-soy-img').removeClass('hidden');
 
 								}
 
@@ -261,7 +185,6 @@ define([
 										}
 
 										pointGraphic.setGeometry(pointGeom);
-										// pointGraphic.setSymbol(Symbols.getPointSymbol());
 										pointGraphic.setSymbol(pointSymbol);
 
 										map.graphics.add(pointGraphic);
@@ -738,11 +661,9 @@ define([
 						var deferred = new Deferred(),
 								config = ReportConfig.soy,
 								self = this,
-								url = ReportConfig.imageServiceUrl;
-								// encoder = this._getEncodingFunction(config.soyBounds, config.bounds),
-								// renderingRule = encoder.render(ReportConfig.soy.rasterId, config.soy),
+								url = ReportConfig.imageServiceUrl,
+								soyCalcUrl = ReportConfig.soyCalcUrl;
 								var renderConfig = config.renderingRule;
-
 
 								if (report.minDensity) {
 									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 100];
@@ -753,7 +674,6 @@ define([
 								var content = {
 										geometryType: 'esriGeometryPolygon',
 										geometry: JSON.stringify(report.geometry),
-										// renderingRule: renderingRule,
 										renderingRule: renderingRule,
 										pixelSize: ReportConfig.pixelSize,
 										f: 'json'
@@ -761,9 +681,15 @@ define([
 
 								self.soyGeom = report.geometry;
 
+								var soyAreaContent = {
+										geometryType: 'esriGeometryPolygon',
+										geometry: JSON.stringify(report.geometry),
+										pixelSize: ReportConfig.pixelSize,
+										f: 'json'
+								};
+
 						// Create the container for all the result
 						ReportRenderer.renderSoyContainer(config);
-						// ReportRenderer.renderCompositionAnalysisLoader(config);
 
 						function success(response) {
 							// TODO: Our computeHistogram call to the analysis ImageServer is responding w/ an array length of
@@ -771,7 +697,7 @@ define([
 							// every year of data up for their 'Recency' formula, this is breaking that calculation.
 								if (response.histograms.length > 0) {
 										ReportRenderer.renderSoyData(response.histograms[0].counts, content.pixelSize, config, self.soyGeom);
-										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config, self.soyAreaResult);
 								} else {
 										ReportRenderer.renderAsUnavailable('soy', config);
 								}
@@ -798,24 +724,53 @@ define([
 								}
 						}
 
-						this._computeHistogram(url, content, success, failure);
+						function soyAreaFailure(error) {
+								console.log('error:', error);
+								self._computeHistogram(url, content, success, failure);
+						}
+
+						function soyAreaSuccess(response) {
+								console.log(response);
+								if (response.histograms.length > 0) {
+										self.soyAreaResult = response.histograms[0].counts;
+										self._computeHistogram(url, content, success, failure);
+								} else {
+										self._computeHistogram(url, content, success, failure);
+								}
+						}
+
+						// this._computeHistogram(url, content, success, failure);
+						this._computeHistogram(soyCalcUrl, soyAreaContent, soyAreaSuccess, soyAreaFailure);
 
 						return deferred.promise;
 
-						// // Create the container for all the results
-						// // Add this config to Fires so the Fires request knows to add data here
-						// ReportRenderer.renderContainers(config);
-						// _fireQueriesToRender.push(config);
 						//
-						// // true below as 2nd param means use simplified rendering rule, encoder.getSimpleRule
+						//
+						// // This query is only temporary until moratorium data is added to the main layer above
+						// // This needs to be addressed so this code can be removed
+						// task2 = new QueryTask('http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
+						// params2 = new Query();
+						// params2.geometry = polygon;
+						// params2.returnGeometry = false;
+						// params2.outFields = ['moratorium'];
+						// time.setDate(time.getDate() - 8);
+						// dateString = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' +
+						// 		time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+						// params2.where = 'ACQ_DATE > date \'' + dateString + '\'';
+						//
 						// all([
-						// 		this._getTotalLossAnalysis(config, true),
-						// 		this._getClearanceAlertAnalysis(config, true)
-						// ]).then(function() {
+						// 		task1.execute(params1),
+						// 		task2.execute(params2)
+						// ]).then(function(results) {
+						// 		ReportRenderer.renderFireData(_fireQueriesToRender, results);
 						// 		deferred.resolve(true);
 						// });
 						//
-						// return deferred.promise;
+						// // Handle the possibility of these functions both erroring out
+						// task1.on('error', function() {
+						// 		deferred.resolve(false);
+						// });
+
 				},
 
 				getRSPOResults: function() {
@@ -948,7 +903,7 @@ define([
 											var polys = [];
 
 											// var unionedGeom;
-											// debugger
+
 
 											// var unionedGeom = new Polygon(report.geometry.rings[0], new SpatialReference(54012));
 
