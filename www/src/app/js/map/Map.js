@@ -366,9 +366,6 @@ define([
                 opacity: 1
             });
 
-            console.log(MapConfig.gladAlerts.defaultStartRange);
-            console.log(MapConfig.gladAlerts.defaultEndRange);
-
             gladParams = new ImageServiceParameters();
             // gladParams.interpolation = 'RSP_NearestNeighbor';
             gladParams.renderingRule = new RasterFunction({

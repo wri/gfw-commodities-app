@@ -337,7 +337,7 @@ define([], function() {
             id: 'soy',
             url: soyLayerUrl,
             // defaultLayers: [0],
-            legendLayerId: 23
+            legendLayerId: 25
             // layerId: 0
         },
         fires: {

@@ -645,11 +645,14 @@ define([
                 biomassConf = MapConfig.tfcs,
                 primForConf = MapConfig.primForest,
                 suitConf = MapConfig.suit,
-                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, prodesConf, biomassConf, primForConf, suitConf],
+                soyConfig = MapConfig.soy,
+                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, prodesConf, biomassConf, primForConf, suitConf, soyConfig],
                 visibleLayers = [],
                 layerOptions = [],
                 layer,
                 ldos;
+
+                console.log(legendLayer);
 
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.

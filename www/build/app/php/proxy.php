@@ -517,9 +517,6 @@ class Proxy {
     public function setResponseBody()
     {
 
-        $this->proxyLog->log($this->contentLength);
-        $this->proxyLog->log('seppp');
-        $this->proxyLog->log($this->responseClone);
         $this->proxyBody = substr($this->responseClone, $this->contentLength);
 
     }
@@ -1045,8 +1042,6 @@ class Proxy {
 
     public function proxyGet($url) {
 
-        $this->proxyLog->log($url);
-
         $this->response = null;
 
         //If $url is not set, use the $this->proxyUrlWithData as the $url
@@ -1065,26 +1060,14 @@ class Proxy {
 
             curl_setopt($this->ch, CURLOPT_URL, $url);
 
-            $this->proxyLog->log($url);
-
             $this->response = curl_exec($this->ch);
-
-            $this->proxyLog->log("..");
-
-            $this->proxyLog->log(json_decode($response));
-
-            $this->proxyLog->log("...");
 
             $this->responseClone = $this->response;
 
             $this->contentLength = curl_getinfo($this->ch,CURLINFO_HEADER_SIZE);
 
-
-            // throw new Exception('Custom Exception');
-
             if(curl_errno($this->ch) > 0 || empty($this->response))
             {
-                $this->proxyLog->log('curlError!!');
                 $this->curlError();
 
             }else{
@@ -1380,13 +1363,9 @@ class Proxy {
             'password' => getenv($this->resource['password'])
         ));
 
-
-
         $tokenResponse = json_decode($this->proxyBody, true);
 
         $token = $tokenResponse['token'];
-
-        $this->proxyLog->log($token);
 
         return $token;
     }
@@ -2032,12 +2011,11 @@ class RateMeter
     {
         if(isset($this->con))
         {
-            $this->proxyLog->log('No need for a connection, we already are');
             return $this->con;
 
         }else{
 
-            $this->proxyLog->log('Cannot get a connection --> this is the getConnection error!');
+            $this->proxyLog->log('Cannot get a connection');
 
             header('Status: 200', true, 200);
 

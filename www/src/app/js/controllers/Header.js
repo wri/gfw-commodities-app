@@ -159,7 +159,6 @@ define([
             },
 
         updateView: function(view, isExternal, initialized) {
-          console.log(view);
 
             if (isExternal === "true") {
                 this.redirectPage(view);
