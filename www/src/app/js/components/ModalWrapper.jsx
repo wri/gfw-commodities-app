@@ -23,7 +23,7 @@ define([
           <div title='close' className='modal-close close-icon pointer' onClick={this.close}>
             <svg dangerouslySetInnerHTML={{ __html: closeSvg }}/>
           </div>
-          <div className='modal-wrapper custom-scroll has-footer'>
+          <div className={`modal-wrapper custom-scroll ${(this.props.children && this.props.children[0]) || !this.props.downloadData ? '' : 'has-footer'}`}>
             {this.props.children}
             {(this.props.children && this.props.children[0]) || !this.props.downloadData ? null :
               <div className='modal-footer'>

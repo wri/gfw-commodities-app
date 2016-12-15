@@ -14,10 +14,9 @@ define([
       return ({
         layerInfo: {}
       });
-
     },
 
-    componentWillReceiveProps: function (newProps, oldProps) {
+    componentWillReceiveProps: function (newProps) {
 			this.setState(newProps);
 		},
 
@@ -31,11 +30,6 @@ define([
       if (this.state.layerInfo && this.state.layerInfo.download_data) {
         downloadData = this.state.layerInfo.download_data;
       }
-      console.log(this.state);
-      console.log(layerInfo);
-      console.log(downloadData);
-      // //downloadData={this.state.downloadData}
-      // debugger
 
       return (
           <ModalWrapper downloadData={downloadData}>

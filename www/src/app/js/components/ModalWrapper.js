@@ -23,7 +23,7 @@ define([
           React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
             React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
           ), 
-          React.createElement("div", {className: "modal-wrapper custom-scroll has-footer"}, 
+          React.createElement("div", {className: ("modal-wrapper custom-scroll " + ((this.props.children && this.props.children[0]) || !this.props.downloadData ? '' : 'has-footer'))}, 
             this.props.children, 
             (this.props.children && this.props.children[0]) || !this.props.downloadData ? null :
               React.createElement("div", {className: "modal-footer"}, 

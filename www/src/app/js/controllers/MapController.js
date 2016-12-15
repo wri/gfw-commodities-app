@@ -534,7 +534,6 @@ define([
         toggleItemInLayerListOff: function() {
 
           var mapLayer = map.map.getLayer('forestUse_landUse');
-          console.log(mapLayer);
 
           if (mapLayer.visible === true) {
             if (mapLayer.visibleLayers.indexOf(0) > -1) {
@@ -568,19 +567,10 @@ define([
             y = number.round(extent.getCenter().y, 2);
             var l = map.map.getLevel();
 
-            // Hasher.setHash('x', x);
-            // Hasher.setHash('y', y);
-            // Hasher.setHash('l', 5);
-            //var newState = HashController.newState;
-            //console.log(Hasher.getHash());
             var state = Hasher.getHash();
 
-            // Hasher.toggleLayers('tcc');
-            // Hasher.toggleLayers('loss');
-
-
             var centerChangeByUrl = ((parseFloat(state.x) !== x) || (parseFloat(state.y) !== y) || (parseInt(state.l) !== l));
-            //console.log(centerChangeByUrl + ' ' + state.y + " " + state.x);
+
             if (centerChangeByUrl) {
                 //o.mapExtentPausable.pause();
                 // on.once(map.map, "extent-change", function() {
@@ -603,7 +593,7 @@ define([
             } else {
 
                 infoPanelClass = MapConfig.metadataIds[infoPanelClass];
-                console.log(infoPanelClass);
+
                 if (dataDivLoaded) {
 
                     var metadata = layerData[infoPanelClass];
