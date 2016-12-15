@@ -25,11 +25,13 @@ define([
           ), 
           React.createElement("div", {className: "modal-wrapper custom-scroll has-footer"}, 
             this.props.children, 
-            React.createElement("div", {className: "modal-footer"}, 
-              React.createElement("div", {className: "m-btncontainer is-center"}, 
-                React.createElement("a", {href: "http://earthenginepartners.appspot.com/science-2013-global-forest", target: "_blank", className: "btn green uppercase download-mobile-link"}, "Learn more or download data")
+            (this.props.children && this.props.children[0]) || !this.props.downloadData ? null :
+              React.createElement("div", {className: "modal-footer"}, 
+                React.createElement("div", {className: "m-btncontainer is-center"}, 
+                  React.createElement("a", {href: this.props.downloadData, onClick: this.sendDownloadAnalytics, target: "_blank", className: "btn green uppercase download-mobile-link"}, "Learn more or download data")
+                )
               )
-            )
+            
           )
         )
       )
