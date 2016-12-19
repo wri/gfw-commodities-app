@@ -260,20 +260,22 @@ define([
         if (config.rootNode === 'soy') {
 
           var soyD = histogramData.slice(1);
-          // console.log(histogramData);
           console.log('soyD', soyD);
 
           var soyNumerator = 0;
+          var totalSoyLoss = 0;
 
           for (var i = 1; i < 14; i++) {
             if (soyD[i - 1]) {
+              totalSoyLoss += soyD[i - 1];
+              // console.log('function when i=' + i + ': ' + soyD[i - 1] + ' * ' + i);
               soyNumerator += (soyD[i - 1] * i);
             }
           }
 
           var soyHectares = area;
 
-          var soyDenominator = 14 * soyHectares;
+          var soyDenominator = 13 * soyHectares;
           var soyRecentness = soyNumerator / soyDenominator;
 
           soyRecentness = soyRecentness.toFixed(2);
@@ -285,10 +287,17 @@ define([
           // console.log('soyRecentness', soyRecentness);
 
           // console.log('noData', noData);
-          // console.log('reportArea', report.area);
+
 
           soyPercentage = soyPercentage * 100;
           soyPercentage = Math.round(soyPercentage);
+
+          //We need total soy in area, subtract from that all soy from 2001-2014. Then percentage
+          // then divided by total soy in selected area
+
+
+          // Percent % converted prior to 2001:
+          // [total Ha of soy – sum total soy loss (2001-2013, Ha)] / (total ha of soy)
 
           if (soyAreaResult) {
 
@@ -299,13 +308,22 @@ define([
 
             soyAreaResult = (soyAreaResult.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
             areaLabel = number.format(soyAreaResult);
+            console.log('soyAreaResult', soyAreaResult);
+            console.log('totalSoyLoss', totalSoyLoss);
+
+            console.log('(' + soyAreaResult + ' - ' + totalSoyLoss + ') / ' + soyAreaResult);
+
+            soyPercentage = (soyAreaResult - totalSoyLoss) / soyAreaResult;
+            soyPercentage = soyPercentage * 100;
+            soyPercentage = Math.round(soyPercentage);
           }
 
           //<span class='layer-info-icon-report'></span></div>" +
+          // ha<span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>" +
 
-          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' + areaLabel + " ha<span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>" +
-                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "%<span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>" +
-                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>";
+          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' + areaLabel + " ha <a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
+                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><span class='layer-info-icon-report'></span></a></div>";
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
@@ -656,7 +674,12 @@ define([
         }
       }
 
+      if (series && series[0] && series[0].data && series[0].data.length === 14) {
+        series[0].data.pop(); //Removing the 2014 data from the chart
+      }
+
       $('#' + config.rootNode + '_soy').highcharts({
+        tooltip: { enabled: false },
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
