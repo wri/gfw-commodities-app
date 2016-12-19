@@ -239,6 +239,7 @@ define([
           percentage,
           area;
 
+
       if (compositionConfig.histogramSlice) {
         area = histogramData.slice(compositionConfig.histogramSlice);
       }
@@ -268,13 +269,17 @@ define([
           for (var i = 1; i < 14; i++) {
             if (soyD[i - 1]) {
               totalSoyLoss += soyD[i - 1];
-              // console.log('function when i=' + i + ': ' + soyD[i - 1] + ' * ' + i);
+              // console.log('when i=' + i + ': ' + soyD[i - 1] + ' * ' + i);
               soyNumerator += (soyD[i - 1] * i);
             }
           }
 
-          var soyHectares = area;
+          var soyHectares = (soyAreaResult.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
+          // console.log('soyHectares', soyHectares);
+          // console.log('totalSoyLoss', totalSoyLoss);
 
+          // console.log('soyDenominator: 13 * ' + soyHectares );
+          // console.log('soyNumerator: ' + soyNumerator );
           var soyDenominator = 13 * soyHectares;
           var soyRecentness = soyNumerator / soyDenominator;
 
@@ -285,8 +290,6 @@ define([
           // console.log('soyHectares', soyHectares);
           // console.log('soyNumerator', soyNumerator);
           // console.log('soyRecentness', soyRecentness);
-
-          // console.log('noData', noData);
 
 
           soyPercentage = soyPercentage * 100;
@@ -308,10 +311,10 @@ define([
 
             soyAreaResult = (soyAreaResult.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
             areaLabel = number.format(soyAreaResult);
-            console.log('soyAreaResult', soyAreaResult);
-            console.log('totalSoyLoss', totalSoyLoss);
-
-            console.log('(' + soyAreaResult + ' - ' + totalSoyLoss + ') / ' + soyAreaResult);
+            // console.log('soyAreaResult', soyAreaResult);
+            // console.log('totalSoyLoss', totalSoyLoss);
+            //
+            // console.log('(' + soyAreaResult + ' - ' + totalSoyLoss + ') / ' + soyAreaResult);
 
             soyPercentage = (soyAreaResult - totalSoyLoss) / soyAreaResult;
             soyPercentage = soyPercentage * 100;
