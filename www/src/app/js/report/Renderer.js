@@ -324,9 +324,9 @@ define([
           //<span class='layer-info-icon-report'></span></div>" +
           // ha<span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>" +
 
-          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' + areaLabel + " ha <a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
-                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
-                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><span class='layer-info-icon-report'></span></a></div>";
+          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' + areaLabel + " ha <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
+                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><span class='layer-info-icon-report'></span></a></div>";
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
