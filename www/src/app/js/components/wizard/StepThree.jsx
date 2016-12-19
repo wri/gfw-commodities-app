@@ -217,6 +217,7 @@ define([
           }
           this.setState({forestChangeCheckbox: a});
         }
+
         var completed = this._checkRequirements();
         var oldCompleted = this.state.completed;
         if (oldCompleted !== completed) {
