@@ -104,10 +104,7 @@ define([
       render: function() {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
-        if (!selectedFeatures) {
-          console.log(WizardStore);
-          debugger
-        }
+
         var optionsExpanded = this.state.optionsExpanded;
         var checkedValues = this.state.forestChangeCheckbox;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
