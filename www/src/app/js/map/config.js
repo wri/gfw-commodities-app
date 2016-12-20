@@ -861,7 +861,7 @@ define([], function() {
                 subtitle: '(Brazil Cerrado, 2013/2014 crop, 30m, Agrosatélite)',
                 filter: 'forest-use',
                 type: 'check',
-                layerType: 'dynamic',
+                layerType: 'image',
                 forceUnderline: true,
                 parent: 'newConcessions',
                 infoDivClass: 'forest-change-soy'

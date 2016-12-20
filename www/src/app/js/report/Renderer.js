@@ -261,7 +261,6 @@ define([
         if (config.rootNode === 'soy') {
 
           var soyD = histogramData.slice(1);
-          console.log('soyD', soyD);
 
           var soyNumerator = 0;
           var totalSoyLoss = 0;
@@ -269,17 +268,12 @@ define([
           for (var i = 1; i < 14; i++) {
             if (soyD[i - 1]) {
               totalSoyLoss += soyD[i - 1];
-              // console.log('when i=' + i + ': ' + soyD[i - 1] + ' * ' + i);
               soyNumerator += (soyD[i - 1] * i);
             }
           }
 
           var soyHectares = (soyAreaResult.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
-          // console.log('soyHectares', soyHectares);
-          // console.log('totalSoyLoss', totalSoyLoss);
 
-          // console.log('soyDenominator: 13 * ' + soyHectares );
-          // console.log('soyNumerator: ' + soyNumerator );
           var soyDenominator = 13 * soyHectares;
           var soyRecentness = soyNumerator / soyDenominator;
 
@@ -287,20 +281,9 @@ define([
 
           var noData = histogramData[0];
           var soyPercentage = noData / report.area;
-          // console.log('soyHectares', soyHectares);
-          // console.log('soyNumerator', soyNumerator);
-          // console.log('soyRecentness', soyRecentness);
-
 
           soyPercentage = soyPercentage * 100;
           soyPercentage = Math.round(soyPercentage);
-
-          //We need total soy in area, subtract from that all soy from 2001-2014. Then percentage
-          // then divided by total soy in selected area
-
-
-          // Percent % converted prior to 2001:
-          // [total Ha of soy – sum total soy loss (2001-2013, Ha)] / (total ha of soy)
 
           if (soyAreaResult) {
 
@@ -311,22 +294,16 @@ define([
 
             soyAreaResult = (soyAreaResult.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
             areaLabel = number.format(soyAreaResult);
-            // console.log('soyAreaResult', soyAreaResult);
-            // console.log('totalSoyLoss', totalSoyLoss);
-            //
-            // console.log('(' + soyAreaResult + ' - ' + totalSoyLoss + ') / ' + soyAreaResult);
-
             soyPercentage = (soyAreaResult - totalSoyLoss) / soyAreaResult;
             soyPercentage = soyPercentage * 100;
             soyPercentage = Math.round(soyPercentage);
           }
 
-          //<span class='layer-info-icon-report'></span></div>" +
-          // ha<span class='layer-info-icon'><a class='whats-this-soy' href='//commodities.globalforestwatch.org' target='_blank'><svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg></a></span></div>" +
-
-          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' + report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' + areaLabel + " ha <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
-                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><span class='layer-info-icon-report'></span></a></div>" +
-                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><span class='layer-info-icon-report'></span></a></div>";
+          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' +
+          report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' +
+          areaLabel + " ha <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>" +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>" +
+                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>";
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
                             '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
@@ -336,6 +313,17 @@ define([
         fragment.appendChild(node);
         dest.innerHTML = '';
         dest.appendChild(fragment);
+
+        function setIconHover () {
+          $(this).attr('src', 'app/css/images/info-grey.svg');
+        }
+
+        function setIconBack () {
+          $(this).attr('src', 'app/css/images/info-orange.svg');
+        }
+
+        $('.layer-info-icon-report').on('mouseenter', setIconHover);
+        $('.layer-info-icon-report').on('mouseleave', setIconBack);
 
       });
     },
