@@ -29,6 +29,7 @@ define([
 			calendarConfig.forEach(function(calendar) {
 				var configDate = calendar.selectedDate;
 				var selectedDate;
+
 				if (configDate) {
 					selectedDate = new window.Kalendae.moment(selectedDate);
 				} else {
@@ -49,10 +50,6 @@ define([
 				});
 				calendar_obj.subscribe('change', self[calendar.method].bind(self));
 			});
-
-			// calendarStart.subscribe('change', function (date) {
-			// 	debugger
-			// });
 
 		},
 

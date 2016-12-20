@@ -1,8 +1,16 @@
 /** @jsx React.DOM */
 define([
   'react',
-  'dojo/topic'
-], function (React, topic) {
+  'knockout',
+  'map/TCDSlider',
+  'map/MapModel',
+  'analysis/config',
+  'analysis/WizardStore',
+  'dojo/topic',
+  'utils/Analytics'
+], function (React, ko, TCDSlider, MapModel, AnalyzerConfig, WizardStore, topic, Analytics) {
+
+  var KEYS = AnalyzerConfig.STORE_KEYS;
 
   return React.createClass({
 
@@ -10,13 +18,24 @@ define([
       label: React.PropTypes.string.isRequired,
       value: React.PropTypes.string.isRequired
     },
-    //
-    // getInitialState: function() {
-    //   return {
-    //     active: this.props.defaultChecked || false
-    //     // defaultOff: ['protected', 'plantationsTypeLayer', 'plantationsSpeciesLayer']
-    //   };
-    // },
+    componentDidMount: function () {
+
+			if (this.props.value === 'soy') {
+        this.model = MapModel.get('model');
+			}
+
+      WizardStore.registerCallback(KEYS.currentTreeCoverDensity, this.tcdUpdated);
+
+    },
+
+
+    tcdUpdated: function () {
+      var aoi = WizardStore.get(KEYS.currentTreeCoverDensity);
+      if (this.props.value === 'soy') {
+        console.log(aoi);
+        this.setState(this.state);
+      }
+    },
 
     // componentWillReceiveProps: function(newProps) {
     //   if (newProps.isResetting) {
@@ -45,6 +64,12 @@ define([
     render: function() {
       var className = 'wizard-checkbox' + (this.props.checked ? ' active' : '');
 
+      var tcdDensityValue;
+
+      if (this.props.value === 'soy' && this.model) {
+        tcdDensityValue = this.model.tcdDensityValue();
+      }
+
       return (
         React.createElement("div", {className: "wizard-checkbox-container"}, 
           React.createElement("div", {className: className, "data-value": this.props.value}, 
@@ -56,7 +81,14 @@ define([
               this.props.noInfoIcon ? null :
               React.createElement("span", {onClick: this.showInfo, className: "layer-info-icon", dangerouslySetInnerHTML: {__html: "<svg class='info-icon-svg'><use xlink:href='#shape-info'></use></svg>"}})
             
-          )
+          ), 
+          
+            this.props.checked && this.props.value === 'soy' ?
+            React.createElement("span", {className: "tcd-percentage-holder"}, 
+            React.createElement("span", {className: "tcd-percentage-label"}, "Analyze at "), 
+            React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
+            React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
+          
         )
       );
     },
@@ -64,7 +96,15 @@ define([
 
     toggle: function() {
       this.props.change(this.props.value);
-      // this.setState({ active: !this.state.active });
+      if (this.props.value === 'soy') {
+        TCDSlider.hide();
+      }
+      // Emit Event for Analytics
+      Analytics.sendEvent('Event', 'Analysis Toggle', 'User toggled analysis for the ' + this.props.value + 'layer.');
+    },
+
+    showSoySlider: function() {
+      TCDSlider.show();
     },
 
     showInfo: function() {
@@ -131,8 +171,10 @@ define([
         case 'treeCoverLoss':
           this.props.infoDivClass = 'forest-change-tree-cover-change';
           break;
+        case 'soy':
+          this.props.infoDivClass = 'forest-change-soy';
+          break;
       }
-      console.log(this.props.infoDivClass);
 
       if (document.getElementsByClassName(this.props.infoDivClass).length) {
         topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);

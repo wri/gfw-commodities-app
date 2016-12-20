@@ -74,7 +74,6 @@ define([
 
         loadNavView: function (context){
 
-          // debugger
             var state = ioQuery.queryToObject(hash());
             var needsDefaults = true;
             var activeNode;

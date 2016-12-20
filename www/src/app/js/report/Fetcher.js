@@ -4,6 +4,8 @@ define([
 		'dojo/Deferred',
 		'dojo/promise/all',
 		'dojo/_base/array',
+		'dojo/dom',
+		'dojo/dom-construct',
 		// My Modules
 		'report/config',
 		'report/Renderer',
@@ -15,10 +17,13 @@ define([
 		'esri/request',
 		'esri/tasks/query',
 		'esri/dijit/Scalebar',
+		'esri/dijit/Legend',
 		'esri/tasks/QueryTask',
 		'esri/SpatialReference',
 		'esri/geometry/Polygon',
 		'esri/geometry/Point',
+		'esri/layers/FeatureLayer',
+		'esri/layers/ArcGISDynamicMapServiceLayer',
 		'esri/tasks/GeometryService',
 		'esri/geometry/geometryEngine',
 		'esri/tasks/AreasAndLengthsParameters',
@@ -26,10 +31,15 @@ define([
 		'esri/symbols/SimpleFillSymbol',
 		'esri/symbols/SimpleLineSymbol',
 		'esri/symbols/SimpleMarkerSymbol',
+		'esri/layers/RasterFunction',
+		'esri/layers/ImageParameters',
+		'esri/layers/ArcGISImageServiceLayer',
+		'esri/layers/ArcGISDynamicMapServiceLayer',
+		'esri/layers/LayerDrawingOptions',
 		'esri/graphic',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, QueryTask, SpatialReference, Polygon, Point, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -90,11 +100,71 @@ define([
 
 								scalebar = new Scalebar({
 										map: map,
-										scalebarUnit: 'metric'
+										scalebarUnit: 'metric',
+										attachTo: 'bottom-center'
 								});
 
 								// Simplify this as multiparts and others may not display properly
 								poly = new Polygon(report.mapGeometry);
+
+								if (report.datasets.soy) {
+
+									var soyParams = new ImageParameters();
+									soyParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+									soyParams.format = 'png32';
+
+									var rFunction;
+
+									switch (report.minDensity) {
+										case 10:
+											rFunction = 'soy11';
+											break;
+										case 15:
+											rFunction = 'soy16';
+											break;
+										case 20:
+											rFunction = 'soy21';
+											break;
+										case 25:
+											rFunction = 'soy26';
+											break;
+										case 30:
+											rFunction = 'soy31';
+											break;
+										case 50:
+											rFunction = 'soy51';
+											break;
+										case 75:
+											rFunction = 'soy76';
+											break;
+										default:
+											rFunction = 'soy31';
+									}
+
+									var soyRenderingRule = new RasterFunction();
+									soyRenderingRule.functionName = rFunction;
+
+									var soyVizLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer', {
+											imageParameters: soyParams,
+											id: 'soyVizLayer',
+											opacity: .4,
+											visible: true
+									});
+
+									map.addLayer(soyVizLayer);
+
+									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
+											imageParameters: soyParams,
+											id: 'soyImageLayer',
+											visible: true
+									});
+									soyImageLayer.setRenderingRule(soyRenderingRule);
+									map.addLayer(soyImageLayer);
+
+									$('#print-map-legend-soy-img').removeClass('hidden');
+
+								}
+
 								graphic = new Graphic();
 								graphic.setGeometry(poly);
 								graphic.setSymbol(Symbols.getPolygonSymbol());
@@ -115,7 +185,6 @@ define([
 										}
 
 										pointGraphic.setGeometry(pointGeom);
-										// pointGraphic.setSymbol(Symbols.getPointSymbol());
 										pointGraphic.setSymbol(pointSymbol);
 
 										map.graphics.add(pointGraphic);
@@ -124,7 +193,7 @@ define([
 								window.map = map;
 
 								map.graphics.add(graphic);
-								map.setExtent(graphic.geometry.getExtent().expand(3), true);
+								map.setExtent(graphic.geometry.getExtent().expand(1), true);
 						}
 
 						map = new Map('print-map', {
@@ -424,9 +493,7 @@ define([
 						return deferred.promise;
 				},
 
-
-
-        getPlantationsSpeciesResults: function() {
+				getPlantationsSpeciesResults: function() {
 						this._debug('Fetcher >>> getPlantationsSpeciesResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.plantationsSpeciesLayer;
@@ -446,7 +513,7 @@ define([
 						return deferred.promise;
 				},
 
-        getPlantationsTypeResults: function() {
+				getPlantationsTypeResults: function() {
 						this._debug('Fetcher >>> getPlantationsTypeResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.plantationsTypeLayer;
@@ -588,6 +655,124 @@ define([
 						return deferred.promise;
 				},
 
+				getSoyResults: function() {
+						this._debug('Fetcher >>> getSoyResults');
+
+						var deferred = new Deferred(),
+								config = ReportConfig.soy,
+								self = this,
+								url = ReportConfig.imageServiceUrl,
+								soyCalcUrl = ReportConfig.soyCalcUrl;
+								var renderConfig = config.renderingRule;
+
+								if (report.minDensity) {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 100];
+								}
+
+								var renderingRule = JSON.stringify(renderConfig);
+
+								var content = {
+										geometryType: 'esriGeometryPolygon',
+										geometry: JSON.stringify(report.geometry),
+										renderingRule: renderingRule,
+										pixelSize: ReportConfig.pixelSize,
+										f: 'json'
+								};
+
+								self.soyGeom = report.geometry;
+
+								var soyAreaContent = {
+										geometryType: 'esriGeometryPolygon',
+										geometry: JSON.stringify(report.geometry),
+										pixelSize: ReportConfig.pixelSize,
+										f: 'json'
+								};
+
+						// Create the container for all the result
+						ReportRenderer.renderSoyContainer(config);
+
+						function success(response) {
+							// TODO: Our computeHistogram call to the analysis ImageServer is responding w/ an array length of
+							// only 3, where before we had ~16; each year of data and the noData value. Since we need to count
+							// every year of data up for their 'Recency' formula, this is breaking that calculation.
+								if (response.histograms.length > 0) {
+										ReportRenderer.renderSoyData(response.histograms[0].counts, content.pixelSize, config, self.soyGeom);
+										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config, self.soyAreaResult);
+								} else {
+										ReportRenderer.renderAsUnavailable('soy', config);
+								}
+								deferred.resolve(true);
+						}
+
+						function failure(error) {
+								var newFailure = function(){
+									deferred.resolve(false);
+								};
+								if (error.details) {
+										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
+												content.pixelSize = 500;
+												self._computeHistogram(url, content, success, failure);
+										} else if (error.details.length === 0) {
+												var maxDeviation = 10;
+												content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
+												self._computeHistogram(url, content, success, newFailure);
+										} else {
+												deferred.resolve(false);
+										}
+								} else {
+										deferred.resolve(false);
+								}
+						}
+
+						function soyAreaFailure(error) {
+								console.log('error:', error);
+								self._computeHistogram(url, content, success, failure);
+						}
+
+						function soyAreaSuccess(response) {
+								console.log(response);
+								if (response.histograms.length > 0) {
+										self.soyAreaResult = response.histograms[0].counts;
+										self._computeHistogram(url, content, success, failure);
+								} else {
+										self._computeHistogram(url, content, success, failure);
+								}
+						}
+
+						// this._computeHistogram(url, content, success, failure);
+						this._computeHistogram(soyCalcUrl, soyAreaContent, soyAreaSuccess, soyAreaFailure);
+
+						return deferred.promise;
+
+						//
+						//
+						// // This query is only temporary until moratorium data is added to the main layer above
+						// // This needs to be addressed so this code can be removed
+						// task2 = new QueryTask('http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
+						// params2 = new Query();
+						// params2.geometry = polygon;
+						// params2.returnGeometry = false;
+						// params2.outFields = ['moratorium'];
+						// time.setDate(time.getDate() - 8);
+						// dateString = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' +
+						// 		time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+						// params2.where = 'ACQ_DATE > date \'' + dateString + '\'';
+						//
+						// all([
+						// 		task1.execute(params1),
+						// 		task2.execute(params2)
+						// ]).then(function(results) {
+						// 		ReportRenderer.renderFireData(_fireQueriesToRender, results);
+						// 		deferred.resolve(true);
+						// });
+						//
+						// // Handle the possibility of these functions both erroring out
+						// task1.on('error', function() {
+						// 		deferred.resolve(false);
+						// });
+
+				},
+
 				getRSPOResults: function() {
 						this._debug('Fetcher >>> getRSPOResults');
 						var deferred = new Deferred(),
@@ -718,7 +903,7 @@ define([
 											var polys = [];
 
 											// var unionedGeom;
-											// debugger
+
 
 											// var unionedGeom = new Polygon(report.geometry.rings[0], new SpatialReference(54012));
 

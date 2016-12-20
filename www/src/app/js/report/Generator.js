@@ -73,18 +73,18 @@ define([
         * @param {string} title
         */
         setTitle: function(title) {
-            document.getElementById("title").innerHTML = title;
+            document.getElementById('title').innerHTML = title;
         },
 
         // 20141217 CRB - Added info icon to Total Calculated Area in report header
         setupHeader: function () {
-            var node = dom.byId("total-area-info-icon");
+            var node = dom.byId('total-area-info-icon');
             on(node, 'click', function(evt) {
-              domClass.remove("total-area-info-popup", "hidden");
+              domClass.remove('total-area-info-popup', 'hidden');
             });
-            node = dom.byId("total-area-close-info-icon");
+            node = dom.byId('total-area-close-info-icon');
             on(node, 'click', function(evt) {
-              domClass.add("total-area-info-popup", "hidden");
+              domClass.add('total-area-info-popup', 'hidden');
             });
         },
 
@@ -99,15 +99,15 @@ define([
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
                 "<div id='form-response' class='message-container'></div>" +
-                "</div>";
+                '</div>';
 
           dialog.setContent(content);
 
-          on(dom.byId("subscribeToAlerts"), 'click', function() {
+          on(dom.byId('subscribeToAlerts'), 'click', function() {
             dialog.show();
           });
 
-          on(dom.byId("subscribe-now"), 'click', function() {
+          on(dom.byId('subscribe-now'), 'click', function() {
             // Show loading Wheel
             // It will be removed when there is an error or on complete
             self.subscribeToAlerts();
@@ -183,19 +183,37 @@ define([
             var self = this,
                 geometryService = new GeometryService(Config.geometryServiceUrl),
                 sr = new SpatialReference(102100),
-                projectionCallback,
                 polygons,
                 points,
-                failure,
                 poly;
 
             // Next grab any suitability configurations if they are available, they will be used to perform
             // a suitability analysis on report.geometry
             report.suitable = window.payload.suitability;
 
+            // Exclusively for the Soy layer's analysis, we want to see the loss layer's density for our
+            // ImageServer call
+            if (window.payload.minDensity) {
+              report.minDensity = window.payload.minDensity;
+            }
+
             // Lastly, grab the datasets from the payload and store them in report so we know which
             // datasets we will perform the above analyses on
             report.datasets = window.payload.datasets;
+
+            // if (report.datasets.soy) {
+            //   var soyTest = JSON.parse(window.payload.geometry);
+            //   var soyArea = soyTest[0];
+            //   var soyPoly = new Polygon(sr);
+            //   soyPoly.addRing(soyArea.geometry.rings[soyArea.geometry.rings.length - 1]);
+            //   var ext = soyPoly.getExtent();
+            //
+            //   var soyPoint = ext.getCenter();
+            //
+            //   report.centerPoints = [{
+            //     geometry: soyPoint
+            //   }];
+            // }
 
             // Parse the geometry from the global payload object
             var areasToAnalyze = JSON.parse(window.payload.geometry);
@@ -204,8 +222,12 @@ define([
             // If we have a single circle, convert to polygon and then continue
             if (areasToAnalyze.length === 1) {
               var area = areasToAnalyze[0];
-
-              if (area.geometry.radius) {
+              if (area.geometry.center && !area.point) {
+                report.geometry = new Polygon(area.geometry);
+                report.centerPoints = [{
+                  geometry: area.geometry.center
+                }];
+              } else if (area.geometry.radius) {
                 poly = new Polygon(sr);
                 poly.addRing(area.geometry.rings[area.geometry.rings.length - 1]);
                 report.geometry = poly;
@@ -222,7 +244,6 @@ define([
                 report.mills = [area];
               } else if (area.geometry.type === 'polygon') {
                 report.geometry = new Polygon(area.geometry);
-
               }
               this.beginAnalysis();
 
@@ -324,7 +345,6 @@ define([
               report.geometry = geometryEngine.generalize(report.geometry, 200, true);
             }
 
-
             // Get area
             report.areaPromise = Fetcher.getAreaFromGeometry(report.geometry);
             report.areaPromise.then(function (totalArea) {
@@ -364,21 +384,21 @@ define([
             Fetcher.setupMap();
 
             // Show Print Option as Enabled
-            domClass.remove("print", "disabled");
+            domClass.remove('print', 'disabled');
 
             // Add the Print Listener
             on(dom.byId('print'), 'click', function() {
-                domStyle.set("total-area-info-popup", "visibility", "hidden");
+                domStyle.set('total-area-info-popup', 'visibility', 'hidden');
                 window.print();
             });
 
             // Remove all loading wheels and show error messages for the remaining ones
-            dojoQuery(".loader-wheel").forEach(function(node) {
+            dojoQuery('.loader-wheel').forEach(function(node) {
                 // Ignore the Area Query, It's not part of all the deferreds and may not be done by now
                 // so lets not prematurely show an error message, Fetcher.getAreaFromGeometry will show an
                 // error message if it fails
                 if (node.parentNode.id !== 'total-area' && node.parentNode.id !== 'print-map') {
-                    node.parentNode.innerHTML = "There was an error getting these results at this time.";
+                    node.parentNode.innerHTML = 'There was an error getting these results at this time.';
                 }
             });
 
@@ -445,6 +465,9 @@ define([
                         break;
                     case 'peat':
                         deferreds.push(Fetcher.getPeatLandsResults());
+                        break;
+                    case 'soy':
+                        deferreds.push(Fetcher.getSoyResults());
                         break;
                     case 'primForest':
                         deferreds.push(Fetcher.getPrimaryForestResults());
@@ -594,8 +617,8 @@ define([
                 // req = new XMLHttpRequest(),
                 params = {
                     'features': JSON.stringify({
-                        "rings": geometry.rings,
-                        "spatialReference": geometry.spatialReference
+                        'rings': geometry.rings,
+                        'spatialReference': geometry.spatialReference
                     }),
                     'msg_addr': email,
                     'msg_type': 'email',
@@ -604,8 +627,8 @@ define([
                 res;
 
             xhr(url, {
-                handleAs: "json",
-                method: "POST",
+                handleAs: 'json',
+                method: 'POST',
                 data: params
             }).then(function() {
                 deferred.resolve(true);
@@ -655,7 +678,7 @@ define([
 
             return {
                 geom: geometryArray.length > 1 ? geometryArray : geometryArray[0],
-                type: geometryArray.length > 1 ? "MultiPolygon" : "Polygon"
+                type: geometryArray.length > 1 ? 'MultiPolygon' : 'Polygon'
             };
         }
 

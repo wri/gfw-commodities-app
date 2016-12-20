@@ -1,24 +1,24 @@
 define([
 
-    "map/config",
-    "map/MapModel",
-    "dojo/on",
-    "dojo/dom",
-    "dojo/query",
-    "dojo/topic",
-    "dojo/dom-class",
-    "dojo/dom-style",
-    "dijit/registry",
-    "dojo/_base/array",
-    "utils/Hasher",
-    "utils/Analytics",
-    "esri/InfoTemplate",
-    "esri/graphic",
-    "esri/graphicsUtils",
-    "esri/tasks/query",
-    "esri/tasks/QueryTask",
-    "esri/layers/RasterFunction",
-    "esri/layers/LayerDrawingOptions"
+    'map/config',
+    'map/MapModel',
+    'dojo/on',
+    'dojo/dom',
+    'dojo/query',
+    'dojo/topic',
+    'dojo/dom-class',
+    'dojo/dom-style',
+    'dijit/registry',
+    'dojo/_base/array',
+    'utils/Hasher',
+    'utils/Analytics',
+    'esri/InfoTemplate',
+    'esri/graphic',
+    'esri/graphicsUtils',
+    'esri/tasks/query',
+    'esri/tasks/QueryTask',
+    'esri/layers/RasterFunction',
+    'esri/layers/LayerDrawingOptions'
 ], function (MapConfig, MapModel, on, dom, dojoQuery, topic, domClass, domStyle, registry, arrayUtils, Hasher, Analytics, InfoTemplate, Graphic, graphicsUtils, esriQuery, QueryTask, RasterFunction, LayerDrawingOptions) {
 
     return {
@@ -517,7 +517,7 @@ define([
                     settings.computeBinaryRaster[5].values = value;
                     break;
                 case 'rainfall-slider':
-                    settings.computeBinaryRaster[6].values = parseInt(value[0]) + "," + parseInt(value[1]);
+                    settings.computeBinaryRaster[6].values = parseInt(value[0]) + ',' + parseInt(value[1]);
                     break;
                 case 'soil-drainage-slider':
                     settings.computeBinaryRaster[7].values = this._prepareSuitabilityJSON(value[0], value[1], [99]);
@@ -535,7 +535,7 @@ define([
                     dojoQuery('#environmental-criteria .suitable-checkbox input:checked').forEach(function(node) {
                         activeCheckboxes.push(node.value);
                     });
-                    settings.computeBinaryRaster[0].values = activeCheckboxes.join(",");
+                    settings.computeBinaryRaster[0].values = activeCheckboxes.join(',');
                     break;
                 case 'soil-type-checkbox':
                     // Need to include default values to represent unknown values
@@ -546,7 +546,7 @@ define([
                         activeCheckboxes.push(node.value);
                     });
                     //console.log("****************** soil type checkboxes: " + activeCheckboxes.toString());
-                    settings.computeBinaryRaster[10].values = activeCheckboxes.join(",");
+                    settings.computeBinaryRaster[10].values = activeCheckboxes.join(',');
                     break;
             }
 
@@ -595,6 +595,9 @@ define([
             }
 
             if (app.map.getLevel() > level) {
+                if (helperConfig.layerId) {
+                  helperLayer.setVisibleLayers([helperConfig.layerId]);
+                }
                 helperLayer.show();
                 mainLayer.hide();
             } else {
@@ -642,11 +645,14 @@ define([
                 biomassConf = MapConfig.tfcs,
                 primForConf = MapConfig.primForest,
                 suitConf = MapConfig.suit,
-                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, prodesConf, biomassConf, primForConf, suitConf],
+                soyConfig = MapConfig.soy,
+                confItems = [densityConf, formaConf, gladConf, lossConf, gainConf, prodesConf, biomassConf, primForConf, suitConf, soyConfig],
                 visibleLayers = [],
                 layerOptions = [],
                 layer,
-                self = this;
+                ldos;
+
+                console.log(legendLayer);
 
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
@@ -666,27 +672,30 @@ define([
                 }
             });
 
-            if (visibleLayers.length > 0) {
-                legendLayer.setVisibleLayers(visibleLayers);
-                legendLayer.setLayerDrawingOptions(layerOptions);
-                if (!legendLayer.visible) {
-                    legendLayer.show();
-                }
-            } else {
-                legendLayer.hide();
+            if (legendLayer) {
+              if (visibleLayers.length > 0) {
+                  legendLayer.setVisibleLayers(visibleLayers);
+                  legendLayer.setLayerDrawingOptions(layerOptions);
+                  if (!legendLayer.visible) {
+                      legendLayer.show();
+                  }
+              } else {
+                  legendLayer.hide();
+              }
+              registry.byId('legend').refresh();
             }
-            registry.byId("legend").refresh();
+
         },
 
         changeLayerTransparency: function(layerConfig, layerType, transparency) {
             switch (layerType) {
-                case "image":
+                case 'image':
                     this.setLayerOpacity(layerConfig, transparency);
                     break;
-                case "dynamic":
+                case 'dynamic':
                     this.setDynamicLayerTransparency(layerConfig, transparency);
                     break;
-                case "tiled":
+                case 'tiled':
                     this.setLayerOpacity(layerConfig, transparency);
                     break;
             }
@@ -736,6 +745,8 @@ define([
                     layerOptions[layerId] = ldos;
                 });
             }
+
+            console.log(layerOptions);
 
             layer.setLayerDrawingOptions(layerOptions);
 
@@ -791,7 +802,7 @@ define([
             if (extraValues) {
                 result = result.concat(extraValues);
             }
-            return result.join(",");
+            return result.join(',');
         }
 
     };

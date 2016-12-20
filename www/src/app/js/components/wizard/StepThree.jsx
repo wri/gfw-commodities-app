@@ -53,8 +53,7 @@ define([
         var aoi = WizardStore.get(KEYS.areaOfInterest);
         var checkedValues = this.state.forestChangeCheckbox.slice();
         config.checkboxes.some(function(checkbox) {
-          if(aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
-            console.log(this);
+          if (aoi === checkbox.label && checkedValues.indexOf(checkbox.value) === -1) {
             checkedValues.push(checkbox.value);
             this.setState({forestChangeCheckbox: checkedValues});
             return true;
@@ -105,6 +104,7 @@ define([
       render: function() {
         var selectedAreaOfInterest = WizardStore.get(KEYS.areaOfInterest);
         var selectedFeatures = WizardStore.get(KEYS.selectedCustomFeatures);
+
         var optionsExpanded = this.state.optionsExpanded;
         var checkedValues = this.state.forestChangeCheckbox;
         var hasPoints = selectedFeatures.length > 0 && selectedFeatures.some(function (feature) {
@@ -142,8 +142,8 @@ define([
                 <div className={selectedAreaOfInterest === 'millPointOption' || selectedAreaOfInterest === 'commercialEntityOption' ? '' : 'hidden'}
                   style={{ 'position': 'relative' }}
                 >
-                <WizardCheckbox label={config.mill.label} value={config.mill.value} checked={checkedValues.indexOf(config.mill.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
-                <p className='layer-description'>{config.mill.description}</p>
+                  <WizardCheckbox label={config.mill.label} value={config.mill.value} checked={checkedValues.indexOf(config.mill.value) > -1} change={this._selectionMade} isResetting={this.props.isResetting} noInfoIcon={true} />
+                  <p className='layer-description'>{config.mill.description}</p>
                 </div>
                 <p className='layer-description palm-risk'><a href='http://www.wri.org/publication/palmriskmethodology' target='_blank'>Click here</a> to see the PALM Risk Assessment Methodology technical note</p>
               </div>
@@ -259,7 +259,7 @@ define([
         // Conditions
         // At least One item must be checked
         // If more than one item is checked, we pass
-        if (nodes.length > 0) {
+        if (nodes && nodes.length > 0) {
           result = true;
         }
 

@@ -1,6 +1,6 @@
 /* global window, document, location */
 (function(win, doc) {
-    var version = '2.4.17',
+    var version = '2.4.40',
         URL = location.pathname.replace(/\/[^/]+$/, '') + 'app',
         dojoConfig = {
             parseOnLoad: false,
@@ -62,7 +62,7 @@
             }
         }, // End dojoConfig
         src = [
-            'http://js.arcgis.com/3.16/',
+            '//js.arcgis.com/3.16/',
             'app/libs/jquery-1.7.1.min.js',
             // 'app/libs/moment/min/moment.min.js',
             'app/libs/kalendae/build/kalendae.standalone.js',
@@ -76,10 +76,10 @@
             src: 'app/css/app.css',
             cdn: false
         }, {
-            src: 'https://js.arcgis.com/3.16/esri/css/esri.css',
+            src: '//js.arcgis.com/3.16/esri/css/esri.css',
             cdn: true
         }, {
-            src: 'https://js.arcgis.com/3.16/dijit/themes/tundra/tundra.css',
+            src: '//js.arcgis.com/3.16/dijit/themes/tundra/tundra.css',
             cdn: true
         }];
 

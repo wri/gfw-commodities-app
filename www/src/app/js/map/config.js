@@ -23,7 +23,7 @@ define([], function() {
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        aggregateImageServerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
         // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
@@ -71,7 +71,7 @@ define([], function() {
             method: 'changeGladStart'
           },
           {
-            // selectedDate: new window.Kalendae.moment(),
+            // selectedDate: '', //new window.Kalendae.moment(),
             domId: 'gladCalendarEnd',
             domClass: 'glad-calendar',
             method: 'changeGladEnd'
@@ -205,6 +205,7 @@ define([], function() {
           'conservation-protected-areas': 'wdpa_protected_areas',
           'conservation-biodiversity-hotspots': 'biodiversity_hotspots',
           'suitability-soy-layer': 'tree_cover_loss',
+          'forest-change-soy': 'agrosatelite_cerrado_soy_layer_1314',
           'suitability-custom-suitability-mapper': 'tree_cover_loss',
           'suitability-wri-standard-suitability': 'idn_suitability',
           'suitability-conservation-areas': 'idn_conservation_areas',
@@ -325,12 +326,19 @@ define([], function() {
         prodes: {
             id: 'ProdesAlerts',
             url: prodesUrl,
-            legendLayerId: 6,
+            legendLayerId: 0,
             defaultRange: [1, 15],
             colormap: [
                 [1, 255, 0, 197]
             ],
             toolsNode: 'prodes_toolbox'
+        },
+        soy: {
+            id: 'soy',
+            url: soyLayerUrl,
+            // defaultLayers: [0],
+            legendLayerId: 25
+            // layerId: 0
         },
         fires: {
             id: 'ActiveFires',
@@ -356,8 +364,6 @@ define([], function() {
               [1, 255, 102, 153]
             ],
             outputValues: [0, 1, 0],
-            // startDate: new window.Kalendae.moment('01/01/2015'),
-            // endDate: new window.Kalendae.moment()//,
             toolsNode: 'glad_toolbox'
         },
         tcd: {
@@ -659,16 +665,15 @@ define([], function() {
                     infoDivClass: 'forest-change-tree-cover-gain'
                 }]//,
                 // infoDivClass: 'forest-change-tree-cover-change'
-            }, {
-                id: 'prodes',
-                title: 'Prodes deforestation',
-                subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                forceUnderline: true,
-                infoDivClass: 'forest-change-prodes-alerts'
-            }, {
+              }, {
+                  id: 'prodes',
+                  title: 'Prodes deforestation',
+                  subtitle: '(annual, 30m, Brazilian Amazon, INPE)',
+                  filter: 'forest-change',
+                  type: 'radio',
+                  layerType: 'image',
+                  infoDivClass: 'forest-change-prodes-alerts'
+              }, {
                 id: 'fires',
                 title: 'Active Fires',
                 subtitle: '(past 7 days, 1km, global; NASA)',
@@ -825,7 +830,7 @@ define([], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'forest-and-land-cover-legal-classifications'
             }, {
-                kids: ['oilPerm', 'rspoPerm', 'woodPerm', 'minePerm', 'logPerm'],
+                kids: ['oilPerm', 'rspoPerm', 'woodPerm', 'minePerm', 'logPerm', 'soy'],
                 id: 'newConcessions',
                 title: 'Concessions',
                 filter: 'forest-use',
@@ -850,6 +855,16 @@ define([], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'land-use-rspo-consessions',
                 parent: 'newConcessions'
+            }, {
+                id: 'soy',
+                title: 'Soy in Cerrado Biome',
+                subtitle: '(Brazil Cerrado, 2013/2014 crop, 30m, Agrosatélite)',
+                filter: 'forest-use',
+                type: 'check',
+                layerType: 'image',
+                forceUnderline: true,
+                parent: 'newConcessions',
+                infoDivClass: 'forest-change-soy'
             }, {
                 id: 'logPerm',
                 title: 'Wood Fiber',

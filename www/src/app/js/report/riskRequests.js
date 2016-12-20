@@ -1,29 +1,29 @@
 define([
 	"dojo/Deferred",
-	"esri/tasks/QueryTask", 
-    "esri/tasks/query", 
+	"esri/tasks/QueryTask",
+    "esri/tasks/query",
     "esri/tasks/ImageServiceIdentifyTask",
-    "esri/tasks/ImageServiceIdentifyParameters", 
+    "esri/tasks/ImageServiceIdentifyParameters",
     "esri/tasks/StatisticDefinition",
     "esri/request",
-    "esri/tasks/AreasAndLengthsParameters", 
+    "esri/tasks/AreasAndLengthsParameters",
     "esri/tasks/GeometryService",
     "esri/SpatialReference",
     "esri/tasks/ProjectParameters",
     "esri/tasks/BufferParameters"
-	// "core/config", 
- //    "core/toolkitController", 
+	// "core/config",
+ //    "core/toolkitController",
  //    "core/modelSaveController"
-], 
+],
 function(
     Deferred,
-	QueryTask, 
-    Query, 
-    ImageServiceIdentifyTask, 
-    ImageServiceIdentifyParameters, 
-    StatisticDefinition, 
+	QueryTask,
+    Query,
+    ImageServiceIdentifyTask,
+    ImageServiceIdentifyParameters,
+    StatisticDefinition,
     esriRequest,
-    AreasAndLengthsParameters, 
+    AreasAndLengthsParameters,
     GeometryService,
     SpatialReference,
     ProjectParameters,
@@ -40,7 +40,7 @@ function(
                 }
             }
         }
-        
+
         return esriParamTarget
     }
 
@@ -50,7 +50,7 @@ function(
         return params;
     }
 
-    
+
 
     var execute_task = function(task,params,execution){
         var deferred = new Deferred();
@@ -131,13 +131,12 @@ function(
         })
         params.outStatistics = statDefArray;
         return o.queryEsri(url, params)
-        
+
     }
 
     o.queryEsri = function(url, params, execution) {
     	var queryTask = new QueryTask(url);
         var query = obj_to_esriParams(new Query(), params);
-        // debugger;
 
     	var deferred = execute_task(queryTask,query,execution);
         return deferred

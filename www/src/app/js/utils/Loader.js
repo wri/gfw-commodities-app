@@ -8,7 +8,7 @@ define([
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.17',
+                path = './app/templates/' + name + '.html?v=2.4.40',
                 req;
 
             req = new XMLHttpRequest();
@@ -24,22 +24,22 @@ define([
         },
 
         getWRITemplate: function() {
-            var path = 'http://54.88.79.102/gfw-sync/metadata';
+            var path = 'http://api.globalforestwatch.org/metadata';
                 // deferred = new Deferred(),
                 // req;
 
-            urlUtils.addProxyRule({
-              urlPrefix: 'http://54.88.79.102',
-              proxyUrl: '/app/php/proxy.php'
-            });
+            // urlUtils.addProxyRule({
+            //   urlPrefix: 'http://api.globalforestwatch.org',
+            //   proxyUrl: '/app/php/proxy.php'
+            // });
 
-            // esri.config.defaults.io.corsEnabledServers.push('54.88.79.102');
+            esri.config.defaults.io.corsEnabledServers.push('api.globalforestwatch.org');
             var layersRequest = esriRequest({
                 url: path,
                 handleAs: 'json',
                 callbackParamName: 'callback'
               }, {
-                  usePost: true
+                  usePost: false
               });
 
             return layersRequest;

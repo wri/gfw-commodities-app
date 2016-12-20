@@ -7,8 +7,9 @@ define([
   "dojo/dom",
   "dojo/dom-style",
   "report/CSVExporter",
+  "esri/geometry/geometryEngine",
   "utils/Analytics"
-], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle, CSVExporter, Analytics) {
+], function (ReportConfig, number, Dialog, arrayUtils, on, dom, domStyle, CSVExporter, geometryEngine, Analytics) {
   'use strict';
 
   // Container IDS for charts and tables are as Follows
@@ -105,20 +106,43 @@ define([
     /*
       @param {object} config
     */
+    renderSoyContainer: function (config) {
+      var fragment = document.createDocumentFragment(),
+          node = document.createElement('div'),
+          map = document.getElementById('print-map');
+
+      node.id = config.rootNode;
+      node.className = 'result-container';
+      node.innerHTML = "<div class='title'>" + config.title + '</div>' +
+          "<div class='result-block soy'>" +
+            "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
+            "<div class='left-panel'>" +
+              "<div class='soy-chart' id='" + config.rootNode + "_soy'><div class='loader-wheel'>soy</div></div>" +
+            '</div>' +
+          '</div>';
+
+      // Append root to fragment and then fragment to document
+      fragment.appendChild(node);
+      document.getElementById('report-results-section').insertBefore(fragment, map);
+    },
+
+    /*
+      @param {object} config
+    */
     renderGuyraContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
           map = document.getElementById('print-map');
 
       node.id = config.rootNode;
-      node.className = "result-container";
-      node.innerHTML = "<div class='title'>" + config.title + "</div>" +
+      node.className = 'result-container';
+      node.innerHTML = "<div class='title'>" + config.title + '</div>' +
           "<div class='result-block guyra'>" +
             // "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
-            "<div>" +
+            '<div>' +
               "<div class='guyra-chart' id='" + config.rootNode + "_guyra'><div class='loader-wheel'>guyra</div></div>" +
-            "</div>" +
-          "</div>";
+            '</div>' +
+          '</div>';
 
       // Append root to fragment and then fragment to document
       fragment.appendChild(node);
@@ -191,8 +215,8 @@ define([
 
       downloadButton = "<button id='mill-download' class='mill-download-button' title='Download csv'></button>";
       node.id = config.rootNode;
-      node.className = "result-container relative";
-      node.innerHTML = "<div class='title'>" + config.title + downloadButton + "</div>" +
+      node.className = 'result-container relative';
+      node.innerHTML = "<div class='title'>" + config.title + downloadButton + '</div>' +
           "<div id='mill-overall-container'></div>" +
           "<div class='mill-table-container' id='" + config.rootNode + "_table'><div class='loader-wheel'>risk assessment</div></div>";
 
@@ -205,7 +229,7 @@ define([
       document.getElementById(config.rootNode + '_composition').innerHTML = '<div class="loader-wheel">composition analysis</div>';
     },
 
-    renderCompositionAnalysis: function (histogramData, pixelSize, config) {
+    renderCompositionAnalysis: function (histogramData, pixelSize, config, soyAreaResult) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
           dest = document.getElementById(config.rootNode + '_composition'),
@@ -214,6 +238,7 @@ define([
           areaLabel,
           percentage,
           area;
+
 
       if (compositionConfig.histogramSlice) {
         area = histogramData.slice(compositionConfig.histogramSlice);
@@ -224,21 +249,81 @@ define([
         return;
       }
 
-      area = (area.reduce(function(a,b){return a + b;}) * pixelSize * pixelSize) / 10000;
+      area = (area.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
       areaLabel = number.format(area);
 
+
       report.areaPromise.then(function(){
+        percentage = number.format((area / report.area) * 100, {places: 0});
 
-        percentage = number.format((area/report.area)*100, {places: 0});
+        node.className = 'composition-analysis-container';
 
-        node.className = "composition-analysis-container";
-        node.innerHTML =  "<div>Total " + title + " in selected area: " + areaLabel + " ha</div>" +
-                          "<div>Percent of total area comprised of " + title + ": " + percentage + "%</div>";
+        if (config.rootNode === 'soy') {
+
+          var soyD = histogramData.slice(1);
+
+          var soyNumerator = 0;
+          var totalSoyLoss = 0;
+
+          for (var i = 1; i < 14; i++) {
+            if (soyD[i - 1]) {
+              totalSoyLoss += soyD[i - 1];
+              soyNumerator += (soyD[i - 1] * i);
+            }
+          }
+
+          var soyHectares = (soyAreaResult.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
+
+          var soyDenominator = 13 * soyHectares;
+          var soyRecentness = soyNumerator / soyDenominator;
+
+          soyRecentness = soyRecentness.toFixed(2);
+
+          var noData = histogramData[0];
+          var soyPercentage = noData / report.area;
+
+          soyPercentage = soyPercentage * 100;
+          soyPercentage = Math.round(soyPercentage);
+
+          if (soyAreaResult) {
+
+            if (area.length === 0) {
+              this.renderAsUnavailable('composition', config);
+              return;
+            }
+
+            soyAreaResult = (soyAreaResult.reduce(function(a, b){return a + b;}) * pixelSize * pixelSize) / 10000;
+            areaLabel = number.format(soyAreaResult);
+            soyPercentage = (soyAreaResult - totalSoyLoss) / soyAreaResult;
+            soyPercentage = soyPercentage * 100;
+            soyPercentage = Math.round(soyPercentage);
+          }
+
+          node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' +
+          report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' +
+          areaLabel + " ha <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>" +
+                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>" +
+                            "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>";
+        } else {
+          node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
+                            '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
+        }
 
         // Append root to fragment and then fragment to document
         fragment.appendChild(node);
-        dest.innerHTML = "";
+        dest.innerHTML = '';
         dest.appendChild(fragment);
+
+        function setIconHover () {
+          $(this).attr('src', 'app/css/images/info-grey.svg');
+        }
+
+        function setIconBack () {
+          $(this).attr('src', 'app/css/images/info-orange.svg');
+        }
+
+        $('.layer-info-icon-report').on('mouseenter', setIconHover);
+        $('.layer-info-icon-report').on('mouseleave', setIconBack);
 
       });
     },
@@ -494,8 +579,98 @@ define([
         }
       }
 
-
       $("#" + config.rootNode + '_prodes').highcharts({
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: null,
+          type: 'bar',
+          events: {
+            load: function () {
+              // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
+              // this.setSize(300, 400);
+            }
+          }
+        },
+        exporting: {
+          buttons: {
+            contextButton: { enabled: false },
+            exportButton: {
+              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+              symbol: exportButtonImagePath
+            }
+          }
+        },
+        colors: colors,
+        title: {
+          text: config.lossChart.title
+        },
+        xAxis: {
+          categories: xLabels,
+          maxPadding: 0.35,
+          title: {
+            text: null
+          }
+        },
+        yAxis: {
+          stackLabels: {
+            enabled: true
+          },
+          title: {
+            text: null
+          }
+        },
+        legend: {
+          enabled: false,
+          verticalAlign: 'bottom'
+        },
+        plotOptions: {
+          series: {
+            stacking: 'normal'
+          }
+        },
+        series: series,
+        credits: {
+          enabled: false
+        }
+      });
+
+    },
+
+    /*
+      @param {array} histogramData
+      @param {number} pixelSize
+      @param {object} config
+    */
+    renderSoyData: function (histogramData, pixelSize, config, soyGeom) {
+
+      var soyConfig = ReportConfig.soy,
+          yLabels = config.labels,
+          xLabels = soyConfig.labels,
+          mapFunction = function(item){return (item * pixelSize * pixelSize) / 10000; },
+          series = [],
+          colors = soyConfig.colors;
+
+      series.push({
+        'name': yLabels[0],
+        'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+      });
+
+      // Show All 0's if no data is present
+      if (series[0].data.length !== xLabels.length) {
+        for (var index = 0; index < xLabels.length; index++) {
+          if (series[0].data[index] === undefined) {
+            series[0].data[index] = 0;
+          }
+        }
+      }
+
+      if (series && series[0] && series[0].data && series[0].data.length === 14) {
+        series[0].data.pop(); //Removing the 2014 data from the chart
+      }
+
+      $('#' + config.rootNode + '_soy').highcharts({
+        tooltip: { enabled: false },
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,

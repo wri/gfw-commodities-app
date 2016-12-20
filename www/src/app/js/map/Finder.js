@@ -173,8 +173,6 @@ define([
                     //         feature.feature.layer = item.layer;
                     //     });
                     // }
-                    console.log(item);
-                    console.log(item.layer);
 
                     switch (item.layer) {
 

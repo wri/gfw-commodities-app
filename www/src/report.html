@@ -90,12 +90,19 @@
 			</div>
 			<div id="print" class="print-button disabled"></div>
 		</header>
+		<svg class="is-hidden" style="display:none">
+			<symbol id="shape-info" viewBox="0 0 16 32">
+				<path d="M2 16c1.105 0 2 0.895 2 2v8c0 1.105-0.895 2-2 2h-2v4h16v-4h-1.992c-1.102 0-2.008-0.895-2.008-2l-0.004-14h-11.996v4h2zM4 4c0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4s-4-1.791-4-4z"></path>
+			</symbol>
+		</svg>
 
 		<!-- Results Section, Will contain results for selected types of analysis -->
 		<section id='report-results-section' class='report-body'>
 
 			<!-- Print Map Will be the Final Element in the Report, May be moved to React Component -->
 			<div class="print-map-container" id="print-map"></div>
+			<img id="print-map-legend-soy-img" class="print-map-legend-soy-img hidden" src='app/css/images/soy-report-legend.png' />
+			<!-- <div class="print-map-legend-soy hidden" id="print-map-legend-soy"></div> -->
 		</section>
 
 		<!-- Popups/Dialogs -->
@@ -127,7 +134,7 @@
 				async: true,
 				isDebug: false,
 				parseOnLoad: false,
-				cacheBust: "v=2.4.17",
+				cacheBust: "v=2.4.40",
 				packages: [
 					{ name: 'libs', location: path + '/libs' },
 					{ name: 'map', location: path + '/js/map' },

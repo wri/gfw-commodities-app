@@ -14,21 +14,25 @@ define([
       return ({
         layerInfo: {}
       });
-
     },
 
-    componentWillReceiveProps: function (newProps, oldProps) {
+    componentWillReceiveProps: function (newProps) {
 			this.setState(newProps);
 		},
 
     render: function() {
       var layerInfo = [];
+      var downloadData;
       for (var layer in this.state.layerInfo) {
         layerInfo.push(this.state.layerInfo[layer]);
       }
 
+      if (this.state.layerInfo && this.state.layerInfo.download_data) {
+        downloadData = this.state.layerInfo.download_data;
+      }
+
       return (
-          React.createElement(ModalWrapper, null, 
+          React.createElement(ModalWrapper, {downloadData: downloadData}, 
           !this.state.layerInfo.title ? React.createElement("div", {className: "no-info-available"}, "No information available") :
           React.createElement("div", {className: "modal-content"}, 
             React.createElement("div", {className: "modal-source"}, 

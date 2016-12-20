@@ -221,10 +221,16 @@ define([
 
             labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
+            var lossLayer = app.map.getLayer('Loss');
+						var minDensity;
+            if (lossLayer.renderingRule) {
+              minDensity = lossLayer.renderingRule.functionArguments.min_density;
+            }
 
             payload = {
                 geometry: geometry,
                 datasets: datasets,
+                minDensity: minDensity,
                 //types: self.state.analysisTypes,
                 title: self.state.analysisArea.map(function (feature) {return feature.attributes.WRI_label;}).join(','),
                 suitability: {
@@ -255,7 +261,7 @@ define([
             }
 
             // Emit Event for Analytics
-            Analytics.sendEvent('Event', 'Perform Analysis', 'User clicked perfrom analysis.');
+            Analytics.sendEvent('Event', 'Perform Analysis', 'User clicked perform analysis.');
 
             //- Create a list of types selected
             var checkboxes = AnalyzerConfig.stepThree.checkboxes;
@@ -289,6 +295,7 @@ define([
 
             return areaOfInterest === 'millPointOption' ? id : undefined;
           }
+          console.log(features);
 
           features.forEach(function (feature) {
             var pointToPush;

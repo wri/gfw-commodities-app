@@ -2,12 +2,15 @@ define([
   'dojo/on',
   'map/MapModel',
   'map/config',
-  'map/LayerController'
-], function (on, MapModel, MapConfig, LayerController) {
+  'map/LayerController',
+  'actions/WizardActions',
+  'analysis/config'
+], function (on, MapModel, MapConfig, LayerController, WizardActions, AnalyzerConfig) {
   'use strict';
 
   var tcdSlider,
-      modal;
+      modal,
+      KEYS = AnalyzerConfig.STORE_KEYS;
 
   var TCDSliderController = {
 
@@ -45,6 +48,10 @@ define([
         // Update the Value in the Model
         MapModel.set('tcdDensityValue', data.from_value);
         LayerController.updateTCDRenderingRule(data.from_value);
+
+        // Update value in Wizard
+
+        WizardActions.setTreeCoverDensity(data.from_value);
 
         var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
         var densityRange = [data.from_value, data.to_value];

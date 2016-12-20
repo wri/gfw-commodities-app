@@ -181,6 +181,10 @@ define([], function() {
                 label: 'Plantations by Species',
                 value: 'plantationsSpeciesLayer',
                 checked: false
+            }, {
+                label: 'Soy on Tree Cover Loss',
+                value: 'soy',
+                checked: false
             // }, {
             //     label: 'GLAD Alerts',
             //     value: 'gladAlerts',
@@ -246,6 +250,9 @@ define([], function() {
             }, {
                 label: 'Peat Lands',
                 value: 'peat'
+            }, {
+                label: 'Soy on Tree Cover Loss',
+                value: 'soy'
             }]
         },
 
@@ -391,6 +398,7 @@ define([], function() {
             removedCustomFeatures: 'removedCustomFeatures',
             selectedCustomFeatures: 'selectedCustomFeatures',
             selectedPresetFeature: 'selectedPresetFeature',
+            currentTreeCoverDensity: 'currentTreeCoverDensity',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',

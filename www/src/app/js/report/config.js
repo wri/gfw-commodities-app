@@ -9,6 +9,7 @@ define([], function() {
         gladUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer/computeHistograms',
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         suitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         firesQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         fieldAssessmentUrl = 'http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia',
@@ -98,11 +99,14 @@ define([], function() {
         peatLandsBounds = [0, 1],
         peatLandsColors = ['#161D9C'];
 
+    // Soy
+    var soyBounds = [1, 13],
+        soyLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013],
+        soyColors = ['#d89827', '#26fc79', '#b1e3fc', '#fdffb6', '#000', '#d89827', '#5fa965', '#161D9C', '#eeb368', '#c7ffb6', '#fca0bf', '#538996', '#745b37'];
 
-  var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Secondary forest', 'Primary forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Swamp', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice'],
-      lcGlobalBounds = [1, 11],
-      lcGlobalColors = ['#E0A828', '#8BFB3B', '#D4FEC0', '#76B276', '#B98D5A', '#FFFEC1', '#689AA7', '#FCB7CB', '#D3CE63', '#77B5FC', '#FFFFFF'];
-
+    var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Secondary forest', 'Primary forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Swamp', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice'],
+        lcGlobalBounds = [1, 11],
+        lcGlobalColors = ['#E0A828', '#8BFB3B', '#D4FEC0', '#76B276', '#B98D5A', '#FFFEC1', '#689AA7', '#FCB7CB', '#D3CE63', '#77B5FC', '#FFFFFF'];
 
     // var lcGlobalLabels = ['Agriculture', 'Mixed agriculture and forest', 'Open broadleaved forest', 'Closed broadleaved forest', 'Open needleleaved forest', 'Closed needleleaved forest', 'Open mixed forest', 'Mixed forest and grassland', 'Grassland / shrub', 'Flooded forest', 'Wetland', 'Settlements', 'Bare land', 'Water bodies', 'Snow / ice', 'No data'],
     //     lcGlobalBounds = [1, 16],
@@ -181,6 +185,7 @@ define([], function() {
         boundariesUrl: boundariesUrl,
         geometryServiceUrl: geometryServiceUrl,
         imageServiceUrl: imageServiceUrl,
+        soyCalcUrl: soyCalcUrl,
         clearanceAnalysisUrl: clearanceAnalysisUrl,
 
         printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
@@ -260,18 +265,6 @@ define([], function() {
               }
           }
         },
-
-        // plantationsTypeLayer: {
-        //   rasterId: '$558',
-        //   bounds: plantationsTypeBounds,
-        //   labels: plantationsTypeLabels
-        // },
-        //
-        // plantationsSpeciesLayer: {
-        //   rasterId: '$559',
-        //   bounds: plantationsSpeciesBounds,
-        //   labels: plantationsSpeciesLabels
-        // },
 
         clearanceAlerts: {
             rasterId: '$17'
@@ -813,7 +806,67 @@ define([], function() {
             colors: peatLandsColors,
             fireKey: 'peatLands', // Key to the Fires Config for items related to this
             errors: {
-                composition: 'Np peat land detected in this area according to indonesia peat data.'
+                composition: 'No peat land detected in this area according to indonesia peat data.'
+            }
+        },
+
+        soy: {
+            rootNode: 'soy',
+            title: 'Soy on Tree Cover Loss',
+            rasterId: '$566',
+            bounds: soyBounds,
+            labels: soyLabels,
+            clearanceChart: {
+                title: 'Clearance Alerts on Soy Lands since Jan 2015',
+                type: 'bar'
+            },
+
+            // renderingRule: { //todo: use this if we dont want tree cover density in our soy % equation!
+            //     "rasterFunction": "Arithmetic",
+            //     "rasterFunctionArguments": {
+            //         "Raster": "$530",
+            //         "Raster2": "$566",
+            //         "Operation": 3
+            //     }
+            // }
+
+            renderingRule: {
+              rasterFunction: 'Arithmetic',
+              rasterFunctionArguments: {
+                Operation: 3,
+                Raster: {
+                    rasterFunction: 'Remap',
+                    rasterFunctionArguments: {
+                        InputRanges: [0, 30, 30, 101],
+                        OutputValues: [0, 1],
+                        Raster: '$520',
+                        AllowUnmatched: false
+                    }
+                },
+                Raster2: {
+                    rasterFunction: 'Arithmetic',
+                    rasterFunctionArguments: {
+                        Raster: '$530',
+                        Raster2: '$566',
+                        Operation: 3
+                    },
+                    outputPixelType: 'U8'
+                }
+            }
+          },
+
+            lossChart: {
+                title: '2013-2014 Cerrado Soy (in hectares) on <br>2001–2013 Annual Tree Cover Loss',
+                removeBelowYear: 2002
+            },
+            compositionAnalysis: {
+                rasterId: 566,
+                histogramSlice: 1
+            },
+            colors: soyColors,
+            fireKey: 'soy', // Key to the Fires Config for items related to this
+            errors: {
+                composition: 'No Soy on Tree Cover Loss detected in this area.'
             }
         },
 
@@ -952,6 +1005,11 @@ define([], function() {
                 badgeDesc: 'on intact forest landscapes out of'
             },
             peatLands: {
+                type: 'badge',
+                field: 'soy',
+                badgeDesc: 'on soy lands out of'
+            },
+            soy: {
                 type: 'badge',
                 field: 'peat',
                 badgeDesc: 'on peat lands out of'

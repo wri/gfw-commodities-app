@@ -179,6 +179,8 @@ define([
                 plantationsTypeParams,
                 plantationsSpeciesLayer,
                 plantationsSpeciesParams,
+                soyLayer,
+                soyParams,
                 legendLayer,
                 legendParams,
                 formaAlertsLayer,
@@ -276,6 +278,17 @@ define([
                 visible: false
             });
 
+            soyParams = new ImageParameters();
+            soyParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            soyParams.layerIds = MapConfig.soy.defaultLayers;
+            soyParams.format = 'png32';
+
+            soyLayer = new ArcGISImageServiceLayer(MapConfig.soy.url, {
+                // imageParameters: soyParams,
+                id: MapConfig.soy.id,
+                visible: false
+            });
+
             legendParams = new ImageParameters();
             legendParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             legendParams.layerIds = [];
@@ -352,9 +365,6 @@ define([
                 visible: false,
                 opacity: 1
             });
-
-            console.log(MapConfig.gladAlerts.defaultStartRange);
-            console.log(MapConfig.gladAlerts.defaultEndRange);
 
             gladParams = new ImageServiceParameters();
             // gladParams.interpolation = 'RSP_NearestNeighbor';
@@ -646,6 +656,7 @@ define([
                 gainLayer,
                 gainHelperLayer,
                 granChacoLayer,
+                soyLayer,
                 // Points Layers
                 firesLayer,
                 plantationsTypeLayer,
@@ -683,6 +694,7 @@ define([
             granChacoLayer.on('error', this.addLayerError);
             plantationsTypeLayer.on('error', this.addLayerError);
             plantationsSpeciesLayer.on('error', this.addLayerError);
+            soyLayer.on('error', this.addLayerError);
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);

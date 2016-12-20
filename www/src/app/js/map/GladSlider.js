@@ -59,8 +59,7 @@ define([
     },
 
     change: function (data) {
-      // debugger
-      console.log(data.from, data.to)
+      console.log(data.from, data.to);
       LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.gladAlerts);
     }
 

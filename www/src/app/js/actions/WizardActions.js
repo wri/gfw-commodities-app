@@ -3,7 +3,6 @@ define([
   'analysis/config',
   'analysis/WizardStore'
 ], function (assert, AnalyzerConfig, Store) {
-  'use strict';
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
 
@@ -66,6 +65,14 @@ define([
     },
 
     /**
+    * Clear the selected features list
+    */
+    setTreeCoverDensity: function (density) {
+      console.log(density);
+      Store.set(KEYS.currentTreeCoverDensity, density);
+    },
+
+    /**
     * Move on to the next step in the wizard
     */
     proceedToNextStep: function () {
@@ -84,8 +91,6 @@ define([
     */
     setAreaOfInterest: function (areaId) {
       assert(areaId !== undefined, 'Invalid Parameters for \'WizardActions.setAreaOfInterest\'.');
-      console.log(areaId);
-      // debugger
       Store.set(KEYS.areaOfInterest, areaId);
     }
 
