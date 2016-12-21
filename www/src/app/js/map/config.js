@@ -205,7 +205,7 @@ define([], function() {
           'land-use-moratorium-areas': 'idn_forest_moratorium',
           'conservation-protected-areas': 'wdpa_protected_areas',
           'conservation-biodiversity-hotspots': 'biodiversity_hotspots',
-          'suitability-soy-layer': 'tree_cover_loss',
+          'suitability-soy-layer': 'rtrs',
           'forest-change-soy': 'agrosatelite_cerrado_soy_layer_1314',
           'suitability-custom-suitability-mapper': 'tree_cover_loss',
           'suitability-wri-standard-suitability': 'idn_suitability',
@@ -996,7 +996,7 @@ define([], function() {
                 parent: 'soyBean',
                 infoDivClass: 'suitability-soy-layer'
             }, {
-                kids: ['suit','opsd','cons','elev','slope','rain','soilDr','soilDe','soilAc','soilTy'],
+                kids: ['suit', 'opsd', 'cons', 'elev', 'slope', 'rain', 'soilDr', 'soilDe', 'soilAc', 'soilTy'],
                 id: 'oilPalm',
                 title: 'Oil Palm',
                 filter: 'agro-suitability',
@@ -1424,7 +1424,7 @@ define([], function() {
                 title: 'Concessions',
                 id: 'concessions-legend',
                 layers: [{
-                    id: 13,
+                    id: 13
                 }]
             },
 
