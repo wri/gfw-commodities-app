@@ -167,8 +167,8 @@ define([
                   Header.updateView("map-supplier", false, true);
                 } else if (eventName == "goToPalm") {
                     Header.updateView("map-palm", false, true);
-                } else if (eventName == "goToFires") {
-                    Header.updateView("fires", "true", true);
+                } else if (eventName == "goToPartnership") {
+                    Header.updateView("partnership", "true", true);
                 } else if (eventName == "goToBlogs") {
                     Header.updateView("blog", "true", true);
                 } else if (eventName == "goToZSL") {
