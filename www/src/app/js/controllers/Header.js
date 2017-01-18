@@ -10,8 +10,8 @@ define([
     "utils/Hasher",
     'utils/Helper',
     "main/config",
-    "utils/NavListController"
-], function(on, dom, domStyle, query, hash, domClass, ioQuery, Dialog, Hasher, Helper, AppConfig, NavListController) {
+    'utils/Analytics'
+], function(on, dom, domStyle, query, hash, domClass, ioQuery, Dialog, Hasher, Helper, AppConfig, Analytics) {
     'use strict';
 
     var state = 'large', // large, small, or mobile
@@ -160,10 +160,35 @@ define([
 
         updateView: function(view, isExternal, initialized) {
 
-            if (isExternal === "true") {
+            if (isExternal === 'true') {
+                Analytics.sendEvent('Event', 'New Page Opened: Home Page clicked', 'User clicked on the first home page circle.', 1);
                 this.redirectPage(view);
                 return;
             }
+
+            var circleNumber;
+
+            switch (view) {
+              case 'map-wizard':
+                circleNumber = 'second';
+                break;
+              case 'map-analysis':
+                circleNumber = 'fourth';
+                break;
+              case 'map-supplier':
+                circleNumber = 'fifth';
+                break;
+              case 'map-palm':
+                circleNumber = 'sixth';
+                break;
+              case 'map':
+                circleNumber = 'third';
+                break;
+              default:
+            }
+
+            // Emit Event for Analytics
+            Analytics.sendEvent('Event', 'Updated View: Home Page clicked', 'User clicked on the ' + circleNumber + ' home page circle.', 1);
 
             if (view === 'map-wizard') {
               window.open(window.location.pathname + '#v=map&lyrs=tcc%2Closs%2Cmill%2CgfwMill&x=143.48&y=1.66&l=3&wiz=open', '_self');

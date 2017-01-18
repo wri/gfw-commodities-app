@@ -156,7 +156,6 @@ define([
 
         handleModeClick: function(eventName) {
             require(["controllers/Header"], function(Header) {
-              console.log(eventName);
                 if (eventName == "goToMap") {
                     Header.updateView("map", false, true);
                 } else if (eventName == "goToWizard") {
