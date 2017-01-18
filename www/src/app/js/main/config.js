@@ -6,7 +6,7 @@ define({
     "gfw": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
     "blog": "http://commodities.globalforestwatch.org/#v=map&x=114.37&y=2.08&l=5&lyrs=tcc%2Closs",
     "fires": "http://fires.globalforestwatch.org/map/#activeLayers=activeFires&activeBasemap=topo&x=115&y=0&z=5",
-    "partnership": "http://blog.globalforestwatch.org/supplychain/partnership-launches-to-increase-transparency-and-traceability-across-supply-chains-and-meet-zero-deforestation-commitments",
+    "partnership": "http://blog.globalforestwatch.org/supplychain/partnership-launches-to-increase-transparency-and-traceability-across-supply-chains-and-meet-zero-deforestation-commitments.html",
     "supplierMonitoring": "http://commodities.globalforestwatch.org/#v=map&x=104.27&y=2.08&l=5&lyrs=tcc%2Closs&wiz=open",
     "SPOTT": "#"
 
