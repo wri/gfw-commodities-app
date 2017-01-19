@@ -161,34 +161,35 @@ define([
         updateView: function(view, isExternal, initialized) {
 
             if (isExternal === 'true') {
-                Analytics.sendEvent('Event', 'New Page Opened: Home Page clicked', 'User clicked on the first home page circle.', 1);
+                Analytics.sendEvent('Event', 'Home Page Carousel Item Clicked', 'User clicked on INITIATIVE LAUNCHED.', 1);
                 this.redirectPage(view);
                 return;
             }
 
-            var circleNumber;
+            if (view && view !== 'home') {
+              var homePageCircle;
 
-            switch (view) {
-              case 'map-wizard':
-                circleNumber = 'second';
-                break;
-              case 'map-analysis':
-                circleNumber = 'fourth';
-                break;
-              case 'map-supplier':
-                circleNumber = 'fifth';
-                break;
-              case 'map-palm':
-                circleNumber = 'sixth';
-                break;
-              case 'map':
-                circleNumber = 'third';
-                break;
-              default:
+              switch (view) {
+                case 'map-wizard':
+                  homePageCircle = 'PALM OIL RISK TOOL';
+                  break;
+                case 'map-analysis':
+                  homePageCircle = 'ANALYSIS';
+                  break;
+                case 'map-supplier':
+                  homePageCircle = 'SUPPLIER MONITORING';
+                  break;
+                case 'map-palm':
+                  homePageCircle = 'COMMODITIES';
+                  break;
+                case 'map':
+                  homePageCircle = 'COMMODITIES MAP';
+                  break;
+                default:
+              }
+              // Emit Event for Analytics
+              Analytics.sendEvent('Event', 'Home Page Carousel Item Clicked', 'User clicked on ' + homePageCircle + '.', 1);
             }
-
-            // Emit Event for Analytics
-            Analytics.sendEvent('Event', 'Updated View: Home Page clicked', 'User clicked on the ' + circleNumber + ' home page circle.', 1);
 
             if (view === 'map-wizard') {
               window.open(window.location.pathname + '#v=map&lyrs=tcc%2Closs%2Cmill%2CgfwMill&x=143.48&y=1.66&l=3&wiz=open', '_self');

@@ -207,7 +207,7 @@ define([], function() {
           'conservation-biodiversity-hotspots': 'biodiversity_hotspots',
           'suitability-soy-layer': 'rtrs',
           'forest-change-soy': 'agrosatelite_cerrado_soy_layer_1314',
-          'suitability-custom-suitability-mapper': 'tree_cover_loss',
+          'suitability-custom-suitability-mapper': 'idn_suitability',
           'suitability-wri-standard-suitability': 'idn_suitability',
           'suitability-conservation-areas': 'idn_conservation_areas',
           'suitability-elevation': 'idn_elevation',
