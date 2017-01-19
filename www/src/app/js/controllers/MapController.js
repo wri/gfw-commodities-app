@@ -560,28 +560,26 @@ define([
             if (!initialized) {
                 return; //map not initialized yet
             }
-            // var currentExtent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
 
-            var extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
-            x = number.round(extent.getCenter().x, 2);
-            y = number.round(extent.getCenter().y, 2);
-            var l = map.map.getLevel();
+            var extent, l;
+            if (map.map.extent) {
+              extent = webMercatorUtils.webMercatorToGeographic(map.map.extent);
+              x = number.round(extent.getCenter().x, 2);
+              y = number.round(extent.getCenter().y, 2);
+              l = map.map.getLevel();
+            } else {
+              x = 0;
+              y = 0;
+              l = 1;
+            }
 
             var state = Hasher.getHash();
 
             var centerChangeByUrl = ((parseFloat(state.x) !== x) || (parseFloat(state.y) !== y) || (parseInt(state.l) !== l));
 
             if (centerChangeByUrl) {
-                //o.mapExtentPausable.pause();
-                // on.once(map.map, "extent-change", function() {
-                //     o.mapExtentPausable.resume();
-                // });
                 var ptWM = webMercatorUtils.geographicToWebMercator(new Point(parseFloat(state.x), parseFloat(state.y)));
-
                 map.map.centerAndZoom(ptWM, parseInt(state.l));
-
-                // Hasher.setHash(x, xValue);
-                // Hasher.setHash(y, yValue);
             }
         },
 

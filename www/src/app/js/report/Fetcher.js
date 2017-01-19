@@ -1140,8 +1140,10 @@ define([
 
 						function handleResponse (mill) {
 							results.push(mill);
+							console.log(mill);
 							currentMill = requests.pop();
 							if (currentMill) {
+								console.log(currentMill);
 								getMillRisk.default(currentMill.point, currentMill.name).then(handleResponse);
 							} else {
 								ReportRenderer.renderMillAssessment(results, config);
@@ -1150,6 +1152,7 @@ define([
 						}
 
 						currentMill = requests.pop();
+						console.log(currentMill);
 						getMillRisk.default(currentMill.point, currentMill.name).then(handleResponse);
 
 						// all(requests).then(function (mills) {
