@@ -3,12 +3,6 @@ define([
     './EsriTileCanvasBase'
 ], function(declare, TileCanvasLayer) {
 
-  console.log('TileCanvasLayer', TileCanvasLayer);
-
-
-  // import TileCanvasLayer from './EsriTileCanvasBase';
-  // import declare from 'dojo/_base/declare';
-
   function pad (num) {
     var str = '00' + num;
     return str.slice(str.length - 3);

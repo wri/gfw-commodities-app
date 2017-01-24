@@ -101,7 +101,6 @@ define([
     * @param {object} options - Set of options to use for the layer
     */
     constructor: function constructor (options) {
-      console.log('EsriTileCanvasBase Constructor');
       //- Mixin options with some defaults
       this.options = Object.assign({}, DEFAULTS, options);
       //- Set some default esri layer properties
@@ -133,7 +132,6 @@ define([
     * @return {Element} must return a HTML element
     */
     _setMap: function _setMap (map) {
-      console.log('_setMap');
       var self = this;
       this._map = map;
       //- Create a container element for al the canvas tiles
