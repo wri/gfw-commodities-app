@@ -56,11 +56,6 @@ define([
         });
 
       }
-    },
-
-    change: function (data) {
-      console.log(data.from, data.to);
-      LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.gladAlerts);
     }
 
   };

@@ -214,81 +214,26 @@ define([
         updateGladDates: function(clauseArray) {
           var gladLayer = app.map.getLayer('gladAlerts');
 
-          var otherDateStart = new Date(clauseArray[0]);
-          var monthStart = otherDateStart.getMonth();
-          var yearStart = otherDateStart.getFullYear();
-          var janOneStart = new Date(yearStart + ' 01 01');
-          var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
+          var startDate = new Date(clauseArray[0]);
+          var endDate = new Date(clauseArray[1]);
 
-          var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
-
-          if (monthStart > 1 && this.isLeapYear(yearStart)) {
-            julianStart++;
-          }
-
-          var otherDateEnd = new Date(clauseArray[1]);
-          var monthEnd = otherDateEnd.getMonth();
-          var yearEnd = otherDateEnd.getFullYear();
-          var janOneEnd = new Date(yearEnd + ' 01 01');
-          var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
-
-          var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
-
-          if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
-            julianEnd++;
-          }
-
-          var inputStartRanges = [];
-          var inputEndRanges = [];
-
-          if (yearStart === 2015 && yearEnd === 2015) {
-            inputStartRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
-            inputEndRanges = [0, 367, 367, 367, 367, 367];
-          } else if (yearStart === 2016 && yearEnd === 2016) {
-            inputStartRanges = [0, 367, 367, 367, 367, 367];
-            inputEndRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
-          } else if (yearStart === 2015 && yearEnd === 2016) {
-            inputStartRanges = [0, julianStart, julianStart, 366, 366, 366];
-            inputEndRanges = [0, 0, 0, julianEnd, julianEnd, 366];
-          } else {
-            return;
-          }
+          var julianFrom = this.getJulianDate(startDate);
+          var julianTo = this.getJulianDate(endDate);
 
           if (gladLayer) {
-            var rasterF = new RasterFunction({
-              'rasterFunction': 'Colormap',
-              'rasterFunctionArguments': {
-                'Colormap': [
-                  [1, 255, 102, 153]
-                ],
-                'Raster': {
-                  'rasterFunction': 'Local',
-                  'rasterFunctionArguments': {
-                    'Operation': 67, //max value; ignores no data
-                    'Rasters': [{
-                      'rasterFunction': 'Remap',
-                      'rasterFunctionArguments': {
-                        'InputRanges': inputStartRanges,
-                        'OutputValues': [0, 1, 0],
-                        'Raster': '$1', //2015
-                        'AllowUnmatched': false
-                      }
-                    }, {
-                      'rasterFunction': 'Remap',
-                      'rasterFunctionArguments': {
-                        'InputRanges': inputEndRanges,
-                        'OutputValues': [0, 1, 0],
-                        'Raster': '$2', //2016
-                        'AllowUnmatched': false
-                      }
-                    }]
-                  }
-                }
-              }
-            });
-
-            gladLayer.setRenderingRule(rasterF);
+            gladLayer.setDateRange(julianFrom, julianTo);
           }
+
+        },
+
+        getJulianDate: function(timestamp) {
+          var day = 1000 * 60 * 60 * 24;
+          var newDate = new Date(timestamp);
+          var year = new Date(newDate.getFullYear(), 0, 0);
+          var currentDay = Math.ceil((newDate - year) / day);
+          //- Year should be 15000 or 16000
+          var julianYear = (newDate.getFullYear() - 2000) * 1000;
+          return julianYear + currentDay;
         },
 
         setWizardDynamicLayerDefinition: function(config, filter) {

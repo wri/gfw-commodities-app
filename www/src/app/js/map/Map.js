@@ -12,6 +12,7 @@ define([
     "analysis/WizardHelper",
     "map/SuitabilityImageServiceLayer",
     "map/SimpleLegend",
+    "layers/GladLayer",
     // Esri Modules
     "esri/map",
     "esri/config",
@@ -31,7 +32,7 @@ define([
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapGallery"
-], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
+], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
     'use strict';
 
     var _map = declare([Evented], {
@@ -188,16 +189,13 @@ define([
                 prodesAlertsLayer,
                 prodesParams,
                 gladAlertsLayer,
-                gladParams,
+                gladParams = {},
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
                 lossParams,
                 treeCoverDensityLayer,
-
-
                 batchParams,
-
                 forestCover_forestCover,
                 forestCover_tropical,
                 tropicalParams,
@@ -206,30 +204,17 @@ define([
                 forestCover_commodities,
                 forestUse_commodities,
                 production_commodities,
-
-
-                // primaryForestLayer,
-                // forestCoverLayer,
-                // forestCoverParams,
-                // forestCoverCommoditiesParams,
-                // forestUseLayer,
-                // forestUseParams,
                 protectAreasLayer,
                 protectAreasHelperParams,
                 protectAreasHelper,
                 customSuitabilityLayer,
-
                 mapOverlaysLayer,
                 mapOverlaysParams,
                 customGraphicsLayer,
-                // adminBoundariesParams,
-                // adminBoundariesLayer,
                 wizardDynamicParams,
                 wizardDynamicLayer,
                 bioDiversityParams,
                 bioDiversityLayer,
-
-                // primaryParams,
                 wizardGraphicsLayer,
                 wizardPointGraphicsLayer,
                 self = this;
@@ -366,43 +351,14 @@ define([
                 opacity: 1
             });
 
-            gladParams = new ImageServiceParameters();
-            // gladParams.interpolation = 'RSP_NearestNeighbor';
-            gladParams.renderingRule = new RasterFunction({
-              'rasterFunction': 'Colormap',
-              'rasterFunctionArguments': {
-                'Colormap': MapConfig.gladAlerts.colormap,
-                'Raster': {
-                  'rasterFunction': 'Local',
-                  'rasterFunctionArguments': {
-                    'Operation': 67, //max value; ignores no data
-                    'Rasters': [{
-                      'rasterFunction': 'Remap',
-                      'rasterFunctionArguments': {
-                        'InputRanges': MapConfig.gladAlerts.defaultStartRange,
-                        'OutputValues': MapConfig.gladAlerts.outputValues, //[0, 1],
-                        'Raster': '$1', //2015
-                        'AllowUnmatched': false
-                      }
-                    }, {
-                      'rasterFunction': 'Remap',
-                      'rasterFunctionArguments': {
-                        'InputRanges': MapConfig.gladAlerts.defaultEndRange,
-                        'OutputValues': MapConfig.gladAlerts.outputValues, //[0, 1],
-                        'Raster': '$2', //2016
-                        'AllowUnmatched': false
-                      }
-                    }]
-                  }
-                }
-              }
-            });
+            gladParams.id = MapConfig.gladAlerts.id;
+            gladParams.url = MapConfig.gladAlerts.url;
+            gladParams.minDateValue = MapConfig.gladAlerts.minDateValue;
+            gladParams.maxDateValue = MapConfig.gladAlerts.maxDateValue;
+            gladParams.confidence = MapConfig.gladAlerts.confidence;
+            gladParams.visible = false;
 
-            gladAlertsLayer = new ArcGISImageServiceLayer(MapConfig.gladAlerts.url, {
-              imageServiceParameters: gladParams,
-              id: MapConfig.gladAlerts.id,
-              visible: false
-            });
+            gladAlertsLayer = new GladLayer(gladParams);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';

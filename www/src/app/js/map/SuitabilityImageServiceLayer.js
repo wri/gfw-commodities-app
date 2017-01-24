@@ -9,12 +9,12 @@ define([
   "map/MapModel",
   "esri/request"
 ], function (declare, Evented, lang, arrayUtils, RasterFunction, ImageServiceParameters, ArcGISImageServiceLayer, Model, esriRequest) {
-    
+
   return declare("SuitabilityImageServiceLayer", [Evented, ArcGISImageServiceLayer], {
     constructor: function () {
       // This line below is very important, without, printing will not know the layer type since this is a custom
       // layer and won't know how to serialize the JSON
-      this.declaredClass = "esri.layers.ArcGISImageServiceLayer";      
+      this.declaredClass = "esri.layers.ArcGISImageServiceLayer";
 
       // raster function arguments must be in same order as in image service moasic dataset
       this.rasterFunctionArguments = {};
@@ -77,7 +77,7 @@ define([
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'Peat', [0, 1, 2, 3, 4, 5, 6]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SAcid', [0, 1, 2, 3, 4, 5, 6, 7, 8, 99]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SDrain', [0, 1, 2, 3, 4, 99]);
-      _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 
+      _self.addMembershipArgument(suitabilitySettings, render_rule, 'LC', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
                                                                           13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
       _self.addMembershipArgument(suitabilitySettings, render_rule, 'SType', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
@@ -169,9 +169,9 @@ define([
         });
 
         //callback(_self.url + "/exportImage?" + dojo.objectToQuery(params));
-      
+
       }
-      
+
     },
 
     returnRasterSettingsAsObject: function () {
@@ -181,7 +181,7 @@ define([
       arrayUtils.forEach(settingsArray, function (setting) {
         result[setting.name] = setting.values;
       });
-      
+
       return result;
     },
 
