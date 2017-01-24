@@ -138,9 +138,15 @@ define([
             data: form_data,
             type: 'post',
             success: function(){
+              console.log(arguments);
               // self.uploadToAGOL(response);
+              submitModal.addError('submissionSuccess');
+              var modalNode = submitModal.getDOMNode();
+              domClass.remove(modalNode.parentNode, 'hidden');
+              $('#storyForm')[0].reset();
             },
             error: function () {
+              console.log(arguments);
               submitModal.addError('s3Error');
               node = submitModal.getDOMNode();
               domClass.remove(node.parentNode, 'hidden');

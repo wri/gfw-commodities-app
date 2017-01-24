@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           // Destination is required
           'Destination' => array(
               'ToAddresses' => array('ssargent@wri.org'),
-              'CcAddresses' => array('caroline.winchester@wri.org')
+              'CcAddresses' => array('caroline.winchester@wri.org', 'AMaddocks@wri.org')
           ),
           // Message is required
           'Message' => array(

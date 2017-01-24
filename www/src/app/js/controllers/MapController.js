@@ -145,12 +145,10 @@ define([
                 var y = number.round(extent.getCenter().y, 2);
                 var l = map.map.getZoom();
 
-                setTimeout(function () {
-                  Hasher.setHash('x', x);
-                  Hasher.setHash('y', y);
-                  // Hasher.setHash('l', 5);
-                  // Hasher.setHash('l', l);
-                }, 1000);
+                // setTimeout(function () {
+                //   Hasher.setHash('x', x);
+                //   Hasher.setHash('y', y);
+                // }, 1000);
 
                 mapModel = MapModel.initialize('map-container');
                 // Render any React Components - These will activate any default or hashed layers
@@ -178,9 +176,6 @@ define([
                     analysisModal.close();
                   }
                 });
-                // on.once(map.map, "extent-change", function() {
-                //     o.mapExtentPausable.resume();
-                // });
 
             });
 
@@ -189,8 +184,6 @@ define([
 
             // Set up Click Listener to Perform Identify
             app.map.on('click', Finder.performIdentify.bind(Finder));
-
-
 
             // Have the Finder create any formatter functions necessary for info window content
             // and then have it setup info window specific listeners for specific info windows with buttons
@@ -210,7 +203,7 @@ define([
             try {
                 addthis.init();
             } catch (e) {
-                dom.byId('sharing-modal').innerHTML = "Sorry.  AddThis is temporarily down.";
+                dom.byId('sharing-modal').innerHTML = "Sorry. AddThis is temporarily down.";
             }
 
             on(app.map.infoWindow, 'hide', function() {

@@ -14056,7 +14056,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.48',
+                path = './app/templates/' + name + '.html?v=2.4.49',
                 req;
 
             req = new XMLHttpRequest();
@@ -14273,12 +14273,10 @@ define('controllers/MapController',[
                 var y = number.round(extent.getCenter().y, 2);
                 var l = map.map.getZoom();
 
-                setTimeout(function () {
-                  Hasher.setHash('x', x);
-                  Hasher.setHash('y', y);
-                  // Hasher.setHash('l', 5);
-                  // Hasher.setHash('l', l);
-                }, 1000);
+                // setTimeout(function () {
+                //   Hasher.setHash('x', x);
+                //   Hasher.setHash('y', y);
+                // }, 1000);
 
                 mapModel = MapModel.initialize('map-container');
                 // Render any React Components - These will activate any default or hashed layers
@@ -14306,9 +14304,6 @@ define('controllers/MapController',[
                     analysisModal.close();
                   }
                 });
-                // on.once(map.map, "extent-change", function() {
-                //     o.mapExtentPausable.resume();
-                // });
 
             });
 
@@ -14317,8 +14312,6 @@ define('controllers/MapController',[
 
             // Set up Click Listener to Perform Identify
             app.map.on('click', Finder.performIdentify.bind(Finder));
-
-
 
             // Have the Finder create any formatter functions necessary for info window content
             // and then have it setup info window specific listeners for specific info windows with buttons
@@ -14338,7 +14331,7 @@ define('controllers/MapController',[
             try {
                 addthis.init();
             } catch (e) {
-                dom.byId('sharing-modal').innerHTML = "Sorry.  AddThis is temporarily down.";
+                dom.byId('sharing-modal').innerHTML = "Sorry. AddThis is temporarily down.";
             }
 
             on(app.map.infoWindow, 'hide', function() {
@@ -16130,9 +16123,15 @@ define('controllers/SubmissionController',[
             data: form_data,
             type: 'post',
             success: function(){
+              console.log(arguments);
               // self.uploadToAGOL(response);
+              submitModal.addError('submissionSuccess');
+              var modalNode = submitModal.getDOMNode();
+              domClass.remove(modalNode.parentNode, 'hidden');
+              $('#storyForm')[0].reset();
             },
             error: function () {
+              console.log(arguments);
               submitModal.addError('s3Error');
               node = submitModal.getDOMNode();
               domClass.remove(node.parentNode, 'hidden');
