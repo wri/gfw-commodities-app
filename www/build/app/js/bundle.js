@@ -327,7 +327,7 @@ define('map/config',[], function() {
         mapOptions: {
             basemap: 'gray',
             centerX: 4, //114,
-            centerY: 5, //3,
+            centerY: 45, //3,
             zoom: 3, //5,
             sliderPosition: 'top-right'
         },
@@ -11442,7 +11442,7 @@ define('layers/GladLayer',[
     decodeDate: function (pixel) {
       // Find the total days of the pixel by multiplying the red band by 255 and adding the green band
       var totalDays = (pixel[0] * 255) + pixel[1];
-      // Dived the total days by 365 to get the year offset, add 15 to this to get current year
+      // Divide the total days by 365 to get the year offset, add 15 to this to get current year
       // Example, parseInt(totalDays / 365) = 1, add 15, year is 2016
       var yearAsInt = parseInt(totalDays / 365) + 15;
       // Multiple by 1000 to get in YYDDD format, i.e. 15000 or 16000

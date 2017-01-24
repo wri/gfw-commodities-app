@@ -41,7 +41,7 @@ define([], function() {
         mapOptions: {
             basemap: 'gray',
             centerX: 4, //114,
-            centerY: 5, //3,
+            centerY: 45, //3,
             zoom: 3, //5,
             sliderPosition: 'top-right'
         },
