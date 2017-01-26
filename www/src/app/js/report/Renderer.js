@@ -152,6 +152,29 @@ define([
     /*
       @param {object} config
     */
+    renderGladContainer: function (config) {
+      var fragment = document.createDocumentFragment(),
+          node = document.createElement('div'),
+          map = document.getElementById('print-map');
+
+      node.id = config.rootNode;
+      node.className = 'result-container';
+      node.innerHTML = "<div class='title'>" + config.title + '</div>' +
+          "<div class='result-block glad'>" +
+            // "<div class='top-panel' id='" + config.rootNode + "_composition'></div>" +
+            '<div>' +
+              "<div class='glad-chart' id='" + config.rootNode + "_glad'><div class='loader-wheel'>glad</div></div>" +
+            '</div>' +
+          '</div>';
+
+      // Append root to fragment and then fragment to document
+      fragment.appendChild(node);
+      document.getElementById('report-results-section').insertBefore(fragment, map);
+    },
+
+    /*
+      @param {object} config
+    */
     renderRSPOContainer: function (config) {
       var fragment = document.createDocumentFragment(),
           node = document.createElement('div'),
@@ -1020,13 +1043,10 @@ define([
     },
 
     renderGladData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
-      console.log(report.gladLayer);
-      console.log(histogramData);
-      console.log(report);
-      debugger
+
       var yLabels = config.labels,
           yMapValues = arrayFromBounds(config.bounds),
-          xMapValues = arrayFromBounds(report.gladLayer),
+          xMapValues = arrayFromBounds(ReportConfig.gladLayer.bounds),
           // mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
 
@@ -1056,9 +1076,7 @@ define([
         }
       }
 
-      //series = series.slice(series.length - 6, series.length); //todo: Remove this slice hack after the 2014 data has been taken out of the service
-
-      $('#' + config.rootNode + '_clearance').highcharts({
+      $('#' + config.rootNode + '_glad').highcharts({
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
@@ -1075,7 +1093,7 @@ define([
         },
         colors: ['#fb00b3'],
         title: {
-          text: config.clearanceChart.title
+          text: ReportConfig.gladLayer.clearanceChart.title
         },
         xAxis: {
           categories: report.clearanceLabels

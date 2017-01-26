@@ -991,6 +991,9 @@ define([
 
 						config = _.clone(gladConfig);
 
+						// Create the container for all the result
+						ReportRenderer.renderGladContainer(config);
+
 						function success(response) {
 							// report.clearanceBounds = [res.minValues[0], res.maxValues[0]];
 								if (response.histograms.length > 0) {
@@ -1017,11 +1020,6 @@ define([
 						}
 
 						encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
-						// rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId;
-						// renderingRule = useSimpleEncoderRule ?
-						// 		encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) :
-						// 		encoder.render(clearanceConfig.rasterId, rasterId);
-
 
 						content = {
 								geometryType: 'esriGeometryPolygon',
