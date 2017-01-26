@@ -1020,138 +1020,81 @@ define([
     },
 
     renderGladData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
+      console.log(report.gladLayer);
+      console.log(histogramData);
+      console.log(report);
+      debugger
       var yLabels = config.labels,
           yMapValues = arrayFromBounds(config.bounds),
           xMapValues = arrayFromBounds(report.gladLayer),
           // mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
-          data = [],
+
           location,
           value,
           i, j;
 
+      if (useSimpleEncoderRule) {
+        // Remove first value as that is all the 0 values we dont want
+        series = histogramData.slice(1);
 
-      // Config eventually needs to be updated as this is no longer a pie chart
-      // Pie chart code and config are staying this way until client approves
-      // Will still need the if else, the else section constructs a series with only one value
-
-      if (config.clearanceChart.type === 'pie') {
-
-        // Format data for line chart
-        for (i = 0; i < yMapValues.length; i++) {
-          value = 0;
-          data = [];
-          for (j = 0; j < xMapValues.length; j++) {
-            location = encoder.encode(xMapValues[j], yMapValues[i]);
-            data.push(histogramData[location] || 0);
+        // Pad the array with 0's for all remaining years if data is missing
+        if (series.length !== xMapValues.length) {
+          for (var index = 0; index < xMapValues.length; index++) {
+            if (series[index] === undefined) series[index] = 0;
           }
-          series.push({
-            name: yLabels[i],
-            data: data
-          });
         }
-
-        $('#' + config.rootNode + '_clearance').highcharts({
-          chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-          },
-          exporting: {
-            buttons: {
-              contextButton: { enabled: false },
-              exportButton: {
-                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-                symbol: exportButtonImagePath
-              }
-            }
-          },
-          colors: config.colors,
-          title: {
-            text: config.clearanceChart.title
-          },
-          xAxis: {
-            categories: report.clearanceLabels
-          },
-          yAxis: {
-            title: null,
-            min: 0
-          },
-          legend: {
-            enabled: true
-          },
-          credits: {
-            enabled: false
-          },
-          series: series
-        });
-
 
       } else {
-
-        if (useSimpleEncoderRule) {
-          // Remove first value as that is all the 0 values we dont want
-          series = histogramData.slice(1);
-
-          // Pad the array with 0's for all remaining years if data is missing
-          if (series.length !== xMapValues.length) {
-            for (var index = 0; index < xMapValues.length; index++) {
-              if (series[index] === undefined) series[index] = 0;
-            }
+        for (i = 0; i < xMapValues.length; i++) {
+          value = 0;
+          for(j = 0; j < yMapValues.length; j++) {
+            location = encoder.encode(xMapValues[i], yMapValues[j]);
+            value += (histogramData[location] || 0);
           }
-
-        } else {
-          for (i = 0; i < xMapValues.length; i++) {
-            value = 0;
-            for(j = 0; j < yMapValues.length; j++) {
-              location = encoder.encode(xMapValues[i], yMapValues[j]);
-              value += (histogramData[location] || 0);
-            }
-            series.push(value);
-          }
+          series.push(value);
         }
-
-        //series = series.slice(series.length - 6, series.length); //todo: Remove this slice hack after the 2014 data has been taken out of the service
-
-        $('#' + config.rootNode + '_clearance').highcharts({
-          chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-          },
-          exporting: {
-            buttons: {
-              contextButton: { enabled: false },
-              exportButton: {
-                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-                symbol: exportButtonImagePath
-              }
-            }
-          },
-          colors: ['#fb00b3'],
-          title: {
-            text: config.clearanceChart.title
-          },
-          xAxis: {
-            categories: report.clearanceLabels
-          },
-          yAxis: {
-            title: null,
-            min: 0
-          },
-          legend: {
-            enabled: false
-          },
-          credits: {
-            enabled: false
-          },
-          series: [{
-            'name': config.title,
-            'data': series
-          }]
-        });
-
       }
+
+      //series = series.slice(series.length - 6, series.length); //todo: Remove this slice hack after the 2014 data has been taken out of the service
+
+      $('#' + config.rootNode + '_clearance').highcharts({
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false
+        },
+        exporting: {
+          buttons: {
+            contextButton: { enabled: false },
+            exportButton: {
+              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+              symbol: exportButtonImagePath
+            }
+          }
+        },
+        colors: ['#fb00b3'],
+        title: {
+          text: config.clearanceChart.title
+        },
+        xAxis: {
+          categories: report.clearanceLabels
+        },
+        yAxis: {
+          title: null,
+          min: 0
+        },
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          'name': config.title,
+          'data': series
+        }]
+      });
 
     },
 

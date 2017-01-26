@@ -983,7 +983,7 @@ define([
 				getGladResults: function(config, useSimpleEncoderRule) {
 						this._debug('Fetcher >>> getGladResults');
 						var deferred = new Deferred(),
-								gladConfig = ReportConfig.glad, //ReportConfig.clearanceAlerts,
+								gladConfig = ReportConfig.glad,
 								url = gladConfig.url,
 								self = this,
 								content,
@@ -992,6 +992,7 @@ define([
 						config = _.clone(gladConfig);
 
 						function success(response) {
+							// report.clearanceBounds = [res.minValues[0], res.maxValues[0]];
 								if (response.histograms.length > 0) {
 										ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
 								} else {

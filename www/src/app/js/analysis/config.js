@@ -185,10 +185,10 @@ define([], function() {
                 label: 'Soy on Tree Cover Loss',
                 value: 'soy',
                 checked: false
-            // }, {
-            //     label: 'GLAD Alerts',
-            //     value: 'gladAlerts',
-            //     checked: false
+            }, {
+                label: 'GLAD Alerts',
+                value: 'gladAlerts',
+                checked: false
             }, {
                 label: 'Gran Chaco deforestation (Guyra Paraguay)',
                 value: 'guyraAlerts',

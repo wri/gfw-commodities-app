@@ -493,9 +493,9 @@ define([
                     case 'guyraAlerts':
                         deferreds.push(Fetcher.getGuyraResults());
                         break;
-                    // case 'gladAlerts':
-                    //     deferreds.push(Fetcher.getGladResults());
-                    //     break;
+                    case 'gladAlerts':
+                        deferreds.push(Fetcher.getGladResults());
+                        break;
                     default:
                         break;
                 }
