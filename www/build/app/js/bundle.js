@@ -2418,10 +2418,10 @@ define('analysis/config',[], function() {
                 label: 'Soy on Tree Cover Loss',
                 value: 'soy',
                 checked: false
-            // }, {
-            //     label: 'GLAD Alerts',
-            //     value: 'gladAlerts',
-            //     checked: false
+            }, {
+                label: 'GLAD Alerts',
+                value: 'gladAlerts',
+                checked: false
             }, {
                 label: 'Gran Chaco deforestation (Guyra Paraguay)',
                 value: 'guyraAlerts',
@@ -14056,7 +14056,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.49',
+                path = './app/templates/' + name + '.html?v=2.4.50',
                 req;
 
             req = new XMLHttpRequest();
