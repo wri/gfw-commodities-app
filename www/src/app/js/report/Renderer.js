@@ -1042,39 +1042,7 @@ define([
 
     },
 
-    renderGladData: function (histogramData, pixelSize, config, encoder, useSimpleEncoderRule) {
-
-      var yLabels = config.labels,
-          yMapValues = arrayFromBounds(config.bounds),
-          xMapValues = arrayFromBounds(ReportConfig.gladLayer.bounds),
-          // mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
-          series = [],
-
-          location,
-          value,
-          i, j;
-
-      if (useSimpleEncoderRule) {
-        // Remove first value as that is all the 0 values we dont want
-        series = histogramData.slice(1);
-
-        // Pad the array with 0's for all remaining years if data is missing
-        if (series.length !== xMapValues.length) {
-          for (var index = 0; index < xMapValues.length; index++) {
-            if (series[index] === undefined) series[index] = 0;
-          }
-        }
-
-      } else {
-        for (i = 0; i < xMapValues.length; i++) {
-          value = 0;
-          for(j = 0; j < yMapValues.length; j++) {
-            location = encoder.encode(xMapValues[i], yMapValues[j]);
-            value += (histogramData[location] || 0);
-          }
-          series.push(value);
-        }
-      }
+    renderGladData: function (histogramData, config) {
 
       $('#' + config.rootNode + '_glad').highcharts({
         chart: {
@@ -1092,25 +1060,43 @@ define([
           }
         },
         colors: ['#fb00b3'],
-        title: {
-          text: ReportConfig.gladLayer.clearanceChart.title
-        },
-        xAxis: {
-          categories: report.clearanceLabels
-        },
-        yAxis: {
-          title: null,
-          min: 0
-        },
+        title: { text: null },
+        // xAxis: {
+        //   categories: report.clearanceLabels
+        // },
+        xAxis: { type: 'datetime' },
+        // yAxis: {
+        //   title: null,
+        //   min: 0
+        // },
+        yAxis: { title: { text: null }, min: 0},
         legend: {
           enabled: false
         },
         credits: {
           enabled: false
         },
+        plotOptions: {
+          area: {
+            threshold: null,
+            lineWidth: 1,
+            states: { hover: { lineWidth: 1 }},
+            fillColor: {
+              linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+              stops: [
+                [0, 'rgba(220,102,153, 1)'],
+                [1, 'rgba(220,102,153, 0)']
+              ]
+            }
+          }
+        },
+        tooltip: {
+          dateTimeLabelFormats: { hour: '%A, %b %e' }
+        },
         series: [{
-          'name': config.title,
-          'data': series
+          type: 'area',
+          name: config.title,
+          data: histogramData
         }]
       });
 

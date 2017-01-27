@@ -987,6 +987,8 @@ define([
 								url = gladConfig.url,
 								self = this,
 								content,
+								content2,
+								content3,
 								encoder;
 
 						config = _.clone(gladConfig);
@@ -995,14 +997,15 @@ define([
 						ReportRenderer.renderGladContainer(config);
 
 						function success(response) {
-							// report.clearanceBounds = [res.minValues[0], res.maxValues[0]];
-								if (response.histograms.length > 0) {
-										ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
-								} else {
-										// Add some dummy 0's
-										var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
-										ReportRenderer.renderGladData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
-								}
+
+								// if (response.histograms.length > 0) {
+									ReportRenderer.renderGladData(response, config, encoder, useSimpleEncoderRule);
+									// ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
+								// } else {
+								// 		// Add some dummy 0's
+								// 		var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
+								// 		ReportRenderer.renderGladData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
+								// }
 								deferred.resolve(true);
 						}
 
@@ -1019,17 +1022,67 @@ define([
 								}
 						}
 
+						function formatGlad(year, counts) {
+							var results = [];
+							for (let i = 0; i < counts.length; i++) {
+								results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
+							}
+							return results;
+						}
+
 						encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
 
 						content = {
 								geometryType: 'esriGeometryPolygon',
 								geometry: JSON.stringify(report.geometry),
-								renderingRule: JSON.stringify(config.renderingRule),
-								pixelSize: 30,
+								mosaicRule: JSON.stringify({
+										'mosaicMethod': 'esriMosaicLockRaster',
+										'lockRasterIds': [6],
+										'ascending': true,
+										'mosaicOperation': 'MT_FIRST'
+								}),
+								pixelSize: 100,
+								f: 'json'
+						};
+						content2 = {
+								geometryType: 'esriGeometryPolygon',
+								geometry: JSON.stringify(report.geometry),
+								mosaicRule: JSON.stringify({
+										'mosaicMethod': 'esriMosaicLockRaster',
+										'lockRasterIds': [4],
+										'ascending': true,
+										'mosaicOperation': 'MT_FIRST'
+								}),
+								pixelSize: 100,
+								f: 'json'
+						};
+						content3 = {
+								geometryType: 'esriGeometryPolygon',
+								geometry: JSON.stringify(report.geometry),
+								mosaicRule: JSON.stringify({
+										'mosaicMethod': 'esriMosaicLockRaster',
+										'lockRasterIds': [9],
+										'ascending': true,
+										'mosaicOperation': 'MT_FIRST'
+								}),
+								pixelSize: 100,
 								f: 'json'
 						};
 
-						this._computeHistogram(url, content, success, failure);
+						all([
+								this._computeHistogram(url, content),
+								this._computeHistogram(url, content2)//,
+								//this._computeHistogram(url, content3)
+						]).then(function(results) {
+							var alerts = [];
+							console.log(results);
+							alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
+							alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
+							//alerts = alerts.concat(formatGlad('2017', results[1].histograms[0].counts));
+							// promise.resolve(alerts);
+							success(alerts);
+							deferred.resolve(true);
+						});
 
 						return deferred.promise;
 				},
@@ -1320,6 +1373,8 @@ define([
 						Simple wrapper function for making requests to computeHistogram
 				*/
 				_computeHistogram: function(url, content, callback, errback) {
+
+					if (callback && errback) {
 						var req = esriRequest({
 								url: url + '/computeHistograms',
 								content: content,
@@ -1331,6 +1386,17 @@ define([
 						});
 
 						req.then(callback, errback);
+					} else {
+						return esriRequest({
+								url: url + '/computeHistograms',
+								content: content,
+								handleAs: 'json',
+								callbackParamName: 'callback',
+								timeout: 60000
+						}, {
+								usePost: true
+						});
+					}
 				},
 
 				/*
