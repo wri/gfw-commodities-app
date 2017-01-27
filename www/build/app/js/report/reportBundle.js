@@ -6964,15 +6964,17 @@ define('report/Fetcher',[
 						ReportRenderer.renderGladContainer(config);
 
 						function success(response) {
+							console.log('response', response);
 
-								// if (response.histograms.length > 0) {
+								if (response.length > 0) {
 									ReportRenderer.renderGladData(response, config, encoder, useSimpleEncoderRule);
 									// ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
-								// } else {
+								} else {
+									ReportRenderer.renderAsUnavailable('glad', config);
 								// 		// Add some dummy 0's
 								// 		var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
 								// 		ReportRenderer.renderGladData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
-								// }
+								}
 								deferred.resolve(true);
 						}
 
@@ -7043,9 +7045,15 @@ define('report/Fetcher',[
 						]).then(function(results) {
 							var alerts = [];
 							console.log(results);
-							alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
-							alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
-							//alerts = alerts.concat(formatGlad('2017', results[1].histograms[0].counts));
+							if (results[0] && results[0].histograms[0]) {
+								alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
+							}
+							if (results[1] && results[1].histograms[0]) {
+								alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
+							}
+							if (results[2] && results[2].histograms[0]) {
+								alerts = alerts.concat(formatGlad('2017', results[1].histograms[0].counts));
+							}
 							// promise.resolve(alerts);
 							success(alerts);
 							deferred.resolve(true);
