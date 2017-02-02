@@ -108,7 +108,6 @@ define([
                 LayerController.setWizardMillPointsLayerDefinition(MapConfig.mill);
                 LayerController.setWizardMillPointsLayerDefinition(MapConfig.gfwMill);
 
-
             });
 
             // Layer Controller Functions
@@ -154,6 +153,10 @@ define([
                 } else if (props.layerType === 'dynamic') {
                     LayerController.updateLayer(props);
                 }
+            });
+
+            topic.subscribe('toggleGladConfidence', function(active) {
+                LayerController.toggleGladConfidence(active);
             });
 
             topic.subscribe('updateGladDates', function(dates) {

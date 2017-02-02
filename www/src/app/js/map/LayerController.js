@@ -226,6 +226,17 @@ define([
 
         },
 
+        toggleGladConfidence: function(active) { //TODO: this active might be inversed!
+          var gladLayer = app.map.getLayer('gladAlerts');
+
+          if (active) {
+            gladLayer.setConfidenceLevel('all');
+          } else {
+            gladLayer.setConfidenceLevel('confirmed');
+          }
+
+        },
+
         getJulianDate: function(timestamp) {
           var day = 1000 * 60 * 60 * 24;
           var newDate = new Date(timestamp);

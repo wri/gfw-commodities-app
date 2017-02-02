@@ -730,6 +730,13 @@ define([], function() {
                     type: 'check',
                     layerType: 'dynamic',
                     infoDivClass: 'forest-change-tree-cover-loss'
+                }, {
+                    id: 'gladConfidence',
+                    title: 'Show only confirmed alerts',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'none',
+                    infoDivClass: 'forest-change-tree-cover-loss'
                 }]//,
             }, {
                 id: 'forma',
@@ -1112,14 +1119,6 @@ define([], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'suitability-soil-type'
             }
-            // , {
-            //     id: 'none_agro',
-            //     title: 'None',
-            //     subtitle: '',
-            //     filter: 'agro-suitability',
-            //     type: 'radio',
-            //     layerType: 'none'
-            // }
         ],
 
         // Miscellaneous Settings

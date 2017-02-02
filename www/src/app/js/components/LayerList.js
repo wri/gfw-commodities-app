@@ -96,10 +96,18 @@ define([
       //   });
 
       // } else {
-      Hasher.toggleLayers(component.props.id);
+
+			if (component.props.layerType !== 'none') {
+				Hasher.toggleLayers(component.props.id);
+			}
 
       if (component.props.useRadioCallback || component.props.id === 'suit' || component.props.id === 'soy') {
-        topic.publish('toggleLayer', component.props.id);
+				if (component.props.id === 'gladConfidence') {
+
+					topic.publish('toggleGladConfidence', component.state.active);
+				} else {
+					topic.publish('toggleLayer', component.props.id);
+				}
       } else {
         // Call this function on the next animation frame to give React time
         // to render the changes from its new state, the callback needs to read
