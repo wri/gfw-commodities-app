@@ -991,6 +991,7 @@ define([
 								content3,
 								encoder;
 
+
 						config = _.clone(gladConfig);
 
 						// Create the container for all the result
@@ -1027,7 +1028,7 @@ define([
 						function formatGlad(year, counts) {
 							var results = [];
 							for (let i = 0; i < counts.length; i++) {
-								results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
+								results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
 							}
 							return results;
 						}
@@ -1073,30 +1074,29 @@ define([
 
 						all([
 								this._computeHistogram(url, content),
-								this._computeHistogram(url, content2)//,
-								//this._computeHistogram(url, content3)
+								this._computeHistogram(url, content2),
+								this._computeHistogram(url, content3)
 						]).then(function(results) {
 							var alerts = [];
-							// console.log(results);
 							if (results[0] && results[0].histograms[0]) {
-								if (results[0].histograms[0].counts.length < 365) {
-									for (var j = results[0].histograms[0].counts.length; j < 365; j++) {
+								if (results[0].histograms[0].counts.length < 366) {
+									for (var j = results[0].histograms[0].counts.length; j < 366; j++) {
 										results[0].histograms[0].counts.push(0);
 									}
 								}
 								alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
 							}
 							if (results[1] && results[1].histograms[0]) {
-								if (results[1].histograms[0].counts.length < 365) {
-									for (var k = results[1].histograms[0].counts.length; k < 365; k++) {
+								if (results[1].histograms[0].counts.length < 366) {
+									for (var k = results[1].histograms[0].counts.length; k < 366; k++) {
 										results[1].histograms[0].counts.push(0);
 									}
 								}
 								alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
 							}
-							// if (results[2] && results[2].histograms[0]) {
-							// 	alerts = alerts.concat(formatGlad('2017', results[1].histograms[0].counts));
-							// }
+							if (results[2] && results[2].histograms[0]) {
+								alerts = alerts.concat(formatGlad('2017', results[2].histograms[0].counts));
+							}
 							// promise.resolve(alerts);
 							success(alerts);
 							deferred.resolve(true);
