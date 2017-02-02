@@ -14,6 +14,7 @@ define([], function() {
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
+        gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
@@ -371,6 +372,12 @@ define([], function() {
             outputValues: [0, 1, 0],
             toolsNode: 'glad_toolbox'
         },
+        gladFootprints: {
+          id: 'gladFootprints',
+          url: gladFootprintUrl,
+          layerId: 8,
+          defaultLayers: [8]
+        },
         tcd: {
             id: 'TreeCoverDensity',
             url: treeCoverDensityUrl,
@@ -715,7 +722,15 @@ define([], function() {
                 visible: true,
                 infoDivClass: 'forest-change-glad-alerts',
                 parent: 'treeCoverLossAlerts',
-                endChild: false
+                endChild: false,
+                children: [{
+                    id: 'gladFootprints',
+                    title: 'Geographic Coverage',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'dynamic',
+                    infoDivClass: 'forest-change-tree-cover-loss'
+                }]//,
             }, {
                 id: 'forma',
                 title: 'FORMA Alerts',

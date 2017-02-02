@@ -190,6 +190,8 @@ define([
                 prodesParams,
                 gladAlertsLayer,
                 gladParams = {},
+                gladFootprintsLayer,
+                gladFootprintsParams,
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -383,6 +385,16 @@ define([
                     'min_density': 30,
                     'max_density': 100
                 }
+            });
+            gladFootprintsParams = new ImageParameters();
+            gladFootprintsParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            gladFootprintsParams.layerIds = [MapConfig.gladFootprints.layerId];
+            gladFootprintsParams.format = 'png32';
+
+            gladFootprintsLayer = new ArcGISDynamicLayer(MapConfig.gladFootprints.url, {
+                imageParameters: gladFootprintsParams,
+                id: MapConfig.gladFootprints.id,
+                visible: false
             });
 
             lossLayer = new ArcGISImageServiceLayer(MapConfig.loss.url, {
@@ -608,6 +620,7 @@ define([
                 formaAlertsLayer,
                 prodesAlertsLayer,
                 gladAlertsLayer,
+                gladFootprintsLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -654,6 +667,7 @@ define([
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
+            gladFootprintsLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
