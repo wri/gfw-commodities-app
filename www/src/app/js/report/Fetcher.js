@@ -1077,16 +1077,26 @@ define([
 								//this._computeHistogram(url, content3)
 						]).then(function(results) {
 							var alerts = [];
-							console.log(results);
+							// console.log(results);
 							if (results[0] && results[0].histograms[0]) {
+								if (results[0].histograms[0].counts.length < 365) {
+									for (var j = results[0].histograms[0].counts.length; j < 365; j++) {
+										results[0].histograms[0].counts.push(0);
+									}
+								}
 								alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
 							}
 							if (results[1] && results[1].histograms[0]) {
+								if (results[1].histograms[0].counts.length < 365) {
+									for (var k = results[1].histograms[0].counts.length; k < 365; k++) {
+										results[1].histograms[0].counts.push(0);
+									}
+								}
 								alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
 							}
-							if (results[2] && results[2].histograms[0]) {
-								alerts = alerts.concat(formatGlad('2017', results[1].histograms[0].counts));
-							}
+							// if (results[2] && results[2].histograms[0]) {
+							// 	alerts = alerts.concat(formatGlad('2017', results[1].histograms[0].counts));
+							// }
 							// promise.resolve(alerts);
 							success(alerts);
 							deferred.resolve(true);
