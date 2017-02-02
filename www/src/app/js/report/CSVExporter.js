@@ -148,6 +148,29 @@ define([
     return csvData;
 	}
 
+	function exportAlternateChartAnalysis (chart) {
+		var series = chart.series,
+				csvData = [],
+				values = [],
+				lineEndings = '\r\n',
+				output;
+
+		csvData = ['Custom Feature #1 - Glad Alerts', 'Day,Glad Alerts'];
+
+		series[0].processedXData.forEach(function(date, index) {
+			const d = new Date(date);
+			var datestring = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
+			values.push(datestring);
+			values.push(series[0].processedYData[index]);
+			csvData.push(values.join(','));
+			values = [];
+		});
+
+		output = csvData.join(lineEndings);
+		return output;
+
+	}
+
 	/**
 	* @param {object} chart - Takes a HighChart chart object
 	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
@@ -320,6 +343,7 @@ define([
 		exportSuitabilityStatistics: exportSuitabilityStatistics,
 		exportCompositionAnalysis: exportCompositionAnalysis,
 		exportSimpleChartAnalysis: exportSimpleChartAnalysis,
+		exportAlternateChartAnalysis: exportAlternateChartAnalysis,
 		prepareMillAnalysis: prepareMillAnalysis
 
 	};

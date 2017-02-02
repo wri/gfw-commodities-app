@@ -133,7 +133,11 @@ define([
 
                 // All Charts have a title except RSPO Land Use Change Analysis
                 // If the type is column, it's the RSPO Chart so return that for a title
-                content.push(type === 'column' ? 'RSPO Land Use Change Analysis' : chartContext.title.textStr);
+                if (type === 'column') {
+                  content.push('RSPO Land Use Change Analysis');
+                } else if (chartContext.title && chartContext.title.textStr) {
+                  content.push(chartContext.title.textStr);
+                }
                 content.push(featureTitle);
 
                 // If type is bar it could be the loss charts or the suitable chart, check the number of xAxes.
@@ -152,7 +156,11 @@ define([
                 } else {
                     // Its either a bar chart with one axis, line chart, or column chart
                     // Pass in the reference to the chart
-                    csvData = CSVExporter.exportSimpleChartAnalysis(chartContext);
+                    if (chartContext.xAxis[0].categories) {
+                      csvData = CSVExporter.exportSimpleChartAnalysis(chartContext);
+                    } else {
+                      csvData = CSVExporter.exportAlternateChartAnalysis(chartContext);
+                    }
                     content = content.concat(csvData);
                 }
 

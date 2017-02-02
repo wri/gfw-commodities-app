@@ -1050,10 +1050,16 @@ define([
           plotBorderWidth: null,
           plotShadow: false
         },
+        lang: {
+            gladButtonTitle: 'Download Chart Data'
+        },
         exporting: {
           buttons: {
             contextButton: { enabled: false },
             exportButton: {
+              // align: 'center',
+              // x: 40,
+              _titleKey: 'gladButtonTitle',
               menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
               symbol: exportButtonImagePath
             }
