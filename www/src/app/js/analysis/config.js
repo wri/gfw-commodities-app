@@ -188,6 +188,9 @@ define([], function() {
             }, {
                 label: 'GLAD Alerts',
                 value: 'gladAlerts',
+                childLabel: 'Show only confirmed alerts',
+                childChecked: false,
+                childValue: 'gladConfirmed',
                 checked: false
             }, {
                 label: 'Gran Chaco deforestation (Guyra Paraguay)',
@@ -399,6 +402,7 @@ define([], function() {
             selectedCustomFeatures: 'selectedCustomFeatures',
             selectedPresetFeature: 'selectedPresetFeature',
             currentTreeCoverDensity: 'currentTreeCoverDensity',
+            gladConfidence: 'gladConfidence',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',

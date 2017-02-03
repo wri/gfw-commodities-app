@@ -7,6 +7,7 @@ define([], function() {
         // clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
 
         gladUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer/computeHistograms',
+        gladUrlConfidence = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_con_analysis/ImageServer/computeHistograms',
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
@@ -609,8 +610,9 @@ define([], function() {
         glad: {
             rootNode: 'glad',
             title: 'GLAD Alerts',
-            rasterId: ['$6', '$4'],
+            rasterId: ['$6', '$4', '$9'],
             url: gladUrl,
+            confidentUrl: gladUrlConfidence,
             bounds: gladBounds,
             labels: gladLabels,
             mosaicRule: {

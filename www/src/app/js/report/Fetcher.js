@@ -982,15 +982,21 @@ define([
 
 				getGladResults: function(config, useSimpleEncoderRule) {
 						this._debug('Fetcher >>> getGladResults');
+
 						var deferred = new Deferred(),
 								gladConfig = ReportConfig.glad,
 								url = gladConfig.url,
+								gladIds = [6, 4, 9],
 								self = this,
 								content,
 								content2,
 								content3,
 								encoder;
 
+						if (window.payload.datasets.gladConfirmed === true) {
+							url = gladConfig.confidentUrl;
+							gladIds = [5, 7, 8];
+						}
 
 						config = _.clone(gladConfig);
 
@@ -1040,7 +1046,7 @@ define([
 								geometry: JSON.stringify(report.geometry),
 								mosaicRule: JSON.stringify({
 										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [6],
+										'lockRasterIds': [gladIds[0]],
 										'ascending': true,
 										'mosaicOperation': 'MT_FIRST'
 								}),
@@ -1052,7 +1058,7 @@ define([
 								geometry: JSON.stringify(report.geometry),
 								mosaicRule: JSON.stringify({
 										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [4],
+										'lockRasterIds': [gladIds[1]],
 										'ascending': true,
 										'mosaicOperation': 'MT_FIRST'
 								}),
@@ -1064,7 +1070,7 @@ define([
 								geometry: JSON.stringify(report.geometry),
 								mosaicRule: JSON.stringify({
 										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [9],
+										'lockRasterIds': [gladIds[2]],
 										'ascending': true,
 										'mosaicOperation': 'MT_FIRST'
 								}),
