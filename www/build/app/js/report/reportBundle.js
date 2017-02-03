@@ -205,6 +205,7 @@ define('report/config',[], function() {
         // clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
 
         gladUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer/computeHistograms',
+        gladUrlConfidence = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_con_analysis/ImageServer/computeHistograms',
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
@@ -807,8 +808,9 @@ define('report/config',[], function() {
         glad: {
             rootNode: 'glad',
             title: 'GLAD Alerts',
-            rasterId: ['$6', '$4'],
+            rasterId: ['$6', '$4', '$9'],
             url: gladUrl,
+            confidentUrl: gladUrlConfidence,
             bounds: gladBounds,
             labels: gladLabels,
             mosaicRule: {
@@ -1528,6 +1530,29 @@ define('report/CSVExporter',[
     return csvData;
 	}
 
+	function exportAlternateChartAnalysis (chart) {
+		var series = chart.series,
+				csvData = [],
+				values = [],
+				lineEndings = '\r\n',
+				output;
+
+		csvData = ['Custom Feature #1 - Glad Alerts', 'Day,Glad Alerts'];
+
+		series[0].processedXData.forEach(function(date, index) {
+			const d = new Date(date);
+			var datestring = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
+			values.push(datestring);
+			values.push(series[0].processedYData[index]);
+			csvData.push(values.join(','));
+			values = [];
+		});
+
+		output = csvData.join(lineEndings);
+		return output;
+
+	}
+
 	/**
 	* @param {object} chart - Takes a HighChart chart object
 	* @return {array} - array of csv ready string data, each entry in the array represents one line in the csv export
@@ -1700,6 +1725,7 @@ define('report/CSVExporter',[
 		exportSuitabilityStatistics: exportSuitabilityStatistics,
 		exportCompositionAnalysis: exportCompositionAnalysis,
 		exportSimpleChartAnalysis: exportSimpleChartAnalysis,
+		exportAlternateChartAnalysis: exportAlternateChartAnalysis,
 		prepareMillAnalysis: prepareMillAnalysis
 
 	};
@@ -2760,10 +2786,16 @@ define('report/Renderer',[
           plotBorderWidth: null,
           plotShadow: false
         },
+        lang: {
+            gladButtonTitle: 'Download Chart Data'
+        },
         exporting: {
           buttons: {
             contextButton: { enabled: false },
             exportButton: {
+              // align: 'center',
+              // x: 40,
+              _titleKey: 'gladButtonTitle',
               menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
               symbol: exportButtonImagePath
             }
@@ -6949,14 +6981,21 @@ define('report/Fetcher',[
 
 				getGladResults: function(config, useSimpleEncoderRule) {
 						this._debug('Fetcher >>> getGladResults');
+
 						var deferred = new Deferred(),
 								gladConfig = ReportConfig.glad,
 								url = gladConfig.url,
+								gladIds = [6, 4, 9],
 								self = this,
 								content,
 								content2,
 								content3,
 								encoder;
+
+						if (window.payload.datasets.gladConfirmed === true) {
+							url = gladConfig.confidentUrl;
+							gladIds = [5, 7, 8];
+						}
 
 						config = _.clone(gladConfig);
 
@@ -6994,7 +7033,7 @@ define('report/Fetcher',[
 						function formatGlad(year, counts) {
 							var results = [];
 							for (let i = 0; i < counts.length; i++) {
-								results.push([new Date(year, 0, i).getTime(), counts[i] || 0]);
+								results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
 							}
 							return results;
 						}
@@ -7006,7 +7045,7 @@ define('report/Fetcher',[
 								geometry: JSON.stringify(report.geometry),
 								mosaicRule: JSON.stringify({
 										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [6],
+										'lockRasterIds': [gladIds[0]],
 										'ascending': true,
 										'mosaicOperation': 'MT_FIRST'
 								}),
@@ -7018,7 +7057,7 @@ define('report/Fetcher',[
 								geometry: JSON.stringify(report.geometry),
 								mosaicRule: JSON.stringify({
 										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [4],
+										'lockRasterIds': [gladIds[1]],
 										'ascending': true,
 										'mosaicOperation': 'MT_FIRST'
 								}),
@@ -7030,7 +7069,7 @@ define('report/Fetcher',[
 								geometry: JSON.stringify(report.geometry),
 								mosaicRule: JSON.stringify({
 										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [9],
+										'lockRasterIds': [gladIds[2]],
 										'ascending': true,
 										'mosaicOperation': 'MT_FIRST'
 								}),
@@ -7040,19 +7079,28 @@ define('report/Fetcher',[
 
 						all([
 								this._computeHistogram(url, content),
-								this._computeHistogram(url, content2)//,
-								//this._computeHistogram(url, content3)
+								this._computeHistogram(url, content2),
+								this._computeHistogram(url, content3)
 						]).then(function(results) {
 							var alerts = [];
-							console.log(results);
 							if (results[0] && results[0].histograms[0]) {
+								if (results[0].histograms[0].counts.length < 366) {
+									for (var j = results[0].histograms[0].counts.length; j < 366; j++) {
+										results[0].histograms[0].counts.push(0);
+									}
+								}
 								alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
 							}
 							if (results[1] && results[1].histograms[0]) {
+								if (results[1].histograms[0].counts.length < 366) {
+									for (var k = results[1].histograms[0].counts.length; k < 366; k++) {
+										results[1].histograms[0].counts.push(0);
+									}
+								}
 								alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
 							}
 							if (results[2] && results[2].histograms[0]) {
-								alerts = alerts.concat(formatGlad('2017', results[1].histograms[0].counts));
+								alerts = alerts.concat(formatGlad('2017', results[2].histograms[0].counts));
 							}
 							// promise.resolve(alerts);
 							success(alerts);
@@ -7521,7 +7569,11 @@ define('report/Generator',[
 
                 // All Charts have a title except RSPO Land Use Change Analysis
                 // If the type is column, it's the RSPO Chart so return that for a title
-                content.push(type === 'column' ? 'RSPO Land Use Change Analysis' : chartContext.title.textStr);
+                if (type === 'column') {
+                  content.push('RSPO Land Use Change Analysis');
+                } else if (chartContext.title && chartContext.title.textStr) {
+                  content.push(chartContext.title.textStr);
+                }
                 content.push(featureTitle);
 
                 // If type is bar it could be the loss charts or the suitable chart, check the number of xAxes.
@@ -7540,7 +7592,11 @@ define('report/Generator',[
                 } else {
                     // Its either a bar chart with one axis, line chart, or column chart
                     // Pass in the reference to the chart
-                    csvData = CSVExporter.exportSimpleChartAnalysis(chartContext);
+                    if (chartContext.xAxis[0].categories) {
+                      csvData = CSVExporter.exportSimpleChartAnalysis(chartContext);
+                    } else {
+                      csvData = CSVExporter.exportAlternateChartAnalysis(chartContext);
+                    }
                     content = content.concat(csvData);
                 }
 

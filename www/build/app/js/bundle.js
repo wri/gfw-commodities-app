@@ -300,6 +300,7 @@ define('map/config',[], function() {
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
+        gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
@@ -657,6 +658,12 @@ define('map/config',[], function() {
             outputValues: [0, 1, 0],
             toolsNode: 'glad_toolbox'
         },
+        gladFootprints: {
+          id: 'gladFootprints',
+          url: gladFootprintUrl,
+          layerId: 8,
+          defaultLayers: [8]
+        },
         tcd: {
             id: 'TreeCoverDensity',
             url: treeCoverDensityUrl,
@@ -1001,7 +1008,22 @@ define('map/config',[], function() {
                 visible: true,
                 infoDivClass: 'forest-change-glad-alerts',
                 parent: 'treeCoverLossAlerts',
-                endChild: false
+                endChild: false,
+                children: [{
+                    id: 'gladFootprints',
+                    title: 'Geographic Coverage',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'dynamic',
+                    infoDivClass: 'forest-change-tree-cover-loss'
+                }, {
+                    id: 'gladConfidence',
+                    title: 'Show only confirmed alerts',
+                    filter: 'forest-change',
+                    type: 'check',
+                    layerType: 'none',
+                    infoDivClass: 'forest-change-tree-cover-loss'
+                }]//,
             }, {
                 id: 'forma',
                 title: 'FORMA Alerts',
@@ -1383,14 +1405,6 @@ define('map/config',[], function() {
                 layerType: 'dynamic',
                 infoDivClass: 'suitability-soil-type'
             }
-            // , {
-            //     id: 'none_agro',
-            //     title: 'None',
-            //     subtitle: '',
-            //     filter: 'agro-suitability',
-            //     type: 'radio',
-            //     layerType: 'none'
-            // }
         ],
 
         // Miscellaneous Settings
@@ -2421,6 +2435,9 @@ define('analysis/config',[], function() {
             }, {
                 label: 'GLAD Alerts',
                 value: 'gladAlerts',
+                childLabel: 'Show only confirmed alerts',
+                childChecked: false,
+                childValue: 'gladConfirmed',
                 checked: false
             }, {
                 label: 'Gran Chaco deforestation (Guyra Paraguay)',
@@ -2632,6 +2649,7 @@ define('analysis/config',[], function() {
             selectedCustomFeatures: 'selectedCustomFeatures',
             selectedPresetFeature: 'selectedPresetFeature',
             currentTreeCoverDensity: 'currentTreeCoverDensity',
+            gladConfidence: 'gladConfidence',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',
@@ -4778,12 +4796,13 @@ define('actions/WizardActions',[
       Store.set(KEYS.selectedCustomFeatures, []);
     },
 
-    /**
-    * Clear the selected features list
-    */
+
     setTreeCoverDensity: function (density) {
-      console.log(density);
       Store.set(KEYS.currentTreeCoverDensity, density);
+    },
+
+    setGladConfidence: function (confidence) {
+      Store.set(KEYS.gladConfidence, confidence);
     },
 
     /**
@@ -6908,6 +6927,16 @@ define('map/LayerController',[
 
         },
 
+        toggleGladConfidence: function(active) {
+          var gladLayer = app.map.getLayer('gladAlerts');
+          if (active) {
+            gladLayer.setConfidenceLevel('all');
+          } else {
+            gladLayer.setConfidenceLevel('confirmed');
+          }
+
+        },
+
         getJulianDate: function(timestamp) {
           var day = 1000 * 60 * 60 * 24;
           var newDate = new Date(timestamp);
@@ -7512,11 +7541,12 @@ define('components/wizard/WizardCheckbox',[
   'knockout',
   'map/TCDSlider',
   'map/MapModel',
+  'actions/WizardActions',
   'analysis/config',
   'analysis/WizardStore',
   'dojo/topic',
   'utils/Analytics'
-], function (React, ko, TCDSlider, MapModel, AnalyzerConfig, WizardStore, topic, Analytics) {
+], function (React, ko, TCDSlider, MapModel, WizardActions, AnalyzerConfig, WizardStore, topic, Analytics) {
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
 
@@ -7533,15 +7563,25 @@ define('components/wizard/WizardCheckbox',[
 			}
 
       WizardStore.registerCallback(KEYS.currentTreeCoverDensity, this.tcdUpdated);
+      WizardStore.registerCallback(KEYS.gladConfidence, this.gladConfidenceUpdate);
 
     },
-
 
     tcdUpdated: function () {
       var aoi = WizardStore.get(KEYS.currentTreeCoverDensity);
       if (this.props.value === 'soy') {
         console.log(aoi);
         this.setState(this.state);
+      }
+    },
+
+    gladConfidenceUpdate: function () {
+      if (this.props.value === 'gladAlerts') {
+        var gladConfidence = WizardStore.get(KEYS.gladConfidence);
+        console.log(gladConfidence);
+        this.setState({
+          gladConfidence: gladConfidence
+        });
       }
     },
 
@@ -7572,6 +7612,14 @@ define('components/wizard/WizardCheckbox',[
     render: function() {
       var className = 'wizard-checkbox' + (this.props.checked ? ' active' : '');
 
+      var gladConfidence;
+      if (this.props.value === 'gladAlerts' && this.state) {
+        gladConfidence = this.state.gladConfidence;
+        this.props.childChecked = !gladConfidence;
+      }
+
+      var gladClassName = 'wizard-checkbox confirmed-glad' + (this.props.childChecked ? ' active' : '');
+
       var tcdDensityValue;
 
       if (this.props.value === 'soy' && this.model) {
@@ -7595,7 +7643,17 @@ define('components/wizard/WizardCheckbox',[
             React.createElement("span", {className: "tcd-percentage-holder"}, 
             React.createElement("span", {className: "tcd-percentage-label"}, "Analyze at "), 
             React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
-            React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
+            React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null, 
+          
+          
+            this.props.checked && this.props.value === 'gladAlerts' ?
+            React.createElement("div", {className: gladClassName, "data-value": this.props.childValue}, 
+              React.createElement("span", {className: "custom-check", onClick: this.toggleGladConfidence}, 
+                React.createElement("span", null)
+              ), 
+              React.createElement("a", {className: "wizard-checkbox-label", onClick: this.toggleGladConfidence}, this.props.childLabel)
+
+            ) : null
           
         )
       );
@@ -7612,7 +7670,21 @@ define('components/wizard/WizardCheckbox',[
     },
 
     showSoySlider: function() {
-      TCDSlider.show();
+      this.props.change(this.props.value);
+      if (this.props.value === 'soy') {
+        TCDSlider.hide();
+      }
+      // Emit Event for Analytics
+      Analytics.sendEvent('Event', 'Analysis Toggle', 'User toggled analysis for the ' + this.props.value + 'layer.');
+    },
+
+    toggleGladConfidence: function() {
+
+      this.props.change(this.props.childValue);
+      WizardActions.setGladConfidence(this.props.childChecked);
+      topic.publish('toggleGladConfidence', this.props.childChecked);
+      // Emit Event for Analytics
+      Analytics.sendEvent('Event', 'Analysis Toggle', 'User toggled analysis for the ' + this.props.value + 'layer.');
     },
 
     showInfo: function() {
@@ -7866,6 +7938,10 @@ define('components/wizard/StepThree',[
           label: item.label, 
           value: item.value, 
           change: this._selectionMade, 
+          childLabel: item.childLabel, 
+          childChecked: checkedValues.indexOf(item.childValue) > -1, 
+          childChange: this._selectionMade, 
+          childValue: item.childValue, 
           isResetting: this.props.isResetting, // Pass Down so Components receive the reset command
           checked: checkedValues.indexOf(item.value) > -1, 
           noInfoIcon: item.noInfoIcon || false}
@@ -7886,13 +7962,6 @@ define('components/wizard/StepThree',[
 
         return (!hasPoints && isCustomArea ? null : React.createElement("p", {className: "sub-title"}, config.knownMillsDisclaimer));
 
-        // return (hasPoints ?
-        //   <div className='point-radius-select-container'>
-        //       <span className='instructions'>{config.pointRadiusDescription}</span>
-        //       <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
-        //   </div> :
-        //     isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
-        // );
       },
 
       /* jshint ignore:end */
@@ -11679,6 +11748,8 @@ define('map/Map',[
                 prodesParams,
                 gladAlertsLayer,
                 gladParams = {},
+                gladFootprintsLayer,
+                gladFootprintsParams,
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -11872,6 +11943,16 @@ define('map/Map',[
                     'min_density': 30,
                     'max_density': 100
                 }
+            });
+            gladFootprintsParams = new ImageParameters();
+            gladFootprintsParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
+            gladFootprintsParams.layerIds = [MapConfig.gladFootprints.layerId];
+            gladFootprintsParams.format = 'png32';
+
+            gladFootprintsLayer = new ArcGISDynamicLayer(MapConfig.gladFootprints.url, {
+                imageParameters: gladFootprintsParams,
+                id: MapConfig.gladFootprints.id,
+                visible: false
             });
 
             lossLayer = new ArcGISImageServiceLayer(MapConfig.loss.url, {
@@ -12097,6 +12178,7 @@ define('map/Map',[
                 formaAlertsLayer,
                 prodesAlertsLayer,
                 gladAlertsLayer,
+                gladFootprintsLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -12143,6 +12225,7 @@ define('map/Map',[
             formaAlertsLayer.on('error', this.addLayerError);
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
+            gladFootprintsLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
@@ -13383,6 +13466,10 @@ define('components/Check',[
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
 
+					if (this.props.id === 'gladConfidence') {
+						console.log('gladConfidence', this.state);
+					}
+
 
 			return (
 				React.createElement("li", {className: className, "data-layer": this.props.id}, 
@@ -13401,10 +13488,9 @@ define('components/Check',[
 						
 						React.createElement("a", {className: "layer-title"}, this.props.title), 
 
-
 						React.createElement("p", {className: "layer-sub-title"}, this.props.subtitle), 
 						
-						this.props.kids ? null : React.createElement("div", {title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
+						this.props.kids || this.props.id === 'gladConfidence' ? null : React.createElement("div", {title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
 							React.createElement("div", {id: this.props.id + '_slider'})
 						), 
 						
@@ -13575,235 +13661,214 @@ define('components/LayerList',[
 	"react",
 	"dojo/topic",
 	"utils/Hasher",
+	"actions/WizardActions",
 	"components/RadioButton",
 	"components/Check"
-], function (React, topic, Hasher, RadioButton, Check) {
+], function (React, topic, Hasher, WizardActions, RadioButton, Check) {
 
 	var _components = [];
 
-  var List = React.createClass({displayName: "List",
+	var List = React.createClass({displayName: "List",
 
-    getInitialState: function () {
-      return ({
-        title: this.props.title,
-        filter: this.props.filter
-      });
+		getInitialState: function () {
+			return ({
+				title: this.props.title,
+				filter: this.props.filter
+			});
 
+		},
 
-    },
-
-    componentWillReceiveProps: function (newProps, oldProps) {
+		componentWillReceiveProps: function (newProps, oldProps) {
 			this.setState(newProps);
 		},
 
-    /* jshint ignore:start */
-    render: function () {
+		/* jshint ignore:start */
+		render: function () {
 
-      return (
-        React.createElement("div", {className: "smart-list"}, 
-          React.createElement("div", {className: this.props.title}, 
-              React.createElement("div", {className: "category-icon"})
-          ), 
-          React.createElement("div", {className: "filter-list-title"}, this.props.title), 
-          React.createElement("div", {className: "layer-line"}), 
-          React.createElement("ul", {className: "filter-list"}, 
-            this.props.items.map(this._mapper, this)
-          )
-        )
-      );
-    },
+			return (
+				React.createElement("div", {className: "smart-list"}, 
+					React.createElement("div", {className: this.props.title}, 
+							React.createElement("div", {className: "category-icon"})
+					), 
+					React.createElement("div", {className: "filter-list-title"}, this.props.title), 
+					React.createElement("div", {className: "layer-line"}), 
+					React.createElement("ul", {className: "filter-list"}, 
+						this.props.items.map(this._mapper, this)
+					)
+				)
+			);
+		},
 
-    _mapper: function (props) {
-      props.visible = (this.state.filter === props.filter);
-      props.handle = this._handle;
-      props.postCreate = this._postCreate;
+		_mapper: function (props) {
+			props.visible = (this.state.filter === props.filter);
+			props.handle = this._handle;
+			props.postCreate = this._postCreate;
 
-      if (props.type === 'radio') {
-        return React.createElement(RadioButton, React.__spread({},  props));
-      } else {
-        return React.createElement(Check, React.__spread({},  props));
-      }
+			if (props.type === 'radio') {
+				return React.createElement(RadioButton, React.__spread({},  props));
+			} else {
+				return React.createElement(Check, React.__spread({},  props));
+			}
 
-    },
-    /* jshint ignore:end */
+		},
+		/* jshint ignore:end */
 
-    _handle: function (component) {
+		_handle: function (component) {
+			console.log(component.props);
+			if (component.props.type === 'radio') {
+				this._radio(component);
+			} else {
+				this._check(component);
+			}
+		},
 
-      if (component.props.type === 'radio') {
-        this._radio(component);
-      } else {
-        this._check(component);
-      }
-    },
-
-    _check: function (component) {
+		_check: function (component) {
+			console.log('_check');
 			var newState = !component.state.active;
-      component.setState({
-        active: newState
-      });
+			component.setState({
+				active: newState
+			});
 
-      // if (component.props.kids) {
+			if (component.props.layerType !== 'none') {
+				Hasher.toggleLayers(component.props.id);
+			}
 
-      //   var childComponents = [];
+			if (component.props.useRadioCallback || component.props.id === 'suit' || component.props.id === 'soy') {
+				if (component.props.id === 'gladConfidence') {
 
-      //   component.props.kids.forEach(function (child) {
-      //     _components.forEach(function (comp) {
-      //       if (comp.props.id === child) {
-      //         childComponents.push(comp);
-      //       }
-      //     });
-      //   });
+					topic.publish('toggleGladConfidence', component.state.active);
+					WizardActions.setGladConfidence(component.state.active);
+				} else {
+					topic.publish('toggleLayer', component.props.id);
+				}
+			} else {
+				// Call this function on the next animation frame to give React time
+				// to render the changes from its new state, the callback needs to read
+				// the ui to update the layer correctly
+				requestAnimationFrame(function () {
+					topic.publish('updateLayer', component.props);
+				});
+			}
 
-      //   childComponents.forEach(function (child) {
+		},
 
-      //     child.setState({
-      //       active: newState
-      //     });
+		_radio: function (component) {
 
-      //     //topic.publish('showLayer', child.props.id);
-      //     requestAnimationFrame(function () {
-      //       topic.publish('updateLayer', child.props);
-      //     });
-      //     Hasher.forceLayer(child.props.id, newState);
-      //   });
+			var previous,	isNewSelection;
 
-      // } else {
-      Hasher.toggleLayers(component.props.id);
+			_components.forEach(function (item, idx) {
+				if (item.props.filter === component.props.filter) {
+					if (item.state.active) {
+						previous = item;
+					}
+				}
+			});
 
-      if (component.props.useRadioCallback || component.props.id === 'suit' || component.props.id === 'soy') {
-        topic.publish('toggleLayer', component.props.id);
-      } else {
-        // Call this function on the next animation frame to give React time
-        // to render the changes from its new state, the callback needs to read
-        // the ui to update the layer correctly
-        requestAnimationFrame(function () {
-          topic.publish('updateLayer', component.props);
-        });
-      }
-      // }
+			if (previous) {
+				isNewSelection = (previous.props.id !== component.props.id);
+				if (isNewSelection) {
+					if (previous.props.type !== 'check') {
+						previous.setState({
+							active: false
+						});
 
+						// Remove Previous Hash but ignore it if None was previous
+						if (previous.props.id.search("none_") === -1) {
+							Hasher.toggleLayers(previous.props.id);
+							topic.publish('hideLayer', previous.props.id);
+						}
 
+						// Toggle Children for Previous if it has any
+						this._toggleChildren(previous, 'remove');
+					}
 
-    },
-
-    _radio: function (component) {
-
-      var previous,
-      		isNewSelection;
-
-      _components.forEach(function (item, idx) {
-        if (item.props.filter === component.props.filter) {
-          if (item.state.active) {
-            previous = item;
-          }
-        }
-      });
-
-      if (previous) {
-      	isNewSelection = (previous.props.id !== component.props.id);
-        if (isNewSelection) {
-          if (previous.props.type !== 'check') {
-            previous.setState({
-              active: false
-            });
-
-            // Remove Previous Hash but ignore it if None was previous
-            if (previous.props.id.search("none_") === -1) {
-              Hasher.toggleLayers(previous.props.id);
-              topic.publish('hideLayer', previous.props.id);
-            }
-
-            // Toggle Children for Previous if it has any
-            this._toggleChildren(previous, 'remove');
-          }
-
-          // Add New if None is not selected and isNew
-		      if (component.props.id.search("none_") === -1) {
-		      	Hasher.toggleLayers(component.props.id);
+					// Add New if None is not selected and isNew
+					if (component.props.id.search("none_") === -1) {
+						Hasher.toggleLayers(component.props.id);
 						topic.publish('showLayer', component.props.id);
-		      }
+					}
 
-        } else {
-          // The Same button was clicked twice, just disable it
-          component.setState({
-            active: false
-          });
+				} else {
+					// The Same button was clicked twice, just disable it
+					component.setState({
+						active: false
+					});
 
-          this._toggleChildren(component, 'remove');
-          Hasher.removeLayers(component.props.id);
-          topic.publish('hideLayer', component.props.id);
+					this._toggleChildren(component, 'remove');
+					Hasher.removeLayers(component.props.id);
+					topic.publish('hideLayer', component.props.id);
 
-        }
-      } else {
-        // Add New if None is not selected and isNew
-	      if (component.props.id.search("none_") === -1) {
-	      	Hasher.toggleLayers(component.props.id);
+				}
+			} else {
+				// Add New if None is not selected and isNew
+				if (component.props.id.search("none_") === -1) {
+					Hasher.toggleLayers(component.props.id);
 					topic.publish('showLayer', component.props.id);
-	      }
-      }
+				}
+			}
 
-      if (isNewSelection !== false) {
-        component.setState({
-          active: true
-        });
+			if (isNewSelection !== false) {
+				component.setState({
+					active: true
+				});
 
-        this._toggleChildren(component, 'add');
-      }
+				this._toggleChildren(component, 'add');
+			}
 
-    },
+		},
 
-    _toggleChildren: function (component, action) {
+		_toggleChildren: function (component, action) {
 
-    	var childComponents = [];
+			var childComponents = [];
 
-    	if (component.props.children) {
-    		component.props.children.forEach(function (child) {
-    			_components.forEach(function (comp) {
-    				if (comp.props.id === child.id) {
-    					childComponents.push(comp);
-    				}
-    			});
-    		});
+			if (component.props.children) {
+				component.props.children.forEach(function (child) {
+					_components.forEach(function (comp) {
+						if (comp.props.id === child.id) {
+							childComponents.push(comp);
+						}
+					});
+				});
 
-    		if (action === 'remove') {
-    			childComponents.forEach(function (child) {
-    				if (child.state.active) {
-  						topic.publish('hideLayer', child.props.id);
-  						Hasher.removeLayers(child.props.id);
-    				}
-	    		});
-    		} else {
-    			childComponents.forEach(function (child) {
-    				if (child.state.active) {
+				if (action === 'remove') {
+					childComponents.forEach(function (child) {
+						if (child.state.active) {
+							topic.publish('hideLayer', child.props.id);
+							Hasher.removeLayers(child.props.id);
+						}
+					});
+				} else {
+					childComponents.forEach(function (child) {
+						if (child.state.active) {
 							topic.publish('showLayer', child.props.id);
 							Hasher.toggleLayers(child.props.id);
-    				}
-	    		});
-    		}
-    	}
+						}
+					});
+				}
+			}
 
-    },
+		},
 
-    _postCreate: function (component) {
-      _components.push(component);
-    },
+		_postCreate: function (component) {
+			_components.push(component);
+		},
 
-    toggleFormElement: function (id) {
-      // Loop through the components
-      // If the id matches, trigger the onChange callback (a.k.a. props.handle)
-      _components.forEach(function (comp) {
-        if (comp.props.id === id) {
-          comp.props.handle(comp);
-        }
-      });
-    }
+		toggleFormElement: function (id) {
+			// Loop through the components
+			// If the id matches, trigger the onChange callback (a.k.a. props.handle)
+			_components.forEach(function (comp) {
+				if (comp.props.id === id) {
+					comp.props.handle(comp);
+				}
+			});
+		}
 
-  });
+	});
 
 	return function (props, el) {
-    /* jshint ignore:start */
+		/* jshint ignore:start */
 		return React.render(React.createElement(List, React.__spread({},  props)), document.getElementById(el));
-    /* jshint ignore:end */
+		/* jshint ignore:end */
 	};
 
 });
@@ -14056,7 +14121,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.52',
+                path = './app/templates/' + name + '.html?v=2.4.53',
                 req;
 
             req = new XMLHttpRequest();
@@ -16478,7 +16543,6 @@ define('utils/Delegator',[
                 LayerController.setWizardMillPointsLayerDefinition(MapConfig.mill);
                 LayerController.setWizardMillPointsLayerDefinition(MapConfig.gfwMill);
 
-
             });
 
             // Layer Controller Functions
@@ -16524,6 +16588,10 @@ define('utils/Delegator',[
                 } else if (props.layerType === 'dynamic') {
                     LayerController.updateLayer(props);
                 }
+            });
+
+            topic.subscribe('toggleGladConfidence', function(active) {
+                LayerController.toggleGladConfidence(active);
             });
 
             topic.subscribe('updateGladDates', function(dates) {
