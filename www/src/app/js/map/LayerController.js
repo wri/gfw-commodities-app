@@ -226,9 +226,8 @@ define([
 
         },
 
-        toggleGladConfidence: function(active) { //TODO: this active might be inversed!
+        toggleGladConfidence: function(active) {
           var gladLayer = app.map.getLayer('gladAlerts');
-
           if (active) {
             gladLayer.setConfidenceLevel('all');
           } else {

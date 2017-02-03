@@ -102,6 +102,10 @@ define([
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
 
+					if (this.props.id === 'gladConfidence') {
+						console.log('gladConfidence', this.state);
+					}
+
 
 			return (
 				<li className={className} data-layer={this.props.id}>
@@ -120,10 +124,9 @@ define([
 						}
 						<a className='layer-title'>{this.props.title}</a>
 
-
 						<p className='layer-sub-title'>{this.props.subtitle}</p>
 						{
-						this.props.kids ? null : <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
+						this.props.kids || this.props.id === 'gladConfidence' ? null : <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
 							<div id={this.props.id + '_slider'} />
 						</div>
 						}

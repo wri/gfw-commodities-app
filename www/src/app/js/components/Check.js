@@ -102,6 +102,10 @@ define([
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
 
+					if (this.props.id === 'gladConfidence') {
+						console.log('gladConfidence', this.state);
+					}
+
 
 			return (
 				React.createElement("li", {className: className, "data-layer": this.props.id}, 
@@ -120,10 +124,9 @@ define([
 						
 						React.createElement("a", {className: "layer-title"}, this.props.title), 
 
-
 						React.createElement("p", {className: "layer-sub-title"}, this.props.subtitle), 
 						
-						this.props.kids ? null : React.createElement("div", {title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
+						this.props.kids || this.props.id === 'gladConfidence' ? null : React.createElement("div", {title: "Layer Transparency", className: 'sliderContainer' + (this.state.active ? '' : ' hidden')}, 
 							React.createElement("div", {id: this.props.id + '_slider'})
 						), 
 						

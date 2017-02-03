@@ -168,6 +168,10 @@ define([
           label={item.label}
           value={item.value}
           change={this._selectionMade}
+          childLabel={item.childLabel}
+          childChecked={checkedValues.indexOf(item.childValue) > -1}
+          childChange={this._selectionMade}
+          childValue={item.childValue}
           isResetting={this.props.isResetting} // Pass Down so Components receive the reset command
           checked={checkedValues.indexOf(item.value) > -1}
           noInfoIcon={item.noInfoIcon || false}
@@ -188,13 +192,6 @@ define([
 
         return (!hasPoints && isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>);
 
-        // return (hasPoints ?
-        //   <div className='point-radius-select-container'>
-        //       <span className='instructions'>{config.pointRadiusDescription}</span>
-        //       <select ref='pointRadiusSelect' className='point-radius-select'>{options}</select>
-        //   </div> :
-        //     isCustomArea ? null : <p className='sub-title'>{config.knownMillsDisclaimer}</p>
-        // );
       },
 
       /* jshint ignore:end */
