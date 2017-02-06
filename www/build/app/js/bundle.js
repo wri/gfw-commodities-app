@@ -302,6 +302,7 @@ define('map/config',[], function() {
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
+        hansenTileUrl = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
         // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
@@ -664,6 +665,21 @@ define('map/config',[], function() {
           layerId: 8,
           defaultLayers: [8]
         },
+        hansenLoss: {
+            id: 'hansenLoss',
+            url: hansenTileUrl,
+            minDateValue: 15000,
+            maxDateValue: 16365,
+            confidence: [0, 1],
+            legendLayerId: 7,
+            defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
+            defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
+            colormap: [
+              [1, 255, 102, 153]
+            ],
+            outputValues: [0, 1, 0],
+            toolsNode: 'glad_toolbox'
+        },
         tcd: {
             id: 'TreeCoverDensity',
             url: treeCoverDensityUrl,
@@ -992,7 +1008,7 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-change-gran-chaco',
                 endChild: true
             }, {
-                kids: ['gladAlerts', 'forma'],
+                kids: ['gladAlerts', 'forma', 'hansenLoss'],
                 id: 'treeCoverLossAlerts',
                 title: 'Tree Cover Loss Alerts',
                 subtitle: '(near real-time)',
@@ -1022,7 +1038,7 @@ define('map/config',[], function() {
                     filter: 'forest-change',
                     type: 'check',
                     layerType: 'none',
-                    infoDivClass: 'forest-change-tree-cover-loss'
+                    infoDivClass: 'forest-change-tree-cover-lossssss'
                 }]//,
             }, {
                 id: 'forma',
@@ -1034,6 +1050,17 @@ define('map/config',[], function() {
                 forceUnderline: true,
                 visible: true,
                 infoDivClass: 'forest-change-forma-alerts',
+                parent: 'treeCoverLossAlerts',
+                endChild: false
+            }, {
+                id: 'hansenLoss',
+                title: 'Hansen loss',
+                // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                visible: true,
+                infoDivClass: 'forest-change-hansennnn-alerts',
                 parent: 'treeCoverLossAlerts',
                 endChild: false
             }, {
@@ -7308,7 +7335,7 @@ define('map/LayerController',[
                 layer,
                 ldos;
 
-                console.log(legendLayer);
+                // console.log(legendLayer);
 
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
@@ -11330,6 +11357,7 @@ define('layers/EsriTileCanvasBase',[
           ctx.mozImageSmoothingEnabled = false;
           ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
         } else {
+          console.log('else');
           ctx.drawImage(data.image, 0, 0);
         }
 
@@ -11487,6 +11515,9 @@ define('layers/GladLayer',[
         // Decode the rgba/pixel so I can filter on confidence and date ranges
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
+
+
+
         //- Check against confidence, min date, and max date
         if (
           values.date >= this.options.minDateValue &&
@@ -11504,7 +11535,13 @@ define('layers/GladLayer',[
           // Hide the pixel
           data[i + 3] = 0;
         }
+        // if (i === 0) {
+        //   console.log(values);
+        //   console.log(this.options.confidence);
+        //   console.log('data', data);
+        // }
       }
+
       return data;
     },
 
@@ -11750,6 +11787,8 @@ define('map/Map',[
                 gladParams = {},
                 gladFootprintsLayer,
                 gladFootprintsParams,
+                hansenLossLayer,
+                hansenLossParams = {},
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -11919,6 +11958,15 @@ define('map/Map',[
             gladParams.visible = false;
 
             gladAlertsLayer = new GladLayer(gladParams);
+
+            hansenLossParams.id = MapConfig.hansenLoss.id;
+            hansenLossParams.url = MapConfig.hansenLoss.url;
+            hansenLossParams.minDateValue = MapConfig.hansenLoss.minDateValue;
+            hansenLossParams.maxDateValue = MapConfig.hansenLoss.maxDateValue;
+            hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
+            hansenLossParams.visible = false;
+
+            hansenLossLayer = new GladLayer(hansenLossParams);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -12179,6 +12227,7 @@ define('map/Map',[
                 prodesAlertsLayer,
                 gladAlertsLayer,
                 gladFootprintsLayer,
+                hansenLossLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -12226,6 +12275,7 @@ define('map/Map',[
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
             gladFootprintsLayer.on('error', this.addLayerError);
+            hansenLossLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
@@ -13445,10 +13495,11 @@ define('components/Check',[
 		},
 
 		showInfo: function() {
+			console.log('propssss', this.props);
 			if (document.getElementsByClassName(this.props.infoDivClass).length) {
-				topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+				topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0], this.props.id);
 			} else {
-				topic.publish('showInfoPanel', this.props.infoDivClass);
+				topic.publish('showInfoPanel', this.props.infoDivClass, this.props.id);
 			}
 		},
 
@@ -13466,10 +13517,9 @@ define('components/Check',[
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
 
-					if (this.props.id === 'gladConfidence') {
-						console.log('gladConfidence', this.state);
-					}
-
+					// if (this.props.id === 'gladConfidence') {
+					// 	console.log('gladConfidence', this.state);
+					// }
 
 			return (
 				React.createElement("li", {className: className, "data-layer": this.props.id}, 
@@ -13534,6 +13584,7 @@ define('components/RadioButton',[
     },
 
     componentDidMount: function () {
+			// console.log('componentDidMount');
       this.props.postCreate(this);
       var layerArray = Hasher.getLayers(),
 					active = layerArray.indexOf(this.props.id) > -1,
@@ -13575,10 +13626,11 @@ define('components/RadioButton',[
     },
 
     showInfo: function () {
+			// console.log('propssss', this.props);
         if(document.getElementsByClassName(this.props.infoDivClass).length){
-            topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+            topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0], this.props.id);
         } else {
-            topic.publish('showInfoPanel', this.props.infoDivClass);
+            topic.publish('showInfoPanel', this.props.infoDivClass, this.props.id);
         }
     },
 
@@ -13594,6 +13646,10 @@ define('components/RadioButton',[
 				(this.props.parent ? ' indented' : '') +
         (this.props.forceUnderline ? ' newList' : '') +
         (this.props.visible ? '' : ' hidden');
+
+				if (this.props.filter === 'forest-change') {
+					// console.log(this.props);
+				}
 
 
       return (
@@ -13703,6 +13759,9 @@ define('components/LayerList',[
 			props.visible = (this.state.filter === props.filter);
 			props.handle = this._handle;
 			props.postCreate = this._postCreate;
+			// if (props.filter === 'forest-change') {
+			// 	console.log(props);
+			// }
 
 			if (props.type === 'radio') {
 				return React.createElement(RadioButton, React.__spread({},  props));
@@ -13714,7 +13773,8 @@ define('components/LayerList',[
 		/* jshint ignore:end */
 
 		_handle: function (component) {
-			console.log(component.props);
+			// console.log(component.props);
+			// console.log(component.props.type);
 			if (component.props.type === 'radio') {
 				this._radio(component);
 			} else {
@@ -14770,6 +14830,8 @@ define('controllers/MapController',[
         },
 
         showInfoPanel: function(infoPanelClass) {//"forest-change-tree-cover-loss"
+        console.log(infoPanelClass);
+        console.log(arguments);
             var content = '';
             if (typeof (infoPanelClass) === 'object') {
                 content = infoPanelClass;
@@ -14782,10 +14844,16 @@ define('controllers/MapController',[
 
                     var metadata = layerData[infoPanelClass];
                     if (metadata) {
-
                       layerModal.setData(metadata);
                       var node = layerModal.getDOMNode();
                       domClass.remove(node.parentNode, 'hidden');
+                    } else {
+                      console.log('nahh, we dont have this idddd!');
+                      console.log(MapConfig.layersUI);
+                      //TODO: Find the proper layer, then grab its metadata and add it as
+                      //an overview + Title or something; whatever we need to be basic.
+                      //TODO: then, add another else (or else if) that just says, if these
+                      //things all fail or something, show a generic 'cant get metadata' modal
                     }
 
                 } else {
@@ -14801,6 +14869,8 @@ define('controllers/MapController',[
                       layerModal.setData(metadata);
                       var node = layerModal.getDOMNode();
                       domClass.remove(node.parentNode, 'hidden');
+                    } else {
+                      console.log('nahh, we dont have this ID!');
                     }
 
                   });
