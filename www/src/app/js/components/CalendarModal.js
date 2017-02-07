@@ -112,6 +112,44 @@ define([
 
       topic.publish('updateGladDates', [startDate, date]);
 			Analytics.sendEvent('Event', 'Glad Timeline', 'Change end date');
+		},
+
+		changeHansenStart: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButtonEnd = $('#hansenPlayButtonEndClick');
+
+      var formattedEnd = new Date(date);
+      playButtonEnd.html(DateHelper.getDate(formattedEnd));
+			this.close();
+      this.setState({
+        endDate: date
+      });
+			var startDate = this.state.startDate;
+			if (startDate.format) {
+				startDate = startDate.format('M/D/YYYY');
+			}
+
+      topic.publish('updateHansenDates', [startDate, date]);
+			Analytics.sendEvent('Event', 'Hansen Timeline', 'Change end date');
+		},
+
+		changeHansenEnd: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButtonEnd = $('#hansenPlayButtonEndClick');
+
+      var formattedEnd = new Date(date);
+      playButtonEnd.html(DateHelper.getDate(formattedEnd));
+			this.close();
+      this.setState({
+        endDate: date
+      });
+			var startDate = this.state.startDate;
+			if (startDate.format) {
+				startDate = startDate.format('M/D/YYYY');
+			}
+
+      topic.publish('updateHansenDates', [startDate, date]);
+			Analytics.sendEvent('Event', 'Hansen Timeline', 'Change end date');
 		}
 
 		/* jshint ignore:end */

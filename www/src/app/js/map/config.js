@@ -16,20 +16,16 @@ define([], function() {
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-        // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
+        hansenTileUrl = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-        // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         treeCoverDensityUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
-        // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        // soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total_display/ImageServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
-        // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
         customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
         biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/MapServer',
@@ -75,9 +71,21 @@ define([], function() {
           },
           {
             // selectedDate: '', //new window.Kalendae.moment(),
+            domId: 'hansenCalendarEnd',
+            domClass: 'hansen-calendar',
+            method: 'changeGladEnd'
+          },
+          {
+            selectedDate: '01/01/2015', //new window.Kalendae.moment('01/01/2015'),
+            domId: 'hansenCalendarStart',
+            domClass: 'hansen-calendar',
+            method: 'changeHansenStart'
+          },
+          {
+            // selectedDate: '', //new window.Kalendae.moment(),
             domId: 'gladCalendarEnd',
             domClass: 'glad-calendar',
-            method: 'changeGladEnd'
+            method: 'changeHansenEnd'
           }
         ],
 
@@ -377,6 +385,21 @@ define([], function() {
           url: gladFootprintUrl,
           layerId: 8,
           defaultLayers: [8]
+        },
+        hansenLoss: {
+            id: 'hansenLoss',
+            url: hansenTileUrl,
+            minDateValue: 15000,
+            maxDateValue: 16365,
+            confidence: [-1, 0, 1],
+            legendLayerId: 7,
+            defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
+            defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
+            colormap: [
+              [1, 255, 102, 153]
+            ],
+            outputValues: [0, 1, 0],
+            toolsNode: 'hansen_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -706,7 +729,7 @@ define([], function() {
                 infoDivClass: 'forest-change-gran-chaco',
                 endChild: true
             }, {
-                kids: ['gladAlerts', 'forma'],
+                kids: ['gladAlerts', 'forma', 'hansenLoss'],
                 id: 'treeCoverLossAlerts',
                 title: 'Tree Cover Loss Alerts',
                 subtitle: '(near real-time)',
@@ -729,15 +752,26 @@ define([], function() {
                     filter: 'forest-change',
                     type: 'check',
                     layerType: 'dynamic',
-                    infoDivClass: 'forest-change-tree-cover-loss'
+                    infoDivClass: 'forest-change-glad-footprints',
+                    metadata: {
+                      title: 'GLAD ALERTS GEOGRAPHIC COVERAGE',
+                      overview: '<p>This layer displays the geographic coverage of GLAD alerts, ' +
+                      'which currently span Brazil, Peru, Republic of the Congo, and Kalimantan (Indonesia)</p>'
+                    }
                 }, {
                     id: 'gladConfidence',
                     title: 'Show only confirmed alerts',
                     filter: 'forest-change',
                     type: 'check',
                     layerType: 'none',
-                    infoDivClass: 'forest-change-tree-cover-loss'
-                }]//,
+                    infoDivClass: 'forest-change-glad-confidence',
+                    metadata: {
+                      title: 'SHOW ONLY CONFIRMED ALERTS',
+                      overview: '<p>Alerts become confirmed when a second satellite pass has also' +
+                      'identified the pixel as an alert. Most of the alerts that are not confirmed' +
+                      ' have not had another satellite pass, due to the 8-day revisit time or cloud cover.</p>'
+                    }
+                }]
             }, {
                 id: 'forma',
                 title: 'FORMA Alerts',
@@ -748,6 +782,17 @@ define([], function() {
                 forceUnderline: true,
                 visible: true,
                 infoDivClass: 'forest-change-forma-alerts',
+                parent: 'treeCoverLossAlerts',
+                endChild: false
+            }, {
+                id: 'hansenLoss',
+                title: 'Hansen loss',
+                // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                visible: true,
+                infoDivClass: 'forest-change-hansennnn-alerts',
                 parent: 'treeCoverLossAlerts',
                 endChild: false
             }, {

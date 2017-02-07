@@ -13,6 +13,7 @@ define([
     "map/SuitabilityImageServiceLayer",
     "map/SimpleLegend",
     "layers/GladLayer",
+    "layers/HansenLayer",
     // Esri Modules
     "esri/map",
     "esri/config",
@@ -32,7 +33,7 @@ define([
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapGallery"
-], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
+], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
     'use strict';
 
     var _map = declare([Evented], {
@@ -192,6 +193,8 @@ define([
                 gladParams = {},
                 gladFootprintsLayer,
                 gladFootprintsParams,
+                hansenLossLayer,
+                hansenLossParams = {},
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -361,6 +364,15 @@ define([
             gladParams.visible = false;
 
             gladAlertsLayer = new GladLayer(gladParams);
+
+            hansenLossParams.id = MapConfig.hansenLoss.id;
+            hansenLossParams.url = MapConfig.hansenLoss.url;
+            hansenLossParams.minDateValue = MapConfig.hansenLoss.minDateValue;
+            hansenLossParams.maxDateValue = MapConfig.hansenLoss.maxDateValue;
+            hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
+            hansenLossParams.visible = false;
+
+            hansenLossLayer = new HansenLayer(hansenLossParams);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -621,6 +633,7 @@ define([
                 prodesAlertsLayer,
                 gladAlertsLayer,
                 gladFootprintsLayer,
+                hansenLossLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -668,6 +681,7 @@ define([
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
             gladFootprintsLayer.on('error', this.addLayerError);
+            hansenLossLayer.on('error', this.addLayerError);
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
