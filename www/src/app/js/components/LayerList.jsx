@@ -1,11 +1,11 @@
 /** @jsx React.DOM */
 define([
-	"react",
-	"dojo/topic",
-	"utils/Hasher",
-	"actions/WizardActions",
-	"components/RadioButton",
-	"components/Check"
+	'react',
+	'dojo/topic',
+	'utils/Hasher',
+	'actions/WizardActions',
+	'components/RadioButton',
+	'components/Check'
 ], function (React, topic, Hasher, WizardActions, RadioButton, Check) {
 
 	var _components = [];
@@ -30,7 +30,7 @@ define([
 			return (
 				<div className='smart-list'>
 					<div className={this.props.title}>
-							<div className="category-icon" />
+							<div className='category-icon' />
 					</div>
 					<div className='filter-list-title'>{this.props.title}</div>
 					<div className='layer-line' />
@@ -56,7 +56,6 @@ define([
 		/* jshint ignore:end */
 
 		_handle: function (component) {
-			console.log(component.props);
 			if (component.props.type === 'radio') {
 				this._radio(component);
 			} else {
@@ -65,7 +64,6 @@ define([
 		},
 
 		_check: function (component) {
-			console.log('_check');
 			var newState = !component.state.active;
 			component.setState({
 				active: newState
@@ -98,10 +96,12 @@ define([
 
 			var previous,	isNewSelection;
 
-			_components.forEach(function (item, idx) {
+			_components.forEach(function (item) {
 				if (item.props.filter === component.props.filter) {
 					if (item.state.active) {
-						previous = item;
+						if (item.props.id !== 'gladFootprints' && item.props.id !== 'gladConfidence') {
+							previous = item;
+						}
 					}
 				}
 			});
@@ -114,18 +114,16 @@ define([
 							active: false
 						});
 
-						// Remove Previous Hash but ignore it if None was previous
-						if (previous.props.id.search("none_") === -1) {
-							Hasher.toggleLayers(previous.props.id);
-							topic.publish('hideLayer', previous.props.id);
-						}
+						Hasher.toggleLayers(previous.props.id);
+						topic.publish('hideLayer', previous.props.id);
 
 						// Toggle Children for Previous if it has any
 						this._toggleChildren(previous, 'remove');
+
 					}
 
 					// Add New if None is not selected and isNew
-					if (component.props.id.search("none_") === -1) {
+					if (component.props.id.search('none_') === -1) {
 						Hasher.toggleLayers(component.props.id);
 						topic.publish('showLayer', component.props.id);
 					}
@@ -142,8 +140,9 @@ define([
 
 				}
 			} else {
+
 				// Add New if None is not selected and isNew
-				if (component.props.id.search("none_") === -1) {
+				if (component.props.id.search('none_') === -1) {
 					Hasher.toggleLayers(component.props.id);
 					topic.publish('showLayer', component.props.id);
 				}
@@ -160,13 +159,12 @@ define([
 		},
 
 		_toggleChildren: function (component, action) {
-
 			var childComponents = [];
 
 			if (component.props.children) {
 				component.props.children.forEach(function (child) {
 					_components.forEach(function (comp) {
-						if (comp.props.id === child.id) {
+						if (comp.props.id === child.id && comp.props.id !== 'gladConfidence') {
 							childComponents.push(comp);
 						}
 					});
