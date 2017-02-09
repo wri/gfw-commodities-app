@@ -5,36 +5,33 @@ define([
   'esri/request',
   'utils/DateHelper',
   'dojo/Deferred',
-  'components/CalendarModal',
-  'map/LayerController'
-], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal, LayerController) {
+  'components/CalendarModal'
+], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal) {
   // "use strict";
 
-  var playInterval,
-      hansenSlider;
+  var hansenSlider;
 
-  var config = {
-    sliderSelector: '#hansen-alert-slider',
-    playHtml: '&#9658;',
-    pauseHtml: '&#x25A0',
-    baseYear: 15 // 2015
-  };
-
-  var state = {
-    isPlaying: false
-  };
 
   var HansenSlider = {
 
     init: function () {
-      var self = this;
       if (hansenSlider === undefined) {
+
+        var hansenStartDate, hansenEndDate;
 
         var calendarModal = new CalendarModal({
         }, 'calendar-modal');
 
+        MapConfig.calendars.forEach(function(calendar) {
+          if (calendar.domId === 'hansenCalendarStart') {
+            hansenStartDate = calendar.selectedDate;
+          } else if (calendar.domId === 'hansenCalendarEnd') {
+            hansenEndDate = calendar.selectedDate;
+          }
+        });
+
         var playButton = $('#hansenPlayButtonStartClick');
-        var startDate = new window.Kalendae.moment('01/01/2015').format('M/D/YYYY');
+        var startDate = new window.Kalendae.moment(hansenStartDate).format('M/D/YYYY');
         var formattedStart = new Date(startDate);
         playButton.html(DateHelper.getDate(formattedStart));
 
@@ -45,7 +42,7 @@ define([
         });
 
         var playButtonEnd = $('#hansenPlayButtonEndClick');
-        var endDate = new window.Kalendae.moment().format('M/D/YYYY');
+        var endDate = new window.Kalendae.moment(hansenEndDate).format('M/D/YYYY');
         var formattedEnd = new Date(endDate);
         playButtonEnd.html(DateHelper.getDate(formattedEnd));
 

@@ -71,20 +71,20 @@ define([], function() {
           },
           {
             // selectedDate: '', //new window.Kalendae.moment(),
-            domId: 'hansenCalendarEnd',
-            domClass: 'hansen-calendar',
+            domId: 'gladCalendarEnd',
+            domClass: 'glad-calendar',
             method: 'changeGladEnd'
           },
           {
-            selectedDate: '01/01/2015', //new window.Kalendae.moment('01/01/2015'),
+            selectedDate: '01/01/2001', //new window.Kalendae.moment('01/01/2015'),
             domId: 'hansenCalendarStart',
             domClass: 'hansen-calendar',
             method: 'changeHansenStart'
           },
           {
-            // selectedDate: '', //new window.Kalendae.moment(),
-            domId: 'gladCalendarEnd',
-            domClass: 'glad-calendar',
+            selectedDate: '12/31/2014', //new window.Kalendae.moment(),
+            domId: 'hansenCalendarEnd',
+            domClass: 'hansen-calendar',
             method: 'changeHansenEnd'
           }
         ],
