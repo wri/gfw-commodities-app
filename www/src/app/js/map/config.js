@@ -74,18 +74,6 @@ define([], function() {
             domId: 'gladCalendarEnd',
             domClass: 'glad-calendar',
             method: 'changeGladEnd'
-          },
-          {
-            selectedDate: '01/01/2001', //new window.Kalendae.moment('01/01/2015'),
-            domId: 'hansenCalendarStart',
-            domClass: 'hansen-calendar',
-            method: 'changeHansenStart'
-          },
-          {
-            selectedDate: '12/31/2014', //new window.Kalendae.moment(),
-            domId: 'hansenCalendarEnd',
-            domClass: 'hansen-calendar',
-            method: 'changeHansenEnd'
           }
         ],
 
@@ -398,8 +386,7 @@ define([], function() {
             colormap: [
               [1, 255, 102, 153]
             ],
-            outputValues: [0, 1, 0],
-            toolsNode: 'hansen_toolbox'
+            outputValues: [0, 1, 0]
         },
         tcd: {
             id: 'TreeCoverDensity',
