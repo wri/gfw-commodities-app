@@ -389,9 +389,9 @@ define([], function() {
         hansenLoss: {
             id: 'hansenLoss',
             url: hansenTileUrl,
-            minDateValue: 15000,
-            maxDateValue: 16365,
-            confidence: [-1, 0, 1],
+            minYear: 1,
+            maxYear: 14,
+            confidence: [0, 1],
             legendLayerId: 7,
             defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
             defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],

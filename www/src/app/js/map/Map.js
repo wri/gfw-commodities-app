@@ -367,8 +367,8 @@ define([
 
             hansenLossParams.id = MapConfig.hansenLoss.id;
             hansenLossParams.url = MapConfig.hansenLoss.url;
-            hansenLossParams.minDateValue = MapConfig.hansenLoss.minDateValue;
-            hansenLossParams.maxDateValue = MapConfig.hansenLoss.maxDateValue;
+            hansenLossParams.minYear = MapConfig.hansenLoss.minYear;
+            hansenLossParams.maxYear = MapConfig.hansenLoss.maxYear;
             hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
             hansenLossParams.visible = false;
 

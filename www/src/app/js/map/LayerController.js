@@ -607,7 +607,7 @@ define([
                 layer,
                 ldos;
 
-                console.log(legendLayer);
+                // console.log(legendLayer);
 
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
