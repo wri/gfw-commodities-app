@@ -23,7 +23,6 @@ define([
 		},
 
 		componentDidMount: function () {
-
 			var self = this;
 
 			calendarConfig.forEach(function(calendar) {
@@ -31,7 +30,7 @@ define([
 				var selectedDate;
 
 				if (configDate) {
-					selectedDate = new window.Kalendae.moment(selectedDate);
+					selectedDate = new window.Kalendae.moment(configDate);
 				} else {
 					selectedDate = new window.Kalendae.moment();
 				}
@@ -91,6 +90,7 @@ define([
 			if (endDate.format) {
 				endDate = endDate.format('M/D/YYYY');
 			}
+
       topic.publish('updateGladDates', [date, endDate]);
 			Analytics.sendEvent('Event', 'Glad Timeline', 'Change start date');
 		},
