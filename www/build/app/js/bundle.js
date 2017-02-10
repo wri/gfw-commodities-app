@@ -19,7 +19,7 @@ define('main/config',{
     "http://firms.modaps.eosdis.nasa.gov",
     "http://gis-potico.wri.org",
     "http://gfw-apis.appspot.com",
-    "http://50.18.182.188"
+    "https://storage.googleapis.com"
   ],
 
   "homeModeOptions": [{
@@ -303,20 +303,15 @@ define('map/config',[], function() {
         gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         hansenTileUrl = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
-        // treeCoverLossUrl = 'http://50.18.182.188:6080/arcgis/rest/services/ForestCover_lossyear/ImageServer',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-        // formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         treeCoverDensityUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
-        // protectedAreasHelperUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        // soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total_display/ImageServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
-        // primaryForestUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/primary_forest_extent/ImageServer',
         customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
         biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/MapServer',
@@ -365,6 +360,18 @@ define('map/config',[], function() {
             domId: 'gladCalendarEnd',
             domClass: 'glad-calendar',
             method: 'changeGladEnd'
+          },
+          {
+            selectedDate: '01/01/2001', //new window.Kalendae.moment('01/01/2015'),
+            domId: 'hansenCalendarStart',
+            domClass: 'hansen-calendar',
+            method: 'changeHansenStart'
+          },
+          {
+            selectedDate: '12/31/2014', //new window.Kalendae.moment(),
+            domId: 'hansenCalendarEnd',
+            domClass: 'hansen-calendar',
+            method: 'changeHansenEnd'
           }
         ],
 
@@ -668,8 +675,8 @@ define('map/config',[], function() {
         hansenLoss: {
             id: 'hansenLoss',
             url: hansenTileUrl,
-            minDateValue: 15000,
-            maxDateValue: 16365,
+            minYear: 1,
+            maxYear: 14,
             confidence: [0, 1],
             legendLayerId: 7,
             defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
@@ -678,7 +685,7 @@ define('map/config',[], function() {
               [1, 255, 102, 153]
             ],
             outputValues: [0, 1, 0],
-            toolsNode: 'glad_toolbox'
+            toolsNode: 'hansen_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -1031,15 +1038,26 @@ define('map/config',[], function() {
                     filter: 'forest-change',
                     type: 'check',
                     layerType: 'dynamic',
-                    infoDivClass: 'forest-change-tree-cover-loss'
+                    infoDivClass: 'forest-change-glad-footprints',
+                    metadata: {
+                      title: 'GLAD ALERTS GEOGRAPHIC COVERAGE',
+                      overview: '<p>This layer displays the geographic coverage of GLAD alerts, ' +
+                      'which currently span Brazil, Peru, Republic of the Congo, and Kalimantan (Indonesia)</p>'
+                    }
                 }, {
                     id: 'gladConfidence',
                     title: 'Show only confirmed alerts',
                     filter: 'forest-change',
                     type: 'check',
                     layerType: 'none',
-                    infoDivClass: 'forest-change-tree-cover-lossssss'
-                }]//,
+                    infoDivClass: 'forest-change-glad-confidence',
+                    metadata: {
+                      title: 'SHOW ONLY CONFIRMED ALERTS',
+                      overview: '<p>Alerts become confirmed when a second satellite pass has also' +
+                      'identified the pixel as an alert. Most of the alerts that are not confirmed' +
+                      ' have not had another satellite pass, due to the 8-day revisit time or cloud cover.</p>'
+                    }
+                }]
             }, {
                 id: 'forma',
                 title: 'FORMA Alerts',
@@ -8613,7 +8631,6 @@ define('components/CalendarModal',[
 		},
 
 		componentDidMount: function () {
-
 			var self = this;
 
 			calendarConfig.forEach(function(calendar) {
@@ -8621,7 +8638,7 @@ define('components/CalendarModal',[
 				var selectedDate;
 
 				if (configDate) {
-					selectedDate = new window.Kalendae.moment(selectedDate);
+					selectedDate = new window.Kalendae.moment(configDate);
 				} else {
 					selectedDate = new window.Kalendae.moment();
 				}
@@ -8681,6 +8698,7 @@ define('components/CalendarModal',[
 			if (endDate.format) {
 				endDate = endDate.format('M/D/YYYY');
 			}
+
       topic.publish('updateGladDates', [date, endDate]);
 			Analytics.sendEvent('Event', 'Glad Timeline', 'Change start date');
 		},
@@ -8702,6 +8720,44 @@ define('components/CalendarModal',[
 
       topic.publish('updateGladDates', [startDate, date]);
 			Analytics.sendEvent('Event', 'Glad Timeline', 'Change end date');
+		},
+
+		changeHansenStart: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButtonEnd = $('#hansenPlayButtonEndClick');
+
+      var formattedEnd = new Date(date);
+      playButtonEnd.html(DateHelper.getDate(formattedEnd));
+			this.close();
+      this.setState({
+        endDate: date
+      });
+			var startDate = this.state.startDate;
+			if (startDate.format) {
+				startDate = startDate.format('M/D/YYYY');
+			}
+
+      topic.publish('updateHansenDates', [startDate, date]);
+			Analytics.sendEvent('Event', 'Hansen Timeline', 'Change end date');
+		},
+
+		changeHansenEnd: function (date) {
+      date = date.format('M/D/YYYY');
+      var playButtonEnd = $('#hansenPlayButtonEndClick');
+
+      var formattedEnd = new Date(date);
+      playButtonEnd.html(DateHelper.getDate(formattedEnd));
+			this.close();
+      this.setState({
+        endDate: date
+      });
+			var startDate = this.state.startDate;
+			if (startDate.format) {
+				startDate = startDate.format('M/D/YYYY');
+			}
+
+      topic.publish('updateHansenDates', [startDate, date]);
+			Analytics.sendEvent('Event', 'Hansen Timeline', 'Change end date');
 		}
 
 		/* jshint ignore:end */
@@ -8723,36 +8779,31 @@ define('map/GladSlider',[
   'esri/request',
   'utils/DateHelper',
   'dojo/Deferred',
-  'components/CalendarModal',
-  'map/LayerController'
-], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal, LayerController) {
-  // "use strict";
+  'components/CalendarModal'
+], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal) {
 
-  var playInterval,
-      gladSlider;
-
-  var config = {
-    sliderSelector: '#glad-alert-slider',
-    playHtml: '&#9658;',
-    pauseHtml: '&#x25A0',
-    baseYear: 15 // 2015
-  };
-
-  var state = {
-    isPlaying: false
-  };
+  var gladSlider;
 
   var GladSlider = {
 
     init: function () {
-      var self = this;
       if (gladSlider === undefined) {
+
+        var gladStartDate, gladEndDate;
 
         var calendarModal = new CalendarModal({
         }, 'calendar-modal');
 
+        MapConfig.calendars.forEach(function(calendar) {
+          if (calendar.domId === 'gladCalendarStart') {
+            gladStartDate = calendar.selectedDate;
+          } else if (calendar.domId === 'gladCalendarEnd') {
+            gladEndDate = calendar.selectedDate;
+          }
+        });
+
         var playButton = $('#gladPlayButtonStartClick');
-        var startDate = new window.Kalendae.moment('01/01/2015').format('M/D/YYYY');
+        var startDate = new window.Kalendae.moment(gladStartDate).format('M/D/YYYY');
         var formattedStart = new Date(startDate);
         playButton.html(DateHelper.getDate(formattedStart));
 
@@ -8779,6 +8830,69 @@ define('map/GladSlider',[
   };
 
   return GladSlider;
+
+});
+
+define('map/HansenSlider',[
+  'dojo/on',
+  'dojo/dom-class',
+  'map/config',
+  'esri/request',
+  'utils/DateHelper',
+  'dojo/Deferred',
+  'components/CalendarModal'
+], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal) {
+  // "use strict";
+
+  var hansenSlider;
+
+
+  var HansenSlider = {
+
+    init: function () {
+      if (hansenSlider === undefined) {
+
+        var hansenStartDate, hansenEndDate;
+
+        var calendarModal = new CalendarModal({
+        }, 'calendar-modal');
+
+        MapConfig.calendars.forEach(function(calendar) {
+          if (calendar.domId === 'hansenCalendarStart') {
+            hansenStartDate = calendar.selectedDate;
+          } else if (calendar.domId === 'hansenCalendarEnd') {
+            hansenEndDate = calendar.selectedDate;
+          }
+        });
+
+        var playButton = $('#hansenPlayButtonStartClick');
+        var startDate = new window.Kalendae.moment(hansenStartDate).format('M/D/YYYY');
+        var formattedStart = new Date(startDate);
+        playButton.html(DateHelper.getDate(formattedStart));
+
+        on(playButton, 'click', function() {
+          var node = calendarModal.getDOMNode();
+          calendarModal.setCalendar('hansenCalendarStart');
+          domClass.remove(node.parentNode, 'hidden');
+        });
+
+        var playButtonEnd = $('#hansenPlayButtonEndClick');
+        var endDate = new window.Kalendae.moment(hansenEndDate).format('M/D/YYYY');
+        var formattedEnd = new Date(endDate);
+        playButtonEnd.html(DateHelper.getDate(formattedEnd));
+
+        on(playButtonEnd, 'click', function() {
+          var node = calendarModal.getDOMNode();
+          calendarModal.setCalendar('hansenCalendarEnd');
+          domClass.remove(node.parentNode, 'hidden');
+        });
+
+      }
+    }
+
+  };
+
+  return HansenSlider;
 
 });
 
@@ -9110,6 +9224,7 @@ define('map/Controls',[
     'map/LossSlider',
     'map/FormaSlider',
     'map/GladSlider',
+    'map/HansenSlider',
     'map/ProdesSlider',
     'map/GuyraSlider',
     'map/LayerController',
@@ -9117,7 +9232,7 @@ define('map/Controls',[
     'esri/TimeExtent',
     'esri/dijit/TimeSlider',
     'dijit/form/CheckBox'
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, GuyraSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, HansenSlider, ProdesSlider, GuyraSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
 
 
     var jq171 = jQuery.noConflict();
@@ -9287,6 +9402,7 @@ define('map/Controls',[
             LossSlider.init();
             FormaSlider.init();
             GladSlider.init();
+            HansenSlider.init();
             ProdesSlider.init();
             GuyraSlider.init();
         },
@@ -11357,7 +11473,6 @@ define('layers/EsriTileCanvasBase',[
           ctx.mozImageSmoothingEnabled = false;
           ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
         } else {
-          console.log('else');
           ctx.drawImage(data.image, 0, 0);
         }
 
@@ -11515,9 +11630,6 @@ define('layers/GladLayer',[
         // Decode the rgba/pixel so I can filter on confidence and date ranges
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
-
-
-
         //- Check against confidence, min date, and max date
         if (
           values.date >= this.options.minDateValue &&
@@ -11535,13 +11647,7 @@ define('layers/GladLayer',[
           // Hide the pixel
           data[i + 3] = 0;
         }
-        // if (i === 0) {
-        //   console.log(values);
-        //   console.log(this.options.confidence);
-        //   console.log('data', data);
-        // }
       }
-
       return data;
     },
 
@@ -11593,6 +11699,138 @@ define('layers/GladLayer',[
 
 });
 
+define('layers/HansenLayer',[
+    'dojo/_base/declare',
+    './EsriTileCanvasBase'
+], function(declare, TileCanvasLayer) {
+
+  function pad (num) {
+    var str = '00' + num;
+    return str.slice(str.length - 3);
+  }
+
+  return declare('HansenLayer', [TileCanvasLayer], {
+
+    filter: function (data) {
+      for (var i = 2; i < data.length + 2; i += 4) {
+        // Decode the rgba/pixel so I can filter on confidence and date ranges
+        var slice = [data[i], data[i + 1], data[i + 2]];
+        var values = this.decodeDate(slice);
+        //- Check against confidence, min date, and max date
+        // if (i === 0) {
+          // console.log(values);
+          // console.log(slice);
+          // console.log(data[i]); //--> year
+          // console.log(data[i + 1]); //--> nada
+          // console.log(data[i + 2]); //--> intensity
+
+
+          // console.log('min Date:', this.options.minYear);
+          // console.log('maxxx Date:', this.options.maxYear);
+        // }
+        if (
+          values.year >= this.options.minYear &&
+          values.year <= this.options.maxYear //&&
+          //this.options.confidence.indexOf(values.confidence) > -1
+        ) {
+          // Set the alpha to the intensity
+          // data[i + 3] = values.intensity;
+          // Make the pixel pink for HANSEN alerts
+          // data[i] = 220; // R
+          // // data[i + 1] = 102; // G
+          // data[i + 1] = values.intensity; // G --> Yo this is intensity!!
+          // data[i + 2] = 153; // B
+          // data[i + 3] = 0;
+
+          data[i] = 153; // R
+          // data[i + 1] = 102; // G
+          data[i + 1] = values.intensity; // G --> Yo this is intensity!!
+          data[i + 2] = 220; // B
+          data[i + 3] = 0;
+
+          if (i === 2) {
+            // console.log('yessss');
+            console.log(values.intensity);
+          }
+        } else {
+          // Hide the pixel
+          // data[i + 3] = 0;
+          data[i + 2] = 0;
+          data[i + 1] = 0;
+          data[i] = 0;
+          if (i === 2) {
+            // console.log('nahhh');
+            // console.log('minYear', this.options.minYear);
+            // console.log('year', values.year);
+          }
+          // data[i + 3] = values.intensity;
+          // data[i] = 220; // R
+          // data[i + 1] = 102; // G
+          // data[i + 2] = 153; // B
+        }
+      }
+      return data;
+    },
+
+    decodeDate: function (pixel) {
+      // console.log(pixel);
+      // [255, 255, 14]
+
+      var year = pixel[0];
+      var intensity = pixel[2];
+
+      return {
+        intensity: intensity,
+        year: year
+      };
+
+      // // Find the total days of the pixel by multiplying the red band by 255 and adding the green band
+      // var totalDays = (pixel[0] * 255) + pixel[1];
+      // // Divide the total days by 365 to get the year offset, add 15 to this to get current year
+      // // Example, parseInt(totalDays / 365) = 1, add 15, year is 2016
+      // var yearAsInt = parseInt(totalDays / 365) + 15;
+      // // Multiple by 1000 to get in YYDDD format, i.e. 15000 or 16000
+      // var year = yearAsInt * 1000;
+      // // Add the remaining days to get the julian day for that year
+      // var julianDay = totalDays % 365;
+      // // Add julian to year to get the data value
+      // var date = year + julianDay;
+      // // Convert the blue band to a string and pad with 0's to three digits
+      // // It's rarely not three digits, except for cases where there is an intensity value and no date/confidence.
+      // // This is due to bilinear resampling
+      // var band3Str = pad(pixel[2]);
+      // // Parse confidence, confidence is stored as 1/2, subtract 1 so it's values are 0/1
+      // var confidence = parseInt(band3Str[0]) - 1;
+      // // Parse raw intensity to make it visible, it is the second and third character in blue band, it's range is 1 - 55
+      // var rawIntensity = parseInt(band3Str.slice(1, 3));
+      // // Scale it to make it visible
+      // var intensity = rawIntensity * 50;
+      // // Prevent intensity from being higher then the max value
+      // if (intensity > 255) { intensity = 255; }
+      // // Return all components needed for filtering/labeling
+      // return {
+      //   confidence: confidence,
+      //   intensity: intensity,
+      //   date: date
+      // };
+    },
+
+    setDateRange: function setDateRange (minYear, maxYear) {
+      this.options.minYear = parseInt(minYear);
+      this.options.maxYear = parseInt(maxYear);
+      this.refresh();
+    },
+
+    setConfidenceLevel: function setConfidenceLevel (confidence) {
+      //- Confidence can be 'all' or 'confirmed'
+      this.options.confidence = confidence === 'all' ? [0, 1] : [1];
+      this.refresh();
+    }
+
+  });
+
+});
+
 define('map/Map',[
     "dojo/Evented",
     "dojo/_base/declare",
@@ -11608,6 +11846,7 @@ define('map/Map',[
     "map/SuitabilityImageServiceLayer",
     "map/SimpleLegend",
     "layers/GladLayer",
+    "layers/HansenLayer",
     // Esri Modules
     "esri/map",
     "esri/config",
@@ -11627,7 +11866,7 @@ define('map/Map',[
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapGallery"
-], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
+], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
     'use strict';
 
     var _map = declare([Evented], {
@@ -11961,12 +12200,12 @@ define('map/Map',[
 
             hansenLossParams.id = MapConfig.hansenLoss.id;
             hansenLossParams.url = MapConfig.hansenLoss.url;
-            hansenLossParams.minDateValue = MapConfig.hansenLoss.minDateValue;
-            hansenLossParams.maxDateValue = MapConfig.hansenLoss.maxDateValue;
+            hansenLossParams.minYear = MapConfig.hansenLoss.minYear;
+            hansenLossParams.maxYear = MapConfig.hansenLoss.maxYear;
             hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
             hansenLossParams.visible = false;
 
-            hansenLossLayer = new GladLayer(hansenLossParams);
+            hansenLossLayer = new HansenLayer(hansenLossParams);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -13584,7 +13823,6 @@ define('components/RadioButton',[
     },
 
     componentDidMount: function () {
-			// console.log('componentDidMount');
       this.props.postCreate(this);
       var layerArray = Hasher.getLayers(),
 					active = layerArray.indexOf(this.props.id) > -1,
@@ -13714,12 +13952,12 @@ define('components/RadioButton',[
 
 /** @jsx React.DOM */
 define('components/LayerList',[
-	"react",
-	"dojo/topic",
-	"utils/Hasher",
-	"actions/WizardActions",
-	"components/RadioButton",
-	"components/Check"
+	'react',
+	'dojo/topic',
+	'utils/Hasher',
+	'actions/WizardActions',
+	'components/RadioButton',
+	'components/Check'
 ], function (React, topic, Hasher, WizardActions, RadioButton, Check) {
 
 	var _components = [];
@@ -13759,9 +13997,6 @@ define('components/LayerList',[
 			props.visible = (this.state.filter === props.filter);
 			props.handle = this._handle;
 			props.postCreate = this._postCreate;
-			// if (props.filter === 'forest-change') {
-			// 	console.log(props);
-			// }
 
 			if (props.type === 'radio') {
 				return React.createElement(RadioButton, React.__spread({},  props));
@@ -13773,8 +14008,6 @@ define('components/LayerList',[
 		/* jshint ignore:end */
 
 		_handle: function (component) {
-			// console.log(component.props);
-			// console.log(component.props.type);
 			if (component.props.type === 'radio') {
 				this._radio(component);
 			} else {
@@ -13783,7 +14016,6 @@ define('components/LayerList',[
 		},
 
 		_check: function (component) {
-			console.log('_check');
 			var newState = !component.state.active;
 			component.setState({
 				active: newState
@@ -13816,10 +14048,12 @@ define('components/LayerList',[
 
 			var previous,	isNewSelection;
 
-			_components.forEach(function (item, idx) {
+			_components.forEach(function (item) {
 				if (item.props.filter === component.props.filter) {
 					if (item.state.active) {
-						previous = item;
+						if (item.props.id !== 'gladFootprints' && item.props.id !== 'gladConfidence') {
+							previous = item;
+						}
 					}
 				}
 			});
@@ -13832,18 +14066,16 @@ define('components/LayerList',[
 							active: false
 						});
 
-						// Remove Previous Hash but ignore it if None was previous
-						if (previous.props.id.search("none_") === -1) {
-							Hasher.toggleLayers(previous.props.id);
-							topic.publish('hideLayer', previous.props.id);
-						}
+						Hasher.toggleLayers(previous.props.id);
+						topic.publish('hideLayer', previous.props.id);
 
 						// Toggle Children for Previous if it has any
 						this._toggleChildren(previous, 'remove');
+
 					}
 
 					// Add New if None is not selected and isNew
-					if (component.props.id.search("none_") === -1) {
+					if (component.props.id.search('none_') === -1) {
 						Hasher.toggleLayers(component.props.id);
 						topic.publish('showLayer', component.props.id);
 					}
@@ -13860,8 +14092,9 @@ define('components/LayerList',[
 
 				}
 			} else {
+
 				// Add New if None is not selected and isNew
-				if (component.props.id.search("none_") === -1) {
+				if (component.props.id.search('none_') === -1) {
 					Hasher.toggleLayers(component.props.id);
 					topic.publish('showLayer', component.props.id);
 				}
@@ -13878,13 +14111,12 @@ define('components/LayerList',[
 		},
 
 		_toggleChildren: function (component, action) {
-
 			var childComponents = [];
 
 			if (component.props.children) {
 				component.props.children.forEach(function (child) {
 					_components.forEach(function (comp) {
-						if (comp.props.id === child.id) {
+						if (comp.props.id === child.id && comp.props.id !== 'gladConfidence') {
 							childComponents.push(comp);
 						}
 					});
@@ -14017,13 +14249,13 @@ define('components/LayerModal',[
                   this.summaryMap(this.state.layerInfo.overview)
                 
               ), 
-              React.createElement("div", {className: "modal-credits"}, 
-                React.createElement("h3", null, "Citation"), 
-                
-                  !this.state.layerInfo.citation ? null :
-                  this.summaryMap(this.state.layerInfo.citation)
-                
-              )
+              
+                !this.state.layerInfo.citation ? null :
+                React.createElement("div", {className: "modal-credits"}, 
+                  React.createElement("h3", null, "Citation"), 
+                  "this.summaryMap(this.state.layerInfo.citation)"
+                )
+              
             )
           )
         
@@ -14181,7 +14413,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.53',
+                path = './app/templates/' + name + '.html?v=2.4.54',
                 req;
 
             req = new XMLHttpRequest();
@@ -14829,31 +15061,47 @@ define('controllers/MapController',[
             }
         },
 
-        showInfoPanel: function(infoPanelClass) {//"forest-change-tree-cover-loss"
-        console.log(infoPanelClass);
-        console.log(arguments);
-            var content = '';
+        showInfoPanel: function(infoPanelClass, layerName) {
+            var node, metadata, layerConfig = [], content = '';
+
             if (typeof (infoPanelClass) === 'object') {
                 content = infoPanelClass;
                 MapControl.createDialogBox(content);
             } else {
-
                 infoPanelClass = MapConfig.metadataIds[infoPanelClass];
 
                 if (dataDivLoaded) {
 
-                    var metadata = layerData[infoPanelClass];
+                    metadata = layerData[infoPanelClass];
                     if (metadata) {
                       layerModal.setData(metadata);
-                      var node = layerModal.getDOMNode();
+                      node = layerModal.getDOMNode();
                       domClass.remove(node.parentNode, 'hidden');
                     } else {
-                      console.log('nahh, we dont have this idddd!');
-                      console.log(MapConfig.layersUI);
-                      //TODO: Find the proper layer, then grab its metadata and add it as
-                      //an overview + Title or something; whatever we need to be basic.
-                      //TODO: then, add another else (or else if) that just says, if these
-                      //things all fail or something, show a generic 'cant get metadata' modal
+                      MapConfig.layersUI.forEach(function(layer) {
+                        if (layer.children) {
+                          layer.children.forEach(function(childLayer) {
+                            if (childLayer.id === layerName) {
+                              layerConfig.push(childLayer);
+                            }
+                          });
+                        }
+                        if (layer.id === layerName) {
+                          layerConfig.push(layer);
+                        }
+                      });
+
+                      if (layerConfig[0] && layerConfig[0].metadata) {
+                        metadata = layerConfig[0].metadata;
+                      } else {
+                        metadata = {
+                          title: 'Cannot find layer information',
+                          overview: 'Please check again later for more information on this layer'
+                        };
+                      }
+                      layerModal.setData(metadata);
+                      node = layerModal.getDOMNode();
+                      domClass.remove(node.parentNode, 'hidden');
                     }
 
                 } else {
@@ -14863,14 +15111,37 @@ define('controllers/MapController',[
                   getTemplate.then(function(data) {
                     dataDivLoaded = true;
                     layerData = data;
-                    var metadata = data[infoPanelClass];
+                    metadata = data[infoPanelClass];
 
                     if (metadata) {
                       layerModal.setData(metadata);
-                      var node = layerModal.getDOMNode();
+                      node = layerModal.getDOMNode();
                       domClass.remove(node.parentNode, 'hidden');
                     } else {
-                      console.log('nahh, we dont have this ID!');
+                      MapConfig.layersUI.forEach(function(layer) {
+                        if (layer.children) {
+                          layer.children.forEach(function(childLayer) {
+                            if (childLayer.id === layerName) {
+                              layerConfig.push(childLayer);
+                            }
+                          });
+                        }
+                        if (layer.id === layerName) {
+                          layerConfig.push(layer);
+                        }
+                      });
+
+                      if (layerConfig[0] && layerConfig[0].metadata) {
+                        metadata = layerConfig[0].metadata;
+                      } else {
+                        metadata = {
+                          title: 'Cannot find layer information',
+                          overview: 'Please check again later for more information on this layer'
+                        };
+                      }
+                      layerModal.setData(metadata);
+                      node = layerModal.getDOMNode();
+                      domClass.remove(node.parentNode, 'hidden');
                     }
 
                   });

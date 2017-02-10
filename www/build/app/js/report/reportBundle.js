@@ -6993,7 +6993,6 @@ define('report/Fetcher',[
 								encoder;
 
 						if (window.payload.datasets.gladConfirmed === true) {
-							console.log('Confidence Enabled!');
 							url = gladConfig.confidentUrl;
 							gladIds = [5, 7, 8];
 						}
@@ -7004,7 +7003,6 @@ define('report/Fetcher',[
 						ReportRenderer.renderGladContainer(config);
 
 						function success(response) {
-							console.log('response', response);
 
 								if (response.length > 0) {
 									ReportRenderer.renderGladData(response, config, encoder, useSimpleEncoderRule);
@@ -7083,6 +7081,7 @@ define('report/Fetcher',[
 								this._computeHistogram(url, content2),
 								this._computeHistogram(url, content3)
 						]).then(function(results) {
+
 							var alerts = [];
 							if (results[0] && results[0].histograms[0]) {
 								if (results[0].histograms[0].counts.length < 366) {
@@ -7092,9 +7091,8 @@ define('report/Fetcher',[
 								}
 								alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
 							}
+
 							if (results[1] && results[1].histograms[0]) {
-								console.log('2016 data:', results[1].histograms[0]);
-								console.log(results[1].histograms[0].counts.length);
 								if (results[1].histograms[0].counts.length < 366) {
 									for (var k = results[1].histograms[0].counts.length; k < 366; k++) {
 										results[1].histograms[0].counts.push(0);
@@ -7102,11 +7100,10 @@ define('report/Fetcher',[
 								}
 								alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
 							}
+
 							if (results[2] && results[2].histograms[0]) {
-								// console.log('2017 data:', results[2].histograms[0]);
 								alerts = alerts.concat(formatGlad('2017', results[2].histograms[0].counts));
 							}
-							// promise.resolve(alerts);
 							success(alerts);
 							deferred.resolve(true);
 						});
