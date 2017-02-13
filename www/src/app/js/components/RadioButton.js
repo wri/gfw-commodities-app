@@ -111,7 +111,7 @@ define([
                 null, 
           
 					
-						this.props.id === 'tcd' ? (
+						this.props.id === 'tcd' || this.props.id === 'hansenLoss' ? (
 							React.createElement("div", {className: 'tcd-button-container' + (this.state.active ? '' : ' hidden')}, 
 										React.createElement("span", {className: "tcd-percentage-label"}, "Displaying at "), 
 										React.createElement("span", {className: "tcd-percentage-button", onClick: this.showTCDSlider, "data-bind": "text: tcdDensityValue"}), 

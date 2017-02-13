@@ -103,10 +103,6 @@ define([
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
 
-					// if (this.props.id === 'gladConfidence') {
-					// 	console.log('gladConfidence', this.state);
-					// }
-
 			return (
 				<li className={className} data-layer={this.props.id}>
 						<div id={this.props.id + '_checkbox'} onClick={this.props.kids ? null : this.toggle}>

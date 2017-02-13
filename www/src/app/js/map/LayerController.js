@@ -237,11 +237,10 @@ define([
         },
 
         updateHansenDates: function(clauseArray) {
-          var hansenLossLayer = app.map.getLayer('hansenLoss');
-
-          if (hansenLossLayer) {
-            hansenLossLayer.setDateRange(clauseArray[0], clauseArray[1]);
-          }
+          MapConfig.hansenLoss.levels.forEach(function(level) {
+            var hansenLayer = app.map.getLayer(level.id);
+            hansenLayer.setDateRange(clauseArray[0], clauseArray[1]);
+          });
 
         },
 
@@ -353,8 +352,26 @@ define([
 
         },
 
-        updateLossImageServiceRasterFunction: function(values, layerConfig, densityRange) {
+        updateHansenTCD: function(layerConfig, densityRange) {
+          var density = densityRange[0];
 
+          var original30Layer = app.map.getLayer(layerConfig.id);
+          var minYear = original30Layer.options.minYear;
+          var maxYear = original30Layer.options.maxYear;
+
+          MapConfig.hansenLoss.levels.forEach(function(level) {
+            var hansenLayer = app.map.getLayer(level.id);
+            hansenLayer.setDateRange(minYear, maxYear);
+            if (level.value !== density) {
+              hansenLayer.hide();
+            } else {
+              hansenLayer.show();
+            }
+          });
+
+        },
+
+        updateLossImageServiceRasterFunction: function(values, layerConfig, densityRange) {
             var layer = app.map.getLayer(layerConfig.id),
                 outRange = [1],
                 rasterFunction,
@@ -386,8 +403,6 @@ define([
                   var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
                   range = [1, 1, values[0] + 1, finalValue];
                   outRange = [0, 1];
-              } else if (layerConfig.id === 'gladAlerts') {
-                // debugger
               } else {
                   range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
               }
@@ -415,20 +430,6 @@ define([
 
         getColormapLossRasterFunction: function(colormap, range, outRange, densityRange) {
             return new RasterFunction({
-                // 'rasterFunction': 'Colormap',
-                // 'rasterFunctionArguments': {
-                //     'Colormap': colormap,
-                //     'Raster': {
-                //         'rasterFunction': 'ForestCover_lossyear_density',
-                //         'rasterFunctionArguments': {
-                //             'min_year': range[0],
-                //             'max_year': range[1],
-                //             'min_density': densityRange[0],
-                //             'max_density': densityRange[1]
-                //         }
-                //     }
-                // },
-                // 'variableName': 'Raster'
                 'rasterFunction': 'ForestCover_lossyear_density',
                 'rasterFunctionArguments': {
                     'min_year': range[0],
@@ -509,11 +510,10 @@ define([
                     dojoQuery('#environmental-criteria .suitable-checkbox-soil input:checked').forEach(function(node) {
                         activeCheckboxes.push(node.value);
                     });
-                    //console.log("****************** soil type checkboxes: " + activeCheckboxes.toString());
+
                     settings.computeBinaryRaster[10].values = activeCheckboxes.join(',');
                     break;
             }
-
 
             MapModel.set('suitabilitySettings', settings);
 
@@ -616,8 +616,6 @@ define([
                 layer,
                 ldos;
 
-                // console.log(legendLayer);
-
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
             // Make sure to set layer drawing options for those values so they do not display
@@ -709,8 +707,6 @@ define([
                     layerOptions[layerId] = ldos;
                 });
             }
-
-            console.log(layerOptions);
 
             layer.setLayerDrawingOptions(layerOptions);
 

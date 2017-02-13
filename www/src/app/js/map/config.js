@@ -16,7 +16,13 @@ define([], function() {
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-        hansenTileUrl = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
+        hansenTileUrl10 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_10/{z}/{x}/{y}.png',
+        hansenTileUrl15 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_15/{z}/{x}/{y}.png',
+        hansenTileUrl20 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_20/{z}/{x}/{y}.png',
+        hansenTileUrl25 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_25/{z}/{x}/{y}.png',
+        hansenTileUrl30 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
+        hansenTileUrl50 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_50/{z}/{x}/{y}.png',
+        hansenTileUrl70 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_70/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -215,7 +221,6 @@ define([], function() {
           'suitability-soil-depth': 'idn_soil_depth',
           'suitability-soil-acidity': 'idn_soil_acidity',
           'suitability-soil-type': 'idn_soil_type'
-
         },
 
         // The Following Layers are used by the Wizard
@@ -376,7 +381,44 @@ define([], function() {
         },
         hansenLoss: {
             id: 'hansenLoss',
-            url: hansenTileUrl,
+            url: hansenTileUrl30,
+            levels: [
+              {
+                url: hansenTileUrl10,
+                id: 'hansenLoss10',
+                value: 10
+              },
+              {
+                url: hansenTileUrl15,
+                id: 'hansenLoss15',
+                value: 15
+              },
+              {
+                url: hansenTileUrl20,
+                id: 'hansenLoss20',
+                value: 20
+              },
+              {
+                url: hansenTileUrl25,
+                id: 'hansenLoss25',
+                value: 25
+              },
+              {
+                url: hansenTileUrl30,
+                id: 'hansenLoss',
+                value: 30
+              },
+              {
+                url: hansenTileUrl50,
+                id: 'hansenLoss50',
+                value: 50
+              },
+              {
+                url: hansenTileUrl70,
+                id: 'hansenLoss70',
+                value: 70
+              }
+            ],
             minYear: 1,
             maxYear: 14,
             confidence: [0, 1],

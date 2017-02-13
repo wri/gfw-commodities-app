@@ -194,6 +194,13 @@ define([
                 gladFootprintsLayer,
                 gladFootprintsParams,
                 hansenLossLayer,
+
+                hansenLossLayer10,
+                hansenLossLayer15,
+                hansenLossLayer20,
+                hansenLossLayer25,
+                hansenLossLayer50,
+                hansenLossLayer70,
                 hansenLossParams = {},
                 gainLayer,
                 gainHelperLayer,
@@ -372,24 +379,39 @@ define([
             hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
             hansenLossParams.visible = false;
 
-            hansenLossLayer = new HansenLayer(hansenLossParams);
+            hansenLossLayer = new HansenLayer(hansenLossParams); //30% first
+
+            MapConfig.hansenLoss.levels.forEach(function(level) {
+
+              hansenLossParams.url = level.url;
+              hansenLossParams.id = level.id;
+              switch (level.value) {
+                case 10:
+                  hansenLossLayer10 = new HansenLayer(hansenLossParams);
+                  break;
+                case 15:
+                  hansenLossLayer15 = new HansenLayer(hansenLossParams);
+                  break;
+                case 20:
+                  hansenLossLayer20 = new HansenLayer(hansenLossParams);
+                  break;
+                case 25:
+                  hansenLossLayer25 = new HansenLayer(hansenLossParams);
+                  break;
+                case 50:
+                  hansenLossLayer50 = new HansenLayer(hansenLossParams);
+                  break;
+                case 70:
+                  hansenLossLayer70 = new HansenLayer(hansenLossParams);
+                  break;
+                default:
+                  break;
+              }
+            });
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
             lossParams.renderingRule = new RasterFunction({
-                // "rasterFunction": "Colormap",
-                // "rasterFunctionArguments": {
-                //     "Colormap": MapConfig.loss.colormap,
-                //     "Raster": {
-                //         "rasterFunction": "Remap",
-                //         "rasterFunctionArguments": {
-                //             "InputRanges": MapConfig.loss.defaultRange,
-                //             "OutputValues": [1],
-                //             "AllowUnmatched": false
-                //         }
-                //     }
-                // },
-                // "variableName": "Raster"
                 'rasterFunction': 'ForestCover_lossyear_density',
                 'rasterFunctionArguments': {
                     'min_year': MapConfig.loss.defaultRange[0] + 2000,
@@ -432,12 +454,10 @@ define([
                 visible: false
             });
 
-
             batchParams = new ImageParameters();
             batchParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             batchParams.layerIds = [];
             batchParams.format = 'png32';
-
 
             forestCover_forestCover = new ArcGISDynamicLayer(MapConfig.ifl.url, {
                 imageParameters: batchParams,
@@ -447,19 +467,7 @@ define([
 
             tropicalParams = new ImageServiceParameters();
             tropicalParams.renderingRule = new RasterFunction({
-                'rasterFunction': 'Stretched'//,
-                // 'rasterFunctionArguments': {
-                //     'Colormap': MapConfig.forma.colormap,
-                //     'Raster': {
-                //         'rasterFunction': 'Remap',
-                //         'rasterFunctionArguments': {
-                //             'InputRanges': MapConfig.forma.defaultRange,
-                //             'OutputValues': [1],
-                //             'AllowUnmatched': false
-                //         }
-                //     }
-                // },
-                // 'variableName': 'Raster'
+                'rasterFunction': 'Stretched'
             });
 
             forestCover_tropical = new ArcGISImageServiceLayer(MapConfig.tfcs.url, {
@@ -505,35 +513,10 @@ define([
                 visible: false
             });
 
-
-
-
-            // forestCoverAggregate = new ArcGISDynamicLayer(MapConfig.ifl.url, {
-            //     imageParameters: batchParams,
-            //     id: "forestCover",
-            //     visible: false
-            // });
-
-            // commoditiesAggregate = new ArcGISDynamicLayer(MapConfig.peat.url, {
-            //     imageParameters: batchParams,
-            //     id: "commodities",
-            //     visible: false
-            // });
-
-            // landUserAggregate = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
-            //     imageParameters: batchParams,
-            //     id: "landUse",
-            //     visible: false
-            // });
-
-
-
-
             customSuitabilityLayer = new SuitabilityImageServiceLayer(MapConfig.suit.url, {
                 id: MapConfig.suit.id,
                 visible: false
             });
-
 
             protectAreasLayer = new ArcGISTiledMapServiceLayer(MapConfig.pal.url, {
                 id: MapConfig.pal.id,
@@ -543,7 +526,7 @@ define([
             protectAreasHelperParams = new ImageParameters();
             protectAreasHelperParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             protectAreasHelperParams.layerIds = [MapConfig.palHelper.layerId];
-            protectAreasHelperParams.format = "png32";
+            protectAreasHelperParams.format = 'png32';
 
             protectAreasHelper = new ArcGISDynamicLayer(MapConfig.palHelper.url, {
                 imageParameters: protectAreasHelperParams,
@@ -556,7 +539,7 @@ define([
             bioDiversityParams = new ImageParameters();
             bioDiversityParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             bioDiversityParams.layerIds = [MapConfig.biodiversity.layerId];
-            bioDiversityParams.format = "png32";
+            bioDiversityParams.format = 'png32';
 
             bioDiversityLayer = new ArcGISDynamicLayer(MapConfig.biodiversity.url, {
                 imageParameters: bioDiversityParams,
@@ -564,11 +547,10 @@ define([
                 visible: false
             });
 
-
             mapOverlaysParams = new ImageParameters();
             mapOverlaysParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             mapOverlaysParams.layerIds = MapConfig.overlays.defaultLayers;
-            mapOverlaysParams.format = "png32";
+            mapOverlaysParams.format = 'png32';
 
             mapOverlaysLayer = new ArcGISDynamicLayer(MapConfig.overlays.url, {
                 imageParameters: mapOverlaysParams,
@@ -581,7 +563,7 @@ define([
             wizardDynamicParams = new ImageParameters();
             wizardDynamicParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             wizardDynamicParams.layerIds = [];
-            wizardDynamicParams.format = "png32";
+            wizardDynamicParams.format = 'png32';
 
             wizardDynamicLayer = new ArcGISDynamicLayer(MapConfig.adminUnitsLayer.url, {
                 imageParameters: wizardDynamicParams,
@@ -624,7 +606,6 @@ define([
                 forestUse_commodities,
                 production_commodities,
 
-
                 protectAreasLayer,
                 protectAreasHelper,
                 bioDiversityLayer,
@@ -634,6 +615,13 @@ define([
                 gladAlertsLayer,
                 gladFootprintsLayer,
                 hansenLossLayer,
+
+                hansenLossLayer10,
+                hansenLossLayer15,
+                hansenLossLayer20,
+                hansenLossLayer25,
+                hansenLossLayer50,
+                hansenLossLayer70,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -682,6 +670,14 @@ define([
             gladAlertsLayer.on('error', this.addLayerError);
             gladFootprintsLayer.on('error', this.addLayerError);
             hansenLossLayer.on('error', this.addLayerError);
+
+            hansenLossLayer10.on('error', this.addLayerError);
+            hansenLossLayer15.on('error', this.addLayerError);
+            hansenLossLayer20.on('error', this.addLayerError);
+            hansenLossLayer25.on('error', this.addLayerError);
+            hansenLossLayer50.on('error', this.addLayerError);
+            hansenLossLayer70.on('error', this.addLayerError);
+
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
