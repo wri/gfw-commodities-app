@@ -672,7 +672,8 @@ define('map/config',[], function() {
             colormap: [
               [1, 255, 102, 153]
             ],
-            outputValues: [0, 1, 0]
+            outputValues: [0, 1, 0],
+            toolsNode: 'hansen_change_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -6969,6 +6970,15 @@ define('map/LayerController',[
 
         },
 
+        updateHansenDates: function(clauseArray) {
+          var hansenLossLayer = app.map.getLayer('hansenLoss');
+
+          if (hansenLossLayer) {
+            hansenLossLayer.setDateRange(clauseArray[0], clauseArray[1]);
+          }
+
+        },
+
         getJulianDate: function(timestamp) {
           var day = 1000 * 60 * 60 * 24;
           var newDate = new Date(timestamp);
@@ -8707,44 +8717,6 @@ define('components/CalendarModal',[
 
       topic.publish('updateGladDates', [startDate, date]);
 			Analytics.sendEvent('Event', 'Glad Timeline', 'Change end date');
-		},
-
-		changeHansenStart: function (date) {
-      date = date.format('M/D/YYYY');
-      var playButtonEnd = $('#hansenPlayButtonEndClick');
-
-      var formattedEnd = new Date(date);
-      playButtonEnd.html(DateHelper.getDate(formattedEnd));
-			this.close();
-      this.setState({
-        endDate: date
-      });
-			var startDate = this.state.startDate;
-			if (startDate.format) {
-				startDate = startDate.format('M/D/YYYY');
-			}
-
-      topic.publish('updateHansenDates', [startDate, date]);
-			Analytics.sendEvent('Event', 'Hansen Timeline', 'Change end date');
-		},
-
-		changeHansenEnd: function (date) {
-      date = date.format('M/D/YYYY');
-      var playButtonEnd = $('#hansenPlayButtonEndClick');
-
-      var formattedEnd = new Date(date);
-      playButtonEnd.html(DateHelper.getDate(formattedEnd));
-			this.close();
-      this.setState({
-        endDate: date
-      });
-			var startDate = this.state.startDate;
-			if (startDate.format) {
-				startDate = startDate.format('M/D/YYYY');
-			}
-
-      topic.publish('updateHansenDates', [startDate, date]);
-			Analytics.sendEvent('Event', 'Hansen Timeline', 'Change end date');
 		}
 
 		/* jshint ignore:end */
@@ -8822,64 +8794,127 @@ define('map/GladSlider',[
 
 define('map/HansenSlider',[
   'dojo/on',
-  'dojo/dom-class',
   'map/config',
-  'esri/request',
-  'utils/DateHelper',
-  'dojo/Deferred',
-  'components/CalendarModal'
-], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal) {
-  // "use strict";
+  'utils/Analytics',
+  'map/LayerController'
+], function (on, MapConfig, Analytics, LayerController) {
 
-  var hansenSlider;
+  var playInterval,
+      playButton,
+      lossSlider;
 
+  var config = {
+    containerId: 'hansen_change_toolbox',
+    values: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014],
+    sliderSelector: '#hansen-range-slider',
+    baseValue: 2001,
+    playHtml: '&#9658;',
+    pauseHtml: '&#x25A0'
+  };
 
-  var HansenSlider = {
+  var state = {
+    isPlaying: false,
+    from: 0,
+    to: config.values.length - 1
+  };
+
+  var LossSliderController = {
 
     init: function () {
-      if (hansenSlider === undefined) {
-
-        var hansenStartDate, hansenEndDate;
-
-        var calendarModal = new CalendarModal({
-        }, 'calendar-modal');
-
-        MapConfig.calendars.forEach(function(calendar) {
-          if (calendar.domId === 'hansenCalendarStart') {
-            hansenStartDate = calendar.selectedDate;
-          } else if (calendar.domId === 'hansenCalendarEnd') {
-            hansenEndDate = calendar.selectedDate;
-          }
-        });
-
-        var playButton = $('#hansenPlayButtonStartClick');
-        var startDate = new window.Kalendae.moment(hansenStartDate).format('M/D/YYYY');
-        var formattedStart = new Date(startDate);
-        playButton.html(DateHelper.getDate(formattedStart));
-
-        on(playButton, 'click', function() {
-          var node = calendarModal.getDOMNode();
-          calendarModal.setCalendar('hansenCalendarStart');
-          domClass.remove(node.parentNode, 'hidden');
-        });
-
-        var playButtonEnd = $('#hansenPlayButtonEndClick');
-        var endDate = new window.Kalendae.moment(hansenEndDate).format('M/D/YYYY');
-        var formattedEnd = new Date(endDate);
-        playButtonEnd.html(DateHelper.getDate(formattedEnd));
-
-        on(playButtonEnd, 'click', function() {
-          var node = calendarModal.getDOMNode();
-          calendarModal.setCalendar('hansenCalendarEnd');
-          domClass.remove(node.parentNode, 'hidden');
-        });
-
+      var self = this;
+      if (lossSlider === undefined) {
+        // Initialize the slider
+        $(config.sliderSelector).ionRangeSlider({
+          type: 'double',
+					values: config.values,
+          grid: true,
+          hide_min_max: true,
+          hide_from_to: true,
+          prettify_enabled: false,
+					onFinish: self.change,
+          onUpdate: self.change
+				});
+        // Save this instance to a variable ???
+        lossSlider = $(config.sliderSelector).data('ionRangeSlider');
+        // Cache query for play button
+        playButton = $('#hansenPlayButton');
+        // Attach Events related to this item
+        on(playButton, 'click', self.playToggle);
       }
+
+    },
+
+    /**
+    * Called when the user drags a thumb on the slider or update is called programmatically
+    */
+    change: function (data) {
+      // var densityRange;
+      // var treeCoverDensity = app.map.getLayer(MapConfig.tcd.id);
+      // if (treeCoverDensity.renderingRule.functionArguments) {
+      //   densityRange = treeCoverDensity.renderingRule.functionArguments.Raster.rasterFunctionArguments.InputRanges;
+      // } else {
+      //   densityRange = [30, 100];
+      // }
+
+      LayerController.updateHansenDates([data.from, data.to]);
+      //- Determine which handle changed and emit the appropriate event
+      // if (!state.isPlaying) {
+      //   if (data.from !== state.from) {
+      //     Analytics.sendEvent('Event', 'Hansen Timeline', 'Change start date');
+      //   } else {
+      //     Analytics.sendEvent('Event', 'Hansen Timeline', 'Change end date');
+      //   }
+      // }
+      //- Update the state value
+      state.from = data.from;
+      state.to = data.to;
+    },
+
+    playToggle: function () {
+      var fromValue, toValue, endValue;
+
+      function stopPlaying() {
+        state.isPlaying = false;
+        clearInterval(playInterval);
+        playButton.html(config.playHtml);
+      }
+
+      if (state.isPlaying) {
+        stopPlaying();
+      } else {
+        // Update some state
+        state.isPlaying = true;
+        endValue = lossSlider.result.to;
+        // Trigger a change on the layer for the initial value, with both handles starting at the same point
+        lossSlider.update({ from: lossSlider.result.from, to: lossSlider.result.from });
+        // Start the interval
+        playInterval = setInterval(function () {
+          // We will be incrementing the from value to move the slider forward
+          fromValue = lossSlider.result.from;
+          toValue = lossSlider.result.to;
+          // Quit if from value is equal to or greater than the to value
+          if (toValue >= endValue) {
+            stopPlaying();
+          } else {
+            // Update the slider
+            lossSlider.update({
+              from: fromValue,
+              to: ++toValue
+            });
+          }
+
+        }, 1250);
+
+        // Update the button html
+        playButton.html(config.pauseHtml);
+      }
+
+      Analytics.sendEvent('Event', 'Loss Timeline', 'Play');
     }
 
   };
 
-  return HansenSlider;
+  return LossSliderController;
 
 });
 
@@ -10491,12 +10526,14 @@ define('analysis/WizardHelper',[
 			// Add this variable to the url to share the status of this drawer
 			if (wizardWidth === 0) {
 				domClass.remove('treecover_change_toolbox', 'compressed');
+				domClass.remove('hansen_change_toolbox', 'compressed');
 				domClass.remove('prodes_toolbox', 'compressed');
 				domClass.remove('forma_toolbox', 'compressed');
 				domClass.remove('guyra_toolbox', 'compressed');
 				Hasher.removeKey('wiz');
 			} else {
 				domClass.add('treecover_change_toolbox', 'compressed');
+				domClass.add('hansen_change_toolbox', 'compressed');
 				domClass.add('prodes_toolbox', 'compressed');
 				domClass.add('forma_toolbox', 'compressed');
 				domClass.add('guyra_toolbox', 'compressed');
@@ -11705,15 +11742,15 @@ define('layers/HansenLayer',[
         var values = this.decodeDate(slice);
         //- Check against confidence, min date, and max date
         // if (i === 0) {
-          // console.log(values);
-          // console.log(slice);
-          // console.log(data[i]); //--> year
-          // console.log(data[i + 1]); //--> nada
-          // console.log(data[i + 2]); //--> intensity
-
-
-          // console.log('min Date:', this.options.minYear);
-          // console.log('maxxx Date:', this.options.maxYear);
+        //   // console.log(values);
+        //   // console.log(slice);
+        //   // console.log(data[i]); //--> year
+        //   // console.log(data[i + 1]); //--> nada
+        //   // console.log(data[i + 2]); //--> intensity
+        //
+        //
+        //   console.log('min Date:', this.options.minYear);
+        //   console.log('maxxx Date:', this.options.maxYear);
         // }
         if (
           values.year >= this.options.minYear &&
@@ -11735,21 +11772,21 @@ define('layers/HansenLayer',[
           data[i + 2] = 220; // B
           data[i + 3] = 0;
 
-          if (i === 2) {
-            // console.log('yessss');
-            console.log(values.intensity);
-          }
+          // if (i === 2) {
+          //   // console.log('yessss');
+          //   console.log(values.intensity);
+          // }
         } else {
           // Hide the pixel
-          // data[i + 3] = 0;
+          data[i + 3] = 0;
           data[i + 2] = 0;
           data[i + 1] = 0;
           data[i] = 0;
-          if (i === 2) {
-            // console.log('nahhh');
+          // if (i === 2) {
+          //   console.log('nahhh');
             // console.log('minYear', this.options.minYear);
             // console.log('year', values.year);
-          }
+          // }
           // data[i + 3] = values.intensity;
           // data[i] = 220; // R
           // data[i + 1] = 102; // G
@@ -14400,7 +14437,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.54',
+                path = './app/templates/' + name + '.html?v=2.4.55',
                 req;
 
             req = new XMLHttpRequest();

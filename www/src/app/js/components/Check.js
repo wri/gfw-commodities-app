@@ -81,10 +81,11 @@ define([
 		},
 
 		showInfo: function() {
+			console.log('propssss', this.props);
 			if (document.getElementsByClassName(this.props.infoDivClass).length) {
-				topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+				topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0], this.props.id);
 			} else {
-				topic.publish('showInfoPanel', this.props.infoDivClass);
+				topic.publish('showInfoPanel', this.props.infoDivClass, this.props.id);
 			}
 		},
 
@@ -102,10 +103,9 @@ define([
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
 
-					if (this.props.id === 'gladConfidence') {
-						console.log('gladConfidence', this.state);
-					}
-
+					// if (this.props.id === 'gladConfidence') {
+					// 	console.log('gladConfidence', this.state);
+					// }
 
 			return (
 				React.createElement("li", {className: className, "data-layer": this.props.id}, 

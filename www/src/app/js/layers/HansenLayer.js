@@ -16,17 +16,17 @@ define([
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
         //- Check against confidence, min date, and max date
-        if (i === 0) {
-          // console.log(values);
-          // console.log(slice);
-          // console.log(data[i]); //--> year
-          // console.log(data[i + 1]); //--> nada
-          // console.log(data[i + 2]); //--> intensity
-
-
-          console.log('min Date:', this.options.minYear);
-          console.log('maxxx Date:', this.options.maxYear);
-        }
+        // if (i === 0) {
+        //   // console.log(values);
+        //   // console.log(slice);
+        //   // console.log(data[i]); //--> year
+        //   // console.log(data[i + 1]); //--> nada
+        //   // console.log(data[i + 2]); //--> intensity
+        //
+        //
+        //   console.log('min Date:', this.options.minYear);
+        //   console.log('maxxx Date:', this.options.maxYear);
+        // }
         if (
           values.year >= this.options.minYear &&
           values.year <= this.options.maxYear //&&
@@ -47,21 +47,21 @@ define([
           data[i + 2] = 220; // B
           data[i + 3] = 0;
 
-          if (i === 2) {
-            // console.log('yessss');
-            console.log(values.intensity);
-          }
+          // if (i === 2) {
+          //   // console.log('yessss');
+          //   console.log(values.intensity);
+          // }
         } else {
           // Hide the pixel
           data[i + 3] = 0;
           data[i + 2] = 0;
           data[i + 1] = 0;
           data[i] = 0;
-          if (i === 2) {
-            console.log('nahhh');
+          // if (i === 2) {
+          //   console.log('nahhh');
             // console.log('minYear', this.options.minYear);
             // console.log('year', values.year);
-          }
+          // }
           // data[i + 3] = values.intensity;
           // data[i] = 220; // R
           // data[i + 1] = 102; // G
