@@ -302,7 +302,13 @@ define('map/config',[], function() {
         gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
-        hansenTileUrl = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
+        hansenTileUrl10 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_10/{z}/{x}/{y}.png',
+        hansenTileUrl15 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_15/{z}/{x}/{y}.png',
+        hansenTileUrl20 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_20/{z}/{x}/{y}.png',
+        hansenTileUrl25 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_25/{z}/{x}/{y}.png',
+        hansenTileUrl30 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
+        hansenTileUrl50 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_50/{z}/{x}/{y}.png',
+        hansenTileUrl70 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_70/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -501,7 +507,6 @@ define('map/config',[], function() {
           'suitability-soil-depth': 'idn_soil_depth',
           'suitability-soil-acidity': 'idn_soil_acidity',
           'suitability-soil-type': 'idn_soil_type'
-
         },
 
         // The Following Layers are used by the Wizard
@@ -662,7 +667,44 @@ define('map/config',[], function() {
         },
         hansenLoss: {
             id: 'hansenLoss',
-            url: hansenTileUrl,
+            url: hansenTileUrl30,
+            levels: [
+              {
+                url: hansenTileUrl10,
+                id: 'hansenLoss10',
+                value: 10
+              },
+              {
+                url: hansenTileUrl15,
+                id: 'hansenLoss15',
+                value: 15
+              },
+              {
+                url: hansenTileUrl20,
+                id: 'hansenLoss20',
+                value: 20
+              },
+              {
+                url: hansenTileUrl25,
+                id: 'hansenLoss25',
+                value: 25
+              },
+              {
+                url: hansenTileUrl30,
+                id: 'hansenLoss',
+                value: 30
+              },
+              {
+                url: hansenTileUrl50,
+                id: 'hansenLoss50',
+                value: 50
+              },
+              {
+                url: hansenTileUrl70,
+                id: 'hansenLoss70',
+                value: 70
+              }
+            ],
             minYear: 1,
             maxYear: 14,
             confidence: [0, 1],
@@ -6971,11 +7013,10 @@ define('map/LayerController',[
         },
 
         updateHansenDates: function(clauseArray) {
-          var hansenLossLayer = app.map.getLayer('hansenLoss');
-
-          if (hansenLossLayer) {
-            hansenLossLayer.setDateRange(clauseArray[0], clauseArray[1]);
-          }
+          MapConfig.hansenLoss.levels.forEach(function(level) {
+            var hansenLayer = app.map.getLayer(level.id);
+            hansenLayer.setDateRange(clauseArray[0], clauseArray[1]);
+          });
 
         },
 
@@ -7087,8 +7128,26 @@ define('map/LayerController',[
 
         },
 
-        updateLossImageServiceRasterFunction: function(values, layerConfig, densityRange) {
+        updateHansenTCD: function(layerConfig, densityRange) {
+          var density = densityRange[0];
 
+          var original30Layer = app.map.getLayer(layerConfig.id);
+          var minYear = original30Layer.options.minYear;
+          var maxYear = original30Layer.options.maxYear;
+
+          MapConfig.hansenLoss.levels.forEach(function(level) {
+            var hansenLayer = app.map.getLayer(level.id);
+            hansenLayer.setDateRange(minYear, maxYear);
+            if (level.value !== density) {
+              hansenLayer.hide();
+            } else {
+              hansenLayer.show();
+            }
+          });
+
+        },
+
+        updateLossImageServiceRasterFunction: function(values, layerConfig, densityRange) {
             var layer = app.map.getLayer(layerConfig.id),
                 outRange = [1],
                 rasterFunction,
@@ -7120,8 +7179,6 @@ define('map/LayerController',[
                   var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
                   range = [1, 1, values[0] + 1, finalValue];
                   outRange = [0, 1];
-              } else if (layerConfig.id === 'gladAlerts') {
-                // debugger
               } else {
                   range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
               }
@@ -7149,20 +7206,6 @@ define('map/LayerController',[
 
         getColormapLossRasterFunction: function(colormap, range, outRange, densityRange) {
             return new RasterFunction({
-                // 'rasterFunction': 'Colormap',
-                // 'rasterFunctionArguments': {
-                //     'Colormap': colormap,
-                //     'Raster': {
-                //         'rasterFunction': 'ForestCover_lossyear_density',
-                //         'rasterFunctionArguments': {
-                //             'min_year': range[0],
-                //             'max_year': range[1],
-                //             'min_density': densityRange[0],
-                //             'max_density': densityRange[1]
-                //         }
-                //     }
-                // },
-                // 'variableName': 'Raster'
                 'rasterFunction': 'ForestCover_lossyear_density',
                 'rasterFunctionArguments': {
                     'min_year': range[0],
@@ -7243,11 +7286,10 @@ define('map/LayerController',[
                     dojoQuery('#environmental-criteria .suitable-checkbox-soil input:checked').forEach(function(node) {
                         activeCheckboxes.push(node.value);
                     });
-                    //console.log("****************** soil type checkboxes: " + activeCheckboxes.toString());
+
                     settings.computeBinaryRaster[10].values = activeCheckboxes.join(',');
                     break;
             }
-
 
             MapModel.set('suitabilitySettings', settings);
 
@@ -7350,8 +7392,6 @@ define('map/LayerController',[
                 layer,
                 ldos;
 
-                // console.log(legendLayer);
-
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
             // Make sure to set layer drawing options for those values so they do not display
@@ -7444,8 +7484,6 @@ define('map/LayerController',[
                 });
             }
 
-            console.log(layerOptions);
-
             layer.setLayerDrawingOptions(layerOptions);
 
         },
@@ -7516,7 +7554,6 @@ define('map/TCDSlider',[
   'actions/WizardActions',
   'analysis/config'
 ], function (on, MapModel, MapConfig, LayerController, WizardActions, AnalyzerConfig) {
-  'use strict';
 
   var tcdSlider,
       modal,
@@ -7564,10 +7601,14 @@ define('map/TCDSlider',[
         WizardActions.setTreeCoverDensity(data.from_value);
 
         var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
+
         var densityRange = [data.from_value, data.to_value];
         var from = treeCoverLoss.renderingRule.functionArguments.min_year - 2001;
         var to = treeCoverLoss.renderingRule.functionArguments.max_year - 2001;
+
         LayerController.updateLossImageServiceRasterFunction([from, to], MapConfig.loss, densityRange);
+
+        LayerController.updateHansenTCD(MapConfig.hansenLoss, densityRange);
       }
     }
 
@@ -12051,6 +12092,13 @@ define('map/Map',[
                 gladFootprintsLayer,
                 gladFootprintsParams,
                 hansenLossLayer,
+
+                hansenLossLayer10,
+                hansenLossLayer15,
+                hansenLossLayer20,
+                hansenLossLayer25,
+                hansenLossLayer50,
+                hansenLossLayer70,
                 hansenLossParams = {},
                 gainLayer,
                 gainHelperLayer,
@@ -12229,24 +12277,39 @@ define('map/Map',[
             hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
             hansenLossParams.visible = false;
 
-            hansenLossLayer = new HansenLayer(hansenLossParams);
+            hansenLossLayer = new HansenLayer(hansenLossParams); //30% first
+
+            MapConfig.hansenLoss.levels.forEach(function(level) {
+
+              hansenLossParams.url = level.url;
+              hansenLossParams.id = level.id;
+              switch (level.value) {
+                case 10:
+                  hansenLossLayer10 = new HansenLayer(hansenLossParams);
+                  break;
+                case 15:
+                  hansenLossLayer15 = new HansenLayer(hansenLossParams);
+                  break;
+                case 20:
+                  hansenLossLayer20 = new HansenLayer(hansenLossParams);
+                  break;
+                case 25:
+                  hansenLossLayer25 = new HansenLayer(hansenLossParams);
+                  break;
+                case 50:
+                  hansenLossLayer50 = new HansenLayer(hansenLossParams);
+                  break;
+                case 70:
+                  hansenLossLayer70 = new HansenLayer(hansenLossParams);
+                  break;
+                default:
+                  break;
+              }
+            });
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
             lossParams.renderingRule = new RasterFunction({
-                // "rasterFunction": "Colormap",
-                // "rasterFunctionArguments": {
-                //     "Colormap": MapConfig.loss.colormap,
-                //     "Raster": {
-                //         "rasterFunction": "Remap",
-                //         "rasterFunctionArguments": {
-                //             "InputRanges": MapConfig.loss.defaultRange,
-                //             "OutputValues": [1],
-                //             "AllowUnmatched": false
-                //         }
-                //     }
-                // },
-                // "variableName": "Raster"
                 'rasterFunction': 'ForestCover_lossyear_density',
                 'rasterFunctionArguments': {
                     'min_year': MapConfig.loss.defaultRange[0] + 2000,
@@ -12289,12 +12352,10 @@ define('map/Map',[
                 visible: false
             });
 
-
             batchParams = new ImageParameters();
             batchParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             batchParams.layerIds = [];
             batchParams.format = 'png32';
-
 
             forestCover_forestCover = new ArcGISDynamicLayer(MapConfig.ifl.url, {
                 imageParameters: batchParams,
@@ -12304,19 +12365,7 @@ define('map/Map',[
 
             tropicalParams = new ImageServiceParameters();
             tropicalParams.renderingRule = new RasterFunction({
-                'rasterFunction': 'Stretched'//,
-                // 'rasterFunctionArguments': {
-                //     'Colormap': MapConfig.forma.colormap,
-                //     'Raster': {
-                //         'rasterFunction': 'Remap',
-                //         'rasterFunctionArguments': {
-                //             'InputRanges': MapConfig.forma.defaultRange,
-                //             'OutputValues': [1],
-                //             'AllowUnmatched': false
-                //         }
-                //     }
-                // },
-                // 'variableName': 'Raster'
+                'rasterFunction': 'Stretched'
             });
 
             forestCover_tropical = new ArcGISImageServiceLayer(MapConfig.tfcs.url, {
@@ -12362,35 +12411,10 @@ define('map/Map',[
                 visible: false
             });
 
-
-
-
-            // forestCoverAggregate = new ArcGISDynamicLayer(MapConfig.ifl.url, {
-            //     imageParameters: batchParams,
-            //     id: "forestCover",
-            //     visible: false
-            // });
-
-            // commoditiesAggregate = new ArcGISDynamicLayer(MapConfig.peat.url, {
-            //     imageParameters: batchParams,
-            //     id: "commodities",
-            //     visible: false
-            // });
-
-            // landUserAggregate = new ArcGISDynamicLayer(MapConfig.oilPerm.url, {
-            //     imageParameters: batchParams,
-            //     id: "landUse",
-            //     visible: false
-            // });
-
-
-
-
             customSuitabilityLayer = new SuitabilityImageServiceLayer(MapConfig.suit.url, {
                 id: MapConfig.suit.id,
                 visible: false
             });
-
 
             protectAreasLayer = new ArcGISTiledMapServiceLayer(MapConfig.pal.url, {
                 id: MapConfig.pal.id,
@@ -12400,7 +12424,7 @@ define('map/Map',[
             protectAreasHelperParams = new ImageParameters();
             protectAreasHelperParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             protectAreasHelperParams.layerIds = [MapConfig.palHelper.layerId];
-            protectAreasHelperParams.format = "png32";
+            protectAreasHelperParams.format = 'png32';
 
             protectAreasHelper = new ArcGISDynamicLayer(MapConfig.palHelper.url, {
                 imageParameters: protectAreasHelperParams,
@@ -12413,7 +12437,7 @@ define('map/Map',[
             bioDiversityParams = new ImageParameters();
             bioDiversityParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             bioDiversityParams.layerIds = [MapConfig.biodiversity.layerId];
-            bioDiversityParams.format = "png32";
+            bioDiversityParams.format = 'png32';
 
             bioDiversityLayer = new ArcGISDynamicLayer(MapConfig.biodiversity.url, {
                 imageParameters: bioDiversityParams,
@@ -12421,11 +12445,10 @@ define('map/Map',[
                 visible: false
             });
 
-
             mapOverlaysParams = new ImageParameters();
             mapOverlaysParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             mapOverlaysParams.layerIds = MapConfig.overlays.defaultLayers;
-            mapOverlaysParams.format = "png32";
+            mapOverlaysParams.format = 'png32';
 
             mapOverlaysLayer = new ArcGISDynamicLayer(MapConfig.overlays.url, {
                 imageParameters: mapOverlaysParams,
@@ -12438,7 +12461,7 @@ define('map/Map',[
             wizardDynamicParams = new ImageParameters();
             wizardDynamicParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             wizardDynamicParams.layerIds = [];
-            wizardDynamicParams.format = "png32";
+            wizardDynamicParams.format = 'png32';
 
             wizardDynamicLayer = new ArcGISDynamicLayer(MapConfig.adminUnitsLayer.url, {
                 imageParameters: wizardDynamicParams,
@@ -12481,7 +12504,6 @@ define('map/Map',[
                 forestUse_commodities,
                 production_commodities,
 
-
                 protectAreasLayer,
                 protectAreasHelper,
                 bioDiversityLayer,
@@ -12491,6 +12513,13 @@ define('map/Map',[
                 gladAlertsLayer,
                 gladFootprintsLayer,
                 hansenLossLayer,
+
+                hansenLossLayer10,
+                hansenLossLayer15,
+                hansenLossLayer20,
+                hansenLossLayer25,
+                hansenLossLayer50,
+                hansenLossLayer70,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -12539,6 +12568,14 @@ define('map/Map',[
             gladAlertsLayer.on('error', this.addLayerError);
             gladFootprintsLayer.on('error', this.addLayerError);
             hansenLossLayer.on('error', this.addLayerError);
+
+            hansenLossLayer10.on('error', this.addLayerError);
+            hansenLossLayer15.on('error', this.addLayerError);
+            hansenLossLayer20.on('error', this.addLayerError);
+            hansenLossLayer25.on('error', this.addLayerError);
+            hansenLossLayer50.on('error', this.addLayerError);
+            hansenLossLayer70.on('error', this.addLayerError);
+
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
             gainHelperLayer.on('error', this.addLayerError);
@@ -13780,10 +13817,6 @@ define('components/Check',[
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
 
-					// if (this.props.id === 'gladConfidence') {
-					// 	console.log('gladConfidence', this.state);
-					// }
-
 			return (
 				React.createElement("li", {className: className, "data-layer": this.props.id}, 
 						React.createElement("div", {id: this.props.id + '_checkbox', onClick: this.props.kids ? null : this.toggle}, 
@@ -13940,7 +13973,7 @@ define('components/RadioButton',[
                 null, 
           
 					
-						this.props.id === 'tcd' ? (
+						this.props.id === 'tcd' || this.props.id === 'hansenLoss' ? (
 							React.createElement("div", {className: 'tcd-button-container' + (this.state.active ? '' : ' hidden')}, 
 										React.createElement("span", {className: "tcd-percentage-label"}, "Displaying at "), 
 										React.createElement("span", {className: "tcd-percentage-button", onClick: this.showTCDSlider, "data-bind": "text: tcdDensityValue"}), 
