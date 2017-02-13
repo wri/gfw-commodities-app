@@ -16,7 +16,7 @@ define([
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
         //- Check against confidence, min date, and max date
-        // if (i === 0) {
+        if (i === 0) {
           // console.log(values);
           // console.log(slice);
           // console.log(data[i]); //--> year
@@ -24,9 +24,9 @@ define([
           // console.log(data[i + 2]); //--> intensity
 
 
-          // console.log('min Date:', this.options.minYear);
-          // console.log('maxxx Date:', this.options.maxYear);
-        // }
+          console.log('min Date:', this.options.minYear);
+          console.log('maxxx Date:', this.options.maxYear);
+        }
         if (
           values.year >= this.options.minYear &&
           values.year <= this.options.maxYear //&&
@@ -35,25 +35,30 @@ define([
           // Set the alpha to the intensity
           // data[i + 3] = values.intensity;
           // Make the pixel pink for HANSEN alerts
-          data[i] = 100; // R
-          data[i + 1] = 100; // G
-          data[i + 2] = 100; // B
+          // data[i] = 220; // R
+          // // data[i + 1] = 102; // G
+          // data[i + 1] = values.intensity; // G --> Yo this is intensity!!
+          // data[i + 2] = 153; // B
           // data[i + 3] = 0;
-          // data[i + 2] = 220;
-          // data[i + 1] = 0;
-          // data[i] = 0;
+
+          data[i] = 153; // R
+          // data[i + 1] = 102; // G
+          data[i + 1] = values.intensity; // G --> Yo this is intensity!!
+          data[i + 2] = 220; // B
+          data[i + 3] = 0;
+
           if (i === 2) {
             // console.log('yessss');
             console.log(values.intensity);
           }
         } else {
           // Hide the pixel
-          // data[i + 3] = 0;
+          data[i + 3] = 0;
           data[i + 2] = 0;
           data[i + 1] = 0;
           data[i] = 0;
           if (i === 2) {
-            // console.log('nahhh');
+            console.log('nahhh');
             // console.log('minYear', this.options.minYear);
             // console.log('year', values.year);
           }

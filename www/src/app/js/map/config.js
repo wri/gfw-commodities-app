@@ -386,7 +386,8 @@ define([], function() {
             colormap: [
               [1, 255, 102, 153]
             ],
-            outputValues: [0, 1, 0]
+            outputValues: [0, 1, 0],
+            toolsNode: 'hansen_change_toolbox'
         },
         tcd: {
             id: 'TreeCoverDensity',

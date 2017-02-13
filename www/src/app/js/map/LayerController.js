@@ -236,6 +236,23 @@ define([
 
         },
 
+        updateHansenDates: function(clauseArray) {
+          var hansenLossLayer = app.map.getLayer('hansenLoss');
+          console.log(clauseArray);
+          // debugger
+
+          // var startDate = new Date(clauseArray[0]);
+          // var endDate = new Date(clauseArray[1]);
+          //
+          // var julianFrom = this.getJulianDate(startDate);
+          // var julianTo = this.getJulianDate(endDate);
+
+          if (hansenLossLayer) {
+            hansenLossLayer.setDateRange(clauseArray[0], clauseArray[1]);
+          }
+
+        },
+
         getJulianDate: function(timestamp) {
           var day = 1000 * 60 * 60 * 24;
           var newDate = new Date(timestamp);
