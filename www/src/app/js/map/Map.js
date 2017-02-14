@@ -200,7 +200,7 @@ define([
                 hansenLossLayer20,
                 hansenLossLayer25,
                 hansenLossLayer50,
-                hansenLossLayer70,
+                hansenLossLayer75,
                 hansenLossParams = {},
                 gainLayer,
                 gainHelperLayer,
@@ -401,8 +401,8 @@ define([
                 case 50:
                   hansenLossLayer50 = new HansenLayer(hansenLossParams);
                   break;
-                case 70:
-                  hansenLossLayer70 = new HansenLayer(hansenLossParams);
+                case 75:
+                  hansenLossLayer75 = new HansenLayer(hansenLossParams);
                   break;
                 default:
                   break;
@@ -621,7 +621,7 @@ define([
                 hansenLossLayer20,
                 hansenLossLayer25,
                 hansenLossLayer50,
-                hansenLossLayer70,
+                hansenLossLayer75,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -676,7 +676,7 @@ define([
             hansenLossLayer20.on('error', this.addLayerError);
             hansenLossLayer25.on('error', this.addLayerError);
             hansenLossLayer50.on('error', this.addLayerError);
-            hansenLossLayer70.on('error', this.addLayerError);
+            hansenLossLayer75.on('error', this.addLayerError);
 
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);

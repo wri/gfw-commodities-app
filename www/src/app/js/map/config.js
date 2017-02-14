@@ -22,7 +22,7 @@ define([], function() {
         hansenTileUrl25 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_25/{z}/{x}/{y}.png',
         hansenTileUrl30 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
         hansenTileUrl50 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_50/{z}/{x}/{y}.png',
-        hansenTileUrl70 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_70/{z}/{x}/{y}.png',
+        hansenTileUrl75 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_75/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -414,9 +414,9 @@ define([], function() {
                 value: 50
               },
               {
-                url: hansenTileUrl70,
-                id: 'hansenLoss70',
-                value: 70
+                url: hansenTileUrl75,
+                id: 'hansenLoss75',
+                value: 75
               }
             ],
             minYear: 1,

@@ -308,7 +308,7 @@ define('map/config',[], function() {
         hansenTileUrl25 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_25/{z}/{x}/{y}.png',
         hansenTileUrl30 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
         hansenTileUrl50 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_50/{z}/{x}/{y}.png',
-        hansenTileUrl70 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_70/{z}/{x}/{y}.png',
+        hansenTileUrl75 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_75/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -700,9 +700,9 @@ define('map/config',[], function() {
                 value: 50
               },
               {
-                url: hansenTileUrl70,
-                id: 'hansenLoss70',
-                value: 70
+                url: hansenTileUrl75,
+                id: 'hansenLoss75',
+                value: 75
               }
             ],
             minYear: 1,
@@ -12098,7 +12098,7 @@ define('map/Map',[
                 hansenLossLayer20,
                 hansenLossLayer25,
                 hansenLossLayer50,
-                hansenLossLayer70,
+                hansenLossLayer75,
                 hansenLossParams = {},
                 gainLayer,
                 gainHelperLayer,
@@ -12299,8 +12299,8 @@ define('map/Map',[
                 case 50:
                   hansenLossLayer50 = new HansenLayer(hansenLossParams);
                   break;
-                case 70:
-                  hansenLossLayer70 = new HansenLayer(hansenLossParams);
+                case 75:
+                  hansenLossLayer75 = new HansenLayer(hansenLossParams);
                   break;
                 default:
                   break;
@@ -12519,7 +12519,7 @@ define('map/Map',[
                 hansenLossLayer20,
                 hansenLossLayer25,
                 hansenLossLayer50,
-                hansenLossLayer70,
+                hansenLossLayer75,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -12574,7 +12574,7 @@ define('map/Map',[
             hansenLossLayer20.on('error', this.addLayerError);
             hansenLossLayer25.on('error', this.addLayerError);
             hansenLossLayer50.on('error', this.addLayerError);
-            hansenLossLayer70.on('error', this.addLayerError);
+            hansenLossLayer75.on('error', this.addLayerError);
 
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
@@ -14470,7 +14470,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.55',
+                path = './app/templates/' + name + '.html?v=2.4.56',
                 req;
 
             req = new XMLHttpRequest();
