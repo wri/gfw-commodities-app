@@ -1,6 +1,6 @@
 /* global window, document, location */
 (function(win, doc) {
-    var version = '2.4.47',
+    var version = '2.4.56',
         URL = location.pathname.replace(/\/[^/]+$/, '') + 'app',
         dojoConfig = {
             parseOnLoad: false,
@@ -40,6 +40,9 @@
             }, {
                 name: 'controllers',
                 location: URL + '/js/controllers'
+            }, {
+                name: 'layers',
+                location: URL + '/js/layers'
             }, {
                 name: 'map',
                 location: URL + '/js/map'

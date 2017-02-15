@@ -384,7 +384,7 @@ wizardBlue = #00688B
 	top 10px
 	left 7%
 
-.gfw .layer-controls-container .glad-selector
+.gfw .layer-controls-container .glad-selector, .gfw .layer-controls-container .hansen-selector
 	display inline-block
 	padding 3px
 	margin-left 5px
@@ -397,7 +397,7 @@ wizardBlue = #00688B
 	font-size 15px
 	width 150px
 
-.gfw .layer-controls-container .treecover_change_toolbox
+.gfw .layer-controls-container .treecover_change_toolbox, .gfw .layer-controls-container .hansen_change_toolbox
 	margin-left -500px
 	height 60px
 	width 900px
@@ -769,6 +769,7 @@ wizardBlue = #00688B
 #lossPlayButton
 #formaPlayButton
 #gladPlayButton
+#hansenPlayButton
 #prodesPlayButton
 #guyraPlayButton
 	position absolute
@@ -1060,11 +1061,11 @@ wizardBlue = #00688B
 
 
 @media screen and (max-width: 1400px) {
-  .gfw .layer-controls-container .treecover_change_toolbox.compressed {
+  .gfw .layer-controls-container .treecover_change_toolbox.compressed, .gfw .layer-controls-container .hansen_change_toolbox.compressed {
 		width: 540px;
 		margin-left: -300px;
 	}
-	#lossPlayButton, #formaPlayButton, #gladPlayButton, #prodesPlayButton, #guyraPlayButton {
+	#lossPlayButton, #formaPlayButton, #gladPlayButton, #prodesPlayButton, #guyraPlayButton, #hansenPlayButton {
 		left: 17px;
 	}
 	.gfw .layer-controls-container .forma_toolbox.compressed,
@@ -1079,7 +1080,7 @@ wizardBlue = #00688B
 
 // .forma_toolbox, .prodes_toolbox, .guyra_toolbox
 @media screen and (max-width: 1200px) {
-  .gfw .layer-controls-container .treecover_change_toolbox.compressed {
+  .gfw .layer-controls-container .treecover_change_toolbox.compressed, .gfw .layer-controls-container .hansen_change_toolbox.compressed {
 		width: 540px;
 		margin-left: -250px;
 	}
@@ -1093,6 +1094,7 @@ wizardBlue = #00688B
 
 @media screen and (max-width: 1100px) {
   .gfw .layer-controls-container .treecover_change_toolbox.compressed,
+	.gfw .layer-controls-container .hansen_change_toolbox.compressed,
 	.gfw .layer-controls-container .forma_toolbox.compressed,
 	.gfw .layer-controls-container .prodes_toolbox.compressed,
 	.gfw .layer-controls-container .guyra_toolbox.compressed {

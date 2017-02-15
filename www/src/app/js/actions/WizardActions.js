@@ -64,12 +64,13 @@ define([
       Store.set(KEYS.selectedCustomFeatures, []);
     },
 
-    /**
-    * Clear the selected features list
-    */
+
     setTreeCoverDensity: function (density) {
-      console.log(density);
       Store.set(KEYS.currentTreeCoverDensity, density);
+    },
+
+    setGladConfidence: function (confidence) {
+      Store.set(KEYS.gladConfidence, confidence);
     },
 
     /**

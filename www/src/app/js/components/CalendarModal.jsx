@@ -23,7 +23,6 @@ define([
 		},
 
 		componentDidMount: function () {
-
 			var self = this;
 
 			calendarConfig.forEach(function(calendar) {
@@ -31,29 +30,21 @@ define([
 				var selectedDate;
 
 				if (configDate) {
-					selectedDate = new window.Kalendae.moment(selectedDate);
+					selectedDate = new window.Kalendae.moment(configDate);
 				} else {
 					selectedDate = new window.Kalendae.moment();
 				}
 				var calendar_obj = new window.Kalendae(calendar.domId, {
 					months: 1,
 					mode: 'single',
-					// direction: calendar.direction,
-					// blackout: function (date) {
-					// 	if (date.yearDay() >= calendar.startDate.yearDay()) {
-					// 		return false;
-					// 	} else {
-					// 		return true;
-					// 	}
-					// },
-					selected: selectedDate //calendar.selectedDate
+					selected: selectedDate
 				});
 				calendar_obj.subscribe('change', self[calendar.method].bind(self));
 			});
 
 		},
 
-		componentWillReceiveProps: function (newProps, oldProps) {
+		componentWillReceiveProps: function (newProps) {
 			this.setState(newProps);
 		},
 
@@ -87,7 +78,7 @@ define([
 		changeGladStart: function (date) {
       date = date.format('M/D/YYYY');
       var playButton = $('#gladPlayButtonStartClick');
-      // playButton.html(date);
+
       var formattedStart = new Date(date);
 
       playButton.html(DateHelper.getDate(formattedStart));
@@ -99,6 +90,7 @@ define([
 			if (endDate.format) {
 				endDate = endDate.format('M/D/YYYY');
 			}
+
       topic.publish('updateGladDates', [date, endDate]);
 			Analytics.sendEvent('Event', 'Glad Timeline', 'Change start date');
 		},
@@ -106,7 +98,7 @@ define([
 		changeGladEnd: function (date) {
       date = date.format('M/D/YYYY');
       var playButtonEnd = $('#gladPlayButtonEndClick');
-      // playButtonEnd.html(date);
+
       var formattedEnd = new Date(date);
       playButtonEnd.html(DateHelper.getDate(formattedEnd));
 			this.close();

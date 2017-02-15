@@ -19,7 +19,7 @@ define({
     "http://firms.modaps.eosdis.nasa.gov",
     "http://gis-potico.wri.org",
     "http://gfw-apis.appspot.com",
-    "http://50.18.182.188"
+    "https://storage.googleapis.com"
   ],
 
   "homeModeOptions": [{

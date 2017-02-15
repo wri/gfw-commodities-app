@@ -4,11 +4,12 @@ define([
   'knockout',
   'map/TCDSlider',
   'map/MapModel',
+  'actions/WizardActions',
   'analysis/config',
   'analysis/WizardStore',
   'dojo/topic',
   'utils/Analytics'
-], function (React, ko, TCDSlider, MapModel, AnalyzerConfig, WizardStore, topic, Analytics) {
+], function (React, ko, TCDSlider, MapModel, WizardActions, AnalyzerConfig, WizardStore, topic, Analytics) {
 
   var KEYS = AnalyzerConfig.STORE_KEYS;
 
@@ -25,15 +26,25 @@ define([
 			}
 
       WizardStore.registerCallback(KEYS.currentTreeCoverDensity, this.tcdUpdated);
+      WizardStore.registerCallback(KEYS.gladConfidence, this.gladConfidenceUpdate);
 
     },
-
 
     tcdUpdated: function () {
       var aoi = WizardStore.get(KEYS.currentTreeCoverDensity);
       if (this.props.value === 'soy') {
         console.log(aoi);
         this.setState(this.state);
+      }
+    },
+
+    gladConfidenceUpdate: function () {
+      if (this.props.value === 'gladAlerts') {
+        var gladConfidence = WizardStore.get(KEYS.gladConfidence);
+        console.log(gladConfidence);
+        this.setState({
+          gladConfidence: gladConfidence
+        });
       }
     },
 
@@ -64,6 +75,14 @@ define([
     render: function() {
       var className = 'wizard-checkbox' + (this.props.checked ? ' active' : '');
 
+      var gladConfidence;
+      if (this.props.value === 'gladAlerts' && this.state) {
+        gladConfidence = this.state.gladConfidence;
+        this.props.childChecked = !gladConfidence;
+      }
+
+      var gladClassName = 'wizard-checkbox confirmed-glad' + (this.props.childChecked ? ' active' : '');
+
       var tcdDensityValue;
 
       if (this.props.value === 'soy' && this.model) {
@@ -87,7 +106,17 @@ define([
             React.createElement("span", {className: "tcd-percentage-holder"}, 
             React.createElement("span", {className: "tcd-percentage-label"}, "Analyze at "), 
             React.createElement("span", {className: "tcd-percentage-button", onClick: this.showSoySlider}, tcdDensityValue), 
-            React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null
+            React.createElement("span", {className: "tcd-percentage-label"}, " density")) : null, 
+          
+          
+            this.props.checked && this.props.value === 'gladAlerts' ?
+            React.createElement("div", {className: gladClassName, "data-value": this.props.childValue}, 
+              React.createElement("span", {className: "custom-check", onClick: this.toggleGladConfidence}, 
+                React.createElement("span", null)
+              ), 
+              React.createElement("a", {className: "wizard-checkbox-label", onClick: this.toggleGladConfidence}, this.props.childLabel)
+
+            ) : null
           
         )
       );
@@ -104,7 +133,21 @@ define([
     },
 
     showSoySlider: function() {
-      TCDSlider.show();
+      this.props.change(this.props.value);
+      if (this.props.value === 'soy') {
+        TCDSlider.hide();
+      }
+      // Emit Event for Analytics
+      Analytics.sendEvent('Event', 'Analysis Toggle', 'User toggled analysis for the ' + this.props.value + 'layer.');
+    },
+
+    toggleGladConfidence: function() {
+
+      this.props.change(this.props.childValue);
+      WizardActions.setGladConfidence(this.props.childChecked);
+      topic.publish('toggleGladConfidence', this.props.childChecked);
+      // Emit Event for Analytics
+      Analytics.sendEvent('Event', 'Analysis Toggle', 'User toggled analysis for the ' + this.props.value + 'layer.');
     },
 
     showInfo: function() {

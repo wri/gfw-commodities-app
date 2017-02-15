@@ -59,10 +59,11 @@ define([
     },
 
     showInfo: function () {
+			// console.log('propssss', this.props);
         if(document.getElementsByClassName(this.props.infoDivClass).length){
-            topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+            topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0], this.props.id);
         } else {
-            topic.publish('showInfoPanel', this.props.infoDivClass);
+            topic.publish('showInfoPanel', this.props.infoDivClass, this.props.id);
         }
     },
 
@@ -78,6 +79,10 @@ define([
 				(this.props.parent ? ' indented' : '') +
         (this.props.forceUnderline ? ' newList' : '') +
         (this.props.visible ? '' : ' hidden');
+
+				if (this.props.filter === 'forest-change') {
+					// console.log(this.props);
+				}
 
 
       return (
@@ -106,7 +111,7 @@ define([
                 null
           }
 					{
-						this.props.id === 'tcd' ? (
+						this.props.id === 'tcd' || this.props.id === 'hansenLoss' ? (
 							<div className={'tcd-button-container' + (this.state.active ? '' : ' hidden')}>
 										<span className='tcd-percentage-label'>Displaying at </span>
 										<span className='tcd-percentage-button' onClick={this.showTCDSlider} data-bind="text: tcdDensityValue"></span>

@@ -145,12 +145,10 @@ define([
                 var y = number.round(extent.getCenter().y, 2);
                 var l = map.map.getZoom();
 
-                setTimeout(function () {
-                  Hasher.setHash('x', x);
-                  Hasher.setHash('y', y);
-                  // Hasher.setHash('l', 5);
-                  // Hasher.setHash('l', l);
-                }, 1000);
+                // setTimeout(function () {
+                //   Hasher.setHash('x', x);
+                //   Hasher.setHash('y', y);
+                // }, 1000);
 
                 mapModel = MapModel.initialize('map-container');
                 // Render any React Components - These will activate any default or hashed layers
@@ -178,9 +176,6 @@ define([
                     analysisModal.close();
                   }
                 });
-                // on.once(map.map, "extent-change", function() {
-                //     o.mapExtentPausable.resume();
-                // });
 
             });
 
@@ -189,8 +184,6 @@ define([
 
             // Set up Click Listener to Perform Identify
             app.map.on('click', Finder.performIdentify.bind(Finder));
-
-
 
             // Have the Finder create any formatter functions necessary for info window content
             // and then have it setup info window specific listeners for specific info windows with buttons
@@ -210,7 +203,7 @@ define([
             try {
                 addthis.init();
             } catch (e) {
-                dom.byId('sharing-modal').innerHTML = "Sorry.  AddThis is temporarily down.";
+                dom.byId('sharing-modal').innerHTML = "Sorry. AddThis is temporarily down.";
             }
 
             on(app.map.infoWindow, 'hide', function() {
@@ -583,22 +576,46 @@ define([
             }
         },
 
-        showInfoPanel: function(infoPanelClass) {//"forest-change-tree-cover-loss"
-            var content = '';
+        showInfoPanel: function(infoPanelClass, layerName) {
+            var node, metadata, layerConfig = [], content = '';
+
             if (typeof (infoPanelClass) === 'object') {
                 content = infoPanelClass;
                 MapControl.createDialogBox(content);
             } else {
-
                 infoPanelClass = MapConfig.metadataIds[infoPanelClass];
 
                 if (dataDivLoaded) {
 
-                    var metadata = layerData[infoPanelClass];
+                    metadata = layerData[infoPanelClass];
                     if (metadata) {
-
                       layerModal.setData(metadata);
-                      var node = layerModal.getDOMNode();
+                      node = layerModal.getDOMNode();
+                      domClass.remove(node.parentNode, 'hidden');
+                    } else {
+                      MapConfig.layersUI.forEach(function(layer) {
+                        if (layer.children) {
+                          layer.children.forEach(function(childLayer) {
+                            if (childLayer.id === layerName) {
+                              layerConfig.push(childLayer);
+                            }
+                          });
+                        }
+                        if (layer.id === layerName) {
+                          layerConfig.push(layer);
+                        }
+                      });
+
+                      if (layerConfig[0] && layerConfig[0].metadata) {
+                        metadata = layerConfig[0].metadata;
+                      } else {
+                        metadata = {
+                          title: 'Cannot find layer information',
+                          overview: 'Please check again later for more information on this layer'
+                        };
+                      }
+                      layerModal.setData(metadata);
+                      node = layerModal.getDOMNode();
                       domClass.remove(node.parentNode, 'hidden');
                     }
 
@@ -609,11 +626,36 @@ define([
                   getTemplate.then(function(data) {
                     dataDivLoaded = true;
                     layerData = data;
-                    var metadata = data[infoPanelClass];
+                    metadata = data[infoPanelClass];
 
                     if (metadata) {
                       layerModal.setData(metadata);
-                      var node = layerModal.getDOMNode();
+                      node = layerModal.getDOMNode();
+                      domClass.remove(node.parentNode, 'hidden');
+                    } else {
+                      MapConfig.layersUI.forEach(function(layer) {
+                        if (layer.children) {
+                          layer.children.forEach(function(childLayer) {
+                            if (childLayer.id === layerName) {
+                              layerConfig.push(childLayer);
+                            }
+                          });
+                        }
+                        if (layer.id === layerName) {
+                          layerConfig.push(layer);
+                        }
+                      });
+
+                      if (layerConfig[0] && layerConfig[0].metadata) {
+                        metadata = layerConfig[0].metadata;
+                      } else {
+                        metadata = {
+                          title: 'Cannot find layer information',
+                          overview: 'Please check again later for more information on this layer'
+                        };
+                      }
+                      layerModal.setData(metadata);
+                      node = layerModal.getDOMNode();
                       domClass.remove(node.parentNode, 'hidden');
                     }
 

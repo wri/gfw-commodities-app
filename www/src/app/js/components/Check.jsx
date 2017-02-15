@@ -81,10 +81,11 @@ define([
 		},
 
 		showInfo: function() {
+			console.log('propssss', this.props);
 			if (document.getElementsByClassName(this.props.infoDivClass).length) {
-				topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0]);
+				topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0], this.props.id);
 			} else {
-				topic.publish('showInfoPanel', this.props.infoDivClass);
+				topic.publish('showInfoPanel', this.props.infoDivClass, this.props.id);
 			}
 		},
 
@@ -101,7 +102,6 @@ define([
 					(this.props.parent ? ' indented' : '') +
 					(this.props.kids ? ' newList' : '') +
 					(this.props.visible ? '' : ' hidden');
-
 
 			return (
 				<li className={className} data-layer={this.props.id}>
@@ -120,10 +120,9 @@ define([
 						}
 						<a className='layer-title'>{this.props.title}</a>
 
-
 						<p className='layer-sub-title'>{this.props.subtitle}</p>
 						{
-						this.props.kids ? null : <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
+						this.props.kids || this.props.id === 'gladConfidence' ? null : <div title='Layer Transparency' className={'sliderContainer' + (this.state.active ? '' : ' hidden')}>
 							<div id={this.props.id + '_slider'} />
 						</div>
 						}

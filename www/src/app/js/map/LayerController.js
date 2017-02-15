@@ -214,81 +214,44 @@ define([
         updateGladDates: function(clauseArray) {
           var gladLayer = app.map.getLayer('gladAlerts');
 
-          var otherDateStart = new Date(clauseArray[0]);
-          var monthStart = otherDateStart.getMonth();
-          var yearStart = otherDateStart.getFullYear();
-          var janOneStart = new Date(yearStart + ' 01 01');
-          var origDateStart = window.Kalendae.moment(janOneStart).format('M/D/YYYY');
+          var startDate = new Date(clauseArray[0]);
+          var endDate = new Date(clauseArray[1]);
 
-          var julianStart = this.daydiff(this.parseDate(origDateStart), this.parseDate(clauseArray[0]));
-
-          if (monthStart > 1 && this.isLeapYear(yearStart)) {
-            julianStart++;
-          }
-
-          var otherDateEnd = new Date(clauseArray[1]);
-          var monthEnd = otherDateEnd.getMonth();
-          var yearEnd = otherDateEnd.getFullYear();
-          var janOneEnd = new Date(yearEnd + ' 01 01');
-          var origDateEnd = window.Kalendae.moment(janOneEnd).format('M/D/YYYY');
-
-          var julianEnd = this.daydiff(this.parseDate(origDateEnd), this.parseDate(clauseArray[1]));
-
-          if (monthEnd > 1 && this.isLeapYear(yearEnd)) {
-            julianEnd++;
-          }
-
-          var inputStartRanges = [];
-          var inputEndRanges = [];
-
-          if (yearStart === 2015 && yearEnd === 2015) {
-            inputStartRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
-            inputEndRanges = [0, 367, 367, 367, 367, 367];
-          } else if (yearStart === 2016 && yearEnd === 2016) {
-            inputStartRanges = [0, 367, 367, 367, 367, 367];
-            inputEndRanges = [0, julianStart, julianStart, julianEnd, julianEnd, 366];
-          } else if (yearStart === 2015 && yearEnd === 2016) {
-            inputStartRanges = [0, julianStart, julianStart, 366, 366, 366];
-            inputEndRanges = [0, 0, 0, julianEnd, julianEnd, 366];
-          } else {
-            return;
-          }
+          var julianFrom = this.getJulianDate(startDate);
+          var julianTo = this.getJulianDate(endDate);
 
           if (gladLayer) {
-            var rasterF = new RasterFunction({
-              'rasterFunction': 'Colormap',
-              'rasterFunctionArguments': {
-                'Colormap': [
-                  [1, 255, 102, 153]
-                ],
-                'Raster': {
-                  'rasterFunction': 'Local',
-                  'rasterFunctionArguments': {
-                    'Operation': 67, //max value; ignores no data
-                    'Rasters': [{
-                      'rasterFunction': 'Remap',
-                      'rasterFunctionArguments': {
-                        'InputRanges': inputStartRanges,
-                        'OutputValues': [0, 1, 0],
-                        'Raster': '$1', //2015
-                        'AllowUnmatched': false
-                      }
-                    }, {
-                      'rasterFunction': 'Remap',
-                      'rasterFunctionArguments': {
-                        'InputRanges': inputEndRanges,
-                        'OutputValues': [0, 1, 0],
-                        'Raster': '$2', //2016
-                        'AllowUnmatched': false
-                      }
-                    }]
-                  }
-                }
-              }
-            });
-
-            gladLayer.setRenderingRule(rasterF);
+            gladLayer.setDateRange(julianFrom, julianTo);
           }
+
+        },
+
+        toggleGladConfidence: function(active) {
+          var gladLayer = app.map.getLayer('gladAlerts');
+          if (active) {
+            gladLayer.setConfidenceLevel('all');
+          } else {
+            gladLayer.setConfidenceLevel('confirmed');
+          }
+
+        },
+
+        updateHansenDates: function(clauseArray) {
+          MapConfig.hansenLoss.levels.forEach(function(level) {
+            var hansenLayer = app.map.getLayer(level.id);
+            hansenLayer.setDateRange(clauseArray[0], clauseArray[1]);
+          });
+
+        },
+
+        getJulianDate: function(timestamp) {
+          var day = 1000 * 60 * 60 * 24;
+          var newDate = new Date(timestamp);
+          var year = new Date(newDate.getFullYear(), 0, 0);
+          var currentDay = Math.ceil((newDate - year) / day);
+          //- Year should be 15000 or 16000
+          var julianYear = (newDate.getFullYear() - 2000) * 1000;
+          return julianYear + currentDay;
         },
 
         setWizardDynamicLayerDefinition: function(config, filter) {
@@ -389,8 +352,26 @@ define([
 
         },
 
-        updateLossImageServiceRasterFunction: function(values, layerConfig, densityRange) {
+        updateHansenTCD: function(layerConfig, densityRange) {
+          var density = densityRange[0];
 
+          var original30Layer = app.map.getLayer(layerConfig.id);
+          var minYear = original30Layer.options.minYear;
+          var maxYear = original30Layer.options.maxYear;
+
+          MapConfig.hansenLoss.levels.forEach(function(level) {
+            var hansenLayer = app.map.getLayer(level.id);
+            hansenLayer.setDateRange(minYear, maxYear);
+            if (level.value !== density) {
+              hansenLayer.hide();
+            } else {
+              hansenLayer.show();
+            }
+          });
+
+        },
+
+        updateLossImageServiceRasterFunction: function(values, layerConfig, densityRange) {
             var layer = app.map.getLayer(layerConfig.id),
                 outRange = [1],
                 rasterFunction,
@@ -422,8 +403,6 @@ define([
                   var finalValue = (values[0] === values[1] ? values[1] + 1 : values[1] + 2);
                   range = [1, 1, values[0] + 1, finalValue];
                   outRange = [0, 1];
-              } else if (layerConfig.id === 'gladAlerts') {
-                // debugger
               } else {
                   range = values[0] === values[1] ? [values[0] + 1, values[1] + 1] : [values[0] + 1, values[1] + 2];
               }
@@ -451,20 +430,6 @@ define([
 
         getColormapLossRasterFunction: function(colormap, range, outRange, densityRange) {
             return new RasterFunction({
-                // 'rasterFunction': 'Colormap',
-                // 'rasterFunctionArguments': {
-                //     'Colormap': colormap,
-                //     'Raster': {
-                //         'rasterFunction': 'ForestCover_lossyear_density',
-                //         'rasterFunctionArguments': {
-                //             'min_year': range[0],
-                //             'max_year': range[1],
-                //             'min_density': densityRange[0],
-                //             'max_density': densityRange[1]
-                //         }
-                //     }
-                // },
-                // 'variableName': 'Raster'
                 'rasterFunction': 'ForestCover_lossyear_density',
                 'rasterFunctionArguments': {
                     'min_year': range[0],
@@ -545,11 +510,10 @@ define([
                     dojoQuery('#environmental-criteria .suitable-checkbox-soil input:checked').forEach(function(node) {
                         activeCheckboxes.push(node.value);
                     });
-                    //console.log("****************** soil type checkboxes: " + activeCheckboxes.toString());
+
                     settings.computeBinaryRaster[10].values = activeCheckboxes.join(',');
                     break;
             }
-
 
             MapModel.set('suitabilitySettings', settings);
 
@@ -652,8 +616,6 @@ define([
                 layer,
                 ldos;
 
-                console.log(legendLayer);
-
             // Check Tree Cover Density, Tree Cover Loss, Tree Cover Gain, GLAD, and FORMA Alerts visibility,
             // If they are visible, show them in the legend by adding their ids to visibleLayers.
             // Make sure to set layer drawing options for those values so they do not display
@@ -745,8 +707,6 @@ define([
                     layerOptions[layerId] = ldos;
                 });
             }
-
-            console.log(layerOptions);
 
             layer.setLayerDrawingOptions(layerOptions);
 

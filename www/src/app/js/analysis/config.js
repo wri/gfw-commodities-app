@@ -185,10 +185,13 @@ define([], function() {
                 label: 'Soy on Tree Cover Loss',
                 value: 'soy',
                 checked: false
-            // }, {
-            //     label: 'GLAD Alerts',
-            //     value: 'gladAlerts',
-            //     checked: false
+            }, {
+                label: 'GLAD Alerts',
+                value: 'gladAlerts',
+                childLabel: 'Show only confirmed alerts',
+                childChecked: false,
+                childValue: 'gladConfirmed',
+                checked: false
             }, {
                 label: 'Gran Chaco deforestation (Guyra Paraguay)',
                 value: 'guyraAlerts',
@@ -399,6 +402,7 @@ define([], function() {
             selectedCustomFeatures: 'selectedCustomFeatures',
             selectedPresetFeature: 'selectedPresetFeature',
             currentTreeCoverDensity: 'currentTreeCoverDensity',
+            gladConfidence: 'gladConfidence',
             userStep: 'userStep',
             areaOfInterest: 'areaOfInterest',
             analysisSets: 'analysisSets',

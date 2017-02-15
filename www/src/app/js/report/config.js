@@ -7,6 +7,7 @@ define([], function() {
         // clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
 
         gladUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer/computeHistograms',
+        gladUrlConfidence = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_con_analysis/ImageServer/computeHistograms',
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
@@ -236,8 +237,8 @@ define([], function() {
           bounds: gladBounds,
           labels: gladLabels,
           clearanceChart: {
-              title: 'Glaaaaad',
-              type: 'pie'
+              title: 'Glad Alerts',
+              type: 'bar'
           },
           lcHistogram: {
               renderRule: {
@@ -609,35 +610,18 @@ define([], function() {
         glad: {
             rootNode: 'glad',
             title: 'GLAD Alerts',
-            rasterId: ['$6', '$4'],
+            rasterId: ['$6', '$4', '$9'],
             url: gladUrl,
+            confidentUrl: gladUrlConfidence,
             bounds: gladBounds,
             labels: gladLabels,
-            // includeFormaIdInRemap: true,
-            // formaId: '$15',
-            renderingRule: {
-              'rasterFunction': 'Local',
-              'rasterFunctionArguments': {
-                'Operation': 67, //max value; ignores no data
-                'Rasters': [{
-                  'rasterFunction': 'Remap',
-                  'rasterFunctionArguments': {
-                    'InputRanges': [0, 150, 150, 366],
-                    'OutputValues': [0, 1],
-                    'Raster': '$6', //2015
-                    'AllowUnmatched': false
-                  }
-                }, {
-                  'rasterFunction': 'Remap',
-                  'rasterFunctionArguments': {
-                    'InputRanges': [0, 20, 20, 366],
-                    'OutputValues': [0, 1],
-                    'Raster': '$4', //2016
-                    'AllowUnmatched': false
-                  }
-                }]
-              }
+            mosaicRule: {
+                'mosaicMethod': 'esriMosaicLockRaster',
+                'lockRasterIds': [6],
+                'ascending': true,
+                'mosaicOperation': 'MT_FIRST'
             },
+
             colors: gladColors,
             fireKey: 'glad' // Key to the Fires Config for items related to this
         },

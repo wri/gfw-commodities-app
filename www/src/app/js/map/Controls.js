@@ -14,6 +14,7 @@ define([
     'map/LossSlider',
     'map/FormaSlider',
     'map/GladSlider',
+    'map/HansenSlider',
     'map/ProdesSlider',
     'map/GuyraSlider',
     'map/LayerController',
@@ -21,7 +22,7 @@ define([
     'esri/TimeExtent',
     'esri/dijit/TimeSlider',
     'dijit/form/CheckBox'
-], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, ProdesSlider, GuyraSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
+], function(dom, dojoQuery, Deferred, Fx, arrayUtils, domClass, domStyle, registry, domConstruct, Hasher, MapConfig, MapModel, LossSlider, FormaSlider, GladSlider, HansenSlider, ProdesSlider, GuyraSlider, LayerController, request, TimeExtent, TimeSlider, Checkbox) {
 
 
     var jq171 = jQuery.noConflict();
@@ -191,6 +192,7 @@ define([
             LossSlider.init();
             FormaSlider.init();
             GladSlider.init();
+            HansenSlider.init();
             ProdesSlider.init();
             GuyraSlider.init();
         },

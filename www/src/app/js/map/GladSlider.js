@@ -5,36 +5,31 @@ define([
   'esri/request',
   'utils/DateHelper',
   'dojo/Deferred',
-  'components/CalendarModal',
-  'map/LayerController'
-], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal, LayerController) {
-  // "use strict";
+  'components/CalendarModal'
+], function (on, domClass, MapConfig, esriRequest, DateHelper, Deferred, CalendarModal) {
 
-  var playInterval,
-      gladSlider;
-
-  var config = {
-    sliderSelector: '#glad-alert-slider',
-    playHtml: '&#9658;',
-    pauseHtml: '&#x25A0',
-    baseYear: 15 // 2015
-  };
-
-  var state = {
-    isPlaying: false
-  };
+  var gladSlider;
 
   var GladSlider = {
 
     init: function () {
-      var self = this;
       if (gladSlider === undefined) {
+
+        var gladStartDate, gladEndDate;
 
         var calendarModal = new CalendarModal({
         }, 'calendar-modal');
 
+        MapConfig.calendars.forEach(function(calendar) {
+          if (calendar.domId === 'gladCalendarStart') {
+            gladStartDate = calendar.selectedDate;
+          } else if (calendar.domId === 'gladCalendarEnd') {
+            gladEndDate = calendar.selectedDate;
+          }
+        });
+
         var playButton = $('#gladPlayButtonStartClick');
-        var startDate = new window.Kalendae.moment('01/01/2015').format('M/D/YYYY');
+        var startDate = new window.Kalendae.moment(gladStartDate).format('M/D/YYYY');
         var formattedStart = new Date(startDate);
         playButton.html(DateHelper.getDate(formattedStart));
 
@@ -56,11 +51,6 @@ define([
         });
 
       }
-    },
-
-    change: function (data) {
-      console.log(data.from, data.to);
-      LayerController.updateImageServiceRasterFunction([data.from, data.to], MapConfig.gladAlerts);
     }
 
   };

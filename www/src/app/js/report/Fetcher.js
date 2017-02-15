@@ -982,22 +982,37 @@ define([
 
 				getGladResults: function(config, useSimpleEncoderRule) {
 						this._debug('Fetcher >>> getGladResults');
+
 						var deferred = new Deferred(),
-								gladConfig = ReportConfig.glad, //ReportConfig.clearanceAlerts,
+								gladConfig = ReportConfig.glad,
 								url = gladConfig.url,
+								gladIds = [6, 4, 9],
 								self = this,
 								content,
+								content2,
+								content3,
 								encoder;
+
+						if (window.payload.datasets.gladConfirmed === true) {
+							url = gladConfig.confidentUrl;
+							gladIds = [5, 7, 8];
+						}
 
 						config = _.clone(gladConfig);
 
+						// Create the container for all the result
+						ReportRenderer.renderGladContainer(config);
+
 						function success(response) {
-								if (response.histograms.length > 0) {
-										ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
+
+								if (response.length > 0) {
+									ReportRenderer.renderGladData(response, config, encoder, useSimpleEncoderRule);
+									// ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
 								} else {
-										// Add some dummy 0's
-										var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
-										ReportRenderer.renderGladData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
+									ReportRenderer.renderAsUnavailable('glad', config);
+								// 		// Add some dummy 0's
+								// 		var zerosArray = Array.apply(null, new Array(report.clearanceLabels.length)).map(Number.prototype.valueOf, 0);
+								// 		ReportRenderer.renderGladData(zerosArray, content.pixelSize, config, encoder, useSimpleEncoderRule);
 								}
 								deferred.resolve(true);
 						}
@@ -1015,22 +1030,84 @@ define([
 								}
 						}
 
-						encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
-						// rasterId = config.rasterRemap ? config.rasterRemap : config.rasterId;
-						// renderingRule = useSimpleEncoderRule ?
-						// 		encoder.getSimpleRule(clearanceConfig.rasterId, rasterId) :
-						// 		encoder.render(clearanceConfig.rasterId, rasterId);
+						function formatGlad(year, counts) {
+							var results = [];
+							for (let i = 0; i < counts.length; i++) {
+								results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
+							}
+							return results;
+						}
 
+						encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
 
 						content = {
 								geometryType: 'esriGeometryPolygon',
 								geometry: JSON.stringify(report.geometry),
-								renderingRule: JSON.stringify(config.renderingRule),
-								pixelSize: 30,
+								mosaicRule: JSON.stringify({
+										'mosaicMethod': 'esriMosaicLockRaster',
+										'lockRasterIds': [gladIds[0]],
+										'ascending': true,
+										'mosaicOperation': 'MT_FIRST'
+								}),
+								pixelSize: 100,
+								f: 'json'
+						};
+						content2 = {
+								geometryType: 'esriGeometryPolygon',
+								geometry: JSON.stringify(report.geometry),
+								mosaicRule: JSON.stringify({
+										'mosaicMethod': 'esriMosaicLockRaster',
+										'lockRasterIds': [gladIds[1]],
+										'ascending': true,
+										'mosaicOperation': 'MT_FIRST'
+								}),
+								pixelSize: 100,
+								f: 'json'
+						};
+						content3 = {
+								geometryType: 'esriGeometryPolygon',
+								geometry: JSON.stringify(report.geometry),
+								mosaicRule: JSON.stringify({
+										'mosaicMethod': 'esriMosaicLockRaster',
+										'lockRasterIds': [gladIds[2]],
+										'ascending': true,
+										'mosaicOperation': 'MT_FIRST'
+								}),
+								pixelSize: 100,
 								f: 'json'
 						};
 
-						this._computeHistogram(url, content, success, failure);
+						all([
+								this._computeHistogram(url, content),
+								this._computeHistogram(url, content2),
+								this._computeHistogram(url, content3)
+						]).then(function(results) {
+
+							var alerts = [];
+							if (results[0] && results[0].histograms[0]) {
+								if (results[0].histograms[0].counts.length < 366) {
+									for (var j = results[0].histograms[0].counts.length; j < 366; j++) {
+										results[0].histograms[0].counts.push(0);
+									}
+								}
+								alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
+							}
+
+							if (results[1] && results[1].histograms[0]) {
+								if (results[1].histograms[0].counts.length < 366) {
+									for (var k = results[1].histograms[0].counts.length; k < 366; k++) {
+										results[1].histograms[0].counts.push(0);
+									}
+								}
+								alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
+							}
+
+							if (results[2] && results[2].histograms[0]) {
+								alerts = alerts.concat(formatGlad('2017', results[2].histograms[0].counts));
+							}
+							success(alerts);
+							deferred.resolve(true);
+						});
 
 						return deferred.promise;
 				},
@@ -1321,6 +1398,8 @@ define([
 						Simple wrapper function for making requests to computeHistogram
 				*/
 				_computeHistogram: function(url, content, callback, errback) {
+
+					if (callback && errback) {
 						var req = esriRequest({
 								url: url + '/computeHistograms',
 								content: content,
@@ -1332,6 +1411,17 @@ define([
 						});
 
 						req.then(callback, errback);
+					} else {
+						return esriRequest({
+								url: url + '/computeHistograms',
+								content: content,
+								handleAs: 'json',
+								callbackParamName: 'callback',
+								timeout: 60000
+						}, {
+								usePost: true
+						});
+					}
 				},
 
 				/*

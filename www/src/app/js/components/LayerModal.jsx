@@ -82,13 +82,13 @@ define([
                   this.summaryMap(this.state.layerInfo.overview)
                 }
               </div>
-              <div className='modal-credits'>
-                <h3>Citation</h3>
-                {
-                  !this.state.layerInfo.citation ? null :
+              {
+                !this.state.layerInfo.citation ? null :
+                <div className='modal-credits'>
+                  <h3>Citation</h3>
                   this.summaryMap(this.state.layerInfo.citation)
-                }
-              </div>
+                </div>
+              }
             </div>
           </div>
         }
