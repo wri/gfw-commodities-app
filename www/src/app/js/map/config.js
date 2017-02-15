@@ -759,7 +759,8 @@ define([], function() {
                 infoDivClass: 'forest-change-gran-chaco',
                 endChild: true
             }, {
-                kids: ['gladAlerts', 'forma', 'hansenLoss'],
+                // kids: ['gladAlerts', 'forma', 'hansenLoss'],
+                kids: ['gladAlerts', 'forma'],
                 id: 'treeCoverLossAlerts',
                 title: 'Tree Cover Loss Alerts',
                 subtitle: '(near real-time)',
@@ -814,17 +815,17 @@ define([], function() {
                 infoDivClass: 'forest-change-forma-alerts',
                 parent: 'treeCoverLossAlerts',
                 endChild: false
-            }, {
-                id: 'hansenLoss',
-                title: 'Hansen loss',
-                // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                visible: true,
-                infoDivClass: 'forest-change-hansennnn-alerts',
-                parent: 'treeCoverLossAlerts',
-                endChild: false
+            // }, {
+            //     id: 'hansenLoss',
+            //     title: 'Hansen loss',
+            //     // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+            //     filter: 'forest-change',
+            //     type: 'radio',
+            //     layerType: 'image',
+            //     visible: true,
+            //     infoDivClass: 'forest-change-hansennnn-alerts',
+            //     parent: 'treeCoverLossAlerts',
+            //     endChild: false
             }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',
