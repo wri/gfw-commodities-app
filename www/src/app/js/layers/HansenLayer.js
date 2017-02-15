@@ -15,7 +15,7 @@ define([
         // Decode the rgba/pixel so I can filter on confidence and date ranges
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
-        //- Check against confidence, min date, and max date
+        //- Check against min date, and max date
         // if (i === 0) {
         //   // console.log(values);
         //   // console.log(slice);

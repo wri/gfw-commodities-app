@@ -309,6 +309,7 @@ define('map/config',[], function() {
         hansenTileUrl30 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
         hansenTileUrl50 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_50/{z}/{x}/{y}.png',
         hansenTileUrl75 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_75/{z}/{x}/{y}.png',
+        hansenGainUrl = 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -708,7 +709,7 @@ define('map/config',[], function() {
             minYear: 1,
             maxYear: 14,
             confidence: [0, 1],
-            legendLayerId: 7,
+            legendLayerId: 0,
             defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
             defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
             colormap: [
@@ -716,6 +717,20 @@ define('map/config',[], function() {
             ],
             outputValues: [0, 1, 0],
             toolsNode: 'hansen_change_toolbox'
+        },
+        hansenGain: {
+        //   minYear: 1,
+        //   maxYear: 14,
+        //   confidence: [0, 1],
+          id: 'hansensGain',
+          url: hansenGainUrl,
+          legendLayerId: 1
+          // defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
+          // defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
+          // colormap: [
+          //   [1, 255, 102, 153]
+          // ],
+          // outputValues: [0, 1, 0]
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -1045,7 +1060,7 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-change-gran-chaco',
                 endChild: true
             }, {
-                kids: ['gladAlerts', 'forma', 'hansenLoss'],
+                kids: ['gladAlerts', 'forma', 'hansenLoss', 'hansenGain'],
                 id: 'treeCoverLossAlerts',
                 title: 'Tree Cover Loss Alerts',
                 subtitle: '(near real-time)',
@@ -1109,6 +1124,17 @@ define('map/config',[], function() {
                 layerType: 'image',
                 visible: true,
                 infoDivClass: 'forest-change-hansennnn-alerts',
+                parent: 'treeCoverLossAlerts',
+                endChild: false
+            }, {
+                id: 'hansenGain',
+                title: 'Hansen gain',
+                // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                visible: true,
+                infoDivClass: 'forest-change-hansennnn-gain',
                 parent: 'treeCoverLossAlerts',
                 endChild: false
             }, {
@@ -11395,6 +11421,8 @@ define('layers/EsriTileCanvasBase',[
     * @description Method to start the process for rendering canvases in tile grid
     */
     _extentChanged: function _extentChanged () {
+      //TODO: FIX THIS HERE LUKE!!!!!!
+
       //- If the layer is not visible, bail
       if (!this.visible) { return; }
       var resolution = this._map.getResolution(),
@@ -11403,10 +11431,10 @@ define('layers/EsriTileCanvasBase',[
 
       //- Delete tiles from other zoom levels
       for (var i = 0; i < this.tiles.length; i++) {
-        if (this.tiles[i].z !== level) {
+        // if (this.tiles[i].z !== level) {
           this.tiles[i].canvas.remove();
           delete this.tiles[i];
-        }
+        // }
       }
 
       //- Get the min and max tile row and column
@@ -11781,7 +11809,7 @@ define('layers/HansenLayer',[
         // Decode the rgba/pixel so I can filter on confidence and date ranges
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
-        //- Check against confidence, min date, and max date
+        //- Check against min date, and max date
         // if (i === 0) {
         //   // console.log(values);
         //   // console.log(slice);
@@ -11896,6 +11924,78 @@ define('layers/HansenLayer',[
 
 });
 
+define('layers/GainLayer',[
+    'dojo/_base/declare',
+    './EsriTileCanvasBase'
+], function(declare, TileCanvasLayer) {
+
+  return declare('GainLayer', [TileCanvasLayer], {
+
+    filter: function (data) {
+      // console.log(data);
+      for (var i = 0; i < data.length; i += 4) {
+        // Decode the rgba/pixel so I can filter on confidence and date ranges
+        var slice = [data[i], data[i + 1], data[i + 2]];
+        // console.log(slice);
+        var values = this.decodeDate(slice);
+        //- Check against confidence, min date, and max date
+
+          // Set the alpha to the intensity
+          // data[i + 3] = values.intensity;
+          // Make the pixel pink for HANSEN alerts
+          // data[i] = 220; // R
+          // // data[i + 1] = 102; // G
+          // data[i + 1] = values.intensity; // G --> Yo this is intensity!!
+          // data[i + 2] = 153; // B
+          // data[i + 3] = 0;
+          if (data[i + 3] > 0) {
+            if (i === 0) {
+              console.log('onnn');
+              console.log(data[i + 3]); //--> intensity
+            }
+            data[i] = 89; // R
+            data[i + 1] = 82; // G
+            data[i + 2] = 222; // B
+            data[i + 3] = values.intensity / 2;
+          } else {
+            if (i === 0) {
+              console.log('off');
+            }
+            data[i] = 0; // R
+            data[i + 1] = 0; // G
+            data[i + 2] = 0; // B
+            data[i + 3] = 0;
+          }
+
+          //89,82,222
+
+          // if (i === 2) {
+          //   // console.log('yessss');
+          //   console.log(values.intensity);
+          // }
+
+      }
+      return data;
+    },
+
+    decodeDate: function (pixel) {
+      // console.log(pixel);
+      // [255, 255, 14]
+
+      var year = pixel[0];
+      var intensity = pixel[2];
+
+      return {
+        intensity: intensity,
+        year: year
+      };
+
+    }
+
+  });
+
+});
+
 define('map/Map',[
     "dojo/Evented",
     "dojo/_base/declare",
@@ -11912,6 +12012,7 @@ define('map/Map',[
     "map/SimpleLegend",
     "layers/GladLayer",
     "layers/HansenLayer",
+    "layers/GainLayer",
     // Esri Modules
     "esri/map",
     "esri/config",
@@ -11931,8 +12032,7 @@ define('map/Map',[
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapGallery"
-], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
-    'use strict';
+], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, GainLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
 
     var _map = declare([Evented], {
 
@@ -12100,6 +12200,8 @@ define('map/Map',[
                 hansenLossLayer50,
                 hansenLossLayer75,
                 hansenLossParams = {},
+                hansenGainLayer,
+                hansenGainParams = {},
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -12306,6 +12408,12 @@ define('map/Map',[
                   break;
               }
             });
+
+            hansenGainParams.id = MapConfig.hansenGain.id;
+            hansenGainParams.url = MapConfig.hansenGain.url;
+            hansenGainParams.visible = false;
+
+            hansenGainLayer = new GainLayer(hansenGainParams);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -12520,6 +12628,7 @@ define('map/Map',[
                 hansenLossLayer25,
                 hansenLossLayer50,
                 hansenLossLayer75,
+                hansenGainLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -12575,6 +12684,7 @@ define('map/Map',[
             hansenLossLayer25.on('error', this.addLayerError);
             hansenLossLayer50.on('error', this.addLayerError);
             hansenLossLayer75.on('error', this.addLayerError);
+            hansenGainLayer.on('error', this.addLayerError);
 
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);

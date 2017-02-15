@@ -166,6 +166,8 @@ define([
     * @description Method to start the process for rendering canvases in tile grid
     */
     _extentChanged: function _extentChanged () {
+      //TODO: FIX THIS HERE LUKE!!!!!!
+
       //- If the layer is not visible, bail
       if (!this.visible) { return; }
       var resolution = this._map.getResolution(),
@@ -174,10 +176,10 @@ define([
 
       //- Delete tiles from other zoom levels
       for (var i = 0; i < this.tiles.length; i++) {
-        if (this.tiles[i].z !== level) {
+        // if (this.tiles[i].z !== level) {
           this.tiles[i].canvas.remove();
           delete this.tiles[i];
-        }
+        // }
       }
 
       //- Get the min and max tile row and column
