@@ -1045,7 +1045,8 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-change-gran-chaco',
                 endChild: true
             }, {
-                kids: ['gladAlerts', 'forma', 'hansenLoss'],
+                // kids: ['gladAlerts', 'forma', 'hansenLoss'],
+                kids: ['gladAlerts', 'forma'],
                 id: 'treeCoverLossAlerts',
                 title: 'Tree Cover Loss Alerts',
                 subtitle: '(near real-time)',
@@ -1100,17 +1101,17 @@ define('map/config',[], function() {
                 infoDivClass: 'forest-change-forma-alerts',
                 parent: 'treeCoverLossAlerts',
                 endChild: false
-            }, {
-                id: 'hansenLoss',
-                title: 'Hansen loss',
-                // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
-                filter: 'forest-change',
-                type: 'radio',
-                layerType: 'image',
-                visible: true,
-                infoDivClass: 'forest-change-hansennnn-alerts',
-                parent: 'treeCoverLossAlerts',
-                endChild: false
+            // }, {
+            //     id: 'hansenLoss',
+            //     title: 'Hansen loss',
+            //     // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+            //     filter: 'forest-change',
+            //     type: 'radio',
+            //     layerType: 'image',
+            //     visible: true,
+            //     infoDivClass: 'forest-change-hansennnn-alerts',
+            //     parent: 'treeCoverLossAlerts',
+            //     endChild: false
             }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',
@@ -12091,15 +12092,15 @@ define('map/Map',[
                 gladParams = {},
                 gladFootprintsLayer,
                 gladFootprintsParams,
-                hansenLossLayer,
-
-                hansenLossLayer10,
-                hansenLossLayer15,
-                hansenLossLayer20,
-                hansenLossLayer25,
-                hansenLossLayer50,
-                hansenLossLayer75,
-                hansenLossParams = {},
+                // hansenLossLayer,
+                //
+                // hansenLossLayer10,
+                // hansenLossLayer15,
+                // hansenLossLayer20,
+                // hansenLossLayer25,
+                // hansenLossLayer50,
+                // hansenLossLayer75,
+                // hansenLossParams = {},
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -12270,42 +12271,42 @@ define('map/Map',[
 
             gladAlertsLayer = new GladLayer(gladParams);
 
-            hansenLossParams.id = MapConfig.hansenLoss.id;
-            hansenLossParams.url = MapConfig.hansenLoss.url;
-            hansenLossParams.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParams.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParams.visible = false;
+            // hansenLossParams.id = MapConfig.hansenLoss.id;
+            // hansenLossParams.url = MapConfig.hansenLoss.url;
+            // hansenLossParams.minYear = MapConfig.hansenLoss.minYear;
+            // hansenLossParams.maxYear = MapConfig.hansenLoss.maxYear;
+            // hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
+            // hansenLossParams.visible = false;
+            //
+            // hansenLossLayer = new HansenLayer(hansenLossParams); //30% first
 
-            hansenLossLayer = new HansenLayer(hansenLossParams); //30% first
-
-            MapConfig.hansenLoss.levels.forEach(function(level) {
-
-              hansenLossParams.url = level.url;
-              hansenLossParams.id = level.id;
-              switch (level.value) {
-                case 10:
-                  hansenLossLayer10 = new HansenLayer(hansenLossParams);
-                  break;
-                case 15:
-                  hansenLossLayer15 = new HansenLayer(hansenLossParams);
-                  break;
-                case 20:
-                  hansenLossLayer20 = new HansenLayer(hansenLossParams);
-                  break;
-                case 25:
-                  hansenLossLayer25 = new HansenLayer(hansenLossParams);
-                  break;
-                case 50:
-                  hansenLossLayer50 = new HansenLayer(hansenLossParams);
-                  break;
-                case 75:
-                  hansenLossLayer75 = new HansenLayer(hansenLossParams);
-                  break;
-                default:
-                  break;
-              }
-            });
+            // MapConfig.hansenLoss.levels.forEach(function(level) {
+            //
+            //   hansenLossParams.url = level.url;
+            //   hansenLossParams.id = level.id;
+            //   switch (level.value) {
+            //     case 10:
+            //       hansenLossLayer10 = new HansenLayer(hansenLossParams);
+            //       break;
+            //     case 15:
+            //       hansenLossLayer15 = new HansenLayer(hansenLossParams);
+            //       break;
+            //     case 20:
+            //       hansenLossLayer20 = new HansenLayer(hansenLossParams);
+            //       break;
+            //     case 25:
+            //       hansenLossLayer25 = new HansenLayer(hansenLossParams);
+            //       break;
+            //     case 50:
+            //       hansenLossLayer50 = new HansenLayer(hansenLossParams);
+            //       break;
+            //     case 75:
+            //       hansenLossLayer75 = new HansenLayer(hansenLossParams);
+            //       break;
+            //     default:
+            //       break;
+            //   }
+            // });
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -12512,14 +12513,14 @@ define('map/Map',[
                 prodesAlertsLayer,
                 gladAlertsLayer,
                 gladFootprintsLayer,
-                hansenLossLayer,
-
-                hansenLossLayer10,
-                hansenLossLayer15,
-                hansenLossLayer20,
-                hansenLossLayer25,
-                hansenLossLayer50,
-                hansenLossLayer75,
+                // hansenLossLayer,
+                // 
+                // hansenLossLayer10,
+                // hansenLossLayer15,
+                // hansenLossLayer20,
+                // hansenLossLayer25,
+                // hansenLossLayer50,
+                // hansenLossLayer75,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -12567,14 +12568,14 @@ define('map/Map',[
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
             gladFootprintsLayer.on('error', this.addLayerError);
-            hansenLossLayer.on('error', this.addLayerError);
-
-            hansenLossLayer10.on('error', this.addLayerError);
-            hansenLossLayer15.on('error', this.addLayerError);
-            hansenLossLayer20.on('error', this.addLayerError);
-            hansenLossLayer25.on('error', this.addLayerError);
-            hansenLossLayer50.on('error', this.addLayerError);
-            hansenLossLayer75.on('error', this.addLayerError);
+            // hansenLossLayer.on('error', this.addLayerError);
+            //
+            // hansenLossLayer10.on('error', this.addLayerError);
+            // hansenLossLayer15.on('error', this.addLayerError);
+            // hansenLossLayer20.on('error', this.addLayerError);
+            // hansenLossLayer25.on('error', this.addLayerError);
+            // hansenLossLayer50.on('error', this.addLayerError);
+            // hansenLossLayer75.on('error', this.addLayerError);
 
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
@@ -14470,7 +14471,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.56',
+                path = './app/templates/' + name + '.html?v=2.4.57',
                 req;
 
             req = new XMLHttpRequest();
