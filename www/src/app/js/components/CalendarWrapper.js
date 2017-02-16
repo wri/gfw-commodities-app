@@ -4,7 +4,6 @@ define([
   'dojo/dom-class'
 ], function (React, ModalWrapper, domClass) {
 
-  var closeSvg = '<use xlink:href="#shape-close" />';
 
   var CalendarWrapper = React.createClass({displayName: "CalendarWrapper",
 
@@ -19,7 +18,9 @@ define([
         React.createElement("div", {className: "calendar-background", onClick: this.close}), 
         React.createElement("div", {className: "calendar-window"}, 
           React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
-            React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
+						React.createElement("svg", {viewBox: "0 0 25 25"}, 
+              React.createElement("path", {d: "M 5 19 L 19 5 L 21 7 L 7 21 L 5 19 ZM 7 5 L 21 19 L 19 21 L 5 7 L 7 5 Z"})
+            )
           ), 
           React.createElement("div", {className: "calendar-wrapper custom-scroll"}, 
             this.props.children

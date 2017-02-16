@@ -1,17 +1,11 @@
 /** @jsx React.DOM */
 define([
-  "react",
-  "components/ModalWrapper",
-  "dojo/cookie",
-  "main/config",
+  'react',
+  'components/ModalWrapper',
+  'dojo/cookie',
   'dojo/on',
   'dojo/dom-class'
-], function (React, ModalWrapper, cookie, MainConfig, on, domClass) {
-
-  // Variables
-  var config = MainConfig.analysisModal;
-  var closeSvg = '<use xlink:href="#shape-close" />';
-  var closeHandle;
+], function (React, ModalWrapper, cookie, on, domClass) {
 
   var AnalysisModal = React.createClass({displayName: "AnalysisModal",
 
@@ -20,10 +14,6 @@ define([
         checked: false
       });
     },
-
-    // componentWillReceiveProps: function (newProps, oldProps) {
-		// 	this.setState(newProps);
-		// },
 
     toggleChecked: function () {
 			this.setState({
@@ -49,29 +39,13 @@ define([
     },
 
     render: function() {
-
-      /** Old Modal Overview Content
-      <p>Create custom analysis of your area of interest - such as a commodity concession or group of concessions - considering factors such as:</p>
-      <ul className='analysis-modal-list'>
-        <li>Tree cover change</li>
-        <li>Fire activity</li>
-        <li>Primary or intact forest areas</li>
-        <li>Protected areas</li>
-        <li>Legal classification of land</li>
-      </ul>
-      <p>You can also:</p>
-      <ul className='analysis-modal-list'>
-        <li>Upload your own shapefiles for analysis</li>
-        <li>Draw an area of interest</li>
-        <li>Sign up for alerts for clearance activity</li>
-      </ul>
-      */
-
       return (
         React.createElement("div", {className: "analysis-modal-window"}, 
         React.createElement("div", {className: "tooltipmap"}), 
           React.createElement("div", {title: "close", className: "modal-close close-icon pointer", onClick: this.close}, 
-            React.createElement("svg", {dangerouslySetInnerHTML: { __html: closeSvg}})
+            React.createElement("svg", {viewBox: "0 0 25 25"}, 
+              React.createElement("path", {d: "M 5 19 L 19 5 L 21 7 L 7 21 L 5 19 ZM 7 5 L 21 19 L 19 21 L 5 7 L 7 5 Z"})
+            )
           ), 
           React.createElement("div", {className: "modal-wrapper custom-scroll"}, 
           React.createElement("div", {className: "modal-content"}, 
