@@ -33,7 +33,6 @@ define([
     tcdUpdated: function () {
       var aoi = WizardStore.get(KEYS.currentTreeCoverDensity);
       if (this.props.value === 'soy') {
-        console.log(aoi);
         this.setState(this.state);
       }
     },
@@ -41,7 +40,6 @@ define([
     gladConfidenceUpdate: function () {
       if (this.props.value === 'gladAlerts') {
         var gladConfidence = WizardStore.get(KEYS.gladConfidence);
-        console.log(gladConfidence);
         this.setState({
           gladConfidence: gladConfidence
         });
@@ -133,9 +131,9 @@ define([
     },
 
     showSoySlider: function() {
-      this.props.change(this.props.value);
+      // this.props.change(this.props.value);
       if (this.props.value === 'soy') {
-        TCDSlider.hide();
+        TCDSlider.show();
       }
       // Emit Event for Analytics
       Analytics.sendEvent('Event', 'Analysis Toggle', 'User toggled analysis for the ' + this.props.value + 'layer.');
@@ -151,7 +149,6 @@ define([
     },
 
     showInfo: function() {
-      console.log(this.props.value);
 
       switch (this.props.value) {
         case 'peat':

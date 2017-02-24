@@ -2811,7 +2811,7 @@ define('report/Renderer',[
         //   title: null,
         //   min: 0
         // },
-        yAxis: { title: { text: null }, min: 0},
+        yAxis: { title: { text: 'Tree Cover Loss Alerts' }, min: 0},
         legend: {
           enabled: false
         },
