@@ -23,6 +23,7 @@ define([], function() {
         hansenTileUrl30 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
         hansenTileUrl50 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_50/{z}/{x}/{y}.png',
         hansenTileUrl75 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_75/{z}/{x}/{y}.png',
+        hansenGainUrl = 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -422,7 +423,7 @@ define([], function() {
             minYear: 1,
             maxYear: 14,
             confidence: [0, 1],
-            legendLayerId: 7,
+            legendLayerId: 0,
             defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
             defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
             colormap: [
@@ -430,6 +431,20 @@ define([], function() {
             ],
             outputValues: [0, 1, 0],
             toolsNode: 'hansen_change_toolbox'
+        },
+        hansenGain: {
+        //   minYear: 1,
+        //   maxYear: 14,
+        //   confidence: [0, 1],
+          id: 'hansensGain',
+          url: hansenGainUrl,
+          legendLayerId: 1
+          // defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
+          // defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
+          // colormap: [
+          //   [1, 255, 102, 153]
+          // ],
+          // outputValues: [0, 1, 0]
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -759,8 +774,7 @@ define([], function() {
                 infoDivClass: 'forest-change-gran-chaco',
                 endChild: true
             }, {
-                // kids: ['gladAlerts', 'forma', 'hansenLoss'],
-                kids: ['gladAlerts', 'forma'],
+                kids: ['gladAlerts', 'forma', 'hansenLoss', 'hansenGain'],
                 id: 'treeCoverLossAlerts',
                 title: 'Tree Cover Loss Alerts',
                 subtitle: '(near real-time)',
@@ -815,17 +829,28 @@ define([], function() {
                 infoDivClass: 'forest-change-forma-alerts',
                 parent: 'treeCoverLossAlerts',
                 endChild: false
-            // }, {
-            //     id: 'hansenLoss',
-            //     title: 'Hansen loss',
-            //     // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
-            //     filter: 'forest-change',
-            //     type: 'radio',
-            //     layerType: 'image',
-            //     visible: true,
-            //     infoDivClass: 'forest-change-hansennnn-alerts',
-            //     parent: 'treeCoverLossAlerts',
-            //     endChild: false
+            }, {
+                id: 'hansenLoss',
+                title: 'Hansen loss',
+                // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                visible: true,
+                infoDivClass: 'forest-change-hansennnn-alerts',
+                parent: 'treeCoverLossAlerts',
+                endChild: false
+            }, {
+                id: 'hansenGain',
+                title: 'Hansen gain',
+                // subtitle: '(weekly, 30m, select countries, UMD/GLAD)',
+                filter: 'forest-change',
+                type: 'radio',
+                layerType: 'image',
+                visible: true,
+                infoDivClass: 'forest-change-hansennnn-gain',
+                parent: 'treeCoverLossAlerts',
+                endChild: false
             }, {
                 id: 'tcd',
                 title: 'Tree Cover Density',

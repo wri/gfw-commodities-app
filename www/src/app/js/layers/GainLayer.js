@@ -23,18 +23,18 @@ define([
           // data[i + 2] = 153; // B
           // data[i + 3] = 0;
           if (data[i + 3] > 0) {
-            if (i === 0) {
-              console.log('onnn');
-              console.log(data[i + 3]); //--> intensity
-            }
-            data[i] = 89; // R
-            data[i + 1] = 82; // G
-            data[i + 2] = 222; // B
-            data[i + 3] = values.intensity / 2;
+            // if (i === 0) {
+            //   console.log('onnn');
+            //   console.log(data[i + 3]); //--> intensity
+            // }
+            data[i] = 0; // R
+            data[i + 1] = 0; // G
+            data[i + 2] = 255; // B
+            data[i + 3] = values.intensity;
           } else {
-            if (i === 0) {
-              console.log('off');
-            }
+            // if (i === 0) {
+            //   console.log('off');
+            // }
             data[i] = 0; // R
             data[i + 1] = 0; // G
             data[i + 2] = 0; // B
@@ -53,15 +53,10 @@ define([
     },
 
     decodeDate: function (pixel) {
-      // console.log(pixel);
-      // [255, 255, 14]
-
-      var year = pixel[0];
       var intensity = pixel[2];
 
       return {
-        intensity: intensity,
-        year: year
+        intensity: intensity
       };
 
     }

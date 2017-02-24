@@ -14,6 +14,7 @@ define([
     "map/SimpleLegend",
     "layers/GladLayer",
     "layers/HansenLayer",
+    "layers/GainLayer",
     // Esri Modules
     "esri/map",
     "esri/config",
@@ -33,8 +34,7 @@ define([
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapGallery"
-], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
-    'use strict';
+], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, GainLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
 
     var _map = declare([Evented], {
 
@@ -193,15 +193,17 @@ define([
                 gladParams = {},
                 gladFootprintsLayer,
                 gladFootprintsParams,
-                // hansenLossLayer,
-                //
-                // hansenLossLayer10,
-                // hansenLossLayer15,
-                // hansenLossLayer20,
-                // hansenLossLayer25,
-                // hansenLossLayer50,
-                // hansenLossLayer75,
-                // hansenLossParams = {},
+                hansenLossLayer,
+
+                hansenLossLayer10,
+                hansenLossLayer15,
+                hansenLossLayer20,
+                hansenLossLayer25,
+                hansenLossLayer50,
+                hansenLossLayer75,
+                hansenLossParams = {},
+                hansenGainLayer,
+                hansenGainParams = {},
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -372,42 +374,48 @@ define([
 
             gladAlertsLayer = new GladLayer(gladParams);
 
-            // hansenLossParams.id = MapConfig.hansenLoss.id;
-            // hansenLossParams.url = MapConfig.hansenLoss.url;
-            // hansenLossParams.minYear = MapConfig.hansenLoss.minYear;
-            // hansenLossParams.maxYear = MapConfig.hansenLoss.maxYear;
-            // hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
-            // hansenLossParams.visible = false;
-            //
-            // hansenLossLayer = new HansenLayer(hansenLossParams); //30% first
+            hansenLossParams.id = MapConfig.hansenLoss.id;
+            hansenLossParams.url = MapConfig.hansenLoss.url;
+            hansenLossParams.minYear = MapConfig.hansenLoss.minYear;
+            hansenLossParams.maxYear = MapConfig.hansenLoss.maxYear;
+            hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
+            hansenLossParams.visible = false;
 
-            // MapConfig.hansenLoss.levels.forEach(function(level) {
-            //
-            //   hansenLossParams.url = level.url;
-            //   hansenLossParams.id = level.id;
-            //   switch (level.value) {
-            //     case 10:
-            //       hansenLossLayer10 = new HansenLayer(hansenLossParams);
-            //       break;
-            //     case 15:
-            //       hansenLossLayer15 = new HansenLayer(hansenLossParams);
-            //       break;
-            //     case 20:
-            //       hansenLossLayer20 = new HansenLayer(hansenLossParams);
-            //       break;
-            //     case 25:
-            //       hansenLossLayer25 = new HansenLayer(hansenLossParams);
-            //       break;
-            //     case 50:
-            //       hansenLossLayer50 = new HansenLayer(hansenLossParams);
-            //       break;
-            //     case 75:
-            //       hansenLossLayer75 = new HansenLayer(hansenLossParams);
-            //       break;
-            //     default:
-            //       break;
-            //   }
-            // });
+            hansenLossLayer = new HansenLayer(hansenLossParams); //30% first
+
+            MapConfig.hansenLoss.levels.forEach(function(level) {
+
+              hansenLossParams.url = level.url;
+              hansenLossParams.id = level.id;
+              switch (level.value) {
+                case 10:
+                  hansenLossLayer10 = new HansenLayer(hansenLossParams);
+                  break;
+                case 15:
+                  hansenLossLayer15 = new HansenLayer(hansenLossParams);
+                  break;
+                case 20:
+                  hansenLossLayer20 = new HansenLayer(hansenLossParams);
+                  break;
+                case 25:
+                  hansenLossLayer25 = new HansenLayer(hansenLossParams);
+                  break;
+                case 50:
+                  hansenLossLayer50 = new HansenLayer(hansenLossParams);
+                  break;
+                case 75:
+                  hansenLossLayer75 = new HansenLayer(hansenLossParams);
+                  break;
+                default:
+                  break;
+              }
+            });
+
+            hansenGainParams.id = MapConfig.hansenGain.id;
+            hansenGainParams.url = MapConfig.hansenGain.url;
+            hansenGainParams.visible = false;
+
+            hansenGainLayer = new GainLayer(hansenGainParams);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -614,14 +622,15 @@ define([
                 prodesAlertsLayer,
                 gladAlertsLayer,
                 gladFootprintsLayer,
-                // hansenLossLayer,
-                // 
-                // hansenLossLayer10,
-                // hansenLossLayer15,
-                // hansenLossLayer20,
-                // hansenLossLayer25,
-                // hansenLossLayer50,
-                // hansenLossLayer75,
+                hansenLossLayer,
+
+                hansenLossLayer10,
+                hansenLossLayer15,
+                hansenLossLayer20,
+                hansenLossLayer25,
+                hansenLossLayer50,
+                hansenLossLayer75,
+                hansenGainLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -669,14 +678,15 @@ define([
             prodesAlertsLayer.on('error', this.addLayerError);
             gladAlertsLayer.on('error', this.addLayerError);
             gladFootprintsLayer.on('error', this.addLayerError);
-            // hansenLossLayer.on('error', this.addLayerError);
-            //
-            // hansenLossLayer10.on('error', this.addLayerError);
-            // hansenLossLayer15.on('error', this.addLayerError);
-            // hansenLossLayer20.on('error', this.addLayerError);
-            // hansenLossLayer25.on('error', this.addLayerError);
-            // hansenLossLayer50.on('error', this.addLayerError);
-            // hansenLossLayer75.on('error', this.addLayerError);
+            hansenLossLayer.on('error', this.addLayerError);
+
+            hansenLossLayer10.on('error', this.addLayerError);
+            hansenLossLayer15.on('error', this.addLayerError);
+            hansenLossLayer20.on('error', this.addLayerError);
+            hansenLossLayer25.on('error', this.addLayerError);
+            hansenLossLayer50.on('error', this.addLayerError);
+            hansenLossLayer75.on('error', this.addLayerError);
+            hansenGainLayer.on('error', this.addLayerError);
 
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);

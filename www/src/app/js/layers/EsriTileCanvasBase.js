@@ -44,7 +44,7 @@ define([
   */
   function getRow (yValue, resolution) {
     var sizeInMapUnits = TILEINFO.rows * resolution;
-    return Math.floor((TILEINFO.origin.y - yValue) / sizeInMapUnits);
+    return Math.ceil((TILEINFO.origin.y - yValue) / sizeInMapUnits);
   }
 
   /**
@@ -53,7 +53,8 @@ define([
   */
   function getColumn (xValue, resolution) {
     var sizeInMapUnits = TILEINFO.cols * resolution;
-    return Math.floor((xValue - TILEINFO.origin.x) / sizeInMapUnits);
+    return Math.ceil((xValue - TILEINFO.origin.x) / sizeInMapUnits);
+    //TODO: depending on the direction of our map we need to either Math.ceil or Math.floor !!
   }
 
   /**
@@ -165,36 +166,46 @@ define([
     /**
     * @description Method to start the process for rendering canvases in tile grid
     */
-    _extentChanged: function _extentChanged () {
-      //TODO: FIX THIS HERE LUKE!!!!!!
-
-      //- If the layer is not visible, bail
+    _extentChanged: function _extentChanged (evt) {
       if (!this.visible) { return; }
-      var resolution = this._map.getResolution(),
-            level = this._map.getLevel(),
-            extent = this._map.extent;
+      // if (evt.levelChange) {
+        //- If the layer is not visible, bail
+        var resolution = this._map.getResolution(),
+        level = this._map.getLevel(),
+        extent = this._map.extent;
 
-      //- Delete tiles from other zoom levels
-      for (var i = 0; i < this.tiles.length; i++) {
-        // if (this.tiles[i].z !== level) {
+        //- Delete tiles from other zoom levels
+        for (var i = 0; i < this.tiles.length; i++) {
+          // if (this.tiles[i].z !== level) {
           this.tiles[i].canvas.remove();
           delete this.tiles[i];
-        // }
-      }
+          // }
+        }
 
-      //- Get the min and max tile row and column
-      var rowMin = getRow(extent.ymax, resolution); // This and the next are flipped, not sure why
-      var rowMax = getRow(extent.ymin, resolution);
-      var colMin = getColumn(extent.xmin, resolution);
-      var colMax = getColumn(extent.xmax, resolution);
-      //- Get a range of tiles for this extent, each info contains x, y, z
-      var tileInfos = getTileInfos(rowMin, colMin, rowMax, colMax, level);
-      //- Fetch the tile and update the map
-      // tileInfos.forEach(tile => this._fetchTile(tile));
-      var self = this;
-      tileInfos.forEach(function(tile) {
-        self._fetchTile(tile);
-      });
+        //- Get the min and max tile row and column
+        var rowMin = getRow(extent.ymax, resolution); // This and the next are flipped, not sure why
+        var rowMax = getRow(extent.ymin, resolution);
+        var colMin = getColumn(extent.xmin, resolution);
+        var colMax = getColumn(extent.xmax, resolution);
+        //- Get a range of tiles for this extent, each info contains x, y, z
+        var tileInfos = getTileInfos(rowMin, colMin, rowMax, colMax, level);
+        //- Fetch the tile and update the map
+        var self = this;
+        tileInfos.forEach(function(tile) {
+          self._fetchTile(tile);
+        });
+      // } else {
+      //   this.position = {
+      //     x: this.position.x + evt.delta.x,
+      //     y: this.position.y + evt.delta.y
+      //   };
+      //   this.refresh();
+      //   // this.hide();
+      //   // this.show();
+      //   console.log(evt);
+      //   console.log(this);
+      //   console.log('change some stuff here to re-redner w/ same level but diff coordinates');
+      // }
     },
 
     /**
@@ -223,6 +234,11 @@ define([
         x: this.position.x + delta.x,
         y: this.position.y + delta.y
       };
+      this.refresh();
+
+      //clear our canvas and iterate over our tiles, and Draw all of them!
+      //Because we should have all the correct tiles (since this fires after extent-change)
+      //roll our own refresh method that does this
     },
 
     /**
@@ -256,8 +272,10 @@ define([
         var y = Math.floor(tile.y / Math.pow(2, steps));
         url = this._getUrl({ x, y, z: this.options.maxZoom });
       } else {
+        // console.log(tile);
         url = this._getUrl(tile);
       }
+      // console.log(url);
 
       //this._fetchImage(url, (image) => {
       var self = this;
@@ -315,6 +333,7 @@ define([
         }
 
         var imageData = ctx.getImageData(0, 0, tileSize, tileSize);
+        console.log(imageData);
         imageData.data.set(this.filter(imageData.data));
         ctx.putImageData(imageData, 0, 0);
         this._container.appendChild(canvas);
@@ -424,7 +443,7 @@ define([
       this.visible = true;
       this._container.style.display = 'block';
       //- get the tiles incase they have not been loaded yet
-      this._extentChanged();
+      this._extentChanged({levelChange: true});
     },
 
     /**
