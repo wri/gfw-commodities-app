@@ -101,7 +101,7 @@ define([
     * @param {string} id - Id for this layer
     * @param {object} options - Set of options to use for the layer
     */
-    constructor: function constructor (options) {
+    constructor: function (options) {
       //- Mixin options with some defaults
       this.options = Object.assign({}, DEFAULTS, options);
       //- Set some default esri layer properties
@@ -229,22 +229,21 @@ define([
     /**
     * @description Update the position variable for tracking purposes
     */
-    _onPanEnd: function _onPanEnd ({delta}) {
+    _onPanEnd: function _onPanEnd(_ref) {
+      var delta = _ref.delta;
+
       this.position = {
         x: this.position.x + delta.x,
         y: this.position.y + delta.y
       };
-      this.refresh();
-
-      //clear our canvas and iterate over our tiles, and Draw all of them!
-      //Because we should have all the correct tiles (since this fires after extent-change)
-      //roll our own refresh method that does this
     },
 
     /**
     * @description Update the position of the container via transforms
     */
-    _onPan: function _onPan ({delta}) {
+    _onPan: function _onPan(_ref2) {
+      var delta = _ref2.delta;
+
       this._container.style.transform = getTranslate({
         x: this.position.x + delta.x,
         y: this.position.y + delta.y
@@ -270,7 +269,10 @@ define([
         var steps = this._getZoomSteps(tile.z);
         var x = Math.floor(tile.x / Math.pow(2, steps));
         var y = Math.floor(tile.y / Math.pow(2, steps));
-        url = this._getUrl({ x, y, z: this.options.maxZoom });
+        console.log(this._getUrl);
+        debugger
+        url = this._getUrl({ x: x, y: y, z: this.options.maxZoom });
+        // url = this._getUrl({ x, y, z: this.options.maxZoom });
       } else {
         // console.log(tile);
         url = this._getUrl(tile);
@@ -290,9 +292,9 @@ define([
           x: tile.x,
           y: tile.y,
           z: tile.z,
-          canvas,
-          image,
-          id
+          canvas: canvas,
+          image: image,
+          id: id
         };
 
         //- Cache the tile
@@ -310,8 +312,8 @@ define([
       var longitude = longitudeFromTile(data.x, data.z),
             latitude = latitudeFromTile(data.y, data.z),
             coords = this._map.toScreen(new Point(longitude, latitude)),
-            {tileSize} = this.options,
-            {canvas} = data;
+            tileSize = this.options.tileSize,
+            canvas = data.canvas;
 
       //- Add the element if it is not in the DOM already
       if (!canvas.parentElement) {
@@ -373,8 +375,8 @@ define([
     * @description Return unique id for the tile
     * @return {string} id for the tile
     */
-    _getId: function _getId (tile) {
-      return `${tile.x}_${tile.y}_${tile.z}`;
+    _getId: function _getId(tile) {
+      return tile.x + '_' + tile.y + '_' + tile.z;
     },
 
     /**
@@ -397,7 +399,7 @@ define([
     */
     _getSubrectangleInfo: function _getSubrectangleInfo (data) {
       var steps = this._getZoomSteps(data.z),
-            {tileSize} = this.options;
+            tileSize = this.options.tileSize;
 
       return {
         sX: (tileSize / Math.pow(2, steps) * (data.x % Math.pow(2, steps))),
@@ -418,7 +420,7 @@ define([
       Object.keys(this.tiles).forEach(function(key) {
         var tile = self.tiles[key],
               ctx = tile.canvas.getContext('2d'),
-              {tileSize} = self.options;
+              tileSize = self.options.tileSize;
 
         // Scale if necessary
         if (tile.z > self.options.maxZoom) {
