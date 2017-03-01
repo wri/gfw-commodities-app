@@ -14,6 +14,7 @@ define([
     "map/SimpleLegend",
     "layers/GladLayer",
     "layers/HansenLayer",
+    "layers/GainLayer",
     // Esri Modules
     "esri/map",
     "esri/config",
@@ -33,8 +34,7 @@ define([
     "esri/dijit/HomeButton",
     "esri/dijit/LocateButton",
     "esri/dijit/BasemapGallery"
-], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
-    'use strict';
+], function(Evented, declare, on, dom, topic, registry, arrayUtils, domConstruct, MapConfig, WizardHelper, SuitabilityImageServiceLayer, SimpleLegend, GladLayer, HansenLayer, GainLayer, Map, esriConfig, InfoTemplate, GraphicsLayer, FeatureLayer, RasterFunction, ImageParameters, ImageServiceParameters, ArcGISImageServiceLayer, ArcGISTiledMapServiceLayer, ArcGISDynamicLayer, Legend, Geocoder, Scalebar, HomeButton, Locator, BasemapGallery) {
 
     var _map = declare([Evented], {
 
@@ -202,6 +202,8 @@ define([
                 // hansenLossLayer50,
                 // hansenLossLayer75,
                 // hansenLossParams = {},
+                // hansenGainLayer,
+                // hansenGainParams = {},
                 gainLayer,
                 gainHelperLayer,
                 lossLayer,
@@ -380,7 +382,7 @@ define([
             // hansenLossParams.visible = false;
             //
             // hansenLossLayer = new HansenLayer(hansenLossParams); //30% first
-
+            //
             // MapConfig.hansenLoss.levels.forEach(function(level) {
             //
             //   hansenLossParams.url = level.url;
@@ -408,6 +410,12 @@ define([
             //       break;
             //   }
             // });
+            //
+            // hansenGainParams.id = MapConfig.hansenGain.id;
+            // hansenGainParams.url = MapConfig.hansenGain.url;
+            // hansenGainParams.visible = false;
+            //
+            // hansenGainLayer = new GainLayer(hansenGainParams);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -615,13 +623,14 @@ define([
                 gladAlertsLayer,
                 gladFootprintsLayer,
                 // hansenLossLayer,
-                // 
+                //
                 // hansenLossLayer10,
                 // hansenLossLayer15,
                 // hansenLossLayer20,
                 // hansenLossLayer25,
                 // hansenLossLayer50,
                 // hansenLossLayer75,
+                // hansenGainLayer,
                 lossLayer,
                 gainLayer,
                 gainHelperLayer,
@@ -677,6 +686,7 @@ define([
             // hansenLossLayer25.on('error', this.addLayerError);
             // hansenLossLayer50.on('error', this.addLayerError);
             // hansenLossLayer75.on('error', this.addLayerError);
+            // hansenGainLayer.on('error', this.addLayerError);
 
             lossLayer.on('error', this.addLayerError);
             gainLayer.on('error', this.addLayerError);
