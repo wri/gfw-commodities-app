@@ -103,7 +103,10 @@ define([
     */
     constructor: function (options) {
       //- Mixin options with some defaults
-      this.options = Object.assign({}, DEFAULTS, options);
+      // this.options = Object.assign({}, DEFAULTS, options);
+      this.options = options;
+      this.options.tileSize = DEFAULTS.tileSize;
+      this.options.maxZoom = DEFAULTS.maxZoom;
       //- Set some default esri layer properties
       this.visible = this.options.visible !== undefined ? this.options.visible : true;
       this.loaded = true;
