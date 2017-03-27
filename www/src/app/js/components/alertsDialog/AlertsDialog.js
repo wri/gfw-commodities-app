@@ -141,7 +141,8 @@ define([
       //     {TEXT.forma}
       //   </label>
       // </div>
-
+//"<span class='fires-instructions'>Tree Cover Loss Alerts: Please subscribe through the <a href='http://www.globalforestwatch.org/my_gfw/subscriptions/new' target='_blank'>Global Forest Watch Subscriptions App</a>" +
+// '. Re-enter your areas of interest and follow the in-app instructions.</span>' +
       return (
         React.createElement("div", {className: "alerts-dialog"}, 
           React.createElement("div", {className: "close-icon", onClick: this._close}), 
@@ -166,6 +167,10 @@ define([
                   React.createElement("input", {id: firesId, className: "vertical-middle", type: "checkbox", onChange: this._formChange, checked: this.state.fires}), 
                   TEXT.fires
                 )
+              ), 
+              React.createElement("div", {className: "subscribe-tree-cover-instructions"}, 
+                React.createElement("span", {class: "fires-instructions"}, "Tree Cover Loss Alerts: Please subscribe through the ", React.createElement("a", {href: "http://www.globalforestwatch.org/my_gfw/subscriptions/new", target: "_blank"}, "Global Forest Watch Subscriptions App"), 
+                ". Re-enter your areas of interest and follow the in-app instructions.")
               ), 
               React.createElement("div", {className: "pooh-bear text-center"}, 
                 React.createElement("div", {className: "pooh-bear"}, "Please leave this blank"), 
