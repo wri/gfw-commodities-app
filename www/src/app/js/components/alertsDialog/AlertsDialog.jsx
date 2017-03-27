@@ -141,7 +141,8 @@ define([
       //     {TEXT.forma}
       //   </label>
       // </div>
-
+//"<span class='fires-instructions'>Tree Cover Loss Alerts: Please subscribe through the <a href='http://www.globalforestwatch.org/my_gfw/subscriptions/new' target='_blank'>Global Forest Watch Subscriptions App</a>" +
+// '. Re-enter your areas of interest and follow the in-app instructions.</span>' +
       return (
         <div className='alerts-dialog'>
           <div className='close-icon' onClick={this._close}></div>
@@ -166,6 +167,10 @@ define([
                   <input id={firesId} className='vertical-middle' type='checkbox' onChange={this._formChange} checked={this.state.fires} />
                   {TEXT.fires}
                 </label>
+              </div>
+              <div className='subscribe-tree-cover-instructions'>
+                <span class='fires-instructions'>Tree Cover Loss Alerts: Please subscribe through the <a href='http://www.globalforestwatch.org/my_gfw/subscriptions/new' target='_blank'>Global Forest Watch Subscriptions App</a>
+                . Re-enter your areas of interest and follow the in-app instructions.</span>
               </div>
               <div className='pooh-bear text-center'>
                 <div className='pooh-bear'>Please leave this blank</div>

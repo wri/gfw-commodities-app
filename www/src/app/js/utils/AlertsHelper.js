@@ -65,8 +65,10 @@ define([
         layer,
         self = this;
 
+        console.log(type);
+        console.log('layer', layer);
     // Referenced from WizardHelper.js@analyzeAreaFromPopup
-    if (type === 'AdminBoundary') {
+    if (type === 'AdminBoundary' || type === 'overlays') {
       layer = MapConfig.adminUnitsLayer.layerId;
       url = MapConfig.adminUnitsLayer.url + '/' + layer;
     } else if (type === 'CertScheme') {
@@ -86,6 +88,9 @@ define([
       layer = GENERIC_LAYER_IDS[type];
       url = MapConfig.oilPerm.url + '/' + layer;
     }
+
+    console.log('deferred', deferred);
+    console.log('url', url);
 
     if (deferred === undefined && url !== undefined) {
       deferred = AnalyzerQuery.getFeatureById(url, id);
