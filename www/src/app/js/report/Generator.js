@@ -96,6 +96,8 @@ define([
               self = this,
               content = "<div class='subscription-content'>" +
                 "<div class='checkbox-container'><label><input id='fires_check' type='checkbox' value='fires' />Fire Alerts</label></div>" +
+                "<span class='fires-instructions'>Tree Cover Loss Alerts: Please subscribe through the <a href='http://www.globalforestwatch.org/my_gfw/subscriptions/new' target='_blank'>Global Forest Watch Subscriptions App</a>" +
+                '. Re-enter your areas of interest and follow the in-app instructions.</span>' +
                 "<div class='email-container'><input id='user-email' type='text' placeholder='something@gmail.com'/></div>" +
                 "<div class='submit-container'><button id='subscribe-now'>Subscribe</button></div>" +
                 "<div id='form-response' class='message-container'></div>" +
