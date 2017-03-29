@@ -64,15 +64,6 @@ define([
 
 		},
 
-		// componentWillReceiveProps: function(nextProps, nextState) {
-		//   if (nextProps.id === 'loss' || nextProps.id === 'gain') {
-		//     if (!nextProps.visible) {
-		//       this.setState({ 'active' : false })
-		//     }
-		//   }
-
-		// },
-
 		toggle: function(synEvent) {
 			if (!domClass.contains(synEvent.target, 'layer-info-icon') &&
 				synEvent.target.className.search('dijit') < 0) {
@@ -81,7 +72,6 @@ define([
 		},
 
 		showInfo: function() {
-			console.log('propssss', this.props);
 			if (document.getElementsByClassName(this.props.infoDivClass).length) {
 				topic.publish('showInfoPanel', document.getElementsByClassName(this.props.infoDivClass)[0], this.props.id);
 			} else {

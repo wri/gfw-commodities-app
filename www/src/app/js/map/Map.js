@@ -202,10 +202,10 @@ define([
                 // hansenLossLayer50,
                 // hansenLossLayer75,
                 // hansenLossParams = {},
-                // hansenGainLayer,
-                // hansenGainParams = {},
-                gainLayer,
-                gainHelperLayer,
+                hansenGainLayer,
+                hansenGainParams = {},
+                // gainLayer,
+                // gainHelperLayer,
                 lossLayer,
                 lossParams,
                 treeCoverDensityLayer,
@@ -410,12 +410,13 @@ define([
             //       break;
             //   }
             // });
-            //
-            // hansenGainParams.id = MapConfig.hansenGain.id;
-            // hansenGainParams.url = MapConfig.hansenGain.url;
-            // hansenGainParams.visible = false;
-            //
-            // hansenGainLayer = new GainLayer(hansenGainParams);
+
+            hansenGainParams.id = MapConfig.hansenGain.id;
+            hansenGainParams.url = MapConfig.hansenGain.url;
+            hansenGainParams.visible = false;
+
+            hansenGainLayer = new GainLayer(hansenGainParams);
+            console.log('hansenGain', hansenGainLayer);
 
             lossParams = new ImageServiceParameters();
             lossParams.interpolation = 'RSP_NearestNeighbor';
@@ -447,15 +448,15 @@ define([
                 opacity: 1
             });
 
-            gainLayer = new ArcGISTiledMapServiceLayer(MapConfig.gain.url, {
-                id: MapConfig.gain.id,
-                visible: false
-            });
+            // gainLayer = new ArcGISTiledMapServiceLayer(MapConfig.gain.url, {
+            //     id: MapConfig.gain.id,
+            //     visible: false
+            // });
 
-            gainHelperLayer = new ArcGISImageServiceLayer(MapConfig.gainHelper.url, {
-                id: MapConfig.gainHelper.id,
-                visible: false
-            });
+            // gainHelperLayer = new ArcGISImageServiceLayer(MapConfig.gainHelper.url, {
+            //     id: MapConfig.gainHelper.id,
+            //     visible: false
+            // });
 
             treeCoverDensityLayer = new ArcGISImageServiceLayer(MapConfig.tcd.url, {
                 id: MapConfig.tcd.id,
@@ -630,10 +631,10 @@ define([
                 // hansenLossLayer25,
                 // hansenLossLayer50,
                 // hansenLossLayer75,
-                // hansenGainLayer,
+                hansenGainLayer,
                 lossLayer,
-                gainLayer,
-                gainHelperLayer,
+                // gainLayer,
+                // gainHelperLayer,
                 granChacoLayer,
                 soyLayer,
                 // Points Layers
@@ -686,11 +687,11 @@ define([
             // hansenLossLayer25.on('error', this.addLayerError);
             // hansenLossLayer50.on('error', this.addLayerError);
             // hansenLossLayer75.on('error', this.addLayerError);
-            // hansenGainLayer.on('error', this.addLayerError);
+            hansenGainLayer.on('error', this.addLayerError);
 
             lossLayer.on('error', this.addLayerError);
-            gainLayer.on('error', this.addLayerError);
-            gainHelperLayer.on('error', this.addLayerError);
+            // gainLayer.on('error', this.addLayerError);
+            // gainHelperLayer.on('error', this.addLayerError);
             treeCoverDensityLayer.on('error', this.addLayerError);
             customSuitabilityLayer.on('error', this.addLayerError);
             protectAreasLayer.on('error', this.addLayerError);

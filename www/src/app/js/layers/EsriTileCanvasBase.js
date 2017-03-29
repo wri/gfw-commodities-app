@@ -272,8 +272,6 @@ define([
         var steps = this._getZoomSteps(tile.z);
         var x = Math.floor(tile.x / Math.pow(2, steps));
         var y = Math.floor(tile.y / Math.pow(2, steps));
-        console.log(this._getUrl);
-        debugger
         url = this._getUrl({ x: x, y: y, z: this.options.maxZoom });
         // url = this._getUrl({ x, y, z: this.options.maxZoom });
       } else {
@@ -297,7 +295,8 @@ define([
           z: tile.z,
           canvas: canvas,
           image: image,
-          id: id
+          id: id,
+          url: url
         };
 
         //- Cache the tile
@@ -326,21 +325,29 @@ define([
           x: Math.abs(this.position.x) + coords.x,
           y: Math.abs(this.position.y) + coords.y
         });
-        //- Scale the tile if we are past max zoom
-        if (data.z > this.options.maxZoom) {
-          var info = this._getSubrectangleInfo(data);
-          //- Stop image enhancement
-          ctx.imageSmoothingEnabled = false;
-          ctx.mozImageSmoothingEnabled = false;
-          ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
+
+        if (this.id === 'hansenGain') {
+          var hardUrl = 'url(' + data.url + ')';
+          ctx.canvas.style.background = hardUrl;
+
+          // ctx.canvas.style.background = 'url(http://earthengine.google.org/static/hansen_2013/gain_alpha/3/7/5.png)';
         } else {
-          ctx.drawImage(data.image, 0, 0);
+          //- Scale the tile if we are past max zoom
+          if (data.z > this.options.maxZoom) {
+            var info = this._getSubrectangleInfo(data);
+            //- Stop image enhancement
+            ctx.imageSmoothingEnabled = false;
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
+          } else {
+            ctx.drawImage(data.image, 0, 0);
+          }
+
+          const imageData = ctx.getImageData(0, 0, tileSize, tileSize);
+          imageData.data.set(this.filter(imageData.data));
+          ctx.putImageData(imageData, 0, 0);
         }
 
-        var imageData = ctx.getImageData(0, 0, tileSize, tileSize);
-        console.log(imageData);
-        imageData.data.set(this.filter(imageData.data));
-        ctx.putImageData(imageData, 0, 0);
         this._container.appendChild(canvas);
       }
     },
