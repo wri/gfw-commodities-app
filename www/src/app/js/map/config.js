@@ -318,6 +318,16 @@ define([], function() {
             ],
             toolsNode: 'treecover_change_toolbox'
         },
+        hansenLoss: {
+          id: 'Loss',
+          url: treeCoverLossUrl,
+          legendLayerId: 0,
+          defaultRange: [1, 14],
+          colormap: [
+              [1, 219, 101, 152]
+          ],
+          toolsNode: 'treecover_change_toolbox'
+        },
         forma: {
             id: 'FormaAlerts',
             url: formaAlertsUrl,

@@ -611,7 +611,7 @@ define([
                 densityConf = MapConfig.tcd,
                 formaConf = MapConfig.forma,
                 gladConf = MapConfig.gladAlerts,
-                lossConf = MapConfig.loss,
+                lossConf = MapConfig.hansenLoss,
                 gainConf = MapConfig.hansenGain,
                 prodesConf = MapConfig.prodes,
                 biomassConf = MapConfig.tfcs,
