@@ -60,7 +60,7 @@ define([
 
         LayerController.updateLossImageServiceRasterFunction([from, to], MapConfig.loss, densityRange);
 
-        // LayerController.updateHansenTCD(MapConfig.hansenLoss, densityRange);
+        LayerController.updateHansenTCD(MapConfig.hansenLoss, densityRange);
       }
     }
 

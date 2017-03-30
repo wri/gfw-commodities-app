@@ -48,7 +48,7 @@ define([
               Analytics.sendEvent('Event', 'Layer', message);
           }
           if (layer) {
-              if (layer.id === 'hansenGain') {
+              if (layer.id === 'hansenGain' || layer.id === 'hansenLoss') {
                 if (!layer.visible) {
                   layer.show();
                 } else if (layer.visible) {

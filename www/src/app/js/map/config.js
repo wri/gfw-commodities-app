@@ -719,13 +719,23 @@ define([], function() {
                 type: 'radio',
                 layerType: 'none',
                 children: [{
-                    id: 'loss',
+                    // id: 'loss',
+                    // title: 'Loss',
+                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    // filter: 'forest-change',
+                    // type: 'check',
+                    // layerType: 'tiled',
+                    // infoDivClass: 'forest-change-tree-cover-loss'
+                    id: 'hansenLoss',
                     title: 'Loss',
                     subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
                     filter: 'forest-change',
                     type: 'check',
-                    layerType: 'tiled',
+                    layerType: 'image',
+                    // visible: true,
                     infoDivClass: 'forest-change-tree-cover-loss'
+                    // parent: 'treeCoverLossAlerts',
+                    // endChild: false
                 // }, {
                 //     id: 'gain',
                 //     title: 'Gain',
