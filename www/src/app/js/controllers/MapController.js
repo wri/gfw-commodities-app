@@ -495,12 +495,12 @@ define([
         renderComponents: function() {
 
             // Set Default Layers Here if none are present in the URL
-            // Current Default Layers(lyrs) are tcc and loss
+            // Current Default Layers(lyrs) are tcc and hansenLoss
             var state = Hasher.getHash();
             // If state.lyrs is undefined, set hash, otherwise, load the layers already there
             if (state.lyrs === undefined) {
                 Hasher.toggleLayers('tcc');
-                Hasher.toggleLayers('loss');
+                Hasher.toggleLayers('hansenLoss');
             }
 
             MapControl.generateSuitabilitySliders();

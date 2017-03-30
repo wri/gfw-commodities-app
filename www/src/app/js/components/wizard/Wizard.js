@@ -223,7 +223,7 @@ define([
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
             var lossLayer = app.map.getLayer('Loss');
 						var minDensity;
-            if (lossLayer.renderingRule) {
+            if (lossLayer && lossLayer.renderingRule) {
               minDensity = lossLayer.renderingRule.functionArguments.min_density;
             }
 

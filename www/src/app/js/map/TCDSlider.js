@@ -52,13 +52,13 @@ define([
 
         WizardActions.setTreeCoverDensity(data.from_value);
 
-        var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
+        // var treeCoverLoss = app.map.getLayer(MapConfig.loss.id);
 
         var densityRange = [data.from_value, data.to_value];
-        var from = treeCoverLoss.renderingRule.functionArguments.min_year - 2001;
-        var to = treeCoverLoss.renderingRule.functionArguments.max_year - 2001;
-
-        LayerController.updateLossImageServiceRasterFunction([from, to], MapConfig.loss, densityRange);
+        // var from = treeCoverLoss.renderingRule.functionArguments.min_year - 2001;
+        // var to = treeCoverLoss.renderingRule.functionArguments.max_year - 2001;
+        //
+        // LayerController.updateLossImageServiceRasterFunction([from, to], MapConfig.loss, densityRange);
 
         LayerController.updateHansenTCD(MapConfig.hansenLoss, densityRange);
       }
