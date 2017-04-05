@@ -112,6 +112,7 @@ define([
       if (this.options.id) { this.id = this.options.id; }
       //- Create a tile cache to optimize this layer
       this.tiles = {};
+      this.tileRequests = [];
       //- Store the position of the map, this is used to apply transforms
       this.position = { x: 0, y: 0 };
       //- Create an array of handles for events
@@ -168,46 +169,37 @@ define([
     /**
     * @description Method to start the process for rendering canvases in tile grid
     */
-    _extentChanged: function _extentChanged (evt) {
+    _extentChanged: function _extentChanged () {
       if (!this.visible) { return; }
-      // if (evt.levelChange) {
-        //- If the layer is not visible, bail
-        var resolution = this._map.getResolution(),
-        level = this._map.getLevel(),
-        extent = this._map.extent;
 
-        //- Delete tiles from other zoom levels
-        for (var i = 0; i < this.tiles.length; i++) {
-          if (this.tiles[i].z !== level) {
-            this.tiles[i].canvas.remove();
-            delete this.tiles[i];
-          }
+      //- If the layer is not visible, bail
+      var resolution = this._map.getResolution(),
+      level = this._map.getLevel(),
+      extent = this._map.extent;
+
+      //- Delete tiles from other zoom levels
+      for (var i = 0; i < this.tiles.length; i++) {
+        if (this.tiles[i].z !== level) {
+          this.tiles[i].canvas.remove();
+          delete this.tiles[i];
         }
+      }
 
-        //- Get the min and max tile row and column
-        var rowMin = getRow(extent.ymax, resolution); // This and the next are flipped, not sure why
-        var rowMax = getRow(extent.ymin, resolution);
-        var colMin = getColumn(extent.xmin, resolution);
-        var colMax = getColumn(extent.xmax, resolution);
-        //- Get a range of tiles for this extent, each info contains x, y, z
-        var tileInfos = getTileInfos(rowMin, colMin, rowMax, colMax, level);
-        //- Fetch the tile and update the map
-        var self = this;
-        tileInfos.forEach(function(tile) {
+      //- Get the min and max tile row and column
+      var rowMin = getRow(extent.ymax, resolution); // This and the next are flipped, not sure why
+      var rowMax = getRow(extent.ymin, resolution);
+      var colMin = getColumn(extent.xmin, resolution);
+      var colMax = getColumn(extent.xmax, resolution);
+      //- Get a range of tiles for this extent, each info contains x, y, z
+      var tileInfos = getTileInfos(rowMin, colMin, rowMax, colMax, level);
+      //- Fetch the tile and update the map
+      var self = this;
+      tileInfos.forEach(function(tile) {
+        if (tile.z === level) {
           self._fetchTile(tile);
-        });
-      // } else {
-      //   this.position = {
-      //     x: this.position.x + evt.delta.x,
-      //     y: this.position.y + evt.delta.y
-      //   };
-      //   this.refresh();
-      //   // this.hide();
-      //   // this.show();
-      //   console.log(evt);
-      //   console.log(this);
-      //   console.log('change some stuff here to re-redner w/ same level but diff coordinates');
-      // }
+        }
+      });
+
     },
 
     /**
@@ -215,17 +207,20 @@ define([
     */
     _onZoomStart: function _onZoomStart () {
       //- Delete tiles from other zoom levels in cache and their canvas element
-      // Object.keys(this.tiles).forEach(key => {
-      //   delete this.tiles[key];
-      // });
-      var self = this;
-      Object.keys(this.tiles).forEach(function(key) {
-        delete self.tiles[key];
-      });
+      for (var i = 0; i < this.tiles.length; i++) {
+        this.tiles[i].canvas.remove();
+        delete this.tiles[i];
+      }
       //- Reset the position and clear the container contents
       this.position = { x: 0, y: 0 };
       this._container.innerHTML = '';
       this._container.style.transform = getTranslate(this.position);
+
+      for (var c = 0; c < this.tileRequests.length; c++) {
+        // console.log(this.tileRequests[c].abort);
+        this.tileRequests[c].abort();
+      }
+      this.tileRequests = [];
     },
 
     /**
@@ -272,13 +267,10 @@ define([
         var x = Math.floor(tile.x / Math.pow(2, steps));
         var y = Math.floor(tile.y / Math.pow(2, steps));
         url = this._getUrl({ x: x, y: y, z: this.options.maxZoom });
-        // url = this._getUrl({ x, y, z: this.options.maxZoom });
       } else {
-        // console.log(tile);
         url = this._getUrl(tile);
       }
 
-      //this._fetchImage(url, (image) => {
       var self = this;
       this._fetchImage(url, function(image) {
         var canvas = document.createElement('canvas');
@@ -319,10 +311,6 @@ define([
       if (!canvas.parentElement) {
         var ctx = canvas.getContext('2d');
         //- Get the current position of the container to offset the tile position
-        // canvas.style.transform = getTranslate({
-        //   x: this.position.x + coords.x,
-        //   y: this.position.y + coords.y
-        // });
 
         var yTransfrom = Math.abs(this.position.y) + coords.y;
         if (this.position.y > 0) {
@@ -337,9 +325,6 @@ define([
           x: xTransfrom,
           y: yTransfrom
         });
-
-
-        //Our transforms are off, both x & y!
 
         if (this.id === 'hansenGain') {
           var hardUrl = 'url(' + data.url + ')';
@@ -363,7 +348,12 @@ define([
           ctx.putImageData(imageData, 0, 0);
         }
 
-        this._container.appendChild(canvas);
+        var level = this._map.getLevel();
+
+        if (data.z === level) {
+          this._container.appendChild(canvas);
+        }
+
       }
     },
 
@@ -372,6 +362,7 @@ define([
     */
     _fetchImage: function _fetchImage (url, callback) {
       var xhr = new XMLHttpRequest();
+      var self = this;
 
       xhr.onload = function () {
         var objecturl = URL.createObjectURL(this.response);
@@ -381,11 +372,28 @@ define([
           URL.revokeObjectURL(objecturl);
         };
         image.src = objecturl;
+
+        var spliceIndex;
+
+        for (var u = 0; u < self.tileRequests.length; u++) {
+          if (self.tileRequests[u].responseURL === url) {
+            spliceIndex = u;
+          }
+        }
+
+        if (spliceIndex) {
+          self.tileRequests.splice(spliceIndex, 1);
+        }
+        // console.log(self.tileRequests);
       };
 
       xhr.open('GET', url, true);
       xhr.responseType = 'blob';
       xhr.send();
+
+      this.tileRequests.push(xhr);
+      // console.log(this.tileRequests);
+
     },
 
     /**
@@ -470,7 +478,7 @@ define([
       this.visible = true;
       this._container.style.display = 'block';
       //- get the tiles incase they have not been loaded yet
-      this._extentChanged({levelChange: true});
+      this._extentChanged();
     },
 
     /**
