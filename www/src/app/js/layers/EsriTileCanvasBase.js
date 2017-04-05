@@ -53,8 +53,7 @@ define([
   */
   function getColumn (xValue, resolution) {
     var sizeInMapUnits = TILEINFO.cols * resolution;
-    return Math.ceil((xValue - TILEINFO.origin.x) / sizeInMapUnits);
-    //TODO: depending on the direction of our map we need to either Math.ceil or Math.floor !!
+    return Math.floor((xValue - TILEINFO.origin.x) / sizeInMapUnits);
   }
 
   /**
@@ -179,10 +178,10 @@ define([
 
         //- Delete tiles from other zoom levels
         for (var i = 0; i < this.tiles.length; i++) {
-          // if (this.tiles[i].z !== level) {
-          this.tiles[i].canvas.remove();
-          delete this.tiles[i];
-          // }
+          if (this.tiles[i].z !== level) {
+            this.tiles[i].canvas.remove();
+            delete this.tiles[i];
+          }
         }
 
         //- Get the min and max tile row and column
@@ -278,7 +277,6 @@ define([
         // console.log(tile);
         url = this._getUrl(tile);
       }
-      // console.log(url);
 
       //this._fetchImage(url, (image) => {
       var self = this;
@@ -321,10 +319,27 @@ define([
       if (!canvas.parentElement) {
         var ctx = canvas.getContext('2d');
         //- Get the current position of the container to offset the tile position
+        // canvas.style.transform = getTranslate({
+        //   x: this.position.x + coords.x,
+        //   y: this.position.y + coords.y
+        // });
+
+        var yTransfrom = Math.abs(this.position.y) + coords.y;
+        if (this.position.y > 0) {
+          yTransfrom = coords.y - this.position.y;
+        }
+        var xTransfrom = Math.abs(this.position.x) + coords.x;
+        if (this.position.x > 0) {
+          xTransfrom = coords.x - this.position.x;
+        }
+
         canvas.style.transform = getTranslate({
-          x: Math.abs(this.position.x) + coords.x,
-          y: Math.abs(this.position.y) + coords.y
+          x: xTransfrom,
+          y: yTransfrom
         });
+
+
+        //Our transforms are off, both x & y!
 
         if (this.id === 'hansenGain') {
           var hardUrl = 'url(' + data.url + ')';
