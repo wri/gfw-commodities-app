@@ -200,6 +200,8 @@ define([
         }
       });
 
+      var tilesToDelete = [];
+
       for (var c = 0; c < this._container.children.length; c++) {
         var tileId = this._container.children[c].id;
         tileId = tileId.split('_');
@@ -209,11 +211,16 @@ define([
             tileId = parseInt(tileId);
             if (tileId !== level) {
               // console.log(tileId);
-              this._container.children[c].remove();
+              // this._container.children[c].remove();
+              tilesToDelete.push(this._container.children[c]);
             }
           }
         }
       }
+
+      tilesToDelete.forEach(function(tile) {
+        tile.remove();
+      });
 
     },
 
