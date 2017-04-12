@@ -13,7 +13,7 @@ define([], function() {
         dynamicMapServiceUrlLand = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
+        // gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
         gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         hansenTileUrl10 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_10/{z}/{x}/{y}.png',
@@ -318,16 +318,16 @@ define([], function() {
             ],
             toolsNode: 'treecover_change_toolbox'
         },
-        hansenLoss: {
-          id: 'Loss',
-          url: treeCoverLossUrl,
-          legendLayerId: 0,
-          defaultRange: [1, 14],
-          colormap: [
-              [1, 219, 101, 152]
-          ],
-          toolsNode: 'treecover_change_toolbox'
-        },
+        // hansenLoss: {
+        //   id: 'Loss',
+        //   url: treeCoverLossUrl,
+        //   legendLayerId: 0,
+        //   defaultRange: [1, 14],
+        //   colormap: [
+        //       [1, 219, 101, 152]
+        //   ],
+        //   toolsNode: 'treecover_change_toolbox'
+        // },
         forma: {
             id: 'FormaAlerts',
             url: formaAlertsUrl,
@@ -373,7 +373,7 @@ define([], function() {
             id: 'gladAlerts',
             url: gladTileUrl,
             minDateValue: 15000,
-            maxDateValue: 16365,
+            maxDateValue: 9999999, //16365,
             confidence: [0, 1],
             legendLayerId: 7,
             defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
