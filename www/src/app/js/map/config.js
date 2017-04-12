@@ -318,6 +318,16 @@ define([], function() {
             ],
             toolsNode: 'treecover_change_toolbox'
         },
+        hansenLoss: {
+          id: 'Loss',
+          url: treeCoverLossUrl,
+          legendLayerId: 0,
+          defaultRange: [1, 14],
+          colormap: [
+              [1, 219, 101, 152]
+          ],
+          toolsNode: 'treecover_change_toolbox'
+        },
         forma: {
             id: 'FormaAlerts',
             url: formaAlertsUrl,
@@ -433,18 +443,9 @@ define([], function() {
             toolsNode: 'hansen_change_toolbox'
         },
         hansenGain: {
-        //   minYear: 1,
-        //   maxYear: 14,
-        //   confidence: [0, 1],
-          id: 'hansensGain',
+          id: 'hansenGain',
           url: hansenGainUrl,
           legendLayerId: 1
-          // defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],
-          // defaultEndRange: [0, 1, 1, 365, 365, 366], //[0, 20, 20, 366],
-          // colormap: [
-          //   [1, 255, 102, 153]
-          // ],
-          // outputValues: [0, 1, 0]
         },
         tcd: {
             id: 'TreeCoverDensity',
@@ -728,21 +729,42 @@ define([], function() {
                 type: 'radio',
                 layerType: 'none',
                 children: [{
-                    id: 'loss',
+                    // id: 'loss',
+                    // title: 'Loss',
+                    // subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                    // filter: 'forest-change',
+                    // type: 'check',
+                    // layerType: 'tiled',
+                    // infoDivClass: 'forest-change-tree-cover-loss'
+                    id: 'hansenLoss',
                     title: 'Loss',
                     subtitle: '(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)',
                     filter: 'forest-change',
                     type: 'check',
-                    layerType: 'tiled',
+                    layerType: 'image',
+                    // visible: true,
                     infoDivClass: 'forest-change-tree-cover-loss'
+                    // parent: 'treeCoverLossAlerts',
+                    // endChild: false
+                // }, {
+                //     id: 'gain',
+                //     title: 'Gain',
+                //     subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
+                //     filter: 'forest-change',
+                //     type: 'check',
+                //     layerType: 'image',
+                //     infoDivClass: 'forest-change-tree-cover-gain'
                 }, {
-                    id: 'gain',
+                    id: 'hansenGain',
                     title: 'Gain',
                     subtitle: '(12 years, 30m, global, Hansen/UMD/Google/USGS/NASA)',
                     filter: 'forest-change',
                     type: 'check',
                     layerType: 'image',
-                    infoDivClass: 'forest-change-tree-cover-gain'
+                    // visible: true,
+                    infoDivClass: 'forest-change-tree-cover-gain'//,
+                    //parent: 'treeCoverLossAlerts',
+                    //endChild: false
                 }]//,
                 // infoDivClass: 'forest-change-tree-cover-change'
               }, {
@@ -849,7 +871,7 @@ define([], function() {
             //     type: 'radio',
             //     layerType: 'image',
             //     visible: true,
-            //     infoDivClass: 'forest-change-hansennnn-gain',
+            //     infoDivClass: 'forest-change-tree-cover-gain',
             //     parent: 'treeCoverLossAlerts',
             //     endChild: false
             }, {

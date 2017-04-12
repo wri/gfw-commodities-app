@@ -53,8 +53,7 @@ define([
   */
   function getColumn (xValue, resolution) {
     var sizeInMapUnits = TILEINFO.cols * resolution;
-    return Math.ceil((xValue - TILEINFO.origin.x) / sizeInMapUnits);
-    //TODO: depending on the direction of our map we need to either Math.ceil or Math.floor !!
+    return Math.floor((xValue - TILEINFO.origin.x) / sizeInMapUnits);
   }
 
   /**
@@ -113,6 +112,7 @@ define([
       if (this.options.id) { this.id = this.options.id; }
       //- Create a tile cache to optimize this layer
       this.tiles = {};
+      this.tileRequests = [];
       //- Store the position of the map, this is used to apply transforms
       this.position = { x: 0, y: 0 };
       //- Create an array of handles for events
@@ -169,46 +169,59 @@ define([
     /**
     * @description Method to start the process for rendering canvases in tile grid
     */
-    _extentChanged: function _extentChanged (evt) {
+    _extentChanged: function _extentChanged () {
       if (!this.visible) { return; }
-      // if (evt.levelChange) {
-        //- If the layer is not visible, bail
-        var resolution = this._map.getResolution(),
-        level = this._map.getLevel(),
-        extent = this._map.extent;
 
-        //- Delete tiles from other zoom levels
-        for (var i = 0; i < this.tiles.length; i++) {
-          // if (this.tiles[i].z !== level) {
+      //- If the layer is not visible, bail
+      var resolution = this._map.getResolution(),
+      level = this._map.getLevel(),
+      extent = this._map.extent;
+
+      //- Delete tiles from other zoom levels
+      for (var i = 0; i < this.tiles.length; i++) {
+        if (this.tiles[i].z !== level) {
           this.tiles[i].canvas.remove();
           delete this.tiles[i];
-          // }
         }
+      }
 
-        //- Get the min and max tile row and column
-        var rowMin = getRow(extent.ymax, resolution); // This and the next are flipped, not sure why
-        var rowMax = getRow(extent.ymin, resolution);
-        var colMin = getColumn(extent.xmin, resolution);
-        var colMax = getColumn(extent.xmax, resolution);
-        //- Get a range of tiles for this extent, each info contains x, y, z
-        var tileInfos = getTileInfos(rowMin, colMin, rowMax, colMax, level);
-        //- Fetch the tile and update the map
-        var self = this;
-        tileInfos.forEach(function(tile) {
+      //- Get the min and max tile row and column
+      var rowMin = getRow(extent.ymax, resolution); // This and the next are flipped, not sure why
+      var rowMax = getRow(extent.ymin, resolution);
+      var colMin = getColumn(extent.xmin, resolution);
+      var colMax = getColumn(extent.xmax, resolution);
+      //- Get a range of tiles for this extent, each info contains x, y, z
+      var tileInfos = getTileInfos(rowMin, colMin, rowMax, colMax, level);
+      //- Fetch the tile and update the map
+      var self = this;
+      tileInfos.forEach(function(tile) {
+        if (tile.z === level) {
           self._fetchTile(tile);
-        });
-      // } else {
-      //   this.position = {
-      //     x: this.position.x + evt.delta.x,
-      //     y: this.position.y + evt.delta.y
-      //   };
-      //   this.refresh();
-      //   // this.hide();
-      //   // this.show();
-      //   console.log(evt);
-      //   console.log(this);
-      //   console.log('change some stuff here to re-redner w/ same level but diff coordinates');
-      // }
+        }
+      });
+
+      var tilesToDelete = [];
+
+      for (var c = 0; c < this._container.children.length; c++) {
+        var tileId = this._container.children[c].id;
+        tileId = tileId.split('_');
+        if (tileId.length > 0) {
+          tileId = tileId[2];
+          if (tileId) {
+            tileId = parseInt(tileId);
+            if (tileId !== level) {
+              // console.log(tileId);
+              // this._container.children[c].remove();
+              tilesToDelete.push(this._container.children[c]);
+            }
+          }
+        }
+      }
+
+      tilesToDelete.forEach(function(tile) {
+        tile.remove();
+      });
+
     },
 
     /**
@@ -216,17 +229,19 @@ define([
     */
     _onZoomStart: function _onZoomStart () {
       //- Delete tiles from other zoom levels in cache and their canvas element
-      // Object.keys(this.tiles).forEach(key => {
-      //   delete this.tiles[key];
-      // });
-      var self = this;
-      Object.keys(this.tiles).forEach(function(key) {
-        delete self.tiles[key];
-      });
+      for (var i = 0; i < this.tiles.length; i++) {
+        this.tiles[i].canvas.remove();
+        delete this.tiles[i];
+      }
       //- Reset the position and clear the container contents
       this.position = { x: 0, y: 0 };
       this._container.innerHTML = '';
       this._container.style.transform = getTranslate(this.position);
+
+      for (var c = 0; c < this.tileRequests.length; c++) {
+        this.tileRequests[c].abort();
+      }
+      this.tileRequests = [];
     },
 
     /**
@@ -272,17 +287,11 @@ define([
         var steps = this._getZoomSteps(tile.z);
         var x = Math.floor(tile.x / Math.pow(2, steps));
         var y = Math.floor(tile.y / Math.pow(2, steps));
-        console.log(this._getUrl);
-        debugger
         url = this._getUrl({ x: x, y: y, z: this.options.maxZoom });
-        // url = this._getUrl({ x, y, z: this.options.maxZoom });
       } else {
-        // console.log(tile);
         url = this._getUrl(tile);
       }
-      // console.log(url);
 
-      //this._fetchImage(url, (image) => {
       var self = this;
       this._fetchImage(url, function(image) {
         var canvas = document.createElement('canvas');
@@ -297,7 +306,8 @@ define([
           z: tile.z,
           canvas: canvas,
           image: image,
-          id: id
+          id: id,
+          url: url
         };
 
         //- Cache the tile
@@ -322,26 +332,49 @@ define([
       if (!canvas.parentElement) {
         var ctx = canvas.getContext('2d');
         //- Get the current position of the container to offset the tile position
-        canvas.style.transform = getTranslate({
-          x: Math.abs(this.position.x) + coords.x,
-          y: Math.abs(this.position.y) + coords.y
-        });
-        //- Scale the tile if we are past max zoom
-        if (data.z > this.options.maxZoom) {
-          var info = this._getSubrectangleInfo(data);
-          //- Stop image enhancement
-          ctx.imageSmoothingEnabled = false;
-          ctx.mozImageSmoothingEnabled = false;
-          ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
-        } else {
-          ctx.drawImage(data.image, 0, 0);
+
+        var yTransfrom = Math.abs(this.position.y) + coords.y;
+        if (this.position.y > 0) {
+          yTransfrom = coords.y - this.position.y;
+        }
+        var xTransfrom = Math.abs(this.position.x) + coords.x;
+        if (this.position.x > 0) {
+          xTransfrom = coords.x - this.position.x;
         }
 
-        var imageData = ctx.getImageData(0, 0, tileSize, tileSize);
-        console.log(imageData);
-        imageData.data.set(this.filter(imageData.data));
-        ctx.putImageData(imageData, 0, 0);
-        this._container.appendChild(canvas);
+        canvas.style.transform = getTranslate({
+          x: xTransfrom,
+          y: yTransfrom
+        });
+
+        if (this.id === 'hansenGain') {
+          var hardUrl = 'url(' + data.url + ')';
+          ctx.canvas.style.background = hardUrl;
+
+          // ctx.canvas.style.background = 'url(http://earthengine.google.org/static/hansen_2013/gain_alpha/3/7/5.png)';
+        } else {
+          //- Scale the tile if we are past max zoom
+          if (data.z > this.options.maxZoom) {
+            var info = this._getSubrectangleInfo(data);
+            //- Stop image enhancement
+            ctx.imageSmoothingEnabled = false;
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.drawImage(data.image, info.sX, info.sY, info.sWidth, info.sHeight, 0, 0, tileSize, tileSize);
+          } else {
+            ctx.drawImage(data.image, 0, 0);
+          }
+
+          const imageData = ctx.getImageData(0, 0, tileSize, tileSize);
+          imageData.data.set(this.filter(imageData.data));
+          ctx.putImageData(imageData, 0, 0);
+        }
+
+        var level = this._map.getLevel();
+
+        if (data.z === level) {
+          this._container.appendChild(canvas);
+        }
+
       }
     },
 
@@ -350,6 +383,7 @@ define([
     */
     _fetchImage: function _fetchImage (url, callback) {
       var xhr = new XMLHttpRequest();
+      var self = this;
 
       xhr.onload = function () {
         var objecturl = URL.createObjectURL(this.response);
@@ -359,11 +393,27 @@ define([
           URL.revokeObjectURL(objecturl);
         };
         image.src = objecturl;
+
+        var spliceIndex;
+
+        for (var u = 0; u < self.tileRequests.length; u++) {
+          if (self.tileRequests[u].responseURL === url) {
+            spliceIndex = u;
+          }
+        }
+
+        if (spliceIndex) {
+          self.tileRequests.splice(spliceIndex, 1);
+        }
+
       };
 
       xhr.open('GET', url, true);
       xhr.responseType = 'blob';
       xhr.send();
+
+      this.tileRequests.push(xhr);
+
     },
 
     /**
@@ -448,7 +498,7 @@ define([
       this.visible = true;
       this._container.style.display = 'block';
       //- get the tiles incase they have not been loaded yet
-      this._extentChanged({levelChange: true});
+      this._extentChanged();
     },
 
     /**

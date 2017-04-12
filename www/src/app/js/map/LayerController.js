@@ -34,10 +34,10 @@ define([
               return;
           }
 
-          if (layerConfig.id === MapConfig.gain.id) {
-              this.updateZoomDependentLayer(layerConfig, MapConfig.gainHelper, 13);
-              return;
-          }
+          // if (layerConfig.id === MapConfig.gain.id) {
+          //     this.updateZoomDependentLayer(layerConfig, MapConfig.gainHelper, 13);
+          //     return;
+          // }
 
           // For the customSuitability Layer, It has to make a request to the server for a url for the image
           // and then load the image, show a loading wheel as this can be slow at times
@@ -48,7 +48,15 @@ define([
               Analytics.sendEvent('Event', 'Layer', message);
           }
           if (layer) {
-              layer.setVisibility(!layer.visible);
+              if (layer.id === 'hansenGain' || layer.id === 'hansenLoss') {
+                if (!layer.visible) {
+                  layer.show();
+                } else if (layer.visible) {
+                  layer.hide();
+                }
+              } else {
+                layer.setVisibility(!layer.visible);
+              }
               this.refreshLegendWidget();
           }
         },
@@ -534,12 +542,12 @@ define([
 
         checkZoomDependentLayers: function(evt) {
             var protectedAreaConfig = MapConfig.pal,
-                protectedAreaHelperConfig = MapConfig.palHelper,
-                gainLayerConfig = MapConfig.gain,
-                gainHelperConfig = MapConfig.gainHelper;
+                protectedAreaHelperConfig = MapConfig.palHelper;//,
+                // gainLayerConfig = MapConfig.gain,
+                // gainHelperConfig = MapConfig.gainHelper;
 
             this.toggleZoomDependentLayer(evt, protectedAreaConfig, protectedAreaHelperConfig, 6);
-            this.toggleZoomDependentLayer(evt, gainLayerConfig, gainHelperConfig, 13);
+            // this.toggleZoomDependentLayer(evt, gainLayerConfig, gainHelperConfig, 13);
         },
 
         toggleZoomDependentLayer: function(evt, tiledConfig, helperConfig, level) {
@@ -603,8 +611,8 @@ define([
                 densityConf = MapConfig.tcd,
                 formaConf = MapConfig.forma,
                 gladConf = MapConfig.gladAlerts,
-                lossConf = MapConfig.loss,
-                gainConf = MapConfig.gain,
+                lossConf = MapConfig.hansenLoss,
+                gainConf = MapConfig.hansenGain,
                 prodesConf = MapConfig.prodes,
                 biomassConf = MapConfig.tfcs,
                 primForConf = MapConfig.primForest,
@@ -676,9 +684,9 @@ define([
             if (layer.id === 'ProtectedAreas') {
                 this.setDynamicLayerTransparency(MapConfig.palHelper, transparency);
             }
-            if (layer.id === 'Gain') {
-                this.setLayerOpacity(MapConfig.gainHelper, transparency);
-            }
+            // if (layer.id === 'Gain') {
+            //     this.setLayerOpacity(MapConfig.gainHelper, transparency);
+            // }
         },
 
         setDynamicLayerTransparency: function(layerConfig, transparency) {
