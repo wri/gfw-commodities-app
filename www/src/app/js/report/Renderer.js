@@ -325,7 +325,7 @@ define([
           node.innerHTML = '<div class="tree-cover-density-label"><i>Tree canopy density analyzed at </i>' +
           report.minDensity + '% <i>(Default is 30%)</i></div><br><div> Total soy in selected area: ' +
           areaLabel + " ha <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado.html' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>" +
-                            '<div>Percent of area converted prior to 2001: ' + soyPercentage + "% <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado.html' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>" +
+                            '<div>Percent of area converted prior to 2001 or non-forest: ' + soyPercentage + "% <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado.html' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>" +
                             "<div class='soy-recentness'>Recent Loss Index: " + soyRecentness + " <a class='whats-this-soy' href='http://blog.globalforestwatch.org/data/deep-dive-soy-data-for-brazils-cerrado.html' target='_blank'><img src='app/css/images/info-orange.svg' class='layer-info-icon-report'></img></a></div>";
         } else {
           node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
