@@ -77,7 +77,7 @@ define([], function() {
             method: 'changeGladStart'
           },
           {
-            // selectedDate: '', //new window.Kalendae.moment(),
+            selectedDate: new window.Kalendae.moment('03/10/2017'), //'',
             domId: 'gladCalendarEnd',
             domClass: 'glad-calendar',
             method: 'changeGladEnd'

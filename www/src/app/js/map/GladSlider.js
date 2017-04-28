@@ -40,8 +40,8 @@ define([
         });
 
         var playButtonEnd = $('#gladPlayButtonEndClick');
-        var endDate = new window.Kalendae.moment().format('M/D/YYYY');
-        var formattedEnd = new Date(endDate);
+
+        var formattedEnd = new Date(gladEndDate);
         playButtonEnd.html(DateHelper.getDate(formattedEnd));
 
         on(playButtonEnd, 'click', function() {
