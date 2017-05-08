@@ -44,7 +44,7 @@ define([
   */
   function getRow (yValue, resolution) {
     var sizeInMapUnits = TILEINFO.rows * resolution;
-    return Math.ceil((TILEINFO.origin.y - yValue) / sizeInMapUnits);
+    return Math.floor((TILEINFO.origin.y - yValue) / sizeInMapUnits);
   }
 
   /**
@@ -117,6 +117,7 @@ define([
       this.position = { x: 0, y: 0 };
       //- Create an array of handles for events
       this._handles = [];
+      this._levelChanged = false;
       //- Check for mandatory options or features
       if (!supportsCanvas()) {
         throw new Error('Canvas is not supported in this browser.');
@@ -161,7 +162,6 @@ define([
     * @description Override _unsetMap method, called when the layer is removed from the map
     */
     _unsetMap: function () {
-      // this._handles.forEach(handle => { if (handle.remove) { handle.remove(); } });
       this._handles.forEach(function(handle) { if (handle.remove) { handle.remove(); } });
       this._map = null;
     },
@@ -170,6 +170,7 @@ define([
     * @description Method to start the process for rendering canvases in tile grid
     */
     _extentChanged: function _extentChanged () {
+      // console.log(evt.lod);
       if (!this.visible) { return; }
 
       //- If the layer is not visible, bail
@@ -210,8 +211,6 @@ define([
           if (tileId) {
             tileId = parseInt(tileId);
             if (tileId !== level) {
-              // console.log(tileId);
-              // this._container.children[c].remove();
               tilesToDelete.push(this._container.children[c]);
             }
           }
@@ -228,6 +227,9 @@ define([
     * @description Clear out the cache and remove canvas elements from the DOM to prepare for the next zoom level
     */
     _onZoomStart: function _onZoomStart () {
+      if (this._levelChanged === false) {
+        this._levelChanged = true;
+      }
       //- Delete tiles from other zoom levels in cache and their canvas element
       for (var i = 0; i < this.tiles.length; i++) {
         this.tiles[i].canvas.remove();
@@ -299,6 +301,7 @@ define([
         canvas.width = self.options.tileSize;
         canvas.style.position = 'absolute';
         canvas.setAttribute('id', id);
+        canvas.className = id;
 
         var data = {
           x: tile.x,
@@ -469,11 +472,14 @@ define([
     */
     refresh: function refresh () {
       var self = this;
-      // Object.keys(this.tiles).forEach(key => {
+      var tileIdsToDelete = [];
+
       Object.keys(this.tiles).forEach(function(key) {
         var tile = self.tiles[key],
-              ctx = tile.canvas.getContext('2d'),
-              tileSize = self.options.tileSize;
+          ctx = tile.canvas.getContext('2d'),
+          tileSize = self.options.tileSize;
+
+        tileIdsToDelete.push(self.tiles[key].id);
 
         // Scale if necessary
         if (tile.z > self.options.maxZoom) {
@@ -489,6 +495,24 @@ define([
         imageData.data.set(self.filter(imageData.data));
         ctx.putImageData(imageData, 0, 0);
       });
+
+      //TODO: why aren't we rendering tiles that are halfway off the page to the top??
+
+      if (tileIdsToDelete.length > 0 && self._levelChanged === false) { //only ever do this once, on the first levelChange for each layer!
+        tileIdsToDelete.forEach(function(tile) {
+          if (tile) {
+            var nodes = document.getElementsByClassName(tile);
+            // var nodes = document.querySelectorAll('#' + tile);
+            if (nodes.length > 1) {
+              var outDatedTile = document.getElementById(tile);
+              if (outDatedTile) {
+                outDatedTile.parentElement.removeChild(outDatedTile);
+              }
+            }
+          }
+        });
+        self._levelChanged = true;
+      }
     },
 
     /**

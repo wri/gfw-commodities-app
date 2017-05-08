@@ -10,6 +10,10 @@ define([
 
   return declare('GladLayer', [TileCanvasLayer], {
 
+    //Should our INITIAL Filter clear our tiles??
+    //Our problem: we are DUPLICATING all of our initial tiles, and filtering them properly, but LEAVING in a whole first set,
+    //where we should never duplicate, we should just filter the tiles we have!
+
     filter: function (data) {
       for (var i = 0; i < data.length; i += 4) {
         // Decode the rgba/pixel so I can filter on confidence and date ranges
