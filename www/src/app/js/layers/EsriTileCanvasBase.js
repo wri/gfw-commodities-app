@@ -496,13 +496,10 @@ define([
         ctx.putImageData(imageData, 0, 0);
       });
 
-      //TODO: why aren't we rendering tiles that are halfway off the page to the top??
-
-      if (tileIdsToDelete.length > 0 && self._levelChanged === false) { //only ever do this once, on the first levelChange for each layer!
+      if (tileIdsToDelete.length > 0 && self._levelChanged === false) {
         tileIdsToDelete.forEach(function(tile) {
           if (tile) {
             var nodes = document.getElementsByClassName(tile);
-            // var nodes = document.querySelectorAll('#' + tile);
             if (nodes.length > 1) {
               var outDatedTile = document.getElementById(tile);
               if (outDatedTile) {
