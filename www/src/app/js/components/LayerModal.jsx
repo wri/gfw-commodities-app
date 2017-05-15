@@ -86,7 +86,7 @@ define([
                 !this.state.layerInfo.citation ? null :
                 <div className='modal-credits'>
                   <h3>Citation</h3>
-                  this.summaryMap(this.state.layerInfo.citation)
+                  {this.summaryMap(this.state.layerInfo.citation)}
                 </div>
               }
             </div>

@@ -86,7 +86,7 @@ define([
                 !this.state.layerInfo.citation ? null :
                 React.createElement("div", {className: "modal-credits"}, 
                   React.createElement("h3", null, "Citation"), 
-                  "this.summaryMap(this.state.layerInfo.citation)"
+                  this.summaryMap(this.state.layerInfo.citation)
                 )
               
             )
