@@ -26,12 +26,43 @@ define([
         // Called From Delegator or internally, layerConfig is in the Map Config
         // This function should only show or hide layers
         toggleLayers: function(layerConfig) {
+          console.log('togsd', layerConfig.id);
           var layer = app.map.getLayer(layerConfig.id);
           // The WDPA or pal layer has a helper layer it needs to manage
           // offload that functionality to a different function
           if (layerConfig.id === MapConfig.pal.id) {
               this.updateZoomDependentLayer(layerConfig, MapConfig.palHelper, 6);
               return;
+          }
+
+          //IF ALL OF OUR HANSEN LAYERS ARE HIDDEN, TURN ONE ON. ELSE, TURN THEM ALL OFF!
+          if (layerConfig.id === 'hansenLoss') {
+            var density = MapModel.get('tcdDensityValue') ? MapModel.get('tcdDensityValue') : 30;
+            var hansenLayer;
+
+            var allHidden = true;
+            MapConfig.hansenLoss.levels.forEach(function(level) {
+              hansenLayer = app.map.getLayer(level.id);
+              if (hansenLayer.visible) {
+                allHidden = false;
+              }
+            });
+
+            if (allHidden === true) {
+              if (density !== 30) {
+                hansenLayer = app.map.getLayer('hansenLoss' + density);
+              } else {
+                hansenLayer = app.map.getLayer('hansenLoss');
+              }
+              hansenLayer.show();
+            } else {
+              MapConfig.hansenLoss.levels.forEach(function(level) {
+                hansenLayer = app.map.getLayer(level.id);
+                hansenLayer.hide();
+              });
+            }
+
+            return;
           }
 
           // if (layerConfig.id === MapConfig.gain.id) {
@@ -140,13 +171,34 @@ define([
 
         showLayer: function(layerConfig) {
             var layer = app.map.getLayer(layerConfig.id);
+            console.log(layerConfig.id);
             if (layerConfig.layerId !== undefined) {
                 this.updateDynamicLayer(layerConfig);
                 return;
             }
 
             if (layer) {
-                if (!layer.visible) {
+                if (layerConfig.id === 'hansenLoss') {
+                  var density = MapModel.get('tcdDensityValue') ? MapModel.get('tcdDensityValue') : 30;
+                  var hansenLayer;
+
+                  if (density !== 30) {
+                    hansenLayer = app.map.getLayer('hansenLoss' + density);
+                  } else {
+                    hansenLayer = app.map.getLayer('hansenLoss');
+                  }
+                  // MapConfig.hansenLoss.levels.forEach(function(level) {
+                  //   if (density)
+                  //   var hansenLayer = app.map.getLayer(level.id);
+                  //   if (hansenLayer.visible) {
+                  //     allHidden = false;
+                  //   }
+                  //
+                  // });
+
+                  hansenLayer.show();
+
+                } else if (!layer.visible) {
                     layer.show();
                     this.refreshLegendWidget();
                 }
@@ -159,7 +211,27 @@ define([
             var layer = app.map.getLayer(layerConfig.id);
 
             if (layer) {
-                if (layer.visible) {
+              if (layerConfig.id === 'hansenLoss') {
+                var density = MapModel.get('tcdDensityValue') ? MapModel.get('tcdDensityValue') : 30;
+                var hansenLayer;
+
+                if (density !== 30) {
+                  hansenLayer = app.map.getLayer('hansenLoss' + density);
+                } else {
+                  hansenLayer = app.map.getLayer('hansenLoss');
+                }
+                // MapConfig.hansenLoss.levels.forEach(function(level) {
+                //   if (density)
+                //   var hansenLayer = app.map.getLayer(level.id);
+                //   if (hansenLayer.visible) {
+                //     allHidden = false;
+                //   }
+                //
+                // });
+
+                hansenLayer.hide();
+
+              } else if (layer.visible) {
                     if (layer.visibleLayers) {
                         if (layer.visibleLayers.length > 1 && layerConfig.layerId) {
                             var index = layer.visibleLayers.indexOf(layerConfig.layerId);
@@ -364,18 +436,30 @@ define([
           var density = densityRange[0];
 
           var original30Layer = app.map.getLayer(layerConfig.id);
+          console.log('original30Layer vis', original30Layer.visible);
           var minYear = original30Layer.options.minYear;
           var maxYear = original30Layer.options.maxYear;
 
+          var layerToShow;
+          var allHidden = true;
+
           MapConfig.hansenLoss.levels.forEach(function(level) {
             var hansenLayer = app.map.getLayer(level.id);
+            if (hansenLayer.visible) {
+              allHidden = false;
+            }
             hansenLayer.setDateRange(minYear, maxYear);
             if (level.value !== density) {
               hansenLayer.hide();
             } else {
-              hansenLayer.show();
+              layerToShow = hansenLayer;
+              // hansenLayer.show();
             }
           });
+          if (allHidden === false) {
+            layerToShow.show();
+            console.log(layerToShow.id);
+          }
 
         },
 

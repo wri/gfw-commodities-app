@@ -213,7 +213,7 @@ define([
             var self = this,
                 geometry = self._prepareGeometry(self.state.analysisArea),
                 datasets = WizardStore.get(KEYS.analysisSets),
-                minDensity = WizardStore.get(KEYS.currentTreeCoverDensity),
+                minDensity = WizardStore.get(KEYS.currentTreeCoverDensity) ? WizardStore.get(KEYS.currentTreeCoverDensity) : 30,
                 labelField,
                 suitableRule,
                 readyEvent,

@@ -11,7 +11,7 @@
   },
   "globals": {
     "$": true,
-    "brApp": true,
+    "app": true,
     "define": true,
     "report": true,
     "require": true,
