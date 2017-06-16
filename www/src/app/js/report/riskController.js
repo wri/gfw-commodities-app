@@ -22,8 +22,8 @@ define([
 
     var services = {
         commodities: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
-        fires: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
-        concessions: 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer/27'
+        fires: 'https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
+        concessions: 'http://gfw-staging.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps_EN/MapServer/27'
     };
 
     var setWMconfig = function(){
@@ -99,7 +99,7 @@ define([
         };
 
         var getCarbonHighRiskIfPresent = function(results){
-                if (!results.histograms.length ){
+                if (!results.histograms.length){
                     return 1;
                 }
                 var counts = results.histograms[0].counts;

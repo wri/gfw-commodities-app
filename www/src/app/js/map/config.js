@@ -3,7 +3,7 @@ define([], function() {
     // The dynamicMapServiceUrl is used by several layers, make sure if you change it all layers and layer ids are still working
     // The dynamicMapServiceUrl is currently being used by the following layers (by key):
     // ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm
-    // var dynamicMapServiceUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer',
+
     var dynamicMapServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
         dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
         tropicalCarbonStocks = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
@@ -29,13 +29,12 @@ define([], function() {
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         treeCoverDensityUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
-        mapOverlaysUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
+        mapOverlaysUrl = 'https://gfw-staging.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
         soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total_display/ImageServer',
         prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
         granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
-        customSuitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
-        millPointsUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/oilpalmmills/MapServer',
-        biodiversityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/conservation/MapServer',
+        customSuitabilityUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
+        millPointsUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/commodities/MapServer',
         geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
         // brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
 
@@ -267,7 +266,7 @@ define([], function() {
         millPointsLayer: {
             id: 'WizardMillPointsLayer',
             url: millPointsUrl,
-            layerId: 0,
+            layerId: 27,
             infoTemplate: {
                 content: '<table><tr><td>Parent Company:</td><td>${Parent_Com}</td></tr>' +
                     '<tr><td>Mill Name:</td><td>${Mill_name}</td></tr></table>'
