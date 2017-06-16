@@ -129,7 +129,8 @@ define([], function() {
             'http://54.164.126.73',
             'http://46.137.239.227',
             'https://gfw-fires.wri.org',
-            'http://gis-gfw.wri.org'
+            'http://gis-gfw.wri.org',
+            'https://production-api.globalforestwatch.org'
         ],
 
         urls: {

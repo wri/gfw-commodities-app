@@ -37,9 +37,11 @@ define([
 		'esri/layers/ArcGISDynamicMapServiceLayer',
 		'esri/layers/LayerDrawingOptions',
 		'esri/graphic',
+		'esri/geometry/webMercatorUtils',
+		'utils/arcgis-to-geojson',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, webmercatorUtils, geojsonUtil, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -308,13 +310,10 @@ define([
 						this._debug('Fetcher >>> getProdesResults');
 						var deferred = new Deferred(),
 								config = ReportConfig.prodes,
-								url = ReportConfig.imageServiceUrl,
+								url = 'https://production-api.globalforestwatch.org/v1/query', //?sql=SELECT%20count(*)%20as%20alerts%20FROM%20e663eb09-04de-4f39-b871-35c6c2ed10b5%20GROUP%20BY%20julian_day,%20year%20ORDER%20BY%20year,%20julian_day', //ReportConfig.imageServiceUrl,
 								content = {
-										geometryType: 'esriGeometryPolygon',
-										geometry: JSON.stringify(report.geometry),
-										mosaicRule: JSON.stringify(config.mosaicRule),
-										pixelSize: ReportConfig.pixelSize,
-										f: 'json'
+									sql: 'SELECT count(*) as alerts FROM e663eb09-04de-4f39-b871-35c6c2ed10b5 GROUP BY julian_day, year ORDER BY year, julian_day',
+									geostore: report.geometryKey
 								},
 								self = this;
 
@@ -323,9 +322,10 @@ define([
 						// ReportRenderer.renderCompositionAnalysisLoader(config);
 
 						function success(response) {
-								if (response.histograms.length > 0) {
-										ReportRenderer.renderProdesData(response.histograms[0].counts, content.pixelSize, config);
-										// ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+							console.log('response', response);
+								if (response.data.length > 0) {
+										ReportRenderer.renderProdesData(response.data, content.pixelSize, config);
+										// ReportRenderer.renderProdesData(response.histograms[0].counts, content.pixelSize, config);
 								} else {
 										ReportRenderer.renderAsUnavailable('prodes', config);
 								}
@@ -351,7 +351,7 @@ define([
 										deferred.resolve(false);
 								}
 						}
-
+						// this.callGfwAPI(url, content, success, failure);
 						this._computeHistogram(url, content, success, failure);
 
 						return deferred.promise;
@@ -985,28 +985,69 @@ define([
 
 						var deferred = new Deferred(),
 								gladConfig = ReportConfig.glad,
-								url = gladConfig.url,
-								gladIds = [6, 4, 9],
-								self = this,
-								content,
-								content2,
-								content3,
-								encoder;
+								// url = gladConfig.url,
+								// content,
+								// gladIds = [6, 4, 9],
+								url = 'https://production-api.globalforestwatch.org/v1/query', //?sql=SELECT%20count(*)%20as%20alerts%20FROM%20e663eb09-04de-4f39-b871-35c6c2ed10b5%20GROUP%20BY%20julian_day,%20year%20ORDER%20BY%20year,%20julian_day', //ReportConfig.imageServiceUrl,
+								content = {
+									sql: 'SELECT count(*) as alerts FROM e663eb09-04de-4f39-b871-35c6c2ed10b5 GROUP BY year, julian_day ORDER BY year, julian_day',
+									geostore: report.geometryKey
+								},
+								self = this;//,
+								// content2,
+								// content3,
+								// encoder;
 
-						if (window.payload.datasets.gladConfirmed === true) {
-							url = gladConfig.confidentUrl;
-							gladIds = [5, 7, 8];
-						}
+						// if (window.payload.datasets.gladConfirmed === true) {
+						// 	url = gladConfig.confidentUrl;
+						// 	gladIds = [5, 7, 8];
+						// }
 
 						config = _.clone(gladConfig);
+
+						function formatGlad(counts) {
+							var yearConfig = {
+								'2015': [],
+								'2016': [],
+								'2017': []
+							};
+
+							for (var j = 1; j < 366; j++) {
+								yearConfig['2015'].push([new Date(2015, 0, j).getTime(), 0]);
+								yearConfig['2016'].push([new Date(2016, 0, j).getTime(), 0]);
+								yearConfig['2017'].push([new Date(2017, 0, j).getTime(), 0]);
+							}
+
+							var results = [];
+							for (let i = 0; i < counts.length; i++) {
+								//TODO: Add 0's everywhere in between? //for Each year!
+								yearConfig[counts[i].year][counts[i].julian_day - 1] = [new Date(counts[i].year, 0, counts[i].julian_day).getTime(), counts[i].alerts];
+								// results.push([new Date(counts[i].year, 0, counts[i].year).getTime(), counts[i].alerts]);
+							}
+							console.log(yearConfig);
+							results = results.concat(yearConfig['2015']);
+							console.log('results1', results.length);
+							results = results.concat(yearConfig['2016']);
+							console.log('results12', results.length);
+							results = results.concat(yearConfig['2017']);
+							console.log('results4', results.length);
+							console.log(results);
+							return results;
+						}
 
 						// Create the container for all the result
 						ReportRenderer.renderGladContainer(config);
 
 						function success(response) {
+							console.log('response', response);
+							// debugger
+							//GROUP BY julian_day, year ORDER BY year, julian_day
 
-								if (response.length > 0) {
-									ReportRenderer.renderGladData(response, config, encoder, useSimpleEncoderRule);
+								if (response.data.length > 0) {
+									var alerts = formatGlad(response.data);
+									console.log('alerts', alerts);
+
+									ReportRenderer.renderGladData(alerts, config);
 									// ReportRenderer.renderGladData(response.histograms[0].counts, content.pixelSize, config, encoder, useSimpleEncoderRule);
 								} else {
 									ReportRenderer.renderAsUnavailable('glad', config);
@@ -1030,84 +1071,75 @@ define([
 								}
 						}
 
-						function formatGlad(year, counts) {
-							var results = [];
-							for (let i = 0; i < counts.length; i++) {
-								results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
-							}
-							return results;
-						}
+						// content = {
+						// 		geometryType: 'esriGeometryPolygon',
+						// 		geometry: JSON.stringify(report.geometry),
+						// 		mosaicRule: JSON.stringify({
+						// 				'mosaicMethod': 'esriMosaicLockRaster',
+						// 				'lockRasterIds': [gladIds[0]],
+						// 				'ascending': true,
+						// 				'mosaicOperation': 'MT_FIRST'
+						// 		}),
+						// 		pixelSize: 100,
+						// 		f: 'json'
+						// };
+						// content2 = {
+						// 		geometryType: 'esriGeometryPolygon',
+						// 		geometry: JSON.stringify(report.geometry),
+						// 		mosaicRule: JSON.stringify({
+						// 				'mosaicMethod': 'esriMosaicLockRaster',
+						// 				'lockRasterIds': [gladIds[1]],
+						// 				'ascending': true,
+						// 				'mosaicOperation': 'MT_FIRST'
+						// 		}),
+						// 		pixelSize: 100,
+						// 		f: 'json'
+						// };
+						// content3 = {
+						// 		geometryType: 'esriGeometryPolygon',
+						// 		geometry: JSON.stringify(report.geometry),
+						// 		mosaicRule: JSON.stringify({
+						// 				'mosaicMethod': 'esriMosaicLockRaster',
+						// 				'lockRasterIds': [gladIds[2]],
+						// 				'ascending': true,
+						// 				'mosaicOperation': 'MT_FIRST'
+						// 		}),
+						// 		pixelSize: 100,
+						// 		f: 'json'
+						// };
 
-						encoder = this._getEncodingFunction(report.clearanceBounds, config.bounds);
-
-						content = {
-								geometryType: 'esriGeometryPolygon',
-								geometry: JSON.stringify(report.geometry),
-								mosaicRule: JSON.stringify({
-										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [gladIds[0]],
-										'ascending': true,
-										'mosaicOperation': 'MT_FIRST'
-								}),
-								pixelSize: 100,
-								f: 'json'
-						};
-						content2 = {
-								geometryType: 'esriGeometryPolygon',
-								geometry: JSON.stringify(report.geometry),
-								mosaicRule: JSON.stringify({
-										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [gladIds[1]],
-										'ascending': true,
-										'mosaicOperation': 'MT_FIRST'
-								}),
-								pixelSize: 100,
-								f: 'json'
-						};
-						content3 = {
-								geometryType: 'esriGeometryPolygon',
-								geometry: JSON.stringify(report.geometry),
-								mosaicRule: JSON.stringify({
-										'mosaicMethod': 'esriMosaicLockRaster',
-										'lockRasterIds': [gladIds[2]],
-										'ascending': true,
-										'mosaicOperation': 'MT_FIRST'
-								}),
-								pixelSize: 100,
-								f: 'json'
-						};
-
-						all([
-								this._computeHistogram(url, content),
-								this._computeHistogram(url, content2),
-								this._computeHistogram(url, content3)
-						]).then(function(results) {
-
-							var alerts = [];
-							if (results[0] && results[0].histograms[0]) {
-								if (results[0].histograms[0].counts.length < 366) {
-									for (var j = results[0].histograms[0].counts.length; j < 366; j++) {
-										results[0].histograms[0].counts.push(0);
-									}
-								}
-								alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
-							}
-
-							if (results[1] && results[1].histograms[0]) {
-								if (results[1].histograms[0].counts.length < 366) {
-									for (var k = results[1].histograms[0].counts.length; k < 366; k++) {
-										results[1].histograms[0].counts.push(0);
-									}
-								}
-								alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
-							}
-
-							if (results[2] && results[2].histograms[0]) {
-								alerts = alerts.concat(formatGlad('2017', results[2].histograms[0].counts));
-							}
-							success(alerts);
-							deferred.resolve(true);
-						});
+						// all([
+						// 		this._computeHistogram(url, content),
+						// 		this._computeHistogram(url, content2),
+						// 		this._computeHistogram(url, content3)
+						// ]).then(function(results) {
+						//
+						// 	var alerts = [];
+						// 	if (results[0] && results[0].histograms[0]) {
+						// 		if (results[0].histograms[0].counts.length < 366) {
+						// 			for (var j = results[0].histograms[0].counts.length; j < 366; j++) {
+						// 				results[0].histograms[0].counts.push(0);
+						// 			}
+						// 		}
+						// 		alerts = alerts.concat(formatGlad('2015', results[0].histograms[0].counts));
+						// 	}
+						//
+						// 	if (results[1] && results[1].histograms[0]) {
+						// 		if (results[1].histograms[0].counts.length < 366) {
+						// 			for (var k = results[1].histograms[0].counts.length; k < 366; k++) {
+						// 				results[1].histograms[0].counts.push(0);
+						// 			}
+						// 		}
+						// 		alerts = alerts.concat(formatGlad('2016', results[1].histograms[0].counts));
+						// 	}
+						//
+						// 	if (results[2] && results[2].histograms[0]) {
+						// 		alerts = alerts.concat(formatGlad('2017', results[2].histograms[0].counts));
+						// 	}
+						// 	success(alerts);
+						// 	deferred.resolve(true);
+						// });
+						this.callGfwAPI(url, content, success, failure);
 
 						return deferred.promise;
 				},
@@ -1337,6 +1369,50 @@ define([
 
 				},
 
+				registerGeometry: function (geometry) {
+					console.log('bimasdasd', geometry);
+					var deferred = new Deferred();
+					var geographic = webmercatorUtils.webMercatorToGeographic(geometry);
+					console.log(geojsonUtil);
+					var geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+
+					var geoStore = {
+						'geojson': {
+							'type': 'FeatureCollection',
+							'features': [{
+								'type': 'Feature',
+								'properties': {},
+								'geometry': geojson
+							}]
+						}
+					};
+
+					const success = res => {
+						console.log('success!', res);
+						report.geometryKey = res.data.id;
+						deferred.resolve(true);
+					};
+
+					var content = JSON.stringify(geoStore);
+					const http = new XMLHttpRequest();
+					const url = 'https://production-api.globalforestwatch.org/geostore';
+					const params = content;
+					http.open('POST', url, true);
+
+					http.setRequestHeader('Content-type', 'application/json');
+
+					http.onreadystatechange = () => {
+						if (http.readyState === 4 && http.status === 200) {
+							success(JSON.parse(http.responseText));
+						} else if (http.readyState === 4) {
+							deferred.resolve([]);
+						}
+					};
+					http.send(params);
+
+					return deferred;
+				},
+
 				_getEncodingFunction: function(arrayA, arrayB, options) {
 
 						return {
@@ -1421,6 +1497,23 @@ define([
 						}, {
 								usePost: true
 						});
+					}
+				},
+
+				callGfwAPI: function(url, content, callback, errback) {
+
+					if (callback && errback) {
+						var req = esriRequest({
+								url: url,
+								content: content,
+								handleAs: 'json',
+								callbackParamName: 'callback',
+								timeout: 60000
+						}, {
+								usePost: false
+						});
+
+						req.then(callback, errback);
 					}
 				},
 

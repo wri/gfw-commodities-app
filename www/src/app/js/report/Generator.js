@@ -363,7 +363,10 @@ define([
 
             // If report.analyzeClearanceAlerts is true, get the bounds, else this resolves immediately and moves on
             all([
-                Fetcher._getClearanceBounds()
+                Fetcher._getClearanceBounds(),
+                Fetcher.registerGeometry(report.geometry)
+                //TODO: Register our report.geometry w/ the GFW API geostore here!
+                // Then, in our 'Fetcher.registerGeometry', set report.geometryKey and access it later in our calls!
             ]).then(function() {
                 // Now that all dependencies and initial Queries are resolved, start processing all the analyses deferreds
                 // If the number of requests is less then three, do all now, else chunk the requests and start processing them

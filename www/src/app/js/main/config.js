@@ -19,7 +19,8 @@ define({
     "http://firms.modaps.eosdis.nasa.gov",
     "http://gis-potico.wri.org",
     "http://gfw-apis.appspot.com",
-    "https://storage.googleapis.com"
+    "https://storage.googleapis.com",
+    "https://production-api.globalforestwatch.org"
   ],
 
   "homeModeOptions": [{

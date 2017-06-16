@@ -598,11 +598,13 @@ define([
       // Show All 0's if no data is present
       if (series[0].data.length !== xLabels.length) {
         for (var index = 0; index < xLabels.length; index++) {
-          if (series[0].data[index] === undefined) series[0].data[index] = 0;
+          if (series[0].data[index] === undefined) {
+            series[0].data[index] = 0;
+          }
         }
       }
 
-      $("#" + config.rootNode + '_prodes').highcharts({
+      $('#' + config.rootNode + '_prodes').highcharts({
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
@@ -1043,6 +1045,8 @@ define([
     },
 
     renderGladData: function (histogramData, config) {
+
+      console.log('histogramData', histogramData);
 
       $('#' + config.rootNode + '_glad').highcharts({
         chart: {
