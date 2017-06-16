@@ -209,7 +209,7 @@ define('report/config',[], function() {
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
-        suitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
+        suitabilityUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
         firesQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         fieldAssessmentUrl = 'http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia',
         clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
@@ -322,7 +322,7 @@ define('report/config',[], function() {
     return {
 
         corsEnabledServers: [
-            'http://gis-potico.wri.org',
+            'http://gfw-staging.wri.org',
             'http://175.41.139.43',
             'http://54.164.126.73',
             'http://46.137.239.227',
@@ -387,7 +387,7 @@ define('report/config',[], function() {
         soyCalcUrl: soyCalcUrl,
         clearanceAnalysisUrl: clearanceAnalysisUrl,
 
-        printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
+        printUrl: 'http://gfw-staging.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
 
         alertUrl: {
             forma: 'http://gfw-apis.appspot.com/subscribe',
@@ -515,7 +515,7 @@ define('report/config',[], function() {
                 className: 'ROAD_DISTANCE_KM'
             },
             concessions: {
-                url: 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer',
+                url: 'http://gfw-staging.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps_EN/MapServer',
                 layer: '10'
             },
             localRights: {
@@ -2955,7 +2955,6 @@ define('report/Renderer',[
           // For Values with only two labels, redirect to a specific type of badge
           createSpecialBadge(rootNode, data, bounds, labels, features.length);
         } else {
-
           $("#" + rootNode + "_fire").highcharts({
             chart: {
               plotBackgroundColor: null,
@@ -3034,6 +3033,8 @@ define('report/Renderer',[
           });
           createChart(rootNode, chartData, config.labels, config.colors, config.bounds, config.title, config.badgeDesc);
         } else {
+          console.log('config.field', config.field);
+          // debugger
           datasetTotal = 0;
           arrayUtils.forEach(features, function (feature) {
             datasetTotal += isNaN(parseInt(feature.attributes[config.field])) ? 0 : parseInt(feature.attributes[config.field]);
@@ -4145,8 +4146,8 @@ define('report/riskController',[
 
     var services = {
         commodities: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
-        fires: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
-        concessions: 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer/27'
+        fires: 'https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
+        concessions: 'http://gfw-staging.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps_EN/MapServer/27'
     };
 
     var setWMconfig = function(){
@@ -4222,7 +4223,7 @@ define('report/riskController',[
         };
 
         var getCarbonHighRiskIfPresent = function(results){
-                if (!results.histograms.length ){
+                if (!results.histograms.length){
                     return 1;
                 }
                 var counts = results.histograms[0].counts;
@@ -6747,7 +6748,7 @@ define('report/Fetcher',[
 						//
 						// // This query is only temporary until moratorium data is added to the main layer above
 						// // This needs to be addressed so this code can be removed
-						// task2 = new QueryTask('http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
+
 						// params2 = new Query();
 						// params2.geometry = polygon;
 						// params2.returnGeometry = false;
@@ -7257,10 +7258,15 @@ define('report/Fetcher',[
 						params1.outFields = ['*'];
 						params1.where = '1 = 1';
 
+						//TODO: The way we could replace potico entirely for the report is the above QT and the report's firesQueryUrl:
+						//we could take the report's area, and selectByLocation on the service we currently care about (protected areas,
+						// intact forests, peatlands, etc: Whatever they turned on in the analysis). Then we have an array of features: if
+						// there is more than one, combine their geometry, and run a QT for count on active Fires, passing in that geometry
+
 
 						// This query is only temporary until moratorium data is added to the main layer above
 						// This needs to be addressed so this code can be removed
-						task2 = new QueryTask('http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
+						task2 = new QueryTask('https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
 						params2 = new Query();
 						params2.geometry = polygon;
 						params2.returnGeometry = false;
@@ -8164,8 +8170,8 @@ define('report/Generator',[
   };
 
   // Load Non-Critical CSS Now
-  loadStyle('http://js.arcgis.com/3.16/esri/css/esri.css');
-  loadStyle('http://js.arcgis.com/3.16/dijit/themes/tundra/tundra.css');
+  loadStyle('http://js.arcgis.com/3.20/esri/css/esri.css');
+  loadStyle('http://js.arcgis.com/3.20/dijit/themes/tundra/tundra.css');
   loadStyle('app/css/report.css');
 
   /* Global Helper Functions */
