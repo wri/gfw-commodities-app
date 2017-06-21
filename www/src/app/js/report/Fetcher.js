@@ -144,7 +144,7 @@ define([
 									var soyRenderingRule = new RasterFunction();
 									soyRenderingRule.functionName = rFunction;
 
-									var soyVizLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer', {
+									var soyVizLayer = new ArcGISImageServiceLayer('http://gfw-staging.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer', {
 											imageParameters: soyParams,
 											id: 'soyVizLayer',
 											opacity: .4,
@@ -153,7 +153,7 @@ define([
 
 									map.addLayer(soyVizLayer);
 
-									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
+									var soyImageLayer = new ArcGISImageServiceLayer('http://gfw-staging.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
 											imageParameters: soyParams,
 											id: 'soyImageLayer',
 											visible: true

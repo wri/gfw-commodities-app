@@ -20,11 +20,11 @@ define([
 		init: function () {
 
 			urlUtils.addProxyRule({
-				urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
+				urlPrefix: 'http://gfw.blueraster.io/arcgis/rest/services/protected_services/MapServer',
 				proxyUrl: '/app/php/proxy.php'
 			});
 			urlUtils.addProxyRule({
-				urlPrefix: 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
+				urlPrefix: 'gfw-staging.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
 				proxyUrl: '/app/php/proxy.php'
 			});
 

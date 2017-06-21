@@ -4,17 +4,15 @@ define([], function() {
     // The dynamicMapServiceUrl is currently being used by the following layers (by key):
     // ifl, peat, tfcs, ldcover, legal, oilPerm, logPerm, minePerm, woodPerm
 
-    var dynamicMapServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/legends/MapServer',
-        dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
-        tropicalCarbonStocks = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon/ImageServer',
-        dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
-        // rspoConcessions = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
-        globalLandCover = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
-        dynamicMapServiceUrlLand = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
+    var dynamicMapServiceUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/legends/MapServer',
+        dynamicMapServiceUrlForest = 'http://gfw-staging.wri.org/arcgis/rest/services/forest_cover/MapServer',
+        tropicalCarbonStocks = 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
+        dynamicMapServiceUrlComm = 'http://gfw-staging.wri.org/arcgis/rest/services/commodities/MapServer',
+        globalLandCover = 'http://gfw-staging.wri.org/arcgis/rest/services/protected_services/MapServer',
+        dynamicMapServiceUrlLand = 'http://gfw-staging.wri.org/arcgis/rest/services/land_use/MapServer',
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',
-        // gladAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts/ImageServer',
-        gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
+        gladFootprintUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         hansenTileUrl10 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_10/{z}/{x}/{y}.png',
         hansenTileUrl15 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_15/{z}/{x}/{y}.png',
@@ -25,18 +23,17 @@ define([], function() {
         hansenTileUrl75 = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_75/{z}/{x}/{y}.png',
         hansenGainUrl = 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
-        formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
+        formaAlertsUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
         activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         treeCoverDensityUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
-        protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
+        protectedAreasUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'https://gfw-staging.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        soyLayerUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total_display/ImageServer',
-        prodesUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
-        granChacoUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
+        soyLayerUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/soy_total_display/ImageServer',
+        prodesUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/prodes/ImageServer',
+        granChacoUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/cached/gran_chaco_deforestation/MapServer',
         customSuitabilityUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
         millPointsUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/commodities/MapServer',
-        geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
-        // brazilBiomesLayer = 'http://gis-gfw.wri.org/arcgis/rest/services/country_data/country_data/MapServer';
+        geometryServiceUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer';
 
     return {
         geometryServiceUrl: geometryServiceUrl,
