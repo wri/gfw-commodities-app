@@ -144,7 +144,7 @@ define([
 									var soyRenderingRule = new RasterFunction();
 									soyRenderingRule.functionName = rFunction;
 
-									var soyVizLayer = new ArcGISImageServiceLayer('http://gfw-staging.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer', {
+									var soyVizLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer', {
 											imageParameters: soyParams,
 											id: 'soyVizLayer',
 											opacity: .4,
@@ -153,7 +153,7 @@ define([
 
 									map.addLayer(soyVizLayer);
 
-									var soyImageLayer = new ArcGISImageServiceLayer('http://gfw-staging.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
+									var soyImageLayer = new ArcGISImageServiceLayer('http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_vizz_service/ImageServer', {
 											imageParameters: soyParams,
 											id: 'soyImageLayer',
 											visible: true
@@ -1266,7 +1266,7 @@ define([
 
 						// This query is only temporary until moratorium data is added to the main layer above
 						// This needs to be addressed so this code can be removed
-						task2 = new QueryTask('https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
+						task2 = new QueryTask('https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
 						params2 = new Query();
 						params2.geometry = polygon;
 						params2.returnGeometry = false;

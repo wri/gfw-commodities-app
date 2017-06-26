@@ -21,9 +21,9 @@ define([
 
 
     var services = {
-        commodities: 'http://gfw-staging.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
-        fires: 'https://gfw-staging.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
-        concessions: 'http://gfw-staging.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps_EN/MapServer/27'
+        commodities: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        fires: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
+        concessions: 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps_EN/MapServer/27'
     };
 
     o.getRiskByGeometry = function(geometry, area, areaType, rspo, indonesia, riskResults, concessions){

@@ -10,8 +10,8 @@ define([], function() {
     // URLS - CURRENT IS STAGING, PRODUCTION URL BELOW
 
     // PRODUCTION URL
-    var adminUnitQueryUrl = 'http://gfw-staging.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        millPointMapService = 'https://gfw-staging.wri.org/arcgis/rest/services/commodities/MapServer';
+    var adminUnitQueryUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
+        millPointMapService = 'https://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer';
 
     return {
 
