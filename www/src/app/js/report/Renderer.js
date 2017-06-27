@@ -1219,7 +1219,6 @@ define([
           // For Values with only two labels, redirect to a specific type of badge
           createSpecialBadge(rootNode, data, bounds, labels, features.length);
         } else {
-
           $("#" + rootNode + "_fire").highcharts({
             chart: {
               plotBackgroundColor: null,
@@ -1298,6 +1297,8 @@ define([
           });
           createChart(rootNode, chartData, config.labels, config.colors, config.bounds, config.title, config.badgeDesc);
         } else {
+          console.log('config.field', config.field);
+          // debugger
           datasetTotal = 0;
           arrayUtils.forEach(features, function (feature) {
             datasetTotal += isNaN(parseInt(feature.attributes[config.field])) ? 0 : parseInt(feature.attributes[config.field]);

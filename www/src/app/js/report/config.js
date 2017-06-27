@@ -1,17 +1,14 @@
 define([], function() {
 
     var geometryServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/Geometry/GeometryServer',
-
         clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
-
-        // clearanceAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
 
         gladUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_analysis/ImageServer/computeHistograms',
         gladUrlConfidence = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_con_analysis/ImageServer/computeHistograms',
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
-        suitabilityUrl = 'http://gis-potico.wri.org/arcgis/rest/services/suitabilitymapper/kpss_mosaic/ImageServer',
+        suitabilityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
         firesQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         fieldAssessmentUrl = 'http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia',
         clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
@@ -124,12 +121,11 @@ define([], function() {
     return {
 
         corsEnabledServers: [
-            'http://gis-potico.wri.org',
+            'http://gis-gfw.wri.org',
             'http://175.41.139.43',
             'http://54.164.126.73',
             'http://46.137.239.227',
-            'https://gfw-fires.wri.org',
-            'http://gis-gfw.wri.org'
+            'https://gfw-fires.wri.org'
         ],
 
         urls: {
@@ -189,7 +185,7 @@ define([], function() {
         soyCalcUrl: soyCalcUrl,
         clearanceAnalysisUrl: clearanceAnalysisUrl,
 
-        printUrl: 'http://gis-potico.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
+        printUrl: 'http://gis-gfw.wri.org/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task/execute',
 
         alertUrl: {
             forma: 'http://gfw-apis.appspot.com/subscribe',
@@ -317,7 +313,7 @@ define([], function() {
                 className: 'ROAD_DISTANCE_KM'
             },
             concessions: {
-                url: 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer',
+                url: 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps_EN/MapServer',
                 layer: '10'
             },
             localRights: {
@@ -713,7 +709,7 @@ define([], function() {
                 title: 'Plantations by Species'
             },
             // includeFormaIdInRemap: false,
-            // formaId: '$15', //todo: find the correct ObjectID in http://gis-gfw.wri.org/arcgis/rest/services/commodities/FORMA50_2015/ImageServer
+            // formaId: '$15',
             // rasterRemap: {
             //     'rasterFunction': 'Remap',
             //     'rasterFunctionArguments': { //todo: this, correctly

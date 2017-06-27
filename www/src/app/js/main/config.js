@@ -17,7 +17,7 @@ define({
     "https://api-ssl.bitly.com",
     "http://globalforestwatch.org",
     "http://firms.modaps.eosdis.nasa.gov",
-    "http://gis-potico.wri.org",
+    "http://gis-gfw.wri.org",
     "http://gfw-apis.appspot.com",
     "https://storage.googleapis.com"
   ],

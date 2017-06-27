@@ -213,6 +213,7 @@ define([
             var self = this,
                 geometry = self._prepareGeometry(self.state.analysisArea),
                 datasets = WizardStore.get(KEYS.analysisSets),
+                minDensity = WizardStore.get(KEYS.currentTreeCoverDensity) ? WizardStore.get(KEYS.currentTreeCoverDensity) : 30,
                 labelField,
                 suitableRule,
                 readyEvent,
@@ -221,11 +222,6 @@ define([
 
             labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
-            var lossLayer = app.map.getLayer('Loss');
-						var minDensity;
-            if (lossLayer && lossLayer.renderingRule) {
-              minDensity = lossLayer.renderingRule.functionArguments.min_density;
-            }
 
             payload = {
                 geometry: geometry,

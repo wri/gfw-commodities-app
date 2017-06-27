@@ -748,7 +748,7 @@ define([
 						//
 						// // This query is only temporary until moratorium data is added to the main layer above
 						// // This needs to be addressed so this code can be removed
-						// task2 = new QueryTask('http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
+
 						// params2 = new Query();
 						// params2.geometry = polygon;
 						// params2.returnGeometry = false;
@@ -1258,10 +1258,15 @@ define([
 						params1.outFields = ['*'];
 						params1.where = '1 = 1';
 
+						//TODO: The way we could replace potico entirely for the report is the above QT and the report's firesQueryUrl:
+						//we could take the report's area, and selectByLocation on the service we currently care about (protected areas,
+						// intact forests, peatlands, etc: Whatever they turned on in the analysis). Then we have an array of features: if
+						// there is more than one, combine their geometry, and run a QT for count on active Fires, passing in that geometry
+
 
 						// This query is only temporary until moratorium data is added to the main layer above
 						// This needs to be addressed so this code can be removed
-						task2 = new QueryTask('http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
+						task2 = new QueryTask('https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0');
 						params2 = new Query();
 						params2.geometry = polygon;
 						params2.returnGeometry = false;

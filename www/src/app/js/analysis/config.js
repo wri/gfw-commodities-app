@@ -8,11 +8,10 @@ define([], function() {
         millPoint = 'millPointOption';
 
     // URLS - CURRENT IS STAGING, PRODUCTION URL BELOW
-    // var adminUnitQueryUrl = 'http://175.41.139.43/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer';
 
     // PRODUCTION URL
-    var adminUnitQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
-        millPointMapService = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer';
+    var adminUnitQueryUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
+        millPointMapService = 'https://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer';
 
     return {
 

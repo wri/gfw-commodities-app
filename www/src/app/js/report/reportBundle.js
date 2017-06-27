@@ -29,8 +29,8 @@
   };
 
   // Load Non-Critical CSS Now
-  loadStyle('http://js.arcgis.com/3.16/esri/css/esri.css');
-  loadStyle('http://js.arcgis.com/3.16/dijit/themes/tundra/tundra.css');
+  loadStyle('http://js.arcgis.com/3.20/esri/css/esri.css');
+  loadStyle('http://js.arcgis.com/3.20/dijit/themes/tundra/tundra.css');
   loadStyle('app/css/report.css');
 
   /* Global Helper Functions */

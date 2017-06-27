@@ -22,23 +22,9 @@ define([
 
     var services = {
         commodities: 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
-        fires: 'http://gis-potico.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
-        concessions: 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps2_EN/MapServer/27'
+        fires: 'https://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_ASEAN/MapServer/0',
+        concessions: 'http://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/moremaps_EN/MapServer/27'
     };
-
-    var setWMconfig = function(){
-        config.treeCoverLoss.rasterId = '$13';
-        config.clearanceAlerts.rasterId = '$2';
-        config.intactForest.rasterId = '$9';
-        config.primaryForest.rasterId = '$11';
-        config.legalClass.rasterId = '$7';
-        config.protectedArea.rasterId = '$10';
-        config.peatLands.rasterId = '$8';
-        config.carbonDensity.rasterId = '$28';
-
-    };
-
-    // setWMconfig();
 
     o.getRiskByGeometry = function(geometry, area, areaType, rspo, indonesia, riskResults, concessions){
         var featureArea = area;
@@ -99,7 +85,7 @@ define([
         };
 
         var getCarbonHighRiskIfPresent = function(results){
-                if (!results.histograms.length ){
+                if (!results.histograms.length){
                     return 1;
                 }
                 var counts = results.histograms[0].counts;
