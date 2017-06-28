@@ -9,7 +9,7 @@ define([], function() {
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         suitabilityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
-        firesQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+        firesQueryUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         fieldAssessmentUrl = 'http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia',
         clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
         boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';

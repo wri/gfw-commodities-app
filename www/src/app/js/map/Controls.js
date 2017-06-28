@@ -146,19 +146,20 @@ define([
 
         toggleFiresLayerOptions: function(evt) {
             var target = evt.target ? evt.target : evt.srcElement,
-                filter = target.dataset ? target.dataset.filter : target.getAttribute('data-filter'),
-                highConfidence;
+                filter = target.dataset ? target.dataset.filter : target.getAttribute('data-filter');
+                // highConfidence;
             // Remove selected class from previous selection
             dojoQuery('.fires_toolbox .toolbox-list li').forEach(function(node) {
                 domClass.remove(node, 'selected');
             });
             // Add selected class to new selection
-            domClass.add(target, "selected");
+            domClass.add(target, 'selected');
 
             // Get status of high confidence fires checkbox
-            highConfidence = dom.byId("high-confidence").checked;
+            // highConfidence = dom.byId("high-confidence").checked;
 
-            LayerController.setFiresLayerDefinition(filter, highConfidence);
+            // LayerController.setFiresLayerDefinition(filter, highConfidence);
+            LayerController.setFiresLayerDefinition(filter);
         },
 
         toggleFiresConfidenceLevel: function(evt) {

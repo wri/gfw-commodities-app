@@ -244,6 +244,13 @@ define([
             fireParams.layerIds = MapConfig.fires.defaultLayers;
             fireParams.format = 'png32';
 
+            var layerDefs = [];
+
+            MapConfig.fires.defaultLayers.forEach(function(val) {
+              layerDefs[val] = MapConfig.fires.defaultDefintion;
+            });
+            fireParams.layerDefinitions = layerDefs;
+
             firesLayer = new ArcGISDynamicLayer(MapConfig.fires.url, {
                 imageParameters: fireParams,
                 id: MapConfig.fires.id,

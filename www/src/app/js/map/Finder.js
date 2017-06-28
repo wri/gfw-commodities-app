@@ -240,7 +240,8 @@ define([
             params.height = app.map.height;
             params.geometry = mapPoint;
             params.mapExtent = app.map.extent;
-            params.layerIds = [0, 1, 2, 3];
+            // params.layerIds = [0, 1, 2, 3];
+            params.layerIds = MapConfig.fires.defaultLayers;
             params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
 
             identifyTask.execute(params, function(features) {

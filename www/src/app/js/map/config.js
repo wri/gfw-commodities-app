@@ -24,7 +24,7 @@ define([], function() {
         hansenGainUrl = 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
-        activeFiresUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+        activeFiresUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Fires/FIRMS_Global/MapServer',
         treeCoverDensityUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/TreeCover2000/ImageServer',
         protectedAreasUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/cached/wdpa_protected_areas/MapServer',
         mapOverlaysUrl = 'https://gis-gfw.wri.org/arcgis/rest/services/CommoditiesAnalyzer/mapfeatures/MapServer',
@@ -354,7 +354,8 @@ define([], function() {
         fires: {
             id: 'ActiveFires',
             url: activeFiresUrl,
-            defaultLayers: [0, 1, 2, 3],
+            defaultLayers: [9],
+            defaultDefintion: "ACQ_DATE > date'" + new window.Kalendae.moment().subtract(1, 'w').format('YYYY-MM-DD') + "'",
             toolsNode: 'fires_toolbox',
             infoTemplate: {
                 content: '<table><tr><td>Latitude: </td><td>${LATITUDE}</td></tr>' +

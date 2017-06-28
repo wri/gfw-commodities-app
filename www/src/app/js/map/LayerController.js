@@ -366,10 +366,9 @@ define([
             }
         },
 
-        setFiresLayerDefinition: function(filter, highConfidence) {
+        setFiresLayerDefinition: function(filter) {
             var time = new Date(),
                 layerDefs = [],
-                visibleLayers,
                 dateString,
                 layer,
                 where;
@@ -384,19 +383,13 @@ define([
                 time.getDate() + " " + time.getHours() + ":" +
                 time.getMinutes() + ":" + time.getSeconds();
 
-            // Set up Layer defs based on the filter value, if filter = 7, just set where to 1 = 1
-            where = (filter !== "7" ? "ACQ_DATE > date '" + dateString + "'" : "1 = 1");
-            for (var i = 0, length = MapConfig.fires.defaultLayers.length; i < length; i++) {
-                layerDefs[i] = where;
-            }
+            where = "ACQ_DATE > date '" + dateString + "'";
+
+            MapConfig.fires.defaultLayers.forEach(function(val) {
+              layerDefs[val] = where;
+            });
 
             if (layer) {
-                // Set up and update Visible Layers if they need to be updated
-                visibleLayers = (highConfidence ? [0, 1] : [0, 1, 2, 3]);
-                if (layer.visibleLayers.length !== visibleLayers.length) {
-                    layer.setVisibleLayers(visibleLayers);
-                }
-
                 layer.setLayerDefinitions(layerDefs);
                 this.refreshLegendWidget();
             }
