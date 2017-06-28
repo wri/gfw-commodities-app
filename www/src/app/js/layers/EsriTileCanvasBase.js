@@ -389,8 +389,6 @@ define([
       var self = this;
 
       xhr.onload = function () {
-        console.log(URL);
-        console.log(URL.createObjectURL);
         var objecturl = URL.createObjectURL(this.response);
         var image = new Image();
         image.onload = function () {
