@@ -492,12 +492,28 @@ define([], function() {
             rootNode: 'treeCoverLoss',
             title: 'Tree Cover Loss',
             rasterId: '$517',
-            mosaicRule: {
-                'mosaicMethod': 'esriMosaicLockRaster',
-                'lockRasterIds': [530],
-                'ascending': true,
-                'mosaicOperation': 'MT_FIRST'
-            },
+            // mosaicRule: {
+            //     'mosaicMethod': 'esriMosaicLockRaster',
+            //     'lockRasterIds': [530],
+            //     'ascending': true,
+            //     'mosaicOperation': 'MT_FIRST'
+            // },
+            renderingRule: {
+              rasterFunction: 'Arithmetic',
+              rasterFunctionArguments: {
+                Raster: {
+                    rasterFunction: 'Remap',
+                    rasterFunctionArguments: {
+                        InputRanges: [0, 30, 30, 101],
+                        OutputValues: [0, 1],
+                        Raster: '$520',
+                        AllowUnmatched: false
+                    }
+                },
+                Raster2: '$530',
+                Operation: 3
+            }
+          },
             lossChart: {
                 title: 'Annual Tree Cover Loss (in hectares)'
             },

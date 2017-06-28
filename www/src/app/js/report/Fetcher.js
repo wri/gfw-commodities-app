@@ -256,14 +256,24 @@ define([
 						var deferred = new Deferred(),
 								config = ReportConfig.treeCoverLoss,
 								url = ReportConfig.imageServiceUrl,
-								content = {
+								self = this;
+								var renderConfig = config.renderingRule;
+
+								if (report.minDensity) {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
+								} else {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
+								}
+
+								var renderingRule = JSON.stringify(renderConfig);
+
+								var content = {
 										geometryType: 'esriGeometryPolygon',
 										geometry: JSON.stringify(report.geometry),
-										mosaicRule: JSON.stringify(config.mosaicRule),
+										renderingRule: renderingRule,
 										pixelSize: ReportConfig.pixelSize,
 										f: 'json'
-								},
-								self = this;
+								};
 
 						// Create the container for all the result
 						ReportRenderer.renderTotalLossContainer(config);
@@ -666,7 +676,9 @@ define([
 								var renderConfig = config.renderingRule;
 
 								if (report.minDensity) {
-									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 100];
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
+								} else {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
 								}
 
 								var renderingRule = JSON.stringify(renderConfig);

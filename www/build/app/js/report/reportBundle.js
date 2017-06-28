@@ -207,7 +207,7 @@ define('report/config',[], function() {
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         suitabilityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
-        firesQueryUrl = 'http://gis-potico.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
+        firesQueryUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
         fieldAssessmentUrl = 'http://www.wri.org/publication/how-identify-degraded-land-sustainable-palm-oil-indonesia',
         clearanceAnalysisUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis_wm/ImageServer',
         boundariesUrl = 'http://gis.wri.org/arcgis/rest/services/CountryBoundaries/CountryBoundaries/MapServer/0';
@@ -690,12 +690,28 @@ define('report/config',[], function() {
             rootNode: 'treeCoverLoss',
             title: 'Tree Cover Loss',
             rasterId: '$517',
-            mosaicRule: {
-                'mosaicMethod': 'esriMosaicLockRaster',
-                'lockRasterIds': [530],
-                'ascending': true,
-                'mosaicOperation': 'MT_FIRST'
-            },
+            // mosaicRule: {
+            //     'mosaicMethod': 'esriMosaicLockRaster',
+            //     'lockRasterIds': [530],
+            //     'ascending': true,
+            //     'mosaicOperation': 'MT_FIRST'
+            // },
+            renderingRule: {
+              rasterFunction: 'Arithmetic',
+              rasterFunctionArguments: {
+                Raster: {
+                    rasterFunction: 'Remap',
+                    rasterFunctionArguments: {
+                        InputRanges: [0, 30, 30, 101],
+                        OutputValues: [0, 1],
+                        Raster: '$520',
+                        AllowUnmatched: false
+                    }
+                },
+                Raster2: '$530',
+                Operation: 3
+            }
+          },
             lossChart: {
                 title: 'Annual Tree Cover Loss (in hectares)'
             },
@@ -6239,14 +6255,24 @@ define('report/Fetcher',[
 						var deferred = new Deferred(),
 								config = ReportConfig.treeCoverLoss,
 								url = ReportConfig.imageServiceUrl,
-								content = {
+								self = this;
+								var renderConfig = config.renderingRule;
+
+								if (report.minDensity) {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
+								} else {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
+								}
+
+								var renderingRule = JSON.stringify(renderConfig);
+
+								var content = {
 										geometryType: 'esriGeometryPolygon',
 										geometry: JSON.stringify(report.geometry),
-										mosaicRule: JSON.stringify(config.mosaicRule),
+										renderingRule: renderingRule,
 										pixelSize: ReportConfig.pixelSize,
 										f: 'json'
-								},
-								self = this;
+								};
 
 						// Create the container for all the result
 						ReportRenderer.renderTotalLossContainer(config);
@@ -6649,7 +6675,9 @@ define('report/Fetcher',[
 								var renderConfig = config.renderingRule;
 
 								if (report.minDensity) {
-									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 100];
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
+								} else {
+									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
 								}
 
 								var renderingRule = JSON.stringify(renderConfig);
