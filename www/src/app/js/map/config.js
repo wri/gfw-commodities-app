@@ -8,7 +8,7 @@ define([], function() {
         dynamicMapServiceUrlForest = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_cover/MapServer',
         tropicalCarbonStocks = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/whrc_carbon_tcd/ImageServer',
         dynamicMapServiceUrlComm = 'http://gis-gfw.wri.org/arcgis/rest/services/commodities/MapServer',
-        globalLandCover = 'http://gfw.blueraster.io/arcgis/rest/services/protected_services/MapServer',
+        globalLandCover = 'http://gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
         dynamicMapServiceUrlLand = 'http://gis-gfw.wri.org/arcgis/rest/services/land_use/MapServer',
         treeCoverGainUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012_map/MapServer',
         treeCoverGainImageUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestGain_2000_2012/ImageServer',

@@ -20,7 +20,7 @@ define([
 		init: function () {
 
 			urlUtils.addProxyRule({
-				urlPrefix: 'http://gfw.blueraster.io/arcgis/rest/services/protected_services/MapServer',
+				urlPrefix: 'gis-gfw.wri.org/arcgis/rest/services/protected_services/MapServer',
 				proxyUrl: '/app/php/proxy.php'
 			});
 			urlUtils.addProxyRule({
