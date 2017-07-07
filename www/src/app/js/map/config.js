@@ -337,7 +337,7 @@ define([], function() {
         prodes: {
             id: 'ProdesAlerts',
             url: prodesUrl,
-            legendLayerId: 0,
+            legendLayerId: 6,
             defaultRange: [1, 15],
             colormap: [
                 [1, 255, 0, 197]
