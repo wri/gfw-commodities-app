@@ -259,7 +259,7 @@ define([
 								self = this;
 								var renderConfig = config.renderingRule;
 
-								if (report.minDensity) {
+								if (report.minDensity && report.datasets.soy) {
 									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
 								} else {
 									renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
