@@ -8,7 +8,7 @@ define([
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.90',
+                path = './app/templates/' + name + '.html?v=2.4.91',
                 req;
 
             req = new XMLHttpRequest();
@@ -24,7 +24,7 @@ define([
         },
 
         getWRITemplate: function() {
-            var path = 'http://api.globalforestwatch.org/metadata';
+            var path = 'https://gis-gfw.wri.org/metadata';
                 // deferred = new Deferred(),
                 // req;
 
@@ -33,7 +33,7 @@ define([
             //   proxyUrl: '/app/php/proxy.php'
             // });
 
-            esri.config.defaults.io.corsEnabledServers.push('api.globalforestwatch.org');
+            esri.config.defaults.io.corsEnabledServers.push('gis-gfw.wri.org');
             var layersRequest = esriRequest({
                 url: path,
                 handleAs: 'json',
