@@ -10,6 +10,11 @@ define([
 
   return declare('HansenLayer', [TileCanvasLayer], {
 
+    setUrl: function (url) {
+      this.options.url = url;
+      // this.refresh();
+    },
+
     filter: function (data) {
       for (var i = 2; i < data.length + 2; i += 4) {
         // Decode the rgba/pixel so I can filter on confidence and date ranges

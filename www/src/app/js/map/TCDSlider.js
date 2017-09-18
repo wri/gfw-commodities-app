@@ -46,7 +46,7 @@ define([
       if (value) {
         // Update the Value in the Model
         MapModel.set('tcdDensityValue', data.from_value);
-        // LayerController.updateTCDRenderingRule(data.from_value);
+        LayerController.updateTCDRenderingRule(data.from_value);
 
         // Update value in Wizard
 

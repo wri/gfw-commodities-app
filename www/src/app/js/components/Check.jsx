@@ -58,7 +58,7 @@ define([
 				}
 			}
 
-			if (this.props.id === 'loss') {
+			if (this.props.id === 'hansenLoss') {
 				ko.applyBindings(MapModel.get('model'), document.querySelector('.loss-button-container'));
 			}
 
@@ -117,11 +117,11 @@ define([
 						</div>
 						}
 						{
-							this.props.id === 'loss' ? (
+							this.props.id === 'hansenLoss' ? (
 								<div className={'loss-button-container' + (this.state.active ? '' : ' hidden')}>
-											<span className='loss-percentage-label'>Displaying at </span>
-											<span className='loss-percentage-button' onClick={this.showTCDSlider} data-bind="text: tcdDensityValue"></span>
-											<span className='loss-percentage-label'> density</span>
+											<span className='tcd-percentage-label'>Displaying at </span>
+											<span className='tcd-percentage-button' onClick={this.showTCDSlider} data-bind="text: tcdDensityValue"></span>
+											<span className='tcd-percentage-label'> density</span>
 								</div>
 							) : null
 						}
