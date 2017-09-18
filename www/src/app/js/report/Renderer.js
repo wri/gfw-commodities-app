@@ -483,41 +483,24 @@ define([
       var lossConfig = ReportConfig.totalLoss,
           yLabels = config.labels,
           xLabels = lossConfig.labels,
-          yMapValues = arrayFromBounds(config.bounds),
-          xMapValues = arrayFromBounds(lossConfig.bounds),
-          mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
-          colors = [],
-          location,
-          sliceIndex,
-          data,
-          i, j;
+          colors = [];
+
+
+      var values = [];
+      for (var key in histogramData) {
+        values.push(histogramData[key]);
+      }
 
       series.push({
         'name': yLabels[0],
-        'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+        'data': values
       });
+
       colors.push(config.color);
 
-      // Format the data based on some config value, removeBelowYear
-      // get index of removeBelowYear and use that to splice the data arrays and the xlabels
-      if (config.lossChart.removeBelowYear) {
-        sliceIndex = xLabels.indexOf(config.lossChart.removeBelowYear);
-        xLabels = xLabels.slice(sliceIndex);
-        arrayUtils.forEach(series, function (serie) {
-          serie.data = serie.data.slice(sliceIndex);
-        });
-      }
 
-      // Show All 0's if no data is present
-      if (series[0].data.length !== xLabels.length) {
-        for (var index = 0; index < xLabels.length; index++) {
-          if (series[0].data[index] === undefined) series[0].data[index] = 0;
-        }
-      }
-
-
-      $("#" + config.rootNode + '_loss').highcharts({
+      $('#' + config.rootNode + '_loss').highcharts({
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,

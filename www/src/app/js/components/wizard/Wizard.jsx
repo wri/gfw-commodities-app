@@ -187,14 +187,14 @@ define([
             if (layer) {
               layer.clear();
             }
-            var layer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
-            if (layer) {
-              layer.clear();
+            var pointLayer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
+            if (pointLayer) {
+              pointLayer.clear();
             }
             // Hide the Dynamic Layer Associated with the Wizard
-            layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
-            if (layer) {
-              layer.hide();
+            var adminLayer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
+            if (adminLayer) {
+              adminLayer.hide();
             }
         },
 
@@ -214,19 +214,23 @@ define([
                 geometry = self._prepareGeometry(self.state.analysisArea),
                 datasets = WizardStore.get(KEYS.analysisSets),
                 minDensity = WizardStore.get(KEYS.currentTreeCoverDensity) ? WizardStore.get(KEYS.currentTreeCoverDensity) : 30,
-                labelField,
+                lossLayer = app.map.getLayer(MapConfig.hansenLoss.id),
                 suitableRule,
                 readyEvent,
                 payload,
                 win;
 
-            labelField = AnalyzerConfig.stepTwo.labelField;
+
+            var startYear = lossLayer.options.minYear + 2001;
+            var endYear = lossLayer.options.maxYear + 2001;
+
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
 
             payload = {
                 geometry: geometry,
                 datasets: datasets,
                 minDensity: minDensity,
+                lossYears: [startYear, endYear],
                 //types: self.state.analysisTypes,
                 title: self.state.analysisArea.map(function (feature) {return feature.attributes.WRI_label;}).join(','),
                 suitability: {

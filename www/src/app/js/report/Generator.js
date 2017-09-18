@@ -207,6 +207,8 @@ define([
               report.minDensity = window.payload.minDensity;
             }
 
+            report.lossYears = window.payload.lossYears;
+
             // Lastly, grab the datasets from the payload and store them in report so we know which
             // datasets we will perform the above analyses on
             report.datasets = window.payload.datasets;
