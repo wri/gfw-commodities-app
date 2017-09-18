@@ -386,7 +386,7 @@ define([], function() {
             id: 'hansenLoss',
             url: hansenTileUrl,
             minYear: 1,
-            maxYear: 14,
+            maxYear: 16,
             confidence: [0, 1],
             legendLayerId: 0,
             defaultStartRange: [0, 1, 1, 365, 365, 366], //[0, 1, 1, 366],

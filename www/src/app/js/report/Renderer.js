@@ -486,6 +486,14 @@ define([
           series = [],
           colors = [];
 
+      var startYear = report.lossYears[0];
+
+      if (startYear && startYear > 2001) {
+        for (var i = 0; i < startYear - 2001; i++) {
+          xLabels.shift();
+        }
+        console.log('xLabels', xLabels);
+      }
 
       var values = [];
       for (var key in histogramData) {

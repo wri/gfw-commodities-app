@@ -221,8 +221,14 @@ define([
                 win;
 
 
-            var startYear = lossLayer.options.minYear + 2001;
-            var endYear = lossLayer.options.maxYear + 2001;
+            var startYear = lossLayer.options.minYear + 2000;
+            var endYear = lossLayer.options.maxYear + 2000;
+            if (endYear === 2000) {
+              endYear = 2001;
+              startYear++;
+            }
+
+            console.log(lossLayer.options);
 
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
 

@@ -332,14 +332,12 @@ define([
 						// }
 
 						this.registerGeom(report.geometry).then(function(lossGainResult) {
-							console.log('lossGainResult', lossGainResult);
-							console.log('lossYears', report.lossYears);
 							var startYear = report.lossYears[0] ? report.lossYears[0] : 2001;
 							var endYear = report.lossYears[1] ? report.lossYears[1] : 2016;
 							var lossGainData = {
 								geostore: lossGainResult.data.id,
 								// period: '2001-01-01,2015-12-31',
-								period: startYear + '-01-01,' + endYear + '2015-12-31',
+								period: startYear + '-01-01,' + endYear + '-01-01',
 								thresh: report.minDensity ? report.minDensity : 30,
 								aggregate_values: false
 							};

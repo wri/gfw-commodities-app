@@ -205,6 +205,8 @@ define('report/config',[], function() {
         gladUrlConfidence = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_con_analysis/ImageServer/computeHistograms',
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        apiUrl = 'https://production-api.globalforestwatch.org/v1/geostore',
+        gfwAPILoss = 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         suitabilityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
         firesQueryUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -214,7 +216,7 @@ define('report/config',[], function() {
 
     // Totoal Loss
     var lossBounds = [1, 14],
-        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014];
+        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 
     // Prodes
     var prodesBounds = [1, 14],
@@ -380,6 +382,8 @@ define('report/config',[], function() {
         boundariesUrl: boundariesUrl,
         geometryServiceUrl: geometryServiceUrl,
         imageServiceUrl: imageServiceUrl,
+        apiUrl: apiUrl,
+        gfwAPILoss: gfwAPILoss,
         soyCalcUrl: soyCalcUrl,
         clearanceAnalysisUrl: clearanceAnalysisUrl,
 
@@ -1014,15 +1018,6 @@ define('report/config',[], function() {
                 title: 'Clearance Alerts on Soy Lands since Jan 2015',
                 type: 'bar'
             },
-
-            // renderingRule: { //todo: use this if we dont want tree cover density in our soy % equation!
-            //     "rasterFunction": "Arithmetic",
-            //     "rasterFunctionArguments": {
-            //         "Raster": "$530",
-            //         "Raster2": "$566",
-            //         "Operation": 3
-            //     }
-            // }
 
             renderingRule: {
               rasterFunction: 'Arithmetic',
@@ -2231,41 +2226,32 @@ define('report/Renderer',[
       var lossConfig = ReportConfig.totalLoss,
           yLabels = config.labels,
           xLabels = lossConfig.labels,
-          yMapValues = arrayFromBounds(config.bounds),
-          xMapValues = arrayFromBounds(lossConfig.bounds),
-          mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
-          colors = [],
-          location,
-          sliceIndex,
-          data,
-          i, j;
+          colors = [];
+
+      var startYear = report.lossYears[0];
+
+      if (startYear && startYear > 2001) {
+        for (var i = 0; i < startYear - 2001; i++) {
+          xLabels.shift();
+        }
+        console.log('xLabels', xLabels);
+      }
+
+      var values = [];
+      for (var key in histogramData) {
+        values.push(histogramData[key]);
+      }
 
       series.push({
         'name': yLabels[0],
-        'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+        'data': values
       });
+
       colors.push(config.color);
 
-      // Format the data based on some config value, removeBelowYear
-      // get index of removeBelowYear and use that to splice the data arrays and the xlabels
-      if (config.lossChart.removeBelowYear) {
-        sliceIndex = xLabels.indexOf(config.lossChart.removeBelowYear);
-        xLabels = xLabels.slice(sliceIndex);
-        arrayUtils.forEach(series, function (serie) {
-          serie.data = serie.data.slice(sliceIndex);
-        });
-      }
 
-      // Show All 0's if no data is present
-      if (series[0].data.length !== xLabels.length) {
-        for (var index = 0; index < xLabels.length; index++) {
-          if (series[0].data[index] === undefined) series[0].data[index] = 0;
-        }
-      }
-
-
-      $("#" + config.rootNode + '_loss').highcharts({
+      $('#' + config.rootNode + '_loss').highcharts({
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: null,
@@ -5740,6 +5726,370 @@ define('map/Symbols',[
 
 });
 
+
+
+/*
+ * Copyright 2015 Esri
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the Liscense.
+ */
+
+ define('utils/arcgis-to-geojson',[
+ ], function () {
+
+   return {
+
+    // checks if 2 x,y points are equal
+    pointsEqual: function (a, b) {
+      for (var i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
+          return false;
+        }
+      }
+      return true;
+    },
+
+    // checks if the first and last points of a ring are equal and closes the ring
+    closeRing: function (coordinates) {
+      if (!this.pointsEqual(coordinates[0], coordinates[coordinates.length - 1])) {
+        coordinates.push(coordinates[0]);
+      }
+      return coordinates;
+    },
+
+    // determine if polygon ring coordinates are clockwise. clockwise signifies outer ring, counter-clockwise an inner ring
+    // or hole. this logic was found at http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-
+    // points-are-in-clockwise-order
+    ringIsClockwise: function (ringToTest) {
+      var total = 0;
+      var i = 0;
+      var rLength = ringToTest.length;
+      var pt1 = ringToTest[i];
+      var pt2;
+      for (i; i < rLength - 1; i++) {
+        pt2 = ringToTest[i + 1];
+        total += (pt2[0] - pt1[0]) * (pt2[1] + pt1[1]);
+        pt1 = pt2;
+      }
+      return (total >= 0);
+    },
+
+    // ported from terraformer.js https://github.com/Esri/Terraformer/blob/master/terraformer.js#L504-L519
+    vertexIntersectsVertex: function (a1, a2, b1, b2) {
+      var uaT = (b2[0] - b1[0]) * (a1[1] - b1[1]) - (b2[1] - b1[1]) * (a1[0] - b1[0]);
+      var ubT = (a2[0] - a1[0]) * (a1[1] - b1[1]) - (a2[1] - a1[1]) * (a1[0] - b1[0]);
+      var uB = (b2[1] - b1[1]) * (a2[0] - a1[0]) - (b2[0] - b1[0]) * (a2[1] - a1[1]);
+
+      if (uB !== 0) {
+        var ua = uaT / uB;
+        var ub = ubT / uB;
+
+        if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+
+    // ported from terraformer.js https://github.com/Esri/Terraformer/blob/master/terraformer.js#L521-L531
+    arrayIntersectsArray: function (a, b) {
+      for (var i = 0; i < a.length - 1; i++) {
+        for (var j = 0; j < b.length - 1; j++) {
+          if (this.vertexIntersectsVertex(a[i], a[i + 1], b[j], b[j + 1])) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    },
+
+    // ported from terraformer.js https://github.com/Esri/Terraformer/blob/master/terraformer.js#L470-L480
+    coordinatesContainPoint: function (coordinates, point) {
+      var contains = false;
+      for (var i = -1, l = coordinates.length, j = l - 1; ++i < l; j = i) {
+        if (((coordinates[i][1] <= point[1] && point[1] < coordinates[j][1]) ||
+             (coordinates[j][1] <= point[1] && point[1] < coordinates[i][1])) &&
+            (point[0] < (coordinates[j][0] - coordinates[i][0]) * (point[1] - coordinates[i][1]) / (coordinates[j][1] - coordinates[i][1]) + coordinates[i][0])) {
+          contains = !contains;
+        }
+      }
+      return contains;
+    },
+
+    // ported from terraformer-arcgis-parser.js https://github.com/Esri/terraformer-arcgis-parser/blob/master/terraformer-arcgis-parser.js#L106-L113
+    coordinatesContainCoordinates: function (outer, inner) {
+      var intersects = this.arrayIntersectsArray(outer, inner);
+      var contains = this.coordinatesContainPoint(outer, inner[0]);
+      if (!intersects && contains) {
+        return true;
+      }
+      return false;
+    },
+
+    // do any polygons in this array contain any other polygons in this array?
+    // used for checking for holes in arcgis rings
+    // ported from terraformer-arcgis-parser.js https://github.com/Esri/terraformer-arcgis-parser/blob/master/terraformer-arcgis-parser.js#L117-L172
+    convertRingsToGeoJSON: function (rings) {
+      var outerRings = [];
+      var holes = [];
+      var x; // iterator
+      var outerRing; // current outer ring being evaluated
+      var hole; // current hole being evaluated
+
+      // for each ring
+      for (var r = 0; r < rings.length; r++) {
+        var ring = this.closeRing(rings[r].slice(0));
+        if (ring.length < 4) {
+          continue;
+        }
+        // is this ring an outer ring? is it clockwise?
+        if (this.ringIsClockwise(ring)) {
+          var polygon = [ ring ];
+          outerRings.push(polygon); // push to outer rings
+        } else {
+          holes.push(ring); // counterclockwise push to holes
+        }
+      }
+
+      var uncontainedHoles = [];
+
+      // while there are holes left...
+      while (holes.length) {
+        // pop a hole off out stack
+        hole = holes.pop();
+
+        // loop over all outer rings and see if they contain our hole.
+        var contained = false;
+        for (x = outerRings.length - 1; x >= 0; x--) {
+          outerRing = outerRings[x][0];
+          if (this.coordinatesContainCoordinates(outerRing, hole)) {
+            // the hole is contained push it into our polygon
+            outerRings[x].push(hole);
+            contained = true;
+            break;
+          }
+        }
+
+        // ring is not contained in any outer ring
+        // sometimes this happens https://github.com/Esri/esri-leaflet/issues/320
+        if (!contained) {
+          uncontainedHoles.push(hole);
+        }
+      }
+
+      // if we couldn't match any holes using contains we can try intersects...
+      while (uncontainedHoles.length) {
+        // pop a hole off out stack
+        hole = uncontainedHoles.pop();
+
+        // loop over all outer rings and see if any intersect our hole.
+        var intersects = false;
+
+        for (x = outerRings.length - 1; x >= 0; x--) {
+          outerRing = outerRings[x][0];
+          if (this.arrayIntersectsArray(outerRing, hole)) {
+            // the hole is contained push it into our polygon
+            outerRings[x].push(hole);
+            intersects = true;
+            break;
+          }
+        }
+
+        if (!intersects) {
+          outerRings.push([hole.reverse()]);
+        }
+      }
+
+      if (outerRings.length === 1) {
+        return {
+          type: 'Polygon',
+          coordinates: outerRings[0]
+        };
+      } else {
+        return {
+          type: 'MultiPolygon',
+          coordinates: outerRings
+        };
+      }
+    },
+
+    // This ensures: function that rings are oriented in the right directions
+    // outer rings are clockwise, holes are counterclockwise
+    // used for converting GeoJSON Polygons to ArcGIS Polygons
+    orientRings: function (poly) {
+      var output = [];
+      var polygon = poly.slice(0);
+      var outerRing = this.closeRing(polygon.shift().slice(0));
+      if (outerRing.length >= 4) {
+        if (!this.ringIsClockwise(outerRing)) {
+          outerRing.reverse();
+        }
+
+        output.push(outerRing);
+
+        for (var i = 0; i < polygon.length; i++) {
+          var hole = this.closeRing(polygon[i].slice(0));
+          if (hole.length >= 4) {
+            if (this.ringIsClockwise(hole)) {
+              hole.reverse();
+            }
+            output.push(hole);
+          }
+        }
+      }
+
+      return output;
+    },
+
+    // This flattens: function holes in multipolygons to one array of polygons
+    // used for converting GeoJSON Polygons to ArcGIS Polygons
+    flattenMultiPolygonRings: function (rings) {
+      var output = [];
+      for (var i = 0; i < rings.length; i++) {
+        var polygon = orientRings(rings[i]);
+        for (var x = polygon.length - 1; x >= 0; x--) {
+          var ring = polygon[x].slice(0);
+          output.push(ring);
+        }
+      }
+      return output;
+    },
+
+    // shallow object clone for feature properties and attributes
+    // from http://jsperf.com/cloning-an-object/2
+    shallowClone: function (obj) {
+      var target = {};
+      for (var i in obj) {
+        if (obj.hasOwnProperty(i)) {
+          target[i] = obj[i];
+        }
+      }
+      return target;
+    },
+
+    arcgisToGeoJSON: function (arcgis, idAttribute) {
+      var geojson = {};
+
+      if (typeof arcgis.x === 'number' && typeof arcgis.y === 'number') {
+        geojson.type = 'Point';
+        geojson.coordinates = [arcgis.x, arcgis.y];
+      }
+
+      if (arcgis.points) {
+        geojson.type = 'MultiPoint';
+        geojson.coordinates = arcgis.points.slice(0);
+      }
+
+      if (arcgis.paths) {
+        if (arcgis.paths.length === 1) {
+          geojson.type = 'LineString';
+          geojson.coordinates = arcgis.paths[0].slice(0);
+        } else {
+          geojson.type = 'MultiLineString';
+          geojson.coordinates = arcgis.paths.slice(0);
+        }
+      }
+
+      if (arcgis.rings) {
+        geojson = this.convertRingsToGeoJSON(arcgis.rings.slice(0));
+      }
+
+      if (arcgis.geometry || arcgis.attributes) {
+        geojson.type = 'Feature';
+        geojson.geometry = (arcgis.geometry) ? this.arcgisToGeoJSON(arcgis.geometry) : null;
+        geojson.properties = (arcgis.attributes) ? this.shallowClone(arcgis.attributes) : null;
+        if (arcgis.attributes) {
+          geojson.id = arcgis.attributes[idAttribute] || arcgis.attributes.OBJECTID || arcgis.attributes.FID;
+        }
+      }
+
+      return geojson;
+    },
+
+    geojsonToArcGIS: function (geojson, idAttribute) {
+      idAttribute = idAttribute || 'OBJECTID';
+      var spatialReference = { wkid: 4326 };
+      var result = {};
+      var i;
+
+      switch (geojson.type) {
+        case 'Point':
+          result.x = geojson.coordinates[0];
+          result.y = geojson.coordinates[1];
+          result.spatialReference = spatialReference;
+          break;
+        case 'MultiPoint':
+          result.points = geojson.coordinates.slice(0);
+          result.spatialReference = spatialReference;
+          break;
+        case 'LineString':
+          result.paths = [geojson.coordinates.slice(0)];
+          result.spatialReference = spatialReference;
+          break;
+        case 'MultiLineString':
+          result.paths = geojson.coordinates.slice(0);
+          result.spatialReference = spatialReference;
+          break;
+        case 'Polygon':
+          result.rings = this.orientRings(geojson.coordinates.slice(0));
+          result.spatialReference = spatialReference;
+          break;
+        case 'MultiPolygon':
+          result.rings = this.flattenMultiPolygonRings(geojson.coordinates.slice(0));
+          result.spatialReference = spatialReference;
+          break;
+        case 'Feature':
+          if (geojson.geometry) {
+            result.geometry = this.geojsonToArcGIS(geojson.geometry, idAttribute);
+          }
+          result.attributes = (geojson.properties) ? this.shallowClone(geojson.properties) : {};
+          if (geojson.id) {
+            result.attributes[idAttribute] = geojson.id;
+          }
+          break;
+        case 'FeatureCollection':
+          result = [];
+          for (i = 0; i < geojson.features.length; i++) {
+            result.push(this.geojsonToArcGIS(geojson.features[i], idAttribute));
+          }
+          break;
+        case 'GeometryCollection':
+          result = [];
+          for (i = 0; i < geojson.geometries.length; i++) {
+            result.push(this.geojsonToArcGIS(geojson.geometries[i], idAttribute));
+          }
+          break;
+      }
+
+      return result;
+    }
+  };
+});
+
+// module.exports = Animator;
+
+// module.exports = {
+//   arcgisToGeoJSON: arcgisToGeoJSON,
+//   geojsonToArcGIS: geojsonToArcGIS
+// };
+
+// export default {
+//   arcgisToGeoJSON: arcgisToGeoJSON,
+//   geojsonToArcGIS: geojsonToArcGIS
+// };
+
 define('utils/assert',[], function () {
   'use strict';
 
@@ -6011,8 +6361,11 @@ define('report/Fetcher',[
 		'report/RiskHelper',
 		'report/Suitability',
 		'map/Symbols',
+		'utils/arcgis-to-geojson',
 		// esri modules
 		'esri/map',
+		'esri/config',
+		'esri/geometry/webMercatorUtils',
 		'esri/request',
 		'esri/tasks/query',
 		'esri/dijit/Scalebar',
@@ -6038,7 +6391,7 @@ define('report/Fetcher',[
 		'esri/graphic',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, geojsonUtil, Map, esriConfig, webmercatorUtils, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -6250,65 +6603,120 @@ define('report/Fetcher',[
 						return deferred.promise;
 				},
 
+				registerGeom: function(geometry) {
+					var deferred = new Deferred();
+					console.log('geojsonUtil');
+					console.log(geojsonUtil);
+					var geographic = webmercatorUtils.webMercatorToGeographic(geometry);
+					var geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+
+					var geoStore = {
+						'geojson': {
+							'type': 'FeatureCollection',
+							'features': [{
+								'type': 'Feature',
+								'properties': {},
+								'geometry': geojson
+							}]
+						}
+					};
+
+					var content = JSON.stringify(geoStore);
+
+					var http = new XMLHttpRequest();
+					var url = ReportConfig.apiUrl;
+					var params = content;
+
+					http.open('POST', url, true);
+					http.setRequestHeader('Content-type', 'application/json');
+
+					http.onreadystatechange = () => {
+						if (http.readyState === 4 && http.status === 200) {
+							deferred.resolve(JSON.parse(http.responseText));
+						} else if (http.readyState === 4) {
+							deferred.resolve({ error: 'There was an error while registering the shape in the geostore', status: http.status });
+						}
+					};
+					http.send(params);
+					return deferred;
+				},
+
 				getTreeCoverLossResults: function() {
 						this._debug('Fetcher >>> getTreeCoverLossResults');
+						esriConfig.defaults.io.corsEnabledServers.push('production-api.globalforestwatch.org');
 						var deferred = new Deferred(),
 								config = ReportConfig.treeCoverLoss,
-								url = ReportConfig.imageServiceUrl,
+								url = ReportConfig.gfwAPILoss, //ReportConfig.imageServiceUrl,
 								self = this;
-								var renderConfig = config.renderingRule;
+								// var renderConfig = config.renderingRule;
 
-								// if (report.minDensity && report.datasets.soy) {
-								// 	renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
-								// } else {
-								renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
-								// }
+								// // if (report.minDensity && report.datasets.soy) {
+								// // 	renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
+								// // } else {
+								// renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
+								// // }
 
-								var renderingRule = JSON.stringify(renderConfig);
-
-								var content = {
-										geometryType: 'esriGeometryPolygon',
-										geometry: JSON.stringify(report.geometry),
-										renderingRule: renderingRule,
-										pixelSize: ReportConfig.pixelSize,
-										f: 'json'
-								};
+								// var renderingRule = JSON.stringify(renderConfig);
+								//
+								// var content = {
+								// 		geometryType: 'esriGeometryPolygon',
+								// 		geometry: JSON.stringify(report.geometry),
+								// 		renderingRule: renderingRule,
+								// 		pixelSize: ReportConfig.pixelSize,
+								// 		f: 'json'
+								// };
 
 						// Create the container for all the result
 						ReportRenderer.renderTotalLossContainer(config);
 						ReportRenderer.renderCompositionAnalysisLoader(config);
 
-						function success(response) {
-								if (response.histograms.length > 0) {
-										ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
-										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
-								} else {
-										ReportRenderer.renderAsUnavailable('loss', config);
-								}
+						// function success(response) {
+						// 		if (response.histograms.length > 0) {
+						// 				ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+						// 				ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+						// 		} else {
+						// 				ReportRenderer.renderAsUnavailable('loss', config);
+						// 		}
+						// 		deferred.resolve(true);
+						// }
+
+						this.registerGeom(report.geometry).then(function(lossGainResult) {
+							var startYear = report.lossYears[0] ? report.lossYears[0] : 2001;
+							var endYear = report.lossYears[1] ? report.lossYears[1] : 2016;
+							var lossGainData = {
+								geostore: lossGainResult.data.id,
+								// period: '2001-01-01,2015-12-31',
+								period: startYear + '-01-01,' + endYear + '-01-01',
+								thresh: report.minDensity ? report.minDensity : 30,
+								aggregate_values: false
+							};
+							esriRequest({
+								url: url,
+								callbackParamName: 'callback',
+								content: lossGainData,
+								handleAs: 'json',
+								timeout: 30000
+							}, { usePost: false }).then(res => {
+								console.log('res', res);
+								ReportRenderer.renderTreeCoverLossData(res.data.attributes.loss, 30, config);
 								deferred.resolve(true);
+							}, err => {
+								console.error(err);
+								deferred.resolve(false);
+							});
+						});
+
+						function success(response) {
+							console.log('response', response);
+							ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
 						}
 
-						function failure(error) {
-								var newFailure = function(){
-									deferred.resolve(false);
-								};
-								if (error.details) {
-										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
-												content.pixelSize = 500;
-												self._computeHistogram(url, content, success, failure);
-										} else if (error.details.length === 0) {
-												var maxDeviation = 10;
-												content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
-												self._computeHistogram(url, content, success, newFailure);
-										} else {
-												deferred.resolve(false);
-										}
-								} else {
-										deferred.resolve(false);
-								}
+						function failure() {
+							console.log('failure');
+							deferred.resolve(false);
 						}
 
-						this._computeHistogram(url, content, success, failure);
+						// this._computeHistogram(url, content, success, failure);
 
 						return deferred.promise;
 				},
@@ -7660,6 +8068,8 @@ define('report/Generator',[
             if (window.payload.minDensity) {
               report.minDensity = window.payload.minDensity;
             }
+
+            report.lossYears = window.payload.lossYears;
 
             // Lastly, grab the datasets from the payload and store them in report so we know which
             // datasets we will perform the above analyses on
