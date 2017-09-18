@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -575,9 +576,8 @@ class Proxy {
 
     public function getResponse()
     {
-        //Remove built in PHP headers
-
-
+        // Remove built in PHP headers (except for session cookie)
+        // headers_list() - Returns a list of response headers sent (or ready to send)
         foreach(headers_list() as $key => $value)
         {
             $pos = strripos($value, ":");
@@ -585,27 +585,29 @@ class Proxy {
             $header_type = substr($value,0,$pos);
 
             if ($this->contains($value, "Cookie")) { //Don't remove the PHP session cookie
-
                 continue;
-
             }
 
             header_remove($header_type);
-
         }
 
-        //Remove scenario causing provisional header error message
-
         foreach ($this->headers as $key => $value) {
+            // TODO: Proxies should not return hop-by-hop header fields #362
 
-            if ($this->contains($value, "Transfer-Encoding: chunked")) { //See issue #75
+            // Reset the content-type for OGC WMS - issue #367
+            // Note: this might not be what everyone expects, but it helps some users
+            // TODO: make this configurable
+            if ($this->contains($value, "Content-Type: application/vnd.ogc.wms_xml")) {
+                $this->proxyLog->log("Adjusting Content-Type for WMS OGC: " . $value);
+                $value = "Content-Type: text/xml";
+            }
 
+            // Remove scenario causing provisional header error message - see issue #75
+            if ($this->contains($value, "Transfer-Encoding: chunked")) {
                 continue;
-
             }
 
             header($value, false);
-
         }
 
         header("Content-length: " . strlen($this->proxyBody)); //Issue 190 with truncated response, not sure how to gzip the data (or keep gzip via CURLOPT_ENCODING) without extension.
@@ -868,8 +870,15 @@ class Proxy {
 
         }else if($this->proxyMethod == "GET"){
 
-            $this->proxyGet();
+            if(strpos(phpversion(), "7.1") == 0){
 
+              $this->proxyGet(null);
+
+            }else{
+
+              $this->proxyGet();
+
+            }
         }
 
         //Check the response to see if any error occurs
@@ -1997,7 +2006,7 @@ class RateMeter
 
         $this->countCap = $ratelimit;
 
-        $this->rate = $ratelimit / $ratelimitperiod / 60;  //ratelimitperiod is designed to be in seconds
+        $this->rate = $ratelimit / $ratelimitperiod / 60;
 
         $this->ip = $_SERVER['REMOTE_ADDR'];
 
