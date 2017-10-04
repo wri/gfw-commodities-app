@@ -117,28 +117,28 @@ define([
             }
 
             return (
-              React.createElement("div", {className: "relative wizard-root"}, 
-                React.createElement("div", {className: "wizard-header"}, 
-                  React.createElement("div", {className: "title-section"}, 
-                    React.createElement("span", {className: "title"}, "Analysis"), 
-                    React.createElement("span", {className: "button reset", onClick: this._reset}, "Reset"), 
+              React.createElement("div", {className: "relative wizard-root"},
+                React.createElement("div", {className: "wizard-header"},
+                  React.createElement("div", {className: "title-section"},
+                    React.createElement("span", {className: "title"}, "Analysis"),
+                    React.createElement("span", {className: "button reset", onClick: this._reset}, "Reset"),
                     React.createElement("span", {className: "button close", onClick: this._close})
-                  ), 
-                  React.createElement("div", {className: "breadcrumbs"}, 
+                  ),
+                  React.createElement("div", {className: "breadcrumbs"},
                     breadcrumbs.map(this._breadcrumbMapper, this)
                   )
-                ), 
-                React.createElement("div", {className: "wizard-body"}, 
-                  React.createElement("div", {className: this.state.currentStep !== 0 ? 'hidden' : ''}, 
+                ),
+                React.createElement("div", {className: "wizard-body"},
+                  React.createElement("div", {className: this.state.currentStep !== 0 ? 'hidden' : ''},
                     React.createElement(Intro, React.__spread({},  props))
-                  ), 
-                  React.createElement("div", {className: this.state.currentStep !== 1 ? 'hidden' : ''}, 
+                  ),
+                  React.createElement("div", {className: this.state.currentStep !== 1 ? 'hidden' : ''},
                     React.createElement(StepOne, React.__spread({},  props))
-                  ), 
-                  React.createElement("div", {className: this.state.currentStep !== 2 ? 'hidden' : ''}, 
+                  ),
+                  React.createElement("div", {className: this.state.currentStep !== 2 ? 'hidden' : ''},
                     React.createElement(StepTwo, React.__spread({},  props))
-                  ), 
-                  React.createElement("div", {className: this.state.currentStep !== 3 ? 'hidden' : ''}, 
+                  ),
+                  React.createElement("div", {className: this.state.currentStep !== 3 ? 'hidden' : ''},
                     React.createElement(StepThree, React.__spread({},  props))
                   )
                 )
@@ -151,8 +151,8 @@ define([
             className += (this.state.currentStep - 1) === index ? ' active' : '';
 
             return (
-                React.createElement("span", {className: className}, 
-                    React.createElement("span", {className: "piece", "data-index": index, onClick: this._changeStep}, item), 
+                React.createElement("span", {className: className},
+                    React.createElement("span", {className: "piece", "data-index": index, onClick: this._changeStep}, item),
                     (index < breadcrumbs.length - 1) ? React.createElement("span", {className: "carat"}, " > ") : null
                 )
             );
@@ -187,14 +187,14 @@ define([
             if (layer) {
               layer.clear();
             }
-            var layer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
-            if (layer) {
-              layer.clear();
+            var pointLayer = app.map.getLayer(MapConfig.wizardPointGraphicsLayer.id);
+            if (pointLayer) {
+              pointLayer.clear();
             }
             // Hide the Dynamic Layer Associated with the Wizard
-            layer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
-            if (layer) {
-              layer.hide();
+            var adminLayer = app.map.getLayer(MapConfig.adminUnitsLayer.id);
+            if (adminLayer) {
+              adminLayer.hide();
             }
         },
 
@@ -214,13 +214,17 @@ define([
                 geometry = self._prepareGeometry(self.state.analysisArea),
                 datasets = WizardStore.get(KEYS.analysisSets),
                 minDensity = WizardStore.get(KEYS.currentTreeCoverDensity) ? WizardStore.get(KEYS.currentTreeCoverDensity) : 30,
-                labelField,
+                // labelField,
+                lossLayer = app.map.getLayer(MapConfig.adminUnitsLayer.id),
                 suitableRule,
                 readyEvent,
                 payload,
                 win;
 
-            labelField = AnalyzerConfig.stepTwo.labelField;
+                console.log('lossLayer', lossLayer);
+                debugger
+
+            // labelField = AnalyzerConfig.stepTwo.labelField;
             suitableRule = app.map.getLayer(MapConfig.suit.id).getRenderingRule();
 
             payload = {
