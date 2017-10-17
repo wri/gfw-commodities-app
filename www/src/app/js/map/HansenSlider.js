@@ -11,7 +11,7 @@ define([
 
   var config = {
     containerId: 'hansen_change_toolbox',
-    values: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015],
+    values: [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
     sliderSelector: '#hansen-range-slider',
     baseValue: 2001,
     playHtml: '&#9658;',

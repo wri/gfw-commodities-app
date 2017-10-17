@@ -15,7 +15,7 @@ define([], function() {
         gladFootprintUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/forest_change/MapServer',
         gladTileUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/{z}/{x}/{y}.png',
         // hansenTileUrl = 'https://storage.googleapis.com/earthenginepartners-hansen/tiles/gfw2015/loss_tree_year_30/{z}/{x}/{y}.png',
-        hansenTileUrl = 'https://storage.googleapis.com/wri-public/Hansen15/tiles/hansen_world/v1/tc30/{z}/{x}/{y}.png',
+        hansenTileUrl = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc30/{z}/{x}/{y}.png',
         hansenGainUrl = 'http://earthengine.google.org/static/hansen_2013/gain_alpha/{z}/{x}/{y}.png',
         treeCoverLossUrl = 'http://gis-treecover.wri.org/arcgis/rest/services/ForestCover_lossyear_density/ImageServer',
         formaAlertsUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/forma_500/ImageServer',
