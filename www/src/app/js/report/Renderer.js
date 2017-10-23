@@ -351,6 +351,50 @@ define([
       });
     },
 
+    renderTreeCoverAnalysis: function (totalArea, loss, config) {
+      var fragment = document.createDocumentFragment(),
+          node = document.createElement('div'),
+          dest = document.getElementById(config.rootNode + '_composition'),
+          compositionConfig = config.compositionAnalysis,
+          title = compositionConfig.title || config.title,
+          areaLabel,
+          percentage,
+          totalLoss = 0;
+
+
+          Object.keys(loss).forEach(function(key) {
+            totalLoss += loss[key];
+          });
+
+          percentage = (totalLoss / totalArea);
+          percentage = percentage * 100;
+          percentage = Math.round(percentage);
+
+      node.className = 'composition-analysis-container';
+
+      areaLabel = number.format(Math.round(totalLoss));
+
+      node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
+                        '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
+
+      // Append root to fragment and then fragment to document
+      fragment.appendChild(node);
+      dest.innerHTML = '';
+      dest.appendChild(fragment);
+
+      function setIconHover () {
+        $(this).attr('src', 'app/css/images/info-grey.svg');
+      }
+
+      function setIconBack () {
+        $(this).attr('src', 'app/css/images/info-orange.svg');
+      }
+
+      $('.layer-info-icon-report').on('mouseenter', setIconHover);
+      $('.layer-info-icon-report').on('mouseleave', setIconBack);
+
+    },
+
     /*
       @param {array} histogramData
       @param {number} pixelSize

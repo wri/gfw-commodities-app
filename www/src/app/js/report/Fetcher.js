@@ -285,6 +285,7 @@ define([
 						if (http.readyState === 4 && http.status === 200) {
 							deferred.resolve(JSON.parse(http.responseText));
 						} else if (http.readyState === 4) {
+							console.log('registerGeom error');
 							deferred.resolve({ error: 'There was an error while registering the shape in the geostore', status: http.status });
 						}
 					};
@@ -350,6 +351,7 @@ define([
 							}, { usePost: false }).then(res => {
 								console.log('res', res);
 								ReportRenderer.renderTreeCoverLossData(res.data.attributes.loss, 30, config);
+								ReportRenderer.renderTreeCoverAnalysis(res.data.attributes.areaHa, res.data.attributes.loss, config);
 								deferred.resolve(true);
 							}, err => {
 								console.error(err);
