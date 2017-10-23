@@ -16,6 +16,8 @@ define([
     },
 
     filter: function (data) {
+      console.log(this.options.minYear);
+      console.log(this.options.maxYear);
       for (var i = 2; i < data.length + 2; i += 4) {
         // Decode the rgba/pixel so I can filter on confidence and date ranges
         var slice = [data[i], data[i + 1], data[i + 2]];
@@ -120,8 +122,8 @@ define([
     },
 
     setDateRange: function setDateRange (minYear, maxYear) {
-      this.options.minYear = parseInt(minYear);
-      this.options.maxYear = parseInt(maxYear);
+      this.options.minYear = parseInt(minYear) + 1;
+      this.options.maxYear = parseInt(maxYear) + 1;
       this.refresh();
     },
 
