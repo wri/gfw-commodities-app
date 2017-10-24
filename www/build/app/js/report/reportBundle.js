@@ -2310,7 +2310,7 @@ define('report/Renderer',[
         if (histogramData[key] > 0) {
           isEmpty = false;
         }
-        values.push(histogramData[key]);
+        values.push(Math.round((histogramData[key])));
       }
 
       series.push({
@@ -2319,6 +2319,12 @@ define('report/Renderer',[
       });
 
       colors.push(config.color);
+
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
+        }
+      });
 
       if (isEmpty) {
         $('#' + config.rootNode + '_loss').html('<p>There is no data available for your area of interest.</p>');
