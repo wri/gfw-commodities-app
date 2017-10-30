@@ -350,7 +350,7 @@ define([
           y: yTransfrom
         });
 
-        if (this.id === 'hansenGain') {
+        if (this.id === 'hansenGain' && this._map.getZoom() < 12) {
           var hardUrl = 'url(' + data.url + ')';
           ctx.canvas.style.background = hardUrl;
 

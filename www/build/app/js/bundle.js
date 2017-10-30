@@ -11583,7 +11583,7 @@ define('layers/EsriTileCanvasBase',[
           y: yTransfrom
         });
 
-        if (this.id === 'hansenGain') {
+        if (this.id === 'hansenGain' && this._map.getZoom() < 12) {
           var hardUrl = 'url(' + data.url + ')';
           ctx.canvas.style.background = hardUrl;
 
@@ -14497,7 +14497,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.4.98',
+                path = './app/templates/' + name + '.html?v=2.4.99',
                 req;
 
             req = new XMLHttpRequest();
