@@ -3,9 +3,32 @@ define([
     './EsriTileCanvasBase'
 ], function(declare, TileCanvasLayer) {
 
-  function pad (num) {
-    var str = '00' + num;
-    return str.slice(str.length - 3);
+  // Power function to determine intensity
+  var getScalePowFunc = function(exp) {
+    // y = m * x ^ k + b
+    var domain = [0, 256];
+    var range = [0, 256];
+    var b = range[0] - domain[0];
+    var m = (range[1] - b) / (Math.pow(domain[1], exp));
+
+    return function(x) {
+      return Math.pow(x, exp) * m + b;
+    };
+  };
+
+  var intensityBank = {};
+  // Populate the intensity bank
+  for (let z = 1; z < 21; z++) { //each zoom level on the map
+    intensityBank[z] = [];
+    var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
+    var lMoney = getScalePowFunc(exp);
+    for (let f = 0; f < 256; f++) { //each potential intensity value
+      intensityBank[z][f] = [];
+      intensityBank[z][f].push((33 - z) + 153 - ((lMoney(f)) / z));
+      intensityBank[z][f].push(z < 13 ? lMoney(f) : f);
+      intensityBank[z][f].push(220);
+      intensityBank[z][f].push((72 - z) + 102 - (3 * lMoney(f) / z));
+    }
   }
 
   return declare('HansenLayer', [TileCanvasLayer], {
@@ -15,110 +38,35 @@ define([
       // this.refresh();
     },
 
-    filter: function (data) {
-      console.log(this.options.minYear);
-      console.log(this.options.maxYear);
-      for (var i = 2; i < data.length + 2; i += 4) {
-        // Decode the rgba/pixel so I can filter on confidence and date ranges
+    filter: function(data) {
+      var z = app.map.getZoom();
+
+      for (let i = 0; i < data.length; i += 4) {
+        // Decode the rgba/pixel so I can filter on date ranges
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
-        //- Check against min date, and max date
-        // if (i === 0) {
-        //   // console.log(values);
-        //   // console.log(slice);
-        //   // console.log(data[i]); //--> year
-        //   // console.log(data[i + 1]); //--> nada
-        //   // console.log(data[i + 2]); //--> intensity
-        //
-        //
-        //   console.log('min Date:', this.options.minYear);
-        //   console.log('maxxx Date:', this.options.maxYear);
-        // }
-        if (
-          values.year >= this.options.minYear &&
-          values.year <= this.options.maxYear //&&
-          //this.options.confidence.indexOf(values.confidence) > -1
-        ) {
-          // Set the alpha to the intensity
-          // data[i + 3] = values.intensity;
-          // Make the pixel pink for HANSEN alerts
-          // data[i] = 220; // R
-          // // data[i + 1] = 102; // G
-          // data[i + 1] = values.intensity; // G --> Yo this is intensity!!
-          // data[i + 2] = 153; // B
-          // data[i + 3] = 0;
 
-          data[i] = 153; // R
-          // data[i + 1] = 102; // G
-          data[i + 1] = values.intensity; // G --> Yo this is intensity!!
-          data[i + 2] = 220; // B
-          data[i + 3] = 0;
-
-          // if (i === 2) {
-          //   // console.log('yessss');
-          //   console.log(values.intensity);
-          // }
+        if (!values.intensity) { values.intensity = 0; }
+        if (values.year >= (this.options.minYear) && values.year <= (this.options.maxYear)) {
+          data[i] = intensityBank[z][values.intensity][2];
+          data[i + 1] = intensityBank[z][values.intensity][3];
+          data[i + 2] = intensityBank[z][values.intensity][0];
+          data[i + 3] = intensityBank[z][values.intensity][1];
         } else {
           // Hide the pixel
           data[i + 3] = 0;
           data[i + 2] = 0;
           data[i + 1] = 0;
           data[i] = 0;
-          // if (i === 2) {
-          //   console.log('nahhh');
-            // console.log('minYear', this.options.minYear);
-            // console.log('year', values.year);
-          // }
-          // data[i + 3] = values.intensity;
-          // data[i] = 220; // R
-          // data[i + 1] = 102; // G
-          // data[i + 2] = 153; // B
         }
       }
       return data;
     },
 
-    decodeDate: function (pixel) {
-      // console.log(pixel);
-      // [255, 255, 14]
-
-      var year = pixel[0];
-      var intensity = pixel[2];
-
-      return {
-        intensity: intensity,
-        year: year
-      };
-
-      // // Find the total days of the pixel by multiplying the red band by 255 and adding the green band
-      // var totalDays = (pixel[0] * 255) + pixel[1];
-      // // Divide the total days by 365 to get the year offset, add 15 to this to get current year
-      // // Example, parseInt(totalDays / 365) = 1, add 15, year is 2016
-      // var yearAsInt = parseInt(totalDays / 365) + 15;
-      // // Multiple by 1000 to get in YYDDD format, i.e. 15000 or 16000
-      // var year = yearAsInt * 1000;
-      // // Add the remaining days to get the julian day for that year
-      // var julianDay = totalDays % 365;
-      // // Add julian to year to get the data value
-      // var date = year + julianDay;
-      // // Convert the blue band to a string and pad with 0's to three digits
-      // // It's rarely not three digits, except for cases where there is an intensity value and no date/confidence.
-      // // This is due to bilinear resampling
-      // var band3Str = pad(pixel[2]);
-      // // Parse confidence, confidence is stored as 1/2, subtract 1 so it's values are 0/1
-      // var confidence = parseInt(band3Str[0]) - 1;
-      // // Parse raw intensity to make it visible, it is the second and third character in blue band, it's range is 1 - 55
-      // var rawIntensity = parseInt(band3Str.slice(1, 3));
-      // // Scale it to make it visible
-      // var intensity = rawIntensity * 50;
-      // // Prevent intensity from being higher then the max value
-      // if (intensity > 255) { intensity = 255; }
-      // // Return all components needed for filtering/labeling
-      // return {
-      //   confidence: confidence,
-      //   intensity: intensity,
-      //   date: date
-      // };
+    decodeDate: function(pixel) {
+      var year = pixel[2];
+      var intensity = pixel[0];
+      return { intensity, year };
     },
 
     setDateRange: function setDateRange (minYear, maxYear) {

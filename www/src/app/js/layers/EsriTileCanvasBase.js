@@ -367,7 +367,7 @@ define([
             ctx.drawImage(data.image, 0, 0);
           }
 
-          const imageData = ctx.getImageData(0, 0, tileSize, tileSize);
+          var imageData = ctx.getImageData(0, 0, tileSize, tileSize);
           imageData.data.set(this.filter(imageData.data));
           ctx.putImageData(imageData, 0, 0);
         }
