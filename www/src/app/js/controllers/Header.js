@@ -121,40 +121,38 @@ define([
 
                 var replacementNode;
                 switch (node['dataset'].src) {
-                    case "GFW":
-                        replacementNode = $("#aboutGFWNav");
+                    case 'GFW':
+                        replacementNode = $('#aboutGFWNav');
                         break;
-                    case "History":
-                        replacementNode = $("#aboutHistoryNav");
+                    case 'History':
+                        replacementNode = $('#aboutHistoryNav');
                         break;
-                    case "Partners":
-                        replacementNode = $("#aboutPartnersNav");
+                    case 'Partners':
+                        replacementNode = $('#aboutPartnersNav');
                         break;
-                    case "Videos":
-                        replacementNode = $("#aboutVideosNav");
+                    case 'Videos':
+                        replacementNode = $('#aboutVideosNav');
                         break;
-                    case "Users":
-                        replacementNode = $("#aboutUsersNav");
+                    case 'Users':
+                        replacementNode = $('#aboutUsersNav');
                         break;
                     default:
-                        replacementNode = $("#aboutGFWNav");
+                        replacementNode = $('#aboutGFWNav');
                         break;
                 }
-
 
 
                 if (replacementNode[0]) {
                    // //if node matches #, set to selected
-                    if (node['dataset'].src === replacementNode[0].id.replace("Nav", "").replace(context, "")){
+                    if (node['dataset'].src === replacementNode[0].id.replace('Nav', ').replace(context, ')){
 
-                        domClass.add(replacementNode[0].children[0], "selected");
-                        domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], "display", "block");
-                        domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], "selected");
+                        domClass.add(replacementNode[0].children[0], 'selected');
+                        domStyle.set(replacementNode[0].id.match(/(.*)Nav/)[1], 'display', 'block');
+                        domClass.add(replacementNode[0].id.match(/(.*)Nav/)[1], 'selected');
                         // needsDefaults = false;
                         // activeNode = replacementNode[0].children[0];
                     }
                 }
-
 
             },
 
@@ -205,12 +203,12 @@ define([
               return;
             }
 
-            query(".header .nav-link.selected").forEach(function(node) {
+            query('.header .nav-link.selected').forEach(function(node) {
                 domClass.remove(node, 'selected');
             });
 
             query('.nav-link-list [data-view="' + view + '"]').forEach(function(node) {
-                domClass.add(node, "selected");
+                domClass.add(node, 'selected');
             });
 
             if (initialized) {
@@ -230,35 +228,32 @@ define([
         },
 
         setForMap: function() {
-            domClass.add("nav-content", "outer");
-            domClass.remove("nav-content", "inner");
-            domClass.add("app-header", "mapView");
-            domClass.remove("app-header", "generalView");
+            // domClass.add("nav-content", "outer");
+            // domClass.remove("nav-content", "inner");
+            domClass.add('app-header', 'mapView');
+            domClass.remove('app-header', 'generalView');
         },
 
         setForGenericView: function() {
             this.setForHome();
-            //domClass.add("nav-content", "outer");
-            //domClass.remove("nav-content", "inner");
-            domClass.remove("app-header", "mapView");
-            domClass.add("app-header", "generalView");
-            //domClass.remove("footerModesContainer", "generalView");
-            $(".footerModesContainer").hide();
+            domClass.remove('app-header', 'mapView');
+            domClass.add('app-header', 'generalView');
+            //domClass.remove('footerModesContainer', 'generalView');
+            $('.footerModesContainer').hide();
 
             // Resize the page here!
-
         },
 
         setForHome: function() {
-            domClass.add("nav-content", "inner");
-            domClass.remove("nav-content", "outer");
-            domClass.remove("app-header", "mapView");
-            domClass.remove("app-header", "generalView");
-            $(".footerModesContainer").show();
+            // domClass.add('nav-content', 'inner');
+            // domClass.remove('nav-content', 'outer');
+            domClass.remove('app-header', 'mapView');
+            domClass.remove('app-header', 'generalView');
+            $('.footerModesContainer').show();
         },
 
         redirectPage: function(view) {
-            window.open(AppConfig.urls[view], "_blank");
+            window.open(AppConfig.urls[view], '_blank');
         },
 
         addSubscriptionDialog: function() {
@@ -270,23 +265,21 @@ define([
 
             this.dialog2.setContent(content);
 
-            $("#goToMapFromDialog").css("color", "#e98300");
-            $("#goToMapFromDialog").css("cursor", "pointer");
-            $("#goToMapFromDialog").css("font-weight", "bold");
+            $('#goToMapFromDialog').css('color', '#e98300');
+            $('#goToMapFromDialog').css('cursor', 'pointer');
+            $('#goToMapFromDialog').css('font-weight', 'bold');
 
-            $("#goToMapFromDialog").click(function(){
+            $('#goToMapFromDialog').click(function(){
               self.dialog2.destroy();
-              self.updateView("map", false, true);
-
+              self.updateView('map', false, true);
             });
 
-            $("#dijit_Dialog_0 > div.dijitDialogPaneContent").css("margin-top", "-30px");
-            $("#dijit_Dialog_0 > div.dijitDialogPaneContent").css("margin-bottom", "-10px");
+            $('#dijit_Dialog_0 > div.dijitDialogPaneContent').css('margin-top', '-30px');
+            $('#dijit_Dialog_0 > div.dijitDialogPaneContent').css('margin-bottom', '-10px');
 
             this.dialog2.show();
 
         }
-
 
     };
 

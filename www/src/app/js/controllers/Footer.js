@@ -23,13 +23,8 @@ define([
             var s = document.createElement('script'),
                 h = document.getElementsByTagName('head')[0];
 
-            // latest
-            // s.src = 'http://globalforestwatch.org/gfw-assets';
-
-            //test
-            // s.src = 'https://cdn.rawgit.com/simbiotica/gfw_assets/3862c199249e4acc7407c4c9ba615d0a20025a61/js/build/production.js';
-            // s.src = 'https://cdn.rawgit.com/simbiotica/gfw_assets/c821fe8f7c5dc545d78be491074621/js/build/production.js';
-            s.src = 'http://gfw-assets.s3.amazonaws.com/static/gfw-assets.latest.js';
+            s.src = 'http://gfw-assets.s3.amazonaws.com/static/gfw-assets.nightly.js';
+            // s.src = 'http://gfw-assets.s3.amazonaws.com/static/gfw-assets.latest.js';
 
             s.async = true;
             s.setAttribute('id', 'loader-gfw'); // this is very important
