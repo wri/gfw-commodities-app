@@ -66,7 +66,7 @@ define([
     decodeDate: function(pixel) {
       var year = pixel[2];
       var intensity = pixel[0];
-      return { intensity, year };
+      return { intensity: intensity, year: year };
     },
 
     setDateRange: function setDateRange (minYear, maxYear) {
