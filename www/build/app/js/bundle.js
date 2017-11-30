@@ -14497,7 +14497,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.4',
+                path = './app/templates/' + name + '.html?v=2.5.5',
                 req;
 
             req = new XMLHttpRequest();
@@ -15555,6 +15555,7 @@ define('controllers/Footer',[
             s.async = true;
             s.setAttribute('id', 'loader-gfw'); // this is very important
             s.setAttribute('data-current', '.shape-commodities'); // fire"s" the "s" is necessary
+            s.setAttribute('data-google', true);
             h.appendChild(s);
         },
 

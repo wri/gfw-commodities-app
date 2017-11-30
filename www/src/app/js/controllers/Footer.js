@@ -29,6 +29,7 @@ define([
             s.async = true;
             s.setAttribute('id', 'loader-gfw'); // this is very important
             s.setAttribute('data-current', '.shape-commodities'); // fire"s" the "s" is necessary
+            s.setAttribute('data-google', true);
             h.appendChild(s);
         },
 
