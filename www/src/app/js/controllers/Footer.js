@@ -18,6 +18,9 @@ define([
             // is injected
             dom.byId('app-footer').innerHTML = template + dom.byId('app-footer').innerHTML;
 
+            var gfwHeader = dom.byId('headerGfw');
+            gfwHeader.setAttribute('data-google', true);
+
             // Inject Header and Footer from GFW, This must be loaded here
             // until the architecture gets cleaned up or else things break
             var s = document.createElement('script'),
@@ -27,9 +30,8 @@ define([
             // s.src = 'http://gfw-assets.s3.amazonaws.com/static/gfw-assets.latest.js';
 
             s.async = true;
-            s.setAttribute('id', 'loader-gfw'); // this is very important
-            s.setAttribute('data-current', '.shape-commodities'); // fire"s" the "s" is necessary
-            s.setAttribute('data-google', true);
+            s.setAttribute('id', 'loader-gfw');
+            s.setAttribute('data-current', '.shape-commodities');
             h.appendChild(s);
         },
 
