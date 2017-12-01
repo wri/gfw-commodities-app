@@ -58,7 +58,7 @@ define([
 				}
 			}
 
-			if (this.props.id === 'loss') {
+			if (this.props.id === 'hansenLoss') {
 				ko.applyBindings(MapModel.get('model'), document.querySelector('.loss-button-container'));
 			}
 
@@ -117,11 +117,11 @@ define([
 						), 
 						
 						
-							this.props.id === 'loss' ? (
+							this.props.id === 'hansenLoss' ? (
 								React.createElement("div", {className: 'loss-button-container' + (this.state.active ? '' : ' hidden')}, 
-											React.createElement("span", {className: "loss-percentage-label"}, "Displaying at "), 
-											React.createElement("span", {className: "loss-percentage-button", onClick: this.showTCDSlider, "data-bind": "text: tcdDensityValue"}), 
-											React.createElement("span", {className: "loss-percentage-label"}, " density")
+											React.createElement("span", {className: "tcd-percentage-label"}, "Displaying at "), 
+											React.createElement("span", {className: "tcd-percentage-button", onClick: this.showTCDSlider, "data-bind": "text: tcdDensityValue"}), 
+											React.createElement("span", {className: "tcd-percentage-label"}, " density")
 								)
 							) : null
 						

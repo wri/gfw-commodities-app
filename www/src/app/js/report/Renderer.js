@@ -351,6 +351,50 @@ define([
       });
     },
 
+    renderTreeCoverAnalysis: function (totalArea, loss, config) {
+      var fragment = document.createDocumentFragment(),
+          node = document.createElement('div'),
+          dest = document.getElementById(config.rootNode + '_composition'),
+          compositionConfig = config.compositionAnalysis,
+          title = compositionConfig.title || config.title,
+          areaLabel,
+          percentage,
+          totalLoss = 0;
+
+
+          Object.keys(loss).forEach(function(key) {
+            totalLoss += loss[key];
+          });
+
+          percentage = (totalLoss / totalArea);
+          percentage = percentage * 100;
+          percentage = Math.round(percentage);
+
+      node.className = 'composition-analysis-container';
+
+      areaLabel = number.format(Math.round(totalLoss));
+
+      node.innerHTML = '<div>Total ' + title + ' in selected area: ' + areaLabel + ' ha</div>' +
+                        '<div>Percent of total area comprised of ' + title + ': ' + percentage + '%</div>';
+
+      // Append root to fragment and then fragment to document
+      fragment.appendChild(node);
+      dest.innerHTML = '';
+      dest.appendChild(fragment);
+
+      function setIconHover () {
+        $(this).attr('src', 'app/css/images/info-grey.svg');
+      }
+
+      function setIconBack () {
+        $(this).attr('src', 'app/css/images/info-orange.svg');
+      }
+
+      $('.layer-info-icon-report').on('mouseenter', setIconHover);
+      $('.layer-info-icon-report').on('mouseleave', setIconBack);
+
+    },
+
     /*
       @param {array} histogramData
       @param {number} pixelSize
@@ -370,6 +414,7 @@ define([
           location,
           sliceIndex,
           data,
+          isEmpty = true,
           i, j;
 
       if (useSimpleEncoderRule) {
@@ -381,6 +426,14 @@ define([
             if (data[index] === undefined) data[index] = 0;
           }
         }
+
+        console.log('data', data);
+
+        data.forEach(function (dataPiece) {
+          if (dataPiece > 0) {
+            isEmpty = false;
+          }
+        });
 
         series.push({
           'name': yLabels[0],
@@ -401,6 +454,11 @@ define([
             'data': data.map(mapFunction)
           });
           colors.push(config.colors[i]);
+          data.forEach(function (dataPiece) {
+            if (dataPiece > 0) {
+              isEmpty = false;
+            }
+          });
         }
       }
 
@@ -414,61 +472,66 @@ define([
         });
       }
 
-      $("#" + config.rootNode + '_loss').highcharts({
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: null,
-          type: 'bar',
-          events: {
-            load: function () {
-              // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
-              // this.setSize(300, 400);
+      if (isEmpty) {
+        $('#' + config.rootNode + '_loss').html('<p>There is no data available for your area of interest.</p>');
+      } else {
+        $('#' + config.rootNode + '_loss').highcharts({
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: null,
+            type: 'bar',
+            events: {
+              load: function () {
+                // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
+                // this.setSize(300, 400);
+              }
             }
-          }
-        },
-        colors: colors,
-        title: {
-          text: config.lossChart.title
-        },
-        exporting: {
-          buttons: {
-            contextButton: { enabled: false },
-            exportButton: {
-              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-              symbol: exportButtonImagePath
-            }
-          }
-        },
-        xAxis: {
-          categories: xLabels,
-          maxPadding: 0.35,
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          stackLabels: {
-            enabled: true
           },
+          colors: colors,
           title: {
-            text: null
+            text: config.lossChart.title
+          },
+          exporting: {
+            buttons: {
+              contextButton: { enabled: false },
+              exportButton: {
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+                symbol: exportButtonImagePath
+              }
+            }
+          },
+          xAxis: {
+            categories: xLabels,
+            maxPadding: 0.35,
+            title: {
+              text: null
+            }
+          },
+          yAxis: {
+            stackLabels: {
+              enabled: true
+            },
+            title: {
+              text: null
+            }
+          },
+          legend: {
+            enabled: true,
+            verticalAlign: 'bottom'
+          },
+          plotOptions: {
+            series: {
+              stacking: 'normal'
+            }
+          },
+          series: series,
+          credits: {
+            enabled: false
           }
-        },
-        legend: {
-          enabled: true,
-          verticalAlign: 'bottom'
-        },
-        plotOptions: {
-          series: {
-            stacking: 'normal'
-          }
-        },
-        series: series,
-        credits: {
-          enabled: false
-        }
-      });
+        });
+      }
+
 
     },
 
@@ -483,95 +546,102 @@ define([
       var lossConfig = ReportConfig.totalLoss,
           yLabels = config.labels,
           xLabels = lossConfig.labels,
-          yMapValues = arrayFromBounds(config.bounds),
-          xMapValues = arrayFromBounds(lossConfig.bounds),
-          mapFunction = function(item){return (item*pixelSize*pixelSize)/10000; },
           series = [],
           colors = [],
-          location,
-          sliceIndex,
-          data,
-          i, j;
+          isEmpty = true;
+
+          console.log('lossConfig', lossConfig);
+          console.log('histogramData', histogramData);
+
+      var startYear = report.lossYears[0];
+
+      if (startYear && startYear > 2001) {
+        for (var i = 0; i < startYear - 2001; i++) {
+          xLabels.shift();
+        }
+        console.log('xLabels', xLabels);
+      }
+
+      var values = [];
+      for (var key in histogramData) {
+        if (histogramData[key] > 0) {
+          isEmpty = false;
+        }
+        values.push(Math.round((histogramData[key])));
+      }
 
       series.push({
         'name': yLabels[0],
-        'data': histogramData.slice(1).map(mapFunction) // Remove first value as that is all the 0 values we dont want
+        'data': values
       });
+
       colors.push(config.color);
 
-      // Format the data based on some config value, removeBelowYear
-      // get index of removeBelowYear and use that to splice the data arrays and the xlabels
-      if (config.lossChart.removeBelowYear) {
-        sliceIndex = xLabels.indexOf(config.lossChart.removeBelowYear);
-        xLabels = xLabels.slice(sliceIndex);
-        arrayUtils.forEach(series, function (serie) {
-          serie.data = serie.data.slice(sliceIndex);
-        });
-      }
-
-      // Show All 0's if no data is present
-      if (series[0].data.length !== xLabels.length) {
-        for (var index = 0; index < xLabels.length; index++) {
-          if (series[0].data[index] === undefined) series[0].data[index] = 0;
-        }
-      }
-
-
-      $("#" + config.rootNode + '_loss').highcharts({
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: null,
-          type: 'bar',
-          events: {
-            load: function () {
-              // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
-              // this.setSize(300, 400);
-            }
-          }
-        },
-        exporting: {
-          buttons: {
-            contextButton: { enabled: false },
-            exportButton: {
-              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-              symbol: exportButtonImagePath
-            }
-          }
-        },
-        colors: colors,
-        title: {
-          text: config.lossChart.title
-        },
-        xAxis: {
-          categories: xLabels,
-          maxPadding: 0.35,
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          stackLabels: {
-            enabled: true
-          },
-          title: {
-            text: null
-          }
-        },
-        legend: {
-          enabled: false,
-          verticalAlign: 'bottom'
-        },
-        plotOptions: {
-          series: {
-            stacking: 'normal'
-          }
-        },
-        series: series,
-        credits: {
-          enabled: false
+      Highcharts.setOptions({
+        lang: {
+          thousandsSep: ','
         }
       });
+
+      if (isEmpty) {
+        $('#' + config.rootNode + '_loss').html('<p>There is no data available for your area of interest.</p>');
+      } else {
+        $('#' + config.rootNode + '_loss').highcharts({
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: null,
+            type: 'bar',
+            events: {
+              load: function () {
+                // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
+                // this.setSize(300, 400);
+              }
+            }
+          },
+          exporting: {
+            buttons: {
+              contextButton: { enabled: false },
+              exportButton: {
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+                symbol: exportButtonImagePath
+              }
+            }
+          },
+          colors: colors,
+          title: {
+            text: config.lossChart.title
+          },
+          xAxis: {
+            categories: xLabels,
+            maxPadding: 0.35,
+            title: {
+              text: null
+            }
+          },
+          yAxis: {
+            stackLabels: {
+              enabled: true
+            },
+            title: {
+              text: null
+            }
+          },
+          legend: {
+            enabled: false,
+            verticalAlign: 'bottom'
+          },
+          plotOptions: {
+            series: {
+              stacking: 'normal'
+            }
+          },
+          series: series,
+          credits: {
+            enabled: false
+          }
+        });
+      }
 
     },
 
@@ -585,9 +655,18 @@ define([
       var prodesConfig = ReportConfig.prodesLayer,
           yLabels = config.labels,
           xLabels = prodesConfig.labels,
-          mapFunction = function(item){return (item * pixelSize * pixelSize) / 10000; },
+          isEmpty = true,
           series = [],
           colors = [];
+
+
+      var mapFunction = function(item){
+        var updated = (item * pixelSize * pixelSize) / 10000;
+        if (updated > 0) {
+          isEmpty = false;
+        }
+        return updated;
+      };
 
       series.push({
         'name': yLabels[0],
@@ -602,61 +681,66 @@ define([
         }
       }
 
-      $("#" + config.rootNode + '_prodes').highcharts({
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: null,
-          type: 'bar',
-          events: {
-            load: function () {
-              // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
-              // this.setSize(300, 400);
+      if (isEmpty) {
+        $('#' + config.rootNode + '_prodes').html('<p>There is no data available for your area of interest.</p>');
+      } else {
+        $('#' + config.rootNode + '_prodes').highcharts({
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: null,
+            type: 'bar',
+            events: {
+              load: function () {
+                // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
+                // this.setSize(300, 400);
+              }
             }
-          }
-        },
-        exporting: {
-          buttons: {
-            contextButton: { enabled: false },
-            exportButton: {
-              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-              symbol: exportButtonImagePath
-            }
-          }
-        },
-        colors: colors,
-        title: {
-          text: config.lossChart.title
-        },
-        xAxis: {
-          categories: xLabels,
-          maxPadding: 0.35,
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          stackLabels: {
-            enabled: true
           },
+          exporting: {
+            buttons: {
+              contextButton: { enabled: false },
+              exportButton: {
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+                symbol: exportButtonImagePath
+              }
+            }
+          },
+          colors: colors,
           title: {
-            text: null
+            text: config.lossChart.title
+          },
+          xAxis: {
+            categories: xLabels,
+            maxPadding: 0.35,
+            title: {
+              text: null
+            }
+          },
+          yAxis: {
+            stackLabels: {
+              enabled: true
+            },
+            title: {
+              text: null
+            }
+          },
+          legend: {
+            enabled: false,
+            verticalAlign: 'bottom'
+          },
+          plotOptions: {
+            series: {
+              stacking: 'normal'
+            }
+          },
+          series: series,
+          credits: {
+            enabled: false
           }
-        },
-        legend: {
-          enabled: false,
-          verticalAlign: 'bottom'
-        },
-        plotOptions: {
-          series: {
-            stacking: 'normal'
-          }
-        },
-        series: series,
-        credits: {
-          enabled: false
-        }
-      });
+        });
+      }
+
 
     },
 
@@ -670,9 +754,17 @@ define([
       var soyConfig = ReportConfig.soy,
           yLabels = config.labels,
           xLabels = soyConfig.labels,
-          mapFunction = function(item){return (item * pixelSize * pixelSize) / 10000; },
           series = [],
+          isEmpty = true,
           colors = soyConfig.colors;
+
+      var mapFunction = function(item){
+        var updated = (item * pixelSize * pixelSize) / 10000;
+        if (updated > 0) {
+          isEmpty = false;
+        }
+        return updated;
+      };
 
       series.push({
         'name': yLabels[0],
@@ -692,62 +784,67 @@ define([
         series[0].data.pop(); //Removing the 2014 data from the chart
       }
 
-      $('#' + config.rootNode + '_soy').highcharts({
-        tooltip: { enabled: false },
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: null,
-          type: 'bar',
-          events: {
-            load: function () {
-              // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
-              // this.setSize(300, 400);
+      if (isEmpty) {
+        $('#' + config.rootNode + '_soy').html('<p>There is no data available for your area of interest.</p>');
+      } else {
+        $('#' + config.rootNode + '_soy').highcharts({
+          tooltip: { enabled: false },
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: null,
+            type: 'bar',
+            events: {
+              load: function () {
+                // $('#' + config.tclChart.container + " .highcharts-legend").appendTo('#' + config.tclChart.container + "-legend");
+                // this.setSize(300, 400);
+              }
             }
-          }
-        },
-        exporting: {
-          buttons: {
-            contextButton: { enabled: false },
-            exportButton: {
-              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-              symbol: exportButtonImagePath
-            }
-          }
-        },
-        colors: colors,
-        title: {
-          text: config.lossChart.title
-        },
-        xAxis: {
-          categories: xLabels,
-          maxPadding: 0.35,
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          stackLabels: {
-            enabled: true
           },
+          exporting: {
+            buttons: {
+              contextButton: { enabled: false },
+              exportButton: {
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+                symbol: exportButtonImagePath
+              }
+            }
+          },
+          colors: colors,
           title: {
-            text: null
+            text: config.lossChart.title
+          },
+          xAxis: {
+            categories: xLabels,
+            maxPadding: 0.35,
+            title: {
+              text: null
+            }
+          },
+          yAxis: {
+            stackLabels: {
+              enabled: true
+            },
+            title: {
+              text: null
+            }
+          },
+          legend: {
+            enabled: false,
+            verticalAlign: 'bottom'
+          },
+          plotOptions: {
+            series: {
+              stacking: 'normal'
+            }
+          },
+          series: series,
+          credits: {
+            enabled: false
           }
-        },
-        legend: {
-          enabled: false,
-          verticalAlign: 'bottom'
-        },
-        plotOptions: {
-          series: {
-            stacking: 'normal'
-          }
-        },
-        series: series,
-        credits: {
-          enabled: false
-        }
-      });
+        });
+      }
+
 
     },
 
@@ -1043,68 +1140,80 @@ define([
     },
 
     renderGladData: function (histogramData, config) {
+      var isEmpty = true;
 
-      $('#' + config.rootNode + '_glad').highcharts({
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false
-        },
-        lang: {
-            gladButtonTitle: 'Download Chart Data'
-        },
-        exporting: {
-          buttons: {
-            contextButton: { enabled: false },
-            exportButton: {
-              // align: 'center',
-              // x: 40,
-              _titleKey: 'gladButtonTitle',
-              menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
-              symbol: exportButtonImagePath
-            }
-          }
-        },
-        colors: ['#fb00b3'],
-        title: { text: null },
-        // xAxis: {
-        //   categories: report.clearanceLabels
-        // },
-        xAxis: { type: 'datetime' },
-        // yAxis: {
-        //   title: null,
-        //   min: 0
-        // },
-        yAxis: { title: { text: 'Tree Cover Loss Alerts' }, min: 0},
-        legend: {
-          enabled: false
-        },
-        credits: {
-          enabled: false
-        },
-        plotOptions: {
-          area: {
-            threshold: null,
-            lineWidth: 1,
-            states: { hover: { lineWidth: 1 }},
-            fillColor: {
-              linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-              stops: [
-                [0, 'rgba(220,102,153, 1)'],
-                [1, 'rgba(220,102,153, 0)']
-              ]
-            }
-          }
-        },
-        tooltip: {
-          dateTimeLabelFormats: { hour: '%A, %b %e' }
-        },
-        series: [{
-          type: 'area',
-          name: config.title,
-          data: histogramData
-        }]
+      histogramData.forEach(function (dataPiece) {
+        if (dataPiece[1] > 0) {
+          isEmpty = false;
+        }
       });
+
+      if (isEmpty) {
+        $('#' + config.rootNode + '_glad').html('<p>There is no data available for your area of interest.</p>');
+      } else {
+        $('#' + config.rootNode + '_glad').highcharts({
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+          },
+          lang: {
+            gladButtonTitle: 'Download Chart Data'
+          },
+          exporting: {
+            buttons: {
+              contextButton: { enabled: false },
+              exportButton: {
+                // align: 'center',
+                // x: 40,
+                _titleKey: 'gladButtonTitle',
+                menuItems: Highcharts.getOptions().exporting.buttons.contextButton.menuItems,
+                symbol: exportButtonImagePath
+              }
+            }
+          },
+          colors: ['#fb00b3'],
+          title: { text: null },
+          // xAxis: {
+          //   categories: report.clearanceLabels
+          // },
+          xAxis: { type: 'datetime' },
+          // yAxis: {
+          //   title: null,
+          //   min: 0
+          // },
+          yAxis: { title: { text: 'Tree Cover Loss Alerts' }, min: 0},
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          plotOptions: {
+            area: {
+              threshold: null,
+              lineWidth: 1,
+              states: { hover: { lineWidth: 1 }},
+              fillColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                  [0, 'rgba(220,102,153, 1)'],
+                  [1, 'rgba(220,102,153, 0)']
+                ]
+              }
+            }
+          },
+          tooltip: {
+            dateTimeLabelFormats: { hour: '%A, %b %e' }
+          },
+          series: [{
+            type: 'area',
+            name: config.title,
+            data: histogramData
+          }]
+        });
+      }
+
 
     },
 

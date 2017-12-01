@@ -194,26 +194,14 @@ define([
                 gladFootprintsLayer,
                 gladFootprintsParams,
                 hansenLossLayer,
+                hansenLossParams = {},
 
-                hansenLossLayer10,
-                hansenLossLayer15,
-                hansenLossLayer20,
-                hansenLossLayer25,
-                hansenLossLayer50,
-                hansenLossLayer75,
-                hansenLossParamsOrigParams = {},
-                hansenLossParams10 = {},
-                hansenLossParams15 = {},
-                hansenLossParams20 = {},
-                hansenLossParams25 = {},
-                hansenLossParams50 = {},
-                hansenLossParams75 = {},
                 hansenGainLayer,
                 hansenGainParams = {},
                 // gainLayer,
                 // gainHelperLayer,
-                lossLayer,
-                lossParams,
+                // lossLayer,
+                // lossParams,
                 treeCoverDensityLayer,
                 batchParams,
                 forestCover_forestCover,
@@ -387,64 +375,14 @@ define([
 
             gladAlertsLayer = new GladLayer(gladParams);
 
-            hansenLossParamsOrigParams.id = MapConfig.hansenLoss.id;
-            hansenLossParamsOrigParams.url = MapConfig.hansenLoss.url;
-            hansenLossParamsOrigParams.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParamsOrigParams.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParamsOrigParams.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParamsOrigParams.visible = false;
+            hansenLossParams.id = MapConfig.hansenLoss.id;
+            hansenLossParams.url = MapConfig.hansenLoss.url;
+            hansenLossParams.minYear = MapConfig.hansenLoss.minYear;
+            hansenLossParams.maxYear = MapConfig.hansenLoss.maxYear;
+            hansenLossParams.confidence = MapConfig.hansenLoss.confidence;
+            hansenLossParams.visible = false;
 
-            hansenLossParams10.id = MapConfig.hansenLoss.levels[0].id;
-            hansenLossParams10.url = MapConfig.hansenLoss.levels[0].url;
-            hansenLossParams10.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParams10.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParams10.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParams10.visible = false;
-
-            hansenLossParams15.id = MapConfig.hansenLoss.levels[1].id;
-            hansenLossParams15.url = MapConfig.hansenLoss.levels[1].url;
-            hansenLossParams15.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParams15.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParams15.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParams15.visible = false;
-
-            hansenLossParams20.id = MapConfig.hansenLoss.levels[2].id;
-            hansenLossParams20.url = MapConfig.hansenLoss.levels[2].url;
-            hansenLossParams20.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParams20.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParams20.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParams20.visible = false;
-
-            hansenLossParams25.id = MapConfig.hansenLoss.levels[3].id;
-            hansenLossParams25.url = MapConfig.hansenLoss.levels[3].url;
-            hansenLossParams25.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParams25.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParams25.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParams25.visible = false;
-
-            hansenLossParams50.id = MapConfig.hansenLoss.levels[5].id; //skipping 30 in the array
-            hansenLossParams50.url = MapConfig.hansenLoss.levels[5].url;
-            hansenLossParams50.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParams50.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParams50.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParams50.visible = false;
-
-            hansenLossParams75.id = MapConfig.hansenLoss.levels[6].id;
-            hansenLossParams75.url = MapConfig.hansenLoss.levels[6].url;
-            hansenLossParams75.minYear = MapConfig.hansenLoss.minYear;
-            hansenLossParams75.maxYear = MapConfig.hansenLoss.maxYear;
-            hansenLossParams75.confidence = MapConfig.hansenLoss.confidence;
-            hansenLossParams75.visible = false;
-
-            hansenLossLayer = new HansenLayer(hansenLossParamsOrigParams); //30% first
-
-            hansenLossLayer10 = new HansenLayer(hansenLossParams10);
-            hansenLossLayer15 = new HansenLayer(hansenLossParams15);
-            hansenLossLayer20 = new HansenLayer(hansenLossParams20);
-            hansenLossLayer25 = new HansenLayer(hansenLossParams25);
-            hansenLossLayer50 = new HansenLayer(hansenLossParams50);
-            hansenLossLayer75 = new HansenLayer(hansenLossParams75);
-
+            hansenLossLayer = new HansenLayer(hansenLossParams);
 
             hansenGainParams.id = MapConfig.hansenGain.id;
             hansenGainParams.url = MapConfig.hansenGain.url;
@@ -452,17 +390,17 @@ define([
 
             hansenGainLayer = new GainLayer(hansenGainParams);
 
-            lossParams = new ImageServiceParameters();
-            lossParams.interpolation = 'RSP_NearestNeighbor';
-            lossParams.renderingRule = new RasterFunction({
-                'rasterFunction': 'ForestCover_lossyear_density',
-                'rasterFunctionArguments': {
-                    'min_year': MapConfig.loss.defaultRange[0] + 2000,
-                    'max_year': MapConfig.loss.defaultRange[1] + 2000,
-                    'min_density': 30,
-                    'max_density': 100
-                }
-            });
+            // lossParams = new ImageServiceParameters();
+            // lossParams.interpolation = 'RSP_NearestNeighbor';
+            // lossParams.renderingRule = new RasterFunction({
+            //     'rasterFunction': 'ForestCover_lossyear_density',
+            //     'rasterFunctionArguments': {
+            //         'min_year': MapConfig.loss.defaultRange[0] + 2000,
+            //         'max_year': MapConfig.loss.defaultRange[1] + 2000,
+            //         'min_density': 30,
+            //         'max_density': 100
+            //     }
+            // });
             gladFootprintsParams = new ImageParameters();
             gladFootprintsParams.layerOption = ImageParameters.LAYER_OPTION_SHOW;
             gladFootprintsParams.layerIds = [MapConfig.gladFootprints.layerId];
@@ -474,13 +412,13 @@ define([
                 visible: false
             });
 
-            lossLayer = new ArcGISImageServiceLayer(MapConfig.loss.url, {
-                imageServiceParameters: lossParams,
-                id: MapConfig.loss.id,
-                visible: false,
-                // interpolation: 'RSP_NearestNeighbor',//INTERPOLATION_NEARESTNEIGHBOR
-                opacity: 1
-            });
+            // lossLayer = new ArcGISImageServiceLayer(MapConfig.loss.url, {
+            //     imageServiceParameters: lossParams,
+            //     id: MapConfig.loss.id,
+            //     visible: false,
+            //     // interpolation: 'RSP_NearestNeighbor',//INTERPOLATION_NEARESTNEIGHBOR
+            //     opacity: 1
+            // });
 
             // gainLayer = new ArcGISTiledMapServiceLayer(MapConfig.gain.url, {
             //     id: MapConfig.gain.id,
@@ -658,14 +596,8 @@ define([
                 gladAlertsLayer,
                 gladFootprintsLayer,
                 hansenLossLayer,
-                hansenLossLayer10,
-                hansenLossLayer15,
-                hansenLossLayer20,
-                hansenLossLayer25,
-                hansenLossLayer50,
-                hansenLossLayer75,
                 hansenGainLayer,
-                lossLayer,
+                // lossLayer,
                 // gainLayer,
                 // gainHelperLayer,
                 granChacoLayer,
@@ -713,15 +645,9 @@ define([
             gladAlertsLayer.on('error', this.addLayerError);
             gladFootprintsLayer.on('error', this.addLayerError);
             hansenLossLayer.on('error', this.addLayerError);
-            hansenLossLayer10.on('error', this.addLayerError);
-            hansenLossLayer15.on('error', this.addLayerError);
-            hansenLossLayer20.on('error', this.addLayerError);
-            hansenLossLayer25.on('error', this.addLayerError);
-            hansenLossLayer50.on('error', this.addLayerError);
-            hansenLossLayer75.on('error', this.addLayerError);
             hansenGainLayer.on('error', this.addLayerError);
 
-            lossLayer.on('error', this.addLayerError);
+            // lossLayer.on('error', this.addLayerError);
             // gainLayer.on('error', this.addLayerError);
             // gainHelperLayer.on('error', this.addLayerError);
             treeCoverDensityLayer.on('error', this.addLayerError);

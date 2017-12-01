@@ -12,8 +12,11 @@ define([
 		'report/RiskHelper',
 		'report/Suitability',
 		'map/Symbols',
+		'utils/arcgis-to-geojson',
 		// esri modules
 		'esri/map',
+		'esri/config',
+		'esri/geometry/webMercatorUtils',
 		'esri/request',
 		'esri/tasks/query',
 		'esri/dijit/Scalebar',
@@ -39,7 +42,7 @@ define([
 		'esri/graphic',
 		'report/rasterArea',
 		'report/mill-api'
-], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, Map, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, rasterArea, getMillRisk) {
+], function (_, dojoNumber, Deferred, all, arrayUtils, dom, domConstruct, ReportConfig, ReportRenderer, RiskHelper, Suitability, Symbols, geojsonUtil, Map, esriConfig, webmercatorUtils, esriRequest, Query, Scalebar, Legend, QueryTask, SpatialReference, Polygon, Point, FeatureLayer, ArcGISDynamicMapServiceLayer, GeometryService, geometryEngine, AreasAndLengthsParameters, Color, SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol, RasterFunction, ImageParameters, ArcGISImageServiceLayer, ArcGISDynamicLayer, LayerDrawingOptions, Graphic, rasterArea, getMillRisk) {
 
 		var _fireQueriesToRender = [];
 
@@ -251,65 +254,122 @@ define([
 						return deferred.promise;
 				},
 
+				registerGeom: function(geometry) {
+					var deferred = new Deferred();
+					console.log('geojsonUtil');
+					console.log(geojsonUtil);
+					var geographic = webmercatorUtils.webMercatorToGeographic(geometry);
+					var geojson = geojsonUtil.arcgisToGeoJSON(geographic);
+
+					var geoStore = {
+						'geojson': {
+							'type': 'FeatureCollection',
+							'features': [{
+								'type': 'Feature',
+								'properties': {},
+								'geometry': geojson
+							}]
+						}
+					};
+
+					var content = JSON.stringify(geoStore);
+
+					var http = new XMLHttpRequest();
+					var url = ReportConfig.apiUrl;
+					var params = content;
+
+					http.open('POST', url, true);
+					http.setRequestHeader('Content-type', 'application/json');
+
+					http.onreadystatechange = () => {
+						if (http.readyState === 4 && http.status === 200) {
+							deferred.resolve(JSON.parse(http.responseText));
+						} else if (http.readyState === 4) {
+							console.log('registerGeom error');
+							deferred.resolve({ error: 'There was an error while registering the shape in the geostore', status: http.status });
+						}
+					};
+					http.send(params);
+					return deferred;
+				},
+
 				getTreeCoverLossResults: function() {
 						this._debug('Fetcher >>> getTreeCoverLossResults');
+						esriConfig.defaults.io.corsEnabledServers.push('production-api.globalforestwatch.org');
 						var deferred = new Deferred(),
 								config = ReportConfig.treeCoverLoss,
-								url = ReportConfig.imageServiceUrl,
+								url = ReportConfig.gfwAPILoss, //ReportConfig.imageServiceUrl,
 								self = this;
-								var renderConfig = config.renderingRule;
+								// var renderConfig = config.renderingRule;
 
-								// if (report.minDensity && report.datasets.soy) {
-								// 	renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
-								// } else {
-								renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
-								// }
+								// // if (report.minDensity && report.datasets.soy) {
+								// // 	renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, report.minDensity, report.minDensity, 101];
+								// // } else {
+								// renderConfig.rasterFunctionArguments.Raster.rasterFunctionArguments.InputRanges = [0, 30, 30, 101];
+								// // }
 
-								var renderingRule = JSON.stringify(renderConfig);
-
-								var content = {
-										geometryType: 'esriGeometryPolygon',
-										geometry: JSON.stringify(report.geometry),
-										renderingRule: renderingRule,
-										pixelSize: ReportConfig.pixelSize,
-										f: 'json'
-								};
+								// var renderingRule = JSON.stringify(renderConfig);
+								//
+								// var content = {
+								// 		geometryType: 'esriGeometryPolygon',
+								// 		geometry: JSON.stringify(report.geometry),
+								// 		renderingRule: renderingRule,
+								// 		pixelSize: ReportConfig.pixelSize,
+								// 		f: 'json'
+								// };
 
 						// Create the container for all the result
 						ReportRenderer.renderTotalLossContainer(config);
 						ReportRenderer.renderCompositionAnalysisLoader(config);
 
-						function success(response) {
-								if (response.histograms.length > 0) {
-										ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
-										ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
-								} else {
-										ReportRenderer.renderAsUnavailable('loss', config);
-								}
+						// function success(response) {
+						// 		if (response.histograms.length > 0) {
+						// 				ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
+						// 				ReportRenderer.renderCompositionAnalysis(response.histograms[0].counts, content.pixelSize, config);
+						// 		} else {
+						// 				ReportRenderer.renderAsUnavailable('loss', config);
+						// 		}
+						// 		deferred.resolve(true);
+						// }
+
+						this.registerGeom(report.geometry).then(function(lossGainResult) {
+							var startYear = report.lossYears[0] ? report.lossYears[0] : 2001;
+							var endYear = report.lossYears[1] ? report.lossYears[1] : 2016;
+							var lossGainData = {
+								geostore: lossGainResult.data.id,
+								// period: '2001-01-01,2015-12-31',
+								period: startYear + '-01-01,' + endYear + '-01-01',
+								thresh: report.minDensity ? report.minDensity : 30,
+								aggregate_values: false
+							};
+							esriRequest({
+								url: url,
+								callbackParamName: 'callback',
+								content: lossGainData,
+								handleAs: 'json',
+								timeout: 30000
+							}, { usePost: false }).then(res => {
+								console.log('res', res);
+								ReportRenderer.renderTreeCoverLossData(res.data.attributes.loss, 30, config);
+								ReportRenderer.renderTreeCoverAnalysis(res.data.attributes.areaHa, res.data.attributes.loss, config);
 								deferred.resolve(true);
+							}, err => {
+								console.error(err);
+								deferred.resolve(false);
+							});
+						});
+
+						function success(response) {
+							console.log('response', response);
+							ReportRenderer.renderTreeCoverLossData(response.histograms[0].counts, content.pixelSize, config);
 						}
 
-						function failure(error) {
-								var newFailure = function(){
-									deferred.resolve(false);
-								};
-								if (error.details) {
-										if (error.details[0] === 'The requested image exceeds the size limit.' && content.pixelSize !== 500) {
-												content.pixelSize = 500;
-												self._computeHistogram(url, content, success, failure);
-										} else if (error.details.length === 0) {
-												var maxDeviation = 10;
-												content.geometry = JSON.stringify(geometryEngine.generalize(report.geometry, maxDeviation, true, 'miles'));
-												self._computeHistogram(url, content, success, newFailure);
-										} else {
-												deferred.resolve(false);
-										}
-								} else {
-										deferred.resolve(false);
-								}
+						function failure() {
+							console.log('failure');
+							deferred.resolve(false);
 						}
 
-						this._computeHistogram(url, content, success, failure);
+						// this._computeHistogram(url, content, success, failure);
 
 						return deferred.promise;
 				},
@@ -1044,7 +1104,7 @@ define([
 
 						function formatGlad(year, counts) {
 							var results = [];
-							for (let i = 0; i < counts.length; i++) {
+							for (var i = 0; i < counts.length; i++) {
 								results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
 							}
 							return results;

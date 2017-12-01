@@ -7,6 +7,8 @@ define([], function() {
         gladUrlConfidence = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/glad_alerts_con_analysis/ImageServer/computeHistograms',
 
         imageServiceUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/analysis/ImageServer',
+        apiUrl = 'https://production-api.globalforestwatch.org/v1/geostore',
+        gfwAPILoss = 'https://production-api.globalforestwatch.org/v1/umd-loss-gain',
         soyCalcUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/soy_total/ImageServer',
         suitabilityUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/image_services/kpss_mosaic/ImageServer',
         firesQueryUrl = 'http://gis-gfw.wri.org/arcgis/rest/services/Fires/Global_Fires/MapServer',
@@ -16,7 +18,7 @@ define([], function() {
 
     // Totoal Loss
     var lossBounds = [1, 14],
-        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014];
+        lossLabels = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 
     // Prodes
     var prodesBounds = [1, 14],
@@ -182,6 +184,8 @@ define([], function() {
         boundariesUrl: boundariesUrl,
         geometryServiceUrl: geometryServiceUrl,
         imageServiceUrl: imageServiceUrl,
+        apiUrl: apiUrl,
+        gfwAPILoss: gfwAPILoss,
         soyCalcUrl: soyCalcUrl,
         clearanceAnalysisUrl: clearanceAnalysisUrl,
 
@@ -816,15 +820,6 @@ define([], function() {
                 title: 'Clearance Alerts on Soy Lands since Jan 2015',
                 type: 'bar'
             },
-
-            // renderingRule: { //todo: use this if we dont want tree cover density in our soy % equation!
-            //     "rasterFunction": "Arithmetic",
-            //     "rasterFunctionArguments": {
-            //         "Raster": "$530",
-            //         "Raster2": "$566",
-            //         "Operation": 3
-            //     }
-            // }
 
             renderingRule: {
               rasterFunction: 'Arithmetic',

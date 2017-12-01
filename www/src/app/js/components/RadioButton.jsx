@@ -80,11 +80,6 @@ define([
         (this.props.forceUnderline ? ' newList' : '') +
         (this.props.visible ? '' : ' hidden');
 
-				if (this.props.filter === 'forest-change') {
-					// console.log(this.props);
-				}
-
-
       return (
         <li className={className} data-layer={this.props.id} data-name={this.props.filter}>
           <div onClick={this.toggle}>
@@ -111,7 +106,7 @@ define([
                 null
           }
 					{
-						this.props.id === 'tcd' || this.props.id === 'hansenLoss' ? (
+						this.props.id === 'tcd' ? (
 							<div className={'tcd-button-container' + (this.state.active ? '' : ' hidden')}>
 										<span className='tcd-percentage-label'>Displaying at </span>
 										<span className='tcd-percentage-button' onClick={this.showTCDSlider} data-bind="text: tcdDensityValue"></span>
