@@ -18,11 +18,11 @@ define([
 
   var intensityBank = {};
   // Populate the intensity bank
-  for (let z = 1; z < 21; z++) { //each zoom level on the map
+  for (var z = 1; z < 21; z++) { //each zoom level on the map
     intensityBank[z] = [];
     var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
     var lMoney = getScalePowFunc(exp);
-    for (let f = 0; f < 256; f++) { //each potential intensity value
+    for (var f = 0; f < 256; f++) { //each potential intensity value
       intensityBank[z][f] = [];
       intensityBank[z][f].push((33 - z) + 153 - ((lMoney(f)) / z));
       intensityBank[z][f].push(z < 13 ? lMoney(f) : f);
@@ -41,7 +41,7 @@ define([
     filter: function(data) {
       var z = app.map.getZoom();
 
-      for (let i = 0; i < data.length; i += 4) {
+      for (var i = 0; i < data.length; i += 4) {
         // Decode the rgba/pixel so I can filter on date ranges
         var slice = [data[i], data[i + 1], data[i + 2]];
         var values = this.decodeDate(slice);
@@ -66,7 +66,7 @@ define([
     decodeDate: function(pixel) {
       var year = pixel[2];
       var intensity = pixel[0];
-      return { intensity, year };
+      return { intensity: intensity, year: year };
     },
 
     setDateRange: function setDateRange (minYear, maxYear) {

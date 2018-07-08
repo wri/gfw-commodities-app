@@ -7571,7 +7571,7 @@ define('report/Fetcher',[
 
 						function formatGlad(year, counts) {
 							var results = [];
-							for (let i = 0; i < counts.length; i++) {
+							for (var i = 0; i < counts.length; i++) {
 								results.push([new Date(year, 0, i + 1).getTime(), counts[i] || 0]);
 							}
 							return results;
