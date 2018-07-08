@@ -1008,11 +1008,12 @@ define([], function() {
                 layerType: 'dynamic'
             }, {
                 id: 'mill',
-                title: 'RSPO Palm Oil Mills',
-                subtitle: '(varies, select countries)',
+                title: 'Access the Universal Palm Oil Mill List at',
+                subtitle: 'pro.globalforestwatch.org',
                 filter: 'forest-use',
-                type: 'check',
+                type: 'message',
                 layerType: 'dynamic',
+                hrefLocation: 'https://pro-staging.globalforestwatch.org:8443/',
                 infoDivClass: 'land-use-mill-points',
                 parent: 'newInfrastructure'
             }, {
