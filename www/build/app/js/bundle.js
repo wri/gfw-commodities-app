@@ -1294,11 +1294,12 @@ define('map/config',[], function() {
                 layerType: 'dynamic'
             }, {
                 id: 'mill',
-                title: 'RSPO Palm Oil Mills',
-                subtitle: '(varies, select countries)',
+                title: 'Access the Universal Palm Oil Mill List at',
+                subtitle: 'pro.globalforestwatch.org',
                 filter: 'forest-use',
-                type: 'check',
+                type: 'message',
                 layerType: 'dynamic',
+                hrefLocation: 'https://pro-staging.globalforestwatch.org:8443/',
                 infoDivClass: 'land-use-mill-points',
                 parent: 'newInfrastructure'
             }, {
@@ -4993,6 +4994,17 @@ define('components/wizard/StepOne',[
 
     /* jshint ignore:start */
     render: function () {
+			var inlineStyle = {
+        color: '#888',
+				margin: '10px',
+        paddingRight: '5px'
+      };
+
+			var inlineP = {
+				fontSize: '13px',
+				marginTop: '0px',
+				marginBottom: '0px'
+			};
       return (
         React.createElement("div", {className: "step"}, 
           React.createElement("div", {className: "step-body"}, 
@@ -5018,11 +5030,11 @@ define('components/wizard/StepOne',[
               React.createElement("label", {htmlFor: option4.id}, option4.label), 
               React.createElement("p", {className: "step-one-option-description"}, option4.description)
             ), 
-            React.createElement("div", {className: "s1-radio-container"}, 
-              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option5.id, checked: this.state.selectedOption === option5.id}), 
-              React.createElement("label", {htmlFor: option5.id}, option5.label), 
-              React.createElement("p", {className: "step-one-option-description"}, option5.description)
-            )
+						React.createElement("div", {style: inlineStyle}, 
+							React.createElement("h4", null, "PALM RISK ANALYSIS"), 
+							React.createElement("p", {style: inlineP}, "Analyze palm oil mill locations by visiting"), 
+							React.createElement("p", {style: inlineP}, React.createElement("a", {target: "_blank", href: "https://pro-staging.globalforestwatch.org:8443/"}, "pro.globalforestwatch.org"), " and requesting an account")
+						)
           ), 
           React.createElement("div", {className: "step-footer"}, 
             React.createElement("div", {className: "next-button-container", onClick: this.proceed}, 
@@ -12206,7 +12218,7 @@ define('map/Map',[
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
-                forestUse_commodities,
+                // forestUse_commodities,
                 production_commodities,
                 protectAreasLayer,
                 protectAreasHelperParams,
@@ -12479,11 +12491,11 @@ define('map/Map',[
                 id: 'forestUse_landUse',
                 visible: false
             });
-            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.mill.url, {
-                imageParameters: batchParams,
-                id: 'forestUse_commodities',
-                visible: false
-            });
+            // forestUse_commodities = new ArcGISDynamicLayer(MapConfig.mill.url, {
+            //     imageParameters: batchParams,
+            //     id: 'forestUse_commodities',
+            //     visible: false
+            // });
             production_commodities = new ArcGISDynamicLayer(MapConfig.opsd.url, {
                 imageParameters: batchParams,
                 id: 'productionSuitability',
@@ -12580,7 +12592,7 @@ define('map/Map',[
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
-                forestUse_commodities,
+                // forestUse_commodities,
                 production_commodities,
 
                 protectAreasLayer,
@@ -12658,7 +12670,7 @@ define('map/Map',[
             forestCover_landCover.on('error', this.addLayerError);
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
-            forestUse_commodities.on('error', this.addLayerError);
+            // forestUse_commodities.on('error', this.addLayerError);
             production_commodities.on('error', this.addLayerError);
 
             wizardDynamicLayer.on('error', this.addLayerError);
@@ -14061,14 +14073,58 @@ define('components/RadioButton',[
 });
 
 /** @jsx React.DOM */
+define('components/LayerMessage',[
+	'react',
+	'knockout',
+	'dojo/topic',
+  'dojo/dom-class'
+], function (React, ko, topic, domClass) {
+
+	var LayerMessage = React.createClass({displayName: "LayerMessage",
+
+    componentDidMount: function () {
+      this.props.postCreate(this);
+    },
+
+    /* jshint ignore:start */
+    render: function () {
+      var className = 'layer-list-item ' +
+        this.props.filter +
+				(this.props.parent ? ' indented' : '') +
+        (this.props.forceUnderline ? ' newList' : '');
+
+      var inlineStyle = {
+        color: '#888',
+        paddingRight: '5px'
+      };
+
+      return (
+        React.createElement("li", {style: inlineStyle, className: className, "data-layer": this.props.id, "data-name": this.props.filter}, 
+          React.createElement("div", null, 
+            React.createElement("p", {className: "layer-message-title"}, this.props.title, " ", React.createElement("a", {target: "_blank", href: this.props.hrefLocation}, this.props.subtitle))
+          )
+        )
+      );
+    }
+
+    /* jshint ignore:end */
+
+  });
+
+	return LayerMessage;
+
+});
+
+/** @jsx React.DOM */
 define('components/LayerList',[
 	'react',
 	'dojo/topic',
 	'utils/Hasher',
 	'actions/WizardActions',
 	'components/RadioButton',
+	'components/LayerMessage',
 	'components/Check'
-], function (React, topic, Hasher, WizardActions, RadioButton, Check) {
+], function (React, topic, Hasher, WizardActions, RadioButton, LayerMessage, Check) {
 
 	var _components = [];
 
@@ -14110,6 +14166,8 @@ define('components/LayerList',[
 
 			if (props.type === 'radio') {
 				return React.createElement(RadioButton, React.__spread({},  props));
+			} else if (props.type === 'message') {
+				return React.createElement(LayerMessage, React.__spread({},  props));
 			} else {
 				return React.createElement(Check, React.__spread({},  props));
 			}
@@ -14497,7 +14555,7 @@ define('utils/Loader',[
 
         getTemplate: function(name) {
             var deferred = new Deferred(),
-                path = './app/templates/' + name + '.html?v=2.5.6',
+                path = './app/templates/' + name + '.html?v=2.5.7',
                 req;
 
             req = new XMLHttpRequest();
