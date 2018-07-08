@@ -27,7 +27,7 @@ define([
       return (
         <li style={inlineStyle} className={className} data-layer={this.props.id} data-name={this.props.filter}>
           <div>
-            <p className='layer-sub-titlesdf'>{this.props.title} <a target='_blank' href={this.props.hrefLocation}>{this.props.subtitle}</a></p>
+            <p className='layer-message-title'>{this.props.title} <a target='_blank' href={this.props.hrefLocation}>{this.props.subtitle}</a></p>
           </div>
         </li>
       );

@@ -72,6 +72,17 @@ define([
 
     /* jshint ignore:start */
     render: function () {
+			var inlineStyle = {
+        color: '#888',
+				margin: '10px',
+        paddingRight: '5px'
+      };
+
+			var inlineP = {
+				fontSize: '13px',
+				marginTop: '0px',
+				marginBottom: '0px'
+			};
       return (
         <div className='step'>
           <div className='step-body'>
@@ -97,11 +108,11 @@ define([
               <label htmlFor={option4.id}>{option4.label}</label>
               <p className='step-one-option-description'>{option4.description}</p>
             </div>
-            <div className='s1-radio-container'>
-              <input type='radio' name='first-step' onChange={this.changeSelection} id={option5.id} checked={this.state.selectedOption === option5.id} />
-              <label htmlFor={option5.id}>{option5.label}</label>
-              <p className='step-one-option-description'>{option5.description}</p>
-            </div>
+						<div style={inlineStyle}>
+							<h4>PALM RISK ANALYSIS</h4>
+							<p style={inlineP}>Analyze palm oil mill locations by visiting</p>
+							<p style={inlineP}><a target='_blank' href='https://pro-staging.globalforestwatch.org:8443/'>pro.globalforestwatch.org</a> and requesting an account</p>
+						</div>
           </div>
           <div className='step-footer'>
             <div className='next-button-container' onClick={this.proceed}>

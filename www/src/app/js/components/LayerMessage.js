@@ -27,7 +27,7 @@ define([
       return (
         React.createElement("li", {style: inlineStyle, className: className, "data-layer": this.props.id, "data-name": this.props.filter}, 
           React.createElement("div", null, 
-            React.createElement("p", {className: "layer-sub-titlesdf"}, this.props.title, " ", React.createElement("a", {target: "_blank", href: this.props.hrefLocation}, this.props.subtitle))
+            React.createElement("p", {className: "layer-message-title"}, this.props.title, " ", React.createElement("a", {target: "_blank", href: this.props.hrefLocation}, this.props.subtitle))
           )
         )
       );
