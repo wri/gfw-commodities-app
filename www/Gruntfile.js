@@ -251,6 +251,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-ftp-push');
 
-    grunt.registerTask('build', ['copy:build', 'htmlmin:build', 'uglify:build', 'imagemin:build']);
+    grunt.registerTask('build', ['copy:build', 'htmlmin:build', 'uglify:build']);
 
 };
