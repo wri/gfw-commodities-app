@@ -1013,7 +1013,7 @@ define([], function() {
                 filter: 'forest-use',
                 type: 'message',
                 layerType: 'dynamic',
-                hrefLocation: 'https://pro-staging.globalforestwatch.org:8443/',
+                hrefLocation: 'http://pro.globalforestwatch.org/',
                 infoDivClass: 'land-use-mill-points',
                 parent: 'newInfrastructure'
             }, {

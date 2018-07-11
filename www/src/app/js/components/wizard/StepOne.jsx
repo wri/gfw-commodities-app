@@ -111,7 +111,7 @@ define([
 						<div style={inlineStyle}>
 							<h4>PALM RISK ANALYSIS</h4>
 							<p style={inlineP}>Analyze palm oil mill locations by visiting</p>
-							<p style={inlineP}><a target='_blank' href='https://pro-staging.globalforestwatch.org:8443/'>pro.globalforestwatch.org</a> and requesting an account</p>
+							<p style={inlineP}><a target='_blank' href='http://pro.globalforestwatch.org/'>pro.globalforestwatch.org</a> and requesting an account</p>
 						</div>
           </div>
           <div className='step-footer'>

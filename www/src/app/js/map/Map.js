@@ -210,7 +210,7 @@ define([
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
-                // forestUse_commodities,
+                forestUse_commodities,
                 production_commodities,
                 protectAreasLayer,
                 protectAreasHelperParams,
@@ -483,11 +483,11 @@ define([
                 id: 'forestUse_landUse',
                 visible: false
             });
-            // forestUse_commodities = new ArcGISDynamicLayer(MapConfig.mill.url, {
-            //     imageParameters: batchParams,
-            //     id: 'forestUse_commodities',
-            //     visible: false
-            // });
+            forestUse_commodities = new ArcGISDynamicLayer(MapConfig.mill.url, {
+                imageParameters: batchParams,
+                id: 'forestUse_commodities',
+                visible: false
+            });
             production_commodities = new ArcGISDynamicLayer(MapConfig.opsd.url, {
                 imageParameters: batchParams,
                 id: 'productionSuitability',
@@ -584,7 +584,7 @@ define([
                 forestCover_landCover,
                 forestUse_landUse,
                 forestCover_commodities,
-                // forestUse_commodities,
+                forestUse_commodities,
                 production_commodities,
 
                 protectAreasLayer,
@@ -662,7 +662,7 @@ define([
             forestCover_landCover.on('error', this.addLayerError);
             forestUse_landUse.on('error', this.addLayerError);
             forestCover_commodities.on('error', this.addLayerError);
-            // forestUse_commodities.on('error', this.addLayerError);
+            forestUse_commodities.on('error', this.addLayerError);
             production_commodities.on('error', this.addLayerError);
 
             wizardDynamicLayer.on('error', this.addLayerError);
