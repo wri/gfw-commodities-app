@@ -568,17 +568,17 @@ define([], function() {
                     '<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>'
             }
         },
-        gfwMill: {
-            id: 'forestUse_commodities',
-            url: dynamicMapServiceUrlComm,
-            layerId: 27,
-            query: 'certificat = \'None\'',
-            infoTemplate: {
-                content: '<table><tr><td>Parent Company:</td><td>${group_name}</td></tr>' +
-                    '<tr><td>Mill Name:</td><td>${mill_name_}</td></tr>' +
-                    '<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>'
-            }
-        },
+        // gfwMill: {
+        //     id: 'forestUse_commodities',
+        //     url: dynamicMapServiceUrlComm,
+        //     layerId: 27,
+        //     query: 'certificat = \'None\'',
+        //     infoTemplate: {
+        //         content: '<table><tr><td>Parent Company:</td><td>${group_name}</td></tr>' +
+        //             '<tr><td>Mill Name:</td><td>${mill_name_}</td></tr>' +
+        //             '<tr><td>Certification Status:</td><td>${certificat}</td></tr></table>'
+        //     }
+        // },
         pal: {
             id: 'ProtectedAreas',
             url: protectedAreasUrl,
@@ -1000,7 +1000,7 @@ define([], function() {
                 parent: 'newConcessions',
                 endChild: true
             }, {
-                kids: ['mill', 'gfwMill'],
+                kids: ['mill'],
                 id: 'newInfrastructure',
                 title: 'Infrastructure',
                 filter: 'forest-use',
@@ -1016,16 +1016,16 @@ define([], function() {
                 hrefLocation: 'http://pro.globalforestwatch.org/',
                 infoDivClass: 'land-use-mill-points',
                 parent: 'newInfrastructure'
-            }, {
-                id: 'gfwMill',
-                title: 'Palm Oil Mills',
-                subtitle: '(varies, select countries)',
-                filter: 'forest-use',
-                type: 'check',
-                layerType: 'dynamic',
-                infoDivClass: 'land-use-gfw-mill-points',
-                parent: 'newInfrastructure',
-                endChild: true
+            // }, {
+            //     id: 'gfwMill',
+            //     title: 'Palm Oil Mills',
+            //     subtitle: '(varies, select countries)',
+            //     filter: 'forest-use',
+            //     type: 'check',
+            //     layerType: 'dynamic',
+            //     infoDivClass: 'land-use-gfw-mill-points',
+            //     parent: 'newInfrastructure',
+            //     endChild: true
             }, {
                 kids: ['moratorium'],
                 id: 'newOther',
