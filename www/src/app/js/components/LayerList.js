@@ -5,8 +5,9 @@ define([
 	'utils/Hasher',
 	'actions/WizardActions',
 	'components/RadioButton',
+	'components/LayerMessage',
 	'components/Check'
-], function (React, topic, Hasher, WizardActions, RadioButton, Check) {
+], function (React, topic, Hasher, WizardActions, RadioButton, LayerMessage, Check) {
 
 	var _components = [];
 
@@ -48,6 +49,8 @@ define([
 
 			if (props.type === 'radio') {
 				return React.createElement(RadioButton, React.__spread({},  props));
+			} else if (props.type === 'message') {
+				return React.createElement(LayerMessage, React.__spread({},  props));
 			} else {
 				return React.createElement(Check, React.__spread({},  props));
 			}

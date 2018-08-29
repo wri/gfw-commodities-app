@@ -80,7 +80,7 @@ define([
             dojoQuery('.gfw .filter-list .' + queryClass).forEach(function(node) {
                 itemLayer = node.dataset ? node.dataset.layer : node.getAttribute('data-layer');
                 itemConf = MapConfig[itemLayer];
-                if (itemConf) {
+                if (itemConf && layer) {
 
                     if (itemConf.id === layer.id && domClass.contains(node, 'active')) {
                         visibleLayers.push(itemConf.layerId);
@@ -100,18 +100,21 @@ define([
             }
 
             // If layer is a mill point, update definition query
-            if (conf.layerId == '27') {
-                var millChecked = domClass.contains(dom.byId('mill_checkbox').parentElement, 'active'),
-                    gfwMillChecked = domClass.contains(dom.byId('gfwMill_checkbox').parentElement, 'active'),
+            if (conf.layerId === 27) {
+                // var millChecked = domClass.contains(dom.byId('mill_checkbox').parentElement, 'active'),
+                    var gfwMillChecked = domClass.contains(dom.byId('gfwMill_checkbox').parentElement, 'active'),
                     layerDefinitions = [],
                     definitionQueries = [];
 
-                if (millChecked) {definitionQueries.push(MapConfig.mill.query);}
+                // if (millChecked) {definitionQueries.push(MapConfig.mill.query);}
                 if (gfwMillChecked) {definitionQueries.push(MapConfig.gfwMill.query);}
 
                 layerDefinitions[27] = definitionQueries.join(' OR ');
-                app.map.getLayer(conf.id).setLayerDefinitions(layerDefinitions);
-                app.map.getLayer(conf.id).refresh();
+                var mapLayer = app.map.getLayer(conf.id);
+                if (mapLayer) {
+                  mapLayer.setLayerDefinitions(layerDefinitions);
+                  mapLayer.refresh();
+                }
             }
 
             // We only want to apply analytics to a few layers for now, catch those here

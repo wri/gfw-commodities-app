@@ -72,39 +72,50 @@ define([
 
     /* jshint ignore:start */
     render: function () {
+			var inlineStyle = {
+        color: '#888',
+				margin: '10px',
+        paddingRight: '5px'
+      };
+
+			var inlineP = {
+				fontSize: '13px',
+				marginTop: '0px',
+				marginBottom: '0px'
+			};
       return (
-        React.createElement("div", {className: "step"}, 
-          React.createElement("div", {className: "step-body"}, 
-            React.createElement("div", {className: "step-title"}, config.title), 
-            React.createElement("p", {className: "step-one-main-description"}, config.description), 
-            React.createElement("div", {className: "s1-radio-container"}, 
-              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option1.id, checked: this.state.selectedOption === option1.id}), 
-              React.createElement("label", {htmlFor: option1.id}, option1.label), 
+        React.createElement("div", {className: "step"},
+          React.createElement("div", {className: "step-body"},
+            React.createElement("div", {className: "step-title"}, config.title),
+            React.createElement("p", {className: "step-one-main-description"}, config.description),
+            React.createElement("div", {className: "s1-radio-container"},
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option1.id, checked: this.state.selectedOption === option1.id}),
+              React.createElement("label", {htmlFor: option1.id}, option1.label),
               React.createElement("p", {className: "step-one-option-description"}, option1.description)
-            ), 
-            React.createElement("div", {className: "s1-radio-container"}, 
-              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option2.id, checked: this.state.selectedOption === option2.id}), 
-              React.createElement("label", {htmlFor: option2.id}, option2.label), 
+            ),
+            React.createElement("div", {className: "s1-radio-container"},
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option2.id, checked: this.state.selectedOption === option2.id}),
+              React.createElement("label", {htmlFor: option2.id}, option2.label),
               React.createElement("p", {className: "step-one-option-description"}, option2.description)
-            ), 
-            React.createElement("div", {className: "s1-radio-container"}, 
-              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option3.id, checked: this.state.selectedOption === option3.id}), 
-              React.createElement("label", {htmlFor: option3.id}, option3.label), 
+            ),
+            React.createElement("div", {className: "s1-radio-container"},
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option3.id, checked: this.state.selectedOption === option3.id}),
+              React.createElement("label", {htmlFor: option3.id}, option3.label),
               React.createElement("p", {className: "step-one-option-description"}, option3.description)
-            ), 
-            React.createElement("div", {className: "s1-radio-container"}, 
-              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option4.id, checked: this.state.selectedOption === option4.id}), 
-              React.createElement("label", {htmlFor: option4.id}, option4.label), 
+            ),
+            React.createElement("div", {className: "s1-radio-container"},
+              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option4.id, checked: this.state.selectedOption === option4.id}),
+              React.createElement("label", {htmlFor: option4.id}, option4.label),
               React.createElement("p", {className: "step-one-option-description"}, option4.description)
-            ), 
-            React.createElement("div", {className: "s1-radio-container"}, 
-              React.createElement("input", {type: "radio", name: "first-step", onChange: this.changeSelection, id: option5.id, checked: this.state.selectedOption === option5.id}), 
-              React.createElement("label", {htmlFor: option5.id}, option5.label), 
-              React.createElement("p", {className: "step-one-option-description"}, option5.description)
-            )
-          ), 
-          React.createElement("div", {className: "step-footer"}, 
-            React.createElement("div", {className: "next-button-container", onClick: this.proceed}, 
+            ),
+						React.createElement("div", {style: inlineStyle},
+							React.createElement("h4", null, "PALM RISK ANALYSIS"),
+							React.createElement("p", {style: inlineP}, "Analyze palm oil mill locations by visiting"),
+							React.createElement("p", {style: inlineP}, React.createElement("a", {target: "_blank", href: "http://pro.globalforestwatch.org/"}, "pro.globalforestwatch.org"), " and requesting an account")
+						)
+          ),
+          React.createElement("div", {className: "step-footer"},
+            React.createElement("div", {className: "next-button-container", onClick: this.proceed},
               React.createElement("span", {className: "next-button"}, "Next")
             )
           )
