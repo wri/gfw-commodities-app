@@ -17,7 +17,8 @@ define([
       var className = 'layer-list-item ' +
         this.props.filter +
 				(this.props.parent ? ' indented' : '') +
-        (this.props.forceUnderline ? ' newList' : '');
+        (this.props.forceUnderline ? ' newList' : '') +
+				(this.props.visible ? '' : ' hidden');
 
       var inlineStyle = {
         color: '#888',
